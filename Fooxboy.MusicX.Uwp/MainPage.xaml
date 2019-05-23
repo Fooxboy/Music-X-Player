@@ -9,6 +9,14 @@
     Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
 
     <Grid>
-
+        <TextBlock FontSize="50" 
+                   HorizontalAlignment="Center"
+                   VerticalAlignment="Center"
+                   Text="ТЫ ПИДОР"/>
+        <TextBlock FontSize="20" 
+                   Margin="0 90 0 0"
+                   HorizontalAlignment="Center" 
+                   Foreground="Gray"
+                   VerticalAlignment="Center" Text="Нитрож ету страницу она для навигации"/>
     </Grid>
 </Page>
