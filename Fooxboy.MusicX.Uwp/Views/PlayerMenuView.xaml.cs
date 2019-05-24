@@ -26,5 +26,6 @@ namespace Fooxboy.MusicX.Uwp.Views
         {
             this.InitializeComponent();
         }
+
     }
 }
