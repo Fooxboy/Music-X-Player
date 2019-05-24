@@ -6,7 +6,7 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d"
-    Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+    Background="{ThemeResource SystemControlAcrylicWindowBrush}">
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="*"/>
@@ -24,17 +24,17 @@
             <TextBlock Grid.Row="1" Text="Название" FontSize="23" HorizontalAlignment="Center" VerticalAlignment="Center"/>
             <TextBlock Grid.Row="2" Text="Исполнитель" FontSize="15" HorizontalAlignment="Center" VerticalAlignment="Center"/>
             <StackPanel Grid.Row="3" Orientation="Horizontal" HorizontalAlignment="Center" BorderThickness="0">
-                <Button Padding="0" FontFamily="Segoe MDL2 Assets" Content="&#xE892;" Width="30" Height="30" Margin="0,0,35,0">
+                <Button Padding="0" FontFamily="Segoe MDL2 Assets" FontSize="20" Content="&#xE892;" Width="30" Height="30" Margin="0,0,35,0">
                     <Button.Background>
                         <SolidColorBrush Opacity="0"/>
                     </Button.Background>
                 </Button>
-                <Button Padding="0" FontFamily="HoloLens MDL2 Assets" Content="&#xE768;" Width="30" Height="30" Margin="0,0,35,0">
+                <Button Padding="0" FontFamily="HoloLens MDL2 Assets" FontSize="20" Content="&#xE768;" Width="37" Height="37" Margin="0,0,35,0">
                     <Button.Background>
                         <SolidColorBrush Opacity="0"/>
                     </Button.Background>
                 </Button>
-                <Button Padding="0" FontFamily="Segoe MDL2 Assets" Content="&#xE893;" Width="30" Height="30">
+                <Button Padding="0" FontSize="20" FontFamily="Segoe MDL2 Assets" Content="&#xE893;" Width="30" Height="30">
                     <Button.Background>
                         <SolidColorBrush Opacity="0"/>
                     </Button.Background>
@@ -48,7 +48,7 @@
                 <RowDefinition Height="auto"/>
             </Grid.RowDefinitions>
             <StackPanel Grid.Row="0" Padding="0,30,0,0" Orientation="Vertical" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" BorderThickness="0">
-                <Button FontSize="23" Content="Моя музыка" HorizontalAlignment="Stretch" Height="50" Margin="0,0,0,25">
+                <Button FontSize="23" Content="Моя музыка" HorizontalAlignment="Stretch" Height="50" Margin="0,0,0,0">
                     <Button.Background>
                         <SolidColorBrush Opacity="0"/>
                     </Button.Background>

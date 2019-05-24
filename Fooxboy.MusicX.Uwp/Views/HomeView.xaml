@@ -14,7 +14,7 @@
             <RowDefinition/>
         </Grid.RowDefinitions>
 
-        <Grid x:Name="TitleBar" Grid.Row="32"/>
+        <Grid x:Name="TitleBarGrid" Height="32" Grid.Row="0"/>
         <Grid x:Name="ContentGrid" Grid.Row="1">
             <Grid.RowDefinitions>
                 <RowDefinition/>
@@ -27,7 +27,7 @@
                             <RowDefinition/>
                             <RowDefinition/>
                         </Grid.RowDefinitions>
-                        <TextBlock Margin="30 0 0 0" FontFamily="Calibri" Text="Ваши Плейлисты" Grid.Row="0" FontWeight="ExtraBold" FontSize="23"/>
+                        <TextBlock Margin="30 0 0 0" FontFamily="Calibri" Text="Ваши Плейлисты" Grid.Row="0" FontWeight="ExtraBold" FontSize="42"/>
                         <TextBlock Text="У вас нет плейлистов" Grid.Row="1"/>
                     </Grid>
 
@@ -36,7 +36,7 @@
                             <RowDefinition/>
                             <RowDefinition/>
                         </Grid.RowDefinitions>
-                        <TextBlock Margin="30 0 0 0" FontFamily="Calibri" Text="Ваша Музыка" Grid.Row="0" FontWeight="ExtraBold" FontSize="23"/>
+                        <TextBlock Margin="30 0 0 0" FontFamily="Calibri" Text="Ваша Музыка" Grid.Row="0" FontWeight="ExtraBold" FontSize="42"/>
                         <TextBlock Text="У Вас нет музыки" Grid.Row="1"/>
                     </Grid>
                 </StackPanel>
