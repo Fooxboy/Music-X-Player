@@ -6,8 +6,12 @@ using System.Runtime.InteropServices.WindowsRuntime;
 using Fooxboy.MusicX.Core;
 using Windows.ApplicationModel;
 using Windows.ApplicationModel.Activation;
+using Windows.ApplicationModel.Core;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
+using Windows.Foundation.Metadata;
+using Windows.UI;
+using Windows.UI.ViewManagement;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Controls.Primitives;
@@ -59,6 +63,14 @@ namespace Fooxboy.MusicX.Uwp
                 {
                     //TODO: Загрузить состояние из ранее приостановленного приложения
                 }
+
+                CoreApplication.GetCurrentView().TitleBar.ExtendViewIntoTitleBar = true;
+                if (ApiInformation.IsTypePresent("Windows.UI.ViewManagement.ApplicationView"))
+                {
+                    var appView = ApplicationView.GetForCurrentView();
+                    appView.TitleBar.ButtonBackgroundColor = Colors.Transparent;
+                    appView.TitleBar.ButtonInactiveBackgroundColor = Colors.Transparent;
+                }
                 Log.Trace("Размещение фрейма в текущем окне.");
                 // Размещение фрейма в текущем окне
                 Window.Current.Content = rootFrame;
@@ -71,7 +83,7 @@ namespace Fooxboy.MusicX.Uwp
                     // Если стек навигации не восстанавливается для перехода к первой странице,
                     // настройка новой страницы путем передачи необходимой информации в качестве параметра
                     // навигации
-                    rootFrame.Navigate(typeof(MainPage), e.Arguments);
+                    rootFrame.Navigate(typeof(Views.MainFrameView), e.Arguments);
                 }
                 // Обеспечение активности текущего окна
                 Window.Current.Activate();

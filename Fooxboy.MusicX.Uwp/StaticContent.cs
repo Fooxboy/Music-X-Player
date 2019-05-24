@@ -4,12 +4,13 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Fooxboy.MusicX.Uwp.Services;
+using Windows.UI.Xaml.Controls;
 
 namespace Fooxboy.MusicX.Uwp
 {
-    public class StaticContent
+    public static class StaticContent
     {
-        public NavigationService NavigationContentService { get; set; }
-        public NavigationService NavigationPlayerService { get; set; }
+        public static NavigationService NavigationContentService { get; set; }
+        public static Frame PlayerMenuFrame { get; set; }
     }
 }
