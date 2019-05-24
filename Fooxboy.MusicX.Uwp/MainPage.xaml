@@ -18,5 +18,9 @@
                    HorizontalAlignment="Center" 
                    Foreground="Gray"
                    VerticalAlignment="Center" Text="Нитрож ету страницу она для навигации"/>
+        <Button Content="НЕТЫКОЙ" 
+                Margin="0 300 0 0"
+                HorizontalAlignment="Center"
+                VerticalAlignment="Center"/>
     </Grid>
 </Page>

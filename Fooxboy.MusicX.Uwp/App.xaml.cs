@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices.WindowsRuntime;
+using Fooxboy.MusicX.Core;
 using Windows.ApplicationModel;
 using Windows.ApplicationModel.Activation;
 using Windows.Foundation;
@@ -28,6 +29,8 @@ namespace Fooxboy.MusicX.Uwp
         /// </summary>
         public App()
         {
+            Log.Run();
+            Log.Trace("Инициализация объекта приложения");
             this.InitializeComponent();
             this.Suspending += OnSuspending;
         }
@@ -39,6 +42,7 @@ namespace Fooxboy.MusicX.Uwp
         /// <param name="e">Сведения о запросе и обработке запуска.</param>
         protected override void OnLaunched(LaunchActivatedEventArgs e)
         {
+            Log.Trace("Приложение запускается пользователем.");
             Frame rootFrame = Window.Current.Content as Frame;
 
             // Не повторяйте инициализацию приложения, если в окне уже имеется содержимое,
@@ -46,6 +50,7 @@ namespace Fooxboy.MusicX.Uwp
             if (rootFrame == null)
             {
                 // Создание фрейма, который станет контекстом навигации, и переход к первой странице
+                Log.Trace("Создание фрейма, который является контектом навигации.");
                 rootFrame = new Frame();
 
                 rootFrame.NavigationFailed += OnNavigationFailed;
@@ -54,7 +59,7 @@ namespace Fooxboy.MusicX.Uwp
                 {
                     //TODO: Загрузить состояние из ранее приостановленного приложения
                 }
-
+                Log.Trace("Размещение фрейма в текущем окне.");
                 // Размещение фрейма в текущем окне
                 Window.Current.Content = rootFrame;
             }
