@@ -11,16 +11,15 @@
     <Grid>
         <TextBlock FontSize="50" 
                    HorizontalAlignment="Center"
-                   VerticalAlignment="Center"
-                   Text="ТЫ ПИДОР"/>
-        <TextBlock FontSize="20" 
-                   Margin="0 90 0 0"
+                   VerticalAlignment="Top"
+                   Text="ТЫ ПИДОР" Margin="0,377,0,0"/>
+        <TextBlock FontSize="20"
                    HorizontalAlignment="Center" 
                    Foreground="Gray"
-                   VerticalAlignment="Center" Text="Нитрож ету страницу она для навигации"/>
+                   VerticalAlignment="Top" Text="Нитрож ету страницу она для навигации" Margin="0,442,0,0"/>
         <Button Content="НЕТЫКОЙ" 
-                Margin="0 300 0 0"
+                Margin="0,544,0,0"
                 HorizontalAlignment="Center"
-                VerticalAlignment="Center"/>
+                VerticalAlignment="Top"/>
     </Grid>
 </Page>
