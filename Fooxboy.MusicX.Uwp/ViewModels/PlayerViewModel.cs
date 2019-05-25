@@ -27,7 +27,38 @@ namespace Fooxboy.MusicX.Uwp.ViewModels
         /// </summary>
         private PlayerViewModel()
         {
-            
+            StaticContent.AudioService.PlayStateChanged += AudioServicePlayStateChanged;
+            StaticContent.AudioService.PositionChanged += AudioServicePositionChanged;
+            StaticContent.AudioService.CurrentAudioChanged += AudioServiceCurrentAudioChanged;
+
+            PlayPauseCommand = new RelayCommand(
+                () =>
+                {
+                    if (!IsPlaying)
+                        StaticContent.AudioService.Play();
+                    else
+                        StaticContent.AudioService.Pause();
+                }
+                );
+
+            SwitchNextCommand = new RelayCommand(() =>
+            {
+                StaticContent.AudioService.SwitchNext(skip: true);
+            });
+
+            SwitchPrevCommand = new RelayCommand(() =>
+            {
+                StaticContent.AudioService.SwitchPrev();
+            });
+        }
+
+
+        public RelayCommand PlayPauseCommand { get; private set; } 
+
+        public RelayCommand SwitchNextCommand { get; private set; }
+
+        public RelayCommand SwitchPrevCommand { get; private set; }
+
         public bool IsPlaying
         {
             get { return StaticContent.AudioService.IsPlaying; }
@@ -104,11 +135,10 @@ namespace Fooxboy.MusicX.Uwp.ViewModels
             Changed("DurationSeconds");
         }
 
+
         //Поле в котором хранится имя исполнителя, так и все другие поля оформляются.
         private string artist;
-        private string trackname;
-        private string cover;
-        public string Artist
+        public string  Artist
         {
             get => artist;
             set
@@ -116,28 +146,6 @@ namespace Fooxboy.MusicX.Uwp.ViewModels
                 if (artist == value) return;
                 artist = value;
                 Changed("Artist");
-            }
-        }
-
-        public string TrackName
-        {
-            get => trackname;
-            set
-            {
-                if (trackname == value) return;
-                trackname = value;
-                Changed("TrackName");
-            }
-        }
-
-        public string Cover
-        {
-            get => cover;
-            set
-            {
-                if (cover == value) return;
-                cover = value;
-                Changed("Cover");
             }
         }
 
