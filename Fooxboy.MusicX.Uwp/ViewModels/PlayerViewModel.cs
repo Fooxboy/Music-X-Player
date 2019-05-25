@@ -25,13 +25,14 @@ namespace Fooxboy.MusicX.Uwp.ViewModels
         /// </summary>
         private PlayerViewModel()
         {
-
+            
         }
-
 
         //Поле в котором хранится имя исполнителя, так и все другие поля оформляются.
         private string artist;
-        public string  Artist
+        private string trackname;
+        private string cover;
+        public string Artist
         {
             get => artist;
             set
@@ -39,6 +40,28 @@ namespace Fooxboy.MusicX.Uwp.ViewModels
                 if (artist == value) return;
                 artist = value;
                 Changed("Artist");
+            }
+        }
+
+        public string TrackName
+        {
+            get => trackname;
+            set
+            {
+                if (trackname == value) return;
+                trackname = value;
+                Changed("TrackName");
+            }
+        }
+
+        public string Cover
+        {
+            get => cover;
+            set
+            {
+                if (cover == value) return;
+                cover = value;
+                Changed("Cover");
             }
         }
 
