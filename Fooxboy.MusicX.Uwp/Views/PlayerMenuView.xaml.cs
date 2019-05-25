@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices.WindowsRuntime;
+using Fooxboy.MusicX.Uwp.ViewModels;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
 using Windows.UI.Xaml;
@@ -27,7 +28,7 @@ namespace Fooxboy.MusicX.Uwp.Views
             this.InitializeComponent();
         }
 
-        public PlayerMenuView TrackName { get; set; }
+        public PlayerViewModel PlayerViewModel { get; set; }
 
     }
 }

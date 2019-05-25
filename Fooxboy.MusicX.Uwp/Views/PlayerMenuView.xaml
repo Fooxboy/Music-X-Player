@@ -23,8 +23,8 @@
                 <RowDefinition MinHeight="30" Height="*"/>
             </Grid.RowDefinitions>
             <Image  Source="/Assets/Images/cover.jpg" Grid.Row="0" Stretch="Fill" Width="200"  Height="200" Margin="5"/>
-            <TextBlock Grid.Row="1" Text="{x:Bind Path=TrackName}" Margin="0,0,5,0" FontSize="23" HorizontalAlignment="Center" VerticalAlignment="Center"/>
-            <TextBlock Grid.Row="2" Text="Исполнитель" FontSize="15" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+            <TextBlock Grid.Row="1" Text="Название трека" Margin="0,0,5,0" FontSize="23" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+            <TextBlock Grid.Row="2" Text="{x:Bind Path=PlayerViewModel.Artist, Mode=TwoWay}" FontSize="15" HorizontalAlignment="Center" VerticalAlignment="Center"/>
             <StackPanel Grid.Row="4" Orientation="Horizontal" HorizontalAlignment="Center" BorderThickness="0">
                 <Button Padding="0" FontFamily="Segoe MDL2 Assets" FontSize="20" Content="&#xE892;" Width="30" Height="30" Margin="0,0,35,0">
                     <Button.Background>
