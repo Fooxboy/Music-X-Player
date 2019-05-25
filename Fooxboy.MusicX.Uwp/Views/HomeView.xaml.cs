@@ -20,17 +20,12 @@ namespace Fooxboy.MusicX.Uwp.Views
     /// <summary>
     /// Пустая страница, которую можно использовать саму по себе или для перехода внутри фрейма.
     /// </summary>
-    public sealed partial class MainFrameView : Page
+    public sealed partial class HomeView : Page
     {
-        public MainFrameView()
+        public HomeView()
         {
             this.InitializeComponent();
-
-            StaticContent.PlayerMenuFrame = PlayerMenuFrame;
-            StaticContent.NavigationContentService = new Services.NavigationService() { RootFrame = ContentFrame };
-            PlayerMenuFrame.Navigate(typeof(PlayerMenuView));
-            ContentFrame.Navigate(typeof(HomeView));
-
+            Window.Current.SetTitleBar(TitleBar);
         }
     }
 }
