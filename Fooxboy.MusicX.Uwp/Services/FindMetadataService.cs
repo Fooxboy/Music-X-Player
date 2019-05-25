@@ -5,14 +5,18 @@ using System.Text;
 using System.Threading.Tasks;
 using Fooxboy.MusicX.Uwp.Interfaces;
 using Fooxboy.MusicX.Uwp.Models;
+using Windows.Storage;
 
 namespace Fooxboy.MusicX.Uwp.Services
 {
     public static class FindMetadataService
     {
-        public static IAudio Convert(string path)
+        public async static Task<IAudio> Convert(Windows.Storage.StorageFile fileA)
         {
-            var file = TagLib.File.Create(path);
+            var cache = ApplicationData.Current.LocalCacheFolder;
+            var a = await fileA.CopyAsync(cache);
+
+            var file = TagLib.File.Create(a.Path);
             IAudio audio = new Audio()
             {
                 Artist = file.Tag.AlbumArtists[0],
@@ -21,7 +25,7 @@ namespace Fooxboy.MusicX.Uwp.Services
                 InternalId = "0",
                 OwnerId = "0",
                 PlaylistId = 0,
-                Source = new Uri(path),
+                Source = new Uri(a.Path),
                 Title = file.Tag.Title
             };
             return audio;

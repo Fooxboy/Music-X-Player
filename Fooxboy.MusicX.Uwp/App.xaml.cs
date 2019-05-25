@@ -5,6 +5,7 @@ using System.Linq;
 using System.Runtime.InteropServices.WindowsRuntime;
 using Fooxboy.MusicX.Core;
 using Fooxboy.MusicX.Uwp.Services;
+using GalaSoft.MvvmLight.Threading;
 using Windows.ApplicationModel;
 using Windows.ApplicationModel.Activation;
 using Windows.ApplicationModel.Core;
@@ -73,8 +74,8 @@ namespace Fooxboy.MusicX.Uwp
                     appView.TitleBar.ButtonInactiveBackgroundColor = Colors.Transparent;
                 }
                 Log.Trace("Размещение фрейма в текущем окне.");
-
-                StaticContent.AudioService = AudioService.Instance;
+                DispatcherHelper.Initialize();
+                //StaticContent.AudioService = AudioService.Instance;
                 // Размещение фрейма в текущем окне
                 Window.Current.Content = rootFrame;
             }

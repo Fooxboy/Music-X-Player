@@ -38,7 +38,11 @@ namespace Fooxboy.MusicX.Uwp.Views
             picker.FileTypeFilter.Add(".mp3");
 
             Windows.Storage.StorageFile file = await picker.PickSingleFileAsync();
-            StaticContent.AudioService.CurrentPlaylist.Add(FindMetadataService.Convert(file.Path));
+            var audio = await FindMetadataService.Convert(file);
+            StaticContent.AudioService.CurrentPlaylist.Add(audio);
+            StaticContent.AudioService.CurrentPlaylist.CurrentItem = audio;
+            StaticContent.AudioService.Volume = 1f;
+            StaticContent.Volume = 1f;
             StaticContent.AudioService.Play();
         }
     }

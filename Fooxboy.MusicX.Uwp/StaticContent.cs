@@ -16,6 +16,6 @@ namespace Fooxboy.MusicX.Uwp
         public static double Volume { get; set; }
         public static RepeatMode Repeat { get; set; }
         public static bool Shuffle { get; set; }
-        public static AudioService AudioService { get; set; }
+        public static AudioService AudioService => AudioService.Instance;
     }
 }

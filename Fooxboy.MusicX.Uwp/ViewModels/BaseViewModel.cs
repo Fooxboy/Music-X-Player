@@ -12,7 +12,7 @@ namespace Fooxboy.MusicX.Uwp.ViewModels
     {
         public event PropertyChangedEventHandler PropertyChanged;
 
-        public void Changed([CallerMemberName]string name = "")
+        public void Changed(string name = "")
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(name));
         }

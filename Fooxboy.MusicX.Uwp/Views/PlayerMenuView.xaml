@@ -31,7 +31,7 @@
                         <SolidColorBrush Opacity="0"/>
                     </Button.Background>
                 </Button>
-                <Button Padding="0" Command="{x:Bind PlayerViewModel.PlayPauseCommand}" FontFamily="HoloLens MDL2 Assets" FontSize="20" Content="&#xE768;" Width="37" Height="37" Margin="0,0,35,0" Click="Button_Click">
+                <Button Padding="0" Command="{x:Bind PlayerViewModel.PlayPauseCommand}" FontFamily="HoloLens MDL2 Assets" FontSize="20" Content="&#xE768;" Width="37" Height="37" Margin="0,0,35,0" >
                     <Button.Background>
                         <SolidColorBrush Opacity="0"/>
                     </Button.Background>
@@ -42,7 +42,7 @@
                     </Button.Background>
                 </Button>
             </StackPanel>
-            <Slider Grid.Row="3" Maximum="{x:Bind PlayerViewModel.DurationSeconds}" Value="{x:Bind PlayerViewModel.PositionSeconds ,Mode=TwoWay}"  Height="30" Width="200" HorizontalAlignment="Center" />
+            <Slider Grid.Row="3" Maximum="{Binding DurationSeconds}" Value="{Binding PositionSeconds, Mode=TwoWay}"  Height="30" Width="200" HorizontalAlignment="Center" />
         </Grid>
         <Grid Grid.Row="1">
             <Grid.RowDefinitions>

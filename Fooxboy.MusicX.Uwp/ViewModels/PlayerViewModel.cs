@@ -135,19 +135,5 @@ namespace Fooxboy.MusicX.Uwp.ViewModels
             Changed("DurationSeconds");
         }
 
-
-        //Поле в котором хранится имя исполнителя, так и все другие поля оформляются.
-        private string artist;
-        public string  Artist
-        {
-            get => artist;
-            set
-            {
-                if (artist == value) return;
-                artist = value;
-                Changed("Artist");
-            }
-        }
-
     }
 }

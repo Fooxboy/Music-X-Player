@@ -21,7 +21,6 @@ namespace Fooxboy.MusicX.Uwp.Services
 {
     public class AudioService
     {
-        IMediaPlaybackSource currentTrack;
         private AudioPlaylist currentPlaylist = new AudioPlaylist();
         DispatcherTimer positionTimer;
         MediaPlayer mediaPlayer = new MediaPlayer();
@@ -31,8 +30,6 @@ namespace Fooxboy.MusicX.Uwp.Services
         public event EventHandler CurrentAudioChanged;
 
         public static AudioService Instance { get; } = new AudioService();
-
-        private CancellationTokenSource resolveCancellationToken;
 
         /// <summary>
         /// Играет ли что-то сейчас
@@ -99,6 +96,7 @@ namespace Fooxboy.MusicX.Uwp.Services
         {
             Application.Current.Resuming += AppResuming;
             Application.Current.Suspending += AppSuspending;
+            mediaPlayer.AudioCategory = MediaPlayerAudioCategory.Media;
             Initialize();
         }
 
