@@ -118,13 +118,19 @@
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Enums\RepeatMode.cs" />
+    <Compile Include="Interfaces\IAudio.cs" />
+    <Compile Include="Interfaces\IPlaylist.cs" />
     <Compile Include="MainPage.xaml.cs">
       <DependentUpon>MainPage.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Models\AudioPlaylist.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="RelayCommand.cs" />
+    <Compile Include="Services\AudioService.cs" />
     <Compile Include="Services\NavigationService.cs" />
     <Compile Include="StaticContent.cs" />
+    <Compile Include="Utils\Extensions\CollectionsExtensions.cs" />
     <Compile Include="ViewModels\BaseViewModel.cs" />
     <Compile Include="ViewModels\PlayerViewModel.cs" />
     <Compile Include="Views\HomeView.xaml.cs">
@@ -179,10 +185,14 @@
     <PackageReference Include="Microsoft.NETCore.UniversalWindowsPlatform">
       <Version>6.2.8</Version>
     </PackageReference>
+    <PackageReference Include="MvvmLightLibs">
+      <Version>5.4.1.1</Version>
+    </PackageReference>
+    <PackageReference Include="Newtonsoft.Json">
+      <Version>12.0.2</Version>
+    </PackageReference>
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Models\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <ProjectReference Include="..\Fooxboy.MusicX.Core\Fooxboy.MusicX.Core.csproj">
       <Project>{dc2f5311-ffb3-4810-8980-cc6ad7c036e0}</Project>
