@@ -27,5 +27,7 @@ namespace Fooxboy.MusicX.Uwp.Views
             this.InitializeComponent();
         }
 
+        public PlayerMenuView TrackName { get; set; }
+
     }
 }

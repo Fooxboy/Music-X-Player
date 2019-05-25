@@ -10,10 +10,11 @@
 
     <Grid>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="*"/>
+            <ColumnDefinition MinWidth="220" Width="*"/>
             <ColumnDefinition Width="3.5*"/>
         </Grid.ColumnDefinitions>
         <Frame Grid.Column="0" x:Name="PlayerMenuFrame"/>
         <Frame Grid.Column="1" x:Name="ContentFrame"/>
+
     </Grid>
 </Page>

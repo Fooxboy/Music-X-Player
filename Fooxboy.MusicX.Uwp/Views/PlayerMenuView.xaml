@@ -6,30 +6,32 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d"
-    Background="{ThemeResource SystemControlAcrylicWindowBrush}">
-    <Grid>
+    Background="{ThemeResource SystemControlAcrylicWindowBrush}"
+    MinWidth="220" 
+    MinHeight="500">
+    <Grid >
         <Grid.RowDefinitions>
-            <RowDefinition Height="*"/>
+            <RowDefinition MinHeight="400" Height="*"/>
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
         <Grid Grid.Row="0">
             <Grid.RowDefinitions>
-                <RowDefinition Height="5*"/>
-                <RowDefinition Height="0.5*"/>
-                <RowDefinition Height="0.4*"/>
-                <RowDefinition Height="*"/>
-                <RowDefinition Height="*"/>
+                <RowDefinition MinHeight="200" Height="5*"/>
+                <RowDefinition MinHeight="23" Height="0.5*"/>
+                <RowDefinition MinHeight="15" Height="0.4*"/>
+                <RowDefinition MinHeight="30" Height="*"/>
+                <RowDefinition MinHeight="30" Height="*"/>
             </Grid.RowDefinitions>
-            <Image Source="/Assets/Images/cover.jpg" Grid.Row="0" Stretch="Fill" Width="200" Height="200"/>
-            <TextBlock Grid.Row="1" Text="Название" FontSize="23" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+            <Image  Source="/Assets/Images/cover.jpg" Grid.Row="0" Stretch="Fill" Width="200"  Height="200" Margin="5"/>
+            <TextBlock Grid.Row="1" Text="{x:Bind Path=TrackName}" Margin="0,0,5,0" FontSize="23" HorizontalAlignment="Center" VerticalAlignment="Center"/>
             <TextBlock Grid.Row="2" Text="Исполнитель" FontSize="15" HorizontalAlignment="Center" VerticalAlignment="Center"/>
-            <StackPanel Grid.Row="3" Orientation="Horizontal" HorizontalAlignment="Center" BorderThickness="0">
+            <StackPanel Grid.Row="4" Orientation="Horizontal" HorizontalAlignment="Center" BorderThickness="0">
                 <Button Padding="0" FontFamily="Segoe MDL2 Assets" FontSize="20" Content="&#xE892;" Width="30" Height="30" Margin="0,0,35,0">
                     <Button.Background>
                         <SolidColorBrush Opacity="0"/>
                     </Button.Background>
                 </Button>
-                <Button Padding="0" FontFamily="HoloLens MDL2 Assets" FontSize="20" Content="&#xE768;" Width="37" Height="37" Margin="0,0,35,0">
+                <Button Padding="0" FontFamily="HoloLens MDL2 Assets" FontSize="20" Content="&#xE768;" Width="37" Height="37" Margin="0,0,35,0" Click="Button_Click">
                     <Button.Background>
                         <SolidColorBrush Opacity="0"/>
                     </Button.Background>
@@ -40,26 +42,26 @@
                     </Button.Background>
                 </Button>
             </StackPanel>
-            <Rectangle Grid.Row="4" Fill="Black" Height="5" Width="200" HorizontalAlignment="Center" />
+            <Slider Grid.Row="3"  Height="30" Width="200" HorizontalAlignment="Center" />
         </Grid>
         <Grid Grid.Row="1">
             <Grid.RowDefinitions>
-                <RowDefinition Height="*"/>
+                <RowDefinition MinHeight="140" Height="*"/>
                 <RowDefinition Height="auto"/>
             </Grid.RowDefinitions>
-            <StackPanel Grid.Row="0" Padding="0,30,0,0" Orientation="Vertical" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" BorderThickness="0">
-                <Button FontSize="23" Content="Моя музыка" HorizontalAlignment="Stretch" Height="50" Margin="0,0,0,0">
+            <StackPanel Grid.Row="0" Padding="0,15,0,0" Orientation="Vertical" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" BorderThickness="0">
+                <Button FontSize="20" Content="Моя музыка" HorizontalAlignment="Stretch" Height="50" Margin="0,0,0,0">
                     <Button.Background>
                         <SolidColorBrush Opacity="0"/>
                     </Button.Background>
                 </Button>
-                <Button FontSize="23" Content="Чужая музыка" HorizontalAlignment="Stretch" Height="50">
+                <Button FontSize="20" Content="Чужая музыка" HorizontalAlignment="Stretch" Height="50">
                 <Button.Background>
                     <SolidColorBrush Opacity="0"/>
                 </Button.Background>
                 </Button>
             </StackPanel>
-            <Button Grid.Row="1" FontSize="23" Content="Да" HorizontalAlignment="Stretch" Height="50" Margin="0,0,0,10" VerticalAlignment="Bottom">
+            <Button Grid.Row="1" FontSize="20" Content="Да" HorizontalAlignment="Stretch" Height="50" Margin="0,0,0,10" VerticalAlignment="Bottom">
             <Button.Background>
                 <SolidColorBrush Opacity="0"/>
             </Button.Background>

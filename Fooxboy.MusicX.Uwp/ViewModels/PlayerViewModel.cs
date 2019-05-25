@@ -8,6 +8,5 @@ namespace Fooxboy.MusicX.Uwp.ViewModels
 {
     public class PlayerViewModel: BaseViewModel
     {
-
     }
 }
