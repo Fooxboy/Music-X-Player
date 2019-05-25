@@ -30,8 +30,34 @@ namespace Fooxboy.MusicX.Uwp.ViewModels
             StaticContent.AudioService.PlayStateChanged += AudioServicePlayStateChanged;
             StaticContent.AudioService.PositionChanged += AudioServicePositionChanged;
             StaticContent.AudioService.CurrentAudioChanged += AudioServiceCurrentAudioChanged;
+
+            PlayPauseCommand = new RelayCommand(
+                () =>
+                {
+                    if (!IsPlaying)
+                        StaticContent.AudioService.Play();
+                    else
+                        StaticContent.AudioService.Pause();
+                }
+                );
+
+            SwitchNextCommand = new RelayCommand(() =>
+            {
+                StaticContent.AudioService.SwitchNext(skip: true);
+            });
+
+            SwitchPrevCommand = new RelayCommand(() =>
+            {
+                StaticContent.AudioService.SwitchPrev();
+            });
         }
 
+
+        public RelayCommand PlayPauseCommand { get; private set; } 
+
+        public RelayCommand SwitchNextCommand { get; private set; }
+
+        public RelayCommand SwitchPrevCommand { get; private set; }
 
         public bool IsPlaying
         {
