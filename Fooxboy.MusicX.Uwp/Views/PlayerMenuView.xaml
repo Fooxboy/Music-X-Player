@@ -20,7 +20,7 @@
                 <RowDefinition Height="*"/>
                 <RowDefinition Height="*"/>
             </Grid.RowDefinitions>
-            <Image Source="/Assets/Images/cover.jpg" Grid.Row="0" Stretch="Fill" Width="200" Height="200"/>
+            <Image Source="/Assets/Images/cover.jpg" Grid.Row="0" Stretch="Fill" Width="200" Height="200" Margin="20"/>
             <TextBlock Grid.Row="1" Text="Название" FontSize="23" HorizontalAlignment="Center" VerticalAlignment="Center"/>
             <TextBlock Grid.Row="2" Text="Исполнитель" FontSize="15" HorizontalAlignment="Center" VerticalAlignment="Center"/>
             <StackPanel Grid.Row="3" Orientation="Horizontal" HorizontalAlignment="Center" BorderThickness="0">
@@ -40,7 +40,7 @@
                     </Button.Background>
                 </Button>
             </StackPanel>
-            <Rectangle Grid.Row="4" Fill="Black" Height="5" Width="200" HorizontalAlignment="Center" />
+            <Slider Grid.Row="4"  Height="5" Width="200" HorizontalAlignment="Center" />
         </Grid>
         <Grid Grid.Row="1">
             <Grid.RowDefinitions>
