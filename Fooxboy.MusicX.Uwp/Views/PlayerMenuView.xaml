@@ -42,7 +42,7 @@
                     </Button.Background>
                 </Button>
             </StackPanel>
-            <Slider Grid.Row="3"  Height="30" Width="200" HorizontalAlignment="Center" />
+            <Slider Grid.Row="3" Maximum="{x:Bind PlayerViewModel.DurationSeconds}" Value="{x:Bind PlayerViewModel.PositionSeconds ,Mode=TwoWay}"  Height="30" Width="200" HorizontalAlignment="Center" />
         </Grid>
         <Grid Grid.Row="1">
             <Grid.RowDefinitions>
