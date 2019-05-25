@@ -14,7 +14,7 @@
             <RowDefinition/>
         </Grid.RowDefinitions>
 
-        <Grid x:Name="TitleBarGrid" Height="32" Grid.Row="0"/>
+        <Grid x:Name="TitleBarGrid"  Grid.Row="0"/>
         <Grid x:Name="ContentGrid" Grid.Row="1">
             <Grid.RowDefinitions>
                 <RowDefinition/>
@@ -30,6 +30,7 @@
                         </Grid.RowDefinitions>
                         <TextBlock Margin="30 0 0 0" FontFamily="Calibri" Text="Ваши Плейлисты" Grid.Row="0" FontWeight="ExtraBold" FontSize="42"/>
                         <TextBlock Text="У вас нет плейлистов" Grid.Row="1"/>
+                        <Button Content="Выбрать файл" Click="Button_Click" Grid.Row="1" Margin="20 20 0 0"/>
                     </Grid>
 
                     <Grid x:Name="MusicGrid" Grid.Row="1">
