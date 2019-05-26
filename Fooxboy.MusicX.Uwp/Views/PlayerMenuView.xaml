@@ -88,34 +88,49 @@
                     <SolidColorBrush Opacity="0"/>
                 </Button.Background>
                     <Button.Content>
-                        <StackPanel Orientation="Horizontal">
-                            <Rectangle Fill="#0078d7" Height="30" Width="5"/>
-                            <TextBlock Padding="0,5,0,5" Margin="12,0,5,0" FontSize="20" FontFamily="Segoe MDL2 Assets" Text="&#xE10F;" Width="30" Height="30"/>
-                            <TextBlock Padding="0,5,5,5" Text="Главная"/>
-                        </StackPanel>
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="5"/>
+                                <ColumnDefinition Width="30"/>
+                                <ColumnDefinition Width="auto"/>
+                            </Grid.ColumnDefinitions>
+                            <Rectangle Grid.Column="0" Fill="#0078d7" Height="30" Width="5"/>
+                            <TextBlock Grid.Column="1" Padding="5" FontSize="20" FontFamily="Segoe MDL2 Assets" Text="&#xE10F;" Width="30" Height="30"/>
+                            <TextBlock Grid.Column="2" Padding="5" Text="Главная"/>
+                        </Grid>
                     </Button.Content>
                 </Button>
-                <Button FontSize="16" HorizontalContentAlignment="Left" HorizontalAlignment="Stretch" Height="40" Margin="0,0,0,0" BorderThickness="0">
+                <Button Padding="0" FontSize="16" HorizontalContentAlignment="Left" HorizontalAlignment="Stretch" Height="40" Margin="0,0,0,0" BorderThickness="0">
                     <Button.Background>
                         <SolidColorBrush Opacity="0"/>
                     </Button.Background>
                     <Button.Content>
-                        <StackPanel Orientation="Horizontal">
-                            <TextBlock Padding="0,5,0,5" Margin="12,0,5,0" FontSize="20" FontFamily="Segoe MDL2 Assets" Text="&#xE11A;" Width="30" Height="30"/>
-                            <TextBlock Padding="0,5,5,5" Text="Поиск мемов"/>
-                        </StackPanel>
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="5"/>
+                                <ColumnDefinition Width="30"/>
+                                <ColumnDefinition Width="auto"/>
+                            </Grid.ColumnDefinitions>
+                            <TextBlock Grid.Column="1" Padding="5" FontSize="20" FontFamily="Segoe MDL2 Assets" Text="&#xE107;" Width="30" Height="30"/>
+                            <TextBlock Grid.Column="2" Padding="5" Text="Поиск"/>
+                        </Grid>
                     </Button.Content>
                 </Button>
             </StackPanel>
-            <Button Grid.Row="1" FontSize="16" HorizontalContentAlignment="Left"  HorizontalAlignment="Stretch" Height="40" Margin="0,0,0,10" VerticalAlignment="Bottom" BorderThickness="0">
-            <Button.Background>
-                <SolidColorBrush Opacity="0"/>
-            </Button.Background>
+            <Button  Padding="0" Grid.Row="1" FontSize="16" HorizontalContentAlignment="Left"  HorizontalAlignment="Stretch" Height="40" Margin="0,0,0,10" VerticalAlignment="Bottom" BorderThickness="0">
+                <Button.Background>
+                    <SolidColorBrush Opacity="0"/>
+                </Button.Background>
                 <Button.Content>
-                    <StackPanel Orientation="Horizontal">
-                        <TextBlock Padding="0,5,0,5" Margin="12,0,5,0" FontSize="20" FontFamily="Segoe MDL2 Assets" Text="&#xE713;" Width="30" Height="30"/>
-                        <TextBlock Padding="0,5,5,5" Text="Настройки"/>
-                    </StackPanel>
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="5"/>
+                            <ColumnDefinition Width="30"/>
+                            <ColumnDefinition Width="auto"/>
+                        </Grid.ColumnDefinitions>
+                        <TextBlock Grid.Column="1" Padding="5" FontSize="20" FontFamily="Segoe MDL2 Assets" Text="&#xE713;" Width="30" Height="30"/>
+                        <TextBlock Grid.Column="2" Padding="5" Text="Настройки"/>
+                    </Grid>
                 </Button.Content>
             </Button>
         </Grid>
