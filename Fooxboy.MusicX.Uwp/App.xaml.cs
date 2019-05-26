@@ -6,12 +6,14 @@ using System.Runtime.InteropServices.WindowsRuntime;
 using Fooxboy.MusicX.Core;
 using Fooxboy.MusicX.Uwp.Services;
 using GalaSoft.MvvmLight.Threading;
+using Newtonsoft.Json;
 using Windows.ApplicationModel;
 using Windows.ApplicationModel.Activation;
 using Windows.ApplicationModel.Core;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
 using Windows.Foundation.Metadata;
+using Windows.Storage;
 using Windows.UI;
 using Windows.UI.ViewManagement;
 using Windows.UI.Xaml;
@@ -46,7 +48,7 @@ namespace Fooxboy.MusicX.Uwp
         /// например, если приложение запускается для открытия конкретного файла.
         /// </summary>
         /// <param name="e">Сведения о запросе и обработке запуска.</param>
-        protected override void OnLaunched(LaunchActivatedEventArgs e)
+        protected async override void OnLaunched(LaunchActivatedEventArgs e)
         {
             Log.Trace("Приложение запускается пользователем.");
             Frame rootFrame = Window.Current.Content as Frame;
@@ -73,6 +75,31 @@ namespace Fooxboy.MusicX.Uwp
                     appView.TitleBar.ButtonBackgroundColor = Colors.Transparent;
                     appView.TitleBar.ButtonInactiveBackgroundColor = Colors.Transparent;
                 }
+
+                var localpath = ApplicationData.Current.LocalFolder;
+                if(await localpath.TryGetItemAsync("Playlists") == null)
+                {
+                    var pathPlaylists = await localpath.CreateFolderAsync("Playlists");
+
+                    var file = await pathPlaylists.CreateFileAsync("Id1.json");
+                    var playlist = new Models.PlaylistFile()
+                    {
+                        Artist = "Music X",
+                        Cover = "/Assets/Images/cover.jpg",
+                        Id = 1,
+                        Name = "Слушали недавно",
+                        Tracks = new List<Models.AudioFile>()
+                    };
+
+                    var a = JsonConvert.SerializeObject(playlist);
+                    await FileIO.WriteTextAsync(file, a);
+                }
+
+                if (await localpath.TryGetItemAsync("LastPlay.json") == null)
+                {
+                    await localpath.CreateFileAsync("LastPlay.json");
+                }
+
                 Log.Trace("Размещение фрейма в текущем окне.");
                 DispatcherHelper.Initialize();
                 //StaticContent.AudioService = AudioService.Instance;

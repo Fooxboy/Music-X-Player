@@ -5,6 +5,7 @@ using System.Linq;
 using System.Runtime.InteropServices.WindowsRuntime;
 using Fooxboy.MusicX.Core;
 using Fooxboy.MusicX.Uwp.Services;
+using Fooxboy.MusicX.Uwp.ViewModels;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
 using Windows.UI.Xaml;
@@ -28,7 +29,10 @@ namespace Fooxboy.MusicX.Uwp.Views
         {
             this.InitializeComponent();
             Window.Current.SetTitleBar(TitleBarGrid);
+            HomeViewModel = HomeViewModel.Instanse;
         }
+
+        public HomeViewModel HomeViewModel { get; set; }
 
         private async void Button_Click(object sender, RoutedEventArgs e)
         {
@@ -44,6 +48,11 @@ namespace Fooxboy.MusicX.Uwp.Views
             StaticContent.AudioService.Volume = 1f;
             StaticContent.Volume = 1f;
             StaticContent.AudioService.Play();
+        }
+
+        protected async override void OnNavigatedTo(NavigationEventArgs e)
+        {
+            await HomeViewModel.GetPlaylistLocal();
         }
     }
 }
