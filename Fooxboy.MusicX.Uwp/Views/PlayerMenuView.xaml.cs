@@ -32,5 +32,6 @@ namespace Fooxboy.MusicX.Uwp.Views
 
         public PlayerViewModel PlayerViewModel { get; set; }
 
+        
     }
 }
