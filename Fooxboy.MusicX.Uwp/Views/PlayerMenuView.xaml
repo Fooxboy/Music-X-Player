@@ -31,7 +31,7 @@
                         <SolidColorBrush Opacity="0"/>
                     </Button.Background>
                 </Button>
-                <Button Padding="0" Command="{x:Bind PlayerViewModel.PlayPauseCommand}" FontFamily="HoloLens MDL2 Assets" FontSize="20" Content="&#xE768;" Width="37" Height="37" Margin="0,0,35,0" >
+                <Button Padding="0" Command="{x:Bind PlayerViewModel.PlayPauseCommand}" FontFamily="HoloLens MDL2 Assets" FontSize="20" Content="&#xE768;" Width="37" Height="37" Margin="0,0,35,0">
                     <Button.Background>
                         <SolidColorBrush Opacity="0"/>
                     </Button.Background>
@@ -46,10 +46,10 @@
         </Grid>
         <Grid Grid.Row="1">
             <Grid.RowDefinitions>
-                <RowDefinition MinHeight="140" Height="*"/>
+                <RowDefinition MinHeight="100" Height="*"/>
                 <RowDefinition Height="auto"/>
             </Grid.RowDefinitions>
-            <StackPanel Grid.Row="0" Padding="0,15,0,0" Orientation="Vertical" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" BorderThickness="0">
+            <StackPanel Grid.Row="0" Padding="0,0,0,0" Orientation="Vertical" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" BorderThickness="0">
                 <Button FontSize="20" Content="Моя музыка" HorizontalAlignment="Stretch" Height="50" Margin="0,0,0,0">
                     <Button.Background>
                         <SolidColorBrush Opacity="0"/>
