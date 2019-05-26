@@ -116,7 +116,44 @@
                         </Grid>
                     </Button.Content>
                 </Button>
+                
             </StackPanel>
+            <Button  Padding="0" Grid.Row="1" FontSize="16" HorizontalContentAlignment="Left"  HorizontalAlignment="Stretch" Height="40" Margin="0,0,0,90" VerticalAlignment="Bottom" BorderThickness="0">
+                <Button.Background>
+                    <SolidColorBrush Opacity="0"/>
+                </Button.Background>
+                <Button.Content>
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="5"/>
+                            <ColumnDefinition Width="30"/>
+                            <ColumnDefinition Width="auto"/>
+                        </Grid.ColumnDefinitions>
+                        <TextBlock Grid.Column="1" Padding="5" FontSize="20" FontFamily="Segoe MDL2 Assets" Text="&#xE192;" Width="30" Height="30"/>
+                        <TextBlock Grid.Column="2" Padding="5" Text="MusicX Pro"/>
+                    </Grid>
+                </Button.Content>
+            </Button>
+            <Button  Padding="0" Grid.Row="1" FontSize="16" HorizontalContentAlignment="Left"  HorizontalAlignment="Stretch" Height="40" Margin="0,0,0,50" VerticalAlignment="Bottom" BorderThickness="0">
+                <Button.Background>
+                    <SolidColorBrush Opacity="0"/>
+                </Button.Background>
+                <Button.Content>
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="5"/>
+                            <ColumnDefinition Width="30"/>
+                            <ColumnDefinition Width="auto"/>
+                        </Grid.ColumnDefinitions>
+                        <Ellipse  Grid.Column="1" Width="25" Height="25">
+                            <Ellipse.Fill>
+                                <ImageBrush ImageSource="/Assets/Images/cover.jpg"/>
+                            </Ellipse.Fill>
+                        </Ellipse>
+                        <TextBlock Grid.Column="2" Padding="5" Text="Мамин симпотяга"/>
+                    </Grid>
+                </Button.Content>
+            </Button>
             <Button  Padding="0" Grid.Row="1" FontSize="16" HorizontalContentAlignment="Left"  HorizontalAlignment="Stretch" Height="40" Margin="0,0,0,10" VerticalAlignment="Bottom" BorderThickness="0">
                 <Button.Background>
                     <SolidColorBrush Opacity="0"/>

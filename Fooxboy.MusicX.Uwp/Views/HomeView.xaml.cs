@@ -53,6 +53,7 @@ namespace Fooxboy.MusicX.Uwp.Views
         protected async override void OnNavigatedTo(NavigationEventArgs e)
         {
             await HomeViewModel.GetPlaylistLocal();
+            await HomeViewModel.GetMusicLocal();
         }
     }
 }
