@@ -26,30 +26,38 @@
             <TextBlock Grid.Row="1" Text="{x:Bind Path=PlayerViewModel.CurrentAudio.Title, Mode=TwoWay}" Margin="0,0,5,0" FontSize="23" HorizontalAlignment="Center" VerticalAlignment="Center"/>
             <TextBlock Grid.Row="2" Text="{x:Bind Path=PlayerViewModel.CurrentAudio.Artist, Mode=TwoWay}" FontSize="15" HorizontalAlignment="Center" VerticalAlignment="Center"/>
             <StackPanel Grid.Row="4" Orientation="Horizontal" HorizontalAlignment="Center" BorderThickness="0">
-                <Button Padding="0" Command="{x:Bind PlayerViewModel.SwitchPrevCommand}" FontFamily="Segoe MDL2 Assets" FontSize="20" Content="&#xE892;" Width="30" Height="30" Margin="0,0,35,0">
+                <Button Padding="0" BorderThickness="0" Command="{x:Bind PlayerViewModel.SwitchPrevCommand}" FontFamily="Segoe MDL2 Assets" FontSize="20" Content="&#xE892;" Width="30" Height="30" Margin="0,0,35,0">
                     <Button.Background>
                         <SolidColorBrush Opacity="0"/>
                     </Button.Background>
                 </Button>
-                <Button Padding="0" Command="{x:Bind PlayerViewModel.PlayPauseCommand}" FontFamily="HoloLens MDL2 Assets" FontSize="20" Content="&#xE768;" Width="37" Height="37" Margin="0,0,35,0">
+                <Button Padding="0" Command="{x:Bind PlayerViewModel.PlayPauseCommand}" BorderThickness="0"  FontFamily="HoloLens MDL2 Assets" FontSize="20"  Width="37" Height="37" Margin="0,0,35,0" >
                     <Button.Background>
                         <SolidColorBrush Opacity="0"/>
                     </Button.Background>
+
+                    <Button.Content>
+                        <Grid>
+                            <FontIcon x:Name="Play" Visibility="{x:Bind PlayerViewModel.VisibilityTextPlay, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" FontFamily="HoloLens MDL2 Assets" Glyph="&#xE768;" />
+                            <FontIcon x:Name="Pause" Visibility="{x:Bind PlayerViewModel.VisibilityTextPause, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" FontFamily="HoloLens MDL2 Assets" Glyph="&#xE769;" />
+                        </Grid>
+                        
+                    </Button.Content>
                 </Button>
-                <Button Padding="0" Command="{x:Bind PlayerViewModel.SwitchNextCommand}" FontSize="20" FontFamily="Segoe MDL2 Assets" Content="&#xE893;" Width="30" Height="30">
+                <Button Padding="0" BorderThickness="0" Command="{x:Bind PlayerViewModel.SwitchNextCommand}" FontSize="20" FontFamily="Segoe MDL2 Assets" Content="&#xE893;" Width="30" Height="30">
                     <Button.Background>
                         <SolidColorBrush Opacity="0"/>
                     </Button.Background>
                 </Button>
             </StackPanel>
-            <Slider Grid.Row="3" Maximum="{Binding DurationSeconds}" Value="{Binding PositionSeconds, Mode=TwoWay}"  Height="30" Width="200" HorizontalAlignment="Center" />
+            <Slider Grid.Row="3" Value="{x:Bind PlayerViewModel.PositionSeconds, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Maximum="{x:Bind PlayerViewModel.DurationSeconds, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"   Height="30" Width="200" HorizontalAlignment="Center" />
         </Grid>
         <Grid Grid.Row="1">
             <Grid.RowDefinitions>
-                <RowDefinition MinHeight="100" Height="*"/>
+                <RowDefinition MinHeight="140" Height="*"/>
                 <RowDefinition Height="auto"/>
             </Grid.RowDefinitions>
-            <StackPanel Grid.Row="0" Padding="0,0,0,0" Orientation="Vertical" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" BorderThickness="0">
+            <StackPanel Grid.Row="0" Padding="0,15,0,0" Orientation="Vertical" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" BorderThickness="0">
                 <Button FontSize="20" Content="Моя музыка" HorizontalAlignment="Stretch" Height="50" Margin="0,0,0,0">
                     <Button.Background>
                         <SolidColorBrush Opacity="0"/>

@@ -283,6 +283,7 @@ namespace Fooxboy.MusicX.Uwp.Services
             positionTimer = new DispatcherTimer();
             positionTimer.Interval = TimeSpan.FromMilliseconds(500);
             positionTimer.Tick += PositionTimerOnTick;
+            
 
             Volume = StaticContent.Volume;
             Repeat = StaticContent.Repeat;

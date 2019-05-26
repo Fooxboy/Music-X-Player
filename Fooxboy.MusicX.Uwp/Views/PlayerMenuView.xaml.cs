@@ -27,6 +27,7 @@ namespace Fooxboy.MusicX.Uwp.Views
         {
             this.InitializeComponent();
             PlayerViewModel = ViewModels.PlayerViewModel.Instanse;
+            
         }
 
         public PlayerViewModel PlayerViewModel { get; set; }
