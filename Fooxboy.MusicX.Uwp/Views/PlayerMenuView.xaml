@@ -5,6 +5,7 @@
     xmlns:local="using:Fooxboy.MusicX.Uwp.Views"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:controls="using:Microsoft.Toolkit.Uwp.UI.Controls"
     mc:Ignorable="d"
     Background="{ThemeResource SystemControlAcrylicWindowBrush}"
     MinWidth="220" 
@@ -22,7 +23,13 @@
                 <RowDefinition MinHeight="30" Height="*"/>
                 <RowDefinition MinHeight="30" Height="*"/>
             </Grid.RowDefinitions>
-            <Image  Source="/Assets/Images/cover.jpg" Grid.Row="0" Stretch="Fill" Width="200"  Height="200" Margin="5"/>
+            <Grid Grid.Row="0" Margin="5">
+                <controls:DropShadowPanel Width="200"  Height="200" x:Name="AlbumCoverShadow" ShadowOpacity="1" OffsetY="0" BlurRadius="40" Opacity="0.5">
+                    <Image  Source="/Assets/Images/cover.jpg" Stretch="Fill" Width="200"  Height="200" />
+                </controls:DropShadowPanel>
+                <Image  Source="/Assets/Images/cover.jpg" Stretch="Fill" Width="200"  Height="200" />
+
+            </Grid>
             <TextBlock Grid.Row="1" Text="{x:Bind Path=PlayerViewModel.CurrentAudio.Title, Mode=TwoWay}" Margin="0,0,5,0" FontSize="23" HorizontalAlignment="Center" VerticalAlignment="Center"/>
             <TextBlock Grid.Row="2" Text="{x:Bind Path=PlayerViewModel.CurrentAudio.Artist, Mode=TwoWay}" FontSize="15" HorizontalAlignment="Center" VerticalAlignment="Center"/>
             <StackPanel Grid.Row="4" Orientation="Horizontal" HorizontalAlignment="Center" BorderThickness="0">
