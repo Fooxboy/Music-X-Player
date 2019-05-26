@@ -22,6 +22,7 @@
                 <RowDefinition MinHeight="15" Height="0.4*"/>
                 <RowDefinition MinHeight="30" Height="*"/>
                 <RowDefinition MinHeight="30" Height="*"/>
+                <RowDefinition MinHeight="30" Height="*"/>
             </Grid.RowDefinitions>
             <Grid Grid.Row="0" Margin="5">
                 <controls:DropShadowPanel Width="200"  Height="200" x:Name="AlbumCoverShadow" ShadowOpacity="1" OffsetY="0" BlurRadius="40" Opacity="0.5">
@@ -33,12 +34,17 @@
             <TextBlock Grid.Row="1" Text="{x:Bind Path=PlayerViewModel.CurrentAudio.Title, Mode=TwoWay}" Margin="0,0,5,0" FontSize="23" HorizontalAlignment="Center" VerticalAlignment="Center"/>
             <TextBlock Grid.Row="2" Text="{x:Bind Path=PlayerViewModel.CurrentAudio.Artist, Mode=TwoWay}" FontSize="15" HorizontalAlignment="Center" VerticalAlignment="Center"/>
             <StackPanel Grid.Row="4" Orientation="Horizontal" HorizontalAlignment="Center" BorderThickness="0">
-                <Button Padding="0" BorderThickness="0" Command="{x:Bind PlayerViewModel.SwitchPrevCommand}" FontFamily="Segoe MDL2 Assets" FontSize="20" Content="&#xE892;" Width="30" Height="30" Margin="0,0,35,0">
+                <Button Padding="0" BorderThickness="0" Command="{x:Bind PlayerViewModel.SwitchNextCommand}" FontSize="20" FontFamily="Segoe MDL2 Assets" Content="&#xE149;" Width="30" Height="30" Margin="0,0,10,0">
                     <Button.Background>
                         <SolidColorBrush Opacity="0"/>
                     </Button.Background>
                 </Button>
-                <Button Padding="0" Command="{x:Bind PlayerViewModel.PlayPauseCommand}" BorderThickness="0"  FontFamily="HoloLens MDL2 Assets" FontSize="20"  Width="37" Height="37" Margin="0,0,35,0" >
+                <Button Padding="0" BorderThickness="0" Command="{x:Bind PlayerViewModel.SwitchPrevCommand}" FontFamily="Segoe MDL2 Assets" FontSize="20" Content="&#xE892;" Width="30" Height="30" Margin="0,0,10,0">
+                    <Button.Background>
+                        <SolidColorBrush Opacity="0"/>
+                    </Button.Background>
+                </Button>
+                <Button Padding="0" Command="{x:Bind PlayerViewModel.PlayPauseCommand}" BorderThickness="0"  FontFamily="HoloLens MDL2 Assets" FontSize="20"  Width="37" Height="37" Margin="0,0,10,0" >
                     <Button.Background>
                         <SolidColorBrush Opacity="0"/>
                     </Button.Background>
@@ -51,12 +57,23 @@
                         
                     </Button.Content>
                 </Button>
-                <Button Padding="0" BorderThickness="0" Command="{x:Bind PlayerViewModel.SwitchNextCommand}" FontSize="20" FontFamily="Segoe MDL2 Assets" Content="&#xE893;" Width="30" Height="30">
+                <Button Padding="0" BorderThickness="0" Command="{x:Bind PlayerViewModel.SwitchNextCommand}" FontSize="20" FontFamily="Segoe MDL2 Assets" Content="&#xE893;" Width="30" Height="30" Margin="0,0,10,0" >
                     <Button.Background>
                         <SolidColorBrush Opacity="0"/>
                     </Button.Background>
                 </Button>
-            </StackPanel>
+                <Button Padding="0" BorderThickness="0" Command="{x:Bind PlayerViewModel.SwitchNextCommand}" FontSize="20" FontFamily="Segoe MDL2 Assets" Content="&#xE14B;" Width="30" Height="30">
+                    <Button.Background>
+                        <SolidColorBrush Opacity="0"/>
+                    </Button.Background>
+                </Button>
+            </StackPanel >
+            <StackPanel Grid.Row="5" Orientation="Horizontal" HorizontalAlignment="Center">
+
+                <TextBlock Padding="0,5,5,5" Margin="0,0,10,0" FontSize="20" FontFamily="Segoe MDL2 Assets" Text="&#xE15D;" Width="30" Height="30"/>
+                <Slider Value="40" Height="30" Width="160"/>
+                
+            </StackPanel >
             <Slider Grid.Row="3" Value="{x:Bind PlayerViewModel.PositionSeconds, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Maximum="{x:Bind PlayerViewModel.DurationSeconds, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"   Height="30" Width="200" HorizontalAlignment="Center" />
         </Grid>
         <Grid Grid.Row="1">
@@ -64,22 +81,42 @@
                 <RowDefinition MinHeight="140" Height="*"/>
                 <RowDefinition Height="auto"/>
             </Grid.RowDefinitions>
-            <StackPanel Grid.Row="0" Padding="0,15,0,0" Orientation="Vertical" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" BorderThickness="0">
-                <Button FontSize="20" Content="Моя музыка" HorizontalAlignment="Stretch" Height="50" Margin="0,0,0,0">
-                    <Button.Background>
-                        <SolidColorBrush Opacity="0"/>
-                    </Button.Background>
-                </Button>
-                <Button FontSize="20" Content="Чужая музыка" HorizontalAlignment="Stretch" Height="50">
+            <StackPanel Grid.Row="0" Padding="0,10,0,0" Orientation="Vertical" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" BorderThickness="0">
+                
+                <Button FontSize="16" HorizontalContentAlignment="Left" HorizontalAlignment="Stretch" Height="40" Padding="0" BorderThickness="0">
                 <Button.Background>
                     <SolidColorBrush Opacity="0"/>
                 </Button.Background>
+                    <Button.Content>
+                        <StackPanel Orientation="Horizontal">
+                            <Rectangle Fill="#0078d7" Height="30" Width="5"/>
+                            <TextBlock Padding="0,5,0,5" Margin="12,0,5,0" FontSize="20" FontFamily="Segoe MDL2 Assets" Text="&#xE10F;" Width="30" Height="30"/>
+                            <TextBlock Padding="0,5,5,5" Text="Главная"/>
+                        </StackPanel>
+                    </Button.Content>
+                </Button>
+                <Button FontSize="16" HorizontalContentAlignment="Left" HorizontalAlignment="Stretch" Height="40" Margin="0,0,0,0" BorderThickness="0">
+                    <Button.Background>
+                        <SolidColorBrush Opacity="0"/>
+                    </Button.Background>
+                    <Button.Content>
+                        <StackPanel Orientation="Horizontal">
+                            <TextBlock Padding="0,5,0,5" Margin="12,0,5,0" FontSize="20" FontFamily="Segoe MDL2 Assets" Text="&#xE11A;" Width="30" Height="30"/>
+                            <TextBlock Padding="0,5,5,5" Text="Поиск мемов"/>
+                        </StackPanel>
+                    </Button.Content>
                 </Button>
             </StackPanel>
-            <Button Grid.Row="1" FontSize="20" Content="Да" HorizontalAlignment="Stretch" Height="50" Margin="0,0,0,10" VerticalAlignment="Bottom">
+            <Button Grid.Row="1" FontSize="16" HorizontalContentAlignment="Left"  HorizontalAlignment="Stretch" Height="40" Margin="0,0,0,10" VerticalAlignment="Bottom" BorderThickness="0">
             <Button.Background>
                 <SolidColorBrush Opacity="0"/>
             </Button.Background>
+                <Button.Content>
+                    <StackPanel Orientation="Horizontal">
+                        <TextBlock Padding="0,5,0,5" Margin="12,0,5,0" FontSize="20" FontFamily="Segoe MDL2 Assets" Text="&#xE713;" Width="30" Height="30"/>
+                        <TextBlock Padding="0,5,5,5" Text="Настройки"/>
+                    </StackPanel>
+                </Button.Content>
             </Button>
         </Grid>
     </Grid>
