@@ -14,7 +14,7 @@
             <RowDefinition/>
         </Grid.RowDefinitions>
 
-        <Grid x:Name="TitleBarGrid"  Grid.Row="0"/>
+        <Grid x:Name="TitleBarGrid" Background="Transparent" Grid.Row="0"/>
         <Grid x:Name="ContentGrid" Grid.Row="1">
             <Grid.RowDefinitions>
                 <RowDefinition/>
@@ -23,7 +23,7 @@
             </Grid.RowDefinitions>
             <ScrollViewer>
                 <StackPanel>
-                    <Grid x:Name="PlaylistGrid" Grid.Row="0">
+                    <Grid x:Name="PlaylistGrid"  Grid.Row="0">
                         <Grid.RowDefinitions>
                             <RowDefinition/>
                             <RowDefinition/>

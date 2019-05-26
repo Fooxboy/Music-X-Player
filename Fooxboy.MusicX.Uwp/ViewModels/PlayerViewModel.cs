@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Fooxboy.MusicX.Uwp.Enums;
 using Fooxboy.MusicX.Uwp.Interfaces;
+using Windows.UI.Xaml;
 
 namespace Fooxboy.MusicX.Uwp.ViewModels
 {
@@ -38,6 +39,9 @@ namespace Fooxboy.MusicX.Uwp.ViewModels
                         StaticContent.AudioService.Play();
                     else
                         StaticContent.AudioService.Pause();
+
+                    Changed("VisibilityTextPlay");
+                    Changed("VisibilityTextPause");
                 }
                 );
 
@@ -72,7 +76,10 @@ namespace Fooxboy.MusicX.Uwp.ViewModels
         public TimeSpan Position => StaticContent.AudioService.Position;
         public double PositionSeconds
         {
-            get { return StaticContent.AudioService.Position.TotalSeconds; }
+            get
+            {
+                return StaticContent.AudioService.Position.TotalSeconds; 
+            }
             set
             {
                 if (StaticContent.AudioService.Position.TotalSeconds == value)
@@ -84,7 +91,17 @@ namespace Fooxboy.MusicX.Uwp.ViewModels
 
         public TimeSpan Duration => StaticContent.AudioService.Duration;
 
-        public double DurationSeconds => StaticContent.AudioService.Duration.TotalSeconds;
+        public double DurationSeconds
+        {
+            get
+            {
+                return StaticContent.AudioService.Duration.TotalSeconds;
+            }
+            set
+            {
+
+            }
+        }
 
         public double Volume
         {
@@ -111,26 +128,57 @@ namespace Fooxboy.MusicX.Uwp.ViewModels
             }
         }
 
+        public Visibility VisibilityTextPlay
+        {
+            get
+            {
+                return !IsPlaying ? Visibility.Visible : Visibility.Collapsed;
+            }
+            set
+            {
+
+            }
+        }
+
+        public Visibility VisibilityTextPause
+        {
+            get
+            {
+                return IsPlaying ? Visibility.Visible : Visibility.Collapsed;
+            }
+            set
+            {
+
+            }
+        }
+
         private void AudioServicePlayStateChanged(object sender, EventArgs e)
         {
 
             Changed("IsPlaying");
-
+            Changed("TextPlayButton");
+            Changed("VisibilityTextPlay");
+            Changed("VisibilityTextPause");
             //Обновление плиточки
             //TileHelper.UpdateIsPlaying(IsPlaying);
         }
 
         private  void AudioServiceCurrentAudioChanged(object sender, EventArgs e)
         {
-
             Changed("CurrentAudio");
+            Changed("Duration");
+            Changed("DurationSeconds");
+            Changed("VisibilityTextPlay");
+            Changed("VisibilityTextPause");
+
+
             //TODO сделать обновление обложки
         }
 
         private void AudioServicePositionChanged(object sender, TimeSpan position)
         {
-            Changed("Position");
-            Changed("PositionSeconds");
+            Changed(nameof(Position));
+            Changed(nameof(PositionSeconds));
             Changed("Duration");
             Changed("DurationSeconds");
         }
