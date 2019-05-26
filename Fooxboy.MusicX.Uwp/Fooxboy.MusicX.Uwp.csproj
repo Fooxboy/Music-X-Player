@@ -145,6 +145,9 @@
     <Compile Include="Views\PlayerMenuView.xaml.cs">
       <DependentUpon>PlayerMenuView.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Views\VKAuthView.xaml.cs">
+      <DependentUpon>VKAuthView.xaml</DependentUpon>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <AppxManifest Include="Package.appxmanifest">
@@ -180,6 +183,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\PlayerMenuView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\VKAuthView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
