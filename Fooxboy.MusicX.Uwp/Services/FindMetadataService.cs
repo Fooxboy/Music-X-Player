@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -7,6 +8,8 @@ using Fooxboy.MusicX.Uwp.Interfaces;
 using Fooxboy.MusicX.Uwp.Models;
 using TagLib;
 using Windows.Storage;
+using Windows.UI.Xaml.Media.Imaging;
+using static System.Net.Mime.MediaTypeNames;
 
 namespace Fooxboy.MusicX.Uwp.Services
 {
@@ -15,11 +18,11 @@ namespace Fooxboy.MusicX.Uwp.Services
 
         public async static Task<AudioFile> ConvertToAudioFile(StorageFile storageFile)
         {
-            File file;
+            TagLib.File file;
             StorageFile a;
             try
             {
-                 file = File.Create(storageFile.Path);
+                 file = TagLib.File.Create(storageFile.Path);
                 a = storageFile;
             }
             catch
@@ -56,7 +59,16 @@ namespace Fooxboy.MusicX.Uwp.Services
             audio.InternalId = 0;
             audio.OwnerId = 0;
             audio.PlaylistId = 0;
-            audio.Cover = "/Assets/Images/placeholder.png";
+            if (file.Tag.Pictures.Any()) {
+
+                System.IO.File.WriteAllBytes($"/Assets/temp/{file.Tag.Title}.jpg", file.Tag.Pictures[0].Data.Data);
+                audio.Cover = $"/Assets/temp/{file.Tag.Title}{file.Properties.Duration.TotalSeconds}.jpg";
+            }
+            else
+            {
+                audio.Cover = "/Assets/Images/placeholder.png";
+            }
+            
             audio.Source = new Uri(a.Path).ToString();
 
 
@@ -65,11 +77,11 @@ namespace Fooxboy.MusicX.Uwp.Services
 
         public async static Task<IAudio> Convert(StorageFile storageFile)
         {
-            File file;
+            TagLib.File file;
             StorageFile a;
             try
             {
-                file = File.Create(storageFile.Path);
+                file = TagLib.File.Create(storageFile.Path);
                 a = storageFile;
             }
             catch
