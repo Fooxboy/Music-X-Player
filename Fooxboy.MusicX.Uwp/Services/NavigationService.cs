@@ -44,7 +44,7 @@ namespace Fooxboy.MusicX.Uwp.Services
         public void Back()
         {
 
-            if (this.RootFrame.CanGoBack) this.RootFrame.GoBack();
+            if (Pages.Count >= 2) this.RootFrame.GoBack();
             this.Pages.Pop();
             this.UpdateButtonBack();
         }
@@ -55,7 +55,7 @@ namespace Fooxboy.MusicX.Uwp.Services
         void UpdateButtonBack()
         {
             SystemNavigationManager.GetForCurrentView().
-                AppViewBackButtonVisibility = RootFrame.CanGoBack ? AppViewBackButtonVisibility.Visible : AppViewBackButtonVisibility.Collapsed;
+                AppViewBackButtonVisibility = Pages.Count>= 2 ? AppViewBackButtonVisibility.Visible : AppViewBackButtonVisibility.Collapsed;
         }
     }
 }

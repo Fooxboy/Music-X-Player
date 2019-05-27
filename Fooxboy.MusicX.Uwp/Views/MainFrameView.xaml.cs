@@ -25,11 +25,11 @@ namespace Fooxboy.MusicX.Uwp.Views
         public MainFrameView()
         {
             this.InitializeComponent();
-
+            Window.Current.SetTitleBar(TitleBar);
             StaticContent.PlayerMenuFrame = PlayerMenuFrame;
             StaticContent.NavigationContentService = new Services.NavigationService() { RootFrame = ContentFrame };
             PlayerMenuFrame.Navigate(typeof(PlayerMenuView));
-            ContentFrame.Navigate(typeof(HomeView));
+            StaticContent.NavigationContentService.Go(typeof(HomeView));
 
         }
     }
