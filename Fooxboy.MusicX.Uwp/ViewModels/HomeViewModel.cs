@@ -93,6 +93,11 @@ namespace Fooxboy.MusicX.Uwp.ViewModels
             Changed("Music");
         }
 
+        public async Task<int> CountMusic()
+        {
+            return (await KnownFolders.MusicLibrary.GetFilesAsync(Windows.Storage.Search.CommonFileQuery.OrderByName)).ToList().Count;
+        }
+
         public async static Task<ObservableCollection<AudioFile>> GetFromSubfolder(StorageFolder folder)
         {
             var re = new ObservableCollection<AudioFile>();

@@ -54,6 +54,8 @@ namespace Fooxboy.MusicX.Uwp.Views
         {
             await HomeViewModel.GetPlaylistLocal();
             await HomeViewModel.GetMusicLocal();
+            int mc = await HomeViewModel.CountMusic();
+            this.MusicCount.Text = $"{mc} трека(ов)";
         }
     }
 }

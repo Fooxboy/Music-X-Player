@@ -18,7 +18,7 @@
         <Grid Grid.Row="0">
             <Grid.RowDefinitions>
                 <RowDefinition MinHeight="200" Height="5*"/>
-                <RowDefinition MinHeight="23" Height="0.5*"/>
+                <RowDefinition MinHeight="30" Height="0.5*"/>
                 <RowDefinition MinHeight="15" Height="0.4*"/>
                 <RowDefinition MinHeight="30" Height="*"/>
                 <RowDefinition MinHeight="30" Height="*"/>
@@ -31,7 +31,7 @@
                 <Image  Source="/Assets/Images/cover.jpg" Stretch="Fill" Width="190"  Height="190" />
 
             </Grid>
-            <TextBlock Grid.Row="1" Text="{x:Bind Path=PlayerViewModel.CurrentAudio.Title, Mode=TwoWay}" Margin="0,0,5,0" FontSize="23" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+            <TextBlock Grid.Row="1" Text="{x:Bind Path=PlayerViewModel.CurrentAudio.Title, Mode=TwoWay}" Margin="0,0,10,0" FontSize="22" HorizontalAlignment="Center" VerticalAlignment="Center"/>
             <TextBlock Grid.Row="2" Text="{x:Bind Path=PlayerViewModel.CurrentAudio.Artist, Mode=TwoWay}" FontSize="15" HorizontalAlignment="Center" VerticalAlignment="Center"/>
             <StackPanel Grid.Row="4" Orientation="Horizontal" HorizontalAlignment="Center" BorderThickness="0">
                 <Button Padding="0" Style="{StaticResource ButtonPlayerStyle}"  BorderThickness="0" Command="{x:Bind PlayerViewModel.SwitchNextCommand}" FontSize="20" FontFamily="Segoe MDL2 Assets" Content="&#xE149;" Width="30" Height="30" Margin="0,0,10,0">

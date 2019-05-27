@@ -10,7 +10,7 @@
     mc:Ignorable="d"
     Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
 
-    <Grid>
+    <Grid >
         <Grid.RowDefinitions>
             <RowDefinition Height="32"/>
             <RowDefinition/>
@@ -18,8 +18,8 @@
 
 
         <ScrollViewer Margin="0 0 0 0 " Grid.RowSpan="2">
-            <StackPanel Margin="0 32 0 0">
-                <Grid x:Name="PlaylistGrid"  Grid.Row="0">
+            <StackPanel Margin="0 32 0 0 " >
+                <Grid x:Name="PlaylistGrid"  Grid.Row="0" >
                     <Grid.RowDefinitions>
                         <RowDefinition/>
                         <RowDefinition/>
@@ -35,27 +35,27 @@
 
                         <ListView.ItemsPanel>
                             <ItemsPanelTemplate>
-                                <ItemsStackPanel VerticalAlignment="Stretch" />
+                                <ItemsStackPanel HorizontalAlignment="Stretch" VerticalAlignment="Stretch" />
                             </ItemsPanelTemplate>
                         </ListView.ItemsPanel>
 
                         <ListView.ItemTemplate>
                             <DataTemplate x:DataType="models:PlaylistFile">
-                                <Grid>
+                                <Grid Margin="10 0 0 0">
                                     <Grid.RowDefinitions>
                                         <RowDefinition Height="*"/>
                                         <RowDefinition Height="auto"/>
                                     </Grid.RowDefinitions>
-                                    <controls:DropShadowPanel Grid.Row="0" Margin="10 " 
+                                    <controls:DropShadowPanel Grid.Row="0" Margin="10 20 10 10" 
                                                               HorizontalAlignment="Center" 
                                                               VerticalAlignment="Center" Width="150"
                                                               Height="150" x:Name="AlbumCoverShadow" 
                                                               ShadowOpacity="1" OffsetY="0" 
-                                                              BlurRadius="35" Opacity="0.5">
+                                                              BlurRadius="30" Opacity="0.5">
                                         <Image  Source="/Assets/Images/cover.jpg" Stretch="Fill" Width="150"  Height="150" />
                                     </controls:DropShadowPanel>
-                                    <Image  Source="{x:Bind Cover}"  Margin="10" Stretch="Fill" Width="150" Grid.Row="0"  Height="150" />
-                                    <TextBlock HorizontalAlignment="Center" Margin="0 0 0 10" FontWeight="Bold" FontSize="16" Foreground="#282828"  Text="{x:Bind Name}" Grid.Row="1"/>
+                                    <Image  Source="{x:Bind Cover}"  Margin="10 20 10 10" Stretch="Fill" Width="150" Grid.Row="0"  Height="150" />
+                                    <TextBlock HorizontalAlignment="Center" Margin="0 0 0 20" FontWeight="Bold" FontSize="16" Foreground="#282828"  Text="{x:Bind Name}" Grid.Row="1"/>
                                 </Grid>
                             </DataTemplate>
 
@@ -64,23 +64,33 @@
                     <Button Content="Выбрать файл" Click="Button_Click" Grid.Row="1" Margin="20 20 0 0"/>
                 </Grid>
 
-                <Grid x:Name="MusicGrid" Margin="0 20 0 0" Grid.Row="1">
+                <Grid x:Name="MusicGrid" Margin="0 20 0 0" Grid.Row="1" HorizontalAlignment="Stretch">
                     <Grid.RowDefinitions>
                         <RowDefinition/>
                         <RowDefinition/>
                     </Grid.RowDefinitions>
-                    <TextBlock Margin="30 0 0 0" FontFamily="Calibri" Text="Ваша Музыка" Grid.Row="0" FontWeight="ExtraBold" FontSize="42"/>
-                    <ListView Grid.Row="1"
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="auto"/>
+                        <ColumnDefinition  Width="auto"/>
+                    </Grid.ColumnDefinitions>
+                    <StackPanel Orientation="Horizontal">
+                    <TextBlock Margin="30,0,0,0" FontFamily="Calibri" Text="Ваша Музыка" Grid.Row="0" FontWeight="ExtraBold" FontSize="42"/>
+                    <TextBlock x:Name="MusicCount" HorizontalAlignment="Left" VerticalAlignment="Bottom" Text="0 треков" Grid.Row="0" Height="19" Margin="10,0,0,7"/>
+                    </StackPanel>
+                    <ListView Grid.Row="1" HorizontalAlignment="Stretch"
                               ItemsSource="{x:Bind HomeViewModel.Music, Mode=TwoWay}"
                               x:Name="MusicListView">
                         <ListView.ItemsPanel>
                             <ItemsPanelTemplate>
-                                <ItemsStackPanel VerticalAlignment="Stretch" />
+                                <ItemsStackPanel HorizontalAlignment="Stretch" VerticalAlignment="Stretch" />
                             </ItemsPanelTemplate>
                         </ListView.ItemsPanel>
+                        
                         <ListView.ItemTemplate>
+                            
                             <DataTemplate x:DataType="models:AudioFile">
-                                <Grid Margin="20 0 0 0">
+                                <Grid Margin="20 0 0 0" HorizontalAlignment="Stretch">
                                     <Grid.ColumnDefinitions>
                                         <ColumnDefinition Width="*"/>
                                         <ColumnDefinition Width="auto"/>
@@ -95,11 +105,13 @@
                                         <Image  Source="/Assets/Images/cover.jpg" Stretch="Fill" Width="30"  Height="30" />
                                     </controls:DropShadowPanel>
                                     <Image  Source="{x:Bind Cover}"  Margin="1 3 1 1" Stretch="Fill" Width="30" Grid.Column="0"  Height="30" />
-                                    <StackPanel HorizontalAlignment="Center"  Margin="10 0 0 0"  Grid.Column="1">
+                                    <StackPanel   Margin="10 0 0 0"  Grid.Column="1">
                                         <TextBlock FontSize="15" Foreground="#282828"  Text="{x:Bind Title}" />
-                                        <TextBlock FontSize="15" Foreground="#282828" Text="{x:Bind DurationMinutes}"/>
+                                        <TextBlock  FontSize="15" Foreground="#9c9c9c" Text="{x:Bind Artist}"/>
+                                       
                                     </StackPanel>
-                                    <TextBlock HorizontalAlignment="Center"  Margin="10 0 0 0"  Grid.Column="2" FontSize="15" Foreground="#282828" Text="{x:Bind Artist}"/>
+                                    <TextBlock HorizontalAlignment="Right" VerticalAlignment="Center" FontSize="15" Grid.Column="3" Foreground="#282828" Text="{x:Bind DurationMinutes}"/>
+
                                 </Grid>
                             </DataTemplate>
 
