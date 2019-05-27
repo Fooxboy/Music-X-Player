@@ -53,15 +53,19 @@
                                         <RowDefinition Height="*"/>
                                         <RowDefinition Height="auto"/>
                                     </Grid.RowDefinitions>
-                                    <controls:DropShadowPanel Grid.Row="0" Margin="10 20 10 20" 
-                                                              HorizontalAlignment="Center" 
-                                                              VerticalAlignment="Center" Width="150"
-                                                              Height="150" x:Name="AlbumCoverShadow" 
-                                                              ShadowOpacity="1" OffsetY="0" 
-                                                              BlurRadius="30" Opacity="0.5">
-                                        <Image  Source="{x:Bind Cover}" Stretch="Fill" Width="150"  Height="150" />
+
+                                    <controls:DropShadowPanel Width="150"  Height="150" x:Name="AlbumCoverShadow2" ShadowOpacity="1" OffsetY="0" BlurRadius="40" Opacity="0.5">
+                                        <Border Width="150" Height="150" Background="Black"/>
                                     </controls:DropShadowPanel>
-                                    <Image  Source="{x:Bind Cover}"  Margin="10 20 10 20" Stretch="Fill" Width="150" Grid.Row="0"  Height="150" />
+                                    <Image  Stretch="Fill" Margin="10 20 10 20" Grid.Row="0"  Width="150"  Height="150">
+                                        <Image.Source>
+                                            <BitmapImage UriSource="{x:Bind Cover, Mode=TwoWay}"
+                                                     AutoPlay="True"
+                                                     DecodePixelHeight="150"
+                                                     DecodePixelWidth="150" />
+                                        </Image.Source>
+                                    </Image>
+
                                     <TextBlock HorizontalAlignment="Center" Margin="0 0 0 20" FontWeight="Bold" FontSize="16" Foreground="#282828"  Text="{x:Bind Name}" Grid.Row="1"/>
                                 </Grid>
                             </DataTemplate>
@@ -114,12 +118,16 @@
                                                               ShadowOpacity="1" OffsetY="0" 
                                                               BlurRadius="3.5" Opacity="0.5"
                                                               >
-                                        <Image  Source="/Assets/Images/placeholder.png"
-                                                Stretch="Fill"
-                                                Width="30"
-                                                Height="30"  />
+                                        <Border Width="30" Height="30" Background="Black"/>
                                     </controls:DropShadowPanel>
-                                    <Image HorizontalAlignment="Left" Source="{x:Bind Cover}"  Margin="1 3 1 1" Stretch="Fill" Width="30" Grid.Column="0"  Height="30" />
+                                    <Image HorizontalAlignment="Left"  Margin="1 3 1 1" Stretch="Fill" Width="30" Grid.Column="0"  Height="30">
+                                        <Image.Source>
+                                            <BitmapImage UriSource="/Assets/Images/placeholder.png"
+                                                     DecodePixelHeight="30"
+                                                     DecodePixelWidth="30"
+                                                     />
+                                        </Image.Source>
+                                    </Image>
                                     <StackPanel HorizontalAlignment="Left"  Margin="10 0 0 0"  Grid.Column="1">
                                         <TextBlock FontSize="15" Foreground="#282828"  Text="{x:Bind Title}" />
                                         <TextBlock  FontSize="15" Foreground="#9c9c9c" Text="{x:Bind Artist}"/>

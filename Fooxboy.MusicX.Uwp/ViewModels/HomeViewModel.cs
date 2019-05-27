@@ -178,7 +178,7 @@ namespace Fooxboy.MusicX.Uwp.ViewModels
                     var playlistNowPlayA = new PlaylistFile()
                     {
                         Artist = "Music X",
-                        Cover = "/Assets/Images/now.png",
+                        Cover = "ms-appx:///Assets/Images/now.png",
                         Id = 1000,
                         Name = "Сейчас играет",
                         Tracks = new List<AudioFile>()

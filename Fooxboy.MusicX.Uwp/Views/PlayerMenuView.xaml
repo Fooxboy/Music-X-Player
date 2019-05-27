@@ -27,9 +27,15 @@
             
             <Grid Grid.Row="0" Margin="10 20 10 0">
                 <controls:DropShadowPanel Width="190"  Height="190" x:Name="AlbumCoverShadow" ShadowOpacity="1" OffsetY="0" BlurRadius="40" Opacity="0.5">
-                    <Image  Source="/Assets/Images/placeholder.png" Stretch="Fill" Width="200"  Height="200" />
+                    <Border Width="200" Height="200" Background="Black"/>
                 </controls:DropShadowPanel>
-                <Image  Source="/Assets/Images/placeholder.png" Stretch="Fill" Width="190"  Height="190" />
+                <Image  Stretch="Fill"  Width="200"  Height="200">
+                    <Image.Source>
+                        <BitmapImage UriSource="/Assets/Images/placeholder.png"
+                                                     DecodePixelHeight="200"
+                                                     DecodePixelWidth="200" />
+                    </Image.Source>
+                </Image>
             </Grid>
             
             <TextBlock Grid.Row="1" 
@@ -243,7 +249,13 @@
                                 <Rectangle Visibility="Collapsed" Grid.Column="0" Fill="#0078d7" Height="30" Width="5"/>
                                 <Ellipse  Grid.Column="1" Width="25" Height="25">
                                     <Ellipse.Fill>
-                                        <ImageBrush ImageSource="/Assets/Square44x44Logo.scale-100.png"/>
+                                        <ImageBrush>
+                                            <ImageBrush.ImageSource>
+                                                <BitmapImage UriSource="/Assets/Square44x44Logo.scale-100.png"
+                                                     DecodePixelHeight="25"
+                                                     DecodePixelWidth="25" />
+                                            </ImageBrush.ImageSource>
+                                        </ImageBrush>
                                     </Ellipse.Fill>
                                 </Ellipse>
                                 <TextBlock Grid.Column="2" Padding="5" Text="Не авторизован"/>
