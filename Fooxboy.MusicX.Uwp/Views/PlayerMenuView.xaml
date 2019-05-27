@@ -74,7 +74,7 @@
                 <Slider Maximum="100" Value="{x:Bind PlayerViewModel.Volume}" Height="30" Width="160" />
                 
             </StackPanel >
-            <Slider Grid.Row="3" Value="{x:Bind PlayerViewModel.PositionSeconds, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Maximum="{x:Bind PlayerViewModel.DurationSeconds, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"   Height="30" Width="200" HorizontalAlignment="Center" />
+            <Slider Style="{StaticResource SliderPlayerStyle}" Grid.Row="3" Value="{x:Bind PlayerViewModel.PositionSeconds, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Maximum="{x:Bind PlayerViewModel.DurationSeconds, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"   Height="30" Width="200" HorizontalAlignment="Center" />
         </Grid>
         <Grid Grid.Row="1">
             <Grid.RowDefinitions>
