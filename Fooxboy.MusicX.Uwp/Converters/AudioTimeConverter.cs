@@ -13,7 +13,9 @@ namespace Fooxboy.MusicX.Uwp.Converters
         public static string Convert(double value)
         {
             TimeSpan t = TimeSpan.FromSeconds(value);
-            return $"{t.Minutes}:{t.Seconds}";
+            if (t.Hours > 0)
+                return t.ToString("h\\:mm\\:ss");
+            return t.ToString("m\\:ss");
         }
     }
 }

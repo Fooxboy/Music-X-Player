@@ -1,0 +1,121 @@
+﻿<Page
+    x:Class="Fooxboy.MusicX.Uwp.Views.PlaylistView"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:Fooxboy.MusicX.Uwp.Views"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:controls="using:Microsoft.Toolkit.Uwp.UI.Controls"
+    xmlns:models="using:Fooxboy.MusicX.Uwp.Models"
+    mc:Ignorable="d"
+    Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition MaxHeight="200"/>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
+
+        <Grid Grid.Row="0">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition MaxWidth="200"/>
+                <ColumnDefinition/>
+            </Grid.ColumnDefinitions>
+
+            <controls:DropShadowPanel Grid.Row="0" Margin="0,25,0,0" 
+                                                              HorizontalAlignment="Center" 
+                                                              VerticalAlignment="Top" Width="150"
+                                                              Height="150" x:Name="AlbumCoverShadow" 
+                                                              ShadowOpacity="1" OffsetY="0" 
+                                                              BlurRadius="20" Opacity="0.5">
+                <Image  Source="/Assets/Images/cover.jpg" Stretch="Fill" Width="150"  Height="150" />
+            </controls:DropShadowPanel>
+            <Image  Source="/Assets/Images/cover.jpg"  Margin="25" Stretch="Fill" Width="150" Grid.Row="0"  Height="150" />
+            <Grid Grid.Column="1">
+                <StackPanel VerticalAlignment="Center" Orientation="Horizontal" Margin="20 -10 20 20">
+                    <TextBlock FontFamily="Calibri" FontSize="42" FontWeight="Bold" Text="{x:Bind PlaylistViewModel.PlaylistName, Mode=TwoWay}"/>
+                    <TextBlock FontWeight="Bold" Text="{x:Bind PlaylistViewModel.PLTrackCount, Mode=TwoWay}" Margin="10 25 0 0"/>
+                </StackPanel>
+                <StackPanel VerticalAlignment="Center" Orientation="Horizontal" Margin="20 60 20 20">
+                    <Button Padding="0"
+                        BorderThickness="0"
+                        FontSize="20" FontFamily="Segoe MDL2 Assets"
+                        Content="&#xE14B;"
+                        Width="30" 
+                        Height="30"
+                        Grid.Row="1">
+                        <Button.Background>
+                            <SolidColorBrush Opacity="0"/>
+                        </Button.Background>
+                    </Button>
+                    <Button Padding="0"
+                        BorderThickness="0"
+                        FontSize="20" FontFamily="Segoe MDL2 Assets"
+                        Content="&#xE104;"
+                        Width="30" 
+                        Height="30"
+                        Grid.Row="1">
+                        <Button.Background>
+                            <SolidColorBrush Opacity="0"/>
+                        </Button.Background>
+                    </Button>
+                </StackPanel>
+            </Grid>
+            
+        </Grid>
+
+        <ScrollViewer Grid.Row="1">
+            <Grid x:Name="MusicGrid" Margin="0 20 0 0" Grid.Row="1" HorizontalAlignment="Stretch">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="auto"/>
+                    <ColumnDefinition  Width="auto"/>
+                </Grid.ColumnDefinitions>
+                <ListView ItemContainerStyle="{StaticResource ListViewItemContainerStyle}" Style="{StaticResource ListViewStyle}" HorizontalAlignment="Stretch"
+                              ItemsSource="{x:Bind PlaylistViewModel.Music, Mode=TwoWay}"
+                              x:Name="MusicListView">
+                    <ListView.ItemsPanel >
+                        <ItemsPanelTemplate >
+                            <ItemsStackPanel HorizontalAlignment="Stretch" VerticalAlignment="Stretch" />
+                        </ItemsPanelTemplate>
+                    </ListView.ItemsPanel>
+
+                    <ListView.ItemTemplate >
+
+                        <DataTemplate x:DataType="models:AudioFile">
+                            <Grid  Margin="20 0 0 0" >
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition MaxWidth="40"/>
+                                    <ColumnDefinition/>
+                                    <ColumnDefinition/>
+                                </Grid.ColumnDefinitions>
+                                <controls:DropShadowPanel Grid.Column="0" Margin="1 3 1 1" 
+                                                              HorizontalAlignment="Left"
+                                                              VerticalAlignment="Center" Width="30"
+                                                              Height="30" x:Name="TrackCoverShadow" 
+                                                              ShadowOpacity="1" OffsetY="0" 
+                                                              BlurRadius="3.5" Opacity="0.5"
+                                                              >
+                                    <Image  Source="/Assets/Images/cover.jpg"
+                                                Stretch="Fill"
+                                                Width="30"
+                                                Height="30"  />
+                                </controls:DropShadowPanel>
+                                <Image HorizontalAlignment="Left" Source="{x:Bind Cover}"  Margin="1 3 1 1" Stretch="Fill" Width="30" Grid.Column="0"  Height="30" />
+                                <StackPanel HorizontalAlignment="Left"  Margin="10 0 0 0"  Grid.Column="1">
+                                    <TextBlock FontSize="15" Foreground="#282828"  Text="{x:Bind Title}" />
+                                    <TextBlock  FontSize="15" Foreground="#9c9c9c" Text="{x:Bind Artist}"/>
+
+                                </StackPanel>
+                                <TextBlock HorizontalAlignment="Right" VerticalAlignment="Center" FontSize="15" Grid.Column="3" Foreground="#282828" Text="{x:Bind DurationMinutes}"/>
+
+                            </Grid>
+                        </DataTemplate>
+
+                    </ListView.ItemTemplate>
+                </ListView>
+            </Grid>
+        </ScrollViewer>
+        
+    </Grid>
+</Page>
