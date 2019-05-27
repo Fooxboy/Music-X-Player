@@ -83,11 +83,30 @@ namespace Fooxboy.MusicX.Uwp.ViewModels
             var music = new ObservableCollection<AudioFile>();
             foreach (var f in files)
             {
-                var track = await Convert(f);
-                music.Add(track);
+                if (f.FileType == ".mp3" || f.FileType == ".wav")
+                {
+                    var track = await Convert(f);
+                    music.Add(track);
+                }
             }
             this.music = music;
             Changed("Music");
+        }
+
+        public async static Task<ObservableCollection<AudioFile>> GetFromSubfolder(StorageFolder folder)
+        {
+            var re = new ObservableCollection<AudioFile>();
+            var files = (await folder.GetFilesAsync()).ToList();
+            foreach(var f in files)
+            {
+               if(f.FileType == ".mp3" || f.FileType == ".wav"){
+                    var track = await Convert(f);
+                    re.Add(track);
+               }
+            }
+            var subs = (await folder.GetFoldersAsync()).ToList();
+            if (subs.Any()) foreach (var s in subs) foreach(var t in (await GetFromSubfolder(s)).ToList()) re.Add(t);
+            return re;
         }
 
         public async static Task<AudioFile> Convert(StorageFile fileA)
