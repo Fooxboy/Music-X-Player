@@ -92,7 +92,10 @@
                                                               Height="30" x:Name="TrackCoverShadow" 
                                                               ShadowOpacity="1" OffsetY="0" 
                                                               BlurRadius="3.5" Opacity="0.5">
-                                        <Image  Source="/Assets/Images/cover.jpg" Stretch="Fill" Width="30"  Height="30" />
+                                        <Image  Source="/Assets/Images/cover.jpg"
+                                                Stretch="Fill"
+                                                Width="30"
+                                                Height="30" />
                                     </controls:DropShadowPanel>
                                     <Image  Source="{x:Bind Cover}"  Margin="1 3 1 1" Stretch="Fill" Width="30" Grid.Column="0"  Height="30" />
                                     <StackPanel HorizontalAlignment="Center"  Margin="10 0 0 0"  Grid.Column="1">
