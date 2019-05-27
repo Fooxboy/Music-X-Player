@@ -158,7 +158,8 @@
                                 HorizontalContentAlignment="Left"
                                 HorizontalAlignment="Stretch"
                                 Height="40" Padding="0" 
-                                BorderThickness="0">
+                                BorderThickness="0"
+                                Command="{x:Bind PlayerMenuViewModel.NavigateToMain}">
                             <Button.Background>
                                 <SolidColorBrush Opacity="0"/>
                             </Button.Background>
@@ -169,7 +170,7 @@
                                         <ColumnDefinition Width="30"/>
                                         <ColumnDefinition Width="auto"/>
                                     </Grid.ColumnDefinitions>
-                                    <Rectangle Grid.Column="0" Fill="#0078d7" Height="30" Width="5"/>
+                                    <Rectangle Visibility="{x:Bind PlayerMenuViewModel.MainSelector, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" Grid.Column="0" Fill="#0078d7" Height="30" Width="5"/>
                                     <TextBlock Grid.Column="1" Padding="5"
                                                FontSize="20" 
                                                FontFamily="Segoe MDL2 Assets" Text="&#xE10F;"
@@ -182,7 +183,8 @@
                                 HorizontalContentAlignment="Left"
                                 HorizontalAlignment="Stretch" 
                                 Height="40" Margin="0,0,0,0"
-                                BorderThickness="0">
+                                BorderThickness="0"
+                                Command="{x:Bind PlayerMenuViewModel.NavigateToSearch}">
                             <Button.Background>
                                 <SolidColorBrush Opacity="0"/>
                             </Button.Background>
@@ -193,6 +195,7 @@
                                         <ColumnDefinition Width="30"/>
                                         <ColumnDefinition Width="auto"/>
                                     </Grid.ColumnDefinitions>
+                                    <Rectangle Visibility="{x:Bind PlayerMenuViewModel.SearchSelector, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" Grid.Column="0" Fill="#0078d7" Height="30" Width="5"/>
                                     <TextBlock Grid.Column="1" 
                                                Padding="5" FontSize="20"
                                                FontFamily="Segoe MDL2 Assets"
@@ -219,6 +222,7 @@
                                     <ColumnDefinition Width="30"/>
                                     <ColumnDefinition Width="auto"/>
                                 </Grid.ColumnDefinitions>
+                                
                                 <TextBlock Grid.Column="1" 
                                            Padding="5" FontSize="20"
                                            FontFamily="Segoe MDL2 Assets"
@@ -242,6 +246,7 @@
                                     <ColumnDefinition Width="30"/>
                                     <ColumnDefinition Width="auto"/>
                                 </Grid.ColumnDefinitions>
+                                <Rectangle Visibility="Collapsed" Grid.Column="0" Fill="#0078d7" Height="30" Width="5"/>
                                 <Ellipse  Grid.Column="1" Width="25" Height="25">
                                     <Ellipse.Fill>
                                         <ImageBrush>
@@ -264,7 +269,9 @@
                              Height="40"
                              Margin="0,0,0,10" 
                              VerticalAlignment="Bottom"
-                             BorderThickness="0">
+                             BorderThickness="0"
+                             Command="{x:Bind PlayerMenuViewModel.NavigateToSettings}"
+                             >
                         <Button.Background>
                             <SolidColorBrush Opacity="0"/>
                         </Button.Background>
@@ -275,7 +282,7 @@
                                     <ColumnDefinition Width="30"/>
                                     <ColumnDefinition Width="auto"/>
                                 </Grid.ColumnDefinitions>
-                                
+                                <Rectangle Visibility="{x:Bind PlayerMenuViewModel.SettingsSelector, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" Grid.Column="0" Fill="#0078d7" Height="30" Width="5"/>
                                 <TextBlock Grid.Column="1"
                                            Padding="5"
                                            FontSize="20"
@@ -285,7 +292,7 @@
                                 
                                 <TextBlock Grid.Column="2"
                                            Padding="5" 
-                                           Text="Настройки"/>
+                                           Text="Настройки" Height="32" VerticalAlignment="Top"/>
                             </Grid>
                         </Button.Content>
                     </Button>
