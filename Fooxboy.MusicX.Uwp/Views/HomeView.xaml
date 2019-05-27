@@ -31,7 +31,10 @@
                               ScrollViewer.HorizontalScrollBarVisibility="Disabled"
                               ScrollViewer.HorizontalScrollMode="Enabled"                  
                               ScrollViewer.VerticalScrollMode="Disabled"
-                              x:Name="PlaylistListView">
+                              x:Name="PlaylistListView"
+                              SelectedItem="{x:Bind HomeViewModel.SelectedPlaylistFile, Mode=TwoWay}"
+                              ItemClick="{x:Bind HomeViewModel.PlaylistListView_Click}"
+                              Tapped="{x:Bind HomeViewModel.PlaylistListView_Tapped}">
 
                         <ListView.ItemsPanel>
                             <ItemsPanelTemplate>
@@ -44,12 +47,12 @@
 
                         <ListView.ItemTemplate>
                             <DataTemplate x:DataType="models:PlaylistFile">
-                                <Grid Margin="10 0 0 0">
+                                <Grid Margin="20 0">
                                     <Grid.RowDefinitions>
                                         <RowDefinition Height="*"/>
                                         <RowDefinition Height="auto"/>
                                     </Grid.RowDefinitions>
-                                    <controls:DropShadowPanel Grid.Row="0" Margin="10 20 10 10" 
+                                    <controls:DropShadowPanel Grid.Row="0" Margin="10 20 10 20" 
                                                               HorizontalAlignment="Center" 
                                                               VerticalAlignment="Center" Width="150"
                                                               Height="150" x:Name="AlbumCoverShadow" 
@@ -57,7 +60,7 @@
                                                               BlurRadius="30" Opacity="0.5">
                                         <Image  Source="/Assets/Images/cover.jpg" Stretch="Fill" Width="150"  Height="150" />
                                     </controls:DropShadowPanel>
-                                    <Image  Source="{x:Bind Cover}"  Margin="10 20 10 10" Stretch="Fill" Width="150" Grid.Row="0"  Height="150" />
+                                    <Image  Source="{x:Bind Cover}"  Margin="10 20 10 20" Stretch="Fill" Width="150" Grid.Row="0"  Height="150" />
                                     <TextBlock HorizontalAlignment="Center" Margin="0 0 0 20" FontWeight="Bold" FontSize="16" Foreground="#282828"  Text="{x:Bind Name}" Grid.Row="1"/>
                                 </Grid>
                             </DataTemplate>
@@ -98,7 +101,7 @@
                         <ListView.ItemTemplate >
                             
                             <DataTemplate x:DataType="models:AudioFile">
-                                <Grid  Margin="20 0 0 0" >
+                                <Grid  Margin="30 0 0 0" >
                                     <Grid.ColumnDefinitions>
                                         <ColumnDefinition MaxWidth="40"/>
                                         <ColumnDefinition/>
@@ -122,7 +125,7 @@
                                         <TextBlock  FontSize="15" Foreground="#9c9c9c" Text="{x:Bind Artist}"/>
                                        
                                     </StackPanel>
-                                    <TextBlock HorizontalAlignment="Right" VerticalAlignment="Center" FontSize="15" Grid.Column="3" Foreground="#282828" Text="{x:Bind DurationMinutes}"/>
+                                    <TextBlock HorizontalAlignment="Right" VerticalAlignment="Center" FontSize="15" Grid.Column="3" Foreground="#282828" Text="{x:Bind DurationMinutes}" Margin="0 0 20 0"/>
 
                                 </Grid>
                             </DataTemplate>

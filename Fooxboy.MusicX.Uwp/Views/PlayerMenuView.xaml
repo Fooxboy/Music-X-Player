@@ -62,7 +62,7 @@
                 </ToggleButton>
                 
                 <Button Padding="0" 
-                        Style="{StaticResource ButtonPlayerStyle}"
+                        
                         BorderThickness="0"
                         Command="{x:Bind PlayerViewModel.SwitchPrevCommand}" 
                         FontFamily="Segoe MDL2 Assets"
@@ -74,7 +74,7 @@
                         <SolidColorBrush Opacity="0"/>
                     </Button.Background>
                 </Button>
-                <Button Padding="0" Style="{StaticResource ButtonPlayerStyle}"  Command="{x:Bind PlayerViewModel.PlayPauseCommand}" BorderThickness="0"  FontFamily="HoloLens MDL2 Assets" FontSize="20"  Width="37" Height="37" Margin="0,0,10,0" >
+                <Button Padding="0"  Command="{x:Bind PlayerViewModel.PlayPauseCommand}" BorderThickness="0"  FontFamily="HoloLens MDL2 Assets" FontSize="20"  Width="37" Height="37" Margin="0,0,10,0" >
                     <Button.Background>
                         <SolidColorBrush Opacity="0"/>
                     </Button.Background>
@@ -92,7 +92,7 @@
                     </Button.Content>
                 </Button>
                 
-                <Button Style="{StaticResource ButtonPlayerStyle}" Padding="0"
+                <Button Padding="0"
                         BorderThickness="0" Command="{x:Bind PlayerViewModel.SwitchNextCommand}"
                         FontSize="20" FontFamily="Segoe MDL2 Assets"
                         Content="&#xE893;" Width="30" Height="30"
@@ -102,8 +102,8 @@
                     </Button.Background>
                 </Button>
                 
-                <Button Padding="0" Style="{StaticResource ButtonPlayerStyle}"
-                        BorderThickness="0" Command="{x:Bind PlayerViewModel.SwitchNextCommand}"
+                <Button Padding="0"
+                        BorderThickness="0" 
                         FontSize="20" FontFamily="Segoe MDL2 Assets"
                         Content="&#xE14B;"
                         Width="30" 

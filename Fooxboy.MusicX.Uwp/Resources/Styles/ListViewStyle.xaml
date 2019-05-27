@@ -86,20 +86,20 @@
             <Setter.Value>
                 <ControlTemplate TargetType="ListViewItem">
                     <ListViewItemPresenter x:Name="Root" CheckBrush="{ThemeResource ListViewItemCheckBrush}"
-                                           ContentMargin="{TemplateBinding Padding}" 
+                                           ContentMargin="0 10 0 10" 
                                            CheckBoxBrush="{ThemeResource ListViewItemCheckBoxBrush}" 
                                            ContentTransitions="{TemplateBinding ContentTransitions}"
                                            CheckMode="{ThemeResource ListViewItemCheckMode}" 
                                            DragOpacity="{ThemeResource ListViewItemDragThemeOpacity}"
                                            DisabledOpacity="{ThemeResource ListViewItemDisabledThemeOpacity}"
-                                           DragBackground="{ThemeResource ListViewItemDragBackground}"
+                                           DragBackground="LightGray"
                                            DragForeground="{ThemeResource ListViewItemDragForeground}"
                                            FocusBorderBrush="{ThemeResource ListViewItemFocusBorderBrush}"
                                            FocusVisualMargin="{TemplateBinding FocusVisualMargin}"
                                            FocusSecondaryBorderBrush="{ThemeResource ListViewItemFocusSecondaryBorderBrush}" 
                                            HorizontalContentAlignment="{TemplateBinding HorizontalContentAlignment}" 
                                            Control.IsTemplateFocusTarget="True" 
-                                           PressedBackground="{ThemeResource ListViewItemBackgroundPressed}"
+                                           PressedBackground="LightGray"
                                            PlaceholderBackground="{ThemeResource ListViewItemPlaceholderBackground}"
                                            PointerOverForeground="{ThemeResource ListViewItemForegroundPointerOver}" 
                                            PointerOverBackground="{ThemeResource ListViewItemBackgroundPointerOver}" 
@@ -109,9 +109,9 @@
                                            RevealBackground="{ThemeResource ListViewItemRevealBackground}"
                                            SelectedForeground="{ThemeResource ListViewItemForegroundSelected}" 
                                            SelectionCheckMarkVisualEnabled="{ThemeResource ListViewItemSelectionCheckMarkVisualEnabled}" 
-                                           SelectedBackground="#0078D7" 
-                                           SelectedPressedBackground="{ThemeResource ListViewItemBackgroundSelectedPressed}"
-                                           SelectedPointerOverBackground="#005EA8"
+                                           SelectedBackground="#FFFFFF" 
+                                           SelectedPressedBackground="LightGray"
+                                           SelectedPointerOverBackground="LightGray"
                                            VerticalContentAlignment="{TemplateBinding VerticalContentAlignment}">
                         <VisualStateManager.VisualStateGroups>
                             <VisualStateGroup x:Name="CommonStates">
