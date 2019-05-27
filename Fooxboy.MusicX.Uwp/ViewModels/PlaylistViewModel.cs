@@ -42,8 +42,8 @@ namespace Fooxboy.MusicX.Uwp.ViewModels
             }
         }
 
-        private ObservableCollection<AudioFile> playlistname;
-        public ObservableCollection<AudioFile> PlaylistName
+        private string playlistname;
+        public string PlaylistName
         {
             get
             {
@@ -60,8 +60,8 @@ namespace Fooxboy.MusicX.Uwp.ViewModels
         }
 
 
-        private ObservableCollection<AudioFile> pltrackcount;
-        public ObservableCollection<AudioFile> PLTrackCount
+        private int pltrackcount;
+        public int PLTrackCount
         {
             get
             {
