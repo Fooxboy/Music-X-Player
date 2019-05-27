@@ -28,9 +28,9 @@
                                                               Height="150" x:Name="AlbumCoverShadow" 
                                                               ShadowOpacity="1" OffsetY="0" 
                                                               BlurRadius="20" Opacity="0.5">
-                <Image  Source="/Assets/Images/cover.jpg" Stretch="Fill" Width="150"  Height="150" />
+                <Image  Source="{x:Bind PlaylistViewModel.Playlist.Cover, Mode=TwoWay}" Stretch="Fill" Width="150"  Height="150" />
             </controls:DropShadowPanel>
-            <Image  Source="/Assets/Images/cover.jpg"  Margin="25" Stretch="Fill" Width="150" Grid.Row="0"  Height="150" />
+            <Image  Source="{x:Bind PlaylistViewModel.Playlist.Cover, Mode=TwoWay}"  Margin="25" Stretch="Fill" Width="150" Grid.Row="0"  Height="150" />
             <Grid Grid.Column="1">
                 <StackPanel VerticalAlignment="Center" Orientation="Horizontal" Margin="20 -10 20 20">
                     <TextBlock FontFamily="Calibri" FontSize="42" FontWeight="Bold" Text="{x:Bind PlaylistViewModel.Playlist.Name, Mode=TwoWay}"/>
@@ -99,7 +99,7 @@
                                                               ShadowOpacity="1" OffsetY="0" 
                                                               BlurRadius="3.5" Opacity="0.5"
                                                               >
-                                    <Image  Source="/Assets/Images/cover.jpg"
+                                    <Image  Source="/Assets/Images/placeholder.png"
                                                 Stretch="Fill"
                                                 Width="30"
                                                 Height="30"  />

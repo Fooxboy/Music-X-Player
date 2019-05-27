@@ -93,7 +93,7 @@ namespace Fooxboy.MusicX.Uwp
                     var playlist = new Models.PlaylistFile()
                     {
                         Artist = "Music X",
-                        Cover = "/Assets/Images/cover.jpg",
+                        Cover = "/Assets/Images/latest.png",
                         Id = 1,
                         Name = "Слушали недавно",
                         Tracks = new List<Models.AudioFile>()
@@ -176,7 +176,7 @@ namespace Fooxboy.MusicX.Uwp
                 var playlist = new PlaylistFile()
                 {
                     Artist = "Music X",
-                    Cover = "/Assets/Images/cover.jpg",
+                    Cover = "/Assets/Images/now.png",
                     Id = 1000,
                     Name = "Сейчас играет",
                     Tracks = new List<AudioFile>()

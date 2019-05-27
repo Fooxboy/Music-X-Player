@@ -56,7 +56,7 @@ namespace Fooxboy.MusicX.Uwp.Services
             audio.InternalId = 0;
             audio.OwnerId = 0;
             audio.PlaylistId = 0;
-            audio.Cover = "/Assets/Images/cover.jpg";
+            audio.Cover = "/Assets/Images/placeholder.png";
             audio.Source = new Uri(a.Path).ToString();
 
 

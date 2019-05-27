@@ -27,9 +27,9 @@
             
             <Grid Grid.Row="0" Margin="10 20 10 0">
                 <controls:DropShadowPanel Width="190"  Height="190" x:Name="AlbumCoverShadow" ShadowOpacity="1" OffsetY="0" BlurRadius="40" Opacity="0.5">
-                    <Image  Source="/Assets/Images/cover.jpg" Stretch="Fill" Width="200"  Height="200" />
+                    <Image  Source="/Assets/Images/placeholder.png" Stretch="Fill" Width="200"  Height="200" />
                 </controls:DropShadowPanel>
-                <Image  Source="/Assets/Images/cover.jpg" Stretch="Fill" Width="190"  Height="190" />
+                <Image  Source="/Assets/Images/placeholder.png" Stretch="Fill" Width="190"  Height="190" />
             </Grid>
             
             <TextBlock Grid.Row="1" 
@@ -238,10 +238,10 @@
                                 </Grid.ColumnDefinitions>
                                 <Ellipse  Grid.Column="1" Width="25" Height="25">
                                     <Ellipse.Fill>
-                                        <ImageBrush ImageSource="/Assets/Images/cover.jpg"/>
+                                        <ImageBrush ImageSource="/Assets/Square44x44Logo.scale-100.png"/>
                                     </Ellipse.Fill>
                                 </Ellipse>
-                                <TextBlock Grid.Column="2" Padding="5" Text="Мамин симпотяга"/>
+                                <TextBlock Grid.Column="2" Padding="5" Text="Не авторизован"/>
                             </Grid>
                         </Button.Content>
                     </Button>
