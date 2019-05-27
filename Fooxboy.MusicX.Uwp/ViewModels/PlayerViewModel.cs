@@ -105,7 +105,7 @@ namespace Fooxboy.MusicX.Uwp.ViewModels
 
         public double Volume
         {
-            get { return StaticContent.AudioService.Volume * 100f; }
+            get { return StaticContent.Volume * 100f; }
             set
             {
                 var v = value / 100f;

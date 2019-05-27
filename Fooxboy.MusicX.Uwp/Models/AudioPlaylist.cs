@@ -100,6 +100,9 @@ namespace Fooxboy.MusicX.Uwp.Models
             Items = new ObservableCollection<IAudio>();
         }
 
+        public string Name { get; set; }
+        public string Artist { get; set; }
+
         public AudioPlaylist(IList<IAudio> source)
         {
             Items = new ObservableCollection<IAudio>(source);
@@ -228,6 +231,9 @@ namespace Fooxboy.MusicX.Uwp.Models
         {
             Items.Clear();
         }
+
+        public string Cover { get; set; }
+        public long Id { get; set; }
 
         public string Serialize()
         {

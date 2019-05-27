@@ -6,9 +6,13 @@ using System.Text;
 using System.Threading.Tasks;
 using Fooxboy.MusicX.Uwp.Models;
 using Fooxboy.MusicX.Uwp.Services;
+using Fooxboy.MusicX.Uwp.Utils.Extensions;
 using Microsoft.Toolkit.Uwp.UI.Controls.TextToolbarSymbols;
 using Newtonsoft.Json;
+using TagLib.Matroska;
 using Windows.Storage;
+using Windows.UI.Xaml.Controls;
+using Windows.UI.Xaml.Input;
 
 namespace Fooxboy.MusicX.Uwp.ViewModels
 {
@@ -92,6 +96,68 @@ namespace Fooxboy.MusicX.Uwp.ViewModels
             }
             this.music = music;
             Changed("Music");
+        }
+
+        private PlaylistFile playlistNowPlay { get; set; }
+
+
+        public async void MusicListView_Tapped(object sender, TappedRoutedEventArgs e)
+        {
+            await PlayMusicForLibrary();
+        }
+
+
+        private async Task PlayMusicForLibrary()
+        {
+            var track = selectedAudioFile;
+            var lastPlayPlaylist = await PlaylistsService.GetById(1);
+            if (!(lastPlayPlaylist.Tracks.Any(t => t.Source == track.Source))) lastPlayPlaylist.Tracks.Add(track);
+
+            if (playlistNowPlay == null)
+            {
+                var playlistNowPlayA = new PlaylistFile()
+                {
+                    Artist = "Music X",
+                    Cover = "/Assets/Images/cover.jpg",
+                    Id = 1000,
+                    Name = "Сейчас играет",
+                    Tracks = new List<AudioFile>()
+                };
+                foreach (var trackMusic in music) playlistNowPlayA.Tracks.Add(trackMusic);
+
+                playlistNowPlay = playlistNowPlayA;
+                playlists.Add(playlistNowPlay);
+                var playlistNowPlayIsAudioPlaylist = playlistNowPlay.ToAudioPlaylist(track);
+                StaticContent.AudioService.SetCurrentPlaylist(playlistNowPlayIsAudioPlaylist);
+                Changed("Playlists");
+            }
+            else
+            {
+                if (!(playlistNowPlay.Tracks.Any(t => t.Source == track.Source))) playlistNowPlay.Tracks.Add(track);
+                StaticContent.AudioService.Pause();
+                StaticContent.AudioService.CurrentPlaylist.CurrentItem = track.ToIAudio();
+            }
+
+            StaticContent.AudioService.Play();
+            
+        }
+        public async void ListViewMusic_Click(object sender, ItemClickEventArgs e)
+        {
+            await PlayMusicForLibrary();
+        }
+
+        private AudioFile selectedAudioFile;
+        public AudioFile SelectedAudioFile
+        {
+            get
+            {
+                return selectedAudioFile;
+            }set
+            {
+                if (selectedAudioFile == value) return;
+                selectedAudioFile = value;
+                Changed("SelectedAudioFile");
+            }
         }
 
         public async Task<int> CountMusic()
