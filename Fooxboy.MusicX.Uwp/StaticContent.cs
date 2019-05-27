@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Fooxboy.MusicX.Uwp.Enums;
+using Fooxboy.MusicX.Uwp.Models;
 using Fooxboy.MusicX.Uwp.Services;
 using Windows.UI.Xaml.Controls;
 
@@ -16,6 +17,8 @@ namespace Fooxboy.MusicX.Uwp
         public static double Volume { get; set; }
         public static RepeatMode Repeat { get; set; }
         public static bool Shuffle { get; set; }
+        public static AudioFile NowPlay { get; set; }
+        public static PlaylistFile NowPlayPlaylist { get; set; }
         public static AudioService AudioService => AudioService.Instance;
     }
 }

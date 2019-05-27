@@ -4,7 +4,9 @@ using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices.WindowsRuntime;
 using Fooxboy.MusicX.Core;
+using Fooxboy.MusicX.Uwp.Models;
 using Fooxboy.MusicX.Uwp.Services;
+using Fooxboy.MusicX.Uwp.ViewModels;
 using GalaSoft.MvvmLight.Threading;
 using Newtonsoft.Json;
 using Windows.ApplicationModel;
@@ -43,6 +45,8 @@ namespace Fooxboy.MusicX.Uwp
             this.Suspending += OnSuspending;
         }
 
+
+
         /// <summary>
         /// Вызывается при обычном запуске приложения пользователем. Будут использоваться другие точки входа,
         /// например, если приложение запускается для открытия конкретного файла.
@@ -63,10 +67,14 @@ namespace Fooxboy.MusicX.Uwp
 
                 rootFrame.NavigationFailed += OnNavigationFailed;
 
-                if (e.PreviousExecutionState == ApplicationExecutionState.Terminated)
+                if(e != null)
                 {
-                    //TODO: Загрузить состояние из ранее приостановленного приложения
+                    if (e.PreviousExecutionState == ApplicationExecutionState.Terminated)
+                    {
+                        //TODO: Загрузить состояние из ранее приостановленного приложения
+                    }
                 }
+                
 
                 CoreApplication.GetCurrentView().TitleBar.ExtendViewIntoTitleBar = true;
                 if (ApiInformation.IsTypePresent("Windows.UI.ViewManagement.ApplicationView"))
@@ -107,18 +115,33 @@ namespace Fooxboy.MusicX.Uwp
                 Window.Current.Content = rootFrame;
             }
 
-            if (e.PrelaunchActivated == false)
+            if(e != null)
+            {
+                if (e.PrelaunchActivated == false)
+                {
+                    if (rootFrame.Content == null)
+                    {
+                        // Если стек навигации не восстанавливается для перехода к первой странице,
+                        // настройка новой страницы путем передачи необходимой информации в качестве параметра
+                        // навигации
+                        rootFrame.Navigate(typeof(Views.MainFrameView), null);
+                    }
+                    // Обеспечение активности текущего окна
+                    Window.Current.Activate();
+                }
+            }else
             {
                 if (rootFrame.Content == null)
                 {
                     // Если стек навигации не восстанавливается для перехода к первой странице,
                     // настройка новой страницы путем передачи необходимой информации в качестве параметра
                     // навигации
-                    rootFrame.Navigate(typeof(Views.MainFrameView), e.Arguments);
+                    rootFrame.Navigate(typeof(Views.MainFrameView), null);
                 }
                 // Обеспечение активности текущего окна
                 Window.Current.Activate();
             }
+            
         }
 
         /// <summary>
@@ -143,6 +166,41 @@ namespace Fooxboy.MusicX.Uwp
             var deferral = e.SuspendingOperation.GetDeferral();
             //TODO: Сохранить состояние приложения и остановить все фоновые операции
             deferral.Complete();
+        }
+
+        protected async override void OnFileActivated(FileActivatedEventArgs args)
+        {
+            var files = args.Files;
+            if(files.Count > 1)
+            {
+                var playlist = new PlaylistFile()
+                {
+                    Artist = "Music X",
+                    Cover = "/Assets/Images/cover.jpg",
+                    Id = 1000,
+                    Name = "Сейчас играет",
+                    Tracks = new List<AudioFile>()
+                };
+                foreach(var file in files)
+                {
+                    var audio = await FindMetadataService.ConvertToAudioFile((StorageFile)file);
+                    playlist.Tracks.Add(audio);
+                }
+
+                StaticContent.NowPlayPlaylist = playlist;
+            }else
+            {
+                var file = files[0];
+                var audio = await FindMetadataService.ConvertToAudioFile((StorageFile)file);
+                StaticContent.NowPlay = audio;
+            }
+            if(Window.Current.Visible)
+            {
+                HomeViewModel.Instanse.Page_Loaded(null, null);
+            }else
+            {
+                OnLaunched(null);
+            }
         }
     }
 }

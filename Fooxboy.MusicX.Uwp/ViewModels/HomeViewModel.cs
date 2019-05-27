@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using Fooxboy.MusicX.Uwp.Models;
 using Fooxboy.MusicX.Uwp.Services;
@@ -11,6 +12,7 @@ using Microsoft.Toolkit.Uwp.UI.Controls.TextToolbarSymbols;
 using Newtonsoft.Json;
 using TagLib.Matroska;
 using Windows.Storage;
+using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Input;
 
@@ -29,10 +31,27 @@ namespace Fooxboy.MusicX.Uwp.ViewModels
             }
         }
 
-        private  HomeViewModel()
+        private HomeViewModel()
         {
             
         }
+
+
+        public async void Page_Loaded(object sender, RoutedEventArgs e)
+        {
+            if(StaticContent.NowPlay != null)
+            {
+                selectedAudioFile = StaticContent.NowPlay;
+                await PlayMusicForLibrary();
+            }
+
+            if(StaticContent.NowPlayPlaylist != null)
+            {
+                selectedAudioFile = StaticContent.NowPlayPlaylist.Tracks[0];
+                await PlayMusicForLibrary();
+            }
+        }
+
         private ObservableCollection<PlaylistFile> playlists;
         public ObservableCollection<PlaylistFile> Playlists
         {
@@ -69,36 +88,74 @@ namespace Fooxboy.MusicX.Uwp.ViewModels
 
         public async Task GetPlaylistLocal()
         {
-            var pathPlaylists = await ApplicationData.Current.LocalFolder.GetFolderAsync("Playlists");
-            var files = await pathPlaylists.GetFilesAsync();
-            var playlists = new ObservableCollection<PlaylistFile>();
-            foreach(var file in files)
+
+            try
             {
-                var json = await FileIO.ReadTextAsync(file);
-                var playlist = JsonConvert.DeserializeObject<PlaylistFile>(json);
-                playlists.Add(playlist);
+                var pathPlaylists = await ApplicationData.Current.LocalFolder.GetFolderAsync("Playlists");
+                var files = await pathPlaylists.GetFilesAsync();
+                var playlists = new ObservableCollection<PlaylistFile>();
+                foreach (var file in files)
+                {
+                    var json = await FileIO.ReadTextAsync(file);
+                    var playlist = JsonConvert.DeserializeObject<PlaylistFile>(json);
+                    playlists.Add(playlist);
+                }
+                this.playlists = playlists;
+                Changed("Playlists");
             }
-            this.playlists = playlists;
-            Changed("Playlists");
+            catch(Exception e)
+            {
+                ContentDialog deleteFileDialog = new ContentDialog()
+                {
+                    Title = "АШИБКА",
+                    Content = $"{e}",
+                    PrimaryButtonText = "ОК",
+                    SecondaryButtonText = "Отмена"
+                };
+
+                await deleteFileDialog.ShowAsync();
+            }
+            
         }
 
         public async Task GetMusicLocal()
         {
-            var files = (await KnownFolders.MusicLibrary.GetFilesAsync(Windows.Storage.Search.CommonFileQuery.OrderByName)).ToList();
-            var music = new ObservableCollection<AudioFile>();
-            foreach (var f in files)
+            try
             {
-                if (f.FileType == ".mp3" || f.FileType == ".wav")
+                var files = (await KnownFolders.MusicLibrary.GetFilesAsync(Windows.Storage.Search.CommonFileQuery.OrderByName)).ToList();
+                var music = new ObservableCollection<AudioFile>();
+                foreach (var f in files)
                 {
-                    var track = await FindMetadataService.ConvertToAudioFile(f);
-                    music.Add(track);
-                }
-            }
-            this.music = music;
-            Changed("Music");
-        }
+                    if (f.FileType == ".mp3" || f.FileType == ".wav")
+                    {
+                        try
+                        {
+                            var track = await FindMetadataService.ConvertToAudioFile(f);
+                            music.Add(track);
+                        }catch(Exception e)
+                        {
 
-        private PlaylistFile playlistNowPlay { get; set; }
+                        }
+                        
+                    }
+                }
+                this.music = music;
+                Changed("Music");
+            }
+            catch(Exception e)
+            {
+                ContentDialog deleteFileDialog = new ContentDialog()
+                {
+                    Title = "АШИБКА",
+                    Content = $"{e}",
+                    PrimaryButtonText = "ОК",
+                    SecondaryButtonText = "Отмена"
+                };
+
+                await deleteFileDialog.ShowAsync();
+            }
+            
+        }
 
 
         public async void MusicListView_Tapped(object sender, TappedRoutedEventArgs e)
@@ -109,37 +166,68 @@ namespace Fooxboy.MusicX.Uwp.ViewModels
 
         private async Task PlayMusicForLibrary()
         {
-            var track = selectedAudioFile;
-            var lastPlayPlaylist = await PlaylistsService.GetById(1);
-            if (!(lastPlayPlaylist.Tracks.Any(t => t.Source == track.Source))) lastPlayPlaylist.Tracks.Add(track);
 
-            if (playlistNowPlay == null)
+            try
             {
-                var playlistNowPlayA = new PlaylistFile()
+                var track = selectedAudioFile;
+                var lastPlayPlaylist = await PlaylistsService.GetById(1);
+                if (!(lastPlayPlaylist.Tracks.Any(t => t.Source == track.Source))) lastPlayPlaylist.Tracks.Add(track);
+
+                if (StaticContent.NowPlayPlaylist == null)
                 {
-                    Artist = "Music X",
-                    Cover = "/Assets/Images/cover.jpg",
-                    Id = 1000,
-                    Name = "Сейчас играет",
-                    Tracks = new List<AudioFile>()
-                };
-                foreach (var trackMusic in music) playlistNowPlayA.Tracks.Add(trackMusic);
+                    var playlistNowPlayA = new PlaylistFile()
+                    {
+                        Artist = "Music X",
+                        Cover = "/Assets/Images/cover.jpg",
+                        Id = 1000,
+                        Name = "Сейчас играет",
+                        Tracks = new List<AudioFile>()
+                    };
+                    if (music != null)
+                    {
+                        foreach (var trackMusic in music) playlistNowPlayA.Tracks.Add(trackMusic);
+                        StaticContent.NowPlayPlaylist = playlistNowPlayA;
+                    }
+                    else
+                    {
+                        StaticContent.NowPlayPlaylist = playlistNowPlayA;
+                        StaticContent.NowPlayPlaylist.Tracks.Add(track);
+                    }
 
-                playlistNowPlay = playlistNowPlayA;
-                playlists.Add(playlistNowPlay);
-                var playlistNowPlayIsAudioPlaylist = playlistNowPlay.ToAudioPlaylist(track);
-                StaticContent.AudioService.SetCurrentPlaylist(playlistNowPlayIsAudioPlaylist);
-                Changed("Playlists");
-            }
-            else
+
+                    if(playlists != null)
+                    { 
+                        playlists.Add(StaticContent.NowPlayPlaylist);
+                    }
+                    
+                    var playlistNowPlayIsAudioPlaylist = StaticContent.NowPlayPlaylist.ToAudioPlaylist(track);
+                    StaticContent.AudioService.SetCurrentPlaylist(playlistNowPlayIsAudioPlaylist);
+                    Changed("Playlists");
+                }
+                else
+                {
+                    if (!(StaticContent.NowPlayPlaylist.Tracks.Any(t => t.Source == track.Source))) StaticContent.NowPlayPlaylist.Tracks.Add(track);
+                    if (StaticContent.AudioService.IsPlaying) StaticContent.AudioService.Pause();
+                    StaticContent.AudioService.CurrentPlaylist.CurrentItem = track.ToIAudio();
+                    StaticContent.NowPlay = track;
+                }
+
+                StaticContent.AudioService.Play();
+            }catch(Exception e)
             {
-                if (!(playlistNowPlay.Tracks.Any(t => t.Source == track.Source))) playlistNowPlay.Tracks.Add(track);
-                StaticContent.AudioService.Pause();
-                StaticContent.AudioService.CurrentPlaylist.CurrentItem = track.ToIAudio();
+                ContentDialog deleteFileDialog = new ContentDialog()
+                {
+                    Title = "АШИБКА",
+                    Content = $"{e}",
+                    PrimaryButtonText = "ОК",
+                    SecondaryButtonText = "Отмена"
+                };
+
+                await deleteFileDialog.ShowAsync();
+
             }
 
-            StaticContent.AudioService.Play();
-            
+
         }
         public async void ListViewMusic_Click(object sender, ItemClickEventArgs e)
         {

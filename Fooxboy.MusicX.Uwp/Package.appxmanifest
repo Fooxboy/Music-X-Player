@@ -10,7 +10,7 @@
   <Identity
     Name="Fooxboy.MusicX.Uwp"
     Publisher="CN=Fooxboy"
-    Version="0.1.1.0" />
+    Version="0.2.1.0" />
 
   <mp:PhoneIdentity PhoneProductId="f94ee214-1702-4016-8490-7f14674b8e45" PhonePublisherId="00000000-0000-0000-0000-000000000000"/>
 
@@ -36,7 +36,7 @@
         DisplayName="Music X"
         Square150x150Logo="Assets\Square150x150Logo.png"
         Square44x44Logo="Assets\Square44x44Logo.png"
-        Description="Fooxboy.MusicX.Uwp"
+        Description="Music X - приложение для прослушивания музыки."
         BackgroundColor="transparent">
         <uap:DefaultTile Wide310x150Logo="Assets\Wide310x150Logo.png"/>
         <uap:SplashScreen Image="Assets\SplashScreen.png" />
@@ -44,6 +44,18 @@
           <uap:Rotation Preference="landscape"/>
           <uap:Rotation Preference="portrait"/></uap:InitialRotationPreference>
       </uap:VisualElements>
+      <Extensions>
+        <uap:Extension Category="windows.fileTypeAssociation">
+          <uap:FileTypeAssociation Name="musicxaudiofiles">
+            <uap:SupportedFileTypes>
+              <uap:FileType>.mp3</uap:FileType>
+              <uap:FileType>.wav</uap:FileType>
+            </uap:SupportedFileTypes>
+            <uap:DisplayName>Music X Audio File</uap:DisplayName>
+            <uap:InfoTip>Открыть  с помощью Music X</uap:InfoTip>
+          </uap:FileTypeAssociation>
+        </uap:Extension>
+      </Extensions>
     </Application>
   </Applications>
 

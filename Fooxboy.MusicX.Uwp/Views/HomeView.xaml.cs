@@ -58,6 +58,6 @@ namespace Fooxboy.MusicX.Uwp.Views
             this.MusicCount.Text = $"{mc} трека(ов)";
         }
 
-        
+       
     }
 }
