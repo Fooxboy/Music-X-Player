@@ -8,6 +8,7 @@
             <ResourceDictionary.MergedDictionaries>
                 <ResourceDictionary Source="Resources/Styles/SliderPlayerStyle.xaml"/>
                 <ResourceDictionary Source="Resources/Styles/ButtonPlayerStyle.xaml"/>
+                <ResourceDictionary Source="Resources/Styles/ListViewStyle.xaml"/>
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
     </Application.Resources>
