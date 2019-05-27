@@ -118,6 +118,7 @@
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Converters\AudioTimeConverter.cs" />
     <Compile Include="Enums\RepeatMode.cs" />
     <Compile Include="Interfaces\IAudio.cs" />
     <Compile Include="Interfaces\IPlaylist.cs" />
