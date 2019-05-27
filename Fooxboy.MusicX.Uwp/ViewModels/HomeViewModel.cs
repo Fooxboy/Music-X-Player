@@ -248,6 +248,31 @@ namespace Fooxboy.MusicX.Uwp.ViewModels
             }
         }
 
+        private PlaylistFile selectedPlayListFile;
+        public PlaylistFile SelectedPlaylistFile
+        {
+            get
+            {
+                return selectedPlayListFile;
+            }
+            set
+            {
+                if (selectedPlayListFile == value) return;
+                selectedPlayListFile = value;
+                Changed("SelectedPlayListFile");
+            }
+        }
+
+        public void PlaylistListView_Click(object sender, ItemClickEventArgs e)
+        {
+            StaticContent.NavigationContentService.Go(typeof(Views.PlaylistView), SelectedPlaylistFile);
+        }
+
+        public void PlaylistListView_Tapped(object sender, TappedRoutedEventArgs e)
+        {
+            StaticContent.NavigationContentService.Go(typeof(Views.PlaylistView), SelectedPlaylistFile);
+        }
+
         public async Task<int> CountMusic()
         {
             return (await KnownFolders.MusicLibrary.GetFilesAsync(Windows.Storage.Search.CommonFileQuery.OrderByName)).ToList().Count;

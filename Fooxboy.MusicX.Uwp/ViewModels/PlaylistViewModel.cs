@@ -5,6 +5,10 @@ using System.Text;
 using Fooxboy.MusicX.Uwp.Models;
 using System.Threading.Tasks;
 using System.Collections.ObjectModel;
+using Windows.UI.Xaml.Controls;
+using Fooxboy.MusicX.Uwp.Utils.Extensions;
+using Windows.UI.Xaml.Input;
+using Fooxboy.MusicX.Uwp.Services;
 
 namespace Fooxboy.MusicX.Uwp.ViewModels
 {
@@ -42,30 +46,13 @@ namespace Fooxboy.MusicX.Uwp.ViewModels
             }
         }
 
-        private ObservableCollection<AudioFile> playlistname;
-        public ObservableCollection<AudioFile> PlaylistName
+
+        private string pltrackcount;
+        public string PLTrackCount
         {
             get
             {
-                return playlistname;
-            }
-            set
-            {
-                if (value != playlistname)
-                {
-                    playlistname = value;
-                    Changed("PlaylistName");
-                }
-            }
-        }
-
-
-        private ObservableCollection<AudioFile> pltrackcount;
-        public ObservableCollection<AudioFile> PLTrackCount
-        {
-            get
-            {
-                return pltrackcount;
+                return $"{playlist.Tracks.Count} трек(а/ов)";
             }
             set
             {
@@ -74,6 +61,49 @@ namespace Fooxboy.MusicX.Uwp.ViewModels
                     pltrackcount = value;
                     Changed("PLTrackCount");
                 }
+            }
+        }
+
+        private PlaylistFile playlist;
+        public PlaylistFile Playlist
+        {
+            get
+            {
+                return playlist;
+            }
+            set
+            {
+                if (value != playlist)
+                {
+                    playlist = value;
+                    Changed("Playlist");
+                }
+            }
+        }
+
+        public async void MusicListView_Tapped(object sender, TappedRoutedEventArgs e)
+        {
+          //  await PlayMusicForLibrary();
+        }
+
+       
+        public async void ListViewMusic_Click(object sender, ItemClickEventArgs e)
+        {
+           // await PlayMusicForLibrary();
+        }
+
+        private AudioFile selectedAudioFile;
+        public AudioFile SelectedAudioFile
+        {
+            get
+            {
+                return selectedAudioFile;
+            }
+            set
+            {
+                if (selectedAudioFile == value) return;
+                selectedAudioFile = value;
+                Changed("SelectedAudioFile");
             }
         }
 

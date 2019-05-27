@@ -33,7 +33,7 @@
             <Image  Source="/Assets/Images/cover.jpg"  Margin="25" Stretch="Fill" Width="150" Grid.Row="0"  Height="150" />
             <Grid Grid.Column="1">
                 <StackPanel VerticalAlignment="Center" Orientation="Horizontal" Margin="20 -10 20 20">
-                    <TextBlock FontFamily="Calibri" FontSize="42" FontWeight="Bold" Text="{x:Bind PlaylistViewModel.PlaylistName, Mode=TwoWay}"/>
+                    <TextBlock FontFamily="Calibri" FontSize="42" FontWeight="Bold" Text="{x:Bind PlaylistViewModel.Playlist.Name, Mode=TwoWay}"/>
                     <TextBlock FontWeight="Bold" Text="{x:Bind PlaylistViewModel.PLTrackCount, Mode=TwoWay}" Margin="10 25 0 0"/>
                 </StackPanel>
                 <StackPanel VerticalAlignment="Center" Orientation="Horizontal" Margin="20 60 20 20">
@@ -72,8 +72,11 @@
                     <ColumnDefinition  Width="auto"/>
                 </Grid.ColumnDefinitions>
                 <ListView ItemContainerStyle="{StaticResource ListViewItemContainerStyle}" Style="{StaticResource ListViewStyle}" HorizontalAlignment="Stretch"
-                              ItemsSource="{x:Bind PlaylistViewModel.Music, Mode=TwoWay}"
-                              x:Name="MusicListView">
+                              ItemsSource="{x:Bind PlaylistViewModel.Playlist.Tracks, Mode=TwoWay}"
+                              x:Name="MusicListView"
+                          SelectedItem="{x:Bind PlaylistViewModel.SelectedAudioFile, Mode=TwoWay}"
+                              ItemClick="{x:Bind PlaylistViewModel.ListViewMusic_Click}"
+                              Tapped="{x:Bind PlaylistViewModel.MusicListView_Tapped}">
                     <ListView.ItemsPanel >
                         <ItemsPanelTemplate >
                             <ItemsStackPanel HorizontalAlignment="Stretch" VerticalAlignment="Stretch" />
@@ -107,7 +110,7 @@
                                     <TextBlock  FontSize="15" Foreground="#9c9c9c" Text="{x:Bind Artist}"/>
 
                                 </StackPanel>
-                                <TextBlock HorizontalAlignment="Right" VerticalAlignment="Center" FontSize="15" Grid.Column="3" Foreground="#282828" Text="{x:Bind DurationMinutes}"/>
+                                <TextBlock Margin="0 0 20 0" HorizontalAlignment="Right" VerticalAlignment="Center" FontSize="15" Grid.Column="3" Foreground="#282828" Text="{x:Bind DurationMinutes}"/>
 
                             </Grid>
                         </DataTemplate>
