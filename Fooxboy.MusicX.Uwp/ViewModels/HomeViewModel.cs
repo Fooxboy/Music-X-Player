@@ -5,6 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Fooxboy.MusicX.Uwp.Models;
+using Fooxboy.MusicX.Uwp.Services;
 using Microsoft.Toolkit.Uwp.UI.Controls.TextToolbarSymbols;
 using Newtonsoft.Json;
 using Windows.Storage;
@@ -85,7 +86,7 @@ namespace Fooxboy.MusicX.Uwp.ViewModels
             {
                 if (f.FileType == ".mp3" || f.FileType == ".wav")
                 {
-                    var track = await Convert(f);
+                    var track = await FindMetadataService.ConvertToAudioFile(f);
                     music.Add(track);
                 }
             }
@@ -100,7 +101,7 @@ namespace Fooxboy.MusicX.Uwp.ViewModels
             foreach(var f in files)
             {
                if(f.FileType == ".mp3" || f.FileType == ".wav"){
-                    var track = await Convert(f);
+                    var track = await FindMetadataService.ConvertToAudioFile(f);
                     re.Add(track);
                }
             }
@@ -109,43 +110,6 @@ namespace Fooxboy.MusicX.Uwp.ViewModels
             return re;
         }
 
-        public async static Task<AudioFile> Convert(StorageFile fileA)
-        {
-            var cache = ApplicationData.Current.LocalCacheFolder;
-            var fileB = await cache.TryGetItemAsync(fileA.Name);
-            StorageFile a;
-            if (fileB != null)
-            {
-                var fileC = await cache.GetFileAsync(fileA.Name);
-                await fileA.CopyAndReplaceAsync(fileC);
-                a = fileC;
-            }
-            else
-            {
-                a = await fileA.CopyAsync(cache);
-            }
-
-            var file = TagLib.File.Create(a.Path);
-            AudioFile audio = new AudioFile();
-            if (file.Tag.AlbumArtists.Count() != 0) audio.Artist = file.Tag.AlbumArtists[0];
-            else
-            {
-                if (file.Tag.Artists.Count() != 0) audio.Artist = file.Tag.Artists[0];
-                else audio.Artist = "Неизвестный исполнитель";
-            }
-            if (file.Tag.Title != null) audio.Title = file.Tag.Title;
-            else audio.Title = fileA.DisplayName;
-            audio.DurationSeconds = file.Properties.Duration.TotalSeconds;
-            audio.DurationMinutes = Converters.AudioTimeConverter.Convert(file.Properties.Duration.TotalSeconds);
-            audio.Id = 0;
-            audio.InternalId = 0;
-            audio.OwnerId = 0;
-            audio.PlaylistId = 0;
-            audio.Cover = "/Assets/Images/cover.jpg";
-            audio.Source = new Uri(a.Path).ToString();
-
-
-            return audio;
-        }
+       
     }
 }

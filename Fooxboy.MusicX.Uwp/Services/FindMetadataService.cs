@@ -5,28 +5,92 @@ using System.Text;
 using System.Threading.Tasks;
 using Fooxboy.MusicX.Uwp.Interfaces;
 using Fooxboy.MusicX.Uwp.Models;
+using TagLib;
 using Windows.Storage;
 
 namespace Fooxboy.MusicX.Uwp.Services
 {
     public static class FindMetadataService
     {
-        public async static Task<IAudio> Convert(StorageFile fileA)
+
+        public async static Task<AudioFile> ConvertToAudioFile(StorageFile storageFile)
         {
-            var cache = ApplicationData.Current.LocalCacheFolder;
-            var fileB = await cache.TryGetItemAsync(fileA.Name);
+            File file;
             StorageFile a;
-            if (fileB != null)
+            try
             {
-                var fileC = await cache.GetFileAsync(fileA.Name);
-                await fileA.CopyAndReplaceAsync(fileC);
-                a = fileC;
-            }else
-            {
-                a = await fileA.CopyAsync(cache);
+                 file = File.Create(storageFile.Path);
+                a = storageFile;
             }
+            catch
+            {
+                var cache = ApplicationData.Current.LocalCacheFolder;
+                var fileB = await cache.TryGetItemAsync(storageFile.Name);
                 
-            var file = TagLib.File.Create(a.Path);
+                if (fileB != null)
+                {
+                    var fileC = await cache.GetFileAsync(storageFile.Name);
+                    await storageFile.CopyAndReplaceAsync(fileC);
+                    a = fileC;
+                }
+                else
+                {
+                    a = await storageFile.CopyAsync(cache);
+                }
+
+                file = TagLib.File.Create(a.Path);
+            }
+
+            AudioFile audio = new AudioFile();
+            if (file.Tag.AlbumArtists.Count() != 0) audio.Artist = file.Tag.AlbumArtists[0];
+            else
+            {
+                if (file.Tag.Artists.Count() != 0) audio.Artist = file.Tag.Artists[0];
+                else audio.Artist = "Неизвестный исполнитель";
+            }
+            if (file.Tag.Title != null) audio.Title = file.Tag.Title;
+            else audio.Title = storageFile.DisplayName;
+            audio.DurationSeconds = file.Properties.Duration.TotalSeconds;
+            audio.DurationMinutes = Converters.AudioTimeConverter.Convert(file.Properties.Duration.TotalSeconds);
+            audio.Id = 0;
+            audio.InternalId = 0;
+            audio.OwnerId = 0;
+            audio.PlaylistId = 0;
+            audio.Cover = "/Assets/Images/cover.jpg";
+            audio.Source = new Uri(a.Path).ToString();
+
+
+            return audio;
+        }
+
+        public async static Task<IAudio> Convert(StorageFile storageFile)
+        {
+            File file;
+            StorageFile a;
+            try
+            {
+                file = File.Create(storageFile.Path);
+                a = storageFile;
+            }
+            catch
+            {
+                var cache = ApplicationData.Current.LocalCacheFolder;
+                var fileB = await cache.TryGetItemAsync(storageFile.Name);
+
+                if (fileB != null)
+                {
+                    var fileC = await cache.GetFileAsync(storageFile.Name);
+                    await storageFile.CopyAndReplaceAsync(fileC);
+                    a = fileC;
+                }
+                else
+                {
+                    a = await storageFile.CopyAsync(cache);
+                }
+
+                file = TagLib.File.Create(a.Path);
+            }
+
             IAudio audio = new Audio();
             if (file.Tag.AlbumArtists.Count() != 0) audio.Artist = file.Tag.AlbumArtists[0];
             else
@@ -35,7 +99,7 @@ namespace Fooxboy.MusicX.Uwp.Services
                 else audio.Artist = "Неизвестный исполнитель";
             }
             if (file.Tag.Title != null) audio.Title = file.Tag.Title;
-            else audio.Title = fileA.DisplayName;
+            else audio.Title = storageFile.DisplayName;
             audio.Duration = file.Properties.Duration;
             audio.Id = "0";
             audio.InternalId = "0";
