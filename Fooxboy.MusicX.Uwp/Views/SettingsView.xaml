@@ -8,7 +8,34 @@
     mc:Ignorable="d"
     Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
 
-    <Grid>
-
+    <Grid Margin="20">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="auto"/>
+        </Grid.RowDefinitions>
+        <TextBlock FontFamily="Calibri" FontWeight="Bold" FontSize="42" Grid.Row="0" Text="Настройки"/>
+        <StackPanel Margin="0 0 0 30" Grid.Row="1">
+            <TextBlock FontFamily="Calibri" FontSize="30" Text="Музыка на этом ПК"/>
+            <TextBlock Text="Где MusicX будет искать музыку" Margin=" 0 0 0 5"/>
+            <Button Content="Выбрать папки"/>
+        </StackPanel>
+        <StackPanel Margin="0 0 0 30" Grid.Row="2">
+            <TextBlock FontFamily="Calibri" FontSize="30" Text="Синхронизация"/>
+            <TextBlock Text="Сервисы, с которыми MusicX будет синхронизировать треки и плейлисты"/>
+            <ToggleSwitch IsOn="True" OnContent="ВКонтакте" OffContent="ВКонтакте" />
+            <ToggleSwitch IsEnabled="False" IsOn="False" OnContent="Last.fm (Только в MusicX Pro)" OffContent="Last.fm (Только в MusicX Pro)" />
+            <ToggleSwitch IsEnabled="False" IsOn="False" OnContent="Soundcloud (Только в MusicX Pro)" OffContent="Soundcloud (Только в MusicX Pro)" />
+        </StackPanel>
+        <StackPanel Grid.Row="3">
+            <TextBlock FontFamily="Calibri" FontSize="30" Text="Цвета"/>
+            <TextBlock Text="Цветовая палитра приложения"/>
+            <RadioButton GroupName="themes" Content="Светлая"  />
+            <RadioButton GroupName="themes" Content="Темная" />
+            <RadioButton GroupName="themes" Content="Использовать системные настройки" IsChecked="True" />
+        </StackPanel>
     </Grid>
 </Page>
