@@ -78,37 +78,38 @@
                     <TextBlock Margin="30,0,0,0" FontFamily="Calibri" Text="Ваша Музыка" Grid.Row="0" FontWeight="ExtraBold" FontSize="42"/>
                     <TextBlock x:Name="MusicCount" HorizontalAlignment="Left" VerticalAlignment="Bottom" Text="0 треков" Grid.Row="0" Height="19" Margin="10,0,0,7"/>
                     </StackPanel>
-                    <ListView Grid.Row="1" HorizontalAlignment="Stretch"
+                    <ListView ItemContainerStyle="{StaticResource ListViewItemContainerStyle}" Style="{StaticResource ListViewStyle}" Grid.Row="1" HorizontalAlignment="Stretch"
                               ItemsSource="{x:Bind HomeViewModel.Music, Mode=TwoWay}"
                               x:Name="MusicListView">
-                        <ListView.ItemsPanel>
-                            <ItemsPanelTemplate>
+                        <ListView.ItemsPanel >
+                            <ItemsPanelTemplate >
                                 <ItemsStackPanel HorizontalAlignment="Stretch" VerticalAlignment="Stretch" />
                             </ItemsPanelTemplate>
                         </ListView.ItemsPanel>
-                        
-                        <ListView.ItemTemplate>
+
+                        <ListView.ItemTemplate >
                             
                             <DataTemplate x:DataType="models:AudioFile">
-                                <Grid Margin="20 0 0 0" HorizontalAlignment="Stretch">
+                                <Grid  Margin="20 0 0 0" >
                                     <Grid.ColumnDefinitions>
-                                        <ColumnDefinition Width="*"/>
-                                        <ColumnDefinition Width="auto"/>
-                                        <ColumnDefinition Width="auto"/>
+                                        <ColumnDefinition MaxWidth="40"/>
+                                        <ColumnDefinition/>
+                                        <ColumnDefinition/>
                                     </Grid.ColumnDefinitions>
                                     <controls:DropShadowPanel Grid.Column="0" Margin="1 3 1 1" 
-                                                              HorizontalAlignment="Center" 
+                                                              HorizontalAlignment="Left"
                                                               VerticalAlignment="Center" Width="30"
                                                               Height="30" x:Name="TrackCoverShadow" 
                                                               ShadowOpacity="1" OffsetY="0" 
-                                                              BlurRadius="3.5" Opacity="0.5">
+                                                              BlurRadius="3.5" Opacity="0.5"
+                                                              >
                                         <Image  Source="/Assets/Images/cover.jpg"
                                                 Stretch="Fill"
                                                 Width="30"
-                                                Height="30" />
+                                                Height="30"  />
                                     </controls:DropShadowPanel>
-                                    <Image  Source="{x:Bind Cover}"  Margin="1 3 1 1" Stretch="Fill" Width="30" Grid.Column="0"  Height="30" />
-                                    <StackPanel   Margin="10 0 0 0"  Grid.Column="1">
+                                    <Image HorizontalAlignment="Left" Source="{x:Bind Cover}"  Margin="1 3 1 1" Stretch="Fill" Width="30" Grid.Column="0"  Height="30" />
+                                    <StackPanel HorizontalAlignment="Left"  Margin="10 0 0 0"  Grid.Column="1">
                                         <TextBlock FontSize="15" Foreground="#282828"  Text="{x:Bind Title}" />
                                         <TextBlock  FontSize="15" Foreground="#9c9c9c" Text="{x:Bind Artist}"/>
                                        
