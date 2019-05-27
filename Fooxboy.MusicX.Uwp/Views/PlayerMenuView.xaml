@@ -24,27 +24,27 @@
                 <RowDefinition MinHeight="30" Height="*"/>
                 <RowDefinition MinHeight="30" Height="*"/>
             </Grid.RowDefinitions>
-            <Grid Grid.Row="0" Margin="5">
-                <controls:DropShadowPanel Width="200"  Height="200" x:Name="AlbumCoverShadow" ShadowOpacity="1" OffsetY="0" BlurRadius="40" Opacity="0.5">
+            <Grid Grid.Row="0" Margin="10 20 10 0">
+                <controls:DropShadowPanel Width="190"  Height="190" x:Name="AlbumCoverShadow" ShadowOpacity="1" OffsetY="0" BlurRadius="40" Opacity="0.5">
                     <Image  Source="/Assets/Images/cover.jpg" Stretch="Fill" Width="200"  Height="200" />
                 </controls:DropShadowPanel>
-                <Image  Source="/Assets/Images/cover.jpg" Stretch="Fill" Width="200"  Height="200" />
+                <Image  Source="/Assets/Images/cover.jpg" Stretch="Fill" Width="190"  Height="190" />
 
             </Grid>
             <TextBlock Grid.Row="1" Text="{x:Bind Path=PlayerViewModel.CurrentAudio.Title, Mode=TwoWay}" Margin="0,0,5,0" FontSize="23" HorizontalAlignment="Center" VerticalAlignment="Center"/>
             <TextBlock Grid.Row="2" Text="{x:Bind Path=PlayerViewModel.CurrentAudio.Artist, Mode=TwoWay}" FontSize="15" HorizontalAlignment="Center" VerticalAlignment="Center"/>
             <StackPanel Grid.Row="4" Orientation="Horizontal" HorizontalAlignment="Center" BorderThickness="0">
-                <Button Padding="0" BorderThickness="0" Command="{x:Bind PlayerViewModel.SwitchNextCommand}" FontSize="20" FontFamily="Segoe MDL2 Assets" Content="&#xE149;" Width="30" Height="30" Margin="0,0,10,0">
+                <Button Padding="0" Style="{StaticResource ButtonPlayerStyle}"  BorderThickness="0" Command="{x:Bind PlayerViewModel.SwitchNextCommand}" FontSize="20" FontFamily="Segoe MDL2 Assets" Content="&#xE149;" Width="30" Height="30" Margin="0,0,10,0">
                     <Button.Background>
                         <SolidColorBrush Opacity="0"/>
                     </Button.Background>
                 </Button>
-                <Button Padding="0" BorderThickness="0" Command="{x:Bind PlayerViewModel.SwitchPrevCommand}" FontFamily="Segoe MDL2 Assets" FontSize="20" Content="&#xE892;" Width="30" Height="30" Margin="0,0,10,0">
+                <Button Padding="0" Style="{StaticResource ButtonPlayerStyle}"  BorderThickness="0" Command="{x:Bind PlayerViewModel.SwitchPrevCommand}" FontFamily="Segoe MDL2 Assets" FontSize="20" Content="&#xE892;" Width="30" Height="30" Margin="0,0,10,0">
                     <Button.Background>
                         <SolidColorBrush Opacity="0"/>
                     </Button.Background>
                 </Button>
-                <Button Padding="0" Command="{x:Bind PlayerViewModel.PlayPauseCommand}" BorderThickness="0"  FontFamily="HoloLens MDL2 Assets" FontSize="20"  Width="37" Height="37" Margin="0,0,10,0" >
+                <Button Padding="0" Style="{StaticResource ButtonPlayerStyle}"  Command="{x:Bind PlayerViewModel.PlayPauseCommand}" BorderThickness="0"  FontFamily="HoloLens MDL2 Assets" FontSize="20"  Width="37" Height="37" Margin="0,0,10,0" >
                     <Button.Background>
                         <SolidColorBrush Opacity="0"/>
                     </Button.Background>
@@ -57,12 +57,12 @@
                         
                     </Button.Content>
                 </Button>
-                <Button Padding="0" BorderThickness="0" Command="{x:Bind PlayerViewModel.SwitchNextCommand}" FontSize="20" FontFamily="Segoe MDL2 Assets" Content="&#xE893;" Width="30" Height="30" Margin="0,0,10,0" >
+                <Button Style="{StaticResource ButtonPlayerStyle}" Padding="0" BorderThickness="0" Command="{x:Bind PlayerViewModel.SwitchNextCommand}" FontSize="20" FontFamily="Segoe MDL2 Assets" Content="&#xE893;" Width="30" Height="30" Margin="0,0,10,0" >
                     <Button.Background>
                         <SolidColorBrush Opacity="0"/>
                     </Button.Background>
                 </Button>
-                <Button Padding="0" BorderThickness="0" Command="{x:Bind PlayerViewModel.SwitchNextCommand}" FontSize="20" FontFamily="Segoe MDL2 Assets" Content="&#xE14B;" Width="30" Height="30">
+                <Button Padding="0" Style="{StaticResource ButtonPlayerStyle}"  BorderThickness="0" Command="{x:Bind PlayerViewModel.SwitchNextCommand}" FontSize="20" FontFamily="Segoe MDL2 Assets" Content="&#xE14B;" Width="30" Height="30">
                     <Button.Background>
                         <SolidColorBrush Opacity="0"/>
                     </Button.Background>
