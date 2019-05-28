@@ -17,6 +17,7 @@ using Windows.Foundation.Collections;
 using Windows.Foundation.Metadata;
 using Windows.Storage;
 using Windows.UI;
+using Windows.UI.Core;
 using Windows.UI.ViewManagement;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
@@ -141,7 +142,10 @@ namespace Fooxboy.MusicX.Uwp
                 // Обеспечение активности текущего окна
                 Window.Current.Activate();
             }
-            
+
+            SystemNavigationManager.GetForCurrentView().BackRequested += OnBackRequested;
+
+
         }
 
         /// <summary>
@@ -152,6 +156,11 @@ namespace Fooxboy.MusicX.Uwp
         void OnNavigationFailed(object sender, NavigationFailedEventArgs e)
         {
             throw new Exception("Failed to load Page " + e.SourcePageType.FullName);
+        }
+
+        private void OnBackRequested(object sender, BackRequestedEventArgs e)
+        {
+            StaticContent.NavigationContentService.Back();
         }
 
         /// <summary>

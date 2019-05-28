@@ -13,8 +13,16 @@
             <ColumnDefinition MinWidth="260" MaxWidth="300" Width="*"/>
             <ColumnDefinition MinWidth="500" Width="3.5*"/>
         </Grid.ColumnDefinitions>
-        <Frame Grid.Column="0" x:Name="PlayerMenuFrame"/>
-        <Frame Grid.Column="1" x:Name="ContentFrame"/>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="32"/>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
+       
+
+
+        <Frame Grid.Column="0" Grid.RowSpan="2" x:Name="PlayerMenuFrame"/>
+        <Frame Grid.Column="1" Grid.RowSpan="2" x:Name="ContentFrame"/>
+        <Grid x:Name="TitleBar" Grid.Row="0" Grid.ColumnSpan="2" Background="Transparent"/>
 
     </Grid>
 </Page>

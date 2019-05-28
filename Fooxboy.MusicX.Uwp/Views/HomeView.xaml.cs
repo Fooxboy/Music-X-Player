@@ -28,7 +28,7 @@ namespace Fooxboy.MusicX.Uwp.Views
         public HomeView()
         {
             this.InitializeComponent();
-            Window.Current.SetTitleBar(TitleBarGrid);
+            //Window.Current.SetTitleBar(TitleBarGrid);
             HomeViewModel = HomeViewModel.Instanse;
         }
 
