@@ -166,6 +166,9 @@ namespace Fooxboy.MusicX.Uwp.Services
         /// </summary>
         public void SetCurrentPlaylist(AudioPlaylist playlist)
         {
+            currentPlaylist = null;
+            Pause();
+            Seek(TimeSpan.Zero);
             if (currentPlaylist != null)
                 currentPlaylist.OnCurrentItemChanged -= CurrentPlaylistOnCurrentItemChanged;
 
@@ -180,6 +183,10 @@ namespace Fooxboy.MusicX.Uwp.Services
 
                 CurrentAudioChanged?.Invoke(this, EventArgs.Empty);
             }
+            UpdateTransportControl();
+
+            PlayFrom(playlist.CurrentItem.Source);
+
         }
 
         /// <summary>

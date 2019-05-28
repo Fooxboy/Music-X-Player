@@ -7,12 +7,15 @@
     xmlns:controls="using:Microsoft.Toolkit.Uwp.UI.Controls"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:interactivity="using:Microsoft.Xaml.Interactivity"
+    xmlns:behaviors="using:Microsoft.Toolkit.Uwp.UI.Animations.Behaviors"
     xmlns:Windows10version1809="http://schemas.microsoft.com/winfx/2006/xaml/presentation?IsApiContractPresent(Windows.Foundation.UniversalApiContract, 7)"
     Loaded="{x:Bind HomeViewModel.Page_Loaded}"
     mc:Ignorable="d"
     Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
 
     <Grid >
+
         <Grid.RowDefinitions>
             <RowDefinition Height="32"/>
             <RowDefinition/>
@@ -55,10 +58,10 @@
                                         <RowDefinition Height="auto"/>
                                     </Grid.RowDefinitions>
 
-                                    <controls:DropShadowPanel Width="150"  Height="150" x:Name="AlbumCoverShadow2" ShadowOpacity="1" OffsetY="0" BlurRadius="40" Opacity="0.5">
+                                    <controls:DropShadowPanel Width="150"  Height="150" x:Name="CoverPlaylistShadow" ShadowOpacity="1" OffsetY="0" BlurRadius="40" Opacity="0.5">
                                         <Border Width="150" Height="150" Background="Black"/>
                                     </controls:DropShadowPanel>
-                                    <Image  Stretch="Fill" Margin="10 20 10 20" Grid.Row="0"  Width="150"  Height="150">
+                                    <Image x:Name="CoverPlaylist" Stretch="Fill" PointerEntered="CoverPlaylist_PointerEntered" PointerExited="CoverPlaylist_PointerExited"  Margin="10 20 10 20" Grid.Row="0"  Width="150"  Height="150">
                                         <Image.Source>
                                             <BitmapImage UriSource="{x:Bind Cover, Mode=TwoWay}"
                                                      AutoPlay="True"

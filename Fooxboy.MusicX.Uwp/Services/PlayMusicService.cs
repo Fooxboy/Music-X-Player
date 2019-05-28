@@ -33,7 +33,6 @@ namespace Fooxboy.MusicX.Uwp.Services
             {
                 foreach (var trackMusic in StaticContent.Music) playlistNowPlay.Tracks.Add(trackMusic);
                 StaticContent.NowPlayPlaylist = playlistNowPlay;
-                if (StaticContent.AudioService.IsPlaying) StaticContent.AudioService.Pause();
                 StaticContent.AudioService.CurrentPlaylist.CurrentItem = audioFile.ToIAudio();
                 StaticContent.NowPlay = audioFile;
             }
@@ -46,14 +45,12 @@ namespace Fooxboy.MusicX.Uwp.Services
                 StaticContent.NowPlayPlaylist = playlistPlay;
             }
 
-            if (StaticContent.Playlists != null)
+            if (!(StaticContent.Playlists.Any(p => p.Id == 1000)))
             {
                 StaticContent.Playlists.Add(StaticContent.NowPlayPlaylist);
             }
-
             var playlistNowPlayAsAudioPlaylist = StaticContent.NowPlayPlaylist.ToAudioPlaylist(audioFile);
             StaticContent.AudioService.SetCurrentPlaylist(playlistNowPlayAsAudioPlaylist);
-            StaticContent.AudioService.Play();
         }
     }
 }

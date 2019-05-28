@@ -13,6 +13,7 @@ using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Controls.Primitives;
 using Windows.UI.Xaml.Data;
 using Windows.UI.Xaml.Input;
+using Microsoft.Toolkit.Uwp.UI.Animations;
 using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Navigation;
 
@@ -34,21 +35,6 @@ namespace Fooxboy.MusicX.Uwp.Views
 
         public HomeViewModel HomeViewModel { get; set; }
 
-        private async void Button_Click(object sender, RoutedEventArgs e)
-        {
-            var picker = new Windows.Storage.Pickers.FileOpenPicker();
-            picker.ViewMode = Windows.Storage.Pickers.PickerViewMode.Thumbnail;
-            picker.SuggestedStartLocation = Windows.Storage.Pickers.PickerLocationId.PicturesLibrary;
-            picker.FileTypeFilter.Add(".mp3");
-
-            Windows.Storage.StorageFile file = await picker.PickSingleFileAsync();
-            var audio = await FindMetadataService.Convert(file);
-            StaticContent.AudioService.CurrentPlaylist.Add(audio);
-            StaticContent.AudioService.CurrentPlaylist.CurrentItem = audio;
-            StaticContent.AudioService.Volume = 1f;
-            StaticContent.Volume = 1f;
-            StaticContent.AudioService.Play();
-        }
 
         protected async override void OnNavigatedTo(NavigationEventArgs e)
         {
@@ -66,6 +52,26 @@ namespace Fooxboy.MusicX.Uwp.Views
    
         }
 
-       
+        private async void CoverPlaylist_PointerEntered(object sender, PointerRoutedEventArgs e)
+        {
+            var image = (Image)sender;
+            await image.Scale(
+                        scaleX: 1.1f,
+                        scaleY: 1.1f,
+                        centerX: 50f,
+                        centerY: 50f,
+                        duration: 350, delay: 0).StartAsync();
+        }
+
+        private async void CoverPlaylist_PointerExited(object sender, PointerRoutedEventArgs e)
+        {
+            var image = (Image)sender;
+            await image.Scale(
+                        scaleX: 1.0f,
+                        scaleY: 1.0f,
+                        centerX: 50f,
+                        centerY: 50f,
+                        duration: 350, delay: 0).StartAsync();
+        }
     }
 }
