@@ -52,10 +52,18 @@ namespace Fooxboy.MusicX.Uwp.Views
 
         protected async override void OnNavigatedTo(NavigationEventArgs e)
         {
-            await HomeViewModel.GetPlaylistLocal();
-            await HomeViewModel.GetMusicLocal();
-            int mc = await HomeViewModel.CountMusic();
-            this.MusicCount.Text = $"{mc} трека(ов)";
+            if(HomeViewModel.Playlists.Count == 0)
+            {
+                await PlaylistsService.SetPlaylistLocal();
+            }
+
+            if(HomeViewModel.Music.Count == 0)
+            {
+                await MusicFilesService.GetMusicLocal();
+                int mc = await HomeViewModel.CountMusic();
+                this.MusicCount.Text = $"{mc} трека(ов)";
+            }
+   
         }
 
        

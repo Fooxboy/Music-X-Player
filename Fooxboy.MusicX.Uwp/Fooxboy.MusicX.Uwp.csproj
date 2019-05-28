@@ -140,6 +140,7 @@
     <Compile Include="RelayCommand.cs" />
     <Compile Include="Services\AudioService.cs" />
     <Compile Include="Services\FindMetadataService.cs" />
+    <Compile Include="Services\MusicFilesService.cs" />
     <Compile Include="Services\NavigationService.cs" />
     <Compile Include="Services\PlaylistsService.cs" />
     <Compile Include="Services\PlayMusicService.cs" />

@@ -197,13 +197,17 @@ namespace Fooxboy.MusicX.Uwp
                 }
 
                 StaticContent.NowPlayPlaylist = playlist;
-            }else
+                StaticContent.OpenFiles = true;
+            }
+            else
             {
                 var file = files[0];
                 var audio = await FindMetadataService.ConvertToAudioFile((StorageFile)file);
                 StaticContent.NowPlay = audio;
+                StaticContent.OpenFiles = true;
+
             }
-            if(Window.Current.Visible)
+            if (Window.Current.Visible)
             {
                 HomeViewModel.Instanse.Page_Loaded(null, null);
             }else

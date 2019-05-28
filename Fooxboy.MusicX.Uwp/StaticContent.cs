@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -20,5 +21,32 @@ namespace Fooxboy.MusicX.Uwp
         public static AudioFile NowPlay { get; set; }
         public static PlaylistFile NowPlayPlaylist { get; set; }
         public static AudioService AudioService => AudioService.Instance;
+        private static ObservableCollection<PlaylistFile> playlists;
+        public static ObservableCollection<PlaylistFile> Playlists
+        {
+            get
+            {
+                if (playlists == null)
+                {
+                    playlists = new ObservableCollection<PlaylistFile>();
+                    return playlists;
+                }
+                else return playlists;
+            }
+        }
+        private static ObservableCollection<AudioFile> music;
+        public static ObservableCollection<AudioFile> Music
+        {
+            get
+            {
+                if (music == null)
+                {
+                    music = new ObservableCollection<AudioFile>();
+                    return music;
+                }
+                else return music;
+            }
+        }
+        public static bool OpenFiles { get; set; }
     }
 }
