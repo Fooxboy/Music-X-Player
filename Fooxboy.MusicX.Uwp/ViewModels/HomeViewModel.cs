@@ -120,40 +120,40 @@ namespace Fooxboy.MusicX.Uwp.ViewModels
 
         public async Task GetMusicLocal()
         {
-            try
-            {
+            /*try
+            {*/
                 var files = (await KnownFolders.MusicLibrary.GetFilesAsync(Windows.Storage.Search.CommonFileQuery.OrderByName)).ToList();
                 var music = new ObservableCollection<AudioFile>();
                 foreach (var f in files)
                 {
                     if (f.FileType == ".mp3" || f.FileType == ".wav")
                     {
-                        try
-                        {
+                        /*try
+                        {*/
                             var track = await FindMetadataService.ConvertToAudioFile(f);
                             music.Add(track);
-                        }catch(Exception e)
+                       /* }catch(Exception e)
                         {
 
-                        }
+                        }*/
                         
                     }
                 }
                 this.music = music;
                 Changed("Music");
-            }
+            /*}
             catch(Exception e)
             {
                 ContentDialog deleteFileDialog = new ContentDialog()
                 {
                     Title = "АШИБКА",
-                    Content = $"{e}",
+                    //Content = $"{e}",
                     PrimaryButtonText = "ОК",
                     SecondaryButtonText = "Отмена"
                 };
 
                 await deleteFileDialog.ShowAsync();
-            }
+            }*/
             
         }
 

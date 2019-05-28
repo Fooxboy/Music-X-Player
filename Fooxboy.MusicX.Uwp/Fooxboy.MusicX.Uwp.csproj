@@ -308,9 +308,7 @@
       <Version>2.1.0</Version>
     </PackageReference>
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Assets\temp\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <ProjectReference Include="..\Fooxboy.MusicX.Core\Fooxboy.MusicX.Core.csproj">
       <Project>{dc2f5311-ffb3-4810-8980-cc6ad7c036e0}</Project>

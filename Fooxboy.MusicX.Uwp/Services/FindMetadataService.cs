@@ -2,12 +2,14 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Runtime.InteropServices.WindowsRuntime;
 using System.Text;
 using System.Threading.Tasks;
 using Fooxboy.MusicX.Uwp.Interfaces;
 using Fooxboy.MusicX.Uwp.Models;
 using TagLib;
 using Windows.Storage;
+using Windows.Storage.Streams;
 using Windows.UI.Xaml.Media.Imaging;
 using static System.Net.Mime.MediaTypeNames;
 
@@ -60,13 +62,13 @@ namespace Fooxboy.MusicX.Uwp.Services
             audio.OwnerId = 0;
             audio.PlaylistId = 0;
             if (file.Tag.Pictures.Any()) {
-
-                System.IO.File.WriteAllBytes($"/Assets/temp/{file.Tag.Title}.jpg", file.Tag.Pictures[0].Data.Data);
-                audio.Cover = $"/Assets/temp/{file.Tag.Title}{file.Properties.Duration.TotalSeconds}.jpg";
+                StorageFolder localFolder = ApplicationData.Current.LocalFolder;
+                System.IO.File.WriteAllBytes($"{file.Name}.jpg", file.Tag.Pictures[0].Data.Data);
+                audio.Cover = $"{file.Name}.jpg";
             }
             else
             {
-                audio.Cover = "/Assets/Images/placeholder.png";
+                audio.Cover = "ms-appx:///Assets/Images/placeholder.png";
             }
             
             audio.Source = new Uri(a.Path).ToString();
