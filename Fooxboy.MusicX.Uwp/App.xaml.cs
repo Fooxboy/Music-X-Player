@@ -89,7 +89,9 @@ namespace Fooxboy.MusicX.Uwp
                 if(await localpath.TryGetItemAsync("Playlists") == null)
                 {
                     var pathPlaylists = await localpath.CreateFolderAsync("Playlists");
-
+                    StaticContent.LocalFolder = localpath;
+                    StaticContent.PlaylistsFolder = pathPlaylists;
+                    StaticContent.CoversFolder = await localpath.CreateFolderAsync("Covers");
                     var file = await pathPlaylists.CreateFileAsync("Id1.json");
                     var playlist = new Models.PlaylistFile()
                     {

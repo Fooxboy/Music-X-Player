@@ -24,7 +24,7 @@ namespace Fooxboy.MusicX.Uwp.Services
             StorageFile a;
             try
             {
-                 file = TagLib.File.Create(storageFile.Path);
+                file = TagLib.File.Create(storageFile.Path);
                 a = storageFile;
             }
             catch

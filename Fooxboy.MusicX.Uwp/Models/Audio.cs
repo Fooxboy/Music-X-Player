@@ -9,6 +9,7 @@ namespace Fooxboy.MusicX.Uwp.Models
 {
     public class Audio : IAudio
     {
+        public string Cover { get; set; }
         public string Id { get; set; }
         public string OwnerId { get; set; }
         public string InternalId { get; set; }

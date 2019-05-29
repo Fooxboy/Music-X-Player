@@ -27,11 +27,11 @@
             
             <Grid Grid.Row="0" Margin="10 20 10 0">
                 <controls:DropShadowPanel Width="190"  Height="190" x:Name="AlbumCoverShadow" ShadowOpacity="1" OffsetY="0" BlurRadius="40" Opacity="0.5">
-                    <Border Width="200" Height="200" Background="Black"/>
+                    <Border Width="200" Height="200" Background="White"/>
                 </controls:DropShadowPanel>
                 <Image  Stretch="Fill"  Width="200"  Height="200">
                     <Image.Source>
-                        <BitmapImage UriSource=".Assets/Images/placeholder.png"
+                        <BitmapImage UriSource="{x:Bind Path=PlayerViewModel.CurrentAudio.Cover, Mode=TwoWay }"
                                                      DecodePixelHeight="200"
                                                      DecodePixelWidth="200" />
                     </Image.Source>
