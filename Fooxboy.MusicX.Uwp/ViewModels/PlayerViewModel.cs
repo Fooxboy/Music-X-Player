@@ -59,7 +59,7 @@ namespace Fooxboy.MusicX.Uwp.ViewModels
 
             
         }
-
+        
 
         public RelayCommand PlayPauseCommand { get; private set; } 
 
@@ -75,6 +75,8 @@ namespace Fooxboy.MusicX.Uwp.ViewModels
                 //аоаоаомммм
             }
         }
+
+       // public string AudioCover {
 
 
         public IAudio CurrentAudio => StaticContent.AudioService.CurrentPlaylist.CurrentItem;

@@ -90,9 +90,10 @@
                     </Grid.ColumnDefinitions>
                     <StackPanel Orientation="Horizontal">
                     <TextBlock Margin="30,0,0,0" FontFamily="Calibri" Text="Ваша Музыка" Grid.Row="0" FontWeight="ExtraBold" FontSize="42"/>
-                    <TextBlock x:Name="MusicCount" HorizontalAlignment="Left" VerticalAlignment="Bottom" Text="0 треков" Grid.Row="0" Height="19" Margin="10,0,0,7"/>
+                        <TextBlock x:Name="MusicCount" HorizontalAlignment="Left" VerticalAlignment="Bottom" Text="{x:Bind HomeViewModel.tracksCount, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Grid.Row="0" Height="19" Margin="10,0,0,7"/>
                         <Button Content="Обновить список треков" Command="{x:Bind HomeViewModel.RefreshMusicCommand}" Grid.Row="0" VerticalAlignment="Center" HorizontalAlignment="Right"/>
                     </StackPanel>
+                    <TextBlock Margin="30,0,0,0" Visibility="{x:Bind HomeViewModel.anyMusic}" Text="У Вас нет музыки." Grid.Row="1" />
                     <ListView ItemContainerStyle="{StaticResource ListViewItemContainerStyle}"
                               Style="{StaticResource ListViewStyle}"
                               SelectedItem="{x:Bind HomeViewModel.SelectedAudioFile, Mode=TwoWay}"

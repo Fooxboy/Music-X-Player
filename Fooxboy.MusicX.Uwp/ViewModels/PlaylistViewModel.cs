@@ -83,13 +83,13 @@ namespace Fooxboy.MusicX.Uwp.ViewModels
 
         public async void MusicListView_Tapped(object sender, TappedRoutedEventArgs e)
         {
-          //  await PlayMusicForLibrary();
+            await PlayMusicService.PlayMusicForLibrary(SelectedAudioFile, 3, Playlist);
         }
 
        
         public async void ListViewMusic_Click(object sender, ItemClickEventArgs e)
         {
-           // await PlayMusicForLibrary();
+            await PlayMusicService.PlayMusicForLibrary(SelectedAudioFile, 3, Playlist);
         }
 
         private AudioFile selectedAudioFile;
