@@ -56,7 +56,10 @@ namespace Fooxboy.MusicX.Uwp.ViewModels
                     await PlayMusicService.PlayMusicForLibrary(StaticContent.NowPlayPlaylist.Tracks[0], 3, StaticContent.NowPlayPlaylist);
                     Changed("Playlists");
                 }
-            }  
+            } 
+            
+          
+
         }
 
         public ObservableCollection<PlaylistFile> Playlists
@@ -109,13 +112,45 @@ namespace Fooxboy.MusicX.Uwp.ViewModels
             get
             {
                 return selectedAudioFile;
-            }set
+            }
+            set
             {
                 if (selectedAudioFile == value) return;
                 selectedAudioFile = value;
                 Changed("SelectedAudioFile");
             }
         }
+
+        private string trackscount;
+        public string tracksCount
+        {
+            get
+            {
+                return trackscount;
+            }
+            set
+            {
+                if (trackscount == value) return;
+                trackscount = value;
+                Changed("tracksCount");
+            }
+        }
+
+        private Visibility anymusic;
+        public Visibility anyMusic
+        {
+            get
+            {
+                return anymusic;
+            }
+            set
+            {
+                if (anymusic == value) return;
+                anymusic = value;
+                Changed("anyMusic");
+            }
+        }
+
 
         private PlaylistFile selectedPlayListFile;
         public PlaylistFile SelectedPlaylistFile
@@ -142,9 +177,9 @@ namespace Fooxboy.MusicX.Uwp.ViewModels
             StaticContent.NavigationContentService.Go(typeof(Views.PlaylistView), SelectedPlaylistFile);
         }
 
-        public async Task<int> CountMusic()
+        public async Task CountMusic()
         {
-            return (await KnownFolders.MusicLibrary.GetFilesAsync(Windows.Storage.Search.CommonFileQuery.OrderByName)).ToList().Count;
+            tracksCount = Music.Count + " трек(а/ов)" ;
         }
     }
 }

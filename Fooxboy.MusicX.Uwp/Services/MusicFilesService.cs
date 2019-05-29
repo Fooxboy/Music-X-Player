@@ -14,6 +14,7 @@ namespace Fooxboy.MusicX.Uwp.Services
         public static async Task GetMusicLocal()
         {
             var files = (await KnownFolders.MusicLibrary.GetFilesAsync(Windows.Storage.Search.CommonFileQuery.OrderByName)).ToList();
+            files.AddRange((await KnownFolders.DocumentsLibrary.GetFilesAsync(Windows.Storage.Search.CommonFileQuery.OrderByName)).ToList());
             foreach (var f in files)
             {
                 if (f.FileType == ".mp3" || f.FileType == ".wav")

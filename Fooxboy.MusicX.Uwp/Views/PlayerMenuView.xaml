@@ -31,7 +31,7 @@
                 </controls:DropShadowPanel>
                 <Image  Stretch="Fill"  Width="200"  Height="200">
                     <Image.Source>
-                        <BitmapImage UriSource="/Assets/Images/placeholder.png"
+                        <BitmapImage UriSource=".Assets/Images/placeholder.png"
                                                      DecodePixelHeight="200"
                                                      DecodePixelWidth="200" />
                     </Image.Source>
