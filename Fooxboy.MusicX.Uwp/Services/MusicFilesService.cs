@@ -62,9 +62,7 @@ namespace Fooxboy.MusicX.Uwp.Services
 
         public static async Task SetLastPlayAudio(AudioFile file)
         {
-            var json = JsonConvert.SerializeObject(file);
-            var lastFile = await StaticContent.LocalFolder.GetFileAsync("LastPlay.json");
-            await FileIO.WriteTextAsync(lastFile, json);
+            
         }
     }
 }
