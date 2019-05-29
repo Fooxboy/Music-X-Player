@@ -22,6 +22,7 @@ namespace Fooxboy.MusicX.Uwp.Services
         {
             TagLib.File file;
             StorageFile a;
+            
             try
             {
                 file = TagLib.File.Create(storageFile.Path);
@@ -57,7 +58,7 @@ namespace Fooxboy.MusicX.Uwp.Services
             else audio.Title = storageFile.DisplayName;
             audio.DurationSeconds = file.Properties.Duration.TotalSeconds;
             audio.DurationMinutes = Converters.AudioTimeConverter.Convert(file.Properties.Duration.TotalSeconds);
-            audio.Id = 0;
+            audio.Id = a.Name.GetHashCode();
             audio.InternalId = 0;
             audio.OwnerId = 0;
             audio.PlaylistId = 0;
@@ -115,7 +116,7 @@ namespace Fooxboy.MusicX.Uwp.Services
             if (file.Tag.Title != null) audio.Title = file.Tag.Title;
             else audio.Title = storageFile.DisplayName;
             audio.Duration = file.Properties.Duration;
-            audio.Id = "0";
+            audio.Id = a.Name.GetHashCode().ToString();
             audio.InternalId = "0";
             audio.OwnerId = "0";
             audio.PlaylistId = 0;

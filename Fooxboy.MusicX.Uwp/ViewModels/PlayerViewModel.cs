@@ -5,6 +5,8 @@ using System.Text;
 using System.Threading.Tasks;
 using Fooxboy.MusicX.Uwp.Enums;
 using Fooxboy.MusicX.Uwp.Interfaces;
+using Fooxboy.MusicX.Uwp.Services;
+using Fooxboy.MusicX.Uwp.Utils.Extensions;
 using Windows.UI.Xaml;
 
 namespace Fooxboy.MusicX.Uwp.ViewModels
@@ -54,6 +56,8 @@ namespace Fooxboy.MusicX.Uwp.ViewModels
             {
                 StaticContent.AudioService.SwitchPrev();
             });
+
+            
         }
 
 
@@ -71,6 +75,7 @@ namespace Fooxboy.MusicX.Uwp.ViewModels
                 //аоаоаомммм
             }
         }
+
 
         public IAudio CurrentAudio => StaticContent.AudioService.CurrentPlaylist.CurrentItem;
         public TimeSpan Position => StaticContent.AudioService.Position;
@@ -163,16 +168,15 @@ namespace Fooxboy.MusicX.Uwp.ViewModels
             //TileHelper.UpdateIsPlaying(IsPlaying);
         }
 
-        private  void AudioServiceCurrentAudioChanged(object sender, EventArgs e)
+        private async  void AudioServiceCurrentAudioChanged(object sender, EventArgs e)
         {
             Changed("CurrentAudio");
             Changed("Duration");
             Changed("DurationSeconds");
             Changed("VisibilityTextPlay");
             Changed("VisibilityTextPause");
-
-
-            //TODO сделать обновление обложки
+            await MusicFilesService.SetLastPlayAudio(CurrentAudio.ToAudioFile());
+            StaticContent.NowPlay = CurrentAudio.ToAudioFile();
         }
 
         private void AudioServicePositionChanged(object sender, TimeSpan position)

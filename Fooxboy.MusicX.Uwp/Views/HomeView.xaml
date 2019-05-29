@@ -23,7 +23,7 @@
 
 
         <ScrollViewer Margin="0 0 0 0 " Grid.RowSpan="2">
-            <StackPanel Margin="0 32 0 0 " >
+            <StackPanel Margin="0 32 0 0 " VerticalAlignment="Stretch" HorizontalAlignment="Stretch" >
                 <Grid x:Name="PlaylistGrid"  Grid.Row="0" >
                     <Grid.RowDefinitions>
                         <RowDefinition/>
@@ -78,7 +78,7 @@
                     </ListView>
                 </Grid>
 
-                <Grid x:Name="MusicGrid" Margin="0 20 0 0" Grid.Row="1" HorizontalAlignment="Stretch">
+                <Grid x:Name="MusicGrid" Margin="0 20 0 0" Grid.Row="1" >
                     <Grid.RowDefinitions>
                         <RowDefinition/>
                         <RowDefinition/>
@@ -91,6 +91,7 @@
                     <StackPanel Orientation="Horizontal">
                     <TextBlock Margin="30,0,0,0" FontFamily="Calibri" Text="Ваша Музыка" Grid.Row="0" FontWeight="ExtraBold" FontSize="42"/>
                     <TextBlock x:Name="MusicCount" HorizontalAlignment="Left" VerticalAlignment="Bottom" Text="0 треков" Grid.Row="0" Height="19" Margin="10,0,0,7"/>
+                        <Button Content="Обновить список треков" Command="{x:Bind HomeViewModel.RefreshMusicCommand}" Grid.Row="0" VerticalAlignment="Center" HorizontalAlignment="Right"/>
                     </StackPanel>
                     <ListView ItemContainerStyle="{StaticResource ListViewItemContainerStyle}"
                               Style="{StaticResource ListViewStyle}"

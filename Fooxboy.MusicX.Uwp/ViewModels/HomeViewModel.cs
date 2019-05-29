@@ -33,14 +33,17 @@ namespace Fooxboy.MusicX.Uwp.ViewModels
 
         private HomeViewModel()
         {
-            
+            RefreshMusicCommand = new RelayCommand(async () =>
+            {
+                await MusicFilesService.GetMusicLocal(true);
+            });
         }
 
 
+        public RelayCommand RefreshMusicCommand { get; private set; }
+
         public async void Page_Loaded(object sender, RoutedEventArgs e)
         {
-            Changed("Playlists");
-            Changed("Music");
             if (StaticContent.OpenFiles)
             {
                 StaticContent.OpenFiles = false;
@@ -56,7 +59,9 @@ namespace Fooxboy.MusicX.Uwp.ViewModels
                     await PlayMusicService.PlayMusicForLibrary(StaticContent.NowPlayPlaylist.Tracks[0], 3, StaticContent.NowPlayPlaylist);
                     Changed("Playlists");
                 }
-            }  
+            }
+            Changed("Playlists");
+            Changed("Music");
         }
 
         public ObservableCollection<PlaylistFile> Playlists

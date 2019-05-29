@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices.WindowsRuntime;
@@ -86,7 +87,9 @@ namespace Fooxboy.MusicX.Uwp
                 }
 
                 var localpath = ApplicationData.Current.LocalFolder;
-                if(await localpath.TryGetItemAsync("Playlists") == null)
+                StaticContent.LocalFolder = localpath;
+               
+                if (await localpath.TryGetItemAsync("Playlists") == null)
                 {
                     var pathPlaylists = await localpath.CreateFolderAsync("Playlists");
                     StaticContent.LocalFolder = localpath;
@@ -104,13 +107,34 @@ namespace Fooxboy.MusicX.Uwp
 
                     var a = JsonConvert.SerializeObject(playlist);
                     await FileIO.WriteTextAsync(file, a);
+                    var musicFile = await localpath.CreateFileAsync("MusicCollection.json");
+                    var musicString = JsonConvert.SerializeObject(new MusicCollection() { Music = new List<AudioFile>(),
+                        DateLastUpdate = "none" });
+                    await FileIO.WriteTextAsync(musicFile, musicString);
+                }else
+                {
+                    StaticContent.PlaylistsFolder = await localpath.GetFolderAsync("Playlists");
                 }
 
                 if (await localpath.TryGetItemAsync("LastPlay.json") == null)
                 {
-                    await localpath.CreateFileAsync("LastPlay.json");
+                    var lastFile = await localpath.CreateFileAsync("LastPlay.json");
+                    var jsonLastFile = JsonConvert.SerializeObject(new AudioFile()
+                    {
+                        Artist = "",
+                        Cover = "ms-appx:///Assets/Images/placeholder.png",
+                        DurationMinutes = "00:00",
+                        DurationSeconds = 0,
+                        Id = -2,
+                        InternalId = -2,
+                        OwnerId = -2,
+                        PlaylistId = 1,
+                        Source  = "ms-appx:///Assets/Audio/song.mp3",
+                        Title = "Сейчас ничего не воспроизводится."
+                    });
+                    await FileIO.WriteTextAsync(lastFile, jsonLastFile);
                 }
-
+                
                 Log.Trace("Размещение фрейма в текущем окне.");
                 DispatcherHelper.Initialize();
                 //StaticContent.AudioService = AudioService.Instance;

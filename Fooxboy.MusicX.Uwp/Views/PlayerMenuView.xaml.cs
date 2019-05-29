@@ -3,6 +3,9 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices.WindowsRuntime;
+using System.Threading.Tasks;
+using Fooxboy.MusicX.Uwp.Services;
+using Fooxboy.MusicX.Uwp.Utils.Extensions;
 using Fooxboy.MusicX.Uwp.ViewModels;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
@@ -28,13 +31,18 @@ namespace Fooxboy.MusicX.Uwp.Views
             this.InitializeComponent();
             PlayerViewModel = ViewModels.PlayerViewModel.Instanse;
             PlayerMenuViewModel = ViewModels.PlayerMenuViewModel.Instanse;
-            
-            
         }
 
         public PlayerViewModel PlayerViewModel { get; set; }
 
         public PlayerMenuViewModel PlayerMenuViewModel { get; set; }
 
+        private async void Page_Loaded(object sender, RoutedEventArgs e)
+        {
+            var lastPlayMusic = await MusicFilesService.GetLastPlayAudio();
+            
+            StaticContent.AudioService.CurrentPlaylist.CurrentItem = lastPlayMusic.ToIAudio();
+            if (StaticContent.AudioService.IsPlaying) StaticContent.AudioService.Pause();
+        }
     }
 }
