@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 using Fooxboy.MusicX.Uwp.Enums;
 using Fooxboy.MusicX.Uwp.Models;
 using Fooxboy.MusicX.Uwp.Services;
+using Windows.Storage;
 using Windows.UI.Xaml.Controls;
 
 namespace Fooxboy.MusicX.Uwp
@@ -19,6 +20,9 @@ namespace Fooxboy.MusicX.Uwp
         public static RepeatMode Repeat { get; set; }
         public static bool Shuffle { get; set; }
         public static AudioFile NowPlay { get; set; }
+        public static StorageFolder CoversFolder { get; set; }
+        public static StorageFolder PlaylistsFolder { get; set; }
+        public static StorageFolder LocalFolder { get; set; }
         public static PlaylistFile NowPlayPlaylist { get; set; }
         public static AudioService AudioService => AudioService.Instance;
         private static ObservableCollection<PlaylistFile> playlists;

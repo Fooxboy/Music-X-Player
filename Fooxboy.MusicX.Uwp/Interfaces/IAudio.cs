@@ -8,6 +8,12 @@ namespace Fooxboy.MusicX.Uwp.Interfaces
 {
     public interface IAudio
     {
+
+        /// <summary>
+        /// Обложка
+        /// </summary>
+        string Cover { get; set; }
+
         /// <summary>
         /// id
         /// </summary>

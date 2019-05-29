@@ -22,12 +22,32 @@ namespace Fooxboy.MusicX.Uwp.Utils.Extensions
                 OwnerId = sourse.OwnerId.ToString(),
                 PlaylistId = sourse.PlaylistId,
                 Source = new Uri(sourse.Source),
-                Title = sourse.Title
+                Title = sourse.Title,
+                Cover = sourse.Cover
             };
 
             return audio;
         }
 
+
+        public static AudioFile ToAudioFile(this IAudio source)
+        {
+            var audio = new AudioFile()
+            {
+                Artist = source.Artist,
+                Cover = source.Cover,
+                DurationMinutes = $"{source.Duration.Minutes}:{source.Duration.Seconds}",
+                DurationSeconds = source.Duration.TotalMilliseconds,
+                Id = Int32.Parse(source.Id),
+                InternalId = Int32.Parse(source.InternalId),
+                OwnerId = Int32.Parse(source.InternalId),
+                PlaylistId = source.PlaylistId,
+                Source = source.Source.ToString(),
+                Title = source.Title
+            };
+
+            return audio;
+        }
         public static List<IAudio> ToIAudioList(this List<AudioFile> source)
         {
             var list = new List<IAudio>();
