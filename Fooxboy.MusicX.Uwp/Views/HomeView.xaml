@@ -97,7 +97,7 @@
                             </Button.Background>
                         </Button>
                     </StackPanel>
-                    <TextBlock Margin="30,0,0,0" Visibility="{x:Bind HomeViewModel.anyMusic}" Text="У Вас нет музыки." Grid.Row="1" />
+                    <TextBlock x:Name="noMusic" Margin="30,0,0,0" Visibility="{x:Bind HomeViewModel.anyMusic, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Text="У Вас нет музыки." Grid.Row="1" />
                     <ListView ItemContainerStyle="{StaticResource ListViewItemContainerStyle}"
                               Style="{StaticResource ListViewStyle}"
                               SelectedItem="{x:Bind HomeViewModel.SelectedAudioFile, Mode=TwoWay}"

@@ -143,14 +143,7 @@ namespace Fooxboy.MusicX.Uwp.ViewModels
         {
             get
             {
-                if (Music.Count != 0)
-                {
-                    return Visibility.Visible;
-                }
-                else
-                {
-                    return Visibility.Collapsed;
-                }
+                return anymusic;
             }
             set
             {
@@ -189,6 +182,9 @@ namespace Fooxboy.MusicX.Uwp.ViewModels
         public async Task CountMusic()
         {
             tracksCount = Music.Count + " трек(а/ов)" ;
+            if (Music.Count == 0) anymusic = Visibility.Visible;
+            anymusic = Visibility.Collapsed;
+            Changed("anyMusic");
         }
     }
 }
