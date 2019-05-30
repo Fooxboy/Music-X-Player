@@ -33,8 +33,9 @@ namespace Fooxboy.MusicX.Uwp.Services
             {
                 foreach (var trackMusic in StaticContent.Music) playlistNowPlay.Tracks.Add(trackMusic);
                 StaticContent.NowPlayPlaylist = playlistNowPlay;
-                StaticContent.AudioService.CurrentPlaylist.CurrentItem = audioFile.ToIAudio();
-                StaticContent.NowPlay = audioFile;
+
+                var currentAudio = audioFile.ToIAudio();
+                StaticContent.AudioService.CurrentPlaylist.CurrentItem = currentAudio;
             }
             else if (typePlay == 2)
             {

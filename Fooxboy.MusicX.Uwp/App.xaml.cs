@@ -233,7 +233,7 @@ namespace Fooxboy.MusicX.Uwp
             {
                 var file = files[0];
                 var audio = await FindMetadataService.ConvertToAudioFile((StorageFile)file);
-                StaticContent.NowPlay = audio;
+                //StaticContent.NowPlay = audio;
                 StaticContent.OpenFiles = true;
 
             }

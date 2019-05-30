@@ -54,7 +54,7 @@ namespace Fooxboy.MusicX.Uwp.Services
                 {
                     audio.Cover = "ms-appx:///Assets/Images/placeholder.png";
                 }
-                audio.Source = new Uri(file.Path).ToString();
+                audio.Source = file.Path;
 
                 return audio;
             }

@@ -177,8 +177,6 @@ namespace Fooxboy.MusicX.Uwp.ViewModels
             Changed("DurationSeconds");
             Changed("VisibilityTextPlay");
             Changed("VisibilityTextPause");
-            await MusicFilesService.SetLastPlayAudio(CurrentAudio.ToAudioFile());
-            StaticContent.NowPlay = CurrentAudio.ToAudioFile();
         }
 
         private void AudioServicePositionChanged(object sender, TimeSpan position)

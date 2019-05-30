@@ -11,19 +11,19 @@ namespace Fooxboy.MusicX.Uwp.Utils.Extensions
 {
     public static class AudioExtensions
     {
-        public static IAudio ToIAudio(this AudioFile sourse)
+        public static IAudio ToIAudio(this AudioFile source)
         {
             IAudio audio = new Audio()
             {
-                Artist = sourse.Artist,
-                Duration = TimeSpan.FromSeconds(sourse.DurationSeconds),
-                Id = sourse.Id.ToString(),
-                InternalId = sourse.InternalId.ToString(),
-                OwnerId = sourse.OwnerId.ToString(),
-                PlaylistId = sourse.PlaylistId,
-                Source = new Uri(sourse.Source),
-                Title = sourse.Title,
-                Cover = sourse.Cover
+                Artist = source.Artist,
+                Duration = TimeSpan.FromSeconds(source.DurationSeconds),
+                Id = source.Id.ToString(),
+                InternalId = source.InternalId.ToString(),
+                OwnerId = source.OwnerId.ToString(),
+                PlaylistId = source.PlaylistId,
+                Source = new Uri(source.Source),
+                Title = source.Title,
+                Cover = source.Cover
             };
 
             return audio;
