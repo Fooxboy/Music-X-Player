@@ -44,6 +44,8 @@ namespace Fooxboy.MusicX.Uwp.Services
                     {
                         track.Source = await StorageFile.GetFileFromPathAsync(track.SourceString);
                     }
+
+                    track.Duration = TimeSpan.FromSeconds(track.DurationSeconds);
                     StaticContent.Music.Add(track);
             }
         }

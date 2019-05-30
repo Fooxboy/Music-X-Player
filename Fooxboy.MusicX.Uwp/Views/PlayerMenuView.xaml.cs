@@ -42,7 +42,7 @@ namespace Fooxboy.MusicX.Uwp.Views
         {
             var lastPlayMusic = await MusicFilesService.GetLastPlayAudio();
             
-            StaticContent.AudioService.CurrentPlaylist.CurrentItem = lastPlayMusic.ToIAudio();
+            StaticContent.AudioService.CurrentPlaylist.CurrentItem = lastPlayMusic;
             if (StaticContent.AudioService.IsPlaying) StaticContent.AudioService.Pause();
         }
 

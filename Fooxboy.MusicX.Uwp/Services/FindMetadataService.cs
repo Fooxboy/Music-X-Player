@@ -40,6 +40,7 @@ namespace Fooxboy.MusicX.Uwp.Services
                 else audio.Title = file.DisplayName;
                 audio.DurationSeconds = mp3File.Properties.Duration.TotalSeconds;
                 audio.DurationMinutes = Converters.AudioTimeConverter.Convert(mp3File.Properties.Duration.TotalSeconds);
+                audio.Duration = mp3File.Properties.Duration;
                 audio.Id = (file.Name.GetHashCode() *1);
                 audio.InternalId = 0;
                 audio.OwnerId = 0;

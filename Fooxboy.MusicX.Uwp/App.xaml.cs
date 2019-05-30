@@ -130,7 +130,7 @@ namespace Fooxboy.MusicX.Uwp
                         OwnerId = -2,
                         PlaylistId = 1,
                         SourceString  = "ms-appx:///Assets/Audio/song.mp3",
-                        Source = await StorageFile.GetFileFromPathAsync("ms-appx:///Assets/Audio/song.mp3"),
+                        Source = await StorageFile.GetFileFromApplicationUriAsync(new Uri("ms-appx:///Assets/Audio/song.mp3")),
                         Title = "Сейчас ничего не воспроизводится"
                     });
                     await FileIO.WriteTextAsync(lastFile, jsonLastFile);
