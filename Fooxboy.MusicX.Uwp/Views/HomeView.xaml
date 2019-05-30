@@ -14,14 +14,23 @@
     mc:Ignorable="d"
     Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
 
-    <Grid>
+    <Grid >
+
         <Grid.RowDefinitions>
-            <RowDefinition Height="340"/>
-            <RowDefinition Height="*"/>
+            <RowDefinition Height="32"/>
+            <RowDefinition/>
         </Grid.RowDefinitions>
-        <Grid x:Name="PlaylistGrid" Grid.Row="0">
-            <TextBlock Margin="30 36 0 0" FontFamily="Calibri" Text="Ваши Плейлисты" Grid.Row="0" FontWeight="ExtraBold" FontSize="42"/>
-            <ListView Margin="0 90 0 0"
+
+
+        <ScrollViewer Margin="0 0 0 0 " Grid.RowSpan="2">
+            <StackPanel Margin="0 32 0 0 " VerticalAlignment="Stretch" HorizontalAlignment="Stretch" >
+                <Grid x:Name="PlaylistGrid"  Grid.Row="0" >
+                    <Grid.RowDefinitions>
+                        <RowDefinition/>
+                        <RowDefinition/>
+                    </Grid.RowDefinitions>
+                    <TextBlock Margin="30 0 0 0" FontFamily="Calibri" Text="Ваши Плейлисты" Grid.Row="0" FontWeight="ExtraBold" FontSize="42"/>
+                    <ListView Grid.Row="1" 
                               ItemsSource="{x:Bind HomeViewModel.Playlists, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                               ScrollViewer.VerticalScrollBarVisibility="Disabled"
                               ScrollViewer.HorizontalScrollBarVisibility="Disabled"
@@ -32,65 +41,64 @@
                               ItemClick="{x:Bind HomeViewModel.PlaylistListView_Click}"
                               Tapped="{x:Bind HomeViewModel.PlaylistListView_Tapped}">
 
-                <ListView.ItemsPanel>
-                    <ItemsPanelTemplate>
-                        <ItemsStackPanel Background="Transparent"
+                        <ListView.ItemsPanel>
+                            <ItemsPanelTemplate>
+                                <ItemsStackPanel Background="Transparent"
                                                  Orientation="Horizontal" 
                                                  HorizontalAlignment="Stretch"
                                                  VerticalAlignment="Stretch" />
-                    </ItemsPanelTemplate>
-                </ListView.ItemsPanel>
+                            </ItemsPanelTemplate>
+                        </ListView.ItemsPanel>
 
-                <ListView.ItemTemplate>
-                    <DataTemplate x:DefaultBindMode="TwoWay" x:DataType="models:PlaylistFile">
-                        <Grid Margin="10 10">
-                            <Grid.RowDefinitions>
-                                <RowDefinition Height="*"/>
-                                <RowDefinition Height="auto"/>
-                            </Grid.RowDefinitions>
+                        <ListView.ItemTemplate>
+                            <DataTemplate x:DefaultBindMode="TwoWay" x:DataType="models:PlaylistFile">
+                                <Grid Margin="20 0">
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="*"/>
+                                        <RowDefinition Height="auto"/>
+                                    </Grid.RowDefinitions>
 
-                            <controls:DropShadowPanel Width="150"  Height="150" x:Name="CoverPlaylistShadow" ShadowOpacity="1" OffsetY="0" BlurRadius="40" Opacity="0.5">
-                                <Border Width="150" Height="150" Background="Black"/>
-                            </controls:DropShadowPanel>
-                            <Image x:Name="CoverPlaylist" Stretch="Fill" PointerEntered="CoverPlaylist_PointerEntered" PointerExited="CoverPlaylist_PointerExited"  Margin="10 10 10 10" Grid.Row="0"  Width="150"  Height="150">
-                                <Image.Source>
-                                    <BitmapImage UriSource="{x:Bind Cover, Mode=TwoWay}"
+                                    <controls:DropShadowPanel Width="150"  Height="150" x:Name="CoverPlaylistShadow" ShadowOpacity="1" OffsetY="0" BlurRadius="40" Opacity="0.5">
+                                        <Border Width="150" Height="150" Background="Black"/>
+                                    </controls:DropShadowPanel>
+                                    <Image x:Name="CoverPlaylist" Stretch="Fill" PointerEntered="CoverPlaylist_PointerEntered" PointerExited="CoverPlaylist_PointerExited"  Margin="10 20 10 20" Grid.Row="0"  Width="150"  Height="150">
+                                        <Image.Source>
+                                            <BitmapImage UriSource="{x:Bind Cover, Mode=TwoWay}"
                                                      AutoPlay="True"
                                                      DecodePixelHeight="150"
                                                      DecodePixelWidth="150" />
-                                </Image.Source>
-                            </Image>
+                                        </Image.Source>
+                                    </Image>
 
-                            <TextBlock HorizontalAlignment="Center" Margin="0 0 0 0" FontWeight="Bold" FontSize="16" Foreground="#282828"  Text="{x:Bind Name, Mode=TwoWay}" Grid.Row="1"/>
-                        </Grid>
-                    </DataTemplate>
+                                    <TextBlock HorizontalAlignment="Center" Margin="0 0 0 20" FontWeight="Bold" FontSize="16" Foreground="#282828"  Text="{x:Bind Name, Mode=TwoWay}" Grid.Row="1"/>
+                                </Grid>
+                            </DataTemplate>
 
-                </ListView.ItemTemplate>
-            </ListView>
-        </Grid>
+                        </ListView.ItemTemplate>
+                    </ListView>
+                </Grid>
 
-        <Grid x:Name="MusicGrid" Margin="0 0 0 0" Grid.Row="1" >
-            <Grid.RowDefinitions>
-                <RowDefinition/>
-                <RowDefinition/>
-            </Grid.RowDefinitions>
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="*"/>
-                <ColumnDefinition Width="auto"/>
-                <ColumnDefinition  Width="auto"/>
-            </Grid.ColumnDefinitions>
-
-            <TextBlock FontFamily="Calibri" Text="Ваша Музыка"  FontWeight="ExtraBold" FontSize="42"/>
-            <TextBlock x:Name="MusicCount" HorizontalAlignment="Left" VerticalAlignment="Bottom" Text="{x:Bind HomeViewModel.tracksCount, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"  Height="19"/>
-            <Button  Height="42" Width="42" FontSize="22" BorderThickness="0" FontFamily="Segoe MDL2 Assets" Content="&#xE149;" Command="{x:Bind HomeViewModel.RefreshMusicCommand}" >
-                <Button.Background>
-                    <SolidColorBrush Opacity="0"/>
-                </Button.Background>
-            </Button>
-
-            <TextBlock Margin="30,0,0,0" Visibility="{x:Bind HomeViewModel.anyMusic}" Text="У Вас нет музыки." />
-            <ListView ItemContainerStyle="{StaticResource ListViewItemContainerStyle}"
-                              ScrollViewer.IsDeferredScrollingEnabled="True"
+                <Grid x:Name="MusicGrid" Margin="0 20 0 0" Grid.Row="1" >
+                    <Grid.RowDefinitions>
+                        <RowDefinition/>
+                        <RowDefinition/>
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="auto"/>
+                        <ColumnDefinition  Width="auto"/>
+                    </Grid.ColumnDefinitions>
+                    <StackPanel Orientation="Horizontal">
+                    <TextBlock Margin="30,0,0,0" FontFamily="Calibri" Text="Ваша Музыка" Grid.Row="0" FontWeight="ExtraBold" FontSize="42"/>
+                        <TextBlock x:Name="MusicCount" HorizontalAlignment="Left" VerticalAlignment="Bottom" Text="{x:Bind HomeViewModel.tracksCount, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Grid.Row="0" Height="19" Margin="10,0,0,7"/>
+                        <Button Margin="10 10 0 0" Height="42" Width="42" FontSize="22" BorderThickness="0" FontFamily="Segoe MDL2 Assets" Content="&#xE149;" Command="{x:Bind HomeViewModel.RefreshMusicCommand}" Grid.Row="0" VerticalAlignment="Center" HorizontalAlignment="Right">
+                            <Button.Background>
+                                <SolidColorBrush Opacity="0"/>
+                            </Button.Background>
+                        </Button>
+                    </StackPanel>
+                    <TextBlock x:Name="noMusic" Margin="30,0,0,0" Visibility="{x:Bind HomeViewModel.anyMusic, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Text="У Вас нет музыки." Grid.Row="1" />
+                    <ListView ItemContainerStyle="{StaticResource ListViewItemContainerStyle}"
                               Style="{StaticResource ListViewStyle}"
                               SelectedItem="{x:Bind HomeViewModel.SelectedAudioFile, Mode=TwoWay}"
                               ItemClick="{x:Bind HomeViewModel.ListViewMusic_Click}"
@@ -98,22 +106,22 @@
                               Grid.Row="1" HorizontalAlignment="Stretch"
                               ItemsSource="{x:Bind HomeViewModel.Music, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                               x:Name="MusicListView">
-                <ListView.ItemsPanel >
-                    <ItemsPanelTemplate >
-                        <ItemsStackPanel HorizontalAlignment="Stretch" VerticalAlignment="Stretch" />
-                    </ItemsPanelTemplate>
-                </ListView.ItemsPanel>
+                        <ListView.ItemsPanel >
+                            <ItemsPanelTemplate >
+                                <ItemsStackPanel HorizontalAlignment="Stretch" VerticalAlignment="Stretch" />
+                            </ItemsPanelTemplate>
+                        </ListView.ItemsPanel>
 
-                <ListView.ItemTemplate >
+                        <ListView.ItemTemplate >
 
-                    <DataTemplate x:DefaultBindMode="TwoWay" x:DataType="models:AudioFile">
-                        <Grid  Margin="30 0 0 0" >
-                            <Grid.ColumnDefinitions>
-                                <ColumnDefinition MaxWidth="43"/>
-                                <ColumnDefinition/>
-                                <ColumnDefinition/>
-                            </Grid.ColumnDefinitions>
-                            <controls:DropShadowPanel Grid.Column="0" Margin="1 3 1 1" 
+                            <DataTemplate x:DefaultBindMode="TwoWay" x:DataType="models:AudioFile">
+                                <Grid  Margin="30 0 0 0" >
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition MaxWidth="43"/>
+                                        <ColumnDefinition/>
+                                        <ColumnDefinition/>
+                                    </Grid.ColumnDefinitions>
+                                    <controls:DropShadowPanel Grid.Column="0" Margin="1 3 1 1" 
                                                               
                                                               HorizontalAlignment="Left"
                                                               VerticalAlignment="Center" Width="40"
@@ -121,44 +129,40 @@
                                                               ShadowOpacity="1" OffsetY="0" 
                                                               BlurRadius="10" Opacity="0.5"
                                                               >
-                                <Border Width="40"  Height="40" Background="Transparent"/>
-                            </controls:DropShadowPanel>
+                                        <Border Width="40"  Height="40" Background="Transparent"/>
+                                    </controls:DropShadowPanel>
 
-                            <Rectangle RadiusX="5"  RadiusY="5"  HorizontalAlignment="Left"  Margin="1 3 1 1" Stretch="Fill" Width="40" Grid.Column="0"  Height="40">
-                                <Rectangle.Fill>
-                                    <ImageBrush>
-                                        <ImageBrush.ImageSource>
-                                            <BitmapImage   UriSource="{x:Bind Cover, Mode=TwoWay}"
+                                    <Rectangle RadiusX="5"  RadiusY="5"  HorizontalAlignment="Left"  Margin="1 3 1 1" Stretch="Fill" Width="40" Grid.Column="0"  Height="40">
+                                        <Rectangle.Fill>
+                                            <ImageBrush>
+                                                <ImageBrush.ImageSource>
+                                                    <BitmapImage   UriSource="{x:Bind Cover, Mode=TwoWay}"
                                                      DecodePixelHeight="40"
                                                      DecodePixelWidth="40"
                                                      />
-                                        </ImageBrush.ImageSource>
-                                    </ImageBrush>
-                                </Rectangle.Fill>
-                            </Rectangle>
+                                                </ImageBrush.ImageSource>
+                                            </ImageBrush>
+                                        </Rectangle.Fill>
+                                    </Rectangle>
+                                    
+                                    <StackPanel HorizontalAlignment="Left"  Margin="10 0 0 0"  Grid.Column="1">
+                                        <TextBlock FontSize="15" Foreground="#282828"  Text="{x:Bind Title, Mode=TwoWay}" />
+                                        <TextBlock  FontSize="15" Foreground="#9c9c9c" Text="{x:Bind Artist, Mode=TwoWay}"/>
+                                       
+                                    </StackPanel>
+                                    <TextBlock HorizontalAlignment="Right" VerticalAlignment="Center" FontSize="15" Grid.Column="3" Foreground="#282828" Text="{x:Bind DurationMinutes}" Margin="0 0 20 0"/>
 
-                            <StackPanel HorizontalAlignment="Left"  Margin="10 0 0 0"  Grid.Column="1">
-                                <TextBlock FontSize="15" Foreground="#282828"  Text="{x:Bind Title, Mode=TwoWay}" />
-                                <TextBlock  FontSize="15" Foreground="#9c9c9c" Text="{x:Bind Artist, Mode=TwoWay}"/>
+                                </Grid>
+                            </DataTemplate>
 
-                            </StackPanel>
-                            <TextBlock HorizontalAlignment="Right" VerticalAlignment="Center" FontSize="15" Grid.Column="3" Foreground="#282828" Text="{x:Bind DurationMinutes}" Margin="0 0 20 0"/>
-
-                        </Grid>
-                    </DataTemplate>
-
-                </ListView.ItemTemplate>
-            </ListView>
-        </Grid>
-
-        <!--<ScrollViewer Margin="0 0 0 0 " Grid.RowSpan="2">
-            <StackPanel Margin="0 32 0 0 " VerticalAlignment="Stretch" HorizontalAlignment="Stretch" >
-                
+                        </ListView.ItemTemplate>
+                    </ListView>
+                </Grid>
             </StackPanel>
 
         </ScrollViewer>
 
-        <Grid x:Name="TitleBarGrid" Background="Transparent" Grid.Row="0"/>-->
+        <Grid x:Name="TitleBarGrid" Background="Transparent" Grid.Row="0"/>
 
     </Grid>
 </Page>

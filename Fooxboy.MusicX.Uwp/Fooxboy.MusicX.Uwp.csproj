@@ -186,6 +186,7 @@
     <Content Include="Assets\BadgeLogo.scale-150.png" />
     <Content Include="Assets\BadgeLogo.scale-200.png" />
     <Content Include="Assets\BadgeLogo.scale-400.png" />
+    <Content Include="Assets\Images\favorites.png" />
     <Content Include="Assets\Images\latest.png" />
     <Content Include="Assets\Images\now.png" />
     <Content Include="Assets\Images\placeholder.png" />

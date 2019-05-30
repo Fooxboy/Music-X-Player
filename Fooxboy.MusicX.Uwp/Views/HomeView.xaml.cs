@@ -47,11 +47,10 @@ namespace Fooxboy.MusicX.Uwp.Views
             {
                 await MusicFilesService.GetMusicLocal();
                 await HomeViewModel.CountMusic();
-                
-                
             }
    
         }
+
 
         private async void CoverPlaylist_PointerEntered(object sender, PointerRoutedEventArgs e)
         {
