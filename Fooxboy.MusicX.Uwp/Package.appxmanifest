@@ -10,7 +10,7 @@
   <Identity
     Name="Fooxboy.MusicX.Uwp"
     Publisher="CN=Fooxboy"
-    Version="0.3.2.0" />
+    Version="0.3.3.0" />
 
   <mp:PhoneIdentity PhoneProductId="f94ee214-1702-4016-8490-7f14674b8e45" PhonePublisherId="00000000-0000-0000-0000-000000000000"/>
 

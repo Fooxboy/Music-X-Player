@@ -27,11 +27,11 @@ namespace Fooxboy.MusicX.Uwp.Services
                     if (f.FileType == ".mp3" || f.FileType == ".wav")
                     {
                         AudioFile track;
-                        try
-                        {
+                        //try
+                        //{
                             track = await FindMetadataService.ConvertToAudioFile(f);
 
-                        }catch { track = StaticContent.NowPlay; }
+                        //}catch { track = StaticContent.NowPlay; }
 
                         musicLocal.Music.Add(track);
                         StaticContent.Music.Add(track);
