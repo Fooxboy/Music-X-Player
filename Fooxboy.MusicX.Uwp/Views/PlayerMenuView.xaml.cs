@@ -26,6 +26,7 @@ namespace Fooxboy.MusicX.Uwp.Views
     /// </summary>
     public sealed partial class PlayerMenuView : Page
     {
+        DispatcherTimer timer = new DispatcherTimer();
         public PlayerMenuView()
         {
             this.InitializeComponent();
@@ -43,6 +44,38 @@ namespace Fooxboy.MusicX.Uwp.Views
             
             StaticContent.AudioService.CurrentPlaylist.CurrentItem = lastPlayMusic.ToIAudio();
             if (StaticContent.AudioService.IsPlaying) StaticContent.AudioService.Pause();
+        }
+
+        private async void scrollViewer_Loaded(object sender, RoutedEventArgs e)
+        {
+            bool backscroll = false;
+            timer.Tick += (ss, ee) =>
+            {
+                if (timer.Interval.Ticks == 300)
+                {
+                    //each time set the offset to scrollviewer.HorizontalOffset + 5
+
+                    if (backscroll == false)
+                    {
+                        scrollviewer.ScrollToHorizontalOffset(scrollviewer.HorizontalOffset + 2);
+                        if (scrollviewer.HorizontalOffset == scrollviewer.ScrollableWidth)
+                            backscroll = true;
+                    }
+                    //if the scrollviewer scrolls to the end, scroll it back to the start.
+                    if(backscroll == true) { 
+                        scrollviewer.ScrollToHorizontalOffset(scrollviewer.HorizontalOffset - 2);
+                        if (scrollviewer.HorizontalOffset == 0)
+                            backscroll = false;
+                    }
+                }
+            };
+            timer.Interval = new TimeSpan(300);
+            timer.Start();
+        }
+
+        private async void scrollviewer_Unloaded(object sender, RoutedEventArgs e)
+        {
+            timer.Stop();
         }
     }
 }

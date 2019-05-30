@@ -47,6 +47,8 @@ namespace Fooxboy.MusicX.Uwp.Views
             {
                 await MusicFilesService.GetMusicLocal();
                 await HomeViewModel.CountMusic();
+                
+                
             }
    
         }

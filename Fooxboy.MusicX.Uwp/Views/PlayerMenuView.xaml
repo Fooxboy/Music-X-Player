@@ -19,7 +19,7 @@
         <Grid Grid.Row="0">
             <Grid.RowDefinitions>
                 <RowDefinition MinHeight="200" Height="5*"/>
-                <RowDefinition MinHeight="23" Height="0.5*"/>
+                <RowDefinition MinHeight="30" Height="0.5*"/>
                 <RowDefinition MinHeight="15" Height="0.4*"/>
                 <RowDefinition MinHeight="30" Height="*"/>
                 <RowDefinition MinHeight="30" Height="*"/>
@@ -38,13 +38,18 @@
                     </Image.Source>
                 </Image>
             </Grid>
-            
-            <TextBlock Grid.Row="1" 
+            <ScrollViewer x:Name="scrollviewer" VerticalScrollBarVisibility="Disabled" HorizontalScrollBarVisibility="Hidden"
+              VerticalScrollMode="Disabled" HorizontalScrollMode="Enabled" Grid.Row="1" Loaded="scrollViewer_Loaded"
+              Unloaded="scrollviewer_Unloaded" >
+                <TextBlock Grid.Row="1" 
                        Text="{x:Bind Path=PlayerViewModel.CurrentAudio.Title, Mode=TwoWay}" 
                        Margin="0,0,5,0" FontSize="23" 
                        HorizontalAlignment="Center"
-                       VerticalAlignment="Center"/>
-            
+                       VerticalAlignment="Center"
+                           TextWrapping="NoWrap"
+                      />
+            </ScrollViewer>
+
             <TextBlock Grid.Row="2"
                        Text="{x:Bind Path=PlayerViewModel.CurrentAudio.Artist, Mode=TwoWay}" 
                        FontSize="15" HorizontalAlignment="Center" 

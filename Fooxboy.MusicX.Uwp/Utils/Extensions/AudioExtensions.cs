@@ -37,14 +37,15 @@ namespace Fooxboy.MusicX.Uwp.Utils.Extensions
                 Artist = source.Artist,
                 Cover = source.Cover,
                 DurationMinutes = $"{source.Duration.Minutes}:{source.Duration.Seconds}",
-                DurationSeconds = source.Duration.TotalMilliseconds,
+                DurationSeconds = source.Duration.TotalSeconds,
                 Id = Int32.Parse(source.Id),
                 InternalId = Int32.Parse(source.InternalId),
                 OwnerId = Int32.Parse(source.InternalId),
                 PlaylistId = source.PlaylistId,
                 Source = source.Source.ToString(),
-                Title = source.Title
+            Title = source.Title
             };
+
 
             return audio;
         }

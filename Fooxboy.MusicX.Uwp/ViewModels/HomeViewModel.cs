@@ -143,7 +143,14 @@ namespace Fooxboy.MusicX.Uwp.ViewModels
         {
             get
             {
-                return anymusic;
+                if (Music.Count != 0)
+                {
+                    return Visibility.Visible;
+                }
+                else
+                {
+                    return Visibility.Collapsed;
+                }
             }
             set
             {
