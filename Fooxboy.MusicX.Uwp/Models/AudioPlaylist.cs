@@ -15,18 +15,18 @@ namespace Fooxboy.MusicX.Uwp.Models
     public class AudioPlaylist
     {
 
-        private IAudio _currentItem;
+        private AudioFile _currentItem;
         private int _currentIndex = -1;
-        private IList<IAudio> _originalItems;
-        private IList<IAudio> _items;
+        private IList<AudioFile> _originalItems;
+        private IList<AudioFile> _items;
         private bool _shuffle;
 
-        public event EventHandler<IAudio> OnCurrentItemChanged;
+        public event EventHandler<AudioFile> OnCurrentItemChanged;
 
         /// <summary>
         /// Элементы
         /// </summary>
-        public IList<IAudio> Items
+        public IList<AudioFile> Items
         {
             get { return _items; }
             set
@@ -48,7 +48,7 @@ namespace Fooxboy.MusicX.Uwp.Models
         /// <summary>
         /// Текущий трек
         /// </summary>
-        public IAudio CurrentItem
+        public AudioFile CurrentItem
         {
             get { return _currentItem; }
             set
@@ -81,12 +81,12 @@ namespace Fooxboy.MusicX.Uwp.Models
                 _shuffle = value;
                 if (value)
                 {
-                    _items = new List<IAudio>(_originalItems.ToList()); 
+                    _items = new List<AudioFile>(_originalItems.ToList()); 
                     _items.Shuffle(); 
                 }
                 else
                 {
-                    _items = new List<IAudio>(_originalItems);
+                    _items = new List<AudioFile>(_originalItems);
                 }
 
 
@@ -97,15 +97,15 @@ namespace Fooxboy.MusicX.Uwp.Models
 
         public AudioPlaylist()
         {
-            Items = new ObservableCollection<IAudio>();
+            Items = new ObservableCollection<AudioFile>();
         }
 
         public string Name { get; set; }
         public string Artist { get; set; }
 
-        public AudioPlaylist(IList<IAudio> source)
+        public AudioPlaylist(IList<AudioFile> source)
         {
-            Items = new ObservableCollection<IAudio>(source);
+            Items = new ObservableCollection<AudioFile>(source);
 
             if (source.Count > 0)
             {
@@ -179,7 +179,7 @@ namespace Fooxboy.MusicX.Uwp.Models
         /// <summary>
         /// Добавить трек после текущего
         /// </summary>
-        public void AddAfterCurrent(IAudio item)
+        public void AddAfterCurrent(AudioFile item)
         {
             Items.Insert(_currentIndex + 1, item);
         }
@@ -187,7 +187,7 @@ namespace Fooxboy.MusicX.Uwp.Models
         /// <summary>
         /// Добавить трек
         /// </summary>
-        public void Add(IAudio item)
+        public void Add(AudioFile item)
         {
             Items.Add(item);
         }
@@ -195,7 +195,7 @@ namespace Fooxboy.MusicX.Uwp.Models
         /// <summary>
         /// Удалить трек
         /// </summary>
-        public void Remove(IAudio item)
+        public void Remove(AudioFile item)
         {
             if (item == CurrentItem)
             {
@@ -261,7 +261,7 @@ namespace Fooxboy.MusicX.Uwp.Models
                 Repeat = (RepeatMode)x;
             }
 
-            _originalItems = o["items"].ToObject<ObservableCollection<IAudio>>(JsonSerializer.CreateDefault(new JsonSerializerSettings() { TypeNameHandling = TypeNameHandling.Objects }));
+            _originalItems = o["items"].ToObject<ObservableCollection<AudioFile>>(JsonSerializer.CreateDefault(new JsonSerializerSettings() { TypeNameHandling = TypeNameHandling.Objects }));
             _items = _originalItems;
             _currentIndex = o["currentIndex"].Value<int>();
             if (_currentIndex >= 0 && _currentIndex < _items.Count)

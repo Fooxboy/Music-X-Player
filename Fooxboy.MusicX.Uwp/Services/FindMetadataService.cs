@@ -54,70 +54,11 @@ namespace Fooxboy.MusicX.Uwp.Services
                 {
                     audio.Cover = "ms-appx:///Assets/Images/placeholder.png";
                 }
-                audio.Source = file.Path;
+                audio.Source = file;
+                audio.SourceString = file.Path;
 
                 return audio;
             }
-        }
-
-        public async static Task<AudioFile> ConvertToAudioFileOld(StorageFile storageFile)
-        {
-            TagLib.File file;
-            StorageFile a;
-            
-            try
-            {
-                file = TagLib.File.Create(storageFile.Path);
-                a = storageFile;
-            }
-            catch
-            {
-                var cache = ApplicationData.Current.LocalCacheFolder;
-                var fileB = await cache.TryGetItemAsync(storageFile.Name);
-                
-                if (fileB != null)
-                {
-                    var fileC = await cache.GetFileAsync(storageFile.Name);
-                    await storageFile.CopyAndReplaceAsync(fileC);
-                    a = fileC;
-                }
-                else
-                {
-                    a = await storageFile.CopyAsync(cache);
-                }
-
-                file = TagLib.File.Create(a.Path);
-            }
-
-            AudioFile audio = new AudioFile();
-            if (file.Tag.AlbumArtists.Count() != 0) audio.Artist = file.Tag.AlbumArtists[0];
-            else
-            {
-                if (file.Tag.Artists.Count() != 0) audio.Artist = file.Tag.Artists[0];
-                else audio.Artist = "Неизвестный исполнитель";
-            }
-            if (file.Tag.Title != null) audio.Title = file.Tag.Title;
-            else audio.Title = storageFile.DisplayName;
-            audio.DurationSeconds = file.Properties.Duration.TotalSeconds;
-            audio.DurationMinutes = Converters.AudioTimeConverter.Convert(file.Properties.Duration.TotalSeconds);
-            audio.Id = a.Name.GetHashCode();
-            audio.InternalId = 0;
-            audio.OwnerId = 0;
-            audio.PlaylistId = 0;
-            if (file.Tag.Pictures.Any()) {
-                StorageFolder localFolder = ApplicationData.Current.LocalFolder;
-                System.IO.File.WriteAllBytes($"{file.Name}.jpg", file.Tag.Pictures[0].Data.Data);
-                audio.Cover = $"{file.Name}.jpg";
-            }
-            else
-            {
-                audio.Cover = "ms-appx:///Assets/Images/placeholder.png";
-            }
-            
-            audio.Source = new Uri(a.Path).ToString();
-
-
-            return audio;
-        }
+        } 
     }
 }

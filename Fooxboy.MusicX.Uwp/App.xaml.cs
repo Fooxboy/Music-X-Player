@@ -129,8 +129,9 @@ namespace Fooxboy.MusicX.Uwp
                         InternalId = -2,
                         OwnerId = -2,
                         PlaylistId = 1,
-                        Source  = "ms-appx:///Assets/Audio/song.mp3",
-                        Title = "Сейчас ничего не воспроизводится."
+                        SourceString  = "ms-appx:///Assets/Audio/song.mp3",
+                        Source = await StorageFile.GetFileFromPathAsync("ms-appx:///Assets/Audio/song.mp3"),
+                        Title = "Сейчас ничего не воспроизводится"
                     });
                     await FileIO.WriteTextAsync(lastFile, jsonLastFile);
                 }

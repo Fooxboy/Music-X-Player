@@ -27,12 +27,7 @@ namespace Fooxboy.MusicX.Uwp.Services
                     if (f.FileType == ".mp3" || f.FileType == ".wav")
                     {
                         AudioFile track;
-                        //try
-                        //{
-                            track = await FindMetadataService.ConvertToAudioFile(f);
-
-                        //}catch { track = StaticContent.NowPlay; }
-
+                        track = await FindMetadataService.ConvertToAudioFile(f);
                         musicLocal.Music.Add(track);
                         StaticContent.Music.Add(track);
                     }
@@ -43,7 +38,14 @@ namespace Fooxboy.MusicX.Uwp.Services
                 var json = JsonConvert.SerializeObject(musicLocal);
                 await FileIO.WriteTextAsync(fileMusic, json);
             }
-            else foreach (var track in musicLocal.Music) StaticContent.Music.Add(track);
+            else foreach (var track in musicLocal.Music)
+            {
+                    if(track.Source == null)
+                    {
+                        track.Source = await StorageFile.GetFileFromPathAsync(track.SourceString);
+                    }
+                    StaticContent.Music.Add(track);
+            }
         }
 
         public static async Task<MusicCollection> GetLocalMusicCollection()

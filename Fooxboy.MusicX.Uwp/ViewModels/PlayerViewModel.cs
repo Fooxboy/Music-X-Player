@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Fooxboy.MusicX.Uwp.Enums;
 using Fooxboy.MusicX.Uwp.Interfaces;
+using Fooxboy.MusicX.Uwp.Models;
 using Fooxboy.MusicX.Uwp.Services;
 using Fooxboy.MusicX.Uwp.Utils.Extensions;
 using Windows.UI.Xaml;
@@ -79,7 +80,7 @@ namespace Fooxboy.MusicX.Uwp.ViewModels
        // public string AudioCover {
 
 
-        public IAudio CurrentAudio => StaticContent.AudioService.CurrentPlaylist.CurrentItem;
+        public AudioFile CurrentAudio => StaticContent.AudioService.CurrentPlaylist.CurrentItem;
         public TimeSpan Position => StaticContent.AudioService.Position;
         public double PositionSeconds
         {

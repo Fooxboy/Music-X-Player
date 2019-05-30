@@ -128,12 +128,10 @@
     </Compile>
     <Compile Include="Converters\AudioTimeConverter.cs" />
     <Compile Include="Enums\RepeatMode.cs" />
-    <Compile Include="Interfaces\IAudio.cs" />
     <Compile Include="Interfaces\IPlaylist.cs" />
     <Compile Include="MainPage.xaml.cs">
       <DependentUpon>MainPage.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Models\Audio.cs" />
     <Compile Include="Models\AudioFile.cs" />
     <Compile Include="Models\AudioPlaylist.cs" />
     <Compile Include="Models\FileMp3Abstraction.cs" />
@@ -149,7 +147,6 @@
     <Compile Include="Services\PlayMusicService.cs" />
     <Compile Include="Services\TileHelperService.cs" />
     <Compile Include="StaticContent.cs" />
-    <Compile Include="Utils\Extensions\AudioExtensions.cs" />
     <Compile Include="Utils\Extensions\CollectionsExtensions.cs" />
     <Compile Include="Utils\Extensions\PlaylistFileExtensions.cs" />
     <Compile Include="ViewModels\BaseViewModel.cs" />
