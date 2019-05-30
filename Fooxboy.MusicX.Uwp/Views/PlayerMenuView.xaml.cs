@@ -7,8 +7,10 @@ using System.Threading.Tasks;
 using Fooxboy.MusicX.Uwp.Services;
 using Fooxboy.MusicX.Uwp.Utils.Extensions;
 using Fooxboy.MusicX.Uwp.ViewModels;
+using TagLib.Matroska;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
+using Windows.Storage;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Controls.Primitives;
@@ -41,9 +43,31 @@ namespace Fooxboy.MusicX.Uwp.Views
         private async void Page_Loaded(object sender, RoutedEventArgs e)
         {
             var lastPlayMusic = await MusicFilesService.GetLastPlayAudio();
+
+            var track = lastPlayMusic.Track;
+            try
+            {
+                track.Source = await StorageFile.GetFileFromPathAsync(track.SourceString);
+            }catch(Exception)
+            {
+                track.Source = await StorageFile.GetFileFromApplicationUriAsync(new Uri(track.SourceString));
+            }
             
-            StaticContent.AudioService.CurrentPlaylist.CurrentItem = lastPlayMusic.ToIAudio();
+            
+            if (lastPlayMusic.Playlist != null)
+            {
+                var playlist = lastPlayMusic.Playlist.ToAudioPlaylist();
+                playlist.CurrentItem = track;
+                StaticContent.AudioService.SetCurrentPlaylist(playlist);
+            }else
+            {
+                StaticContent.AudioService.CurrentPlaylist.CurrentItem = track;
+            }
+                
+            StaticContent.Volume = lastPlayMusic.Volume;
             if (StaticContent.AudioService.IsPlaying) StaticContent.AudioService.Pause();
+           
+
         }
 
         private async void scrollViewer_Loaded(object sender, RoutedEventArgs e)

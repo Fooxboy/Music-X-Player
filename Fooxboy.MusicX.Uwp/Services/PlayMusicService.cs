@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Fooxboy.MusicX.Uwp.Converters;
 using Fooxboy.MusicX.Uwp.Models;
 using Fooxboy.MusicX.Uwp.Utils.Extensions;
 
@@ -33,8 +34,8 @@ namespace Fooxboy.MusicX.Uwp.Services
             {
                 foreach (var trackMusic in StaticContent.Music) playlistNowPlay.Tracks.Add(trackMusic);
                 StaticContent.NowPlayPlaylist = playlistNowPlay;
-                StaticContent.AudioService.CurrentPlaylist.CurrentItem = audioFile.ToIAudio();
-                StaticContent.NowPlay = audioFile;
+
+                StaticContent.AudioService.CurrentPlaylist.CurrentItem = audioFile;
             }
             else if (typePlay == 2)
             {

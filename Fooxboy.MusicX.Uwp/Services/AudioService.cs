@@ -16,6 +16,7 @@ using Windows.Media;
 using Windows.Storage.Streams;
 using System.Threading;
 using Windows.Media.Core;
+using Windows.Storage;
 
 namespace Fooxboy.MusicX.Uwp.Services
 {
@@ -192,7 +193,7 @@ namespace Fooxboy.MusicX.Uwp.Services
         /// <summary>
         /// Play audio with playlist
         /// </summary>
-        public void PlayAudio(IAudio audio, IList<IAudio> sourcePlaylist)
+        public void PlayAudio(AudioFile audio, IList<AudioFile> sourcePlaylist)
         {
             //check if it's a new playlist
             if (!currentPlaylist.Items.AreSame(sourcePlaylist))
@@ -323,7 +324,7 @@ namespace Fooxboy.MusicX.Uwp.Services
             Close();
         }
 
-        private void CurrentPlaylistOnCurrentItemChanged(object sender, IAudio audio)
+        private void CurrentPlaylistOnCurrentItemChanged(object sender, AudioFile audio)
         {
             Pause();
             Seek(TimeSpan.Zero);
@@ -353,7 +354,7 @@ namespace Fooxboy.MusicX.Uwp.Services
             }
         }
 
-        private async void TryResolveTrack(IAudio audio)
+        private async void TryResolveTrack(AudioFile audio)
         {
             //if (resolveCancellationToken != null)
             //    resolveCancellationToken.Cancel();
@@ -383,9 +384,9 @@ namespace Fooxboy.MusicX.Uwp.Services
             //}
         }
 
-        private void PlayFrom(Uri source)
+        private void PlayFrom(IStorageFile file)
         {
-            mediaPlayer.Source = MediaSource.CreateFromUri(source);
+            mediaPlayer.Source = MediaSource.CreateFromStorageFile(file);
             mediaPlayer.Play();
         }
 

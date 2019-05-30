@@ -2,11 +2,13 @@
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
 using Fooxboy.MusicX.Uwp.Enums;
 using Fooxboy.MusicX.Uwp.Models;
 using Fooxboy.MusicX.Uwp.Services;
+using Fooxboy.MusicX.Uwp.Utils.Extensions;
 using Windows.Storage;
 using Windows.UI.Xaml.Controls;
 
@@ -19,7 +21,7 @@ namespace Fooxboy.MusicX.Uwp
         public static double Volume { get; set; }
         public static RepeatMode Repeat { get; set; }
         public static bool Shuffle { get; set; }
-        public static AudioFile NowPlay { get; set; }
+        public static AudioFile NowPlay => AudioService.CurrentPlaylist.CurrentItem;
         public static StorageFolder CoversFolder { get; set; }
         public static StorageFolder PlaylistsFolder { get; set; }
         public static StorageFolder LocalFolder { get; set; }

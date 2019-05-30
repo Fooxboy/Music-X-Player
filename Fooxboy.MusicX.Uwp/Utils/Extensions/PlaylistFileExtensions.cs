@@ -15,9 +15,9 @@ namespace Fooxboy.MusicX.Uwp.Utils.Extensions
             {
                 Shuffle = false,
                 Cover = source.Cover,
-                CurrentItem = source.Tracks.Count != 0? source.Tracks[0].ToIAudio(): null,
+                CurrentItem = source.Tracks.Count != 0? source.Tracks[0]: null,
                 Id = source.Id,
-                Items = source.Tracks.Count != 0 ? source.Tracks.ToIAudioList(): new List<Interfaces.IAudio>(),
+                Items = source.Tracks.Count != 0 ? source.Tracks: new List<AudioFile>(),
                 Repeat = Enums.RepeatMode.None,
                 Artist = source.Artist,
                 Name = source.Name
@@ -32,9 +32,9 @@ namespace Fooxboy.MusicX.Uwp.Utils.Extensions
             {
                 Shuffle = false,
                 Cover = source.Cover,
-                CurrentItem = fileNow.ToIAudio(),
+                CurrentItem = fileNow,
                 Id = source.Id,
-                Items = source.Tracks.Count != 0 ? source.Tracks.ToIAudioList() : new List<Interfaces.IAudio>(),
+                Items = source.Tracks.Count != 0 ? source.Tracks : new List<AudioFile>(),
                 Repeat = Enums.RepeatMode.None,
                 Artist = source.Artist,
                 Name = source.Name

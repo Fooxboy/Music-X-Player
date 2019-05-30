@@ -132,7 +132,7 @@
                            FontSize="20"
                            FontFamily="Segoe MDL2 Assets" 
                            Text="&#xE15D;" Width="30" Height="30"/>
-                <Slider Maximum="100"
+                <Slider Maximum="100" x:Name="Volume"
                         Value="{x:Bind PlayerViewModel.Volume, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                         Height="30" Width="160" />
                 
