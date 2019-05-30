@@ -45,7 +45,14 @@ namespace Fooxboy.MusicX.Uwp.Views
             var lastPlayMusic = await MusicFilesService.GetLastPlayAudio();
 
             var track = lastPlayMusic.Track;
-            track.Source = await StorageFile.GetFileFromPathAsync(track.SourceString);
+            try
+            {
+                track.Source = await StorageFile.GetFileFromPathAsync(track.SourceString);
+            }catch(Exception)
+            {
+                track.Source = await StorageFile.GetFileFromApplicationUriAsync(new Uri(track.SourceString));
+            }
+            
             
             if (lastPlayMusic.Playlist != null)
             {
