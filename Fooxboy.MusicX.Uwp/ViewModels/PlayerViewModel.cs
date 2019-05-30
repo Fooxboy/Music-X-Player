@@ -58,7 +58,9 @@ namespace Fooxboy.MusicX.Uwp.ViewModels
                 StaticContent.AudioService.SwitchPrev();
             });
 
-            
+
+            Changed("Volume");
+
         }
         
 
@@ -169,6 +171,7 @@ namespace Fooxboy.MusicX.Uwp.ViewModels
             Changed("VisibilityTextPause");
             //Обновление плиточки
             //TileHelper.UpdateIsPlaying(IsPlaying);
+            Changed("Volume");
         }
 
         private async  void AudioServiceCurrentAudioChanged(object sender, EventArgs e)
@@ -178,6 +181,7 @@ namespace Fooxboy.MusicX.Uwp.ViewModels
             Changed("DurationSeconds");
             Changed("VisibilityTextPlay");
             Changed("VisibilityTextPause");
+            Changed("Volume");
         }
 
         private void AudioServicePositionChanged(object sender, TimeSpan position)

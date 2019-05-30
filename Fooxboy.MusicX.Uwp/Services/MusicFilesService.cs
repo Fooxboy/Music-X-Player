@@ -57,16 +57,11 @@ namespace Fooxboy.MusicX.Uwp.Services
             return JsonConvert.DeserializeObject<MusicCollection>(stringMusic);
         }
 
-        public static async Task<AudioFile> GetLastPlayAudio()
+        public static async Task<LastPlay> GetLastPlayAudio()
         {
             var lastFile = await StaticContent.LocalFolder.GetFileAsync("LastPlay.json");
             var json = await FileIO.ReadTextAsync(lastFile);
-            return JsonConvert.DeserializeObject<AudioFile>(json);
-        }
-
-        public static async Task SetLastPlayAudio(AudioFile file)
-        {
-            
+            return JsonConvert.DeserializeObject<LastPlay>(json);
         }
     }
 }

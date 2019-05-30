@@ -119,7 +119,7 @@ namespace Fooxboy.MusicX.Uwp
                 if (await localpath.TryGetItemAsync("LastPlay.json") == null)
                 {
                     var lastFile = await localpath.CreateFileAsync("LastPlay.json");
-                    var jsonLastFile = JsonConvert.SerializeObject(new AudioFile()
+                    var audio = new AudioFile()
                     {
                         Artist = "",
                         Cover = "ms-appx:///Assets/Images/placeholder.png",
@@ -129,10 +129,17 @@ namespace Fooxboy.MusicX.Uwp
                         InternalId = -2,
                         OwnerId = -2,
                         PlaylistId = 1,
-                        SourceString  = "ms-appx:///Assets/Audio/song.mp3",
+                        SourceString = "ms-appx:///Assets/Audio/song.mp3",
                         Source = await StorageFile.GetFileFromApplicationUriAsync(new Uri("ms-appx:///Assets/Audio/song.mp3")),
                         Title = "Сейчас ничего не воспроизводится"
-                    });
+                    };
+                    var lastplayModel = new LastPlay()
+                    {
+                        Playlist = null,
+                        Track = audio,
+                        Volume = 1.0f,
+                    };
+                    var jsonLastFile = JsonConvert.SerializeObject(lastplayModel);
                     await FileIO.WriteTextAsync(lastFile, jsonLastFile);
                 }
                 
@@ -201,7 +208,13 @@ namespace Fooxboy.MusicX.Uwp
         {
             var deferral = e.SuspendingOperation.GetDeferral();
             //TODO: Сохранить состояние приложения и остановить все фоновые операции
-            var file = StaticContent.NowPlay;
+            var audio = StaticContent.NowPlay;
+            var file = new LastPlay()
+            {
+                Playlist = StaticContent.NowPlayPlaylist,
+                Track = audio,
+                Volume = StaticContent.Volume
+            };
             var json = JsonConvert.SerializeObject(file);
             var lastFile = await StaticContent.LocalFolder.GetFileAsync("LastPlay.json");
             await FileIO.WriteTextAsync(lastFile, json);

@@ -135,6 +135,7 @@
     <Compile Include="Models\AudioFile.cs" />
     <Compile Include="Models\AudioPlaylist.cs" />
     <Compile Include="Models\FileMp3Abstraction.cs" />
+    <Compile Include="Models\LastPlay.cs" />
     <Compile Include="Models\MusicCollection.cs" />
     <Compile Include="Models\PlaylistFile.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
