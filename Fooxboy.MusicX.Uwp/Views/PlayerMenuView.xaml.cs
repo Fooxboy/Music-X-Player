@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices.WindowsRuntime;
+using System.Threading;
 using System.Threading.Tasks;
 using Fooxboy.MusicX.Uwp.Services;
 using Fooxboy.MusicX.Uwp.Utils.Extensions;
@@ -29,6 +30,7 @@ namespace Fooxboy.MusicX.Uwp.Views
     public sealed partial class PlayerMenuView : Page
     {
         DispatcherTimer timer = new DispatcherTimer();
+        DispatcherTimer timer1 = new DispatcherTimer();
         public PlayerMenuView()
         {
             this.InitializeComponent();
@@ -70,7 +72,7 @@ namespace Fooxboy.MusicX.Uwp.Views
 
         }
 
-        private async void scrollViewer_Loaded(object sender, RoutedEventArgs e)
+        private async void trackScroll_Loaded(object sender, RoutedEventArgs e)
         {
             bool backscroll = false;
             timer.Tick += (ss, ee) =>
@@ -81,15 +83,17 @@ namespace Fooxboy.MusicX.Uwp.Views
 
                     if (backscroll == false)
                     {
-                        scrollviewer.ScrollToHorizontalOffset(scrollviewer.HorizontalOffset + 2);
-                        if (scrollviewer.HorizontalOffset == scrollviewer.ScrollableWidth)
+                        trackScroll.ScrollToHorizontalOffset(trackScroll.HorizontalOffset + 1);
+                        if (trackScroll.HorizontalOffset == trackScroll.ScrollableWidth)
                             backscroll = true;
                     }
                     //if the scrollviewer scrolls to the end, scroll it back to the start.
-                    if(backscroll == true) { 
-                        scrollviewer.ScrollToHorizontalOffset(scrollviewer.HorizontalOffset - 2);
-                        if (scrollviewer.HorizontalOffset == 0)
+                    if(backscroll == true) {
+                        trackScroll.ScrollToHorizontalOffset(trackScroll.HorizontalOffset - 1);
+                        if (trackScroll.HorizontalOffset == 0)
+                        {
                             backscroll = false;
+                        }
                     }
                 }
             };
@@ -97,9 +101,44 @@ namespace Fooxboy.MusicX.Uwp.Views
             timer.Start();
         }
 
-        private async void scrollviewer_Unloaded(object sender, RoutedEventArgs e)
+        private async void trackScroll_Unloaded(object sender, RoutedEventArgs e)
         {
             timer.Stop();
+        }
+
+        private async void artistScroll_Loaded(object sender, RoutedEventArgs e)
+        {
+            bool backscroll = false;
+            timer1.Tick += (ss, ee) =>
+            {
+                if (timer1.Interval.Ticks == 300)
+                {
+                    //each time set the offset to scrollviewer.HorizontalOffset + 5
+
+                    if (backscroll == false)
+                    {
+                        artistScroll.ScrollToHorizontalOffset(artistScroll.HorizontalOffset + 1);
+                        if (artistScroll.HorizontalOffset == artistScroll.ScrollableWidth)
+                            backscroll = true;
+                    }
+                    //if the scrollviewer scrolls to the end, scroll it back to the start.
+                    if (backscroll == true)
+                    {
+                        artistScroll.ScrollToHorizontalOffset(artistScroll.HorizontalOffset - 1);
+                        if (artistScroll.HorizontalOffset == 0)
+                        {
+                            backscroll = false;
+                        }
+                    }
+                }
+            };
+            timer1.Interval = new TimeSpan(300);
+            timer1.Start();
+        }
+
+        private async void artistScroll_Unloaded(object sender, RoutedEventArgs e)
+        {
+            timer1.Stop();
         }
     }
 }
