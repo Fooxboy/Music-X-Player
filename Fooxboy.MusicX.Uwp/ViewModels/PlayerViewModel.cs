@@ -58,6 +58,11 @@ namespace Fooxboy.MusicX.Uwp.ViewModels
                 StaticContent.AudioService.SwitchPrev();
             });
 
+            RepeatSwitch = new RelayCommand(() =>
+            {
+                Repeat = !Repeat;
+            });
+
 
             Changed("Volume");
 
@@ -69,6 +74,8 @@ namespace Fooxboy.MusicX.Uwp.ViewModels
         public RelayCommand SwitchNextCommand { get; private set; }
 
         public RelayCommand SwitchPrevCommand { get; private set; }
+
+        public RelayCommand RepeatSwitch { get; private set; }
 
         public bool IsPlaying
         {
