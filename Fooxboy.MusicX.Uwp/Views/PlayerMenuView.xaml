@@ -114,17 +114,18 @@
                         <SolidColorBrush Opacity="0"/>
                     </Button.Background>
                 </Button>
-                
-                <Button Padding="0"
+
+                <ToggleButton Padding="0"
                         BorderThickness="0" 
                         FontSize="20" FontFamily="Segoe MDL2 Assets"
                         Content="&#xE14B;"
                         Width="30" 
-                        Height="30">
-                    <Button.Background>
+                        Height="30"
+                              Command="{x:Bind PlayerViewModel.ShuffleSwitch}">
+                    <ToggleButton.Background>
                         <SolidColorBrush Opacity="0"/>
-                    </Button.Background>
-                </Button>
+                    </ToggleButton.Background>
+                </ToggleButton>
                 
             </StackPanel >
             <StackPanel Grid.Row="5" Orientation="Horizontal" HorizontalAlignment="Center">

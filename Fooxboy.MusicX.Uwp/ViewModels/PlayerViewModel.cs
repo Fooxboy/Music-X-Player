@@ -63,6 +63,11 @@ namespace Fooxboy.MusicX.Uwp.ViewModels
                 Repeat = !Repeat;
             });
 
+            ShuffleSwitch = new RelayCommand(() =>
+            {
+                Shuffle = !Shuffle;
+            });
+
 
             Changed("Volume");
 
@@ -76,6 +81,7 @@ namespace Fooxboy.MusicX.Uwp.ViewModels
         public RelayCommand SwitchPrevCommand { get; private set; }
 
         public RelayCommand RepeatSwitch { get; private set; }
+        public RelayCommand ShuffleSwitch { get; private set; }
 
         public bool IsPlaying
         {
@@ -142,6 +148,16 @@ namespace Fooxboy.MusicX.Uwp.ViewModels
             {
                 StaticContent.AudioService.Repeat = value ? RepeatMode.Always : RepeatMode.None;
                 StaticContent.Repeat = StaticContent.AudioService.Repeat;
+            }
+        }
+
+        public bool Shuffle
+        {
+            get { return StaticContent.AudioService.Shuffle; }
+            set
+            {
+                StaticContent.AudioService.Shuffle = value;
+                StaticContent.Shuffle = StaticContent.AudioService.Shuffle;
             }
         }
 
