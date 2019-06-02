@@ -18,29 +18,18 @@ using Windows.UI.Xaml.Input;
 
 namespace Fooxboy.MusicX.Uwp.ViewModels
 {
-    public class HomeViewModel : BaseViewModel 
+    public class HomeLocalViewModel :BaseViewModel
     {
-        private static HomeViewModel instanse;
-        public static HomeViewModel Instanse
+        private static HomeLocalViewModel instanse;
+        public static HomeLocalViewModel Instanse
         {
             get
             {
                 if (instanse != null) return instanse;
-                instanse = new HomeViewModel();
+                instanse = new HomeLocalViewModel();
                 return instanse;
             }
         }
-
-        private HomeViewModel()
-        {
-            RefreshMusicCommand = new RelayCommand(async () =>
-            {
-                await MusicFilesService.GetMusicLocal(true);
-            });
-        }
-
-
-        public RelayCommand RefreshMusicCommand { get; private set; }
 
         public async void Page_Loaded(object sender, RoutedEventArgs e)
         {
@@ -69,13 +58,10 @@ namespace Fooxboy.MusicX.Uwp.ViewModels
             get
             {
                 return StaticContent.Playlists;
-            }set
+            }
+            set
             {
-                //if (value != StaticContent.Playlists)
-                //{
-                //    StaticContent.Playlists = value;
-                //    Changed("Playlists");
-                //}
+               
             }
         }
 
@@ -87,25 +73,14 @@ namespace Fooxboy.MusicX.Uwp.ViewModels
             }
             set
             {
-                //if (value != StaticContent.Music)
-                //{
-                //    StaticContent.Music = value;
-                //    Changed("Music");
-                //}
+               
             }
         }
-
-
 
         public async void MusicListView_Tapped(object sender, TappedRoutedEventArgs e)
         {
             await PlayMusicService.PlayMusicForLibrary(SelectedAudioFile, 1);
             Changed("Playlists");
-        }
-
-        public async void ListViewMusic_Click(object sender, ItemClickEventArgs e)
-        {
-            //await PlayMusicService.PlayMusicForLibrary(SelectedAudioFile, 1);
         }
 
         private AudioFile selectedAudioFile;
@@ -152,8 +127,6 @@ namespace Fooxboy.MusicX.Uwp.ViewModels
                 Changed("anyMusic");
             }
         }
-
-
         private PlaylistFile selectedPlayListFile;
         public PlaylistFile SelectedPlaylistFile
         {
@@ -179,9 +152,9 @@ namespace Fooxboy.MusicX.Uwp.ViewModels
             StaticContent.NavigationContentService.Go(typeof(Views.PlaylistView), SelectedPlaylistFile);
         }
 
-        public async Task CountMusic()
+        public void CountMusic()
         {
-            tracksCount = Music.Count + " трек(а/ов)" ;
+            tracksCount = Music.Count + " трек(а/ов)";
             if (Music.Count == 0) anymusic = Visibility.Visible;
             anymusic = Visibility.Collapsed;
             Changed("anyMusic");

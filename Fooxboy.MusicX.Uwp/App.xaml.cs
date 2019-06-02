@@ -253,7 +253,7 @@ namespace Fooxboy.MusicX.Uwp
             }
             if (Window.Current.Visible)
             {
-                HomeViewModel.Instanse.Page_Loaded(null, null);
+                HomeLocalViewModel.Instanse.Page_Loaded(null, null);
             }else
             {
                 OnLaunched(null);

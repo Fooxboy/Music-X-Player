@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices.WindowsRuntime;
+using Fooxboy.MusicX.Uwp.Services;
+using Fooxboy.MusicX.Uwp.ViewModels;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
 using Windows.UI.Xaml;
@@ -20,16 +22,29 @@ namespace Fooxboy.MusicX.Uwp.Views
     /// <summary>
     /// Пустая страница, которую можно использовать саму по себе или для перехода внутри фрейма.
     /// </summary>
-    public sealed partial class MainFrameView : Page
+    public sealed partial class HomeLocalView : Page
     {
-        public MainFrameView()
+        public HomeLocalView()
         {
             this.InitializeComponent();
-            Window.Current.SetTitleBar(TitleBar);
-            StaticContent.PlayerMenuFrame = PlayerMenuFrame;
-            StaticContent.NavigationContentService = new Services.NavigationService() { RootFrame = ContentFrame };
-            PlayerMenuFrame.Navigate(typeof(PlayerMenuView));
-            StaticContent.NavigationContentService.Go(typeof(HomeLocalView));
+            HomeViewModel = HomeLocalViewModel.Instanse;
+        }
+
+        public HomeLocalViewModel HomeViewModel { get; set; }
+
+
+        protected async override void OnNavigatedTo(NavigationEventArgs e)
+        {
+            if (HomeViewModel.Playlists.Count == 0)
+            {
+                await PlaylistsService.SetPlaylistLocal();
+            }
+
+            if (HomeViewModel.Music.Count == 0)
+            {
+                await MusicFilesService.GetMusicLocal();
+                HomeViewModel.CountMusic();
+            }
 
         }
     }

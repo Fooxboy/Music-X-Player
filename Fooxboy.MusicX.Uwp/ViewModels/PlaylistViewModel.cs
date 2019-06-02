@@ -69,7 +69,13 @@ namespace Fooxboy.MusicX.Uwp.ViewModels
         {
             get
             {
-                return playlist;
+                if(playlist == null)
+                {
+                    return StaticContent.NowPlayPlaylist;
+                }else
+                {
+                    return playlist;
+                }
             }
             set
             {

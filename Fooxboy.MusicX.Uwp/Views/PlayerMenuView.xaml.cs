@@ -43,31 +43,33 @@ namespace Fooxboy.MusicX.Uwp.Views
         private async void Page_Loaded(object sender, RoutedEventArgs e)
         {
             var lastPlayMusic = await MusicFilesService.GetLastPlayAudio();
-
             var track = lastPlayMusic.Track;
-            try
+            if (track != null)
             {
-                track.Source = await StorageFile.GetFileFromPathAsync(track.SourceString);
-            }catch(Exception)
-            {
-                track.Source = await StorageFile.GetFileFromApplicationUriAsync(new Uri(track.SourceString));
-            }
-            
-            
-            if (lastPlayMusic.Playlist != null)
-            {
-                var playlist = lastPlayMusic.Playlist.ToAudioPlaylist();
-                playlist.CurrentItem = track;
-                StaticContent.AudioService.SetCurrentPlaylist(playlist);
-            }else
-            {
-                StaticContent.AudioService.CurrentPlaylist.CurrentItem = track;
-            }
-                
-            StaticContent.Volume = lastPlayMusic.Volume;
-            if (StaticContent.AudioService.IsPlaying) StaticContent.AudioService.Pause();
-           
+                try
+                {
+                    track.Source = await StorageFile.GetFileFromPathAsync(track.SourceString);
+                }
+                catch (Exception)
+                {
+                    track.Source = await StorageFile.GetFileFromApplicationUriAsync(new Uri(track.SourceString));
+                }
 
+
+                if (lastPlayMusic.Playlist != null)
+                {
+                    var playlist = lastPlayMusic.Playlist.ToAudioPlaylist();
+                    playlist.CurrentItem = track;
+                    StaticContent.AudioService.SetCurrentPlaylist(playlist);
+                }
+                else
+                {
+                    StaticContent.AudioService.CurrentPlaylist.CurrentItem = track;
+                }
+
+                StaticContent.Volume = lastPlayMusic.Volume;
+                if (StaticContent.AudioService.IsPlaying) StaticContent.AudioService.Pause();
+            }
         }
 
         private async void scrollViewer_Loaded(object sender, RoutedEventArgs e)

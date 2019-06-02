@@ -2,6 +2,7 @@
     x:Class="Fooxboy.MusicX.Uwp.App"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    RequestedTheme="Light"
     xmlns:local="using:Fooxboy.MusicX.Uwp">
     <Application.Resources>
         <ResourceDictionary>
@@ -9,6 +10,8 @@
                 <ResourceDictionary Source="Resources/Styles/SliderPlayerStyle.xaml"/>
                 <ResourceDictionary Source="Resources/Styles/ButtonPlayerStyle.xaml"/>
                 <ResourceDictionary Source="Resources/Styles/ListViewStyle.xaml"/>
+                <ResourceDictionary Source="Resources/Templates/PlaylistTemplate.xaml"/>
+                <ResourceDictionary Source="Resources/Templates/TrackTemplate.xaml"/>
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
     </Application.Resources>

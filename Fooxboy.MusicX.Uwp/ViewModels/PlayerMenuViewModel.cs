@@ -45,7 +45,7 @@ namespace Fooxboy.MusicX.Uwp.ViewModels
                     SettingsSelector = Visibility.Collapsed;
                     SearchSelector = Visibility.Collapsed;
                     MainSelector = Visibility.Visible;
-                    StaticContent.NavigationContentService.Go(typeof(Views.HomeView));
+                    StaticContent.NavigationContentService.Go(typeof(Views.HomeLocalView));
                     Changed("SettingsSelector");
                     Changed("SearchSelector");
                     Changed("MainSelector");

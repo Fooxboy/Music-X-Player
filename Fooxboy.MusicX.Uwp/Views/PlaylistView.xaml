@@ -69,72 +69,24 @@
                     </Button>
                 </StackPanel>
             </Grid>
-            
+
         </Grid>
 
-        <ScrollViewer Grid.Row="1">
-            <Grid x:Name="MusicGrid" Margin="0 20 0 0" Grid.Row="1" HorizontalAlignment="Stretch">
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="*"/>
-                    <ColumnDefinition Width="auto"/>
-                    <ColumnDefinition  Width="auto"/>
-                </Grid.ColumnDefinitions>
-                <ListView ItemContainerStyle="{StaticResource ListViewItemContainerStyle}" Style="{StaticResource ListViewStyle}" HorizontalAlignment="Stretch"
-                              ItemsSource="{x:Bind PlaylistViewModel.Playlist.Tracks, Mode=TwoWay}"
-                              x:Name="MusicListView"
-                          SelectedItem="{x:Bind PlaylistViewModel.SelectedAudioFile, Mode=TwoWay}"
-                              ItemClick="{x:Bind PlaylistViewModel.ListViewMusic_Click}"
-                              Tapped="{x:Bind PlaylistViewModel.MusicListView_Tapped}">
-                    <ListView.ItemsPanel >
-                        <ItemsPanelTemplate >
-                            <ItemsStackPanel HorizontalAlignment="Stretch" VerticalAlignment="Stretch" />
-                        </ItemsPanelTemplate>
-                    </ListView.ItemsPanel>
+        <ListView ItemContainerStyle="{StaticResource ListViewItemContainerStyle}"
+                  Grid.Row="1"
+                  ItemTemplate="{ThemeResource TrackTemplate}"
+                  Style="{StaticResource ListViewStyle}" HorizontalAlignment="Stretch"
+                  ItemsSource="{x:Bind PlaylistViewModel.Playlist.Tracks, Mode=TwoWay}"
+                  x:Name="MusicListView"
+                  SelectedItem="{x:Bind PlaylistViewModel.SelectedAudioFile, Mode=TwoWay}"
+                  ItemClick="{x:Bind PlaylistViewModel.ListViewMusic_Click}"
+                  Tapped="{x:Bind PlaylistViewModel.MusicListView_Tapped}">
+            <ListView.ItemsPanel >
+                <ItemsPanelTemplate >
+                    <ItemsStackPanel HorizontalAlignment="Stretch" VerticalAlignment="Stretch" />
+                </ItemsPanelTemplate>
+            </ListView.ItemsPanel>
+        </ListView>
 
-                    <ListView.ItemTemplate >
-
-                        <DataTemplate x:DataType="models:AudioFile">
-                            <Grid  Margin="20 0 0 0" >
-                                <Grid.ColumnDefinitions>
-                                    <ColumnDefinition MaxWidth="43"/>
-                                    <ColumnDefinition/>
-                                    <ColumnDefinition/>
-                                </Grid.ColumnDefinitions>
-                                <controls:DropShadowPanel Grid.Column="0" Margin="1 3 1 1" 
-                                                              HorizontalAlignment="Left"
-                                                              VerticalAlignment="Center" Width="30"
-                                                              Height="30" x:Name="TrackCoverShadow" 
-                                                              ShadowOpacity="1" OffsetY="0" 
-                                                              BlurRadius="3.5" Opacity="0.5"
-                                                              >
-                                    <Border Height="30" Width="30" Background="Black"/>
-                                </controls:DropShadowPanel>
-                                <Rectangle RadiusX="5"  RadiusY="5"  HorizontalAlignment="Left"  Margin="1 3 1 1" Stretch="Fill" Width="40" Grid.Column="0"  Height="40">
-                                    <Rectangle.Fill>
-                                    <ImageBrush>
-                                        <ImageBrush.ImageSource>
-                                            <BitmapImage   UriSource="{x:Bind Cover, Mode=TwoWay}"
-                                                     DecodePixelHeight="40"
-                                                     DecodePixelWidth="40"
-                                                     />
-                                        </ImageBrush.ImageSource>
-                                    </ImageBrush>
-                                    </Rectangle.Fill>
-                                </Rectangle>
-                                <StackPanel HorizontalAlignment="Left"  Margin="10 0 0 0"  Grid.Column="1">
-                                    <TextBlock FontSize="15" Foreground="#282828"  Text="{x:Bind Title}" />
-                                    <TextBlock  FontSize="15" Foreground="#9c9c9c" Text="{x:Bind Artist}"/>
-
-                                </StackPanel>
-                                <TextBlock Margin="0 0 20 0" HorizontalAlignment="Right" VerticalAlignment="Center" FontSize="15" Grid.Column="3" Foreground="#282828" Text="{x:Bind DurationMinutes}"/>
-
-                            </Grid>
-                        </DataTemplate>
-
-                    </ListView.ItemTemplate>
-                </ListView>
-            </Grid>
-        </ScrollViewer>
-        
     </Grid>
 </Page>
