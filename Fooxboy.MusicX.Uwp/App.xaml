@@ -12,6 +12,8 @@
                 <ResourceDictionary Source="Resources/Styles/ListViewStyle.xaml"/>
                 <ResourceDictionary Source="Resources/Templates/PlaylistTemplate.xaml"/>
                 <ResourceDictionary Source="Resources/Templates/TrackTemplate.xaml"/>
+                <ResourceDictionary Source="Resources/Themes/Light.xaml"/>
+                <ResourceDictionary Source="Resources/Themes/Dark.xaml"/>
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
     </Application.Resources>

@@ -52,7 +52,13 @@ namespace Fooxboy.MusicX.Uwp.ViewModels
         {
             get
             {
-                return $"{playlist.Tracks.Count} трек(а/ов)";
+                try
+                {
+                    return $"{playlist.Tracks.Count} трек(а/ов)";
+                }catch(Exception)
+                {
+                    return "0 треков";
+                }
             }
             set
             {

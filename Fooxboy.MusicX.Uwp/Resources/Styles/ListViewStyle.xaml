@@ -109,7 +109,7 @@
                                            RevealBackground="{ThemeResource ListViewItemRevealBackground}"
                                            SelectedForeground="{ThemeResource ListViewItemForegroundSelected}" 
                                            SelectionCheckMarkVisualEnabled="{ThemeResource ListViewItemSelectionCheckMarkVisualEnabled}" 
-                                           SelectedBackground="#FFFFFF" 
+                                           SelectedBackground="Transparent" 
                                            SelectedPressedBackground="LightGray"
                                            SelectedPointerOverBackground="LightGray"
                                            VerticalContentAlignment="{TemplateBinding VerticalContentAlignment}">

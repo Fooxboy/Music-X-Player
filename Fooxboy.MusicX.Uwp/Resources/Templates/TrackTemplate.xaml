@@ -60,7 +60,9 @@
             </Rectangle>
 
             <TextBlock Margin="10 0 0 0" Text="{Binding Title, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Grid.Column="1" Grid.Row="0"/>
-            <TextBlock Margin="10 0 0 0" Text="{Binding Artist, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Grid.Column="1"  Grid.Row="1"/>
+            <TextBlock Margin="10 0 0 0" Foreground="{ThemeResource ColorArtistText}"
+                       Text="{Binding Artist, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                       Grid.Column="1"  Grid.Row="1"/>
             <TextBlock Text="{Binding DurationMinutes, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                        Grid.Column="2" 
                        HorizontalAlignment="Right"
