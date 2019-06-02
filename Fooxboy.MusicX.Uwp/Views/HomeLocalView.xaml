@@ -31,7 +31,12 @@
             <Button Content="Показать все"
                     Margin="0 0 30 0"
                     HorizontalAlignment="Right" 
-                    Grid.Row="0"/>
+                    Grid.Row="0"
+                    BorderThickness="0">
+                <Button.Background>
+                    <SolidColorBrush Opacity="0"/>
+                </Button.Background>
+            </Button>
 
             <ListView x:Name="ListViewPlaylists"
                       ScrollViewer.VerticalScrollBarVisibility="Disabled"
@@ -76,7 +81,11 @@
                     Height="42" Width="42"
                     Margin="0 0 30 0"
                     HorizontalAlignment="Right"
-                    VerticalAlignment="Center" />
+                    VerticalAlignment="Center" >
+                <Button.Background>
+                    <SolidColorBrush Opacity="0"/>
+                </Button.Background>
+            </Button>
 
             <ListView Grid.Row="1" 
                       HorizontalAlignment="Stretch"
