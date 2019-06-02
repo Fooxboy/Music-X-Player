@@ -21,7 +21,10 @@
         <StackPanel Margin="0 0 0 30" Grid.Row="1">
             <TextBlock FontFamily="Calibri" FontSize="30" Text="Музыка на этом ПК"/>
             <TextBlock Text="Где MusicX будет искать музыку" Margin=" 0 0 0 5"/>
-            <Button Content="Выбрать папки"/>
+            <ToggleSwitch IsOn="True" OnContent="Документы" OffContent="ВКонтакте" />
+            <ToggleSwitch IsOn="True" OnContent="Библиотека Музыки" OffContent="ВКонтакте" />
+            <ToggleSwitch IsOn="False" OnContent="C:\users\urmom\gay\" OffContent="ВКонтакте" />
+            <Button Content="Добавить папку"/>
         </StackPanel>
         <StackPanel Margin="0 0 0 30" Grid.Row="2">
             <TextBlock FontFamily="Calibri" FontSize="30" Text="Синхронизация"/>

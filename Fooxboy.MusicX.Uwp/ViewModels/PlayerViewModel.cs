@@ -58,17 +58,30 @@ namespace Fooxboy.MusicX.Uwp.ViewModels
                 StaticContent.AudioService.SwitchPrev();
             });
 
+            RepeatSwitch = new RelayCommand(() =>
+            {
+                Repeat = !Repeat;
+            });
+
+            ShuffleSwitch = new RelayCommand(() =>
+            {
+                Shuffle = !Shuffle;
+            });
+
 
             Changed("Volume");
 
         }
-        
 
-        public RelayCommand PlayPauseCommand { get; private set; } 
+
+        public RelayCommand PlayPauseCommand { get; private set; }
 
         public RelayCommand SwitchNextCommand { get; private set; }
 
         public RelayCommand SwitchPrevCommand { get; private set; }
+
+        public RelayCommand RepeatSwitch { get; private set; }
+        public RelayCommand ShuffleSwitch { get; private set; }
 
         public bool IsPlaying
         {
@@ -79,7 +92,7 @@ namespace Fooxboy.MusicX.Uwp.ViewModels
             }
         }
 
-       // public string AudioCover {
+        // public string AudioCover {
 
 
         public AudioFile CurrentAudio => StaticContent.AudioService.CurrentPlaylist.CurrentItem;
@@ -88,7 +101,7 @@ namespace Fooxboy.MusicX.Uwp.ViewModels
         {
             get
             {
-                return StaticContent.AudioService.Position.TotalSeconds; 
+                return StaticContent.AudioService.Position.TotalSeconds;
             }
             set
             {
@@ -135,6 +148,28 @@ namespace Fooxboy.MusicX.Uwp.ViewModels
             {
                 StaticContent.AudioService.Repeat = value ? RepeatMode.Always : RepeatMode.None;
                 StaticContent.Repeat = StaticContent.AudioService.Repeat;
+            }
+        }
+
+        public string PositionMinutes
+        {
+            get
+            {
+                return Converters.AudioTimeConverter.Convert(PositionSeconds);
+            }
+            set
+            {
+
+            }
+        }
+
+        public bool Shuffle
+        {
+            get { return StaticContent.AudioService.Shuffle; }
+            set
+            {
+                StaticContent.AudioService.Shuffle = value;
+                StaticContent.Shuffle = StaticContent.AudioService.Shuffle;
             }
         }
 
@@ -190,6 +225,7 @@ namespace Fooxboy.MusicX.Uwp.ViewModels
             Changed(nameof(PositionSeconds));
             Changed("Duration");
             Changed("DurationSeconds");
+            Changed("PositionMinutes");
         }
 
     }
