@@ -17,7 +17,7 @@
         </Grid.RowDefinitions>
 
         <!--Грид в котором плейлисты-->
-        <Grid Grid.Row="1">
+        <Grid Grid.Row="1" x:Name="PlaylistsGrid">
             <Grid.RowDefinitions>
                 <RowDefinition Height="auto"/>
                 <RowDefinition Height="*"/>
@@ -88,6 +88,7 @@
             </Button>
 
             <ListView Grid.Row="1" 
+                      x:Name="MusicListView"
                       HorizontalAlignment="Stretch"
                       ItemContainerStyle="{StaticResource ListViewItemContainerStyle}"
                       Style="{StaticResource ListViewStyle}"

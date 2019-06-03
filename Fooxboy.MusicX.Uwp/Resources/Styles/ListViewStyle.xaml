@@ -165,6 +165,7 @@
             </Setter.Value>
         </Setter>
     </Style>
+    
     <Style x:Key="ListViewItemContainerStyle"
            TargetType="ListViewItem">
         <Setter Property="HorizontalContentAlignment" Value="Stretch" />
