@@ -38,6 +38,14 @@
                 </Button.Background>
             </Button>
 
+            <Button Content="Создать"
+                    Margin="350 0 0 0"
+                    HorizontalAlignment="Left" 
+                    Grid.Row="0"
+                    BorderThickness="0">
+                
+            </Button>
+
             <ListView x:Name="ListViewPlaylists"
                       ScrollViewer.VerticalScrollBarVisibility="Disabled"
                       ItemsSource="{x:Bind HomeViewModel.Playlists, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
