@@ -1,24 +1,12 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Runtime.InteropServices.WindowsRuntime;
-using System.Threading;
-using System.Threading.Tasks;
 using Fooxboy.MusicX.Uwp.Services;
 using Fooxboy.MusicX.Uwp.Utils.Extensions;
 using Fooxboy.MusicX.Uwp.ViewModels;
-using TagLib.Matroska;
-using Windows.Foundation;
-using Windows.Foundation.Collections;
+using Windows.ApplicationModel;
 using Windows.Storage;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
-using Windows.UI.Xaml.Controls.Primitives;
-using Windows.UI.Xaml.Data;
-using Windows.UI.Xaml.Input;
-using Windows.UI.Xaml.Media;
-using Windows.UI.Xaml.Navigation;
+
 
 // Документацию по шаблону элемента "Пустая страница" см. по адресу https://go.microsoft.com/fwlink/?LinkId=234238
 
@@ -36,6 +24,8 @@ namespace Fooxboy.MusicX.Uwp.Views
             this.InitializeComponent();
             PlayerViewModel = ViewModels.PlayerViewModel.Instanse;
             PlayerMenuViewModel = ViewModels.PlayerMenuViewModel.Instanse;
+            Application.Current.Resuming += AppResuming;
+            Application.Current.Suspending += AppSuspending;
         }
 
         public PlayerViewModel PlayerViewModel { get; set; }
@@ -44,37 +34,42 @@ namespace Fooxboy.MusicX.Uwp.Views
 
         private async void Page_Loaded(object sender, RoutedEventArgs e)
         {
-            var lastPlayMusic = await MusicFilesService.GetLastPlayAudio();
-            var track = lastPlayMusic.Track;
-            if (track != null)
+
+            if(!StaticContent.OpenFiles)
             {
-                try
+                var lastPlayMusic = await MusicFilesService.GetLastPlayAudio();
+                var track = lastPlayMusic.Track;
+                if (track != null)
                 {
-                    track.Source = await StorageFile.GetFileFromPathAsync(track.SourceString);
-                }
-                catch (Exception)
-                {
-                    track.Source = await StorageFile.GetFileFromApplicationUriAsync(new Uri(track.SourceString));
-                }
+                    try
+                    {
+                        track.Source = await StorageFile.GetFileFromPathAsync(track.SourceString);
+                        track.Duration = TimeSpan.FromSeconds(track.DurationSeconds);
+                    }
+                    catch (Exception)
+                    {
+                        track.Source = await StorageFile.GetFileFromApplicationUriAsync(new Uri(track.SourceString));
+                        track.Duration = TimeSpan.FromSeconds(track.DurationSeconds);
+                    }
 
+                    if (lastPlayMusic.Playlist != null)
+                    {
+                        var playlist = lastPlayMusic.Playlist.ToAudioPlaylist();
+                        playlist.CurrentItem = track;
+                        StaticContent.AudioService.SetCurrentPlaylist(playlist);
+                    }
+                    else
+                    {
+                        StaticContent.AudioService.CurrentPlaylist.CurrentItem = track;
+                    }
 
-                if (lastPlayMusic.Playlist != null)
-                {
-                    var playlist = lastPlayMusic.Playlist.ToAudioPlaylist();
-                    playlist.CurrentItem = track;
-                    StaticContent.AudioService.SetCurrentPlaylist(playlist);
+                    StaticContent.Volume = lastPlayMusic.Volume;
+                    if (StaticContent.AudioService.IsPlaying) StaticContent.AudioService.Pause();
                 }
-                else
-                {
-                    StaticContent.AudioService.CurrentPlaylist.CurrentItem = track;
-                }
-
-                StaticContent.Volume = lastPlayMusic.Volume;
-                if (StaticContent.AudioService.IsPlaying) StaticContent.AudioService.Pause();
             }
         }
 
-        private async void trackScroll_Loaded(object sender, RoutedEventArgs e)
+        private void trackScroll_Loaded(object sender, RoutedEventArgs e)
         {
             bool backscroll = false;
             timer.Tick += (ss, ee) =>
@@ -103,12 +98,25 @@ namespace Fooxboy.MusicX.Uwp.Views
             timer.Start();
         }
 
-        private async void trackScroll_Unloaded(object sender, RoutedEventArgs e)
+        private void trackScroll_Unloaded(object sender, RoutedEventArgs e)
         {
             timer.Stop();
         }
 
-        private async void artistScroll_Loaded(object sender, RoutedEventArgs e)
+        private void AppResuming(object sender, object e)
+        {
+            timer.Start();
+            timer1.Start();
+
+        }
+
+        private void AppSuspending(object sender, SuspendingEventArgs suspendingEventArgs)
+        {
+            timer.Stop();
+            timer1.Stop();
+        }
+
+        private void artistScroll_Loaded(object sender, RoutedEventArgs e)
         {
             bool backscroll = false;
             timer1.Tick += (ss, ee) =>

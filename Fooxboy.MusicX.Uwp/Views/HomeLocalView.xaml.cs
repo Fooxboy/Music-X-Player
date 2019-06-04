@@ -6,6 +6,7 @@ using System.Runtime.InteropServices.WindowsRuntime;
 using Fooxboy.MusicX.Uwp.Services;
 using Fooxboy.MusicX.Uwp.ViewModels;
 using Microsoft.Toolkit.Uwp.UI.Animations;
+using Windows.ApplicationModel;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
 using Windows.UI.Xaml;
@@ -30,7 +31,8 @@ namespace Fooxboy.MusicX.Uwp.Views
             this.InitializeComponent();
             HomeViewModel = HomeLocalViewModel.Instanse;
 
-            
+            Application.Current.Resuming += AppResuming;
+            Application.Current.Suspending += AppSuspending;
         }
 
         public HomeLocalViewModel HomeViewModel { get; set; }
@@ -61,7 +63,7 @@ namespace Fooxboy.MusicX.Uwp.Views
                 }
             }
         }
-
+        DispatcherTimer timer = new DispatcherTimer();
         protected async override void OnNavigatedTo(NavigationEventArgs ee)
         {
             if (HomeViewModel.Playlists.Count == 0)
@@ -77,20 +79,38 @@ namespace Fooxboy.MusicX.Uwp.Views
 
             var scrollViewer = GetDescendants(MusicListView).OfType<ScrollViewer>().FirstOrDefault();
 
-
-            
-            scrollViewer.ViewChanging += (o, e)  =>
+            timer.Tick += async (ss, eee) =>
             {
-                //PlaylistsGrid.Visibility = Visibility.Collapsed;
                 if (scrollViewer.VerticalOffset < 20)
                 {
-                    PlaylistsGrid.Visibility = Visibility.Visible;
-                }else
-                {
-                    PlaylistsGrid.Visibility = Visibility.Collapsed;
+                    if(PlaylistsGrid.Visibility != Visibility.Visible)
+                    {
+                        PlaylistsGrid.Visibility = Visibility.Visible;
+                        await PlaylistsGrid.Fade(value: 1f, duration: 200, delay: 0).StartAsync();
+                    } 
                 }
-
+                else
+                {
+                    if(PlaylistsGrid.Visibility != Visibility.Collapsed)
+                    {
+                        await PlaylistsGrid.Fade(value: 0.0f, duration: 200, delay: 0).StartAsync();
+                        PlaylistsGrid.Visibility = Visibility.Collapsed;
+                    }
+                }
             };
+
+            timer.Interval = TimeSpan.FromMilliseconds(500);
+            timer.Start();
+        }
+
+        private void AppResuming(object sender, object e)
+        {
+            timer.Start();
+        }
+
+        private void AppSuspending(object sender, SuspendingEventArgs suspendingEventArgs)
+        {
+            timer.Stop();
         }
     }
 }
