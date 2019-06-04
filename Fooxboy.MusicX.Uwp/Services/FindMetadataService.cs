@@ -48,8 +48,12 @@ namespace Fooxboy.MusicX.Uwp.Services
                 if (mp3File.Tag.Pictures.Any())
                 {
                     StorageFolder localFolder = ApplicationData.Current.LocalFolder;
-                    System.IO.File.WriteAllBytes($"{localFolder.Path}/{audio.Id}.jpg", mp3File.Tag.Pictures[0].Data.Data);
-                    audio.Cover = $"{localFolder.Path}/{audio.Id}.jpg";
+                    if( (await localFolder.GetFolderAsync("Covers")).TryGetItemAsync($"{audio.Id}.jpg") == null)
+                    {
+                        System.IO.File.WriteAllBytes($"{localFolder.Path}/Covers/{audio.Id}.jpg", mp3File.Tag.Pictures[0].Data.Data);
+
+                    }
+                    audio.Cover = $"{localFolder.Path}/Covers/{audio.Id}.jpg";
                 }
                 else
                 {
@@ -57,7 +61,6 @@ namespace Fooxboy.MusicX.Uwp.Services
                 }
                 audio.Source = file;
                 audio.SourceString = file.Path;
-
                 return audio;
             }
         } 

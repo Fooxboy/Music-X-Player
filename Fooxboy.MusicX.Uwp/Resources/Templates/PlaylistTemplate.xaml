@@ -30,6 +30,8 @@
             </controls:DropShadowPanel>
             
             <Image x:Name="CoverPlaylist"
+                   PointerEntered="CoverPlaylist_PointerEntered"
+                   PointerExited="CoverPlaylist_PointerExited"
                    Stretch="Fill"
                    Grid.Row="0"
                    HorizontalAlignment="Center"
