@@ -31,6 +31,28 @@ namespace Fooxboy.MusicX.Uwp.ViewModels
             }
         }
 
+
+        private int offset = 0;
+        private HomeLocalViewModel()
+        {
+            var musicCollection = new LoadingCollection<AudioFile>();
+            musicCollection.OnMoreItemsRequested = GetMoreAudio;
+            MusicCollection = musicCollection;
+        }
+
+
+        public async Task<List<AudioFile>> GetMoreAudio(CancellationToken token, uint countAudio)
+        {
+            var count = Convert.ToInt32(countAudio);
+            var collection = new List<AudioFile>();
+            for(var  i = count; i<= count+20; i++)
+            {
+                collection.Add(Music[i]);
+            }
+
+            return collection;
+        }
+
         public async void Page_Loaded(object sender, RoutedEventArgs e)
         {
             if (StaticContent.OpenFiles)
@@ -64,6 +86,8 @@ namespace Fooxboy.MusicX.Uwp.ViewModels
                
             }
         }
+
+        public LoadingCollection<AudioFile> MusicCollection { get; set; }
 
         public ObservableCollection<AudioFile> Music
         {

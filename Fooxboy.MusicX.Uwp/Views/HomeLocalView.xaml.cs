@@ -30,9 +30,37 @@ namespace Fooxboy.MusicX.Uwp.Views
         {
             this.InitializeComponent();
             HomeViewModel = HomeLocalViewModel.Instanse;
-
+            this.Loaded += HomeLocalView_Loaded;
             Application.Current.Resuming += AppResuming;
             Application.Current.Suspending += AppSuspending;
+        }
+
+        private void HomeLocalView_Loaded(object sender, RoutedEventArgs e)
+        {
+            var scrollViewer = GetDescendants(MusicListView).OfType<ScrollViewer>().FirstOrDefault();
+
+            timer.Tick += async (ss, eee) =>
+            {
+                if (scrollViewer.VerticalOffset < 20)
+                {
+                    if (PlaylistsGrid.Visibility != Visibility.Visible)
+                    {
+                        PlaylistsGrid.Visibility = Visibility.Visible;
+                        await PlaylistsGrid.Fade(value: 1f, duration: 200, delay: 0).StartAsync();
+                    }
+                }
+                else
+                {
+                    if (PlaylistsGrid.Visibility != Visibility.Collapsed)
+                    {
+                        await PlaylistsGrid.Fade(value: 0.0f, duration: 200, delay: 0).StartAsync();
+                        PlaylistsGrid.Visibility = Visibility.Collapsed;
+                    }
+                }
+            };
+
+            timer.Interval = TimeSpan.FromMilliseconds(500);
+            timer.Start();
         }
 
         public HomeLocalViewModel HomeViewModel { get; set; }
@@ -63,6 +91,12 @@ namespace Fooxboy.MusicX.Uwp.Views
                 }
             }
         }
+
+        //protected override void OnNavigatingFrom(NavigatingCancelEventArgs e)
+        //{
+        //    timer.Stop();
+        //}
+
         DispatcherTimer timer = new DispatcherTimer();
         protected async override void OnNavigatedTo(NavigationEventArgs ee)
         {
@@ -77,30 +111,7 @@ namespace Fooxboy.MusicX.Uwp.Views
                 HomeViewModel.CountMusic();
             }
 
-            var scrollViewer = GetDescendants(MusicListView).OfType<ScrollViewer>().FirstOrDefault();
-
-            timer.Tick += async (ss, eee) =>
-            {
-                if (scrollViewer.VerticalOffset < 20)
-                {
-                    if(PlaylistsGrid.Visibility != Visibility.Visible)
-                    {
-                        PlaylistsGrid.Visibility = Visibility.Visible;
-                        await PlaylistsGrid.Fade(value: 1f, duration: 200, delay: 0).StartAsync();
-                    } 
-                }
-                else
-                {
-                    if(PlaylistsGrid.Visibility != Visibility.Collapsed)
-                    {
-                        await PlaylistsGrid.Fade(value: 0.0f, duration: 200, delay: 0).StartAsync();
-                        PlaylistsGrid.Visibility = Visibility.Collapsed;
-                    }
-                }
-            };
-
-            timer.Interval = TimeSpan.FromMilliseconds(500);
-            timer.Start();
+            
         }
 
         private void AppResuming(object sender, object e)
