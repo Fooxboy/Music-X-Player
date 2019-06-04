@@ -233,7 +233,8 @@
                              HorizontalContentAlignment="Left" 
                              HorizontalAlignment="Stretch" Height="40"
                              Margin="0,0,0,90" VerticalAlignment="Bottom" 
-                             BorderThickness="0">
+                             BorderThickness="0"
+                             Command="{x:Bind PlayerMenuViewModel.NavigateToPro}">
                         <Button.Background>
                             <SolidColorBrush Opacity="0"/>
                         </Button.Background>
@@ -244,7 +245,7 @@
                                     <ColumnDefinition Width="30"/>
                                     <ColumnDefinition Width="auto"/>
                                 </Grid.ColumnDefinitions>
-                                
+                                <Rectangle Visibility="{x:Bind PlayerMenuViewModel.ProSelector, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" Grid.Column="0" Fill="#0078d7" Height="30" Width="5"/>
                                 <TextBlock Grid.Column="1" 
                                            Padding="5" FontSize="20"
                                            FontFamily="Segoe MDL2 Assets"
