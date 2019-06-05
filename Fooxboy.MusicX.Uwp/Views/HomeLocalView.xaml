@@ -164,6 +164,7 @@
                     <SolidColorBrush Opacity="0"/>
                 </Button.Background>
             </Button>
+            <TextBox x:Name="SearchBox" Grid.Row="0" HorizontalAlignment="Right" Margin="0 0 80 0" Height="32" PlaceholderText="Звуки пердежа 10 часов" TextChanged="TextBox_OnTextChanged"></TextBox>
 
             <ListView Grid.Row="1" 
                       x:Name="MusicListView"
