@@ -3,6 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Windows.UI.Xaml;
+using Windows.UI.Xaml.Controls.Primitives;
+using Windows.UI.Xaml.Input;
 
 namespace Fooxboy.MusicX.Uwp.Resources.Templates
 {
@@ -11,6 +14,11 @@ namespace Fooxboy.MusicX.Uwp.Resources.Templates
         public TrackResourceTemplate()
         {
             InitializeComponent();
+        }
+
+        private void MusicItem_OnRightTapped(object sender, RightTappedRoutedEventArgs e)
+        {
+            FlyoutBase.ShowAttachedFlyout(sender as FrameworkElement);
         }
     }
 }

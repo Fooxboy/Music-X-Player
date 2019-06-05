@@ -143,5 +143,6 @@ namespace Fooxboy.MusicX.Uwp.Views
             MusicListView.ItemsSource = m;
             MusicListView.UpdateLayout();
         }
+
     }
 }
