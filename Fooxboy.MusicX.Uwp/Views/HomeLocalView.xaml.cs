@@ -1,8 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices.WindowsRuntime;
+using Fooxboy.MusicX.Uwp.Models;
 using Fooxboy.MusicX.Uwp.Services;
 using Fooxboy.MusicX.Uwp.ViewModels;
 using Microsoft.Toolkit.Uwp.UI.Animations;
@@ -131,6 +133,15 @@ namespace Fooxboy.MusicX.Uwp.Views
         {
             CreatePlaylistVM.VisibilityGridCreate = Visibility.Visible;
             CreatePlaylistVM.VisibilityGridDone = Visibility.Collapsed;
+        }
+
+        private void TextBox_OnTextChanged(object sender, TextChangedEventArgs e)
+        {
+            
+            
+            ObservableCollection<AudioFile> m = new ObservableCollection<AudioFile>(HomeViewModel.Music.Where(x => x.Title.Contains(this.SearchBox.Text)));
+            MusicListView.ItemsSource = m;
+            MusicListView.UpdateLayout();
         }
     }
 }
