@@ -61,6 +61,7 @@
                         FontSize="20" FontFamily="Segoe MDL2 Assets"
                         Content="&#xE104;"
                         Width="30" 
+                        Command="{x:Bind PlaylistViewModel.EditPlaylist}"
                         Height="30"
                         Grid.Row="1">
                         <Button.Background>

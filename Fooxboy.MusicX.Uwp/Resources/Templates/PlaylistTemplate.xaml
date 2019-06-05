@@ -28,8 +28,10 @@
                         Height="150"
                         Background="White"/>
             </controls:DropShadowPanel>
-            
-            <Image x:Name="CoverPlaylist"
+
+            <Rectangle x:Name="CoverPlaylist"
+                       RadiusX="3"
+                       RadiusY="3"
                    PointerEntered="CoverPlaylist_PointerEntered"
                    PointerExited="CoverPlaylist_PointerExited"
                    Stretch="Fill"
@@ -38,15 +40,18 @@
                    VerticalAlignment="Center"
                    Width="150"
                    Height="150">
-                
-                <Image.Source>
-                    <BitmapImage UriSource="{Binding Cover, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                <Rectangle.Fill>
+                    <ImageBrush>
+                        <ImageBrush.ImageSource>
+                            <BitmapImage UriSource="{Binding Cover, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                                  AutoPlay="True"
                                  DecodePixelHeight="150"
                                  DecodePixelWidth="150" />
-                </Image.Source>
-                
-            </Image>
+                        </ImageBrush.ImageSource>
+                    </ImageBrush>
+                </Rectangle.Fill>
+            </Rectangle>
+            
             <TextBlock Text="{Binding Name, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                        HorizontalAlignment="Center" 
                        Grid.Row="1"

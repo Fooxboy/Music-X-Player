@@ -9,6 +9,7 @@ using Windows.UI.Xaml.Controls;
 using Fooxboy.MusicX.Uwp.Utils.Extensions;
 using Windows.UI.Xaml.Input;
 using Fooxboy.MusicX.Uwp.Services;
+using Fooxboy.MusicX.Uwp.Resources.ContentDialogs;
 
 namespace Fooxboy.MusicX.Uwp.ViewModels
 {
@@ -16,6 +17,11 @@ namespace Fooxboy.MusicX.Uwp.ViewModels
     {
         public PlaylistViewModel()
         {
+            EditPlaylist = new RelayCommand(async () =>
+            {
+                await new EditPlaylistContentDialog(Playlist).ShowAsync();
+                Changed("Playlist");
+            });
         }
 
         private static PlaylistViewModel instanse;
@@ -28,6 +34,9 @@ namespace Fooxboy.MusicX.Uwp.ViewModels
                 return instanse;
             }
         }
+
+
+        public RelayCommand EditPlaylist { get; set; }
 
         private ObservableCollection<AudioFile> music;
         public ObservableCollection<AudioFile> Music
