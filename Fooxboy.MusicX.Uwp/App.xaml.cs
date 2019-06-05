@@ -134,7 +134,10 @@ namespace Fooxboy.MusicX.Uwp
                     var jsonLastFile = JsonConvert.SerializeObject(lastplayModel);
                     await FileIO.WriteTextAsync(lastFile, jsonLastFile);
                 }
-                
+
+                StaticContent.CoversFolder = await localpath.GetFolderAsync("Covers");
+
+
                 Log.Trace("Размещение фрейма в текущем окне.");
                 DispatcherHelper.Initialize();
                 //StaticContent.AudioService = AudioService.Instance;

@@ -35,13 +35,16 @@ namespace Fooxboy.MusicX.Uwp.Services
         {
             var pathPlaylists = await ApplicationData.Current.LocalFolder.GetFolderAsync("Playlists");
             StorageFile filePlaylist;
-            if (pathPlaylists.TryGetItemAsync($"Id{playlist.Id}.json") == null)
-            {
-                filePlaylist = await pathPlaylists.CreateFileAsync($"Id{playlist.Id}.json");
-            }else
+
+            try
             {
                 filePlaylist = await pathPlaylists.GetFileAsync($"Id{playlist.Id}.json");
             }
+            catch
+            {
+                filePlaylist = await pathPlaylists.CreateFileAsync($"Id{playlist.Id}.json");
+            }
+            
             var jsonString = JsonConvert.SerializeObject(playlist);
             try
             {

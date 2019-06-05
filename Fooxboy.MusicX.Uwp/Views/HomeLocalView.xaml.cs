@@ -30,6 +30,7 @@ namespace Fooxboy.MusicX.Uwp.Views
         {
             this.InitializeComponent();
             HomeViewModel = HomeLocalViewModel.Instanse;
+            CreatePlaylistVM = CreatePlaylistViewModel.Instanse;
             this.Loaded += HomeLocalView_Loaded;
             Application.Current.Resuming += AppResuming;
             Application.Current.Suspending += AppSuspending;
@@ -122,6 +123,14 @@ namespace Fooxboy.MusicX.Uwp.Views
         private void AppSuspending(object sender, SuspendingEventArgs suspendingEventArgs)
         {
             timer.Stop();
+        }
+
+        CreatePlaylistViewModel CreatePlaylistVM;
+
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+            CreatePlaylistVM.VisibilityGridCreate = Visibility.Visible;
+            CreatePlaylistVM.VisibilityGridDone = Visibility.Collapsed;
         }
     }
 }

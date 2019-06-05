@@ -158,6 +158,7 @@
     <Compile Include="Utils\Extensions\CollectionsExtensions.cs" />
     <Compile Include="Utils\Extensions\PlaylistFileExtensions.cs" />
     <Compile Include="ViewModels\BaseViewModel.cs" />
+    <Compile Include="ViewModels\CreatePlaylistViewModel.cs" />
     <Compile Include="ViewModels\HomeLocalViewModel.cs" />
     <Compile Include="ViewModels\PlayerMenuViewModel.cs" />
     <Compile Include="ViewModels\PlayerViewModel.cs" />
