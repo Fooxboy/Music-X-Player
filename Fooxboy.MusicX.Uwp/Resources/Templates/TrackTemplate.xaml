@@ -9,8 +9,7 @@
     <DataTemplate x:Name="TrackTemplate"
                   x:DefaultBindMode="TwoWay"
                   x:DataType="models:AudioFile">
-
-        <Grid Margin="32 0 30 0">
+        <Grid Margin="32 0 30 0" RightTapped="MusicItem_OnRightTapped">
 
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="auto"/>
@@ -22,7 +21,18 @@
                 <RowDefinition/>
                 <RowDefinition/>
             </Grid.RowDefinitions>
-
+            <FlyoutBase.AttachedFlyout>
+                <MenuFlyout x:Name="MusicListFlyout" Placement="Auto">
+                    <MenuFlyout.Items>
+                        <MenuFlyoutItem Text="Воспроизвести"></MenuFlyoutItem>
+                        <MenuFlyoutSubItem Text="Добавить в">
+                            <MenuFlyoutItem Text="Сейчас играет"></MenuFlyoutItem>
+                            <MenuFlyoutSeparator/>
+                            <MenuFlyoutItem Text="Плейлист1"></MenuFlyoutItem>
+                        </MenuFlyoutSubItem>
+                    </MenuFlyout.Items>
+                </MenuFlyout>
+            </FlyoutBase.AttachedFlyout>
             <controls:DropShadowPanel Grid.Column="0"
                                       Grid.RowSpan="2"
                                       VerticalAlignment="Center"
