@@ -83,5 +83,10 @@ namespace Fooxboy.MusicX.Uwp.Resources.ContentDialogs
             CameraIcon.Visibility = Visibility.Collapsed;
             CameraIconBackground.Visibility = Visibility.Collapsed;
         }
+
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
     }
 }

@@ -115,8 +115,12 @@
                  Margin="15 45 0 0" 
                  Height="32"/>
 
+        <StackPanel Grid.Row="2">
+            <TextBlock Text="Как добавить трек в плейлист?"/>
+            <TextBlock Text="Просто кликните правой кнопкой по треку и нажмите Добавить -> В плейлист"/>
+        </StackPanel>
+
         <TextBlock Text="Список треков" FontSize="20" FontWeight="Bold" Grid.ColumnSpan="2" Grid.Row="1"/>
-        <Button Content="Добавить" Grid.ColumnSpan="2" Margin="200 0 0 0" Grid.Row="1"/>
         <ListView Grid.Row="2" ItemContainerStyle="{StaticResource ListViewItemContainerStyle}"
                   Style="{StaticResource ListViewStyle}"
                   ItemsSource="{x:Bind Playlist.Tracks}"
