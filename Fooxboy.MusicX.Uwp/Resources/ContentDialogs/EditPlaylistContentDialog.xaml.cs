@@ -26,6 +26,14 @@ namespace Fooxboy.MusicX.Uwp.Resources.ContentDialogs
         {
             this.InitializeComponent();
             Playlist = playlist;
+
+            if(playlist.Tracks.Count == 0)
+            {
+                AddMusicToPlaylist.Visibility = Visibility.Visible;
+            }else
+            {
+                AddMusicToPlaylist.Visibility = Visibility.Collapsed;
+            }
         }
 
         public PlaylistFile Playlist { get; set; }

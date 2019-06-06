@@ -10,6 +10,7 @@ using Fooxboy.MusicX.Uwp.Utils.Extensions;
 using Windows.UI.Xaml.Input;
 using Fooxboy.MusicX.Uwp.Services;
 using Fooxboy.MusicX.Uwp.Resources.ContentDialogs;
+using Windows.UI.Xaml;
 
 namespace Fooxboy.MusicX.Uwp.ViewModels
 {
@@ -79,6 +80,23 @@ namespace Fooxboy.MusicX.Uwp.ViewModels
             }
         }
 
+        private Visibility visibilityNoTrack;
+        public Visibility VisibilotyNoTrack
+        {
+            get
+            {
+                return visibilityNoTrack;
+            }
+            set
+            {
+                if(visibilityNoTrack != value)
+                {
+                    visibilityNoTrack = value;
+                    Changed("VisibilotyNoTrack");
+                }
+            }
+        }
+
         private PlaylistFile playlist;
         public PlaylistFile Playlist
         {
@@ -96,6 +114,8 @@ namespace Fooxboy.MusicX.Uwp.ViewModels
             {
                 if (value != playlist)
                 {
+                    if (value.Tracks.Count == 0) VisibilotyNoTrack = Visibility.Visible;
+                    else VisibilotyNoTrack = Visibility.Collapsed;
                     playlist = value;
                     Changed("Playlist");
                 }

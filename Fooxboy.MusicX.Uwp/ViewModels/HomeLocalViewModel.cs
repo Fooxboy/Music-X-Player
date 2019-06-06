@@ -32,7 +32,6 @@ namespace Fooxboy.MusicX.Uwp.ViewModels
         }
 
 
-        private int offset = 0;
         private HomeLocalViewModel()
         {
             var musicCollection = new LoadingCollection<AudioFile>();
@@ -73,6 +72,25 @@ namespace Fooxboy.MusicX.Uwp.ViewModels
             }
             Changed("Playlists");
             Changed("Music");
+        }
+
+
+        private Visibility visibilityNoTrack = Visibility.Collapsed;
+
+        public Visibility VisibilityNoTrack
+        {
+            get
+            {
+                return visibilityNoTrack;
+            }
+            set
+            {
+                if(value != visibilityNoTrack)
+                {
+                    visibilityNoTrack = value;
+                    Changed("VisibilityNoTrack");
+                }
+            }
         }
 
         public ObservableCollection<PlaylistFile> Playlists
@@ -182,6 +200,9 @@ namespace Fooxboy.MusicX.Uwp.ViewModels
 
         public void CountMusic()
         {
+            if (StaticContent.Music.Count == 0) VisibilityNoTrack = Visibility.Visible;
+            else VisibilityNoTrack = Visibility.Collapsed;
+
             tracksCount = Music.Count + " трек(а/ов)";
             if (Music.Count == 0) anymusic = Visibility.Visible;
             anymusic = Visibility.Collapsed;

@@ -39,6 +39,7 @@
                                                      DecodePixelWidth="150" />
                 </Image.Source>
             </Image>
+            
             <Grid Grid.Column="1">
                 <StackPanel VerticalAlignment="Center" Orientation="Horizontal" Margin="20 -10 20 20">
                     <TextBlock FontFamily="Calibri" FontSize="42" FontWeight="Bold" Text="{x:Bind PlaylistViewModel.Playlist.Name, Mode=TwoWay}"/>
@@ -89,5 +90,23 @@
             </ListView.ItemsPanel>
         </ListView>
 
+        <StackPanel Visibility="{x:Bind PlaylistViewModel.VisibilotyNoTrack, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                    HorizontalAlignment="Center" 
+                    VerticalAlignment="Center"
+                    Grid.Row="1">
+            <FontIcon FontFamily="Segoe MDL2 Assets"
+                      FontSize="90"
+                      HorizontalAlignment="Center"
+                      Glyph="&#xE8D6;" />
+            <TextBlock HorizontalAlignment="Center"
+                       Text="Плейлист пуст"
+                       FontSize="30
+                       " FontWeight="Bold"/>
+            <TextBlock HorizontalAlignment="Center" 
+                       Margin="0 30 0 0" FontSize="20"
+                       Text="Как добавить трек в плейлист?"/>
+            <TextBlock HorizontalAlignment="Center"
+                       Text="Просто кликните правой кнопкой по треку и нажмите Добавить -> В плейлист"/>
+        </StackPanel>
     </Grid>
 </Page>

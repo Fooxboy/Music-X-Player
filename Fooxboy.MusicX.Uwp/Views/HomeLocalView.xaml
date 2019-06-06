@@ -168,7 +168,13 @@
                     <SolidColorBrush Opacity="0"/>
                 </Button.Background>
             </Button>
-            <TextBox x:Name="SearchBox" Grid.Row="0" HorizontalAlignment="Right" Margin="0 0 80 0" Height="32" PlaceholderText="Звуки пердежа 10 часов" TextChanged="TextBox_OnTextChanged"></TextBox>
+            <TextBox x:Name="SearchBox"
+                     Grid.Row="0"
+                     HorizontalAlignment="Right"
+                     Margin="0 0 80 0" Height="32"
+                     Width="200"
+                     PlaceholderText="Найти музыку"
+                     TextChanged="TextBox_OnTextChanged"></TextBox>
 
             <ListView Grid.Row="1" 
                       x:Name="MusicListView"
@@ -190,6 +196,24 @@
                 </ListView.ItemsPanel>
 
             </ListView>
+
+            <StackPanel Visibility="{x:Bind HomeViewModel.VisibilityNoTrack, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                        HorizontalAlignment="Center" 
+                        VerticalAlignment="Center"
+                        Grid.Row="1">
+                <FontIcon FontFamily="Segoe MDL2 Assets" HorizontalAlignment="Center" FontSize="90" Glyph="&#xE74F;" />
+                <TextBlock HorizontalAlignment="Center"
+                       Text="У Вас нет музыки"
+                       FontSize="30" FontWeight="Bold"/>
+                <TextBlock HorizontalAlignment="Center" 
+                           Margin="0 30 0 0" FontSize="20"
+                           Foreground="{ThemeResource SubHeaderText}"
+                           Text="Где взять музыку?"/>
+                <TextBlock HorizontalAlignment="Center"
+                           Foreground="{ThemeResource SubText}"
+                           Text="Попробуйте добавить Ваши файлы в папку Музыка или Документы и нажмите на кнопку выше для обновления."/>
+            </StackPanel>
+
         </Grid>
     </Grid>
 </Page>
