@@ -5,12 +5,30 @@
     xmlns:controls="using:Microsoft.Toolkit.Uwp.UI.Controls"
     x:Class="Fooxboy.MusicX.Uwp.Resources.Templates.TrackResourceTemplate"
     xmlns:local="using:Fooxboy.MusicX.Uwp.Resources.Templates">
-    
+
     <DataTemplate x:Name="TrackTemplate"
                   x:DefaultBindMode="TwoWay"
                   x:DataType="models:AudioFile">
-        <Grid Margin="32 0 30 0" RightTapped="MusicItem_OnRightTapped">
-
+        <Grid Margin="32 0 30 0"  RightTapped="MusicItem_OnRightTapped">
+            <Grid.ContextFlyout>
+                <MenuFlyout x:Name="MenuTrack">
+                    <MenuFlyout.Items>
+                        <MenuFlyoutItem Text="Воспроизвести">
+                            <MenuFlyoutItem.Icon>
+                                <FontIcon FontFamily="Segoe MDL2 Assets" Glyph="&#xE768;" />
+                            </MenuFlyoutItem.Icon>
+                        </MenuFlyoutItem>
+                        <MenuFlyoutSubItem Text="Добавить в">
+                            <MenuFlyoutSubItem.Icon>
+                                <FontIcon FontFamily="Segoe MDL2 Assets" Glyph="&#xE109;" />
+                            </MenuFlyoutSubItem.Icon>
+                            <MenuFlyoutItem Text="Сейчас играет"/>
+                            <MenuFlyoutSeparator/>
+                            <MenuFlyoutItem Text="Плейлист1"/>
+                        </MenuFlyoutSubItem>
+                    </MenuFlyout.Items>
+                </MenuFlyout>
+            </Grid.ContextFlyout>
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="auto"/>
                 <ColumnDefinition Width="*"/>
@@ -21,18 +39,6 @@
                 <RowDefinition/>
                 <RowDefinition/>
             </Grid.RowDefinitions>
-            <FlyoutBase.AttachedFlyout>
-                <MenuFlyout x:Name="MusicListFlyout" Placement="Auto">
-                    <MenuFlyout.Items>
-                        <MenuFlyoutItem Text="Воспроизвести"></MenuFlyoutItem>
-                        <MenuFlyoutSubItem Text="Добавить в">
-                            <MenuFlyoutItem Text="Сейчас играет"></MenuFlyoutItem>
-                            <MenuFlyoutSeparator/>
-                            <MenuFlyoutItem Text="Плейлист1"></MenuFlyoutItem>
-                        </MenuFlyoutSubItem>
-                    </MenuFlyout.Items>
-                </MenuFlyout>
-            </FlyoutBase.AttachedFlyout>
             <controls:DropShadowPanel Grid.Column="0"
                                       Grid.RowSpan="2"
                                       VerticalAlignment="Center"

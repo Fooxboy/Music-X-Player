@@ -18,7 +18,7 @@ namespace Fooxboy.MusicX.Uwp.Resources.Templates
 
         private void MusicItem_OnRightTapped(object sender, RightTappedRoutedEventArgs e)
         {
-            FlyoutBase.ShowAttachedFlyout(sender as FrameworkElement);
+            //FlyoutBase.ShowAttachedFlyout(sender as FrameworkElement);
         }
     }
 }
