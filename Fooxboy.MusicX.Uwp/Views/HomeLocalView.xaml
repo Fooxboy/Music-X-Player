@@ -179,6 +179,7 @@
             <ListView Grid.Row="1" 
                       x:Name="MusicListView"
                       HorizontalAlignment="Stretch"
+                      
                       ItemContainerStyle="{StaticResource ListViewItemContainerStyle}"
                       Style="{StaticResource ListViewStyle}"
                       SelectedItem="{x:Bind HomeViewModel.SelectedAudioFile, Mode=TwoWay}"

@@ -144,6 +144,9 @@
     <Compile Include="Resources\ContentDialogs\EditPlaylistContentDialog.xaml.cs">
       <DependentUpon>EditPlaylistContentDialog.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Resources\Controls\TrackControl.xaml.cs">
+      <DependentUpon>TrackControl.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Resources\Templates\PlaylistTemplate.xaml.cs">
       <DependentUpon>PlaylistTemplate.xaml</DependentUpon>
     </Compile>
@@ -263,6 +266,10 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="Resources\ContentDialogs\EditPlaylistContentDialog.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Resources\Controls\TrackControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
