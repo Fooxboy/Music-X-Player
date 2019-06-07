@@ -18,15 +18,16 @@
         <TextBlock Text="Ваши плейлисты"
                    FontSize="42"
                    FontWeight="ExtraBold"
-                   Margin="30 0 30 0"
+                   Margin="30 0 0 0"
                    FontFamily="Calibri"
                    Grid.Row="1"/>
 
         <GridView x:Name="Playlists" 
                   Grid.Row="2"
-                  SelectedItem="{x:Bind ViewModel.SelectPlaylist}"
+                  SelectedItem="{x:Bind ViewModel.SelectPlaylist, Mode=TwoWay}"
                   ItemTemplate="{ThemeResource PlaylistTemplate}" 
-                  ItemClick="{x:Bind ViewModel.GridView_Click}"
+                  ItemClick="{x:Bind ViewModel.Playlists_ItemClick}"
+                  Tapped="{x:Bind ViewModel.Playlists_Tapped}"
                   ItemsSource="{x:Bind ViewModel.Playlists, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
             
         </GridView>

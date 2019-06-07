@@ -30,5 +30,7 @@ namespace Fooxboy.MusicX.Uwp.Views
         }
 
         public AllPlaylistsViewModel ViewModel;
+
+        
     }
 }
