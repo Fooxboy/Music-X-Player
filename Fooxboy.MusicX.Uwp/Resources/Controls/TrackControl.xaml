@@ -23,9 +23,6 @@
                         <MenuFlyoutSubItem.Icon>
                             <FontIcon FontFamily="Segoe MDL2 Assets" Glyph="&#xE109;" />
                         </MenuFlyoutSubItem.Icon>
-                        <MenuFlyoutItem Text="Сейчас играет" />
-                        <MenuFlyoutSeparator/>
-                        <MenuFlyoutItem Text="Плейлист1"/>
                     </MenuFlyoutSubItem>
                 </MenuFlyout.Items>
             </MenuFlyout>

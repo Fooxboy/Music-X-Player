@@ -5,6 +5,7 @@ using System.Linq;
 using System.Runtime.InteropServices.WindowsRuntime;
 using Fooxboy.MusicX.Core;
 using Fooxboy.MusicX.Uwp.Models;
+using Fooxboy.MusicX.Uwp.Services;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
 using Windows.UI.Xaml;
@@ -42,10 +43,21 @@ namespace Fooxboy.MusicX.Uwp.Resources.Controls
         {
             this.InitializeComponent();
 
-            PlayCommand = new RelayCommand(() =>
+            PlayCommand = new RelayCommand( async () =>
             {
-                Log.Info("aaaa");
+                await PlayMusicService.PlayMusicForLibrary(Track, 1);
             });
+
+            foreach(var playlist in StaticContent.Playlists)
+            {
+                AddTo.Items.Add(new MenuFlyoutItem {
+                    Text = playlist.Name,
+                    Icon = new FontIcon() { FontFamily =new FontFamily("Segoe MDL2 Assets"),
+                        Glyph = "&#xE93C;" },
+                    Command = new RelayCommand<PlaylistFile>(AddToPlaylist),
+                    CommandParameter = playlist });
+            }
+            
         }
 
         public AudioFile Track
@@ -54,6 +66,14 @@ namespace Fooxboy.MusicX.Uwp.Resources.Controls
             set { SetValue(TrackProperty, value); }
         }
 
+
+        async void AddToPlaylist(PlaylistFile playlist)
+        {
+            if (playlist.Tracks.Any(t => t == Track)) return;
+            playlist.Tracks.Add(Track);
+            await PlaylistsService.SavePlaylist(playlist);
+        }
         private RelayCommand PlayCommand { get; set; }
+        private RelayCommand AddToPlaylistCommand { get; set; }
     }
 }
