@@ -10,7 +10,7 @@
 
     <Grid>
         <Grid.RowDefinitions>
-            <RowDefinition Height="36"/>
+            <RowDefinition Height="24"/>
             <RowDefinition Height="auto"/>
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
@@ -18,13 +18,15 @@
         <TextBlock Text="Ваши плейлисты"
                    FontSize="42"
                    FontWeight="ExtraBold"
-                   Margin="30 0 0 0"
+                   Margin="30 0 30 0"
                    FontFamily="Calibri"
                    Grid.Row="1"/>
 
         <GridView x:Name="Playlists" 
+                  Grid.Row="2"
                   SelectedItem="{x:Bind ViewModel.SelectPlaylist}"
                   ItemTemplate="{ThemeResource PlaylistTemplate}" 
+                  ItemClick="{x:Bind ViewModel.GridView_Click}"
                   ItemsSource="{x:Bind ViewModel.Playlists, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
             
         </GridView>

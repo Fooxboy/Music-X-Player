@@ -5,6 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Fooxboy.MusicX.Uwp.Models;
+using Windows.UI.Xaml.Controls;
 
 namespace Fooxboy.MusicX.Uwp.ViewModels
 {
@@ -52,6 +53,11 @@ namespace Fooxboy.MusicX.Uwp.ViewModels
                     Changed("SelectPlaylist");
                 }
             }
+        }
+
+        public void GridView_Click(object sender, ItemClickEventArgs e)
+        {
+            StaticContent.NavigationContentService.Go(typeof(Views.PlaylistView), SelectPlaylist);
         }
     }
 }

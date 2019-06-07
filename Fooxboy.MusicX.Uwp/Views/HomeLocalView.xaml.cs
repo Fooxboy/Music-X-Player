@@ -144,5 +144,9 @@ namespace Fooxboy.MusicX.Uwp.Views
             MusicListView.UpdateLayout();
         }
 
+        private void Button_Click_1(object sender, RoutedEventArgs e)
+        {
+            StaticContent.NavigationContentService.Go(typeof(Views.AllPlaylistsView));
+        }
     }
 }
