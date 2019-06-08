@@ -10,7 +10,7 @@
     d:DesignHeight="50"
     d:DesignWidth="400">
 
-    <Grid Margin="32 0 30 0">
+    <Grid Margin="32 0 30 0" PointerEntered="Grid_PointerEntered"  PointerExited="Grid_PointerExited">
         <Grid.ContextFlyout>
             <MenuFlyout x:Name="MenuTrack">
                 <MenuFlyout.Items>
@@ -77,6 +77,18 @@
         <TextBlock Margin="10 0 0 0" Foreground="{ThemeResource ColorArtistText}"
                        Text="{x:Bind Track.Artist, Mode=TwoWay}"
                        Grid.Column="1"  Grid.Row="1"/>
+        <Button Content="&#xE006;" x:Name="Like" Grid.Column="2"
+                HorizontalAlignment="Right" 
+                Grid.RowSpan="2"
+                FontSize="18"
+                Visibility="Collapsed"
+                Height="32"
+                Margin="0 0 30 0"
+                Background="Transparent"
+                BorderThickness="0"
+                VerticalAlignment="Center"
+                Command="{x:Bind AddToFavoriteCommand}" 
+                FontFamily="Segoe MDL2 Assets"/>
         <TextBlock Text="{x:Bind Track.DurationMinutes, Mode=TwoWay}"
                        Grid.Column="2" 
                        HorizontalAlignment="Right"

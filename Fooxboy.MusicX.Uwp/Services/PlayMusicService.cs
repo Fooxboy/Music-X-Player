@@ -13,6 +13,8 @@ namespace Fooxboy.MusicX.Uwp.Services
     {
         public async static Task PlayMusicForLibrary(AudioFile audioFile, int typePlay, PlaylistFile playlistPlay = null)
         {
+
+            if (audioFile == null) return;
             //type play:
             //1 - проигрования из списка треков
             //2 - проигрование трека по клику на него

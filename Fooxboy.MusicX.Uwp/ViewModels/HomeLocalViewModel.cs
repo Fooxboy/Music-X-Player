@@ -122,11 +122,18 @@ namespace Fooxboy.MusicX.Uwp.ViewModels
 
         public async void MusicListView_Tapped(object sender, TappedRoutedEventArgs e)
         {
-            if(SelectedAudioFile != StaticContent.NowPlay)
+            try
             {
-                await PlayMusicService.PlayMusicForLibrary(SelectedAudioFile, 1);
-                Changed("Playlists");
+                if (SelectedAudioFile != StaticContent.NowPlay)
+                {
+                    await PlayMusicService.PlayMusicForLibrary(SelectedAudioFile, 1);
+                    Changed("Playlists");
+                }
+            }catch
+            {
+
             }
+            
             
         }
 

@@ -8,6 +8,7 @@ using Fooxboy.MusicX.Uwp.Models;
 using Fooxboy.MusicX.Uwp.Services;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
+using Windows.UI.Popups;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Controls.Primitives;
@@ -48,6 +49,20 @@ namespace Fooxboy.MusicX.Uwp.Resources.Controls
                 await PlayMusicService.PlayMusicForLibrary(Track, 1);
             });
 
+            AddToFavoriteCommand = new RelayCommand(async () =>
+            {
+                var playlist = await PlaylistsService.GetById(2);
+                if (playlist.Tracks.Any(t => t == Track))
+                {
+                    var dialog = new MessageDialog("Данный трек уже добавлен в избранное", "Ошибка при добавлении в избранное");
+                    await dialog.ShowAsync();
+                } else
+                {
+                    playlist.Tracks.Add(Track);
+                    await PlaylistsService.SavePlaylist(playlist);
+                }
+            });
+
             foreach(var playlist in StaticContent.Playlists)
             {
                 AddTo.Items.Add(new MenuFlyoutItem {
@@ -75,5 +90,16 @@ namespace Fooxboy.MusicX.Uwp.Resources.Controls
         }
         private RelayCommand PlayCommand { get; set; }
         private RelayCommand AddToPlaylistCommand { get; set; }
+        public RelayCommand AddToFavoriteCommand { get; set; }
+
+        private void Grid_PointerEntered(object sender, PointerRoutedEventArgs e)
+        {
+            Like.Visibility = Visibility.Visible;
+        }
+
+        private void Grid_PointerExited(object sender, PointerRoutedEventArgs e)
+        {
+            Like.Visibility = Visibility.Collapsed;
+        }
     }
 }
