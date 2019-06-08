@@ -17,8 +17,21 @@
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
 
-        <TextBlock HorizontalAlignment="Center" Grid.Row="1" FontFamily="Segoe MDL2 Assets" Text="&#xED54;" FontSize="128" Margin="0 0 0 30"/>
-        <TextBlock  HorizontalAlignment="Center" Grid.Row="2" Text="Добро пожаловать в MusicX" FontWeight="Bold" FontSize="32"/>
-        <TextBlock  HorizontalAlignment="Center" Grid.Row="3" Text="Давайте начнем." FontSize="22"/>
+        <TextBlock HorizontalAlignment="Center"
+                   Grid.Row="1" 
+                   FontFamily="Segoe MDL2 Assets" 
+                   Text="&#xED54;" FontSize="128"
+                   Margin="0 0 0 30"/>
+        
+        <TextBlock  HorizontalAlignment="Center"
+                    Grid.Row="2"
+                    Text="Добро пожаловать в MusicX"
+                    FontWeight="Bold"
+                    FontSize="32"/>
+        
+        <TextBlock  HorizontalAlignment="Center"
+                    Grid.Row="3" 
+                    Text="Давайте начнем."
+                    FontSize="22"/>
     </Grid>
 </Page>

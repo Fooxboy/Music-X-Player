@@ -5,9 +5,11 @@ using System.Linq;
 using System.Runtime.InteropServices.WindowsRuntime;
 using Fooxboy.MusicX.Core;
 using Fooxboy.MusicX.Uwp.Models;
+using Fooxboy.MusicX.Uwp.Resources.ContentDialogs;
 using Fooxboy.MusicX.Uwp.Services;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
+using Windows.Storage;
 using Windows.UI.Popups;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
@@ -49,28 +51,58 @@ namespace Fooxboy.MusicX.Uwp.Resources.Controls
                 await PlayMusicService.PlayMusicForLibrary(Track, 1);
             });
 
+            DeleteCommand = new RelayCommand(async () =>
+            {
+                try
+                {
+                    if (Track.Source == null) Track.Source = await StorageFile.GetFileFromPathAsync(Track.SourceString);
+                    await Track.Source.DeleteAsync();
+                }catch(Exception e)
+                {
+                    await new ExceptionDialog("Невозможно удалить этот трек", "Возможно, этот трек был уже удален.", e).ShowAsync();
+                }
+
+            });
+
             AddToFavoriteCommand = new RelayCommand(async () =>
             {
-                var playlist = await PlaylistsService.GetById(2);
-                if (playlist.Tracks.Any(t => t.SourceString == Track.SourceString))
+                try
                 {
-                    var dialog = new MessageDialog("Данный трек уже добавлен в избранное", "Ошибка при добавлении в избранное");
-                    await dialog.ShowAsync();
-                } else
+                    var playlist = await PlaylistsService.GetById(2);
+                    if (playlist.Tracks.Any(t => t.SourceString == Track.SourceString))
+                    {
+                        var dialog = new MessageDialog("Данный трек уже добавлен в избранное", "Ошибка при добавлении в избранное");
+                        await dialog.ShowAsync();
+                    }
+                    else
+                    {
+                        playlist.Tracks.Add(Track);
+                        await PlaylistsService.SavePlaylist(playlist);
+                    }
+                }catch(Exception e)
                 {
-                    playlist.Tracks.Add(Track);
-                    await PlaylistsService.SavePlaylist(playlist);
+                    await new ExceptionDialog("Невозможно добавить трек в избранное", "Возможно, этот трек поврежден или не существует плейлиста, если ошибка будет повторяться, переустановите приложение.", e).ShowAsync();
                 }
+
             });
 
             foreach(var playlist in StaticContent.Playlists)
             {
-                AddTo.Items.Add(new MenuFlyoutItem {
-                    Text = playlist.Name,
-                    Icon = new FontIcon() { FontFamily =new FontFamily("Segoe MDL2 Assets"),
-                        Glyph = "&#xE93C;" },
-                    Command = new RelayCommand<PlaylistFile>(AddToPlaylist),
-                    CommandParameter = playlist });
+                if(playlist.Id != 1 || playlist.Id != 2 || playlist.Id != 1000)
+                {
+                    AddTo.Items.Add(new MenuFlyoutItem
+                    {
+                        Text = playlist.Name,
+                        Icon = new FontIcon()
+                        {
+                            FontFamily = new FontFamily("Segoe MDL2 Assets"),
+                            Glyph = "&#xE93C;"
+                        },
+                        Command = new RelayCommand<PlaylistFile>(AddToPlaylist),
+                        CommandParameter = playlist
+                    });
+                }
+                
             }
             
         }
@@ -89,6 +121,7 @@ namespace Fooxboy.MusicX.Uwp.Resources.Controls
             await PlaylistsService.SavePlaylist(playlist);
         }
         private RelayCommand PlayCommand { get; set; }
+        private RelayCommand DeleteCommand { get; set; }
         private RelayCommand AddToPlaylistCommand { get; set; }
         public RelayCommand AddToFavoriteCommand { get; set; }
 

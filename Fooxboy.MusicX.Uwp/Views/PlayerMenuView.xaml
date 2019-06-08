@@ -27,7 +27,11 @@
             </Grid.RowDefinitions>
             
             <Grid Grid.Row="0" Margin="10 20 10 0">
-                <controls:DropShadowPanel Width="190"  Height="190" x:Name="AlbumCoverShadow" ShadowOpacity="1" OffsetY="-5" OffsetX="-5" BlurRadius="40" Opacity="0.5">
+                <controls:DropShadowPanel Width="190"  Height="190" 
+                                          x:Name="AlbumCoverShadow" 
+                                          ShadowOpacity="1" OffsetY="-5"
+                                          OffsetX="-5" BlurRadius="40"
+                                          Opacity="0.5">
                     <Border Width="200" Height="200" Background="White"/>
                 </controls:DropShadowPanel>
                 <Image  Stretch="Fill"  Width="200"  Height="200">
@@ -61,10 +65,8 @@
                         Orientation="Horizontal"
                         HorizontalAlignment="Center"
                         BorderThickness="0">
-                
-                
                 <ToggleButton Padding="0"
-                        
+                        Style ="{StaticResource ToggleButtonStyle}" 
                         BorderThickness="0" 
                         FontSize="20" FontFamily="Segoe MDL2 Assets"
                         Content="&#xE149;" Width="30"
@@ -75,21 +77,17 @@
                         <SolidColorBrush Opacity="0"/>
                     </ToggleButton.Background>
                 </ToggleButton>
-                
+
                 <Button Padding="0" 
-                        
+                        Style="{ThemeResource ButtonPlayerStyle}"
                         BorderThickness="0"
                         Command="{x:Bind PlayerViewModel.SwitchPrevCommand}" 
                         FontFamily="Segoe MDL2 Assets"
                         FontSize="20" 
                         Content="&#xE892;"
                         Width="30" Height="30" Margin="0,0,10,0">
-                    
-                    <Button.Background>
-                        <SolidColorBrush Opacity="0"/>
-                    </Button.Background>
                 </Button>
-                <Button Padding="0"  Command="{x:Bind PlayerViewModel.PlayPauseCommand}" BorderThickness="0"  FontFamily="HoloLens MDL2 Assets" FontSize="20"  Width="37" Height="37" Margin="0,0,10,0" >
+                <Button Padding="0" Style="{ThemeResource ButtonPlayerStyle}"  Command="{x:Bind PlayerViewModel.PlayPauseCommand}" BorderThickness="0"  FontFamily="HoloLens MDL2 Assets" FontSize="20"  Width="37" Height="37" Margin="0,0,10,0" >
                     <Button.Background>
                         <SolidColorBrush Opacity="0"/>
                     </Button.Background>
@@ -106,27 +104,22 @@
                         </Grid>
                     </Button.Content>
                 </Button>
-                
+
                 <Button Padding="0"
+                        Style="{ThemeResource ButtonPlayerStyle}"
                         BorderThickness="0" Command="{x:Bind PlayerViewModel.SwitchNextCommand}"
                         FontSize="20" FontFamily="Segoe MDL2 Assets"
                         Content="&#xE893;" Width="30" Height="30"
                         Margin="0,0,10,0">
-                    <Button.Background>
-                        <SolidColorBrush Opacity="0"/>
-                    </Button.Background>
                 </Button>
 
-                <ToggleButton Padding="0"
+                <ToggleButton Style="{StaticResource ToggleButtonStyle}" Padding="0"
                         BorderThickness="0" 
                         FontSize="20" FontFamily="Segoe MDL2 Assets"
                         Content="&#xE14B;"
                         Width="30" 
                         Height="30"
-                              Command="{x:Bind PlayerViewModel.ShuffleSwitch}">
-                    <ToggleButton.Background>
-                        <SolidColorBrush Opacity="0"/>
-                    </ToggleButton.Background>
+                        Command="{x:Bind PlayerViewModel.ShuffleSwitch}">
                 </ToggleButton>
                 
             </StackPanel >
@@ -205,6 +198,7 @@
                                 HorizontalContentAlignment="Left"
                                 HorizontalAlignment="Stretch" 
                                 Height="40" Margin="0,0,0,0"
+                                Visibility="Collapsed"
                                 BorderThickness="0"
                                 Command="{x:Bind PlayerMenuViewModel.NavigateToSearch}">
                             <Button.Background>

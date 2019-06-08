@@ -43,15 +43,13 @@
                     Margin="340 5 0 0"
                     Height="42"
                     Width="42"
+                    Style="{ThemeResource ButtonPlayerStyle}"
                     Click="Button_Click"
                     FontFamily="Segoe MDL2 Assets"
                     FontSize="20"
                     HorizontalAlignment="Left" 
                     Grid.Row="0"
                     BorderThickness="0">
-                <Button.Background>
-                    <SolidColorBrush Opacity="0"/>
-                </Button.Background>
 
                 <Button.Flyout>
                     <Flyout>
@@ -166,14 +164,12 @@
                     BorderThickness="0"
                     FontFamily="Segoe MDL2 Assets"
                     Content="&#xE149;"
+                    Style="{ThemeResource ButtonPlayerStyle}"
                     Grid.Row="0"
                     Height="42" Width="42"
                     Margin="0 0 30 0"
                     HorizontalAlignment="Right"
                     VerticalAlignment="Center" >
-                <Button.Background>
-                    <SolidColorBrush Opacity="0"/>
-                </Button.Background>
             </Button>
             <TextBox x:Name="SearchBox"
                      Grid.Row="0"

@@ -21,7 +21,17 @@ namespace Fooxboy.MusicX.Uwp
         public static double Volume { get; set; }
         public static RepeatMode Repeat { get; set; }
         public static bool Shuffle { get; set; }
-        public static AudioFile NowPlay => AudioService.CurrentPlaylist.CurrentItem;
+        public static AudioFile NowPlay
+        {
+            get
+            {
+                return AudioService.CurrentPlaylist.CurrentItem;
+            }
+            set
+            {
+                AudioService.CurrentPlaylist.CurrentItem = value;
+            }
+        }
         public static StorageFolder CoversFolder { get; set; }
         public static StorageFolder PlaylistsFolder { get; set; }
         public static StorageFolder LocalFolder { get; set; }

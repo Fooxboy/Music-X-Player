@@ -24,6 +24,11 @@
                             <FontIcon FontFamily="Segoe MDL2 Assets" Glyph="&#xE109;" />
                         </MenuFlyoutSubItem.Icon>
                     </MenuFlyoutSubItem>
+                    <MenuFlyoutItem Text="Удалить" Command="{x:Bind PlayCommand}">
+                        <MenuFlyoutItem.Icon>
+                            <FontIcon FontFamily="Segoe MDL2 Assets" Glyph="&#xE768;" />
+                        </MenuFlyoutItem.Icon>
+                    </MenuFlyoutItem>
                 </MenuFlyout.Items>
             </MenuFlyout>
         </Grid.ContextFlyout>

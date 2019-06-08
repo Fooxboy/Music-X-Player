@@ -6,6 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Fooxboy.MusicX.Core;
 using Fooxboy.MusicX.Uwp.Models;
+using Fooxboy.MusicX.Uwp.Resources.ContentDialogs;
 using Newtonsoft.Json;
 using Windows.Storage;
 using Windows.UI.Popups;
@@ -22,8 +23,9 @@ namespace Fooxboy.MusicX.Uwp.Services
             {
                 file = await pathPlaylists.GetFileAsync($"Id{id}.json");
 
-            } catch
+            } catch(Exception e)
             {
+                await new ExceptionDialog("Невозможно получить плейлист", "Возможно, этого плейлиста больше не существует.", e).ShowAsync();
                 return null;
             }
 
@@ -52,20 +54,28 @@ namespace Fooxboy.MusicX.Uwp.Services
                 await FileIO.WriteTextAsync(filePlaylist, jsonString);
             }catch(Exception e)
             {
-                Log.Error(e);
+                await new ExceptionDialog("Невозможно сохранить плейлист", "Возможно, этот плейлист уже существует.", e).ShowAsync();
+
             }
         }
 
         public static async Task SetPlaylistLocal()
         {
-            var pathPlaylists = await ApplicationData.Current.LocalFolder.GetFolderAsync("Playlists");
-            var files = await pathPlaylists.GetFilesAsync();
-            foreach (var file in files)
+            try
             {
-                var json = await FileIO.ReadTextAsync(file);
-                var playlist = JsonConvert.DeserializeObject<PlaylistFile>(json);
-                StaticContent.Playlists.Add(playlist);
+                var pathPlaylists = await ApplicationData.Current.LocalFolder.GetFolderAsync("Playlists");
+                var files = await pathPlaylists.GetFilesAsync();
+                foreach (var file in files)
+                {
+                    var json = await FileIO.ReadTextAsync(file);
+                    var playlist = JsonConvert.DeserializeObject<PlaylistFile>(json);
+                    StaticContent.Playlists.Add(playlist);
+                }
+            }catch(Exception e)
+            {
+                await new ExceptionDialog("Невозможно получить список плейлистов", "Вам стоит переустановить приложение, если эта ошибка не изчезнет.", e).ShowAsync();
             }
+            
         }
 
         public static async Task PlayPlaylist(PlaylistFile playlist)
@@ -85,17 +95,25 @@ namespace Fooxboy.MusicX.Uwp.Services
 
         public static async Task DeletePlaylist(PlaylistFile playlist)
         {
-            if (playlist.Id == 1|| playlist.Id == 1000)
+            try
             {
-                var dialog = new MessageDialog("Данный плейлист невозможно удалить.",
-                    "Невозможно удалить плейлист");
-                await dialog.ShowAsync();
-                return;
+                if (playlist.Id == 1 || playlist.Id == 1000)
+                {
+                    var dialog = new MessageDialog("Данный плейлист невозможно удалить.",
+                        "Невозможно удалить плейлист");
+                    await dialog.ShowAsync();
+                    return;
+                }
+                var folder = StaticContent.PlaylistsFolder;
+                StaticContent.Playlists.Remove(playlist);
+                var file = await folder.GetFileAsync($"Id{playlist.Id}.json");
+                await file.DeleteAsync();
+            }catch(Exception e)
+            {
+                await new ExceptionDialog("Невозможно удалить плейлист", "Возможно, этот плейлист уже был удален или он поврежден.", e).ShowAsync();
+
             }
-            var folder = StaticContent.PlaylistsFolder;
-            StaticContent.Playlists.Remove(playlist);
-            var file =  await folder.GetFileAsync($"Id{playlist.Id}.json");
-            await file.DeleteAsync();
+
         }
     }
 }

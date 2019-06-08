@@ -37,10 +37,6 @@ namespace Fooxboy.MusicX.Uwp.Views
         {
             PlaylistViewModel = new PlaylistViewModel();
             PlaylistViewModel.Playlist = await PlaylistsService.GetById(((PlaylistFile)e.Parameter).Id);
-
         }
-
-        
-
     }
 }

@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Fooxboy.MusicX.Uwp.Models;
+using Fooxboy.MusicX.Uwp.Resources.ContentDialogs;
 using Fooxboy.MusicX.Uwp.Services;
 using Windows.Storage;
 using Windows.UI.Xaml;
@@ -26,19 +27,27 @@ namespace Fooxboy.MusicX.Uwp.ViewModels
         {
             CreatePlaylist = new RelayCommand( async () =>
             {
-                var playlist = new PlaylistFile()
+                try
                 {
-                    Artist = "Music X",
-                    Cover = ImagePlaylist,
-                    Id = new Random().Next(0, 500),
-                    Name = NamePlaylist,
-                    Tracks = new List<AudioFile>()
-                };
+                    var playlist = new PlaylistFile()
+                    {
+                        Artist = "Music X",
+                        Cover = ImagePlaylist,
+                        Id = new Random().Next(10, 1234),
+                        Name = NamePlaylist,
+                        Tracks = new List<AudioFile>()
+                    };
 
-                await PlaylistsService.SavePlaylist(playlist);
-                StaticContent.Playlists.Add(playlist);
-                VisibilityGridCreate = Visibility.Collapsed;
-                VisibilityGridDone = Visibility.Visible;
+                    await PlaylistsService.SavePlaylist(playlist);
+                    StaticContent.Playlists.Add(playlist);
+                    VisibilityGridCreate = Visibility.Collapsed;
+                    VisibilityGridDone = Visibility.Visible;
+                }catch(Exception e)
+                {
+                    await new ExceptionDialog("Невозможно создать плейлист", "Возможно, такой плейлист уже существует. Попробуйте ещё раз.", e).ShowAsync();
+
+                }
+
             });
 
             SelectCover = new RelayCommand(async () =>
