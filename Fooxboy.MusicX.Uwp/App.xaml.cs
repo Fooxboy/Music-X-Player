@@ -88,6 +88,7 @@ namespace Fooxboy.MusicX.Uwp
                     StaticContent.PlaylistsFolder = pathPlaylists;
                     StaticContent.CoversFolder = await localpath.CreateFolderAsync("Covers");
                     var file = await pathPlaylists.CreateFileAsync("Id1.json");
+                    var file2 = await pathPlaylists.CreateFileAsync("Id2.json");
                     var playlist = new Models.PlaylistFile()
                     {
                         Artist = "Music X",
@@ -97,8 +98,19 @@ namespace Fooxboy.MusicX.Uwp
                         Tracks = new List<Models.AudioFile>()
                     };
 
+                    var playlist2 = new Models.PlaylistFile()
+                    {
+                        Artist = "Music X",
+                        Cover = "ms-appx:///Assets/Images/favorites.png",
+                        Id = 2,
+                        Name = "Избранное",
+                        Tracks = new List<AudioFile>()
+                    };
+
                     var a = JsonConvert.SerializeObject(playlist);
+                    var b = JsonConvert.SerializeObject(playlist2);
                     await FileIO.WriteTextAsync(file, a);
+                    await FileIO.WriteTextAsync(file2, b);
                     var musicFile = await localpath.CreateFileAsync("MusicCollection.json");
                     var musicString = JsonConvert.SerializeObject(new MusicCollection() { Music = new List<AudioFile>(),
                         DateLastUpdate = "none" });
