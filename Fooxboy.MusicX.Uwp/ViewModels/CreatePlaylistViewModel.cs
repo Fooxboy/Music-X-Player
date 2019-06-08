@@ -83,7 +83,7 @@ namespace Fooxboy.MusicX.Uwp.ViewModels
             {
                 if(imagePlaylist == null)
                 {
-                    return "ms-appx:///Assets/Images/placeholder.png";
+                    return "ms-appx:///Assets/Images/playlist-placeholder.png";
                 }else
                 {
                     return imagePlaylist;
