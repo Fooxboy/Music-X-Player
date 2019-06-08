@@ -15,7 +15,7 @@ using Windows.Storage;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Input;
-
+using Fooxboy.MusicX.Uwp.Services;
 namespace Fooxboy.MusicX.Uwp.ViewModels
 {
     public class HomeLocalViewModel :BaseViewModel
@@ -37,6 +37,7 @@ namespace Fooxboy.MusicX.Uwp.ViewModels
             var musicCollection = new LoadingCollection<AudioFile>();
             musicCollection.OnMoreItemsRequested = GetMoreAudio;
             MusicCollection = musicCollection;
+
         }
 
 
