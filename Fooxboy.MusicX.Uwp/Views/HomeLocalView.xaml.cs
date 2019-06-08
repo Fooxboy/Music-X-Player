@@ -139,7 +139,7 @@ namespace Fooxboy.MusicX.Uwp.Views
         {
             
             
-            ObservableCollection<AudioFile> m = new ObservableCollection<AudioFile>(HomeViewModel.Music.Where(x => x.Title.Contains(this.SearchBox.Text)));
+            ObservableCollection<AudioFile> m = new ObservableCollection<AudioFile>(HomeViewModel.Music.Where(x => x.Title.Contains(this.SearchBox.Text, StringComparison.OrdinalIgnoreCase)));
             MusicListView.ItemsSource = m;
             MusicListView.UpdateLayout();
         }

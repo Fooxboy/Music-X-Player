@@ -18,11 +18,13 @@ namespace Fooxboy.MusicX.Uwp.Services
             //2 - проигрование трека по клику на него
             //3 - проигрование трека из плейлиста
             var lastPlayPlaylist = await PlaylistsService.GetById(1);
-            if (!(lastPlayPlaylist.Tracks.Any(t => t.Source == audioFile.Source)))
+            if (!(lastPlayPlaylist.Tracks.Any(x => x.Source == audioFile.Source)))
             {
-                lastPlayPlaylist.Tracks.Add(audioFile);
-                await PlaylistsService.SavePlaylist(lastPlayPlaylist);
+                    lastPlayPlaylist.Tracks.Add(audioFile);
+                    await PlaylistsService.SavePlaylist(lastPlayPlaylist);
             }
+
+
 
 
             var playlistNowPlay = new PlaylistFile()
