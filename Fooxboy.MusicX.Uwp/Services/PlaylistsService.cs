@@ -8,6 +8,7 @@ using Fooxboy.MusicX.Core;
 using Fooxboy.MusicX.Uwp.Models;
 using Newtonsoft.Json;
 using Windows.Storage;
+using Windows.UI.Popups;
 
 namespace Fooxboy.MusicX.Uwp.Services
 {
@@ -65,6 +66,36 @@ namespace Fooxboy.MusicX.Uwp.Services
                 var playlist = JsonConvert.DeserializeObject<PlaylistFile>(json);
                 StaticContent.Playlists.Add(playlist);
             }
+        }
+
+        public static async Task PlayPlaylist(PlaylistFile playlist)
+        {
+
+            if (playlist.Tracks.Count == 0)
+            {
+                var dialog = new MessageDialog("В данном плейлисте отсутсвуют треки. Пожалуйста, добавте в него треки.",
+                    "Невозможно возпроизвести плейлист");
+                await dialog.ShowAsync();
+                return;
+            }
+            var folder = StaticContent.PlaylistsFolder;
+            if (StaticContent.NowPlayPlaylist == playlist) return;
+            await PlayMusicService.PlayMusicForLibrary(playlist.Tracks[0], 3, playlist);
+        }
+
+        public static async Task DeletePlaylist(PlaylistFile playlist)
+        {
+            if (playlist.Id == 1|| playlist.Id == 1000)
+            {
+                var dialog = new MessageDialog("Данный плейлист невозможно удалить.",
+                    "Невозможно удалить плейлист");
+                await dialog.ShowAsync();
+                return;
+            }
+            var folder = StaticContent.PlaylistsFolder;
+            StaticContent.Playlists.Remove(playlist);
+            var file =  await folder.GetFileAsync($"Id{playlist.Id}.json");
+            await file.DeleteAsync();
         }
     }
 }

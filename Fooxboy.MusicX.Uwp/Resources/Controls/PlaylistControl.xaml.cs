@@ -14,6 +14,7 @@ using Microsoft.Toolkit.Uwp.UI.Animations;
 using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Navigation;
+using Fooxboy.MusicX.Uwp.Services;
 
 // Документацию по шаблону элемента "Пользовательский элемент управления" см. по адресу https://go.microsoft.com/fwlink/?LinkId=234236
 
@@ -35,6 +36,15 @@ namespace Fooxboy.MusicX.Uwp.Resources.Controls
         public PlaylistControl()
         {
             this.InitializeComponent();
+            PlayCommand = new RelayCommand( async () =>
+            {
+                await PlaylistsService.PlayPlaylist(Playlist);
+            });
+
+            DeleteCommand = new RelayCommand(async () =>
+            {
+                await PlaylistsService.DeletePlaylist(Playlist);
+            });
         }
 
         public PlaylistFile Playlist
@@ -42,6 +52,9 @@ namespace Fooxboy.MusicX.Uwp.Resources.Controls
             get => (PlaylistFile)GetValue(PlaylistProperty);
             set => SetValue(PlaylistProperty, value);
         }
+
+        public RelayCommand PlayCommand { get; set; }
+        public RelayCommand DeleteCommand { get; set; }
 
         private async void Grid_PointerEntered(object sender, PointerRoutedEventArgs e)
         {
