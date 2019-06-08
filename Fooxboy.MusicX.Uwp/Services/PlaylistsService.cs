@@ -14,7 +14,7 @@ namespace Fooxboy.MusicX.Uwp.Services
 {
     public static class PlaylistsService
     {
-        public async static Task<PlaylistFile> GetById(int id)
+        public async static Task<PlaylistFile> GetById(long id)
         {
             var pathPlaylists = await ApplicationData.Current.LocalFolder.GetFolderAsync("Playlists");
             StorageFile file;

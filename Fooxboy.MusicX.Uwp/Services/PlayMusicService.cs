@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using Fooxboy.MusicX.Uwp.Converters;
 using Fooxboy.MusicX.Uwp.Models;
 using Fooxboy.MusicX.Uwp.Utils.Extensions;
+using Windows.Storage;
 
 namespace Fooxboy.MusicX.Uwp.Services
 {
@@ -20,7 +21,8 @@ namespace Fooxboy.MusicX.Uwp.Services
             //2 - проигрование трека по клику на него
             //3 - проигрование трека из плейлиста
             var lastPlayPlaylist = await PlaylistsService.GetById(1);
-            if (!(lastPlayPlaylist.Tracks.Any(t => t.Source == audioFile.Source)))
+            if (audioFile.Source == null) audioFile.Source = await StorageFile.GetFileFromPathAsync(audioFile.SourceString);
+            if (!(lastPlayPlaylist.Tracks.Any(t => t.SourceString == audioFile.SourceString)))
             {
                 lastPlayPlaylist.Tracks.Add(audioFile);
                 await PlaylistsService.SavePlaylist(lastPlayPlaylist);

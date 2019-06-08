@@ -1,4 +1,5 @@
 ﻿using Fooxboy.MusicX.Uwp.Models;
+using Fooxboy.MusicX.Uwp.Services;
 using Fooxboy.MusicX.Uwp.ViewModels;
 using System;
 using System.Collections.Generic;
@@ -35,7 +36,7 @@ namespace Fooxboy.MusicX.Uwp.Views
         protected async override void OnNavigatedTo(NavigationEventArgs e)
         {
             PlaylistViewModel = new PlaylistViewModel();
-            PlaylistViewModel.Playlist = (PlaylistFile)e.Parameter;
+            PlaylistViewModel.Playlist = await PlaylistsService.GetById(((PlaylistFile)e.Parameter).Id);
 
         }
 

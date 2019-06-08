@@ -4,6 +4,7 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:local="using:Fooxboy.MusicX.Uwp.Views"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:animations="using:Microsoft.Toolkit.Uwp.UI.Animations"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:controls="using:Microsoft.Toolkit.Uwp.UI.Controls"
     xmlns:models="using:Fooxboy.MusicX.Uwp.Models"
@@ -32,15 +33,15 @@
                 <Border Height="150" Width="150" Background="Black"/>
             </controls:DropShadowPanel>
 
-            <Image  Margin="25" Stretch="Fill" Width="150" Grid.Row="0"  Height="150" >
+            <Image  Margin="25" x:Name="coverImage" animations:Connected.Key="cover" Stretch="Fill" Width="150" Grid.Row="0"  Height="150" >
                 <Image.Source>
                     <BitmapImage UriSource="{x:Bind PlaylistViewModel.Playlist.Cover, Mode=TwoWay}"
                                                      DecodePixelHeight="150"
                                                      DecodePixelWidth="150" />
                 </Image.Source>
             </Image>
-            
-            <Grid Grid.Column="1">
+
+            <Grid Grid.Column="1" animations:Connected.AnchorElement="{x:Bind coverImage}">
                 <StackPanel VerticalAlignment="Center" Orientation="Horizontal" Margin="20 -10 20 20">
                     <TextBlock FontFamily="Calibri" FontSize="42" FontWeight="Bold" Text="{x:Bind PlaylistViewModel.Playlist.Name, Mode=TwoWay}"/>
                     <TextBlock FontWeight="Bold" Text="{x:Bind PlaylistViewModel.PLTrackCount, Mode=TwoWay}" Margin="10 25 0 0"/>

@@ -52,7 +52,7 @@ namespace Fooxboy.MusicX.Uwp.Resources.Controls
             AddToFavoriteCommand = new RelayCommand(async () =>
             {
                 var playlist = await PlaylistsService.GetById(2);
-                if (playlist.Tracks.Any(t => t == Track))
+                if (playlist.Tracks.Any(t => t.SourceString == Track.SourceString))
                 {
                     var dialog = new MessageDialog("Данный трек уже добавлен в избранное", "Ошибка при добавлении в избранное");
                     await dialog.ShowAsync();
