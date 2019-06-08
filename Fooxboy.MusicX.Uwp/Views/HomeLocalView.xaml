@@ -39,13 +39,19 @@
                 </Button.Background>
             </Button>
 
-            <Button Content="Создать"
-                    Margin="350 0 0 0"
+            <Button Content="&#xE109;"
+                    Margin="340 5 0 0"
+                    Height="42"
+                    Width="42"
                     Click="Button_Click"
+                    FontFamily="Segoe MDL2 Assets"
+                    FontSize="20"
                     HorizontalAlignment="Left" 
                     Grid.Row="0"
                     BorderThickness="0">
-
+                <Button.Background>
+                    <SolidColorBrush Opacity="0"/>
+                </Button.Background>
 
                 <Button.Flyout>
                     <Flyout>
@@ -77,7 +83,7 @@
                                     <RowDefinition Height="auto"/>
                                 </Grid.RowDefinitions>
 
-                                <TextBlock Text="Создание нового плейлиста"
+                                <TextBlock Text="Новый плейлист"
                                        FontSize="22"
                                        FontWeight="Bold"
                                        Grid.Row="0"/>
