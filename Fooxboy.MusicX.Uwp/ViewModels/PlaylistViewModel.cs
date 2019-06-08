@@ -21,13 +21,13 @@ namespace Fooxboy.MusicX.Uwp.ViewModels
         {
             EditPlaylist = new RelayCommand(async () =>
             {
-                if(Playlist.Id != 1 || Playlist.Id != 2 || Playlist.Id != 1000)
+                if(Playlist.Id != 1 & Playlist.Id != 2 & Playlist.Id != 1000)
                 {
                     await new EditPlaylistContentDialog(Playlist).ShowAsync();
                     Changed("Playlist");
                 }else
                 {
-                    new MessageDialog("Этот плейлист невозможно изменить", "Ошибка редактирования плейлиста");
+                    await new MessageDialog("Этот плейлист невозможно изменить", "Ошибка редактирования плейлиста").ShowAsync();
                 }
                 
             });

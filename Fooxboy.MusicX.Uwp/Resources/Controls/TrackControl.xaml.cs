@@ -86,25 +86,6 @@ namespace Fooxboy.MusicX.Uwp.Resources.Controls
 
             });
 
-            foreach(var playlist in StaticContent.Playlists)
-            {
-                if(playlist.Id != 1 || playlist.Id != 2 || playlist.Id != 1000)
-                {
-                    AddTo.Items.Add(new MenuFlyoutItem
-                    {
-                        Text = playlist.Name,
-                        Icon = new FontIcon()
-                        {
-                            FontFamily = new FontFamily("Segoe MDL2 Assets"),
-                            Glyph = "&#xE93C;"
-                        },
-                        Command = new RelayCommand<PlaylistFile>(AddToPlaylist),
-                        CommandParameter = playlist
-                    });
-                }
-                
-            }
-            
         }
 
         public AudioFile Track
@@ -133,6 +114,28 @@ namespace Fooxboy.MusicX.Uwp.Resources.Controls
         private void Grid_PointerExited(object sender, PointerRoutedEventArgs e)
         {
             Like.Visibility = Visibility.Collapsed;
+        }
+
+        private void Grid_RightTapped(object sender, RightTappedRoutedEventArgs e)
+        {
+            foreach (var playlist in StaticContent.Playlists)
+            {
+                if (playlist.Id != 1 & playlist.Id != 2 & playlist.Id != 1000)
+                {
+                    AddTo.Items.Add(new MenuFlyoutItem
+                    {
+                        Text = playlist.Name,
+                        Icon = new FontIcon()
+                        {
+                            FontFamily = new FontFamily("Segoe MDL2 Assets"),
+                            Glyph = "&#xE93C;"
+                        },
+                        Command = new RelayCommand<PlaylistFile>(AddToPlaylist),
+                        CommandParameter = playlist
+                    });
+                }
+
+            }
         }
     }
 }

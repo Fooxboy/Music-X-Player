@@ -10,7 +10,7 @@
     d:DesignHeight="50"
     d:DesignWidth="400">
 
-    <Grid Margin="32 0 30 0" PointerEntered="Grid_PointerEntered"  PointerExited="Grid_PointerExited">
+    <Grid Margin="32 0 30 0" PointerEntered="Grid_PointerEntered" RightTapped="Grid_RightTapped"  PointerExited="Grid_PointerExited">
         <Grid.ContextFlyout>
             <MenuFlyout x:Name="MenuTrack">
                 <MenuFlyout.Items>
@@ -26,7 +26,7 @@
                     </MenuFlyoutSubItem>
                     <MenuFlyoutItem Text="Удалить" Command="{x:Bind PlayCommand}">
                         <MenuFlyoutItem.Icon>
-                            <FontIcon FontFamily="Segoe MDL2 Assets" Glyph="&#xE768;" />
+                            <FontIcon FontFamily="Segoe MDL2 Assets" Glyph="&#xE74D;" />
                         </MenuFlyoutItem.Icon>
                     </MenuFlyoutItem>
                 </MenuFlyout.Items>
