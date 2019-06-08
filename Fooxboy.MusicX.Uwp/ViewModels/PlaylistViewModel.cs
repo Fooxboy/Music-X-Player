@@ -11,6 +11,7 @@ using Windows.UI.Xaml.Input;
 using Fooxboy.MusicX.Uwp.Services;
 using Fooxboy.MusicX.Uwp.Resources.ContentDialogs;
 using Windows.UI.Xaml;
+using Windows.UI.Popups;
 
 namespace Fooxboy.MusicX.Uwp.ViewModels
 {
@@ -20,8 +21,15 @@ namespace Fooxboy.MusicX.Uwp.ViewModels
         {
             EditPlaylist = new RelayCommand(async () =>
             {
-                await new EditPlaylistContentDialog(Playlist).ShowAsync();
-                Changed("Playlist");
+                if(Playlist.Id != 1 || Playlist.Id != 2 || Playlist.Id != 1000)
+                {
+                    await new EditPlaylistContentDialog(Playlist).ShowAsync();
+                    Changed("Playlist");
+                }else
+                {
+                    new MessageDialog("Этот плейлист невозможно изменить", "Ошибка редактирования плейлиста");
+                }
+                
             });
         }
 
