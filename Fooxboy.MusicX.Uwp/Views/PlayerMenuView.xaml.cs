@@ -43,25 +43,32 @@ namespace Fooxboy.MusicX.Uwp.Views
                 {
                     try
                     {
-                        track.Source = await StorageFile.GetFileFromPathAsync(track.SourceString);
-                        track.Duration = TimeSpan.FromSeconds(track.DurationSeconds);
-                    }
-                    catch (Exception)
-                    {
-                        track.Source = await StorageFile.GetFileFromApplicationUriAsync(new Uri(track.SourceString));
-                        track.Duration = TimeSpan.FromSeconds(track.DurationSeconds);
-                    }
+                        try
+                        {
+                            track.Source = await StorageFile.GetFileFromPathAsync(track.SourceString);
+                            track.Duration = TimeSpan.FromSeconds(track.DurationSeconds);
+                        }
+                        catch (Exception)
+                        {
+                            track.Source = await StorageFile.GetFileFromApplicationUriAsync(new Uri(track.SourceString));
+                            track.Duration = TimeSpan.FromSeconds(track.DurationSeconds);
+                        }
 
-                    if (lastPlayMusic.Playlist != null)
+                        if (lastPlayMusic.Playlist != null)
+                        {
+                            var playlist = lastPlayMusic.Playlist.ToAudioPlaylist();
+                            playlist.CurrentItem = track;
+                            StaticContent.AudioService.SetCurrentPlaylist(playlist);
+                        }
+                        else
+                        {
+                            StaticContent.AudioService.CurrentPlaylist.CurrentItem = track;
+                        }
+                    }catch(Exception)
                     {
-                        var playlist = lastPlayMusic.Playlist.ToAudioPlaylist();
-                        playlist.CurrentItem = track;
-                        StaticContent.AudioService.SetCurrentPlaylist(playlist);
+
                     }
-                    else
-                    {
-                        StaticContent.AudioService.CurrentPlaylist.CurrentItem = track;
-                    }
+                    
 
                     StaticContent.Volume = lastPlayMusic.Volume;
                     if (StaticContent.AudioService.IsPlaying) StaticContent.AudioService.Pause();

@@ -198,11 +198,13 @@ namespace Fooxboy.MusicX.Uwp.ViewModels
 
         public void PlaylistListView_Click(object sender, ItemClickEventArgs e)
         {
+            if (SelectedPlaylistFile == null) return;
             StaticContent.NavigationContentService.Go(typeof(Views.PlaylistView), SelectedPlaylistFile);
         }
 
         public void PlaylistListView_Tapped(object sender, TappedRoutedEventArgs e)
         {
+            if (SelectedPlaylistFile == null) return;
             StaticContent.NavigationContentService.Go(typeof(Views.PlaylistView), SelectedPlaylistFile);
         }
 

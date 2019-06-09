@@ -148,6 +148,9 @@
     <Compile Include="Resources\ContentDialogs\ExceptionDialog.xaml.cs">
       <DependentUpon>ExceptionDialog.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Resources\ContentDialogs\PropertiesTrackContentDialog.xaml.cs">
+      <DependentUpon>PropertiesTrackContentDialog.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Resources\Controls\PlaylistControl.xaml.cs">
       <DependentUpon>PlaylistControl.xaml</DependentUpon>
     </Compile>
@@ -285,6 +288,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Resources\ContentDialogs\ExceptionDialog.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Resources\ContentDialogs\PropertiesTrackContentDialog.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

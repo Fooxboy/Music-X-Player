@@ -6,6 +6,7 @@ using System.Linq;
 using System.Runtime.InteropServices.WindowsRuntime;
 using Fooxboy.MusicX.Core;
 using Fooxboy.MusicX.Uwp.Models;
+using Fooxboy.MusicX.Uwp.Resources.ContentDialogs;
 using Fooxboy.MusicX.Uwp.Services;
 using Fooxboy.MusicX.Uwp.ViewModels;
 using GalaSoft.MvvmLight.Threading;
@@ -45,22 +46,18 @@ namespace Fooxboy.MusicX.Uwp
             Log.Trace("Инициализация объекта приложения");
             this.InitializeComponent();
             this.Suspending += OnSuspending;
+            
         }
 
 
         protected async override void OnLaunched(LaunchActivatedEventArgs e)
         {
-            Log.Trace("Приложение запускается пользователем.");
+            DispatcherHelper.Initialize();
             Frame rootFrame = Window.Current.Content as Frame;
-
-
             if (rootFrame == null)
             {
-                Log.Trace("Создание фрейма, который является контектом навигации.");
                 rootFrame = new Frame();
-
                 rootFrame.NavigationFailed += OnNavigationFailed;
-
                 if(e != null)
                 {
                     if (e.PreviousExecutionState == ApplicationExecutionState.Terminated)
@@ -91,7 +88,6 @@ namespace Fooxboy.MusicX.Uwp
                 }
 
                 Log.Trace("Размещение фрейма в текущем окне.");
-                DispatcherHelper.Initialize();
                 Window.Current.Content = rootFrame;
             }
 
@@ -121,7 +117,6 @@ namespace Fooxboy.MusicX.Uwp
                         }  
                     }
 
-                    Window.Current.Activate();
                 }
             }else
             {
@@ -149,12 +144,12 @@ namespace Fooxboy.MusicX.Uwp
                     }
                 }
 
-                Window.Current.Activate();
+                
             }
 
+
+            Window.Current.Activate();
             SystemNavigationManager.GetForCurrentView().BackRequested += OnBackRequested;
-
-
         }
 
         /// <summary>
@@ -199,7 +194,7 @@ namespace Fooxboy.MusicX.Uwp
         protected async override void OnFileActivated(FileActivatedEventArgs args)
         {
             var files = args.Files;
-            if(files.Count > 1)
+            if (files.Count > 1)
             {
                 var playlist = new PlaylistFile()
                 {
@@ -209,7 +204,7 @@ namespace Fooxboy.MusicX.Uwp
                     Name = "Сейчас играет",
                     Tracks = new List<AudioFile>()
                 };
-                foreach(var file in files)
+                foreach (var file in files)
                 {
                     var audio = await FindMetadataService.ConvertToAudioFile((StorageFile)file);
                     playlist.Tracks.Add(audio);
@@ -226,13 +221,68 @@ namespace Fooxboy.MusicX.Uwp
                 StaticContent.OpenFiles = true;
 
             }
+
             if (Window.Current.Visible)
             {
                 HomeLocalViewModel.Instanse.Page_Loaded(null, null);
-            }else
-            {
-                OnLaunched(null);
             }
+            else
+            {
+                DispatcherHelper.Initialize();
+                Frame rootFrame = Window.Current.Content as Frame;
+                if (rootFrame == null)
+                {
+                    rootFrame = new Frame();
+                    rootFrame.NavigationFailed += OnNavigationFailed;
+                    CoreApplication.GetCurrentView().TitleBar.ExtendViewIntoTitleBar = true;
+                    if (ApiInformation.IsTypePresent("Windows.UI.ViewManagement.ApplicationView"))
+                    {
+                        var appView = ApplicationView.GetForCurrentView();
+                        appView.TitleBar.ButtonBackgroundColor = Colors.Transparent;
+                        appView.TitleBar.ButtonInactiveBackgroundColor = Colors.Transparent;
+                    }
+
+                    StaticContent.LocalFolder = ApplicationData.Current.LocalFolder;
+                    if (await StaticContent.LocalFolder.TryGetItemAsync("Playlists") != null)
+                    {
+                        StaticContent.PlaylistsFolder = await StaticContent.LocalFolder.GetFolderAsync("Playlists");
+                    }
+
+                    if (await StaticContent.LocalFolder.TryGetItemAsync("Covers") != null)
+                    {
+                        StaticContent.CoversFolder = await StaticContent.LocalFolder.GetFolderAsync("Covers");
+
+                    }
+                    Window.Current.Content = rootFrame;
+                }
+
+                if (rootFrame.Content == null)
+                {
+                    if (await StaticContent.LocalFolder.TryGetItemAsync("RunApp.json") == null)
+                    {
+                        var runFile = await StaticContent.LocalFolder.CreateFileAsync("RunApp.json");
+                        var model = new RunApp()
+                        {
+                            CodeName = "Test",
+                            FirstStart = true,
+                            RunUpdate = true
+                        };
+
+                        var json = JsonConvert.SerializeObject(model);
+                        await FileIO.WriteTextAsync(runFile, json);
+
+                        rootFrame.Navigate(typeof(Views.WelcomeView), null);
+                    }
+                    else
+                    {
+                        rootFrame.Navigate(typeof(Views.MainFrameView), null);
+                    }
+                }
+
+                Window.Current.Activate();
+                SystemNavigationManager.GetForCurrentView().BackRequested += OnBackRequested;
+            }
+
         }
     }
 }
