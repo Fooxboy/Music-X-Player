@@ -78,82 +78,20 @@ namespace Fooxboy.MusicX.Uwp
                     appView.TitleBar.ButtonInactiveBackgroundColor = Colors.Transparent;
                 }
 
-                var localpath = ApplicationData.Current.LocalFolder;
-                StaticContent.LocalFolder = localpath;
-               
-                if (await localpath.TryGetItemAsync("Playlists") == null)
+                StaticContent.LocalFolder = ApplicationData.Current.LocalFolder;
+                if (await StaticContent.LocalFolder.TryGetItemAsync("Playlists") != null)
                 {
-                    var pathPlaylists = await localpath.CreateFolderAsync("Playlists");
-                    StaticContent.LocalFolder = localpath;
-                    StaticContent.PlaylistsFolder = pathPlaylists;
-                    StaticContent.CoversFolder = await localpath.CreateFolderAsync("Covers");
-                    var file = await pathPlaylists.CreateFileAsync("Id1.json");
-                    var file2 = await pathPlaylists.CreateFileAsync("Id2.json");
-                    var playlist = new Models.PlaylistFile()
-                    {
-                        Artist = "Music X",
-                        Cover = "ms-appx:///Assets/Images/latest.png",
-                        Id = 1,
-                        Name = "Слушали недавно",
-                        Tracks = new List<Models.AudioFile>()
-                    };
-
-                    var playlist2 = new Models.PlaylistFile()
-                    {
-                        Artist = "Music X",
-                        Cover = "ms-appx:///Assets/Images/favorites.png",
-                        Id = 2,
-                        Name = "Избранное",
-                        Tracks = new List<AudioFile>()
-                    };
-
-                    var a = JsonConvert.SerializeObject(playlist);
-                    var b = JsonConvert.SerializeObject(playlist2);
-                    await FileIO.WriteTextAsync(file, a);
-                    await FileIO.WriteTextAsync(file2, b);
-                    var musicFile = await localpath.CreateFileAsync("MusicCollection.json");
-                    var musicString = JsonConvert.SerializeObject(new MusicCollection() { Music = new List<AudioFile>(),
-                        DateLastUpdate = "none" });
-                    await FileIO.WriteTextAsync(musicFile, musicString);
-                }else
-                {
-                    StaticContent.PlaylistsFolder = await localpath.GetFolderAsync("Playlists");
+                    StaticContent.PlaylistsFolder = await StaticContent.LocalFolder.GetFolderAsync("Playlists");
                 }
 
-                if (await localpath.TryGetItemAsync("LastPlay.json") == null)
+                if(await StaticContent.LocalFolder.TryGetItemAsync("Covers") != null)
                 {
-                    var lastFile = await localpath.CreateFileAsync("LastPlay.json");
-                    var audio = new AudioFile()
-                    {
-                        Artist = "",
-                        Cover = "ms-appx:///Assets/Images/placeholder.png",
-                        DurationMinutes = "00:00",
-                        DurationSeconds = 0,
-                        Id = -2,
-                        InternalId = -2,
-                        OwnerId = -2,
-                        PlaylistId = 1,
-                        SourceString = "ms-appx:///Assets/Audio/song.mp3",
-                        Source = await StorageFile.GetFileFromApplicationUriAsync(new Uri("ms-appx:///Assets/Audio/song.mp3")),
-                        Title = "Сейчас ничего не воспроизводится"
-                    };
-                    var lastplayModel = new LastPlay()
-                    {
-                        Playlist = null,
-                        Track = audio,
-                        Volume = 1.0f,
-                    };
-                    var jsonLastFile = JsonConvert.SerializeObject(lastplayModel);
-                    await FileIO.WriteTextAsync(lastFile, jsonLastFile);
+                    StaticContent.CoversFolder = await StaticContent.LocalFolder.GetFolderAsync("Covers");
+
                 }
-
-                StaticContent.CoversFolder = await localpath.GetFolderAsync("Covers");
-
 
                 Log.Trace("Размещение фрейма в текущем окне.");
                 DispatcherHelper.Initialize();
-                //StaticContent.AudioService = AudioService.Instance;
-                // Размещение фрейма в текущем окне
                 Window.Current.Content = rootFrame;
             }
 
@@ -163,24 +101,54 @@ namespace Fooxboy.MusicX.Uwp
                 {
                     if (rootFrame.Content == null)
                     {
-                        // Если стек навигации не восстанавливается для перехода к первой странице,
-                        // настройка новой страницы путем передачи необходимой информации в качестве параметра
-                        // навигации
-                        rootFrame.Navigate(typeof(Views.MainFrameView), null);
+                        if(await StaticContent.LocalFolder.TryGetItemAsync("RunApp.json") == null)
+                        {
+                            var runFile = await StaticContent.LocalFolder.CreateFileAsync("RunApp.json");
+                            var model = new RunApp()
+                            {
+                                CodeName = "Test",
+                                FirstStart = true,
+                                RunUpdate = true
+                            };
+
+                            var json = JsonConvert.SerializeObject(model);
+                            await FileIO.WriteTextAsync(runFile, json);
+
+                            rootFrame.Navigate(typeof(Views.WelcomeView), null);
+                        }else
+                        {
+                            rootFrame.Navigate(typeof(Views.MainFrameView), null);
+                        }  
                     }
-                    // Обеспечение активности текущего окна
+
                     Window.Current.Activate();
                 }
             }else
             {
                 if (rootFrame.Content == null)
                 {
-                    // Если стек навигации не восстанавливается для перехода к первой странице,
-                    // настройка новой страницы путем передачи необходимой информации в качестве параметра
-                    // навигации
-                    rootFrame.Navigate(typeof(Views.MainFrameView), null);
+
+                    if (await StaticContent.LocalFolder.TryGetItemAsync("RunApp.json") == null)
+                    {
+                        var runFile = await StaticContent.LocalFolder.CreateFileAsync("RunApp.json");
+                        var model = new RunApp()
+                        {
+                            CodeName = "Test",
+                            FirstStart = true,
+                            RunUpdate = true
+                        };
+
+                        var json = JsonConvert.SerializeObject(model);
+                        await FileIO.WriteTextAsync(runFile, json);
+
+                        rootFrame.Navigate(typeof(Views.WelcomeView), null);
+                    }
+                    else
+                    {
+                        rootFrame.Navigate(typeof(Views.MainFrameView), null);
+                    }
                 }
-                // Обеспечение активности текущего окна
+
                 Window.Current.Activate();
             }
 

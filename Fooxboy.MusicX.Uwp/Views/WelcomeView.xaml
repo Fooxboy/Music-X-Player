@@ -14,6 +14,7 @@
             <RowDefinition Height="auto"/>
             <RowDefinition Height="auto"/>
             <RowDefinition Height="auto"/>
+            <RowDefinition Height="auto"/>
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
 
@@ -31,7 +32,21 @@
         
         <TextBlock  HorizontalAlignment="Center"
                     Grid.Row="3" 
+                    x:Name="Start"
                     Text="Давайте начнем."
                     FontSize="22"/>
+
+        <ProgressRing Grid.Row="4" 
+                      x:Name="ProgressRing"
+                      Height="50" Width="50"
+                      HorizontalAlignment="Center"
+                      IsActive="False"/>
+
+        <Button Grid.Row="4" 
+                x:Name="ButtonStart"
+                HorizontalAlignment="Center"
+                Click="Button_Click"
+                Margin="0 50 0 0"
+                Content="Начать"/>
     </Grid>
 </Page>
