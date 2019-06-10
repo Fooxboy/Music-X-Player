@@ -90,6 +90,7 @@
                        Grid.Column="1"  Grid.Row="1"/>
         <Button Content="&#xE006;" x:Name="Like" Grid.Column="2"
                 HorizontalAlignment="Right" 
+                Style="{ThemeResource ButtonPlayerStyle}"
                 Grid.RowSpan="2"
                 FontSize="18"
                 Visibility="Collapsed"

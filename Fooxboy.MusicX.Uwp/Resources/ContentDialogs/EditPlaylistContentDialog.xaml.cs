@@ -26,8 +26,9 @@ namespace Fooxboy.MusicX.Uwp.Resources.ContentDialogs
         {
             this.InitializeComponent();
             Playlist = playlist;
+            oldPlaylist = playlist;
 
-            if(playlist.Tracks.Count == 0)
+            if (playlist.Tracks.Count == 0)
             {
                 AddMusicToPlaylist.Visibility = Visibility.Visible;
             }else
@@ -36,11 +37,14 @@ namespace Fooxboy.MusicX.Uwp.Resources.ContentDialogs
             }
         }
 
+        private PlaylistFile oldPlaylist { get; set; }
         public PlaylistFile Playlist { get; set; }
 
         private async void ContentDialog_PrimaryButtonClick(ContentDialog sender, ContentDialogButtonClickEventArgs args)
         {
             Playlist.Name = NamePlaylistBox.Text;
+            StaticContent.Playlists.Remove(oldPlaylist);
+            StaticContent.Playlists.Add(Playlist);
             await PlaylistsService.SavePlaylist(Playlist);
         }
 

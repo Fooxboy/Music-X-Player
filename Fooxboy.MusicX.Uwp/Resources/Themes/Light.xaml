@@ -7,6 +7,7 @@
         <ResourceDictionary x:Key="Light">
             <SolidColorBrush x:Key="ColorArtistText" Color="#363636"/>
             <SolidColorBrush x:Key="SubText" Color="#505050"/>
+            <SolidColorBrush x:Key="ColorSettings" Color="#EBEBEB"/>
             <SolidColorBrush x:Key="SubHeaderText" Color="#191919"/>
         </ResourceDictionary>
     </ResourceDictionary.ThemeDictionaries>

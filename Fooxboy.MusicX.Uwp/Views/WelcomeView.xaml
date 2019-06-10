@@ -18,11 +18,19 @@
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
 
-        <TextBlock HorizontalAlignment="Center"
-                   Grid.Row="1" 
-                   FontFamily="Segoe MDL2 Assets" 
-                   Text="&#xED54;" FontSize="128"
-                   Margin="0 0 0 30"/>
+        <Image  HorizontalAlignment="Center"
+                Grid.Row="1" 
+                Height="150"
+                Width="150"
+                Margin="0 0 0 30">
+            <Image.Source>
+                <BitmapImage DecodePixelHeight="150"
+                             DecodePixelWidth="150"
+                             UriSource="ms-appx:///Assets/Images/logo.png"/>
+            </Image.Source>
+        </Image>
+
+       
         
         <TextBlock  HorizontalAlignment="Center"
                     Grid.Row="2"
@@ -37,6 +45,7 @@
                     FontSize="22"/>
 
         <ProgressRing Grid.Row="4" 
+                      Margin="0 30 0 0"
                       x:Name="ProgressRing"
                       Height="50" Width="50"
                       HorizontalAlignment="Center"

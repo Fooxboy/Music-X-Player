@@ -8,37 +8,66 @@
     mc:Ignorable="d"
     Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
 
-    <Grid Margin="20">
+    <Grid Margin="0 0 0 0">
         <Grid.RowDefinitions>
+            <RowDefinition Height="32"/>
             <RowDefinition Height="auto"/>
-            <RowDefinition Height="auto"/>
-            <RowDefinition Height="auto"/>
-            <RowDefinition Height="auto"/>
-            <RowDefinition Height="auto"/>
-            <RowDefinition Height="auto"/>
+            <RowDefinition Height="200"/>
+            <RowDefinition/>
         </Grid.RowDefinitions>
-        <TextBlock FontFamily="Calibri" FontWeight="Bold" FontSize="42" Grid.Row="0" Text="Настройки"/>
-        <StackPanel Margin="0 0 0 30" Grid.Row="1">
-            <TextBlock FontFamily="Calibri" FontSize="30" Text="Музыка на этом ПК"/>
-            <TextBlock Text="Где MusicX будет искать музыку" Margin=" 0 0 0 5"/>
-            <ToggleSwitch IsOn="True" OnContent="Документы" OffContent="ВКонтакте" />
-            <ToggleSwitch IsOn="True" OnContent="Библиотека Музыки" OffContent="ВКонтакте" />
-            <ToggleSwitch IsOn="False" OnContent="C:\users\urmom\gay\" OffContent="ВКонтакте" />
-            <Button Content="Добавить папку"/>
-        </StackPanel>
-        <StackPanel Margin="0 0 0 30" Grid.Row="2">
-            <TextBlock FontFamily="Calibri" FontSize="30" Text="Синхронизация"/>
-            <TextBlock Text="Сервисы, с которыми MusicX будет синхронизировать треки и плейлисты"/>
-            <ToggleSwitch IsOn="True" OnContent="ВКонтакте" OffContent="ВКонтакте" />
-            <ToggleSwitch IsEnabled="False" IsOn="False" OnContent="Last.fm (Только в MusicX Pro)" OffContent="Last.fm (Только в MusicX Pro)" />
-            <ToggleSwitch IsEnabled="False" IsOn="False" OnContent="Soundcloud (Только в MusicX Pro)" OffContent="Soundcloud (Только в MusicX Pro)" />
-        </StackPanel>
-        <StackPanel Grid.Row="3">
-            <TextBlock FontFamily="Calibri" FontSize="30" Text="Цвета"/>
-            <TextBlock Text="Цветовая палитра приложения"/>
-            <RadioButton GroupName="themes" Content="Светлая"  />
-            <RadioButton GroupName="themes" Content="Темная" />
-            <RadioButton GroupName="themes" Content="Использовать системные настройки" IsChecked="True" />
-        </StackPanel>
+
+        <Rectangle Fill="{ThemeResource ColorSettings}" Grid.RowSpan="3"/>
+        <TextBlock Text="Настройки" 
+                   FontWeight="Bold"
+                   FontSize="30"
+                   Grid.Row="1"
+                   Margin="30 0 0 0"/>
+
+        <Grid Grid.Row="2">
+            <Grid.RowDefinitions>
+                <RowDefinition/>
+                <RowDefinition/>
+            </Grid.RowDefinitions>
+
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+            </Grid.ColumnDefinitions>
+
+            <Image Grid.RowSpan="2"
+                   Grid.Column="1"
+                   HorizontalAlignment="Center"
+                   VerticalAlignment="Top"
+                   Height="100"
+                   Width="100">
+                <Image.Source>
+                    <BitmapImage DecodePixelHeight="100"
+                                 UriSource="ms-appx:///Assets/Images/logo.png"
+                                 DecodePixelWidth="100"/>
+                </Image.Source>
+            </Image>
+
+            <TextBlock Text="Music X" 
+                       Grid.Row="1" 
+                       Grid.Column="1"
+                       FontSize="20"
+                       FontWeight="Bold"
+                       HorizontalAlignment="Center"
+                       VerticalAlignment="Top"/>
+
+            <TextBlock Grid.Row="1"
+                       Grid.Column="1"
+                       HorizontalAlignment="Center" 
+                       VerticalAlignment="Center" 
+                       Text="Версия: 0.1.123"/>
+
+            <TextBlock Text="Разработчки" 
+                       FontWeight="Bold"
+                       HorizontalAlignment="Right"
+                       Margin="0 0 30 0"
+                       Grid.Row="0" 
+                       Grid.Column="2"/>
+        </Grid>
     </Grid>
 </Page>
