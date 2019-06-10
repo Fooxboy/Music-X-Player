@@ -87,12 +87,29 @@ namespace Fooxboy.MusicX.Uwp.ViewModels
                     Changed("ProSelector");
                 }
             );
+
+            NavigateToPro = new RelayCommand(
+                () =>
+                {
+                    //StaticContent.NavigationContentService.Go(typeof(Views.HomeView));
+                    SettingsSelector = Visibility.Collapsed;
+                    SearchSelector = Visibility.Collapsed;
+                    MainSelector = Visibility.Collapsed;
+                    ProSelector = Visibility.Collapsed;
+                    StaticContent.NavigationContentService.Go(typeof(Views.VKAuthView));
+                    Changed("SettingsSelector");
+                    Changed("SearchSelector");
+                    Changed("MainSelector");
+                    Changed("ProSelector");
+                }
+            );
         }
 
         public RelayCommand NavigateToSettings { get; set; }
         public RelayCommand NavigateToMain { get; set; }
         public RelayCommand NavigateToSearch { get; set; }
         public RelayCommand NavigateToPro { get; set; }
+        public RelayCommand NavigateToLogin { get; set; }
 
         public Visibility SettingsSelector { get; set; }
         public Visibility MainSelector { get; set; }

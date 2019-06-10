@@ -69,5 +69,15 @@
                        Grid.Row="0" 
                        Grid.Column="2"/>
         </Grid>
+
+        <Grid Grid.Row="3">
+            <ScrollViewer>
+                <StackPanel>
+                    <TextBlock Text="Тема оформления" Margin="30 30 0 0" FontSize="18" FontWeight="Bold"/>
+                    <RadioButton Content="Светлая"  Margin="30 0 0 0" GroupName="Theme"/>
+                    <RadioButton Content="Темная" Margin="30 0 0 0" GroupName="Theme"/>
+                </StackPanel>
+            </ScrollViewer>
+        </Grid>
     </Grid>
 </Page>

@@ -9,19 +9,36 @@
     Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
 
     <Grid>
-        <Grid.RowDefinitions>
-            <RowDefinition Height="2*"/>
-            <RowDefinition Height="auto"/>
-            <RowDefinition Height="auto"/>
-            <RowDefinition Height="0.3*"/>
-            <RowDefinition Height="0.3*"/>
-            <RowDefinition Height="0.3*"/>
-            <RowDefinition Height="2*"/>
-        </Grid.RowDefinitions>
-        <TextBlock Text="Авторизация" HorizontalAlignment="Center" FontSize="30" Grid.Row="1"/>
-        <TextBlock Text="Войдите в свой аккаунт ВКонтакте" HorizontalAlignment="Center" FontSize="20" Grid.Row="2"/>
-        <TextBox PlaceholderText="Телефон или E-Mail" HorizontalAlignment="Center" Width="220" Height="32" Grid.Row="3"/>
-        <PasswordBox PlaceholderText="Пароль" HorizontalAlignment="Center" Width="220" Height="32" Grid.Row="4"/>
-        <Button Content="Войти" HorizontalAlignment="Center" Width="80" Grid.Row="5"/>
+
+        <Grid>
+            <FontIcon FontFamily="Segoe MDL2 Assets"
+                      HorizontalAlignment="Center"
+                      FontSize="50"
+                      Margin="0 0 0 100"
+                      VerticalAlignment="Center" 
+                      Glyph="&#xE8B8;" />
+            <TextBlock HorizontalAlignment="Center"
+                       FontSize="25"
+                       VerticalAlignment="Center"
+                       Text="Авторизация сейчас не доступна"/>
+        </Grid>
+
+        <Grid Visibility="Collapsed">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="2*"/>
+                <RowDefinition Height="auto"/>
+                <RowDefinition Height="auto"/>
+                <RowDefinition Height="0.3*"/>
+                <RowDefinition Height="0.3*"/>
+                <RowDefinition Height="0.3*"/>
+                <RowDefinition Height="2*"/>
+            </Grid.RowDefinitions>
+            <TextBlock Text="Авторизация" HorizontalAlignment="Center" FontSize="30" Grid.Row="1"/>
+            <TextBlock Text="Войдите в свой аккаунт ВКонтакте" HorizontalAlignment="Center" FontSize="20" Grid.Row="2"/>
+            <TextBox PlaceholderText="Телефон или E-Mail" HorizontalAlignment="Center" Width="220" Height="32" Grid.Row="3"/>
+            <PasswordBox PlaceholderText="Пароль" HorizontalAlignment="Center" Width="220" Height="32" Grid.Row="4"/>
+            <Button Content="Войти" HorizontalAlignment="Center" Width="80" Grid.Row="5"/>
+        </Grid>
+       
     </Grid>
 </Page>

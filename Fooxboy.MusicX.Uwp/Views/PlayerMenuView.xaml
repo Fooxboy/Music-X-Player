@@ -249,6 +249,7 @@
                             </Grid>
                         </Button.Content>
                     </Button>
+                    
                     <Button  Padding="0" Grid.Row="1" FontSize="16"
                              HorizontalContentAlignment="Left"  
                              HorizontalAlignment="Stretch" Height="40"
