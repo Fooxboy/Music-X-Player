@@ -88,7 +88,7 @@ namespace Fooxboy.MusicX.Uwp.ViewModels
                 }
             );
 
-            NavigateToPro = new RelayCommand(
+            NavigateToLogin = new RelayCommand(
                 () =>
                 {
                     //StaticContent.NavigationContentService.Go(typeof(Views.HomeView));
