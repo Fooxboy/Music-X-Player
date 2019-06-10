@@ -167,6 +167,7 @@
                     Style="{ThemeResource ButtonPlayerStyle}"
                     Grid.Row="0"
                     Height="42" Width="42"
+                    Command="{x:Bind HomeViewModel.RefreshCommand}"
                     Margin="0 0 30 0"
                     HorizontalAlignment="Right"
                     VerticalAlignment="Center" >

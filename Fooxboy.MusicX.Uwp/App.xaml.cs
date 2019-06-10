@@ -229,54 +229,47 @@ namespace Fooxboy.MusicX.Uwp
             else
             {
                 DispatcherHelper.Initialize();
-                Frame rootFrame = Window.Current.Content as Frame;
-                if (rootFrame == null)
+                var rootFrame = new Frame();
+                rootFrame.NavigationFailed += OnNavigationFailed;
+                CoreApplication.GetCurrentView().TitleBar.ExtendViewIntoTitleBar = true;
+                if (ApiInformation.IsTypePresent("Windows.UI.ViewManagement.ApplicationView"))
                 {
-                    rootFrame = new Frame();
-                    rootFrame.NavigationFailed += OnNavigationFailed;
-                    CoreApplication.GetCurrentView().TitleBar.ExtendViewIntoTitleBar = true;
-                    if (ApiInformation.IsTypePresent("Windows.UI.ViewManagement.ApplicationView"))
-                    {
-                        var appView = ApplicationView.GetForCurrentView();
-                        appView.TitleBar.ButtonBackgroundColor = Colors.Transparent;
-                        appView.TitleBar.ButtonInactiveBackgroundColor = Colors.Transparent;
-                    }
-
-                    StaticContent.LocalFolder = ApplicationData.Current.LocalFolder;
-                    if (await StaticContent.LocalFolder.TryGetItemAsync("Playlists") != null)
-                    {
-                        StaticContent.PlaylistsFolder = await StaticContent.LocalFolder.GetFolderAsync("Playlists");
-                    }
-
-                    if (await StaticContent.LocalFolder.TryGetItemAsync("Covers") != null)
-                    {
-                        StaticContent.CoversFolder = await StaticContent.LocalFolder.GetFolderAsync("Covers");
-
-                    }
-                    Window.Current.Content = rootFrame;
+                    var appView = ApplicationView.GetForCurrentView();
+                    appView.TitleBar.ButtonBackgroundColor = Colors.Transparent;
+                    appView.TitleBar.ButtonInactiveBackgroundColor = Colors.Transparent;
                 }
 
-                if (rootFrame.Content == null)
+                StaticContent.LocalFolder = ApplicationData.Current.LocalFolder;
+                if (await StaticContent.LocalFolder.TryGetItemAsync("Playlists") != null)
                 {
-                    if (await StaticContent.LocalFolder.TryGetItemAsync("RunApp.json") == null)
-                    {
-                        var runFile = await StaticContent.LocalFolder.CreateFileAsync("RunApp.json");
-                        var model = new RunApp()
-                        {
-                            CodeName = "Test",
-                            FirstStart = true,
-                            RunUpdate = true
-                        };
+                    StaticContent.PlaylistsFolder = await StaticContent.LocalFolder.GetFolderAsync("Playlists");
+                }
 
-                        var json = JsonConvert.SerializeObject(model);
-                        await FileIO.WriteTextAsync(runFile, json);
+                if (await StaticContent.LocalFolder.TryGetItemAsync("Covers") != null)
+                {
+                    StaticContent.CoversFolder = await StaticContent.LocalFolder.GetFolderAsync("Covers");
 
-                        rootFrame.Navigate(typeof(Views.WelcomeView), null);
-                    }
-                    else
+                }
+                Window.Current.Content = rootFrame;
+
+                if (await StaticContent.LocalFolder.TryGetItemAsync("RunApp.json") == null)
+                {
+                    var runFile = await StaticContent.LocalFolder.CreateFileAsync("RunApp.json");
+                    var model = new RunApp()
                     {
-                        rootFrame.Navigate(typeof(Views.MainFrameView), null);
-                    }
+                        CodeName = "Test",
+                        FirstStart = true,
+                        RunUpdate = true
+                    };
+
+                    var json = JsonConvert.SerializeObject(model);
+                    await FileIO.WriteTextAsync(runFile, json);
+
+                    rootFrame.Navigate(typeof(Views.WelcomeView), null);
+                }
+                else
+                {
+                    rootFrame.Navigate(typeof(Views.MainFrameView), null);
                 }
 
                 Window.Current.Activate();

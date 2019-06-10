@@ -114,7 +114,10 @@ namespace Fooxboy.MusicX.Uwp.Views
                 HomeViewModel.CountMusic();
             }
 
-            
+            HomeViewModel.OnNavigate();
+
+
+
         }
 
         private void AppResuming(object sender, object e)

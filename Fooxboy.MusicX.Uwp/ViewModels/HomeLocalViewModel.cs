@@ -38,6 +38,18 @@ namespace Fooxboy.MusicX.Uwp.ViewModels
             musicCollection.OnMoreItemsRequested = GetMoreAudio;
             MusicCollection = musicCollection;
 
+            RefreshCommand = new RelayCommand(async () =>
+            {
+                await MusicFilesService.GetMusicLocal(true);
+
+                //TODO: Обновление списка треков
+            });
+
+        }
+
+        public void OnNavigate()
+        {
+            Changed("Playlists");
         }
 
 
@@ -207,6 +219,8 @@ namespace Fooxboy.MusicX.Uwp.ViewModels
             if (SelectedPlaylistFile == null) return;
             StaticContent.NavigationContentService.Go(typeof(Views.PlaylistView), SelectedPlaylistFile);
         }
+
+        public RelayCommand RefreshCommand { get; set; }
 
         public void CountMusic()
         {
