@@ -15,6 +15,7 @@ using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Navigation;
 using Fooxboy.MusicX.Uwp.Services;
+using Windows.UI.Popups;
 
 // Документацию по шаблону элемента "Пользовательский элемент управления" см. по адресу https://go.microsoft.com/fwlink/?LinkId=234236
 
@@ -43,7 +44,14 @@ namespace Fooxboy.MusicX.Uwp.Resources.Controls
 
             DeleteCommand = new RelayCommand(async () =>
             {
-                await PlaylistsService.DeletePlaylist(Playlist);
+                if(Playlist.Id != 1 & Playlist.Id != 2 & Playlist.Id != 1000)
+                {
+                    await PlaylistsService.DeletePlaylist(Playlist);
+
+                }else
+                {
+                    await new MessageDialog("Вы не можете удалить этот плейлист", "Невозможно удалить плейлист").ShowAsync();
+                }
             });
         }
 

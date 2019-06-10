@@ -36,7 +36,14 @@ namespace Fooxboy.MusicX.Uwp.Views
         protected async override void OnNavigatedTo(NavigationEventArgs e)
         {
             PlaylistViewModel = new PlaylistViewModel();
-            PlaylistViewModel.Playlist = await PlaylistsService.GetById(((PlaylistFile)e.Parameter).Id);
+            if(((PlaylistFile)e.Parameter).Id != 1000)
+            {
+                PlaylistViewModel.Playlist = await PlaylistsService.GetById(((PlaylistFile)e.Parameter).Id);
+            }else
+            {
+                PlaylistViewModel.Playlist = (PlaylistFile)e.Parameter;
+            }
+            
         }
     }
 }
