@@ -1,4 +1,5 @@
 ﻿using System;
+using Fooxboy.MusicX.Uwp.Resources.ContentDialogs;
 using Fooxboy.MusicX.Uwp.Services;
 using Fooxboy.MusicX.Uwp.Utils.Extensions;
 using Fooxboy.MusicX.Uwp.ViewModels;
@@ -64,9 +65,9 @@ namespace Fooxboy.MusicX.Uwp.Views
                         {
                             StaticContent.AudioService.CurrentPlaylist.CurrentItem = track;
                         }
-                    }catch(Exception)
+                    }catch(Exception ee)
                     {
-
+                        await new ExceptionDialog("Ошибка при инициализации страницы", "аоаоаоамм", ee).ShowAsync();
                     }
                     
 

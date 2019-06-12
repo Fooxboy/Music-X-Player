@@ -95,6 +95,7 @@ namespace Fooxboy.MusicX.Uwp
                     StaticContent.Config = config;
                 }
 
+
                 Log.Trace("Размещение фрейма в текущем окне.");
                 Window.Current.Content = rootFrame;
             }
