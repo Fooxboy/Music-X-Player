@@ -57,7 +57,7 @@ namespace Fooxboy.MusicX.Uwp.Models
                     return;
 
                 _currentItem = value;
-                _currentIndex = Items.IndexOf(value);
+                _currentIndex = Items.IndexOf(_currentItem);
                 OnCurrentItemChanged?.Invoke(this, _currentItem);
             }
         }

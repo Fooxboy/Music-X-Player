@@ -167,7 +167,7 @@ namespace Fooxboy.MusicX.Uwp.Services
         /// <summary>
         /// Sets current playlist. Used to update UI on the first data load.
         /// </summary>
-        public async void SetCurrentPlaylist(AudioPlaylist playlist)
+        public async void SetCurrentPlaylist(AudioPlaylist playlist, bool play = true)
         {
             try
             {
@@ -190,8 +190,10 @@ namespace Fooxboy.MusicX.Uwp.Services
                 }
                 UpdateTransportControl();
 
-                PlayFrom(playlist.CurrentItem.Source);
-            }catch(Exception e)
+                if(play) PlayFrom(playlist.CurrentItem.Source);
+
+            }
+            catch(Exception e)
             {
                 await new ExceptionDialog("Ошибка при установке текущего плейлиста", "Возможно, плейлист поврежден", e).ShowAsync();
             }
@@ -342,7 +344,7 @@ namespace Fooxboy.MusicX.Uwp.Services
 
         private void CurrentPlaylistOnCurrentItemChanged(object sender, AudioFile audio)
         {
-            Pause();
+           if(IsPlaying) Pause();
             Seek(TimeSpan.Zero);
 
             UpdateTransportControl();

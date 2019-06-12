@@ -30,8 +30,8 @@ namespace Fooxboy.MusicX.Uwp.ViewModels
 
         private SettingsViewModel()
         {
-            var musicPath = KnownFolders.MusicLibrary.Path;
-            var documentsPath = KnownFolders.DocumentsLibrary.Path;
+            //var musicPath = KnownFolders.MusicLibrary.Path;
+            //var documentsPath = KnownFolders.DocumentsLibrary.Path;
 
             musicLib = Config.FindInMusicLibrary;
             documentsLib = Config.FindInDocumentsLibrary;

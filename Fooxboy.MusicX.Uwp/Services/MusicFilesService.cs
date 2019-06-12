@@ -27,8 +27,7 @@ namespace Fooxboy.MusicX.Uwp.Services
                     StaticContent.Music.Clear();
                     if (StaticContent.Config.FindInMusicLibrary)
                     {
-                        var folder = KnownFolders.MusicLibrary;
-                        var files = (await folder.GetFilesAsync(Windows.Storage.Search.CommonFileQuery.OrderByDate)).ToList();
+                        var files = await KnownFolders.MusicLibrary.GetFilesAsync();
                         foreach (var f in files)
                         {
                             if (f.FileType == ".mp3" || f.FileType == ".wav" || f.FileType == ".flac")

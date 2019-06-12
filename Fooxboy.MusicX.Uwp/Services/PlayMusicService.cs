@@ -45,25 +45,27 @@ namespace Fooxboy.MusicX.Uwp.Services
                 {
                     foreach (var trackMusic in StaticContent.Music) playlistNowPlay.Tracks.Add(trackMusic);
                     StaticContent.NowPlayPlaylist = playlistNowPlay;
-
+                    StaticContent.AudioService.SetCurrentPlaylist(playlistNowPlay.ToAudioPlaylist(), false);
                     StaticContent.AudioService.CurrentPlaylist.CurrentItem = audioFile;
                 }
                 else if (typePlay == 2)
                 {
                     StaticContent.NowPlayPlaylist = playlistNowPlay;
                     StaticContent.NowPlayPlaylist.Tracks.Add(audioFile);
+                    StaticContent.AudioService.SetCurrentPlaylist(playlistNowPlay.ToAudioPlaylist());
+
                 }
                 else if (typePlay == 3)
                 {
                     StaticContent.NowPlayPlaylist = playlistPlay;
+                    StaticContent.AudioService.SetCurrentPlaylist(playlistNowPlay.ToAudioPlaylist(), false);
+                    StaticContent.AudioService.CurrentPlaylist.CurrentItem = audioFile;
                 }
 
                 if (!(StaticContent.Playlists.Any(p => p.Id == 1000)))
                 {
                     StaticContent.Playlists.Add(StaticContent.NowPlayPlaylist);
                 }
-                var playlistNowPlayAsAudioPlaylist = StaticContent.NowPlayPlaylist.ToAudioPlaylist(audioFile);
-                StaticContent.AudioService.SetCurrentPlaylist(playlistNowPlayAsAudioPlaylist);
             }catch(Exception e)
             {
                 await new ExceptionDialog("Невозможно возпроизвести трек.", "Возможно, файл не поддерживается или поврежден.", e).ShowAsync();
