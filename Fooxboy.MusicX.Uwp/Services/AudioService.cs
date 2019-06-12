@@ -429,8 +429,8 @@ namespace Fooxboy.MusicX.Uwp.Services
                 updater.Type = MediaPlaybackType.Music;
                 updater.MusicProperties.Title = CurrentPlaylist.CurrentItem.Title;
                 updater.MusicProperties.Artist = CurrentPlaylist.CurrentItem.Artist;
-                updater.ImageProperties.Subtitle = CurrentPlaylist.CurrentItem.Artist;
-                updater.ImageProperties.Title = CurrentPlaylist.CurrentItem.Title;
+                    //updater.ImageProperties.Subtitle = CurrentPlaylist.CurrentItem.Artist;
+                //updater.ImageProperties.Title = CurrentPlaylist.CurrentItem.Title;
                 updater.Thumbnail = RandomAccessStreamReference.CreateFromUri(new Uri(CurrentPlaylist.CurrentItem.Cover));
                 updater.Update();
             }
