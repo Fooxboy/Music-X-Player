@@ -9,6 +9,7 @@ namespace Fooxboy.MusicX.Uwp.Models
     public class ConfigApp
     {
         public int ThemeApp { get; set; }
-        public List<string> DirectoryMusic { get; set; }
+        public bool FindInMusicLibrary { get; set; }
+        public bool FindInDocumentsLibrary { get; set; }
     }
 }

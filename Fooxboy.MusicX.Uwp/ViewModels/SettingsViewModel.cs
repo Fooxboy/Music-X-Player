@@ -33,8 +33,8 @@ namespace Fooxboy.MusicX.Uwp.ViewModels
             var musicPath = KnownFolders.MusicLibrary.Path;
             var documentsPath = KnownFolders.DocumentsLibrary.Path;
 
-            musicLib = Config.DirectoryMusic.Any(s => s == musicPath);
-            documentsLib = Config.DirectoryMusic.Any(s => s == documentsPath);
+            musicLib = Config.FindInMusicLibrary;
+            documentsLib = Config.FindInDocumentsLibrary;
             Changed("MusicLibraryIsOn");
             Changed("DocumentsLibararyIsOn");
         }
@@ -47,13 +47,7 @@ namespace Fooxboy.MusicX.Uwp.ViewModels
             {
                 if(value != musicLib)
                 {
-                    if(value)
-                    {
-                        StaticContent.Config.DirectoryMusic.Remove(StaticContent.Config.DirectoryMusic.Single(s => s == KnownFolders.MusicLibrary.Path));
-                    }else
-                    {
-                        StaticContent.Config.DirectoryMusic.Add(KnownFolders.MusicLibrary.Path);
-                    }
+                    StaticContent.Config.FindInMusicLibrary = value;
 
                     ConfigService.SaveConfig(StaticContent.Config);
 
@@ -79,14 +73,8 @@ namespace Fooxboy.MusicX.Uwp.ViewModels
             {
                 if (value != documentsLib)
                 {
-                    if (value)
-                    {
-                        StaticContent.Config.DirectoryMusic.Remove(StaticContent.Config.DirectoryMusic.Single(s => s == KnownFolders.DocumentsLibrary.Path));
-                    }
-                    else
-                    {
-                        StaticContent.Config.DirectoryMusic.Add(KnownFolders.DocumentsLibrary.Path);
-                    }
+                    StaticContent.Config.FindInDocumentsLibrary = value;
+
 
                     ConfigService.SaveConfig(StaticContent.Config);
                     Changed("DocumentsLibararyIsOn");

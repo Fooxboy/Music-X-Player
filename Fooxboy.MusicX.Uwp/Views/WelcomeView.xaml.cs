@@ -118,7 +118,8 @@ namespace Fooxboy.MusicX.Uwp.Views
                 var configFile = await localpath.CreateFileAsync("ConfigApp.json");
                 var config = new ConfigApp()
                 {
-                    DirectoryMusic = new List<string>() { KnownFolders.MusicLibrary.Path },
+                    FindInDocumentsLibrary = false,
+                    FindInMusicLibrary = true,
                     ThemeApp = 0
                 };
                 var configString = JsonConvert.SerializeObject(config);
