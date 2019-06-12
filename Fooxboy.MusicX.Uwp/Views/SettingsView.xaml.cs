@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices.WindowsRuntime;
+using Fooxboy.MusicX.Uwp.ViewModels;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
 using Windows.UI.Xaml;
@@ -25,6 +26,9 @@ namespace Fooxboy.MusicX.Uwp.Views
         public SettingsView()
         {
             this.InitializeComponent();
+            ViewModel = SettingsViewModel.Instanse;
         }
+
+        public SettingsViewModel ViewModel { get; set; }
     }
 }

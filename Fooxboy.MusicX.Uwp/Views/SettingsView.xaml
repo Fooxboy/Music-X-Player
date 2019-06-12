@@ -12,7 +12,7 @@
         <Grid.RowDefinitions>
             <RowDefinition Height="32"/>
             <RowDefinition Height="auto"/>
-            <RowDefinition Height="200"/>
+            <RowDefinition Height="170"/>
             <RowDefinition/>
         </Grid.RowDefinitions>
 
@@ -58,9 +58,10 @@
 
             <TextBlock Grid.Row="1"
                        Grid.Column="1"
+                       Foreground="{ThemeResource ColorArtistText}"
                        HorizontalAlignment="Center" 
                        VerticalAlignment="Center" 
-                       Text="Версия: 0.1.123"/>
+                       Text="{x:Bind ViewModel.VersionApp, Mode=TwoWay}"/>
 
             <TextBlock Text="Разработчки" 
                        FontWeight="Bold"
@@ -74,8 +75,16 @@
             <ScrollViewer>
                 <StackPanel>
                     <TextBlock Text="Тема оформления" Margin="30 30 0 0" FontSize="18" FontWeight="Bold"/>
-                    <RadioButton Content="Светлая"  Margin="30 0 0 0" GroupName="Theme"/>
-                    <RadioButton Content="Темная" Margin="30 0 0 0" GroupName="Theme"/>
+                    <RadioButton Content="Светлая" IsEnabled="True" IsChecked="True" Margin="30 0 0 0" GroupName="Theme"/>
+                    <RadioButton Content="Темная (Темная тема доступна только  в Music X Pro)" IsEnabled="False" Margin="30 0 0 0" GroupName="Theme"/>
+                    <TextBlock Text="Музыка на этом компьютере" Margin="30 30 0 0" FontSize="18" FontWeight="Bold"/>
+                    
+                    <ToggleSwitch Margin="30 5 0 0" Header="Папка Музыка" IsOn="{x:Bind ViewModel.MusicLibraryIsOn,
+                        Mode=TwoWay,
+                        UpdateSourceTrigger=PropertyChanged}" OnContent="Включено" OffContent="Отключено"/>
+                    <ToggleSwitch Margin="30 0 0 0" Header="Папка Документы" IsOn="{x:Bind ViewModel.DocumentsLibararyIsOn,
+                        Mode=TwoWay,
+                        UpdateSourceTrigger=PropertyChanged}" OnContent="Включено" OffContent="Отключено"/>
                 </StackPanel>
             </ScrollViewer>
         </Grid>

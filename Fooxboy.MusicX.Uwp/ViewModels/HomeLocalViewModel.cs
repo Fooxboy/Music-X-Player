@@ -6,6 +6,7 @@ using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using Fooxboy.MusicX.Uwp.Models;
+using Fooxboy.MusicX.Uwp.Resources.ContentDialogs;
 using Fooxboy.MusicX.Uwp.Services;
 using Fooxboy.MusicX.Uwp.Utils.Extensions;
 using Microsoft.Toolkit.Uwp.UI.Controls.TextToolbarSymbols;
@@ -15,7 +16,6 @@ using Windows.Storage;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Input;
-using Fooxboy.MusicX.Uwp.Services;
 namespace Fooxboy.MusicX.Uwp.ViewModels
 {
     public class HomeLocalViewModel :BaseViewModel
@@ -67,22 +67,29 @@ namespace Fooxboy.MusicX.Uwp.ViewModels
 
         public async void Page_Loaded(object sender, RoutedEventArgs e)
         {
-            if (StaticContent.OpenFiles)
+            try
             {
-                StaticContent.OpenFiles = false;
-                if (StaticContent.NowPlay != null)
+                if (StaticContent.OpenFiles)
                 {
+                    StaticContent.OpenFiles = false;
+                    if (StaticContent.NowPlay != null)
+                    {
 
-                    await PlayMusicService.PlayMusicForLibrary(StaticContent.NowPlay, 2);
-                    Changed("Playlists");
-                }
+                        await PlayMusicService.PlayMusicForLibrary(StaticContent.NowPlay, 2);
+                        Changed("Playlists");
+                    }
 
-                if (StaticContent.NowPlayPlaylist != null)
-                {
-                    await PlayMusicService.PlayMusicForLibrary(StaticContent.NowPlayPlaylist.Tracks[0], 3, StaticContent.NowPlayPlaylist);
-                    Changed("Playlists");
+                    if (StaticContent.NowPlayPlaylist != null)
+                    {
+                        await PlayMusicService.PlayMusicForLibrary(StaticContent.NowPlayPlaylist.Tracks[0], 3, StaticContent.NowPlayPlaylist);
+                        Changed("Playlists");
+                    }
                 }
+            }catch(Exception ee)
+            {
+                await new ExceptionDialog("Ошибка при загрузке домашней страницы", "Music X не смог запустить последний файл, который играл у Вас на компьютере.", ee).ShowAsync();
             }
+           
             Changed("Playlists");
             Changed("Music");
         }
@@ -141,9 +148,9 @@ namespace Fooxboy.MusicX.Uwp.ViewModels
                     await PlayMusicService.PlayMusicForLibrary(SelectedAudioFile, 1);
                     Changed("Playlists");
                 }
-            }catch
+            }catch(Exception ee)
             {
-
+                await new ExceptionDialog("Ошибка при клике на трек", "Возможно, произошла неизвестная ошибка", ee).ShowAsync();
             }
             
             
