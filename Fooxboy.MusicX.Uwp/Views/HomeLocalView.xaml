@@ -159,7 +159,7 @@
                        FontFamily="Calibri"
                        Grid.Row="0" 
                        FontWeight="ExtraBold" 
-                       FontSize="42"/>
+                       FontSize="42" MinWidth="300"/>
             <Button FontSize="22"
                     BorderThickness="0"
                     FontFamily="Segoe MDL2 Assets"

@@ -265,7 +265,7 @@
                                     <ColumnDefinition Width="30"/>
                                     <ColumnDefinition Width="auto"/>
                                 </Grid.ColumnDefinitions>
-                                <Rectangle Visibility="Collapsed" Grid.Column="0" Fill="#0078d7" Height="30" Width="5"/>
+                                <Rectangle Visibility="{x:Bind PlayerMenuViewModel.AccountSelector, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" Grid.Column="0" Fill="#0078d7" Height="30" Width="5"/>
                                 <Ellipse  Grid.Column="1" Width="25" Height="25">
                                     <Ellipse.Fill>
                                         <ImageBrush>
