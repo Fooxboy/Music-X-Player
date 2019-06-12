@@ -70,13 +70,7 @@ namespace Fooxboy.MusicX.Uwp.ViewModels
         {
             get
             {
-                try
-                {
-                    return $"{playlist.Tracks.Count} трек(а/ов)";
-                }catch(Exception)
-                {
-                    return "0 треков";
-                }
+                return "0 треков";
             }
             set
             {
@@ -126,6 +120,8 @@ namespace Fooxboy.MusicX.Uwp.ViewModels
                     else VisibilotyNoTrack = Visibility.Collapsed;
                     playlist = value;
                     Changed("Playlist");
+                    PLTrackCount = $"{playlist.Tracks.Count} трек(а/ов)";
+                    Changed("PLTrackCount");
                 }
             }
         }

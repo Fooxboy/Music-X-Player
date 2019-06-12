@@ -82,9 +82,7 @@
                     <ToggleSwitch Margin="30 5 0 0" Header="Папка Музыка" IsOn="{x:Bind ViewModel.MusicLibraryIsOn,
                         Mode=TwoWay,
                         UpdateSourceTrigger=PropertyChanged}" OnContent="Включено" OffContent="Отключено"/>
-                    <ToggleSwitch Margin="30 0 0 0" Header="Папка Документы" IsEnabled="False" IsOn="{x:Bind ViewModel.DocumentsLibararyIsOn,
-                        Mode=TwoWay,
-                        UpdateSourceTrigger=PropertyChanged}" OnContent="Включено" OffContent="Отключено"/>
+                    <ToggleSwitch Margin="30 0 0 0" Header="Папка Документы" IsEnabled="False" IsOn="False" OnContent="Включено" OffContent="Отключено"/>
                 </StackPanel>
             </ScrollViewer>
         </Grid>

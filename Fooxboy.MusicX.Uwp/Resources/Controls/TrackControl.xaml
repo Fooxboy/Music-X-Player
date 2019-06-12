@@ -24,15 +24,15 @@
                             <FontIcon FontFamily="Segoe MDL2 Assets" Glyph="&#xE109;" />
                         </MenuFlyoutSubItem.Icon>
                     </MenuFlyoutSubItem>
-                    <MenuFlyoutItem Text="Удалить" Command="{x:Bind PlayCommand}">
+                    <MenuFlyoutItem Text="Удалить" Command="{x:Bind DeleteCommand}">
                         <MenuFlyoutItem.Icon>
                             <FontIcon FontFamily="Segoe MDL2 Assets" Glyph="&#xE74D;" />
                         </MenuFlyoutItem.Icon>
                     </MenuFlyoutItem>
 
-                    <MenuFlyoutItem Text="Свойства" Command="{x:Bind PlayCommand}">
+                    <MenuFlyoutItem Text="Свойства" >
                         <MenuFlyoutItem.Icon>
-                            <FontIcon FontFamily="Segoe MDL2 Assets" Glyph="&#xE74D;" />
+                            <FontIcon FontFamily="Segoe MDL2 Assets" Glyph="&#xEA42;" />
                         </MenuFlyoutItem.Icon>
                     </MenuFlyoutItem>
                 </MenuFlyout.Items>

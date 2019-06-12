@@ -42,7 +42,6 @@ namespace Fooxboy.MusicX.Uwp.ViewModels
             {
                 await MusicFilesService.GetMusicLocal(true);
 
-                //TODO: Обновление списка треков
             });
 
         }

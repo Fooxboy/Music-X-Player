@@ -44,6 +44,7 @@ namespace Fooxboy.MusicX.Uwp.Resources.ContentDialogs
             StaticContent.Playlists.Remove(StaticContent.Playlists.Single(p => p.Id == Playlist.Id));
             StaticContent.Playlists.Add(Playlist);
             await PlaylistsService.SavePlaylist(Playlist);
+            NamePlaylistBox.Text = "";
         }
 
         private void ContentDialog_SecondaryButtonClick(ContentDialog sender, ContentDialogButtonClickEventArgs args)

@@ -55,6 +55,7 @@ namespace Fooxboy.MusicX.Uwp.Resources.Controls
             {
                 try
                 {
+                    StaticContent.Music.Remove(Track);
                     if (Track.Source == null) Track.Source = await StorageFile.GetFileFromPathAsync(Track.SourceString);
                     await Track.Source.DeleteAsync();
                 }catch(Exception e)
