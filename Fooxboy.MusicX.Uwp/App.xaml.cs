@@ -87,6 +87,14 @@ namespace Fooxboy.MusicX.Uwp
 
                 }
 
+                if (await StaticContent.LocalFolder.TryGetItemAsync("ConfigApp.json") != null)
+                {
+                    var file = await StaticContent.LocalFolder.GetFileAsync("ConfigApp.json");
+                    var fileString =  await FileIO.ReadTextAsync(file);
+                    var config = JsonConvert.DeserializeObject<ConfigApp>(fileString);
+                    StaticContent.Config = config;
+                }
+
                 Log.Trace("Размещение фрейма в текущем окне.");
                 Window.Current.Content = rootFrame;
             }
@@ -250,6 +258,15 @@ namespace Fooxboy.MusicX.Uwp
                     StaticContent.CoversFolder = await StaticContent.LocalFolder.GetFolderAsync("Covers");
 
                 }
+
+                if (await StaticContent.LocalFolder.TryGetItemAsync("ConfigApp.json") != null)
+                {
+                    var file = await StaticContent.LocalFolder.GetFileAsync("ConfigApp.json");
+                    var fileString = await FileIO.ReadTextAsync(file);
+                    var config = JsonConvert.DeserializeObject<ConfigApp>(fileString);
+                    StaticContent.Config = config;
+                }
+
                 Window.Current.Content = rootFrame;
 
                 if (await StaticContent.LocalFolder.TryGetItemAsync("RunApp.json") == null)
@@ -269,7 +286,7 @@ namespace Fooxboy.MusicX.Uwp
                 }
                 else
                 {
-                    rootFrame.Navigate(typeof(Views.MainFrameView), null);
+                    rootFrame.Navigate(typeof(Views.ProVersionView), null);
                 }
 
                 Window.Current.Activate();

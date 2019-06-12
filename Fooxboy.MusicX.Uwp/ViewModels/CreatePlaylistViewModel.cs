@@ -7,6 +7,7 @@ using Fooxboy.MusicX.Uwp.Models;
 using Fooxboy.MusicX.Uwp.Resources.ContentDialogs;
 using Fooxboy.MusicX.Uwp.Services;
 using Windows.Storage;
+using Windows.UI.Popups;
 using Windows.UI.Xaml;
 
 namespace Fooxboy.MusicX.Uwp.ViewModels
@@ -27,58 +28,73 @@ namespace Fooxboy.MusicX.Uwp.ViewModels
         {
             CreatePlaylist = new RelayCommand( async () =>
             {
-                try
+                if(StaticContent.Playlists.Count >= 15 && StaticContent.IsPro == false) 
                 {
-                    var playlist = new PlaylistFile()
+                    await new MessageDialog("У Вас уже есть 15 плейлистов. Для того, чтобы создать больше 15 плейлистов, необходимо купить MusicX Pro", "Купите MusicX Pro").ShowAsync();
+                }else
+                {
+                    try
                     {
-                        Artist = "Music X",
-                        Cover = ImagePlaylist,
-                        Id = new Random().Next(10, 1234),
-                        Name = NamePlaylist,
-                        Tracks = new List<AudioFile>()
-                    };
+                        var playlist = new PlaylistFile()
+                        {
+                            Artist = "Music X",
+                            Cover = ImagePlaylist,
+                            Id = new Random().Next(10, 1234),
+                            Name = NamePlaylist,
+                            Tracks = new List<AudioFile>()
+                        };
 
-                    await PlaylistsService.SavePlaylist(playlist);
-                    StaticContent.Playlists.Add(playlist);
-                    VisibilityGridCreate = Visibility.Collapsed;
-                    VisibilityGridDone = Visibility.Visible;
-                }catch(Exception e)
-                {
-                    await new ExceptionDialog("Невозможно создать плейлист", "Возможно, такой плейлист уже существует. Попробуйте ещё раз.", e).ShowAsync();
+                        await PlaylistsService.SavePlaylist(playlist);
+                        StaticContent.Playlists.Add(playlist);
+                        VisibilityGridCreate = Visibility.Collapsed;
+                        VisibilityGridDone = Visibility.Visible;
+                    }
+                    catch (Exception e)
+                    {
+                        await new ExceptionDialog("Невозможно создать плейлист", "Возможно, такой плейлист уже существует. Попробуйте ещё раз.", e).ShowAsync();
 
+                    }
                 }
+                
 
             });
 
             SelectCover = new RelayCommand(async () =>
             {
-                var picker = new Windows.Storage.Pickers.FileOpenPicker();
-                picker.ViewMode = Windows.Storage.Pickers.PickerViewMode.Thumbnail;
-                picker.SuggestedStartLocation = Windows.Storage.Pickers.PickerLocationId.PicturesLibrary;
-                picker.FileTypeFilter.Add(".jpg");
-                picker.FileTypeFilter.Add(".png");
-
-                Windows.Storage.StorageFile file = await picker.PickSingleFileAsync();
-                if (file != null)
+                try
                 {
-                    StorageFile cover;
-                    try
+                    var picker = new Windows.Storage.Pickers.FileOpenPicker();
+                    picker.ViewMode = Windows.Storage.Pickers.PickerViewMode.Thumbnail;
+                    picker.SuggestedStartLocation = Windows.Storage.Pickers.PickerLocationId.PicturesLibrary;
+                    picker.FileTypeFilter.Add(".jpg");
+                    picker.FileTypeFilter.Add(".png");
+
+                    Windows.Storage.StorageFile file = await picker.PickSingleFileAsync();
+                    if (file != null)
                     {
-                        cover =await file.CopyAsync(StaticContent.CoversFolder);
+                        StorageFile cover;
+                        try
+                        {
+                            cover = await file.CopyAsync(StaticContent.CoversFolder);
+
+                        }
+                        catch
+                        {
+                            cover = await StaticContent.CoversFolder.GetFileAsync(file.Name);
+                            await file.CopyAndReplaceAsync(cover);
+                        }
+
+                        ImagePlaylist = cover.Path;
+                    }
+                    else
+                    {
 
                     }
-                    catch
-                    {
-                        cover = await StaticContent.CoversFolder.GetFileAsync(file.Name);
-                        await file.CopyAndReplaceAsync(cover);
-                    }
-
-                    ImagePlaylist = cover.Path; 
-                }
-                else
+                }catch(Exception e)
                 {
-                    
+                    await new ExceptionDialog("Ошибка при выборе файла", "Неизвестная ошибка", e).ShowAsync();
                 }
+                
             });
 
             visibilityGridCreate = Visibility.Visible;

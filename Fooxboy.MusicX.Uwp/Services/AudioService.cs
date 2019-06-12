@@ -17,6 +17,8 @@ using Windows.Storage.Streams;
 using System.Threading;
 using Windows.Media.Core;
 using Windows.Storage;
+using Fooxboy.MusicX.Uwp.Resources.ContentDialogs;
+using System.IO;
 
 namespace Fooxboy.MusicX.Uwp.Services
 {
@@ -165,60 +167,74 @@ namespace Fooxboy.MusicX.Uwp.Services
         /// <summary>
         /// Sets current playlist. Used to update UI on the first data load.
         /// </summary>
-        public void SetCurrentPlaylist(AudioPlaylist playlist)
+        public async void SetCurrentPlaylist(AudioPlaylist playlist)
         {
-            currentPlaylist = null;
-            Pause();
-            Seek(TimeSpan.Zero);
-            if (currentPlaylist != null)
-                currentPlaylist.OnCurrentItemChanged -= CurrentPlaylistOnCurrentItemChanged;
-
-            currentPlaylist = playlist;
-
-            if (currentPlaylist != null)
+            try
             {
-                currentPlaylist.Repeat = Repeat;
-                currentPlaylist.Shuffle = Shuffle;
+                currentPlaylist = null;
+                Pause();
+                Seek(TimeSpan.Zero);
+                if (currentPlaylist != null)
+                    currentPlaylist.OnCurrentItemChanged -= CurrentPlaylistOnCurrentItemChanged;
 
-                currentPlaylist.OnCurrentItemChanged += CurrentPlaylistOnCurrentItemChanged;
+                currentPlaylist = playlist;
 
-                CurrentAudioChanged?.Invoke(this, EventArgs.Empty);
+                if (currentPlaylist != null)
+                {
+                    currentPlaylist.Repeat = Repeat;
+                    currentPlaylist.Shuffle = Shuffle;
+
+                    currentPlaylist.OnCurrentItemChanged += CurrentPlaylistOnCurrentItemChanged;
+
+                    CurrentAudioChanged?.Invoke(this, EventArgs.Empty);
+                }
+                UpdateTransportControl();
+
+                PlayFrom(playlist.CurrentItem.Source);
+            }catch(Exception e)
+            {
+                await new ExceptionDialog("Ошибка при установке текущего плейлиста", "Возможно, плейлист поврежден", e).ShowAsync();
             }
-            UpdateTransportControl();
-
-            PlayFrom(playlist.CurrentItem.Source);
+            
 
         }
 
         /// <summary>
         /// Play audio with playlist
         /// </summary>
-        public void PlayAudio(AudioFile audio, IList<AudioFile> sourcePlaylist)
+        public async void PlayAudio(AudioFile audio, IList<AudioFile> sourcePlaylist)
         {
-            //check if it's a new playlist
-            if (!currentPlaylist.Items.AreSame(sourcePlaylist))
+            try
             {
-                currentPlaylist.OnCurrentItemChanged -= CurrentPlaylistOnCurrentItemChanged;
+                //check if it's a new playlist
+                if (!currentPlaylist.Items.AreSame(sourcePlaylist))
+                {
+                    currentPlaylist.OnCurrentItemChanged -= CurrentPlaylistOnCurrentItemChanged;
 
-                var shuffle = Shuffle;
-                var repeat = Repeat;
+                    var shuffle = Shuffle;
+                    var repeat = Repeat;
 
-                currentPlaylist = new AudioPlaylist(sourcePlaylist);
-                currentPlaylist.Repeat = repeat;
-                currentPlaylist.Shuffle = shuffle;
+                    currentPlaylist = new AudioPlaylist(sourcePlaylist);
+                    currentPlaylist.Repeat = repeat;
+                    currentPlaylist.Shuffle = shuffle;
 
-                currentPlaylist.CurrentItem = audio;
-
-                currentPlaylist.OnCurrentItemChanged += CurrentPlaylistOnCurrentItemChanged;
-                CurrentPlaylistOnCurrentItemChanged(this, audio);
-            }
-            else
-            {
-                if (currentPlaylist.CurrentItem == audio)
-                    PlayFrom(currentPlaylist.CurrentItem.Source);
-                else
                     currentPlaylist.CurrentItem = audio;
+
+                    currentPlaylist.OnCurrentItemChanged += CurrentPlaylistOnCurrentItemChanged;
+                    CurrentPlaylistOnCurrentItemChanged(this, audio);
+                }
+                else
+                {
+                    if (currentPlaylist.CurrentItem == audio)
+                        PlayFrom(currentPlaylist.CurrentItem.Source);
+                    else
+                        currentPlaylist.CurrentItem = audio;
+                }
+            }catch(Exception e)
+            {
+                await new ExceptionDialog("Ошибка при воспроизведении трека", "Возможно трек поврежден или нет доступа к нему.", e).ShowAsync();
             }
+            
         }
 
         /// <summary>
@@ -384,10 +400,17 @@ namespace Fooxboy.MusicX.Uwp.Services
             //}
         }
 
-        private void PlayFrom(IStorageFile file)
+        private async void PlayFrom(IStorageFile file)
         {
-            mediaPlayer.Source = MediaSource.CreateFromStorageFile(file);
-            mediaPlayer.Play();
+            try
+            {
+                mediaPlayer.Source = MediaSource.CreateFromStorageFile(file);
+                mediaPlayer.Play();
+            }catch(Exception e)
+            {
+                await new ExceptionDialog("Невозможно воспроизвести файл", "Возможно он поврежден или нет доступа к нему", e).ShowAsync();
+            }
+            
         }
 
         private void PositionTimerOnTick(object sender, object o)
@@ -406,6 +429,9 @@ namespace Fooxboy.MusicX.Uwp.Services
                 updater.Type = MediaPlaybackType.Music;
                 updater.MusicProperties.Title = CurrentPlaylist.CurrentItem.Title;
                 updater.MusicProperties.Artist = CurrentPlaylist.CurrentItem.Artist;
+                updater.ImageProperties.Subtitle = CurrentPlaylist.CurrentItem.Artist;
+                updater.ImageProperties.Title = CurrentPlaylist.CurrentItem.Title;
+                updater.Thumbnail = RandomAccessStreamReference.CreateFromUri(new Uri(CurrentPlaylist.CurrentItem.Cover));
                 updater.Update();
             }
             else
@@ -414,12 +440,6 @@ namespace Fooxboy.MusicX.Uwp.Services
             }
         }
 
-        public void UpdateCover(RandomAccessStreamReference coverRef)
-        {
-            var updater = mediaPlayer.SystemMediaTransportControls.DisplayUpdater;
-            updater.Thumbnail = coverRef;
-            updater.Update();
-        }
 
         private void MediaPlayerOnCurrentStateChanged(MediaPlaybackSession sender, object args)
         {
@@ -443,7 +463,7 @@ namespace Fooxboy.MusicX.Uwp.Services
             SwitchNext();
         }
 
-        private void MediaPlayerOnMediaFailed(MediaPlayer sender, MediaPlayerFailedEventArgs args)
+        private async void MediaPlayerOnMediaFailed(MediaPlayer sender, MediaPlayerFailedEventArgs args)
         {
             if (args.Error == MediaPlayerError.SourceNotSupported)
             {
@@ -451,6 +471,8 @@ namespace Fooxboy.MusicX.Uwp.Services
                 CurrentPlaylist.CurrentItem.Source = null;
                 TryResolveTrack(CurrentPlaylist.CurrentItem);
             }
+
+            await new ExceptionDialog("MediaPlayerOnMediaFailed", "MediaPlayerOnMediaFailed", new Exception(args.ErrorMessage)).ShowAsync();
                 //Log.Error("Media failed. " + args.Error + " " + args.ErrorMessage);
         }
 

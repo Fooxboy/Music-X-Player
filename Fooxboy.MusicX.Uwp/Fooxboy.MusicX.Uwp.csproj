@@ -135,6 +135,7 @@
     </Compile>
     <Compile Include="Models\AudioFile.cs" />
     <Compile Include="Models\AudioPlaylist.cs" />
+    <Compile Include="Models\ConfigApp.cs" />
     <Compile Include="Models\FileMp3Abstraction.cs" />
     <Compile Include="Models\LastPlay.cs" />
     <Compile Include="Models\MusicCollection.cs" />
@@ -164,6 +165,7 @@
       <DependentUpon>TrackTemplate.xaml</DependentUpon>
     </Compile>
     <Compile Include="Services\AudioService.cs" />
+    <Compile Include="Services\ConfigService.cs" />
     <Compile Include="Services\FindMetadataService.cs" />
     <Compile Include="Services\MusicFilesService.cs" />
     <Compile Include="Services\NavigationService.cs" />
@@ -180,6 +182,7 @@
     <Compile Include="ViewModels\PlayerMenuViewModel.cs" />
     <Compile Include="ViewModels\PlayerViewModel.cs" />
     <Compile Include="ViewModels\PlaylistViewModel.cs" />
+    <Compile Include="ViewModels\SettingsViewModel.cs" />
     <Compile Include="Views\AllPlaylistsView.xaml.cs">
       <DependentUpon>AllPlaylistsView.xaml</DependentUpon>
     </Compile>
@@ -268,6 +271,7 @@
     <Content Include="Assets\Wide310x150Logo.scale-150.png" />
     <Content Include="Assets\Wide310x150Logo.scale-400.png" />
     <None Include="Package.StoreAssociation.xml" />
+    <Content Include="file.png" />
     <Content Include="Properties\Default.rd.xml" />
     <Content Include="Assets\LockScreenLogo.scale-200.png" />
     <Content Include="Assets\SplashScreen.scale-200.png" />

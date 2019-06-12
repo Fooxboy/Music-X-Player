@@ -80,17 +80,23 @@ namespace Fooxboy.MusicX.Uwp.Services
 
         public static async Task PlayPlaylist(PlaylistFile playlist)
         {
-
-            if (playlist.Tracks.Count == 0)
+            try
             {
-                var dialog = new MessageDialog("В данном плейлисте отсутсвуют треки. Пожалуйста, добавте в него треки.",
-                    "Невозможно возпроизвести плейлист");
-                await dialog.ShowAsync();
-                return;
+                if (playlist.Tracks.Count == 0)
+                {
+                    var dialog = new MessageDialog("В данном плейлисте отсутсвуют треки. Пожалуйста, добавте в него треки.",
+                        "Невозможно возпроизвести плейлист");
+                    await dialog.ShowAsync();
+                    return;
+                }
+                var folder = StaticContent.PlaylistsFolder;
+                if (StaticContent.NowPlayPlaylist == playlist) return;
+                await PlayMusicService.PlayMusicForLibrary(playlist.Tracks[0], 3, playlist);
+            }catch(Exception e)
+            {
+                await new ExceptionDialog("Невозможно воспроизвести плейлист", "Возможно, он поврежден или он не существует", e).ShowAsync();
             }
-            var folder = StaticContent.PlaylistsFolder;
-            if (StaticContent.NowPlayPlaylist == playlist) return;
-            await PlayMusicService.PlayMusicForLibrary(playlist.Tracks[0], 3, playlist);
+           
         }
 
         public static async Task DeletePlaylist(PlaylistFile playlist)

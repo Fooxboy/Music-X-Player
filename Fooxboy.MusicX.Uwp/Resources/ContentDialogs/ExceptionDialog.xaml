@@ -12,9 +12,9 @@
     <Grid>
 
         <StackPanel>
-            <TextBlock Text="{x:Bind TitleText}" FontSize="20" FontWeight="Bold"/>
-            <TextBlock Text="{x:Bind Info}"/>
-            <TextBlock Text="{x:Bind ExceptionString}"/>
+            <TextBlock Text="{x:Bind TitleText}" TextWrapping="Wrap" FontSize="20" FontWeight="Bold"/>
+            <TextBlock Text="{x:Bind Info}" TextWrapping="Wrap"/>
+            <TextBlock Text="{x:Bind ExceptionString}" TextWrapping="Wrap"/>
         </StackPanel>
     </Grid>
 </ContentDialog>

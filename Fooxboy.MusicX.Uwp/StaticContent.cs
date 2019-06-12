@@ -64,5 +64,8 @@ namespace Fooxboy.MusicX.Uwp
             }
         }
         public static bool OpenFiles { get; set; }
+
+        public static ConfigApp Config { get; set; }
+        public const bool IsPro = false;
     }
 }

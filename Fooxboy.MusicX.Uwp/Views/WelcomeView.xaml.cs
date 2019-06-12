@@ -113,6 +113,20 @@ namespace Fooxboy.MusicX.Uwp.Views
                 await FileIO.WriteTextAsync(lastFile, jsonLastFile);
             }
 
+            if (await localpath.TryGetItemAsync("ConfigApp.json") == null)
+            {
+                var configFile = await localpath.CreateFileAsync("ConfigApp.json");
+                var config = new ConfigApp()
+                {
+                    DirectoryMusic = new List<string>() { KnownFolders.MusicLibrary.Path },
+                    ThemeApp = 0
+                };
+                var configString = JsonConvert.SerializeObject(config);
+                await FileIO.WriteTextAsync(configFile, configString);
+
+                StaticContent.Config = config;
+            }
+
             var rootFrame = (Frame)Window.Current.Content;
             rootFrame.Navigate(typeof(Views.MainFrameView), null);
         }

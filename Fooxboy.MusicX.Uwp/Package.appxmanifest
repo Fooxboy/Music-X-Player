@@ -59,6 +59,7 @@
             </uap:SupportedFileTypes>
             <uap:DisplayName>Music X Audio File</uap:DisplayName>
             <uap:InfoTip>Открыть  с помощью Music X</uap:InfoTip>
+            <uap:Logo>file.png</uap:Logo>
           </uap:FileTypeAssociation>
         </uap:Extension>
       </Extensions>
@@ -66,7 +67,6 @@
   </Applications>
 
   <Capabilities>
-    <Capability Name="internetClient" />
     <uap:Capability Name="musicLibrary"/>
     <uap3:Capability Name="backgroundMediaPlayback"/>
   </Capabilities>

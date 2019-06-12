@@ -21,17 +21,22 @@ namespace Fooxboy.MusicX.Uwp.Services
             {
                 musicLocal.Music.Clear();
                 StaticContent.Music.Clear();
-                var files = (await KnownFolders.MusicLibrary.GetFilesAsync(Windows.Storage.Search.CommonFileQuery.OrderByName)).ToList();
-                foreach (var f in files)
+                foreach(var folderMusic in StaticContent.Config.DirectoryMusic)
                 {
-                    if (f.FileType == ".mp3" || f.FileType == ".wav")
+                    var folder = await StorageFolder.GetFolderFromPathAsync(folderMusic);
+                    var files = (await folder.GetFilesAsync(Windows.Storage.Search.CommonFileQuery.OrderByDate)).ToList();
+                    foreach (var f in files)
                     {
-                        AudioFile track;
-                        track = await FindMetadataService.ConvertToAudioFile(f);
-                        musicLocal.Music.Add(track);
-                        StaticContent.Music.Add(track);
+                        if (f.FileType == ".mp3" || f.FileType == ".wav" || f.FileType == ".flac")
+                        {
+                            AudioFile track;
+                            track = await FindMetadataService.ConvertToAudioFile(f);
+                            musicLocal.Music.Add(track);
+                            StaticContent.Music.Add(track);
+                        }
                     }
                 }
+                
 
                 musicLocal.DateLastUpdate = $"{DateTime.Now.Day}.{DateTime.Now.Month} в {DateTime.Now.Hour}: {DateTime.Now.Minute}";
                 var fileMusic = await StaticContent.LocalFolder.GetFileAsync("MusicCollection.json");
