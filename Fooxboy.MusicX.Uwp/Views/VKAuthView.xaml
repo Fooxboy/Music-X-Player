@@ -20,7 +20,7 @@
             <TextBlock HorizontalAlignment="Center"
                        FontSize="25"
                        VerticalAlignment="Center"
-                       Text="Авторизация сейчас не доступна"/>
+                       Text="Авторизация сейчас недоступна"/>
         </Grid>
 
         <Grid Visibility="Collapsed">

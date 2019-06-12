@@ -27,6 +27,7 @@ namespace Fooxboy.MusicX.Uwp.ViewModels
             SettingsSelector = Visibility.Collapsed;
             SearchSelector = Visibility.Collapsed;
             ProSelector = Visibility.Collapsed;
+            AccountSelector = Visibility.Collapsed;
             NavigateToSettings = new RelayCommand(
                 () =>
                 {
@@ -35,10 +36,12 @@ namespace Fooxboy.MusicX.Uwp.ViewModels
                     MainSelector = Visibility.Collapsed;
                     StaticContent.NavigationContentService.Go(typeof(Views.SettingsView));
                     ProSelector = Visibility.Collapsed;
+                    AccountSelector = Visibility.Collapsed;
                     Changed("ProSelector");
                     Changed("SettingsSelector");
                     Changed("SearchSelector");
                     Changed("MainSelector");
+                    Changed("AccountSelector");
                 }
                 );
 
@@ -50,10 +53,12 @@ namespace Fooxboy.MusicX.Uwp.ViewModels
                     MainSelector = Visibility.Visible;
                     StaticContent.NavigationContentService.Go(typeof(Views.HomeLocalView));
                     ProSelector = Visibility.Collapsed;
+                    AccountSelector = Visibility.Collapsed;
                     Changed("ProSelector");
                     Changed("SettingsSelector");
                     Changed("SearchSelector");
                     Changed("MainSelector");
+                    Changed("AccountSelector");
                 }
                 );
 
@@ -65,10 +70,12 @@ namespace Fooxboy.MusicX.Uwp.ViewModels
                     SearchSelector = Visibility.Visible;
                     MainSelector = Visibility.Collapsed;
                     ProSelector = Visibility.Collapsed;
+                    AccountSelector = Visibility.Collapsed;
                     Changed("ProSelector");
                     Changed("SettingsSelector");
                     Changed("SearchSelector");
                     Changed("MainSelector");
+                    Changed("AccountSelector");
                 }
             );
 
@@ -80,11 +87,13 @@ namespace Fooxboy.MusicX.Uwp.ViewModels
                     SearchSelector = Visibility.Collapsed;
                     MainSelector = Visibility.Collapsed;
                     ProSelector = Visibility.Visible;
+                    AccountSelector = Visibility.Collapsed;
                     StaticContent.NavigationContentService.Go(typeof(Views.ProVersionView));
                     Changed("SettingsSelector");
                     Changed("SearchSelector");
                     Changed("MainSelector");
                     Changed("ProSelector");
+                    Changed("AccountSelector");
                 }
             );
 
@@ -96,11 +105,13 @@ namespace Fooxboy.MusicX.Uwp.ViewModels
                     SearchSelector = Visibility.Collapsed;
                     MainSelector = Visibility.Collapsed;
                     ProSelector = Visibility.Collapsed;
+                    AccountSelector = Visibility.Visible;
                     StaticContent.NavigationContentService.Go(typeof(Views.VKAuthView));
                     Changed("SettingsSelector");
                     Changed("SearchSelector");
                     Changed("MainSelector");
                     Changed("ProSelector");
+                    Changed("AccountSelector");
                 }
             );
         }
@@ -114,7 +125,7 @@ namespace Fooxboy.MusicX.Uwp.ViewModels
         public Visibility SettingsSelector { get; set; }
         public Visibility MainSelector { get; set; }
         public Visibility SearchSelector { get; set; }
-
+        public Visibility AccountSelector { get; set; }
         public Visibility ProSelector { get; set; }
     }
 }
