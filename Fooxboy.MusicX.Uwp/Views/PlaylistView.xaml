@@ -44,7 +44,7 @@
             <Grid Grid.Column="1" animations:Connected.AnchorElement="{x:Bind coverImage}">
                 <StackPanel VerticalAlignment="Center" Orientation="Horizontal" Margin="20 -10 20 20">
                     <TextBlock FontFamily="Calibri" FontSize="42" FontWeight="Bold" Text="{x:Bind PlaylistViewModel.Playlist.Name, Mode=TwoWay}"/>
-                    <TextBlock FontWeight="Bold" Text="{x:Bind PlaylistViewModel.PLTrackCount, Mode=TwoWay}" Margin="10 25 0 0"/>
+                    <TextBlock FontWeight="Bold" Text="{x:Bind PlaylistViewModel.PLTrackCount, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Margin="10 25 0 0"/>
                 </StackPanel>
                 <StackPanel VerticalAlignment="Center" Orientation="Horizontal" Margin="20 60 20 20">
                     <Button Padding="0"

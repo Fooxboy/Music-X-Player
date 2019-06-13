@@ -70,7 +70,9 @@ namespace Fooxboy.MusicX.Uwp.ViewModels
         {
             get
             {
-                return "0 треков";
+                if (pltrackcount == null)
+                    return "0 треков";
+                else return pltrackcount;
             }
             set
             {

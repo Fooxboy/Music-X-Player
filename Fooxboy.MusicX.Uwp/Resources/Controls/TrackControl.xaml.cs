@@ -56,8 +56,27 @@ namespace Fooxboy.MusicX.Uwp.Resources.Controls
                 try
                 {
                     StaticContent.Music.Remove(Track);
-                    if (Track.Source == null) Track.Source = await StorageFile.GetFileFromPathAsync(Track.SourceString);
-                    await Track.Source.DeleteAsync();
+                    AudioFile trackByPlaylist = null;
+                    if(Track.PlaylistId != 0)
+                    {
+                        var playlist = await PlaylistsService.GetById(Track.PlaylistId);
+                        trackByPlaylist = playlist.Tracks.Single(t => t.SourceString == Track.SourceString);
+                        playlist.Tracks.Remove(trackByPlaylist);
+                        await PlaylistsService.SavePlaylist(playlist);
+                    }
+                    if(trackByPlaylist != null)
+                    {
+                        if (trackByPlaylist.Source == null)
+                            trackByPlaylist.Source = await StorageFile.GetFileFromPathAsync(Track.SourceString);
+                        await trackByPlaylist.Source.DeleteAsync();
+                    }else
+                    {
+                        if (Track.Source == null)
+                            Track.Source = await StorageFile.GetFileFromPathAsync(Track.SourceString);
+                        await Track.Source.DeleteAsync();
+                    }
+                    
+                    await MusicFilesService.UpdateMusicCollection();
                 }catch(Exception e)
                 {
                     await new ExceptionDialog("Невозможно удалить этот трек", "Возможно, этот трек был уже удален.", e).ShowAsync();
@@ -95,12 +114,23 @@ namespace Fooxboy.MusicX.Uwp.Resources.Controls
             set { SetValue(TrackProperty, value); }
         }
 
-
         async void AddToPlaylist(PlaylistFile playlist)
         {
-            if (playlist.Tracks.Any(t => t == Track)) return;
-            playlist.Tracks.Add(Track);
-            await PlaylistsService.SavePlaylist(playlist);
+            try
+            {
+                if (playlist.Tracks.Any(t => t == Track)) return;
+                Track.PlaylistId = playlist.Id;
+                playlist.Tracks.Add(Track);
+                await PlaylistsService.SavePlaylist(playlist);
+                var index = StaticContent.Music.IndexOf(Track);
+                var track = StaticContent.Music[index];
+                track.PlaylistId = playlist.Id;
+                await MusicFilesService.UpdateMusicCollection();
+            }catch(Exception e)
+            {
+                await new ExceptionDialog("Невозможно добавить трек в плейлист", "Возможно, плейлиста не существует или трек был удален", e).ShowAsync();
+            }
+            
         }
         private RelayCommand PlayCommand { get; set; }
         private RelayCommand DeleteCommand { get; set; }

@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
@@ -85,6 +86,19 @@ namespace Fooxboy.MusicX.Uwp.Services
             var fileMusic = await StaticContent.LocalFolder.GetFileAsync("MusicCollection.json");
             var stringMusic = await FileIO.ReadTextAsync(fileMusic);
             return JsonConvert.DeserializeObject<MusicCollection>(stringMusic);
+        }
+
+        public static async Task UpdateMusicCollection()
+        {
+            var musicCollection = new MusicCollection()
+            {
+                DateLastUpdate = $"{DateTime.Now.Day}.{DateTime.Now.Month} в {DateTime.Now.Hour}: {DateTime.Now.Minute}",
+                Music = StaticContent.Music.ToList()
+            };
+
+            var fileMusic = await StaticContent.LocalFolder.GetFileAsync("MusicCollection.json");
+            var json = JsonConvert.SerializeObject(musicCollection);
+            await FileIO.WriteTextAsync(fileMusic, json);
         }
 
         public static async Task<LastPlay> GetLastPlayAudio()
