@@ -68,12 +68,9 @@ namespace Fooxboy.MusicX.Uwp
                 
 
                 CoreApplication.GetCurrentView().TitleBar.ExtendViewIntoTitleBar = true;
-                if (ApiInformation.IsTypePresent("Windows.UI.ViewManagement.ApplicationView"))
-                {
-                    var appView = ApplicationView.GetForCurrentView();
-                    appView.TitleBar.ButtonBackgroundColor = Colors.Transparent;
-                    appView.TitleBar.ButtonInactiveBackgroundColor = Colors.Transparent;
-                }
+                var appView = ApplicationView.GetForCurrentView();
+                appView.TitleBar.ButtonBackgroundColor = Colors.Transparent;
+                appView.TitleBar.ButtonInactiveBackgroundColor = Colors.Transparent;
 
                 StaticContent.LocalFolder = ApplicationData.Current.LocalFolder;
                 if (await StaticContent.LocalFolder.TryGetItemAsync("Playlists") != null)
@@ -202,97 +199,99 @@ namespace Fooxboy.MusicX.Uwp
 
         protected async override void OnFileActivated(FileActivatedEventArgs args)
         {
-            var files = args.Files;
-            if (files.Count > 1)
-            {
-                var playlist = new PlaylistFile()
-                {
-                    Artist = "Music X",
-                    Cover = "/Assets/Images/now.png",
-                    Id = 1000,
-                    Name = "Сейчас играет",
-                    Tracks = new List<AudioFile>()
-                };
-                foreach (var file in files)
-                {
-                    var audio = await FindMetadataService.ConvertToAudioFile((StorageFile)file);
-                    playlist.Tracks.Add(audio);
-                }
 
-                StaticContent.NowPlayPlaylist = playlist;
-                StaticContent.OpenFiles = true;
-            }
-            else
-            {
-                var file = files[0];
-                var audio = await FindMetadataService.ConvertToAudioFile((StorageFile)file);
-                StaticContent.NowPlay = audio;
-                StaticContent.OpenFiles = true;
+            OnLaunched(null);
+            //var files = args.Files;
+            //if (files.Count > 1)
+            //{
+            //    var playlist = new PlaylistFile()
+            //    {
+            //        Artist = "Music X",
+            //        Cover = "/Assets/Images/now.png",
+            //        Id = 1000,
+            //        Name = "Сейчас играет",
+            //        Tracks = new List<AudioFile>()
+            //    };
+            //    foreach (var file in files)
+            //    {
+            //        var audio = await FindMetadataService.ConvertToAudioFile((StorageFile)file);
+            //        playlist.Tracks.Add(audio);
+            //    }
 
-            }
+            //    StaticContent.NowPlayPlaylist = playlist;
+            //    StaticContent.OpenFiles = true;
+            //}
+            //else
+            //{
+            //    var file = files[0];
+            //    var audio = await FindMetadataService.ConvertToAudioFile((StorageFile)file);
+            //    StaticContent.NowPlay = audio;
+            //    StaticContent.OpenFiles = true;
 
-            if (Window.Current.Visible)
-            {
-                HomeLocalViewModel.Instanse.Page_Loaded(null, null);
-            }
-            else
-            {
-                DispatcherHelper.Initialize();
-                var rootFrame = new Frame();
-                rootFrame.NavigationFailed += OnNavigationFailed;
-                CoreApplication.GetCurrentView().TitleBar.ExtendViewIntoTitleBar = true;
-                if (ApiInformation.IsTypePresent("Windows.UI.ViewManagement.ApplicationView"))
-                {
-                    var appView = ApplicationView.GetForCurrentView();
-                    appView.TitleBar.ButtonBackgroundColor = Colors.Transparent;
-                    appView.TitleBar.ButtonInactiveBackgroundColor = Colors.Transparent;
-                }
+            //}
 
-                StaticContent.LocalFolder = ApplicationData.Current.LocalFolder;
-                if (await StaticContent.LocalFolder.TryGetItemAsync("Playlists") != null)
-                {
-                    StaticContent.PlaylistsFolder = await StaticContent.LocalFolder.GetFolderAsync("Playlists");
-                }
+            //if (Window.Current.Visible)
+            //{
+            //    HomeLocalViewModel.Instanse.Page_Loaded(null, null);
+            //}
+            //else
+            //{
+            //    DispatcherHelper.Initialize();
+            //    var rootFrame = new Frame();
+            //    rootFrame.NavigationFailed += OnNavigationFailed;
+            //    CoreApplication.GetCurrentView().TitleBar.ExtendViewIntoTitleBar = true;
+            //    if (ApiInformation.IsTypePresent("Windows.UI.ViewManagement.ApplicationView"))
+            //    {
+            //        var appView = ApplicationView.GetForCurrentView();
+            //        appView.TitleBar.ButtonBackgroundColor = Colors.Transparent;
+            //        appView.TitleBar.ButtonInactiveBackgroundColor = Colors.Transparent;
+            //    }
 
-                if (await StaticContent.LocalFolder.TryGetItemAsync("Covers") != null)
-                {
-                    StaticContent.CoversFolder = await StaticContent.LocalFolder.GetFolderAsync("Covers");
+            //    StaticContent.LocalFolder = ApplicationData.Current.LocalFolder;
+            //    if (await StaticContent.LocalFolder.TryGetItemAsync("Playlists") != null)
+            //    {
+            //        StaticContent.PlaylistsFolder = await StaticContent.LocalFolder.GetFolderAsync("Playlists");
+            //    }
 
-                }
+            //    if (await StaticContent.LocalFolder.TryGetItemAsync("Covers") != null)
+            //    {
+            //        StaticContent.CoversFolder = await StaticContent.LocalFolder.GetFolderAsync("Covers");
 
-                if (await StaticContent.LocalFolder.TryGetItemAsync("ConfigApp.json") != null)
-                {
-                    var file = await StaticContent.LocalFolder.GetFileAsync("ConfigApp.json");
-                    var fileString = await FileIO.ReadTextAsync(file);
-                    var config = JsonConvert.DeserializeObject<ConfigApp>(fileString);
-                    StaticContent.Config = config;
-                }
+            //    }
 
-                Window.Current.Content = rootFrame;
+            //    if (await StaticContent.LocalFolder.TryGetItemAsync("ConfigApp.json") != null)
+            //    {
+            //        var file = await StaticContent.LocalFolder.GetFileAsync("ConfigApp.json");
+            //        var fileString = await FileIO.ReadTextAsync(file);
+            //        var config = JsonConvert.DeserializeObject<ConfigApp>(fileString);
+            //        StaticContent.Config = config;
+            //    }
 
-                if (await StaticContent.LocalFolder.TryGetItemAsync("RunApp.json") == null)
-                {
-                    var runFile = await StaticContent.LocalFolder.CreateFileAsync("RunApp.json");
-                    var model = new RunApp()
-                    {
-                        CodeName = "Test",
-                        FirstStart = true,
-                        RunUpdate = true
-                    };
+            //    Window.Current.Content = rootFrame;
 
-                    var json = JsonConvert.SerializeObject(model);
-                    await FileIO.WriteTextAsync(runFile, json);
+            //    if (await StaticContent.LocalFolder.TryGetItemAsync("RunApp.json") == null)
+            //    {
+            //        var runFile = await StaticContent.LocalFolder.CreateFileAsync("RunApp.json");
+            //        var model = new RunApp()
+            //        {
+            //            CodeName = "Test",
+            //            FirstStart = true,
+            //            RunUpdate = true
+            //        };
 
-                    rootFrame.Navigate(typeof(Views.WelcomeView), null);
-                }
-                else
-                {
-                    rootFrame.Navigate(typeof(Views.ProVersionView), null);
-                }
+            //        var json = JsonConvert.SerializeObject(model);
+            //        await FileIO.WriteTextAsync(runFile, json);
 
-                Window.Current.Activate();
-                SystemNavigationManager.GetForCurrentView().BackRequested += OnBackRequested;
-            }
+            //        rootFrame.Navigate(typeof(Views.WelcomeView), null);
+            //    }
+            //    else
+            //    {
+            //        rootFrame.Navigate(typeof(Views.ProVersionView), null);
+            //    }
+
+            //    Window.Current.Activate();
+            //    SystemNavigationManager.GetForCurrentView().BackRequested += OnBackRequested;
+            //}
 
         }
     }

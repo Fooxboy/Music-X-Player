@@ -48,6 +48,8 @@ namespace Fooxboy.MusicX.Uwp.ViewModels
                         StaticContent.Playlists.Add(playlist);
                         VisibilityGridCreate = Visibility.Collapsed;
                         VisibilityGridDone = Visibility.Visible;
+                        NamePlaylist = "";
+                        Changed("NamePlaylist");
                     }
                     catch (Exception e)
                     {

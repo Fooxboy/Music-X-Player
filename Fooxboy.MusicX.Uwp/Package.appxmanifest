@@ -10,7 +10,7 @@
   <Identity
     Name="39634Fooxboy.MusicXPlayer"
     Publisher="CN=61DC74F4-6B71-44B2-9289-5E776494890D"
-    Version="0.3.7.0" />
+    Version="1.0.0.0" />
 
   <mp:PhoneIdentity PhoneProductId="911ba3a9-0afb-4a63-8225-0236fa4646cf" PhonePublisherId="00000000-0000-0000-0000-000000000000"/>
 

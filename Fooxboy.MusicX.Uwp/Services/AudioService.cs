@@ -344,8 +344,8 @@ namespace Fooxboy.MusicX.Uwp.Services
 
         private void CurrentPlaylistOnCurrentItemChanged(object sender, AudioFile audio)
         {
-           if(IsPlaying) Pause();
             Seek(TimeSpan.Zero);
+            if (IsPlaying) Pause();
 
             UpdateTransportControl();
 
