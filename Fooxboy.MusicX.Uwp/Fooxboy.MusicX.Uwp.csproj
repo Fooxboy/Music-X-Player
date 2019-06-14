@@ -130,9 +130,6 @@
     <Compile Include="Enums\RepeatMode.cs" />
     <Compile Include="Interfaces\IPlaylist.cs" />
     <Compile Include="LoadingCollection.cs" />
-    <Compile Include="MainPage.xaml.cs">
-      <DependentUpon>MainPage.xaml</DependentUpon>
-    </Compile>
     <Compile Include="Models\AudioFile.cs" />
     <Compile Include="Models\AudioPlaylist.cs" />
     <Compile Include="Models\ConfigApp.cs" />
@@ -285,10 +282,6 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Page Include="MainPage.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
     <Page Include="Resources\ContentDialogs\EditPlaylistContentDialog.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>

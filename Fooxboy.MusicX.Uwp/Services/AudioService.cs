@@ -242,7 +242,7 @@ namespace Fooxboy.MusicX.Uwp.Services
         /// <summary>
         /// Load state
         /// </summary>
-        public async Task LoadState()
+        public void LoadState()
         {
             try
             {
@@ -372,7 +372,7 @@ namespace Fooxboy.MusicX.Uwp.Services
             }
         }
 
-        private async void TryResolveTrack(AudioFile audio)
+        private void TryResolveTrack(AudioFile audio)
         {
             //if (resolveCancellationToken != null)
             //    resolveCancellationToken.Cancel();
