@@ -34,7 +34,7 @@ namespace Fooxboy.MusicX.Uwp.Views
         private async void Button_Click(object sender, RoutedEventArgs e)
         {
             ProgressRing.IsActive = true;
-            Start.Text = "Music X выполняет первую настройку. Подождите.";
+            Start.Text = "Music X выполняет первичную настройку. Пожалуйста, подождите...";
             ButtonStart.Visibility = Visibility.Collapsed;
 
             //создание папки с плейлистами.
