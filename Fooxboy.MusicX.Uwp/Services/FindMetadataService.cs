@@ -47,6 +47,7 @@ namespace Fooxboy.MusicX.Uwp.Services
                     audio.Id = (file.Name.GetHashCode() * 1);
                     audio.InternalId = 0;
                     audio.OwnerId = 0;
+                    audio.IsLocal = true;
                     audio.PlaylistId = 0;
                     if (mp3File.Tag.Pictures.Any())
                     {

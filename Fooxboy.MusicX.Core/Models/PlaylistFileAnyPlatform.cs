@@ -12,5 +12,6 @@ namespace Fooxboy.MusicX.Core.Models
         public bool IsLocal { get; set; }
         public long Id { get; set; }
         public string Cover { get; set; }
+        public IList<IAudioFile> Tracks { get; set; }
     }
 }
