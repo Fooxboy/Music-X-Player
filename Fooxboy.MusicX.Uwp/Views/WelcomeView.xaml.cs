@@ -16,6 +16,7 @@ using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Navigation;
 using Fooxboy.MusicX.Uwp.Services;
+using Fooxboy.MusicX.Core.Interfaces;
 
 // The Blank Page item template is documented at https://go.microsoft.com/fwlink/?LinkId=234238
 
@@ -53,7 +54,8 @@ namespace Fooxboy.MusicX.Uwp.Views
                     Cover = "ms-appx:///Assets/Images/latest.png",
                     Id = 1,
                     Name = "Слушали недавно",
-                    Tracks = new List<Models.AudioFile>()
+                    IsLocal = true,
+                    TracksFiles = new List<AudioFile>()
                 };
 
                 var playlistFavorite = new Models.PlaylistFile()
@@ -62,7 +64,8 @@ namespace Fooxboy.MusicX.Uwp.Views
                     Cover = "ms-appx:///Assets/Images/favorites.png",
                     Id = 2,
                     Name = "Избранное",
-                    Tracks = new List<AudioFile>()
+                    IsLocal = true,
+                    TracksFiles  = new List<AudioFile>()
                 };
 
                 var jsonPlaylistId1 = JsonConvert.SerializeObject(playlistLastPlay);

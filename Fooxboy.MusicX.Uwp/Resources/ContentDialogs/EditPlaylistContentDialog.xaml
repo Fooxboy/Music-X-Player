@@ -128,7 +128,7 @@
         <TextBlock Text="Список треков" FontSize="20" FontWeight="Bold" Grid.ColumnSpan="2" Grid.Row="1"/>
         <ListView Grid.Row="2" ItemContainerStyle="{StaticResource ListViewItemContainerStyle}"
                   Style="{StaticResource ListViewStyle}"
-                  ItemsSource="{x:Bind Playlist.Tracks}"
+                  ItemsSource="{x:Bind Playlist.TracksFiles}"
                   ItemTemplate="{ThemeResource TrackTemplate}"
                   Grid.ColumnSpan="2">
             <ListView.ItemsPanel >

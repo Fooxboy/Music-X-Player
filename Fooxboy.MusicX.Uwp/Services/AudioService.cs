@@ -111,8 +111,13 @@ namespace Fooxboy.MusicX.Uwp.Services
             if (CurrentPlaylist.CurrentItem == null)
                 return;
 
-            if (mediaPlayer.PlaybackSession.PlaybackState == MediaPlaybackState.None || mediaPlayer.Source == null) //source missing
-                PlayFrom(CurrentPlaylist.CurrentItem.Source);
+            if (mediaPlayer.PlaybackSession.PlaybackState == MediaPlaybackState.None || mediaPlayer.Source == null)
+            {
+                if (CurrentPlaylist.CurrentItem.IsLocal) PlayFrom(CurrentPlaylist.CurrentItem.Source);
+                else PlayFrom(new Uri(CurrentPlaylist.CurrentItem.SourceString));
+
+            }
+                
             else
                 mediaPlayer.Play();
         }
@@ -190,7 +195,12 @@ namespace Fooxboy.MusicX.Uwp.Services
                 }
                 UpdateTransportControl();
 
-                if(play) PlayFrom(playlist.CurrentItem.Source);
+                if(play)
+                {
+                    if (playlist.CurrentItem.IsLocal) PlayFrom(playlist.CurrentItem.Source);
+                    else PlayFrom(new Uri(playlist.CurrentItem.SourceString));
+
+                }
 
             }
             catch(Exception e)
@@ -228,7 +238,11 @@ namespace Fooxboy.MusicX.Uwp.Services
                 else
                 {
                     if (currentPlaylist.CurrentItem == audio)
-                        PlayFrom(currentPlaylist.CurrentItem.Source);
+                    {
+                        if (currentPlaylist.CurrentItem.IsLocal) PlayFrom(currentPlaylist.CurrentItem.Source);
+                        else PlayFrom(new Uri(currentPlaylist.CurrentItem.SourceString));
+                    }
+                       
                     else
                         currentPlaylist.CurrentItem = audio;
                 }
@@ -238,58 +252,6 @@ namespace Fooxboy.MusicX.Uwp.Services
             }
             
         }
-
-        /// <summary>
-        /// Load state
-        /// </summary>
-        public void LoadState()
-        {
-            try
-            {
-
-                //TODO: загрузка текущего плейлиста.
-
-
-                //if (!FileStorageHelper.IsFileExists("currentPlaylist.js"))
-                //    return;
-
-                //var json = await FileStorageHelper.ReadText("currentPlaylist.js");
-                //if (!string.IsNullOrEmpty(json))
-                //{
-                //    currentPlaylist.Deserialize(json);
-
-                //    if (currentPlaylist.CurrentItem != null)
-                //    {
-                //        UpdateTransportControl();
-                //        CurrentAudioChanged?.Invoke(this, EventArgs.Empty);
-                //    }
-                //}
-            }
-            catch (Exception ex)
-            {
-                Log.Error(ex);
-            }
-        }
-
-        /// <summary>
-        /// Save state
-        /// </summary>
-        public async Task SaveState()
-        {
-            try
-            {
-                //TODO: сохранение текущего плейлиста.
-
-
-                //var json = currentPlaylist.Serialize();
-                //await FileStorageHelper.WriteText("currentPlaylist.js", json);
-            }
-            catch (Exception ex)
-            {
-                Log.Error(ex);
-            }
-        }
-
         private void Initialize()
         {
             mediaPlayer.PlaybackSession.PlaybackStateChanged += MediaPlayerOnCurrentStateChanged;
@@ -354,7 +316,9 @@ namespace Fooxboy.MusicX.Uwp.Services
 
             if (audio.Source != null)
             {
-                PlayFrom(audio.Source);
+                if (audio.IsLocal) PlayFrom(audio.Source);
+                else PlayFrom(new Uri(audio.SourceString));
+
 
                 DispatcherHelper.CheckBeginInvokeOnUI(() =>
                 {
@@ -413,6 +377,20 @@ namespace Fooxboy.MusicX.Uwp.Services
                 await new ExceptionDialog("Невозможно воспроизвести файл", "Возможно он поврежден или нет доступа к нему", e).ShowAsync();
             }
             
+        }
+
+        private async void PlayFrom(Uri file)
+        {
+            try
+            {
+                mediaPlayer.Source = MediaSource.CreateFromUri(file);
+                mediaPlayer.Play();
+            }
+            catch (Exception e)
+            {
+                await new ExceptionDialog("Невозможно воспроизвести файл", "Возможно он поврежден или нет доступа к нему", e).ShowAsync();
+            }
+
         }
 
         private void PositionTimerOnTick(object sender, object o)

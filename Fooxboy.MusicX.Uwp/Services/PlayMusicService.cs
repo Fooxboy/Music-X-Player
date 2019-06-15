@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Fooxboy.MusicX.Core.Interfaces;
 using Fooxboy.MusicX.Uwp.Converters;
 using Fooxboy.MusicX.Uwp.Models;
 using Fooxboy.MusicX.Uwp.Resources.ContentDialogs;
@@ -25,9 +26,9 @@ namespace Fooxboy.MusicX.Uwp.Services
                 //3 - проигрование трека из плейлиста
                 var lastPlayPlaylist = await PlaylistsService.GetById(1);
                 if (audioFile.Source == null) audioFile.Source = await StorageFile.GetFileFromPathAsync(audioFile.SourceString);
-                if (!(lastPlayPlaylist.Tracks.Any(t => t.SourceString == audioFile.SourceString)))
+                if (!(lastPlayPlaylist.TracksFiles.Any(t => t.SourceString == audioFile.SourceString)))
                 {
-                    lastPlayPlaylist.Tracks.Add(audioFile);
+                    lastPlayPlaylist.TracksFiles.Add(audioFile);
                     await PlaylistsService.SavePlaylist(lastPlayPlaylist);
                 }
 
@@ -38,12 +39,13 @@ namespace Fooxboy.MusicX.Uwp.Services
                     Cover = "ms-appx:///Assets/Images/now.png",
                     Id = 1000,
                     Name = "Сейчас играет",
-                    Tracks = new List<AudioFile>()
+                    TracksFiles = new List<AudioFile>(),
+                    IsLocal = true
                 };
 
                 if (typePlay == 1)
                 {
-                    foreach (var trackMusic in StaticContent.Music) playlistNowPlay.Tracks.Add(trackMusic);
+                    foreach (var trackMusic in StaticContent.Music) playlistNowPlay.TracksFiles.Add(trackMusic);
                     StaticContent.NowPlayPlaylist = playlistNowPlay;
                     StaticContent.AudioService.SetCurrentPlaylist(playlistNowPlay.ToAudioPlaylist(), false);
                     StaticContent.AudioService.CurrentPlaylist.CurrentItem = audioFile;
@@ -51,7 +53,7 @@ namespace Fooxboy.MusicX.Uwp.Services
                 else if (typePlay == 2)
                 {
                     StaticContent.NowPlayPlaylist = playlistNowPlay;
-                    StaticContent.NowPlayPlaylist.Tracks.Add(audioFile);
+                    StaticContent.NowPlayPlaylist.TracksFiles.Add(audioFile);
                     StaticContent.AudioService.SetCurrentPlaylist(playlistNowPlay.ToAudioPlaylist());
 
                 }

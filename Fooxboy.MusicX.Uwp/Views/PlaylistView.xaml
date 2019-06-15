@@ -79,7 +79,7 @@
                   Grid.Row="1"
                   ItemTemplate="{ThemeResource TrackTemplate}"
                   Style="{StaticResource ListViewStyle}" HorizontalAlignment="Stretch"
-                  ItemsSource="{x:Bind PlaylistViewModel.Playlist.Tracks, Mode=TwoWay}"
+                  ItemsSource="{x:Bind PlaylistViewModel.Playlist.TracksFiles, Mode=TwoWay}"
                   x:Name="MusicListView"
                   SelectedItem="{x:Bind PlaylistViewModel.SelectedAudioFile, Mode=TwoWay}"
                   ItemClick="{x:Bind PlaylistViewModel.ListViewMusic_Click}"

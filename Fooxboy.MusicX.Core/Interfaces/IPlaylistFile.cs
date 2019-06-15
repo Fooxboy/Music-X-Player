@@ -8,6 +8,7 @@ namespace Fooxboy.MusicX.Core.Interfaces
     {
         string Name { get; set; }
         string Artist { get; set; }
+        IList<IAudioFile> Tracks { get; set; }
         bool IsLocal { get; set; }
         long Id { get; set; }
         string Cover { get; set; }

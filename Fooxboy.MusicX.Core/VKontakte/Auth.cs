@@ -26,10 +26,8 @@ namespace Fooxboy.MusicX.Core.VKontakte
             });
 
             StaticContent.VkApi = api;
-
             var userInfo = Users.Info.CurrentUser();
             StaticContent.UserId = userInfo.Id;
-            
         }
 
     }

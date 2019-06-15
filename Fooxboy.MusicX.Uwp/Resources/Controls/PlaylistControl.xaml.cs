@@ -16,6 +16,7 @@ using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Navigation;
 using Fooxboy.MusicX.Uwp.Services;
 using Windows.UI.Popups;
+using Fooxboy.MusicX.Core.Interfaces;
 
 // Документацию по шаблону элемента "Пользовательский элемент управления" см. по адресу https://go.microsoft.com/fwlink/?LinkId=234236
 
@@ -31,7 +32,8 @@ namespace Fooxboy.MusicX.Uwp.Resources.Controls
                 Cover = "ms-appx:///Assets/Images/placeholder.png",
                 Id = -1,
                 Name = "MusicX",
-                Tracks = new List<AudioFile>()
+                TracksFiles = new List<AudioFile>(),
+                IsLocal = true
             }));
 
         public PlaylistControl()

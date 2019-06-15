@@ -118,11 +118,11 @@ namespace Fooxboy.MusicX.Uwp.ViewModels
             {
                 if (value != playlist)
                 {
-                    if (value.Tracks.Count == 0) VisibilotyNoTrack = Visibility.Visible;
+                    if (value.TracksFiles.Count == 0) VisibilotyNoTrack = Visibility.Visible;
                     else VisibilotyNoTrack = Visibility.Collapsed;
                     playlist = value;
                     Changed("Playlist");
-                    PLTrackCount = $"{playlist.Tracks.Count} трек(а/ов)";
+                    PLTrackCount = $"{playlist.TracksFiles.Count} трек(а/ов)";
                     Changed("PLTrackCount");
                 }
             }

@@ -80,7 +80,7 @@ namespace Fooxboy.MusicX.Uwp.ViewModels
 
                     if (StaticContent.NowPlayPlaylist != null)
                     {
-                        await PlayMusicService.PlayMusicForLibrary(StaticContent.NowPlayPlaylist.Tracks[0], 3, StaticContent.NowPlayPlaylist);
+                        await PlayMusicService.PlayMusicForLibrary(StaticContent.NowPlayPlaylist.TracksFiles[0], 3, StaticContent.NowPlayPlaylist);
                         Changed("Playlists");
                     }
                 }

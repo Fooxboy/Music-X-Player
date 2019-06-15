@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Fooxboy.MusicX.Core.Interfaces;
 using Fooxboy.MusicX.Uwp.Models;
 using Fooxboy.MusicX.Uwp.Resources.ContentDialogs;
 using Fooxboy.MusicX.Uwp.Services;
@@ -41,7 +42,8 @@ namespace Fooxboy.MusicX.Uwp.ViewModels
                             Cover = ImagePlaylist,
                             Id = new Random().Next(10, 1234),
                             Name = NamePlaylist,
-                            Tracks = new List<AudioFile>()
+                            TracksFiles = new List<AudioFile>(),
+                            IsLocal = true
                         };
 
                         await PlaylistsService.SavePlaylist(playlist);

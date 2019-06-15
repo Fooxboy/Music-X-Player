@@ -31,6 +31,7 @@ namespace Fooxboy.MusicX.Uwp.Services
 
             var json = await FileIO.ReadTextAsync(file);
             var model = JsonConvert.DeserializeObject<PlaylistFile>(json);
+
             return model;
         }
 
@@ -82,7 +83,7 @@ namespace Fooxboy.MusicX.Uwp.Services
         {
             try
             {
-                if (playlist.Tracks.Count == 0)
+                if (playlist.TracksFiles.Count == 0)
                 {
                     var dialog = new MessageDialog("В данном плейлисте отсутсвуют треки. Пожалуйста, добавте в него треки.",
                         "Невозможно возпроизвести плейлист");
@@ -91,7 +92,7 @@ namespace Fooxboy.MusicX.Uwp.Services
                 }
                 var folder = StaticContent.PlaylistsFolder;
                 if (StaticContent.NowPlayPlaylist == playlist) return;
-                await PlayMusicService.PlayMusicForLibrary(playlist.Tracks[0], 3, playlist);
+                await PlayMusicService.PlayMusicForLibrary(playlist.TracksFiles[0], 3, playlist);
             }catch(Exception e)
             {
                 await new ExceptionDialog("Невозможно воспроизвести плейлист", "Возможно, он поврежден или он не существует", e).ShowAsync();

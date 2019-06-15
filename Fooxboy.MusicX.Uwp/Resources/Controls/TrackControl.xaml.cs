@@ -4,6 +4,7 @@ using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices.WindowsRuntime;
 using Fooxboy.MusicX.Core;
+using Fooxboy.MusicX.Core.Interfaces;
 using Fooxboy.MusicX.Uwp.Models;
 using Fooxboy.MusicX.Uwp.Resources.ContentDialogs;
 using Fooxboy.MusicX.Uwp.Services;
@@ -60,8 +61,8 @@ namespace Fooxboy.MusicX.Uwp.Resources.Controls
                     if(Track.PlaylistId != 0)
                     {
                         var playlist = await PlaylistsService.GetById(Track.PlaylistId);
-                        trackByPlaylist = playlist.Tracks.Single(t => t.SourceString == Track.SourceString);
-                        playlist.Tracks.Remove(trackByPlaylist);
+                        trackByPlaylist = playlist.TracksFiles.Single(t => t.SourceString == Track.SourceString);
+                        playlist.TracksFiles.Remove(trackByPlaylist);
                         await PlaylistsService.SavePlaylist(playlist);
                     }
                     if(trackByPlaylist != null)
@@ -89,14 +90,14 @@ namespace Fooxboy.MusicX.Uwp.Resources.Controls
                 try
                 {
                     var playlist = await PlaylistsService.GetById(2);
-                    if (playlist.Tracks.Any(t => t.SourceString == Track.SourceString))
+                    if (playlist.TracksFiles.Any(t => t.SourceString == Track.SourceString))
                     {
                         var dialog = new MessageDialog("Данный трек уже добавлен в избранное", "Ошибка при добавлении в избранное");
                         await dialog.ShowAsync();
                     }
                     else
                     {
-                        playlist.Tracks.Add(Track);
+                        playlist.TracksFiles.Add(Track);
                         await PlaylistsService.SavePlaylist(playlist);
                     }
                 }catch(Exception e)
@@ -118,9 +119,9 @@ namespace Fooxboy.MusicX.Uwp.Resources.Controls
         {
             try
             {
-                if (playlist.Tracks.Any(t => t == Track)) return;
+                if (playlist.TracksFiles.Any(t => t == Track)) return;
                 Track.PlaylistId = playlist.Id;
-                playlist.Tracks.Add(Track);
+                playlist.TracksFiles.Add(Track);
                 await PlaylistsService.SavePlaylist(playlist);
                 var index = StaticContent.Music.IndexOf(Track);
                 var track = StaticContent.Music[index];
