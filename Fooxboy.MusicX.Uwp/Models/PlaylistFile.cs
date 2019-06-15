@@ -3,11 +3,12 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Fooxboy.MusicX.Core.Interfaces;
 using Microsoft.Toolkit.Uwp.UI.Controls.TextToolbarSymbols;
 
 namespace Fooxboy.MusicX.Uwp.Models
 {
-    public class PlaylistFile
+    public class PlaylistFile: IPlaylistFile
     {
         public string Name { get; set; }
         public string Artist { get; set; }
