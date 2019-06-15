@@ -10,7 +10,7 @@ namespace Fooxboy.MusicX.Core.VKontakte.Music.Converters
 {
     public static class ToIPlaylistFileConverter
     {
-        public static IPlaylistFile ToIPlaylistFile(this AudioPlaylist playlist)
+        public static IPlaylistFile ToIPlaylistFile(this AudioPlaylist playlist, IList<IAudioFile> tracks)
         {
             IPlaylistFile playlistFile = new PlaylistFileAnyPlatform()
             {
@@ -18,6 +18,7 @@ namespace Fooxboy.MusicX.Core.VKontakte.Music.Converters
                 Cover = playlist.Cover.Photo300,
                 Id = playlist.Id.Value,
                 IsLocal = false,
+                Tracks = tracks,
                 Name = playlist.Title
             };
 

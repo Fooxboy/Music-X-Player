@@ -27,11 +27,22 @@ namespace Fooxboy.MusicX.Core.VKontakte.Music
         public async static Task<IList<IPlaylistFile>> Playlists(int count = 100, int offset = 0)
         {
             if (StaticContent.VkApi == null) throw new Exception("Пользователь не авторизован");
-
             var playlistsVk = await StaticContent.VkApi.Audio.GetPlaylistsAsync(StaticContent.UserId, 
                 Convert.ToUInt32(count), Convert.ToUInt32(offset));
             IList<IPlaylistFile> playlists = new List<IPlaylistFile>();
-            foreach (var playlist in playlistsVk) playlists.Add(playlist.ToIPlaylistFile());
+
+            foreach (var playlist in playlistsVk)
+            {
+                var music = await StaticContent.VkApi.Audio.GetAsync(new VkNet.Model.RequestParams.AudioGetParams()
+                {
+                    PlaylistId = playlist.Id,
+                });
+
+                IList<IAudioFile> tracks = new List<IAudioFile>();
+                foreach (var track in music) tracks.Add(track.ToIAudioFile());
+
+                playlists.Add(playlist.ToIPlaylistFile(tracks));
+            }
             return playlists;
         }
     }

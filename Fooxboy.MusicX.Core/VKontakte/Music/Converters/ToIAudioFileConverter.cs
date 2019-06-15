@@ -22,7 +22,7 @@ namespace Fooxboy.MusicX.Core.VKontakte.Music.Converters
                 InternalId = audio.Id.Value,
                 OwnerId = audio.OwnerId.Value,
                 PlaylistId = audio.Album.Id,
-                SourceString = audio.Url.ToString(),
+                SourceString = audio.Url.DecodeAudioUrl().ToString(),
                 Title = audio.Title
             };
 
