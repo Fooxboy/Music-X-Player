@@ -12,7 +12,6 @@ namespace Fooxboy.MusicX.Core.VKontakte.Music
         public async static Task<IList<IAudioFile>> Tracks(int count=100, int offset=0, bool onlyEng = false)
         {
             if (StaticContent.VkApi == null) throw new Exception("Пользователь не авторизован");
-
             var music = await StaticContent.VkApi.Audio.GetPopularAsync(onlyEng: onlyEng,
                 count: Convert.ToUInt32(count), offset: Convert.ToUInt32(offset));
             IList<IAudioFile> tracks = new List<IAudioFile>();
