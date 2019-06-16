@@ -9,6 +9,7 @@
             <ResourceDictionary.MergedDictionaries>
                 <ResourceDictionary Source="Resources/Styles/SliderPlayerStyle.xaml"/>
                 <ResourceDictionary Source="Resources/Styles/ButtonPlayerStyle.xaml"/>
+                <ResourceDictionary Source="Resources/Styles/LoginControlsStyle.xaml"/>
                 <ResourceDictionary Source="Resources/Styles/ListViewStyle.xaml"/>
                 <ResourceDictionary Source="Resources/Templates/PlaylistTemplate.xaml"/>
                 <ResourceDictionary Source="Resources/Templates/TrackTemplate.xaml"/>

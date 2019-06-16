@@ -106,7 +106,7 @@ namespace Fooxboy.MusicX.Uwp.ViewModels
                     MainSelector = Visibility.Collapsed;
                     ProSelector = Visibility.Collapsed;
                     AccountSelector = Visibility.Visible;
-                    StaticContent.NavigationContentService.Go(typeof(Views.VKAuthView));
+                    StaticContent.NavigationContentService.Go(typeof(Views.VKontakte.AuthView));
                     Changed("SettingsSelector");
                     Changed("SearchSelector");
                     Changed("MainSelector");
