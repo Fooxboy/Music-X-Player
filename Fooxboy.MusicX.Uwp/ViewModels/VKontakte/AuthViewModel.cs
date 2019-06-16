@@ -8,7 +8,6 @@ namespace Fooxboy.MusicX.Uwp.ViewModels.VKontakte
 {
     public class AuthViewModel:BaseViewModel
     {
-
         private static AuthViewModel instanse;
 
         public static AuthViewModel Instanse
