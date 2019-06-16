@@ -11,7 +11,7 @@ namespace Fooxboy.MusicX.Core.VKontakte
 {
     public class Auth
     {
-        public async static Task<string> User(string login, string password)
+        public async static Task<string> User(string login, string password, Func<string> twoFactorAuth)
         {
             if (StaticContent.VkApi != null) StaticContent.VkApi = null;
 
@@ -23,7 +23,8 @@ namespace Fooxboy.MusicX.Core.VKontakte
             await api.AuthorizeAsync(new ApiAuthParams()
             {
                 Login = login,
-                Password = password
+                Password = password,
+                TwoFactorAuthorization = twoFactorAuth
             });
 
             StaticContent.VkApi = api;

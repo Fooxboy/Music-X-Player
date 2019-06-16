@@ -150,6 +150,9 @@
     <Compile Include="Resources\ContentDialogs\PropertiesTrackContentDialog.xaml.cs">
       <DependentUpon>PropertiesTrackContentDialog.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Resources\ContentDialogs\TwoFactorAuthContentDialog.xaml.cs">
+      <DependentUpon>TwoFactorAuthContentDialog.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Resources\Controls\PlaylistControl.xaml.cs">
       <DependentUpon>PlaylistControl.xaml</DependentUpon>
     </Compile>
@@ -170,6 +173,7 @@
     <Compile Include="Services\PlaylistsService.cs" />
     <Compile Include="Services\PlayMusicService.cs" />
     <Compile Include="Services\TileHelperService.cs" />
+    <Compile Include="Services\VKontakte\AuthService.cs" />
     <Compile Include="Services\VKontakte\TokenService.cs" />
     <Compile Include="StaticContent.cs" />
     <Compile Include="Utils\Extensions\CollectionsExtensions.cs" />
@@ -301,6 +305,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Resources\ContentDialogs\PropertiesTrackContentDialog.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Resources\ContentDialogs\TwoFactorAuthContentDialog.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

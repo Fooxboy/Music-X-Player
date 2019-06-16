@@ -20,12 +20,18 @@
 
             <TextBlock Margin="0 10 0 0" HorizontalAlignment="Center" Foreground="{ThemeResource SubText}" Text="Войдите в свой аккаунт ВКонтакте"/>
 
-            <TextBox Style="{StaticResource TextBoxLoginStyle}" Margin="0 30 0 0 " PlaceholderText="Номер телефона или адрес электронной почты"/>
-            <PasswordBox Style="{StaticResource PasswordBoxLoginStyle}" Margin="0 10 0 0" PlaceholderText="Пароль"/>
-            <Button Style="{StaticResource ButtonLoginStyle}" Width="100" HorizontalAlignment="Center" Margin="0 20 0 0" Content="Войти"/>
-
+            <TextBox Style="{StaticResource TextBoxLoginStyle}" Text="{x:Bind ViewModel.Login, Mode=TwoWay}" Margin="0 30 0 0 " PlaceholderText="Номер телефона или адрес электронной почты"/>
+            <PasswordBox Style="{StaticResource PasswordBoxLoginStyle}" Password="{x:Bind ViewModel.Password, Mode=TwoWay}" Margin="0 10 0 0" PlaceholderText="Пароль"/>
+            <Grid HorizontalAlignment="Center">
+                <Button Style="{StaticResource ButtonLoginStyle}" 
+                        Visibility="{x:Bind ViewModel.VisibilityButton, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" 
+                        Command="{x:Bind ViewModel.LoginCommand}" Width="100"
+                        HorizontalAlignment="Center" Margin="0 20 0 0" 
+                        Content="Войти"/>
+                <ProgressRing  Height="60" Margin="0 20 0 0"  HorizontalAlignment="Center" IsActive="{x:Bind ViewModel.IsActiveProgressRing}" Width="60"/>
+            </Grid>
         </StackPanel>
 
-        <TextBlock HorizontalAlignment="Center" Margin="0 0 0 10" VerticalAlignment="Bottom" Text="MusicX 2019"/>
+        <TextBlock HorizontalAlignment="Center" Foreground="{ThemeResource SubText}" Margin="0 0 0 10" VerticalAlignment="Bottom" Text="MusicX 2019"/>
     </Grid>
 </Page>
