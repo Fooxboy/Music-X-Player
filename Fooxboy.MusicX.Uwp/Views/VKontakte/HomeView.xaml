@@ -9,6 +9,133 @@
     Background="{ThemeResource BackgroundApp}">
 
     <Grid>
-        
+        <Grid.RowDefinitions>
+            <RowDefinition Height="36"/>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <!--Грид в котором плейлисты-->
+        <Grid Grid.Row="1" x:Name="PlaylistsGrid">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="auto"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+            <TextBlock Text="Ваши плейлисты"
+                       Margin="30 0 0 0"
+                       FontFamily="Calibri"
+                       Grid.Row="0" 
+                       FontWeight="ExtraBold" 
+                       FontSize="42"/>
+            <Button Content="Показать все"
+                    Margin="0 0 30 0"
+                    HorizontalAlignment="Right" 
+                    Grid.Row="0"
+                    BorderThickness="0">
+                <Button.Background>
+                    <SolidColorBrush Opacity="0"/>
+                </Button.Background>
+            </Button>
+
+            <ListView x:Name="ListViewPlaylists"
+                      ScrollViewer.VerticalScrollBarVisibility="Disabled"
+                      ItemsSource=""
+                      ScrollViewer.HorizontalScrollBarVisibility="Disabled"
+                      ScrollViewer.HorizontalScrollMode="Enabled"                  
+                      ScrollViewer.VerticalScrollMode="Disabled"
+                      SelectedItem=""
+                      ItemClick=""
+                      Tapped=""
+                      ItemTemplate="{ThemeResource PlaylistTemplate}"
+                      Grid.Row="1">
+                <ListView.ItemsPanel>
+                    <ItemsPanelTemplate>
+                        <ItemsStackPanel Background="Transparent"
+                                         Orientation="Horizontal" 
+                                         HorizontalAlignment="Stretch"
+                                         VerticalAlignment="Stretch" />
+                    </ItemsPanelTemplate>
+                </ListView.ItemsPanel>
+            </ListView>
+        </Grid>
+
+        <!-- Грид в котором треки-->
+        <Grid Grid.Row="2">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="auto"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+
+            <TextBlock Text="Ваша музыка"
+                       Margin="30 0 0 0"
+                       FontFamily="Calibri"
+                       Grid.Row="0" 
+                       FontWeight="ExtraBold" 
+                       FontSize="42" MinWidth="300"/>
+            <TextBlock Text="ВКонтакте"
+                       Foreground="{ThemeResource SubText}"
+                       VerticalAlignment="Center"
+                       Margin="282 20 0 0"
+                       FontFamily="Calibri"
+                       Grid.Row="0"  MinWidth="300"/>
+            <!--<Button FontSize="22"
+                    BorderThickness="0"
+                    FontFamily="Segoe MDL2 Assets"
+                    Content="&#xE149;"
+                    Style="{ThemeResource ButtonPlayerStyle}"
+                    Grid.Row="0"
+                    Height="42" Width="42"
+                    Command=""
+                    Margin="0 0 30 0"
+                    HorizontalAlignment="Right"
+                    VerticalAlignment="Center" >
+            </Button>-->
+            <!--<TextBox x:Name="SearchBox"
+                     Grid.Row="0"
+                     Style="{ThemeResource TextBoxLoginStyle}"
+                     HorizontalAlignment="Right"
+                     Margin="0 0 80 0" Height="32"
+                     Width="200"
+                     PlaceholderText="Найти музыку"
+                     TextChanged="TextBox_OnTextChanged"/>-->
+
+            <ListView Grid.Row="1" 
+                      x:Name="MusicListView"
+                      HorizontalAlignment="Stretch"
+                      ItemContainerStyle="{StaticResource ListViewItemContainerStyle}"
+                      Style="{StaticResource ListViewStyle}"
+                      SelectedItem="{x:Bind ViewModel.SelectAudio}"
+                      ItemsSource="{x:Bind ViewModel.Music}"
+                      Tapped="{x:Bind ViewModel.MusicListView_Tapped}"
+                      ItemTemplate="{ThemeResource TrackTemplate}">
+                <ListView.ItemsPanel >
+                    <ItemsPanelTemplate >
+                        <ItemsStackPanel HorizontalAlignment="Stretch"
+                                         VerticalAlignment="Stretch" />
+                    </ItemsPanelTemplate>
+
+
+                </ListView.ItemsPanel>
+
+            </ListView>
+
+            <StackPanel Visibility="Visible"
+                        HorizontalAlignment="Center" 
+                        VerticalAlignment="Center"
+                        Grid.Row="1">
+                <FontIcon FontFamily="Segoe MDL2 Assets" HorizontalAlignment="Center" FontSize="90" Glyph="&#xE74F;" />
+                <TextBlock HorizontalAlignment="Center"
+                       Text="У Вас нет музыки"
+                       FontSize="30" FontWeight="Bold"/>
+                <TextBlock HorizontalAlignment="Center" 
+                           Margin="0 30 0 0" FontSize="20"
+                           Foreground="{ThemeResource SubHeaderText}"
+                           Text="Где взять музыку?"/>
+                <TextBlock HorizontalAlignment="Center"
+                           Foreground="{ThemeResource SubText}"
+                           Text="Попробуйте зайти в раздел рекомендации!."/>
+            </StackPanel>
+
+        </Grid>
     </Grid>
 </Page>
