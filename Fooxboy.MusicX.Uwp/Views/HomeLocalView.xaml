@@ -7,7 +7,7 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     Loaded="{x:Bind HomeViewModel.Page_Loaded}"
     mc:Ignorable="d"
-    Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+    Background="{ThemeResource BackgroundApp}">
 
     <Grid>
         <Grid.RowDefinitions>
@@ -22,7 +22,7 @@
                 <RowDefinition Height="auto"/>
                 <RowDefinition Height="*"/>
             </Grid.RowDefinitions>
-            <TextBlock Text="Ваши плейлисты"
+            <TextBlock Text="Плейлисты на Вашем комьютере"
                        Margin="30 0 0 0"
                        FontFamily="Calibri"
                        Grid.Row="0" 
@@ -154,7 +154,7 @@
                 <RowDefinition Height="*"/>
             </Grid.RowDefinitions>
 
-            <TextBlock Text="Ваша музыка"
+            <TextBlock Text="Музыка на Вашем компьютере"
                        Margin="30 0 0 0"
                        FontFamily="Calibri"
                        Grid.Row="0" 

@@ -12,8 +12,8 @@ namespace Fooxboy.MusicX.Uwp.Services.VKontakte
     {
         public static string TwoFactorAuth()
         {
-            var dialog =  new TwoFactorAuthContentDialog();
-            dialog.PrimaryButtonClick += Click;
+            var dialog = new TwoFactorAuthContentDialog();
+            dialog.PrimaryButtonClick += (d, e) => { };
             string result = null;
 
             Task<string> a = Task.Run(async () =>
@@ -25,7 +25,7 @@ namespace Fooxboy.MusicX.Uwp.Services.VKontakte
             return result;
         }
 
-        public static void Click(ContentDialog dialog, ContentDialogButtonClickEventArgs e) 
+        public static void AutoAuth()
         {
 
         }
