@@ -175,6 +175,7 @@
     <Compile Include="Services\TileHelperService.cs" />
     <Compile Include="Services\VKontakte\AuthService.cs" />
     <Compile Include="Services\VKontakte\MusicService.cs" />
+    <Compile Include="Services\VKontakte\PlaylistsService.cs" />
     <Compile Include="Services\VKontakte\TokenService.cs" />
     <Compile Include="StaticContent.cs" />
     <Compile Include="Utils\Extensions\CollectionsExtensions.cs" />

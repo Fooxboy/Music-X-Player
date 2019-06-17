@@ -16,7 +16,7 @@
         </Grid.RowDefinitions>
 
         <!--Грид в котором плейлисты-->
-        <Grid Grid.Row="1" x:Name="PlaylistsGrid">
+        <Grid Grid.Row="1" Visibility="{x:Bind ViewModel.VisibilityPlaylists}" x:Name="PlaylistsGrid">
             <Grid.RowDefinitions>
                 <RowDefinition Height="auto"/>
                 <RowDefinition Height="*"/>
@@ -39,11 +39,11 @@
 
             <ListView x:Name="ListViewPlaylists"
                       ScrollViewer.VerticalScrollBarVisibility="Disabled"
-                      ItemsSource=""
+                      ItemsSource="{x:Bind ViewModel.Playlists, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                       ScrollViewer.HorizontalScrollBarVisibility="Disabled"
                       ScrollViewer.HorizontalScrollMode="Enabled"                  
                       ScrollViewer.VerticalScrollMode="Disabled"
-                      SelectedItem=""
+                      SelectedItem="{x:Bind ViewModel.SelectPlaylist, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                       ItemClick=""
                       Tapped=""
                       ItemTemplate="{ThemeResource PlaylistTemplate}"
@@ -104,8 +104,8 @@
                       HorizontalAlignment="Stretch"
                       ItemContainerStyle="{StaticResource ListViewItemContainerStyle}"
                       Style="{StaticResource ListViewStyle}"
-                      SelectedItem="{x:Bind ViewModel.SelectAudio}"
-                      ItemsSource="{x:Bind ViewModel.Music}"
+                      SelectedItem="{x:Bind ViewModel.SelectAudio, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                      ItemsSource="{x:Bind ViewModel.Music, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                       Tapped="{x:Bind ViewModel.MusicListView_Tapped}"
                       ItemTemplate="{ThemeResource TrackTemplate}">
                 <ListView.ItemsPanel >
@@ -119,7 +119,14 @@
 
             </ListView>
 
-            <StackPanel Visibility="Visible"
+            <ProgressRing HorizontalAlignment="Center" 
+                          Width="50"
+                          Height="50"
+                          Visibility="{x:Bind ViewModel.VisibilityLoading}"
+                          VerticalAlignment="Center"
+                          Grid.Row="1"/>
+
+            <StackPanel Visibility="{x:Bind ViewModel.VisibilityNoTracks, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                         HorizontalAlignment="Center" 
                         VerticalAlignment="Center"
                         Grid.Row="1">
@@ -133,7 +140,7 @@
                            Text="Где взять музыку?"/>
                 <TextBlock HorizontalAlignment="Center"
                            Foreground="{ThemeResource SubText}"
-                           Text="Попробуйте зайти в раздел рекомендации!."/>
+                           Text="Попробуйте зайти в раздел рекомендации и откройте для себя новую музыку"/>
             </StackPanel>
 
         </Grid>
