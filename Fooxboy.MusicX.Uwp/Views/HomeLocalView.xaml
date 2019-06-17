@@ -22,7 +22,7 @@
                 <RowDefinition Height="auto"/>
                 <RowDefinition Height="*"/>
             </Grid.RowDefinitions>
-            <TextBlock Text="Плейлисты на Вашем комьютере"
+            <TextBlock Text="Ваши плейлисты"
                        Margin="30 0 0 0"
                        FontFamily="Calibri"
                        Grid.Row="0" 
@@ -154,12 +154,18 @@
                 <RowDefinition Height="*"/>
             </Grid.RowDefinitions>
 
-            <TextBlock Text="Музыка на Вашем компьютере"
+            <TextBlock Text="Ваша музыка"
                        Margin="30 0 0 0"
                        FontFamily="Calibri"
                        Grid.Row="0" 
                        FontWeight="ExtraBold" 
                        FontSize="42" MinWidth="300"/>
+            <TextBlock Text="На компьютере"
+                       Foreground="{ThemeResource SubText}"
+                       VerticalAlignment="Center"
+                       Margin="282 20 0 0"
+                       FontFamily="Calibri"
+                       Grid.Row="0"  MinWidth="300"/>
             <Button FontSize="22"
                     BorderThickness="0"
                     FontFamily="Segoe MDL2 Assets"
@@ -174,11 +180,12 @@
             </Button>
             <TextBox x:Name="SearchBox"
                      Grid.Row="0"
+                     Style="{ThemeResource TextBoxLoginStyle}"
                      HorizontalAlignment="Right"
                      Margin="0 0 80 0" Height="32"
                      Width="200"
                      PlaceholderText="Найти музыку"
-                     TextChanged="TextBox_OnTextChanged"></TextBox>
+                     TextChanged="TextBox_OnTextChanged"/>
 
             <ListView Grid.Row="1" 
                       x:Name="MusicListView"
