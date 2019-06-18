@@ -44,8 +44,8 @@
                       ScrollViewer.HorizontalScrollMode="Enabled"                  
                       ScrollViewer.VerticalScrollMode="Disabled"
                       SelectedItem="{x:Bind ViewModel.SelectPlaylist, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                      ItemClick=""
-                      Tapped=""
+                      ItemClick="{x:Bind ViewModel.ListViewPlaylists_ItemClick}"
+                      Tapped="{x:Bind ViewModel.ListViewPlaylists_Tapped}"
                       ItemTemplate="{ThemeResource PlaylistTemplate}"
                       Grid.Row="1">
                 <ListView.ItemsPanel>

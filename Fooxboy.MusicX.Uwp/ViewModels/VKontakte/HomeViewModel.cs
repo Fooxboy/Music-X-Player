@@ -8,6 +8,7 @@ using Fooxboy.MusicX.Core.VKontakte.Music;
 using Fooxboy.MusicX.Uwp.Models;
 using Fooxboy.MusicX.Uwp.Services.VKontakte;
 using Windows.UI.Xaml;
+using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Input;
 
 namespace Fooxboy.MusicX.Uwp.ViewModels.VKontakte
@@ -50,11 +51,30 @@ namespace Fooxboy.MusicX.Uwp.ViewModels.VKontakte
         }
 
 
-        public LoadingCollection<AudioFile> Music { get; set; }
-        public LoadingCollection<PlaylistFile> Playlists { get; set; }
+        public LoadingCollection<AudioFile> Music
+        {
+            get => StaticContent.MusicVKontakte;
+            set
+            {
+                StaticContent.MusicVKontakte = value;
+            }
+        }
+        public LoadingCollection<PlaylistFile> Playlists
+        {
+            get => StaticContent.PlaylistsVKontakte;
+            set
+            {
+                StaticContent.PlaylistsVKontakte = value;
+            }
+        }
 
         public async Task<List<AudioFile>> GetMoreAudio(CancellationToken token, uint offset)
         {
+            if(Music.Count > 0)
+            {
+                VisibilityLoading = Visibility.Collapsed;
+                Changed("VisibilityLoading");
+            }
             var tracks = await Library.Tracks(countTracksLoading, Convert.ToInt32(offset));
             var music = MusicService.ConvertToAudioFile(tracks);
             return music;
@@ -83,11 +103,35 @@ namespace Fooxboy.MusicX.Uwp.ViewModels.VKontakte
 
         public async void MusicListView_Tapped(object sender, TappedRoutedEventArgs e)
         {
+            if (SelectAudio == null) return; 
+             
+            await MusicService.PlayMusic(SelectAudio, 1);
+        }
+
+        public void ListViewPlaylists_Tapped(object sender, TappedRoutedEventArgs e)
+        {
+
+        }
+
+        public void ListViewPlaylists_ItemClick(object sender, ItemClickEventArgs e)
+        {
 
         }
 
         public Visibility VisibilityNoTracks { get; set; }
         public Visibility VisibilityLoading { get; set; }
-        public Visibility VisibilityPlaylists { get; set; }
+
+        private Visibility visibilityPlaylists;
+        public Visibility VisibilityPlaylists
+        {
+            get => VisibilityPlaylists;
+            set
+            {
+                if (visibilityPlaylists == value) return;
+
+                visibilityPlaylists = value;
+                Changed("VisibilityPlaylists");
+            }
+        }
     }
 }

@@ -63,6 +63,10 @@ namespace Fooxboy.MusicX.Uwp
                 else return music;
             }
         }
+
+        public static LoadingCollection<AudioFile> MusicVKontakte { get; set; }
+        public static LoadingCollection<PlaylistFile> PlaylistsVKontakte { get; set; }
+
         public static bool OpenFiles { get; set; }
 
         public static ConfigApp Config { get; set; }

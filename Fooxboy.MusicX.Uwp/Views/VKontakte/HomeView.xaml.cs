@@ -31,5 +31,6 @@ namespace Fooxboy.MusicX.Uwp.Views.VKontakte
 
 
         public HomeViewModel ViewModel { get; set; }
+
     }
 }

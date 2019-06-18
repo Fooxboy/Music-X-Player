@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Fooxboy.MusicX.Core.Interfaces;
 using Fooxboy.MusicX.Uwp.Models;
+using Fooxboy.MusicX.Uwp.Utils.Extensions;
 
 namespace Fooxboy.MusicX.Uwp.Services.VKontakte
 {
@@ -37,6 +38,37 @@ namespace Fooxboy.MusicX.Uwp.Services.VKontakte
             }
 
             return tracks;
+        }
+
+
+        public async static Task PlayMusic(AudioFile audioFile, int typePlay, PlaylistFile playlistPlay= null)
+        {
+            //type play:
+            //1 - проигрования из списка треков
+            //2 - проигрование трека из плейлиста
+
+            var playlistNowPlay = new PlaylistFile()
+            {
+                Artist = "Music X",
+                Cover = "ms-appx:///Assets/Images/now.png",
+                Id = 1000,
+                Name = "Сейчас играет",
+                TracksFiles = new List<AudioFile>(),
+                IsLocal = false
+            };
+
+
+            if (typePlay == 1)
+            {
+                foreach (var trackMusic in StaticContent.MusicVKontakte) playlistNowPlay.TracksFiles.Add(trackMusic);
+                StaticContent.AudioService.SetCurrentPlaylist(playlistNowPlay.ToAudioPlaylist(), false);
+                StaticContent.AudioService.CurrentPlaylist.CurrentItem = audioFile;
+            }
+
+            if (!(StaticContent.PlaylistsVKontakte.Any(p => p.Id == 1000)))
+            {
+                StaticContent.PlaylistsVKontakte.Add(playlistNowPlay);
+            }
         }
 
     }
