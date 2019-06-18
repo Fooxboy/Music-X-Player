@@ -268,7 +268,6 @@
                                 HorizontalAlignment="Stretch"
                                 Height="40" Padding="0" 
                                 Visibility="{x:Bind PlayerMenuViewModel.VkontaktePages}"
-                                
                                 BorderThickness="0"
                                 Command="{x:Bind PlayerMenuViewModel.NavigateToMain}">
                             <Button.Background>
@@ -401,7 +400,7 @@
                                     </ImageBrush>
                                 </Ellipse.Fill>
                             </Ellipse>
-                            <TextBlock Grid.Column="2" Padding="5" Text="Не авторизован"/>
+                            <TextBlock Grid.Column="2" Padding="5" Text="{x:Bind PlayerMenuViewModel.NameAccount, Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"/>
                         </Grid>
                     </Button.Content>
                 </Button>
