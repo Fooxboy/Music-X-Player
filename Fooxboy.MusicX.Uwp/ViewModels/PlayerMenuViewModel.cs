@@ -114,6 +114,12 @@ namespace Fooxboy.MusicX.Uwp.ViewModels
                     Changed("AccountSelector");
                 }
             );
+
+            if (StaticContent.IsAuth)
+            {
+                VkontaktePages = Visibility.Visible;
+            }
+            else VkontaktePages = Visibility.Collapsed;
         }
 
         public RelayCommand NavigateToSettings { get; set; }
@@ -121,11 +127,19 @@ namespace Fooxboy.MusicX.Uwp.ViewModels
         public RelayCommand NavigateToSearch { get; set; }
         public RelayCommand NavigateToPro { get; set; }
         public RelayCommand NavigateToLogin { get; set; }
+        public RelayCommand NavigateToHomeVkontakte { get; set; }
+        public RelayCommand NavigateToRecommendations { get; set; }
+        public RelayCommand NavigateToPopular { get; set; }
 
         public Visibility SettingsSelector { get; set; }
         public Visibility MainSelector { get; set; }
         public Visibility SearchSelector { get; set; }
         public Visibility AccountSelector { get; set; }
         public Visibility ProSelector { get; set; }
+        public Visibility HomeVkontakteSelector { get; set; }
+        public Visibility RecommendationsSelector { get; set; }
+        public Visibility PopularSelector { get; set; }
+
+        public Visibility VkontaktePages { get; set; }
     }
 }

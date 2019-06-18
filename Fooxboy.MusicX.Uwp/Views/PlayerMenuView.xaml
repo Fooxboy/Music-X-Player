@@ -184,6 +184,117 @@
                                 HorizontalContentAlignment="Left"
                                 HorizontalAlignment="Stretch"
                                 Height="40" Padding="0" 
+                                Visibility="{x:Bind PlayerMenuViewModel.VkontaktePages}"
+                                BorderThickness="0"
+                                Command="{x:Bind PlayerMenuViewModel.NavigateToHomeVkontakte}">
+                            <Button.Background>
+                                <SolidColorBrush Opacity="0"/>
+                            </Button.Background>
+                            <Button.Content>
+                                <Grid>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="5"/>
+                                        <ColumnDefinition Width="30"/>
+                                        <ColumnDefinition Width="auto"/>
+                                    </Grid.ColumnDefinitions>
+                                    <Rectangle Visibility="{x:Bind PlayerMenuViewModel.HomeVkontakteSelector, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" Grid.Column="0" Fill="#0078d7" Height="30" Width="5"/>
+                                    <TextBlock Grid.Column="1" Padding="5"
+                                               FontSize="20" 
+                                               FontFamily="Segoe MDL2 Assets" Text="&#xE80F;"
+                                               Width="30" Height="30"/>
+                                    <TextBlock Grid.Column="2" Padding="5" Text="Главная"/>
+                                </Grid>
+                            </Button.Content>
+                        </Button>
+                        
+                        <Button FontSize="16" 
+                                HorizontalContentAlignment="Left"
+                                Visibility="{x:Bind PlayerMenuViewModel.VkontaktePages}"
+                                
+                                HorizontalAlignment="Stretch"
+                                Height="40" Padding="0" 
+                                BorderThickness="0"
+                                Command="{x:Bind PlayerMenuViewModel.NavigateToRecommendations}">
+                            <Button.Background>
+                                <SolidColorBrush Opacity="0"/>
+                            </Button.Background>
+                            <Button.Content>
+                                <Grid>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="5"/>
+                                        <ColumnDefinition Width="30"/>
+                                        <ColumnDefinition Width="auto"/>
+                                    </Grid.ColumnDefinitions>
+                                    <Rectangle Visibility="{x:Bind PlayerMenuViewModel.RecommendationsSelector, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" Grid.Column="0" Fill="#0078d7" Height="30" Width="5"/>
+                                    <TextBlock Grid.Column="1" Padding="5"
+                                               FontSize="20" 
+                                               FontFamily="Segoe MDL2 Assets" Text="&#xE8D6;"
+                                               Width="30" Height="30"/>
+                                    <TextBlock Grid.Column="2" Padding="5" Text="Рекомендации"/>
+                                </Grid>
+                            </Button.Content>
+                        </Button>
+
+                        <Button FontSize="16" 
+                                HorizontalContentAlignment="Left"
+                                HorizontalAlignment="Stretch"
+                                Height="40" Padding="0" 
+                                Visibility="{x:Bind PlayerMenuViewModel.VkontaktePages}"
+                                
+                                BorderThickness="0"
+                                Command="{x:Bind PlayerMenuViewModel.PopularSelector}">
+                            <Button.Background>
+                                <SolidColorBrush Opacity="0"/>
+                            </Button.Background>
+                            <Button.Content>
+                                <Grid>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="5"/>
+                                        <ColumnDefinition Width="30"/>
+                                        <ColumnDefinition Width="auto"/>
+                                    </Grid.ColumnDefinitions>
+                                    <Rectangle Visibility="{x:Bind PlayerMenuViewModel.PopularSelector, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" Grid.Column="0" Fill="#0078d7" Height="30" Width="5"/>
+                                    <TextBlock Grid.Column="1" Padding="5"
+                                               FontSize="20" 
+                                               FontFamily="Segoe MDL2 Assets" Text="&#xE208;"
+                                               Width="30" Height="30"/>
+                                    <TextBlock Grid.Column="2" Padding="5" Text="Популярное"/>
+                                </Grid>
+                            </Button.Content>
+                        </Button>
+
+                        <Button FontSize="16" 
+                                HorizontalContentAlignment="Left"
+                                HorizontalAlignment="Stretch"
+                                Height="40" Padding="0" 
+                                Visibility="{x:Bind PlayerMenuViewModel.VkontaktePages}"
+                                
+                                BorderThickness="0"
+                                Command="{x:Bind PlayerMenuViewModel.NavigateToMain}">
+                            <Button.Background>
+                                <SolidColorBrush Opacity="0"/>
+                            </Button.Background>
+                            <Button.Content>
+                                <Grid>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="5"/>
+                                        <ColumnDefinition Width="30"/>
+                                        <ColumnDefinition Width="auto"/>
+                                    </Grid.ColumnDefinitions>
+                                    <Rectangle Visibility="{x:Bind PlayerMenuViewModel.MainSelector, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" Grid.Column="0" Fill="#0078d7" Height="30" Width="5"/>
+                                    <TextBlock Grid.Column="1" Padding="5"
+                                               FontSize="20" 
+                                               FontFamily="Segoe MDL2 Assets" Text="&#xE118;"
+                                               Width="30" Height="30"/>
+                                    <TextBlock Grid.Column="2" Padding="5" Text="Загруженное"/>
+                                </Grid>
+                            </Button.Content>
+                        </Button>
+
+                        <Button FontSize="16" 
+                                HorizontalContentAlignment="Left"
+                                HorizontalAlignment="Stretch"
+                                Height="40" Padding="0" 
                                 BorderThickness="0"
                                 Command="{x:Bind PlayerMenuViewModel.NavigateToMain}">
                             <Button.Background>

@@ -68,6 +68,7 @@ namespace Fooxboy.MusicX.Uwp
         public static LoadingCollection<PlaylistFile> PlaylistsVKontakte { get; set; }
 
         public static bool OpenFiles { get; set; }
+        public static bool IsAuth { get; set; }
 
         public static ConfigApp Config { get; set; }
         public const bool IsPro = false;
