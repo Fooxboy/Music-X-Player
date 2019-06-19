@@ -144,8 +144,14 @@
     <Compile Include="Resources\ContentDialogs\EditPlaylistContentDialog.xaml.cs">
       <DependentUpon>EditPlaylistContentDialog.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Resources\ContentDialogs\ErrorConnectContentDialog.xaml.cs">
+      <DependentUpon>ErrorConnectContentDialog.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Resources\ContentDialogs\ExceptionDialog.xaml.cs">
       <DependentUpon>ExceptionDialog.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Resources\ContentDialogs\IncorrectLoginOrPasswordContentDialog.xaml.cs">
+      <DependentUpon>IncorrectLoginOrPasswordContentDialog.xaml</DependentUpon>
     </Compile>
     <Compile Include="Resources\ContentDialogs\PropertiesTrackContentDialog.xaml.cs">
       <DependentUpon>PropertiesTrackContentDialog.xaml</DependentUpon>
@@ -306,7 +312,15 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Resources\ContentDialogs\ErrorConnectContentDialog.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Resources\ContentDialogs\ExceptionDialog.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Resources\ContentDialogs\IncorrectLoginOrPasswordContentDialog.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

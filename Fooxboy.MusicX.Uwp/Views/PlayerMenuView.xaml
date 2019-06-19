@@ -186,7 +186,7 @@
                                 Height="40" Padding="0" 
                                 Visibility="{x:Bind PlayerMenuViewModel.VkontaktePages}"
                                 BorderThickness="0"
-                                Command="{x:Bind PlayerMenuViewModel.NavigateToHomeVkontakte}">
+                                Command="{x:Bind PlayerMenuViewModel.NavigateToHomeVkontakte, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
                             <Button.Background>
                                 <SolidColorBrush Opacity="0"/>
                             </Button.Background>
@@ -209,7 +209,7 @@
                         
                         <Button FontSize="16" 
                                 HorizontalContentAlignment="Left"
-                                Visibility="{x:Bind PlayerMenuViewModel.VkontaktePages}"
+                                Visibility="{x:Bind PlayerMenuViewModel.VkontaktePages, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                                 
                                 HorizontalAlignment="Stretch"
                                 Height="40" Padding="0" 
@@ -239,7 +239,7 @@
                                 HorizontalContentAlignment="Left"
                                 HorizontalAlignment="Stretch"
                                 Height="40" Padding="0" 
-                                Visibility="{x:Bind PlayerMenuViewModel.VkontaktePages}"
+                                Visibility="{x:Bind PlayerMenuViewModel.VkontaktePages, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                                 
                                 BorderThickness="0"
                                 Command="{x:Bind PlayerMenuViewModel.NavigateToPopular}">
@@ -267,7 +267,7 @@
                                 HorizontalContentAlignment="Left"
                                 HorizontalAlignment="Stretch"
                                 Height="40" Padding="0" 
-                                Visibility="{x:Bind PlayerMenuViewModel.VkontaktePages}"
+                                Visibility="{x:Bind PlayerMenuViewModel.VkontaktePages, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                                 BorderThickness="0"
                                 Command="{x:Bind PlayerMenuViewModel.NavigateToMain}">
                             <Button.Background>

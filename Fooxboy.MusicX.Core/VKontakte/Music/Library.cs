@@ -24,6 +24,15 @@ namespace Fooxboy.MusicX.Core.VKontakte.Music
             return tracks;
         }
 
+        public async static Task<long> CountTracks()
+        {
+            if (StaticContent.VkApi == null) throw new Exception("Пользователь не авторизован");
+
+            var count = await StaticContent.VkApi.Audio.GetCountAsync(StaticContent.UserId);
+
+            return count;
+        }
+
         public async static Task<IList<IPlaylistFile>> Playlists(int count = 100, int offset = 0)
         {
             if (StaticContent.VkApi == null) throw new Exception("Пользователь не авторизован");

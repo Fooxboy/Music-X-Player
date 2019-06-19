@@ -15,7 +15,7 @@ namespace Fooxboy.MusicX.Uwp.Services.VKontakte
             var playlistFile = new PlaylistFile()
             {
                 Artist = playlist.Artist,
-                Cover = playlist.Cover,
+                Cover = "ms-appx:///Assets/Images/placeholder.png",
                 IsLocal = false,
                 Tracks = playlist.Tracks,
                 Id = playlist.Id,

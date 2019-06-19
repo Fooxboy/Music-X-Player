@@ -36,8 +36,10 @@ namespace Fooxboy.MusicX.Uwp.Views.VKontakte
 
         public HomeViewModel ViewModel { get; set; }
 
-        private void HomeView_Loaded(object sender, RoutedEventArgs e)
+        private async void HomeView_Loaded(object sender, RoutedEventArgs e)
         {
+            await ViewModel.PageLoaded();
+
             var scrollViewer = GetDescendants(MusicListView).OfType<ScrollViewer>().FirstOrDefault();
 
             timer.Tick += async (ss, eee) =>

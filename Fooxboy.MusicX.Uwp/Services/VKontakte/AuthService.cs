@@ -29,7 +29,8 @@ namespace Fooxboy.MusicX.Uwp.Services.VKontakte
 
         public async static Task AutoAuth()
         {
-
+            var tokenObject = await TokenService.Load();
+            await Fooxboy.MusicX.Core.VKontakte.Auth.Auto(tokenObject.Token);
         }
 
         public async static Task LogOut()
@@ -39,6 +40,18 @@ namespace Fooxboy.MusicX.Uwp.Services.VKontakte
             await TokenService.Delete();
         }
 
-        public async static Task<bool> IsAuth() => await StaticContent.LocalFolder.TryGetItemAsync("token.json") != null;
+        public async static Task<bool> IsAuth()
+        {
+            try
+            {
+                await StaticContent.LocalFolder.GetFileAsync("token.json");
+                return true;
+            }
+            catch
+            {
+                return false;
+            }
+            
+        }
     }
 }

@@ -45,18 +45,26 @@ namespace Fooxboy.MusicX.Uwp.ViewModels.VKontakte
                     token = await Fooxboy.MusicX.Core.VKontakte.Auth.User(Login, Password,  AuthService.TwoFactorAuth);
                 } catch (VkNet.Exception.UserAuthorizationFailException e)
                 {
-                    await new ExceptionDialog("Невозможно войти в аккаунт", "Возможно, логин или пароль не верный", e).ShowAsync();
+                    await new IncorrectLoginOrPasswordContentDialog().ShowAsync();
+                    //await new ExceptionDialog("Невозможно войти в аккаунт", "Возможно, логин или пароль не верный", e).ShowAsync();
                 } catch (VkNet.Exception.VkAuthorizationException e)
                 {
-                    await new ExceptionDialog("Невозможно войти в аккаунт", "Возможно, логин или пароль не верный", e).ShowAsync();
+                    await new IncorrectLoginOrPasswordContentDialog().ShowAsync();
+                    //await new ExceptionDialog("Невозможно войти в аккаунт", "Возможно, логин или пароль не верный", e).ShowAsync();
                 }
                 catch (VkNet.Exception.VkApiAuthorizationException e)
                 {
-                    await new ExceptionDialog("Невозможно войти в аккаунт", "Возможно, логин или пароль не верный", e).ShowAsync();
+                    await new IncorrectLoginOrPasswordContentDialog().ShowAsync();
+                    //await new ExceptionDialog("Невозможно войти в аккаунт", "Возможно, логин или пароль не верный", e).ShowAsync();
                 }
                 catch (VkNet.Exception.UserDeletedOrBannedException e)
                 {
-                    await new ExceptionDialog("Невозможно войти в аккаунт", "Аккаунт удалён или заблокирован", e).ShowAsync();
+                    await new IncorrectLoginOrPasswordContentDialog().ShowAsync();
+                    //await new ExceptionDialog("Невозможно войти в аккаунт", "Аккаунт удалён или заблокирован", e).ShowAsync();
+                }
+                catch (Flurl.Http.FlurlHttpException)
+                {
+                    await new ErrorConnectContentDialog().ShowAsync();
                 }
 
                 if(token != null)
@@ -64,6 +72,7 @@ namespace Fooxboy.MusicX.Uwp.ViewModels.VKontakte
                     PlayerMenuViewModel.Instanse.VkontaktePages = Visibility.Visible;
                     await TokenService.Save(token);
                     StaticContent.IsAuth = true;
+                    StaticContent.CurrentSessionIsAuth = true;
                     StaticContent.NavigationContentService.Go(typeof(HomeView));
 
 

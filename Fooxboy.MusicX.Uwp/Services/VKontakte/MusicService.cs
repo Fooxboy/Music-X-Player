@@ -20,7 +20,7 @@ namespace Fooxboy.MusicX.Uwp.Services.VKontakte
                 var audiofile = new AudioFile()
                 {
                     Artist = track.Artist,
-                    Cover = track.Cover,
+                    Cover = "ms-appx:///Assets/Images/placeholder.png",
                     Duration = TimeSpan.FromSeconds(track.DurationSeconds),
                     DurationMinutes = track.DurationMinutes,
                     DurationSeconds = track.DurationSeconds,

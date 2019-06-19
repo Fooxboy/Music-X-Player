@@ -41,6 +41,7 @@
         <TextBlock  HorizontalAlignment="Center"
                     Grid.Row="3" 
                     x:Name="Start"
+                    Foreground="{ThemeResource SubText}"
                     Text="Давайте начнем."
                     FontSize="22"/>
 
@@ -54,6 +55,8 @@
         <Button Grid.Row="4" 
                 x:Name="ButtonStart"
                 HorizontalAlignment="Center"
+                Width="100"
+                Style="{ThemeResource ButtonLoginStyle}"
                 Click="Button_Click"
                 Margin="0 50 0 0"
                 Content="Начать"/>

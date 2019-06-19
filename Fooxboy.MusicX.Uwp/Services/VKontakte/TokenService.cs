@@ -21,8 +21,14 @@ namespace Fooxboy.MusicX.Uwp.Services.VKontakte
 
             StorageFile fileToken = null;
 
-            if (StaticContent.LocalFolder.TryGetItemAsync("token.json") == null) fileToken = await StaticContent.LocalFolder.CreateFileAsync("token.json");
-            else fileToken = await StaticContent.LocalFolder.GetFileAsync("token.json");
+            
+            try
+            {
+                fileToken = await StaticContent.LocalFolder.GetFileAsync("token.json");
+            }catch
+            {
+                fileToken = await StaticContent.LocalFolder.CreateFileAsync("token.json");
+            }
 
             var json = JsonConvert.SerializeObject(tokenModel);
 

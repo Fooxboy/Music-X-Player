@@ -4,8 +4,10 @@ using System.Linq;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
+using Fooxboy.MusicX.Core.Interfaces;
 using Fooxboy.MusicX.Core.VKontakte.Music;
 using Fooxboy.MusicX.Uwp.Models;
+using Fooxboy.MusicX.Uwp.Resources.ContentDialogs;
 using Fooxboy.MusicX.Uwp.Services.VKontakte;
 using Fooxboy.MusicX.Uwp.Views;
 using Fooxboy.MusicX.Uwp.Views.VKontakte;
@@ -18,7 +20,7 @@ namespace Fooxboy.MusicX.Uwp.ViewModels.VKontakte
     public class HomeViewModel:BaseViewModel
     {
         private static HomeViewModel instanse;
-        private long maxCountElements = 0;
+        private long maxCountElements = -1;
         const int countTracksLoading = 20;
         private bool loadingPlaylists = true;
 
@@ -46,9 +48,10 @@ namespace Fooxboy.MusicX.Uwp.ViewModels.VKontakte
 
 
             VisibilityNoTracks = Visibility.Collapsed;
-            VisibilityLoading = Visibility.Visible;
+            IsLoading = true;
+            visibilityPlaylists = Visibility.Visible;
             Changed("VisibilityNoTracks");
-            Changed("VisibilityLoading");
+            Changed("IsLoading");
             Changed("Music");
         }
 
@@ -59,6 +62,7 @@ namespace Fooxboy.MusicX.Uwp.ViewModels.VKontakte
             set
             {
                 StaticContent.MusicVKontakte = value;
+                Changed("Music");
             }
         }
         public LoadingCollection<PlaylistFile> Playlists
@@ -67,6 +71,7 @@ namespace Fooxboy.MusicX.Uwp.ViewModels.VKontakte
             set
             {
                 StaticContent.PlaylistsVKontakte = value;
+                Changed("Playlists");
             }
         }
 
@@ -74,19 +79,46 @@ namespace Fooxboy.MusicX.Uwp.ViewModels.VKontakte
         {
             if(Music.Count > 0)
             {
-                VisibilityLoading = Visibility.Collapsed;
-                Changed("VisibilityLoading");
+                IsLoading = true;
+                Changed("IsLoading");
             }
-            var tracks = await Library.Tracks(countTracksLoading, Convert.ToInt32(offset));
-            var music = MusicService.ConvertToAudioFile(tracks);
+
+            if(maxCountElements == -1) maxCountElements = await Library.CountTracks();
+            IList<IAudioFile> tracks;
+            List<AudioFile> music;
+            try
+            {
+                tracks = await Library.Tracks(countTracksLoading, Music.Count);
+                music = MusicService.ConvertToAudioFile(tracks);
+            }
+            catch (Flurl.Http.FlurlHttpException)
+            {
+                await new ErrorConnectContentDialog().ShowAsync();
+                music = new List<AudioFile>();
+            }
+            
+            IsLoading = false;
+            Changed("IsLoading");
             return music;
         }
 
         public async Task<List<PlaylistFile>> GetMorePlaylist(CancellationToken token, uint offset)
         {
-            var playlistsVk = await Library.Playlists(10, 0);
-            var playlists = new List<PlaylistFile>();
-            foreach (var playlist in playlistsVk) playlists.Add(PlaylistsService.ConvertToPlaylistFile(playlist));
+
+            IList<IPlaylistFile> playlistsVk;
+            List<PlaylistFile> playlists = new List<PlaylistFile>();
+            try
+            {
+                playlistsVk = await Library.Playlists(10, 0);
+                
+                foreach (var playlist in playlistsVk) playlists.Add(PlaylistsService.ConvertToPlaylistFile(playlist));
+                
+            }
+            catch (Flurl.Http.FlurlHttpException)
+            {
+                await new ErrorConnectContentDialog().ShowAsync();
+            }
+            loadingPlaylists = false;
             return playlists;
         }
 
@@ -95,44 +127,51 @@ namespace Fooxboy.MusicX.Uwp.ViewModels.VKontakte
         {
             if(StaticContent.IsAuth)
             {
-                try
+                if(StaticContent.CurrentSessionIsAuth)
                 {
-                    await AuthService.AutoAuth();
-                }catch(VkNet.Exception.UserAuthorizationFailException)
-                {
-                    await AuthService.LogOut();
-                    StaticContent.NavigationContentService.Go(typeof(AuthView));
-                }catch(VkNet.Exception.VkAuthorizationException)
-                {
-                    await AuthService.LogOut();
-                    StaticContent.NavigationContentService.Go(typeof(AuthView));
-                }
-                catch(VkNet.Exception.VkApiAuthorizationException e)
-                {
-                    await AuthService.LogOut();
-                    StaticContent.NavigationContentService.Go(typeof(AuthView));
-                }
-                catch(VkNet.Exception.UserDeletedOrBannedException e)
-                {
-                    await AuthService.LogOut();
-                    StaticContent.NavigationContentService.Go(typeof(AuthView));
-                }
-                
+                    try
+                    {
+                        await AuthService.AutoAuth();
+                    }
+                    catch (VkNet.Exception.UserAuthorizationFailException)
+                    {
+                        await AuthService.LogOut();
+                        StaticContent.NavigationContentService.Go(typeof(AuthView));
+                    }
+                    catch (VkNet.Exception.VkAuthorizationException)
+                    {
+                        await AuthService.LogOut();
+                        StaticContent.NavigationContentService.Go(typeof(AuthView));
+                    }
+                    catch (VkNet.Exception.VkApiAuthorizationException e)
+                    {
+                        await AuthService.LogOut();
+                        StaticContent.NavigationContentService.Go(typeof(AuthView));
+                    }
+                    catch (VkNet.Exception.UserDeletedOrBannedException e)
+                    {
+                        await AuthService.LogOut();
+                        StaticContent.NavigationContentService.Go(typeof(AuthView));
+                    }catch(VkNet.Exception.AccessTokenInvalidException)
+                    {
+                        await AuthService.LogOut();
+                        StaticContent.NavigationContentService.Go(typeof(AuthView));
+                    }catch (Flurl.Http.FlurlHttpException)
+                    {
+                        PlayerMenuViewModel.Instanse.VkontaktePages = Visibility.Collapsed;
+                        await new ErrorConnectContentDialog().ShowAsync();
+                        StaticContent.IsAuth = false;
+                        StaticContent.NavigationContentService.Go(typeof(HomeLocalView));
+                    }
+                } 
             }
         }
 
         public PlaylistFile SelectPlaylist { get; set; }
 
         public AudioFile SelectAudio { get; set; }
-        public bool HasMoreGetAudio()
-        {
-            return true;
-        }
-
-        public bool HasMoreGetPlaylists()
-        {
-            return loadingPlaylists;
-        }
+        public bool HasMoreGetAudio() => maxCountElements < Music.Count;
+        public bool HasMoreGetPlaylists() => loadingPlaylists;
 
         public async void MusicListView_Tapped(object sender, TappedRoutedEventArgs e)
         {
@@ -152,12 +191,12 @@ namespace Fooxboy.MusicX.Uwp.ViewModels.VKontakte
         }
 
         public Visibility VisibilityNoTracks { get; set; }
-        public Visibility VisibilityLoading { get; set; }
+        public bool IsLoading { get; set; }
 
         private Visibility visibilityPlaylists;
         public Visibility VisibilityPlaylists
         {
-            get => VisibilityPlaylists;
+            get => visibilityPlaylists;
             set
             {
                 if (visibilityPlaylists == value) return;

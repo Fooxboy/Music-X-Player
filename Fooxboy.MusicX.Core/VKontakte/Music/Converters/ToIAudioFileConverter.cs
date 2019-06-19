@@ -12,16 +12,30 @@ namespace Fooxboy.MusicX.Core.VKontakte.Music.Converters
 
         public static IAudioFile ToIAudioFile(this Audio audio)
         {
+            string cover;
+            long idPlaylist = 0;
+            if (audio.Album == null)
+            {
+                cover = "no";
+                idPlaylist = 0;
+            }
+            else
+            {
+                cover = audio.Album.Cover.Photo135;
+                idPlaylist = audio.Album.Id;
+            }
+            var duration = TimeSpan.FromSeconds(audio.Duration);
             IAudioFile audioFile = new AudioFileAnyPlatform()
             {
                 Artist = audio.Artist,
-                Cover = audio.Album.Cover.Photo135,
+                Cover = cover,
                 DurationSeconds = audio.Duration,
                 Id = audio.Id.Value,
                 IsLocal = false,
                 InternalId = audio.Id.Value,
+                DurationMinutes = $"{duration.Minutes}:{duration.Seconds}",
                 OwnerId = audio.OwnerId.Value,
-                PlaylistId = audio.Album.Id,
+                PlaylistId = idPlaylist,
                 SourceString = audio.Url.DecodeAudioUrl().ToString(),
                 Title = audio.Title
             };

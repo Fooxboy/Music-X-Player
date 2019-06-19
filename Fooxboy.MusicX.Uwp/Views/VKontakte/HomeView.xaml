@@ -16,7 +16,7 @@
         </Grid.RowDefinitions>
 
         <!--Грид в котором плейлисты-->
-        <Grid Grid.Row="1" Visibility="{x:Bind ViewModel.VisibilityPlaylists}" x:Name="PlaylistsGrid">
+        <Grid Grid.Row="1" Visibility="Collapsed" x:Name="PlaylistsGrid">
             <Grid.RowDefinitions>
                 <RowDefinition Height="auto"/>
                 <RowDefinition Height="*"/>
@@ -122,7 +122,7 @@
             <ProgressRing HorizontalAlignment="Center" 
                           Width="50"
                           Height="50"
-                          Visibility="{x:Bind ViewModel.VisibilityLoading}"
+                          IsActive="{x:Bind ViewModel.IsLoading, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                           VerticalAlignment="Center"
                           Grid.Row="1"/>
 
