@@ -36,5 +36,14 @@ namespace Fooxboy.MusicX.Uwp.Services.VKontakte
             var model = JsonConvert.DeserializeObject<TokenFile>(json);
             return model;
         }
+
+
+        public async static Task Delete()
+        {
+            var fileToken = await StaticContent.LocalFolder.GetFileAsync("token.json");
+            await fileToken.DeleteAsync();
+        }
+
+        
     }
 }

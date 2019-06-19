@@ -34,7 +34,6 @@ namespace Fooxboy.MusicX.Uwp.Views.VKontakte
             Application.Current.Suspending += AppSuspending;
         }
 
-
         public HomeViewModel ViewModel { get; set; }
 
         private void HomeView_Loaded(object sender, RoutedEventArgs e)

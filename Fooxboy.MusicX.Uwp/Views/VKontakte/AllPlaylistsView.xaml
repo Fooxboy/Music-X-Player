@@ -1,5 +1,5 @@
 ﻿<Page
-    x:Class="Fooxboy.MusicX.Uwp.Views.VKontakte.AccountView"
+    x:Class="Fooxboy.MusicX.Uwp.Views.VKontakte.AllPlaylistsView"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:local="using:Fooxboy.MusicX.Uwp.Views.VKontakte"
@@ -9,6 +9,6 @@
     Background="{ThemeResource BackgroundApp}">
 
     <Grid>
-        <TextBlock Text="AccountView"/>
+
     </Grid>
 </Page>

@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Fooxboy.MusicX.Uwp.Resources.ContentDialogs;
 using Fooxboy.MusicX.Uwp.Services.VKontakte;
+using Fooxboy.MusicX.Uwp.Views.VKontakte;
 using Windows.UI.Popups;
 using Windows.UI.Xaml;
 
@@ -57,15 +58,15 @@ namespace Fooxboy.MusicX.Uwp.ViewModels.VKontakte
                 {
                     await new ExceptionDialog("Невозможно войти в аккаунт", "Аккаунт удалён или заблокирован", e).ShowAsync();
                 }
-                catch (Exception e)
-                {
-                    await new ExceptionDialog("Невозможно войти в аккаунт", "Неизвестная ошибка входа", e).ShowAsync();
-                }
 
                 if(token != null)
                 {
+                    PlayerMenuViewModel.Instanse.VkontaktePages = Visibility.Visible;
                     await TokenService.Save(token);
-                    //TODO: навигация на домашний экран.
+                    StaticContent.IsAuth = true;
+                    StaticContent.NavigationContentService.Go(typeof(HomeView));
+
+
                 }else
                 {
                     IsActiveProgressRing = false;

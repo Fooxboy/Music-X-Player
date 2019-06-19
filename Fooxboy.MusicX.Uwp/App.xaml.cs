@@ -8,6 +8,7 @@ using Fooxboy.MusicX.Core;
 using Fooxboy.MusicX.Uwp.Models;
 using Fooxboy.MusicX.Uwp.Resources.ContentDialogs;
 using Fooxboy.MusicX.Uwp.Services;
+using Fooxboy.MusicX.Uwp.Services.VKontakte;
 using Fooxboy.MusicX.Uwp.ViewModels;
 using GalaSoft.MvvmLight.Threading;
 using Newtonsoft.Json;
@@ -91,6 +92,11 @@ namespace Fooxboy.MusicX.Uwp
                     var config = JsonConvert.DeserializeObject<ConfigApp>(fileString);
                     StaticContent.Config = config;
                 }
+
+
+                //Авторизация
+                StaticContent.IsAuth = await AuthService.IsAuth();
+                if (StaticContent.IsAuth) await AuthService.AutoAuth();
 
 
                 Log.Trace("Размещение фрейма в текущем окне.");

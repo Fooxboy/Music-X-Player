@@ -242,7 +242,7 @@
                                 Visibility="{x:Bind PlayerMenuViewModel.VkontaktePages}"
                                 
                                 BorderThickness="0"
-                                Command="{x:Bind PlayerMenuViewModel.PopularSelector}">
+                                Command="{x:Bind PlayerMenuViewModel.NavigateToPopular}">
                             <Button.Background>
                                 <SolidColorBrush Opacity="0"/>
                             </Button.Background>

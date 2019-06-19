@@ -4,6 +4,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Fooxboy.MusicX.Uwp.Resources.ContentDialogs;
+using Fooxboy.MusicX.Uwp.ViewModels;
+using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 
 namespace Fooxboy.MusicX.Uwp.Services.VKontakte
@@ -25,9 +27,18 @@ namespace Fooxboy.MusicX.Uwp.Services.VKontakte
             return result;
         }
 
-        public static void AutoAuth()
+        public async static Task AutoAuth()
         {
 
         }
+
+        public async static Task LogOut()
+        {
+            StaticContent.IsAuth = false;
+            PlayerMenuViewModel.Instanse.VkontaktePages = Visibility.Collapsed;
+            await TokenService.Delete();
+        }
+
+        public async static Task<bool> IsAuth() => await StaticContent.LocalFolder.TryGetItemAsync("token.json") != null;
     }
 }

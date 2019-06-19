@@ -7,6 +7,8 @@ using System.Threading.Tasks;
 using Fooxboy.MusicX.Core.VKontakte.Music;
 using Fooxboy.MusicX.Uwp.Models;
 using Fooxboy.MusicX.Uwp.Services.VKontakte;
+using Fooxboy.MusicX.Uwp.Views;
+using Fooxboy.MusicX.Uwp.Views.VKontakte;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Input;
@@ -86,6 +88,37 @@ namespace Fooxboy.MusicX.Uwp.ViewModels.VKontakte
             var playlists = new List<PlaylistFile>();
             foreach (var playlist in playlistsVk) playlists.Add(PlaylistsService.ConvertToPlaylistFile(playlist));
             return playlists;
+        }
+
+
+        public async Task PageLoaded()
+        {
+            if(StaticContent.IsAuth)
+            {
+                try
+                {
+                    await AuthService.AutoAuth();
+                }catch(VkNet.Exception.UserAuthorizationFailException)
+                {
+                    await AuthService.LogOut();
+                    StaticContent.NavigationContentService.Go(typeof(AuthView));
+                }catch(VkNet.Exception.VkAuthorizationException)
+                {
+                    await AuthService.LogOut();
+                    StaticContent.NavigationContentService.Go(typeof(AuthView));
+                }
+                catch(VkNet.Exception.VkApiAuthorizationException e)
+                {
+                    await AuthService.LogOut();
+                    StaticContent.NavigationContentService.Go(typeof(AuthView));
+                }
+                catch(VkNet.Exception.UserDeletedOrBannedException e)
+                {
+                    await AuthService.LogOut();
+                    StaticContent.NavigationContentService.Go(typeof(AuthView));
+                }
+                
+            }
         }
 
         public PlaylistFile SelectPlaylist { get; set; }

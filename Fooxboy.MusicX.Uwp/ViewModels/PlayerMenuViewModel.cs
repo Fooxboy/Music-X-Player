@@ -106,7 +106,8 @@ namespace Fooxboy.MusicX.Uwp.ViewModels
                     MainSelector = Visibility.Collapsed;
                     ProSelector = Visibility.Collapsed;
                     AccountSelector = Visibility.Visible;
-                    StaticContent.NavigationContentService.Go(typeof(Views.VKontakte.AuthView));
+                    if(StaticContent.IsAuth) StaticContent.NavigationContentService.Go(typeof(Views.VKontakte.AccountView));
+                    else StaticContent.NavigationContentService.Go(typeof(Views.VKontakte.AuthView));
                     Changed("SettingsSelector");
                     Changed("SearchSelector");
                     Changed("MainSelector");
@@ -141,7 +142,16 @@ namespace Fooxboy.MusicX.Uwp.ViewModels
         public Visibility HomeVkontakteSelector { get; set; }
         public Visibility RecommendationsSelector { get; set; }
         public Visibility PopularSelector { get; set; }
-
-        public Visibility VkontaktePages { get; set; }
+        private Visibility vkontaktePages;
+        public Visibility VkontaktePages
+        {
+            get => vkontaktePages;
+            set
+            {
+                if (vkontaktePages == value) return;
+                vkontaktePages = value;
+                Changed("VkontaktePages");
+            }
+        }
     }
 }

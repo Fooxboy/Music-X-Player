@@ -15,31 +15,16 @@ using Windows.UI.Xaml.Navigation;
 
 // Документацию по шаблону элемента "Пустая страница" см. по адресу https://go.microsoft.com/fwlink/?LinkId=234238
 
-namespace Fooxboy.MusicX.Uwp.Views
+namespace Fooxboy.MusicX.Uwp.Views.VKontakte
 {
     /// <summary>
     /// Пустая страница, которую можно использовать саму по себе или для перехода внутри фрейма.
     /// </summary>
-    public sealed partial class MainFrameView : Page
+    public sealed partial class AllPlaylistsView : Page
     {
-        public MainFrameView()
+        public AllPlaylistsView()
         {
             this.InitializeComponent();
-            Window.Current.SetTitleBar(TitleBar);
-            StaticContent.PlayerMenuFrame = PlayerMenuFrame;
-            StaticContent.NavigationContentService = new Services.NavigationService() { RootFrame = ContentFrame };
-            PlayerMenuFrame.Navigate(typeof(PlayerMenuView));
-
-            if (StaticContent.IsAuth)
-            {
-                StaticContent.NavigationContentService.Go(typeof(VKontakte.HomeView));
-            }else
-            {
-                StaticContent.NavigationContentService.Go(typeof(HomeLocalView));
-
-            }
-
-
         }
     }
 }
