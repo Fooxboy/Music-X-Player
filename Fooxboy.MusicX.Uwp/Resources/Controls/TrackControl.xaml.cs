@@ -80,7 +80,7 @@ namespace Fooxboy.MusicX.Uwp.Resources.Controls
                     await MusicFilesService.UpdateMusicCollection();
                 }catch(Exception e)
                 {
-                    await new ExceptionDialog("Невозможно удалить этот трек", "Возможно, этот трек был уже удален.", e).ShowAsync();
+                    await ContentDialogService.Show(new ExceptionDialog("Невозможно удалить этот трек", "Возможно, этот трек был уже удален.", e));
                 }
 
             });
@@ -102,7 +102,7 @@ namespace Fooxboy.MusicX.Uwp.Resources.Controls
                     }
                 }catch(Exception e)
                 {
-                    await new ExceptionDialog("Невозможно добавить трек в избранное", "Возможно, этот трек поврежден или не существует плейлиста, если ошибка будет повторяться, переустановите приложение.", e).ShowAsync();
+                    await ContentDialogService.Show(new ExceptionDialog("Невозможно добавить трек в избранное", "Возможно, этот трек поврежден или не существует плейлиста, если ошибка будет повторяться, переустановите приложение.", e));
                 }
 
             });

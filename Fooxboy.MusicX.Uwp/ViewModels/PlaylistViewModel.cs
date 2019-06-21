@@ -23,7 +23,7 @@ namespace Fooxboy.MusicX.Uwp.ViewModels
             {
                 if(Playlist.Id != 1 & Playlist.Id != 2 & Playlist.Id != 1000)
                 {
-                    await new EditPlaylistContentDialog(Playlist).ShowAsync();
+                    await ContentDialogService.Show(new EditPlaylistContentDialog(Playlist));
                     Changed("Playlist");
                 }else
                 {

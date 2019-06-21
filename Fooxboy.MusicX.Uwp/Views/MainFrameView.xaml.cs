@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices.WindowsRuntime;
+using Fooxboy.MusicX.Uwp.Services;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
 using Windows.UI.Xaml;
@@ -32,14 +33,17 @@ namespace Fooxboy.MusicX.Uwp.Views
 
             if (StaticContent.IsAuth)
             {
-                StaticContent.NavigationContentService.Go(typeof(VKontakte.HomeView));
+                if (InternetService.CheckConnection())
+                {
+                    StaticContent.NavigationContentService.Go(typeof(VKontakte.HomeView));
+                }else
+                {
+                    StaticContent.NavigationContentService.Go(typeof(HomeLocalView));
+                }
             }else
             {
                 StaticContent.NavigationContentService.Go(typeof(HomeLocalView));
-
             }
-
-
         }
     }
 }

@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Fooxboy.MusicX.Uwp.Resources.ContentDialogs;
+using Fooxboy.MusicX.Uwp.Services;
 using Fooxboy.MusicX.Uwp.Services.VKontakte;
 using Fooxboy.MusicX.Uwp.Views.VKontakte;
 using Windows.UI.Popups;
@@ -42,29 +43,27 @@ namespace Fooxboy.MusicX.Uwp.ViewModels.VKontakte
 
                 try
                 {
-                    token = await Fooxboy.MusicX.Core.VKontakte.Auth.User(Login, Password,  AuthService.TwoFactorAuth);
-                } catch (VkNet.Exception.UserAuthorizationFailException e)
-                {
-                    await new IncorrectLoginOrPasswordContentDialog().ShowAsync();
-                    //await new ExceptionDialog("Невозможно войти в аккаунт", "Возможно, логин или пароль не верный", e).ShowAsync();
-                } catch (VkNet.Exception.VkAuthorizationException e)
-                {
-                    await new IncorrectLoginOrPasswordContentDialog().ShowAsync();
-                    //await new ExceptionDialog("Невозможно войти в аккаунт", "Возможно, логин или пароль не верный", e).ShowAsync();
+                    token = await Fooxboy.MusicX.Core.VKontakte.Auth.User(Login, Password, AuthService.TwoFactorAuth);
                 }
-                catch (VkNet.Exception.VkApiAuthorizationException e)
+                catch (VkNet.Exception.UserAuthorizationFailException e)
                 {
-                    await new IncorrectLoginOrPasswordContentDialog().ShowAsync();
-                    //await new ExceptionDialog("Невозможно войти в аккаунт", "Возможно, логин или пароль не верный", e).ShowAsync();
+                    await ContentDialogService.Show(new IncorrectLoginOrPasswordContentDialog());
                 }
-                catch (VkNet.Exception.UserDeletedOrBannedException e)
+                catch (VkNet.Exception.VkAuthorizationException)
                 {
-                    await new IncorrectLoginOrPasswordContentDialog().ShowAsync();
-                    //await new ExceptionDialog("Невозможно войти в аккаунт", "Аккаунт удалён или заблокирован", e).ShowAsync();
+                    await ContentDialogService.Show(new IncorrectLoginOrPasswordContentDialog());
+                }
+                catch (VkNet.Exception.VkApiAuthorizationException)
+                {
+                    await ContentDialogService.Show(new IncorrectLoginOrPasswordContentDialog());
+                }
+                catch (VkNet.Exception.UserDeletedOrBannedException)
+                {
+                    await ContentDialogService.Show(new IncorrectLoginOrPasswordContentDialog());
                 }
                 catch (Flurl.Http.FlurlHttpException)
                 {
-                    await new ErrorConnectContentDialog().ShowAsync();
+                    await ContentDialogService.Show(new ErrorConnectContentDialog());
                 }
 
                 if(token != null)

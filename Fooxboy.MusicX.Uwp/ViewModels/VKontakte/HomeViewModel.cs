@@ -8,6 +8,7 @@ using Fooxboy.MusicX.Core.Interfaces;
 using Fooxboy.MusicX.Core.VKontakte.Music;
 using Fooxboy.MusicX.Uwp.Models;
 using Fooxboy.MusicX.Uwp.Resources.ContentDialogs;
+using Fooxboy.MusicX.Uwp.Services;
 using Fooxboy.MusicX.Uwp.Services.VKontakte;
 using Fooxboy.MusicX.Uwp.Views;
 using Fooxboy.MusicX.Uwp.Views.VKontakte;
@@ -83,18 +84,18 @@ namespace Fooxboy.MusicX.Uwp.ViewModels.VKontakte
                 Changed("IsLoading");
             }
 
-            if(maxCountElements == -1) maxCountElements = await Library.CountTracks();
             IList<IAudioFile> tracks;
             List<AudioFile> music;
             try
             {
+                if (maxCountElements == -1) maxCountElements = await Library.CountTracks();
                 tracks = await Library.Tracks(countTracksLoading, Music.Count);
                 music = await MusicService.ConvertToAudioFile(tracks);
             }
             catch (Flurl.Http.FlurlHttpException)
             {
-                await new ErrorConnectContentDialog().ShowAsync();
                 music = new List<AudioFile>();
+                await ContentDialogService.Show(new ErrorConnectContentDialog()); 
             }
             
             IsLoading = false;
@@ -110,13 +111,11 @@ namespace Fooxboy.MusicX.Uwp.ViewModels.VKontakte
             try
             {
                 playlistsVk = await Library.Playlists(10, 0);
-                
-                foreach (var playlist in playlistsVk) playlists.Add(await PlaylistsService.ConvertToPlaylistFile(playlist));
-                
+                foreach (var playlist in playlistsVk) playlists.Add(await Services.VKontakte.PlaylistsService.ConvertToPlaylistFile(playlist));
             }
             catch (Flurl.Http.FlurlHttpException)
             {
-                await new ErrorConnectContentDialog().ShowAsync();
+                await ContentDialogService.Show(new ErrorConnectContentDialog());
             }
             loadingPlaylists = false;
             return playlists;
@@ -143,12 +142,12 @@ namespace Fooxboy.MusicX.Uwp.ViewModels.VKontakte
                         await AuthService.LogOut();
                         StaticContent.NavigationContentService.Go(typeof(AuthView));
                     }
-                    catch (VkNet.Exception.VkApiAuthorizationException e)
+                    catch (VkNet.Exception.VkApiAuthorizationException)
                     {
                         await AuthService.LogOut();
                         StaticContent.NavigationContentService.Go(typeof(AuthView));
                     }
-                    catch (VkNet.Exception.UserDeletedOrBannedException e)
+                    catch (VkNet.Exception.UserDeletedOrBannedException)
                     {
                         await AuthService.LogOut();
                         StaticContent.NavigationContentService.Go(typeof(AuthView));
@@ -159,7 +158,7 @@ namespace Fooxboy.MusicX.Uwp.ViewModels.VKontakte
                     }catch (Flurl.Http.FlurlHttpException)
                     {
                         PlayerMenuViewModel.Instanse.VkontaktePages = Visibility.Collapsed;
-                        await new ErrorConnectContentDialog().ShowAsync();
+                        await ContentDialogService.Show(new ErrorConnectContentDialog());
                         StaticContent.IsAuth = false;
                         StaticContent.NavigationContentService.Go(typeof(HomeLocalView));
                     }

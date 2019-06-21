@@ -173,7 +173,9 @@
     </Compile>
     <Compile Include="Services\AudioService.cs" />
     <Compile Include="Services\ConfigService.cs" />
+    <Compile Include="Services\ContentDialogService.cs" />
     <Compile Include="Services\FindMetadataService.cs" />
+    <Compile Include="Services\InternetService.cs" />
     <Compile Include="Services\MusicFilesService.cs" />
     <Compile Include="Services\NavigationService.cs" />
     <Compile Include="Services\PlaylistsService.cs" />
