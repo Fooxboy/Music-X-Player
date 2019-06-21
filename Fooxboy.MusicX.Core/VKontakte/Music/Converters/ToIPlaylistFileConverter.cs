@@ -12,10 +12,21 @@ namespace Fooxboy.MusicX.Core.VKontakte.Music.Converters
     {
         public static IPlaylistFile ToIPlaylistFile(this AudioPlaylist playlist, IList<IAudioFile> tracks)
         {
+
+            string cover;
+            try
+            {
+                cover = playlist.Cover.Photo300;
+            }
+            catch
+            {
+                cover = "no";
+            }
+
             IPlaylistFile playlistFile = new PlaylistFileAnyPlatform()
             {
                 Artist = playlist.FeaturedArtists.FirstOrDefault().Name,
-                Cover = playlist.Cover.Photo300,
+                Cover = cover,
                 Id = playlist.Id.Value,
                 IsLocal = false,
                 Tracks = tracks,

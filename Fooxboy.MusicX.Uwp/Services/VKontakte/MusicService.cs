@@ -11,16 +11,26 @@ namespace Fooxboy.MusicX.Uwp.Services.VKontakte
 {
     public static class MusicService
     {
-        public static List<AudioFile> ConvertToAudioFile(IList<IAudioFile> music)
+        public async static Task<List<AudioFile>> ConvertToAudioFile(IList<IAudioFile> music)
         {
             var tracks = new List<AudioFile>();
 
             foreach(var track in music)
             {
+                string coverImage;
+
+                if (track.Cover == "no")
+                {
+                    coverImage = "ms-appx:///Assets/Images/placeholder.png";
+                }else
+                {
+                    coverImage = await ImagesService.CoverAudio(track);
+                }
+
                 var audiofile = new AudioFile()
                 {
                     Artist = track.Artist,
-                    Cover = "ms-appx:///Assets/Images/placeholder.png",
+                    Cover = coverImage,
                     Duration = TimeSpan.FromSeconds(track.DurationSeconds),
                     DurationMinutes = track.DurationMinutes,
                     DurationSeconds = track.DurationSeconds,

@@ -50,7 +50,6 @@ namespace Fooxboy.MusicX.Uwp
             
         }
 
-
         protected async override void OnLaunched(LaunchActivatedEventArgs e)
         {
             DispatcherHelper.Initialize();

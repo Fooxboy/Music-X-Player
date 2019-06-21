@@ -180,6 +180,7 @@
     <Compile Include="Services\PlayMusicService.cs" />
     <Compile Include="Services\TileHelperService.cs" />
     <Compile Include="Services\VKontakte\AuthService.cs" />
+    <Compile Include="Services\VKontakte\ImagesService.cs" />
     <Compile Include="Services\VKontakte\MusicService.cs" />
     <Compile Include="Services\VKontakte\PlaylistsService.cs" />
     <Compile Include="Services\VKontakte\TokenService.cs" />

@@ -10,17 +10,26 @@ namespace Fooxboy.MusicX.Uwp.Services.VKontakte
 {
     public static class PlaylistsService
     {
-        public static PlaylistFile ConvertToPlaylistFile(IPlaylistFile playlist)
+        public async static Task<PlaylistFile> ConvertToPlaylistFile(IPlaylistFile playlist)
         {
+            string cover;
+            if(playlist.Cover == "no")
+            {
+                cover = "ms-appx:///Assets/Images/playlist-placeholder.png";
+            }else
+            {
+                cover = await ImagesService.CoverPlaylist(playlist);
+            }     
+
             var playlistFile = new PlaylistFile()
             {
                 Artist = playlist.Artist,
-                Cover = "ms-appx:///Assets/Images/placeholder.png",
+                Cover = cover,
                 IsLocal = false,
                 Tracks = playlist.Tracks,
                 Id = playlist.Id,
                 Name = playlist.Name,
-                TracksFiles = MusicService.ConvertToAudioFile(playlist.Tracks)
+                TracksFiles = await MusicService.ConvertToAudioFile(playlist.Tracks)
             };
 
             return playlistFile;

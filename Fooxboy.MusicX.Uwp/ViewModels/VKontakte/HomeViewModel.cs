@@ -89,7 +89,7 @@ namespace Fooxboy.MusicX.Uwp.ViewModels.VKontakte
             try
             {
                 tracks = await Library.Tracks(countTracksLoading, Music.Count);
-                music = MusicService.ConvertToAudioFile(tracks);
+                music = await MusicService.ConvertToAudioFile(tracks);
             }
             catch (Flurl.Http.FlurlHttpException)
             {
@@ -111,7 +111,7 @@ namespace Fooxboy.MusicX.Uwp.ViewModels.VKontakte
             {
                 playlistsVk = await Library.Playlists(10, 0);
                 
-                foreach (var playlist in playlistsVk) playlists.Add(PlaylistsService.ConvertToPlaylistFile(playlist));
+                foreach (var playlist in playlistsVk) playlists.Add(await PlaylistsService.ConvertToPlaylistFile(playlist));
                 
             }
             catch (Flurl.Http.FlurlHttpException)
