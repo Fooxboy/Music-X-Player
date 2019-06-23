@@ -92,6 +92,7 @@ namespace Fooxboy.MusicX.Uwp
                 }
 
                 CoreApplication.GetCurrentView().TitleBar.ExtendViewIntoTitleBar = true;
+
                 var appView = ApplicationView.GetForCurrentView();
                 appView.TitleBar.ButtonBackgroundColor = Colors.Transparent;
                 appView.TitleBar.ButtonInactiveBackgroundColor = Colors.Transparent;
@@ -125,9 +126,15 @@ namespace Fooxboy.MusicX.Uwp
                     appView.TitleBar.ButtonForegroundColor = Colors.White;
                 }
 
-                //Авторизация
-                StaticContent.IsAuth = await AuthService.IsAuth();
-                if (StaticContent.IsAuth) await AuthService.AutoAuth();
+                try
+                {
+                    StaticContent.IsAuth = await AuthService.IsAuth();
+                    if (StaticContent.IsAuth) await AuthService.AutoAuth();
+                }
+                catch (Flurl.Http.FlurlHttpException)
+                {
+                    //TODO: переход в офлайн режим
+                }
 
 
                 Log.Trace("Размещение фрейма в текущем окне.");

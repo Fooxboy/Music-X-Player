@@ -206,7 +206,9 @@ namespace Fooxboy.MusicX.Uwp.ViewModels.VKontakte
 
         public void ListViewPlaylists_Tapped(object sender, TappedRoutedEventArgs e)
         {
+            if (SelectPlaylist == null) return;
 
+            StaticContent.NavigationContentService.Go(typeof(PlaylistView), SelectPlaylist);
         }
 
         public void ListViewPlaylists_ItemClick(object sender, ItemClickEventArgs e)

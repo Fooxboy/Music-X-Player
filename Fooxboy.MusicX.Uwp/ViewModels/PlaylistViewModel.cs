@@ -21,7 +21,7 @@ namespace Fooxboy.MusicX.Uwp.ViewModels
         {
             EditPlaylist = new RelayCommand(async () =>
             {
-                if(Playlist.Id != 1 & Playlist.Id != 2 & Playlist.Id != 1000)
+                if(Playlist.Id != 1 & Playlist.Id != 2 & Playlist.Id != 1000 && Playlist.IsLocal)
                 {
                     await ContentDialogService.Show(new EditPlaylistContentDialog(Playlist));
                     Changed("Playlist");

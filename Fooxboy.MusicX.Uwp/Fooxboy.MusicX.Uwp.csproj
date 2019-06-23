@@ -178,6 +178,7 @@
     <Compile Include="Services\InternetService.cs" />
     <Compile Include="Services\MusicFilesService.cs" />
     <Compile Include="Services\NavigationService.cs" />
+    <Compile Include="Services\PlayerService.cs" />
     <Compile Include="Services\PlaylistsService.cs" />
     <Compile Include="Services\PlayMusicService.cs" />
     <Compile Include="Services\TileHelperService.cs" />
@@ -193,6 +194,7 @@
     <Compile Include="ViewModels\BaseViewModel.cs" />
     <Compile Include="ViewModels\CreatePlaylistViewModel.cs" />
     <Compile Include="ViewModels\HomeLocalViewModel.cs" />
+    <Compile Include="ViewModels\MiniPlayerViewModel.cs" />
     <Compile Include="ViewModels\PlayerMenuViewModel.cs" />
     <Compile Include="ViewModels\PlayerViewModel.cs" />
     <Compile Include="ViewModels\PlaylistViewModel.cs" />
@@ -207,6 +209,9 @@
     </Compile>
     <Compile Include="Views\MainFrameView.xaml.cs">
       <DependentUpon>MainFrameView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\MiniPlayerView.xaml.cs">
+      <DependentUpon>MiniPlayerView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\PlayerMenuView.xaml.cs">
       <DependentUpon>PlayerMenuView.xaml</DependentUpon>
@@ -388,6 +393,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\MainFrameView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\MiniPlayerView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

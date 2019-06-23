@@ -36,14 +36,24 @@ namespace Fooxboy.MusicX.Uwp.Views
         protected async override void OnNavigatedTo(NavigationEventArgs e)
         {
             if (e.Parameter == null) return;
-            PlaylistViewModel = new PlaylistViewModel();
-            if(((PlaylistFile)e.Parameter).Id != 1000)
+
+            var playlist = (PlaylistFile)e.Parameter;
+            if(playlist.IsLocal)
             {
-                PlaylistViewModel.Playlist = await PlaylistsService.GetById(((PlaylistFile)e.Parameter).Id);
+                PlaylistViewModel = new PlaylistViewModel();
+                if (((PlaylistFile)e.Parameter).Id != 1000)
+                {
+                    PlaylistViewModel.Playlist = await PlaylistsService.GetById(((PlaylistFile)e.Parameter).Id);
+                }
+                else
+                {
+                    PlaylistViewModel.Playlist = (PlaylistFile)e.Parameter;
+                }
             }else
             {
-                PlaylistViewModel.Playlist = (PlaylistFile)e.Parameter;
+                PlaylistViewModel.Playlist = playlist;
             }
+            
             
         }
     }

@@ -10,18 +10,20 @@
 
     <Grid>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition MinWidth="260" MaxWidth="300" Width="*"/>
-            <ColumnDefinition MinWidth="600" Width="3.5*"/>
+            <ColumnDefinition x:Name="PlayerRight" MinWidth="260" MaxWidth="300" Width="*"/>
+            <ColumnDefinition x:Name="Content" MinWidth="550" Width="3.5*"/>
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
             <RowDefinition Height="32"/>
-            <RowDefinition/>
+            <RowDefinition Height="*"/>
+            <RowDefinition x:Name="PlayerBottom" Height="20"/>
         </Grid.RowDefinitions>
        
 
 
         <Frame Grid.Column="0" Grid.RowSpan="2" x:Name="PlayerMenuFrame"/>
         <Frame Grid.Column="1" Grid.RowSpan="2" x:Name="ContentFrame"/>
+        <Frame Grid.ColumnSpan="2" Grid.Row="2" x:Name="PlayerBottomFrame"/>
         <Grid x:Name="TitleBar" Grid.Row="0" Grid.ColumnSpan="2" Background="Transparent"/>
 
     </Grid>
