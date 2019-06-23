@@ -23,7 +23,7 @@ namespace Fooxboy.MusicX.Uwp.ViewModels.VKontakte
         private static HomeViewModel instanse;
         private long maxCountElements = -1;
         const int countTracksLoading = 20;
-        private bool loadingPlaylists = true;
+        private bool loadingPlaylists = false;
         private bool loadingMusic = true;
 
 
@@ -46,7 +46,7 @@ namespace Fooxboy.MusicX.Uwp.ViewModels.VKontakte
             Music.HasMoreItemsRequested = HasMoreGetAudio;
 
             Playlists = new LoadingCollection<PlaylistFile>();
-           // Playlists.OnMoreItemsRequested = GetMorePlaylist;
+            Playlists.OnMoreItemsRequested = GetMorePlaylist;
             Playlists.HasMoreItemsRequested = HasMoreGetPlaylists;
             VisibilityNoTracks = Visibility.Collapsed;
             IsLoading = true;

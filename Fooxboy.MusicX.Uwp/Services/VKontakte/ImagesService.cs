@@ -15,42 +15,34 @@ namespace Fooxboy.MusicX.Uwp.Services.VKontakte
 
         public async static Task<string> CoverAudio(IAudioFile audio)
         {
-            try
+            var uriImage = audio.Cover;
+            StorageFile coverFile = null;
+            var a = await StaticContent.CoversFolder.TryGetItemAsync($"VK{audio.Id}Audio.jpg");
+            if (a != null)
             {
-                var uriImage = audio.Cover;
-                StorageFile coverFile = null;
-                var a = await StaticContent.CoversFolder.TryGetItemAsync($"VK{audio.Id}Audio.jpg");
-                if (a != null)
+                try
                 {
-                    try
-                    {
-                        coverFile = await StaticContent.CoversFolder.GetFileAsync($"VK{audio.Id}Audio.jpg");
-                    }
-                    catch
-                    {
-                        coverFile = await StaticContent.CoversFolder.CreateFileAsync($"VK{audio.Id}Audio.jpg");
-                        BackgroundDownloader downloader = new BackgroundDownloader();
-                        DownloadOperation download = downloader.CreateDownload(new Uri(uriImage), coverFile);
-                        await download.StartAsync();
-                    }
-
+                    coverFile = await StaticContent.CoversFolder.GetFileAsync($"VK{audio.Id}Audio.jpg");
                 }
-                else
+                catch
                 {
                     coverFile = await StaticContent.CoversFolder.CreateFileAsync($"VK{audio.Id}Audio.jpg");
-                    using (var client = new WebClient())
-                    {
-                        await client.DownloadFileTaskAsync(uriImage, coverFile.Path);
-                    }
+                    BackgroundDownloader downloader = new BackgroundDownloader();
+                    DownloadOperation download = downloader.CreateDownload(new Uri(uriImage), coverFile);
+                    await download.StartAsync();
                 }
 
-
-                return coverFile.Path;
-            }catch(Exception e)
-            {
-                return null;
             }
-            
+            else
+            {
+                coverFile = await StaticContent.CoversFolder.CreateFileAsync($"VK{audio.Id}Audio.jpg");
+                using (var client = new WebClient())
+                {
+                    await client.DownloadFileTaskAsync(uriImage, coverFile.Path);
+                }
+            }
+
+            return coverFile.Path;
         }
 
         public async static Task<string> CoverPlaylist(IPlaylistFile playlist)

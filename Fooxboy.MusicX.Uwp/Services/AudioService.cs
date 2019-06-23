@@ -306,34 +306,38 @@ namespace Fooxboy.MusicX.Uwp.Services
 
         private void CurrentPlaylistOnCurrentItemChanged(object sender, AudioFile audio)
         {
-            Seek(TimeSpan.Zero);
             if (IsPlaying) Pause();
-
+            Seek(TimeSpan.Zero);
             UpdateTransportControl();
 
             if (audio == null)
                 return;
 
-            if (audio.Source != null)
+
+            if (audio.IsLocal)
             {
-                if (audio.IsLocal) PlayFrom(audio.Source);
-                else PlayFrom(new Uri(audio.SourceString));
-
-
-                DispatcherHelper.CheckBeginInvokeOnUI(() =>
+                if(audio.Source != null)
                 {
-                    CurrentAudioChanged?.Invoke(this, EventArgs.Empty);
-                });
+                    PlayFrom(audio.Source);
+                }else
+                {
+                    DispatcherHelper.CheckBeginInvokeOnUI(() =>
+                    {
+                        CurrentAudioChanged?.Invoke(this, EventArgs.Empty);
+                    });
+
+                    TryResolveTrack(audio);
+                }
+                
             }
-            else
+            else PlayFrom(new Uri(audio.SourceString));
+
+
+            DispatcherHelper.CheckBeginInvokeOnUI(() =>
             {
-                DispatcherHelper.CheckBeginInvokeOnUI(() =>
-                {
-                    CurrentAudioChanged?.Invoke(this, EventArgs.Empty);
-                });
+                CurrentAudioChanged?.Invoke(this, EventArgs.Empty);
+            });
 
-                TryResolveTrack(audio);
-            }
         }
 
         private void TryResolveTrack(AudioFile audio)
