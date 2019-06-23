@@ -145,6 +145,7 @@ namespace Fooxboy.MusicX.Uwp.Services
         /// </summary>
         public void SwitchNext(bool skip = false)
         {
+            Seek(TimeSpan.Zero);
             currentPlaylist.MoveNext(skip: skip);
         }
 
@@ -153,10 +154,15 @@ namespace Fooxboy.MusicX.Uwp.Services
         /// </summary>
         public void SwitchPrev()
         {
+            
             if (Position > TimeSpan.FromSeconds(3))
                 PlayAudio(currentPlaylist.CurrentItem, currentPlaylist.Items);
             else
+            {
+                Seek(TimeSpan.Zero);
                 currentPlaylist.MovePrevious();
+            }
+                
         }
 
         /// <summary>

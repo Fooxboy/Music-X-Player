@@ -36,8 +36,10 @@ namespace Fooxboy.MusicX.Core.VKontakte.Music
         public async static Task<IList<IPlaylistFile>> Playlists(int count = 100, int offset = 0)
         {
             if (StaticContent.VkApi == null) throw new Exception("Пользователь не авторизован");
+
             var playlistsVk = await StaticContent.VkApi.Audio.GetPlaylistsAsync(StaticContent.UserId, 
                 Convert.ToUInt32(count), Convert.ToUInt32(offset));
+
             IList<IPlaylistFile> playlists = new List<IPlaylistFile>();
 
             foreach (var playlist in playlistsVk)

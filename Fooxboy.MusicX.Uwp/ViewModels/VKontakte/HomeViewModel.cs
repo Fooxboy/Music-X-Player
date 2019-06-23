@@ -23,7 +23,7 @@ namespace Fooxboy.MusicX.Uwp.ViewModels.VKontakte
         private static HomeViewModel instanse;
         private long maxCountElements = -1;
         const int countTracksLoading = 20;
-        private bool loadingPlaylists = false;
+        private bool loadingPlaylists = true;
         private bool loadingMusic = true;
 
 
@@ -95,10 +95,11 @@ namespace Fooxboy.MusicX.Uwp.ViewModels.VKontakte
             catch (Flurl.Http.FlurlHttpException)
             {
                 music = new List<AudioFile>();
+                IsLoading = false;
+                Changed("IsLoading");
+                loadingMusic = false;
+                //TODO: переход в оффлайн режим
                 await ContentDialogService.Show(new ErrorConnectContentDialog()); 
-            }catch(Exception e)
-            {
-                await ContentDialogService.Show(new ExceptionDialog("ошибка", "а", e));
             }
             
             IsLoading = false;
@@ -125,6 +126,7 @@ namespace Fooxboy.MusicX.Uwp.ViewModels.VKontakte
             }
             catch (Flurl.Http.FlurlHttpException)
             {
+                loadingPlaylists = false;
                 await ContentDialogService.Show(new ErrorConnectContentDialog());
             }
             loadingPlaylists = false;

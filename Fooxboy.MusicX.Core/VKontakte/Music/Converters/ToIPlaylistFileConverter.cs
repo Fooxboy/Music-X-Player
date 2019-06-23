@@ -14,6 +14,15 @@ namespace Fooxboy.MusicX.Core.VKontakte.Music.Converters
         {
 
             string cover;
+            string artist;
+            try
+            {
+                artist = playlist.MainArtists.FirstOrDefault().Name;
+            }
+            catch
+            {
+                artist = "Неизвестный исполнитель";
+            }
             try
             {
                 cover = playlist.Cover.Photo300;
@@ -25,7 +34,7 @@ namespace Fooxboy.MusicX.Core.VKontakte.Music.Converters
 
             IPlaylistFile playlistFile = new PlaylistFileAnyPlatform()
             {
-                Artist = playlist.FeaturedArtists.FirstOrDefault().Name,
+                Artist = artist,
                 Cover = cover,
                 Id = playlist.Id.Value,
                 IsLocal = false,

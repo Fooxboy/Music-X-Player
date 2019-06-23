@@ -44,30 +44,47 @@ namespace Fooxboy.MusicX.Uwp.Views
                 {
                     try
                     {
-                        try
+                        if(track.IsLocal)
                         {
-                            track.Source = await StorageFile.GetFileFromPathAsync(track.SourceString);
-                            track.Duration = TimeSpan.FromSeconds(track.DurationSeconds);
-                        }
-                        catch (Exception)
-                        {
-                            track.Source = await StorageFile.GetFileFromApplicationUriAsync(new Uri(track.SourceString));
-                            track.Duration = TimeSpan.FromSeconds(track.DurationSeconds);
-                        }
+                            try
+                            {
+                                track.Source = await StorageFile.GetFileFromPathAsync(track.SourceString);
+                                track.Duration = TimeSpan.FromSeconds(track.DurationSeconds);
+                            }
+                            catch (Exception)
+                            {
+                                track.Source = await StorageFile.GetFileFromApplicationUriAsync(new Uri(track.SourceString));
+                                track.Duration = TimeSpan.FromSeconds(track.DurationSeconds);
+                            }
 
-                        if (lastPlayMusic.Playlist != null)
+                            if (lastPlayMusic.Playlist != null)
+                            {
+                                var playlist = lastPlayMusic.Playlist.ToAudioPlaylist();
+                                playlist.CurrentItem = track;
+                                StaticContent.AudioService.SetCurrentPlaylist(playlist);
+                            }
+                            else
+                            {
+                                StaticContent.AudioService.CurrentPlaylist.CurrentItem = track;
+                            }
+                        }else
                         {
-                            var playlist = lastPlayMusic.Playlist.ToAudioPlaylist();
-                            playlist.CurrentItem = track;
-                            StaticContent.AudioService.SetCurrentPlaylist(playlist);
+                            track.Duration = TimeSpan.FromSeconds(track.DurationSeconds);
+                            if (lastPlayMusic.Playlist != null)
+                            {
+                                var playlist = lastPlayMusic.Playlist.ToAudioPlaylist();
+                                playlist.CurrentItem = track;
+                                StaticContent.AudioService.SetCurrentPlaylist(playlist);
+                            }
+                            else
+                            {
+                                StaticContent.AudioService.CurrentPlaylist.CurrentItem = track;
+                            }
                         }
-                        else
-                        {
-                            StaticContent.AudioService.CurrentPlaylist.CurrentItem = track;
-                        }
+                        
                     }catch(Exception ee)
                     {
-                        await new ExceptionDialog("Ошибка при инициализации страницы", "аоаоаоамм", ee).ShowAsync();
+                        await new ExceptionDialog("Ошибка при инициализации страницы плеера", "Возможно, трек, который последний раз играл - был удален или поврежден", ee).ShowAsync();
                     }
                     
 
