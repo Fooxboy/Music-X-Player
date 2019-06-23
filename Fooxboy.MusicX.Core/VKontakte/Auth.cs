@@ -24,9 +24,9 @@ namespace Fooxboy.MusicX.Core.VKontakte
                 Password = password,
                 TwoFactorAuthorization = twoFactorAuth
             });
-
+               
             StaticContent.VkApi = api;
-            var userInfo = Users.Info.CurrentUser();
+            var userInfo = await  Users.Info.CurrentUser();
             StaticContent.UserId = userInfo.Id;
             return api.Token;
         }
@@ -47,7 +47,7 @@ namespace Fooxboy.MusicX.Core.VKontakte
             });
 
             StaticContent.VkApi = api;
-            var userInfo = Users.Info.CurrentUser();
+            var userInfo = await Users.Info.CurrentUser();
             StaticContent.UserId = userInfo.Id;
         }
 

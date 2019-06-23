@@ -24,6 +24,8 @@ namespace Fooxboy.MusicX.Uwp.ViewModels.VKontakte
         private long maxCountElements = -1;
         const int countTracksLoading = 20;
         private bool loadingPlaylists = true;
+        private bool loadingMusic = true;
+
 
         public static HomeViewModel Instanse
         {
@@ -44,10 +46,8 @@ namespace Fooxboy.MusicX.Uwp.ViewModels.VKontakte
             Music.HasMoreItemsRequested = HasMoreGetAudio;
 
             Playlists = new LoadingCollection<PlaylistFile>();
-            Playlists.OnMoreItemsRequested = GetMorePlaylist;
+           // Playlists.OnMoreItemsRequested = GetMorePlaylist;
             Playlists.HasMoreItemsRequested = HasMoreGetPlaylists;
-
-
             VisibilityNoTracks = Visibility.Collapsed;
             IsLoading = true;
             visibilityPlaylists = Visibility.Visible;
@@ -84,8 +84,8 @@ namespace Fooxboy.MusicX.Uwp.ViewModels.VKontakte
                 Changed("IsLoading");
             }
 
-            IList<IAudioFile> tracks;
-            List<AudioFile> music;
+            IList<IAudioFile> tracks = new List<IAudioFile>();
+            List<AudioFile> music = new List<AudioFile>();
             try
             {
                 if (maxCountElements == -1) maxCountElements = await Library.CountTracks();
@@ -96,10 +96,20 @@ namespace Fooxboy.MusicX.Uwp.ViewModels.VKontakte
             {
                 music = new List<AudioFile>();
                 await ContentDialogService.Show(new ErrorConnectContentDialog()); 
+            }catch(Exception e)
+            {
+                await ContentDialogService.Show(new ExceptionDialog("ошибка", "а", e));
             }
             
             IsLoading = false;
             Changed("IsLoading");
+            if(music.Count < countTracksLoading)
+            {
+                loadingMusic = false;
+            }else
+            {
+                loadingMusic = maxCountElements < Music.Count;
+            }
             return music;
         }
 
@@ -169,7 +179,7 @@ namespace Fooxboy.MusicX.Uwp.ViewModels.VKontakte
         public PlaylistFile SelectPlaylist { get; set; }
 
         public AudioFile SelectAudio { get; set; }
-        public bool HasMoreGetAudio() => maxCountElements < Music.Count;
+        public bool HasMoreGetAudio() => loadingMusic;
         public bool HasMoreGetPlaylists() => loadingPlaylists;
 
         public async void MusicListView_Tapped(object sender, TappedRoutedEventArgs e)
