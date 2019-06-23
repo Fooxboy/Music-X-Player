@@ -41,16 +41,25 @@ namespace Fooxboy.MusicX.Uwp.Resources.Controls
             this.InitializeComponent();
             PlayCommand = new RelayCommand( async () =>
             {
-                await PlaylistsService.PlayPlaylist(Playlist);
+                if(Playlist.IsLocal) await PlaylistsService.PlayPlaylist(Playlist);
+                else
+                {
+
+                }
+
             });
 
             DeleteCommand = new RelayCommand(async () =>
             {
                 if(Playlist.Id != 1 & Playlist.Id != 2 & Playlist.Id != 1000)
                 {
-                    await PlaylistsService.DeletePlaylist(Playlist);
+                    if(Playlist.IsLocal) await PlaylistsService.DeletePlaylist(Playlist);
+                    else
+                    {
 
-                }else
+                    }
+                }
+                else
                 {
                     await new MessageDialog("Вы не можете удалить этот плейлист", "Невозможно удалить плейлист").ShowAsync();
                 }

@@ -43,6 +43,31 @@ namespace Fooxboy.MusicX.Uwp
         /// </summary>
         public App()
         {
+            var settings = ApplicationData.Current.LocalSettings;
+
+
+            Windows.Storage.ApplicationDataCompositeValue composite =
+                    (Windows.Storage.ApplicationDataCompositeValue)settings.Values["themeApp"];
+
+            if (composite == null)
+            {
+                this.RequestedTheme = ApplicationTheme.Light;
+            }
+            else
+            {
+                var theme = (int)settings.Values["themeApp"];
+                if (theme == 0)
+                {
+                    this.RequestedTheme = ApplicationTheme.Light;
+
+                }
+                else
+                {
+                    this.RequestedTheme = ApplicationTheme.Dark;
+                }
+            }
+            
+
             Log.Run();
             Log.Trace("Инициализация объекта приложения");
             this.InitializeComponent();
@@ -65,7 +90,6 @@ namespace Fooxboy.MusicX.Uwp
                         //TODO: Загрузить состояние из ранее приостановленного приложения
                     }
                 }
-                
 
                 CoreApplication.GetCurrentView().TitleBar.ExtendViewIntoTitleBar = true;
                 var appView = ApplicationView.GetForCurrentView();
@@ -87,11 +111,10 @@ namespace Fooxboy.MusicX.Uwp
                 if (await StaticContent.LocalFolder.TryGetItemAsync("ConfigApp.json") != null)
                 {
                     var file = await StaticContent.LocalFolder.GetFileAsync("ConfigApp.json");
-                    var fileString =  await FileIO.ReadTextAsync(file);
+                    var fileString = await FileIO.ReadTextAsync(file);
                     var config = JsonConvert.DeserializeObject<ConfigApp>(fileString);
                     StaticContent.Config = config;
                 }
-
 
                 //Авторизация
                 StaticContent.IsAuth = await AuthService.IsAuth();

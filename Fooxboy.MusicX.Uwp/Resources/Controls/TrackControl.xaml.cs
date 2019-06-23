@@ -8,6 +8,7 @@ using Fooxboy.MusicX.Core.Interfaces;
 using Fooxboy.MusicX.Uwp.Models;
 using Fooxboy.MusicX.Uwp.Resources.ContentDialogs;
 using Fooxboy.MusicX.Uwp.Services;
+using Fooxboy.MusicX.Uwp.Services.VKontakte;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
 using Windows.Storage;
@@ -49,35 +50,50 @@ namespace Fooxboy.MusicX.Uwp.Resources.Controls
 
             PlayCommand = new RelayCommand( async () =>
             {
-                await PlayMusicService.PlayMusicForLibrary(Track, 1);
+                if (Track.IsLocal)
+                {
+                    await PlayMusicService.PlayMusicForLibrary(Track, 1);
+                }else
+                {
+                    await MusicService.PlayMusic(Track, 1);
+                }
+                
             });
 
             DeleteCommand = new RelayCommand(async () =>
             {
                 try
                 {
-                    StaticContent.Music.Remove(Track);
-                    AudioFile trackByPlaylist = null;
-                    if(Track.PlaylistId != 0)
+                    if(Track.IsLocal)
                     {
-                        var playlist = await PlaylistsService.GetById(Track.PlaylistId);
-                        trackByPlaylist = playlist.TracksFiles.Single(t => t.SourceString == Track.SourceString);
-                        playlist.TracksFiles.Remove(trackByPlaylist);
-                        await PlaylistsService.SavePlaylist(playlist);
-                    }
-                    if(trackByPlaylist != null)
-                    {
-                        if (trackByPlaylist.Source == null)
-                            trackByPlaylist.Source = await StorageFile.GetFileFromPathAsync(Track.SourceString);
-                        await trackByPlaylist.Source.DeleteAsync();
+                        StaticContent.Music.Remove(Track);
+                        AudioFile trackByPlaylist = null;
+                        if (Track.PlaylistId != 0)
+                        {
+                            var playlist = await Services.PlaylistsService.GetById(Track.PlaylistId);
+                            trackByPlaylist = playlist.TracksFiles.Single(t => t.SourceString == Track.SourceString);
+                            playlist.TracksFiles.Remove(trackByPlaylist);
+                            await Services.PlaylistsService.SavePlaylist(playlist);
+                        }
+                        if (trackByPlaylist != null)
+                        {
+                            if (trackByPlaylist.Source == null)
+                                trackByPlaylist.Source = await StorageFile.GetFileFromPathAsync(Track.SourceString);
+                            await trackByPlaylist.Source.DeleteAsync();
+                        }
+                        else
+                        {
+                            if (Track.Source == null)
+                                Track.Source = await StorageFile.GetFileFromPathAsync(Track.SourceString);
+                            await Track.Source.DeleteAsync();
+                        }
+
+                        await MusicFilesService.UpdateMusicCollection();
                     }else
                     {
-                        if (Track.Source == null)
-                            Track.Source = await StorageFile.GetFileFromPathAsync(Track.SourceString);
-                        await Track.Source.DeleteAsync();
+                        //TODO: удаление трека ебаный врот
                     }
                     
-                    await MusicFilesService.UpdateMusicCollection();
                 }catch(Exception e)
                 {
                     await ContentDialogService.Show(new ExceptionDialog("Невозможно удалить этот трек", "Возможно, этот трек был уже удален.", e));
@@ -89,17 +105,24 @@ namespace Fooxboy.MusicX.Uwp.Resources.Controls
             {
                 try
                 {
-                    var playlist = await PlaylistsService.GetById(2);
-                    if (playlist.TracksFiles.Any(t => t.SourceString == Track.SourceString))
+                    if(Track.IsLocal)
                     {
-                        var dialog = new MessageDialog("Данный трек уже добавлен в избранное", "Ошибка при добавлении в избранное");
-                        await dialog.ShowAsync();
-                    }
-                    else
+                        var playlist = await Services.PlaylistsService.GetById(2);
+                        if (playlist.TracksFiles.Any(t => t.SourceString == Track.SourceString))
+                        {
+                            var dialog = new MessageDialog("Данный трек уже добавлен в избранное", "Ошибка при добавлении в избранное");
+                            await dialog.ShowAsync();
+                        }
+                        else
+                        {
+                            playlist.TracksFiles.Add(Track);
+                            await Services.PlaylistsService.SavePlaylist(playlist);
+                        }
+                    }else
                     {
-                        playlist.TracksFiles.Add(Track);
-                        await PlaylistsService.SavePlaylist(playlist);
+
                     }
+                   
                 }catch(Exception e)
                 {
                     await ContentDialogService.Show(new ExceptionDialog("Невозможно добавить трек в избранное", "Возможно, этот трек поврежден или не существует плейлиста, если ошибка будет повторяться, переустановите приложение.", e));
@@ -122,7 +145,7 @@ namespace Fooxboy.MusicX.Uwp.Resources.Controls
                 if (playlist.TracksFiles.Any(t => t == Track)) return;
                 Track.PlaylistId = playlist.Id;
                 playlist.TracksFiles.Add(Track);
-                await PlaylistsService.SavePlaylist(playlist);
+                await Services.PlaylistsService.SavePlaylist(playlist);
                 var index = StaticContent.Music.IndexOf(Track);
                 var track = StaticContent.Music[index];
                 track.PlaylistId = playlist.Id;
@@ -140,33 +163,37 @@ namespace Fooxboy.MusicX.Uwp.Resources.Controls
 
         private void Grid_PointerEntered(object sender, PointerRoutedEventArgs e)
         {
-            Like.Visibility = Visibility.Visible;
+            if(Track.IsLocal) Like.Visibility = Visibility.Visible;
+
         }
 
         private void Grid_PointerExited(object sender, PointerRoutedEventArgs e)
         {
-            Like.Visibility = Visibility.Collapsed;
+            if(Track.IsLocal) Like.Visibility = Visibility.Collapsed;
         }
 
         private void Grid_RightTapped(object sender, RightTappedRoutedEventArgs e)
         {
-            foreach (var playlist in StaticContent.Playlists)
+            if(Track.IsLocal)
             {
-                if (playlist.Id != 1 & playlist.Id != 2 & playlist.Id != 1000)
+                foreach (var playlist in StaticContent.Playlists)
                 {
-                    AddTo.Items.Add(new MenuFlyoutItem
+                    if (playlist.Id != 1 & playlist.Id != 2 & playlist.Id != 1000)
                     {
-                        Text = playlist.Name,
-                        Icon = new FontIcon()
+                        AddTo.Items.Add(new MenuFlyoutItem
                         {
-                            FontFamily = new FontFamily("Segoe MDL2 Assets"),
-                            Glyph = "&#xE93C;"
-                        },
-                        Command = new RelayCommand<PlaylistFile>(AddToPlaylist),
-                        CommandParameter = playlist
-                    });
-                }
+                            Text = playlist.Name,
+                            Icon = new FontIcon()
+                            {
+                                FontFamily = new FontFamily("Segoe MDL2 Assets"),
+                                Glyph = "&#xE93C;"
+                            },
+                            Command = new RelayCommand<PlaylistFile>(AddToPlaylist),
+                            CommandParameter = playlist
+                        });
+                    }
 
+                }
             }
         }
     }

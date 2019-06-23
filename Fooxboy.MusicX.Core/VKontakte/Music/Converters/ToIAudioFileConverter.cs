@@ -21,7 +21,7 @@ namespace Fooxboy.MusicX.Core.VKontakte.Music.Converters
             }
             else
             {
-                cover = audio.Album.Cover.Photo135;
+                cover = audio.Album.Cover.Photo270;
                 idPlaylist = audio.Album.Id;
             }
             var duration = TimeSpan.FromSeconds(audio.Duration);

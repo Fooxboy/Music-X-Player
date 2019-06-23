@@ -132,6 +132,10 @@ namespace Fooxboy.MusicX.Uwp.Views
                 StaticContent.Config = config;
             }
 
+            var settings = ApplicationData.Current.LocalSettings;
+            settings.Values["themeApp"] = 0;
+
+
             await MusicFilesService.GetMusicLocal(true);
 
             var rootFrame = (Frame)Window.Current.Content;

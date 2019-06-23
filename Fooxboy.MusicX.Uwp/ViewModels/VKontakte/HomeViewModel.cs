@@ -25,6 +25,7 @@ namespace Fooxboy.MusicX.Uwp.ViewModels.VKontakte
         const int countTracksLoading = 20;
         private bool loadingPlaylists = true;
         private bool loadingMusic = true;
+        public bool NoPlaylists = false;
 
 
         public static HomeViewModel Instanse
@@ -111,6 +112,12 @@ namespace Fooxboy.MusicX.Uwp.ViewModels.VKontakte
             {
                 loadingMusic = maxCountElements < Music.Count;
             }
+
+            if(music.Count == 0)
+            {
+                VisibilityNoTracks = Visibility.Collapsed;
+                Changed("VisibilityNoTracks");
+            }
             return music;
         }
 
@@ -130,6 +137,12 @@ namespace Fooxboy.MusicX.Uwp.ViewModels.VKontakte
                 await ContentDialogService.Show(new ErrorConnectContentDialog());
             }
             loadingPlaylists = false;
+            if (playlists.Count == 0)
+            {
+                NoPlaylists = true;
+                VisibilityPlaylists = Visibility.Collapsed;
+                Changed("VisibilityPlaylists");
+            }
             return playlists;
         }
 

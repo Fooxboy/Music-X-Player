@@ -75,8 +75,13 @@
             <ScrollViewer>
                 <StackPanel>
                     <TextBlock Text="Тема оформления" Margin="30 30 0 0" FontSize="18" FontWeight="Bold"/>
-                    <RadioButton Content="Светлая" IsEnabled="True" IsChecked="True" Margin="30 0 0 0" GroupName="Theme"/>
-                    <RadioButton Content="Темная (Темная тема доступна только  в Music X Pro)" IsEnabled="False" Margin="30 0 0 0" GroupName="Theme"/>
+                    <RadioButton Content="Светлая" Click="{x:Bind ViewModel.RadioButton_ClickLight}" IsEnabled="True" IsChecked="{x:Bind ViewModel.SelectLightTheme, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" 
+                                 Margin="30 0 0 0
+                                 " GroupName="Theme"/>
+                    <RadioButton Content="{x:Bind ViewModel.ContentDarkTheme, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                 IsEnabled="{x:Bind ViewModel.EnableDarkTheme, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                 Margin="30 0 0 0" Click="{x:Bind ViewModel.RadioButton_ClickDark}" IsChecked="{x:Bind ViewModel.SelectDarkTheme, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" 
+                                 GroupName="Theme"/>
                     <TextBlock Text="Музыка на этом компьютере" Margin="30 30 0 0" FontSize="18" FontWeight="Bold"/>
                     
                     <ToggleSwitch Margin="30 5 0 0" Header="Папка Музыка" IsOn="{x:Bind ViewModel.MusicLibraryIsOn,

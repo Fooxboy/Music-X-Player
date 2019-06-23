@@ -44,22 +44,30 @@ namespace Fooxboy.MusicX.Uwp.Views.VKontakte
 
             timer.Tick += async (ss, eee) =>
             {
-                if (scrollViewer.VerticalOffset < 20)
+                if(!ViewModel.NoPlaylists)
                 {
-                    if (PlaylistsGrid.Visibility != Visibility.Visible)
+                    if (scrollViewer.VerticalOffset < 20)
                     {
-                        PlaylistsGrid.Visibility = Visibility.Visible;
-                        await PlaylistsGrid.Fade(value: 1f, duration: 200, delay: 0).StartAsync();
+                        if (PlaylistsGrid.Visibility != Visibility.Visible)
+                        {
+                            PlaylistsGrid.Visibility = Visibility.Visible;
+                            await PlaylistsGrid.Fade(value: 1f, duration: 200, delay: 0).StartAsync();
+                        }
                     }
-                }
-                else
+                    else
+                    {
+                        if (PlaylistsGrid.Visibility != Visibility.Collapsed)
+                        {
+                            await PlaylistsGrid.Fade(value: 0.0f, duration: 200, delay: 0).StartAsync();
+                            PlaylistsGrid.Visibility = Visibility.Collapsed;
+                        }
+                    }
+                }else
                 {
-                    if (PlaylistsGrid.Visibility != Visibility.Collapsed)
-                    {
-                        await PlaylistsGrid.Fade(value: 0.0f, duration: 200, delay: 0).StartAsync();
-                        PlaylistsGrid.Visibility = Visibility.Collapsed;
-                    }
+                    PlaylistsGrid.Visibility = Visibility.Collapsed;
+                    timer.Stop();
                 }
+                
             };
 
             timer.Interval = TimeSpan.FromMilliseconds(500);
