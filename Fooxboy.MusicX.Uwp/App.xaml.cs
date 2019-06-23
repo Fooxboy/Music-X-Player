@@ -116,6 +116,15 @@ namespace Fooxboy.MusicX.Uwp
                     StaticContent.Config = config;
                 }
 
+                if(StaticContent.Config.ThemeApp == 0)
+                {
+                    appView.TitleBar.ButtonForegroundColor = Colors.Black;
+                }
+                else
+                {
+                    appView.TitleBar.ButtonForegroundColor = Colors.White;
+                }
+
                 //Авторизация
                 StaticContent.IsAuth = await AuthService.IsAuth();
                 if (StaticContent.IsAuth) await AuthService.AutoAuth();
