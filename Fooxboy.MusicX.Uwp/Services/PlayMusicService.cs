@@ -62,8 +62,19 @@ namespace Fooxboy.MusicX.Uwp.Services
                 else if (typePlay == 3)
                 {
                     StaticContent.NowPlayPlaylist = playlistPlay;
-                    StaticContent.AudioService.SetCurrentPlaylist(playlistNowPlay.ToAudioPlaylist(), false);
-                    StaticContent.AudioService.CurrentPlaylist.CurrentItem = audioFile;
+
+                    var index = playlistPlay.Tracks.IndexOf(playlistPlay.Tracks.Single(t => t.Id == audioFile.Id));
+
+                    if(index != 0)
+                    {
+                        StaticContent.AudioService.SetCurrentPlaylist(playlistNowPlay.ToAudioPlaylist(), false);
+                        StaticContent.AudioService.CurrentPlaylist.CurrentItem = audioFile;
+                    }else
+                    {
+                        StaticContent.AudioService.SetCurrentPlaylist(playlistNowPlay.ToAudioPlaylist(), true);
+                    }
+
+                   
                 }
 
                 if (!(StaticContent.Playlists.Any(p => p.Id == 1000)))

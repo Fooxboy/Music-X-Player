@@ -10,6 +10,7 @@ using Fooxboy.MusicX.Uwp.Models;
 using Fooxboy.MusicX.Uwp.Resources.ContentDialogs;
 using Fooxboy.MusicX.Uwp.Services;
 using Fooxboy.MusicX.Uwp.Services.VKontakte;
+using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Input;
 
 namespace Fooxboy.MusicX.Uwp.ViewModels.VKontakte
@@ -27,12 +28,20 @@ namespace Fooxboy.MusicX.Uwp.ViewModels.VKontakte
                 return instanse;
             }
         }
-
+        private PlaylistFile playlistCurrent;
         private RecommendationsViewModel()
         {
             Tracks = new LoadingCollection<AudioFile>();
             Tracks.HasMoreItemsRequested = HasMoreLoading;
             Tracks.OnMoreItemsRequested = GetMoreAudio;
+            playlistCurrent = new PlaylistFile()
+            {
+                Artist = "",
+                Cover = "ms-appx:///Assets/Images/playlist-placeholder.png",
+                Id = 666,
+                IsLocal = false,
+                Name = "Рекомендации"
+            };
         }
 
         private bool firstLoading = true;
@@ -72,9 +81,22 @@ namespace Fooxboy.MusicX.Uwp.ViewModels.VKontakte
             return music;
         }
 
-        public void MusicListView_Tapped(object sender, TappedRoutedEventArgs e)
+        public async Task MusicListView_Tapped(object sender, TappedRoutedEventArgs e)
         {
+            if (SelectedAudio == null) return;
 
+            playlistCurrent.TracksFiles = Tracks.ToList();
+
+            await MusicService.PlayMusic(SelectedAudio, 2, playlistCurrent);
+        }
+
+        public async Task MusicListView_ItemClick(object sender, ItemClickEventArgs e)
+        {
+            if (SelectedAudio == null) return;
+
+            playlistCurrent.TracksFiles = Tracks.ToList();
+
+            await MusicService.PlayMusic(SelectedAudio, 2, playlistCurrent);
         }
 
 

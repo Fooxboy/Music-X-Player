@@ -73,8 +73,22 @@ namespace Fooxboy.MusicX.Uwp.Services.VKontakte
                 foreach (var trackMusic in StaticContent.MusicVKontakte) playlistNowPlay.TracksFiles.Add(trackMusic);
                 StaticContent.AudioService.SetCurrentPlaylist(playlistNowPlay.ToAudioPlaylist(), false);
                 StaticContent.AudioService.CurrentPlaylist.CurrentItem = audioFile;
-            }else if(typePlay == 2)
+                StaticContent.NowPlayPlaylist = playlistNowPlay;
+            }
+            else if(typePlay == 2)
             {
+                StaticContent.NowPlayPlaylist = playlistPlay;
+
+                var index = playlistPlay.TracksFiles.IndexOf(playlistPlay.TracksFiles.Single(t => t.Id == audioFile.Id));
+
+                if (index != 0)
+                {
+                    StaticContent.AudioService.SetCurrentPlaylist(playlistPlay.ToAudioPlaylist(), false);
+                    StaticContent.AudioService.CurrentPlaylist.CurrentItem = audioFile;
+                }else
+                {
+                    StaticContent.AudioService.SetCurrentPlaylist(playlistPlay.ToAudioPlaylist(), true);
+                }
 
             }
 

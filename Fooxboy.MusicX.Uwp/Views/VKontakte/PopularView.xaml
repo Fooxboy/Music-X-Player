@@ -45,6 +45,7 @@
                       Style="{StaticResource ListViewStyle}"
                       SelectedItem="{x:Bind ViewModel.SelectedAudio, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                       ItemsSource="{x:Bind ViewModel.Tracks, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                      ItemClick="{x:Bind ViewModel.MusicListView_ItemClick}"
                       Tapped="{x:Bind ViewModel.MusicListView_Tapped}"
                       ItemTemplate="{ThemeResource TrackTemplate}">
                 <ListView.ItemsPanel >

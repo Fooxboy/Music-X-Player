@@ -31,5 +31,7 @@ namespace Fooxboy.MusicX.Uwp.Views.VKontakte
             ViewModel = PopularViewModel.Instanse;
             this.InitializeComponent();
         }
+
+       
     }
 }
