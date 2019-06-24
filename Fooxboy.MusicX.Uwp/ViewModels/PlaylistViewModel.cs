@@ -17,7 +17,7 @@ namespace Fooxboy.MusicX.Uwp.ViewModels
 {
     public class PlaylistViewModel : BaseViewModel
     {
-        public PlaylistViewModel()
+        private PlaylistViewModel()
         {
             EditPlaylist = new RelayCommand(async () =>
             {

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices.WindowsRuntime;
+using Fooxboy.MusicX.Uwp.ViewModels.VKontakte;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
 using Windows.UI.Xaml;
@@ -25,6 +26,11 @@ namespace Fooxboy.MusicX.Uwp.Views.VKontakte
         public AllPlaylistsView()
         {
             this.InitializeComponent();
+            ViewModel = AllPlaylistsViewModel.Instanse;
         }
+
+        public AllPlaylistsViewModel ViewModel { get; set; }
+
+        
     }
 }

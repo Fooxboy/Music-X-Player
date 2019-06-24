@@ -124,8 +124,12 @@ namespace Fooxboy.MusicX.Uwp.Views.VKontakte
 
         private void Button_Click_1(object sender, RoutedEventArgs e)
         {
-            StaticContent.NavigationContentService.Go(typeof(Views.AllPlaylistsView));
+            StaticContent.NavigationContentService.Go(typeof(Views.VKontakte.AllPlaylistsView));
         }
 
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+            StaticContent.NavigationContentService.Go(typeof(Views.VKontakte.AllPlaylistsView));
+        }
     }
 }

@@ -9,6 +9,29 @@
     Background="{ThemeResource BackgroundApp}">
 
     <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="24"/>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
 
+        <TextBlock Text="Ваши плейлисты"
+                   FontSize="42"
+                   FontWeight="ExtraBold"
+                   Margin="30 0 0 0"
+                   FontFamily="Calibri"
+                   Grid.Row="1"/>
+
+        <GridView x:Name="Playlists" 
+                  Margin="0 0 0 0"
+                  Padding="0 20 0 0"
+                  Grid.Row="2"
+                  SelectedItem="{x:Bind ViewModel.SelectPlaylist, Mode=TwoWay}"
+                  ItemTemplate="{ThemeResource PlaylistTemplate}" 
+                  ItemClick="{x:Bind ViewModel.Playlists_ItemClick}"
+                  Tapped="{x:Bind ViewModel.Playlists_Tapped}"
+                  ItemsSource="{x:Bind ViewModel.Playlists, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
+
+        </GridView>
     </Grid>
 </Page>

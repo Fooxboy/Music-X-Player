@@ -29,6 +29,7 @@ namespace Fooxboy.MusicX.Uwp.Views
         public PlaylistView()
         {
             this.InitializeComponent();
+            PlaylistViewModel = PlaylistViewModel.Instanse;
         }
 
         public PlaylistViewModel PlaylistViewModel { get; set; }
@@ -40,7 +41,7 @@ namespace Fooxboy.MusicX.Uwp.Views
             var playlist = (PlaylistFile)e.Parameter;
             if(playlist.IsLocal)
             {
-                PlaylistViewModel = new PlaylistViewModel();
+                
                 if (((PlaylistFile)e.Parameter).Id != 1000)
                 {
                     PlaylistViewModel.Playlist = await PlaylistsService.GetById(((PlaylistFile)e.Parameter).Id);
