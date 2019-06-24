@@ -25,6 +25,11 @@ namespace Fooxboy.MusicX.Core.VKontakte.Music.Converters
                 idPlaylist = audio.Album.Id;
             }
             var duration = TimeSpan.FromSeconds(audio.Duration);
+            string durationM = "";
+            if (duration.Hours > 0)
+                durationM =  duration.ToString("h\\:mm\\:ss");
+            durationM = duration.ToString("m\\:ss");
+
             IAudioFile audioFile = new AudioFileAnyPlatform()
             {
                 Artist = audio.Artist,
@@ -33,7 +38,7 @@ namespace Fooxboy.MusicX.Core.VKontakte.Music.Converters
                 Id = audio.Id.Value,
                 IsLocal = false,
                 InternalId = audio.Id.Value,
-                DurationMinutes = $"{duration.Minutes}:{duration.Seconds}",
+                DurationMinutes = durationM,
                 OwnerId = audio.OwnerId.Value,
                 PlaylistId = idPlaylist,
                 SourceString = audio.Url.DecodeAudioUrl().ToString(),

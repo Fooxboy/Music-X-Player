@@ -14,21 +14,21 @@ using Windows.UI.Xaml.Input;
 
 namespace Fooxboy.MusicX.Uwp.ViewModels.VKontakte
 {
-    public class RecommendationsViewModel:BaseViewModel
+    public class PopularViewModel:BaseViewModel
     {
-        private static RecommendationsViewModel instanse;
-        
-        public static RecommendationsViewModel Instanse
+        private static PopularViewModel instanse;
+
+        public static PopularViewModel Instanse
         {
             get
             {
-                if (instanse == null) instanse = new RecommendationsViewModel();
+                if (instanse == null) instanse = new PopularViewModel();
 
                 return instanse;
             }
         }
 
-        private RecommendationsViewModel()
+        private PopularViewModel()
         {
             Tracks = new LoadingCollection<AudioFile>();
             Tracks.HasMoreItemsRequested = HasMoreLoading;
@@ -43,7 +43,7 @@ namespace Fooxboy.MusicX.Uwp.ViewModels.VKontakte
 
         public async Task<List<AudioFile>> GetMoreAudio(CancellationToken token, uint offset)
         {
-            if(firstLoading)
+            if (firstLoading)
             {
                 IsLoading = true;
                 Changed("IsLoading");
@@ -52,13 +52,13 @@ namespace Fooxboy.MusicX.Uwp.ViewModels.VKontakte
             List<AudioFile> music = new List<AudioFile>();
             try
             {
-                tracks = await Recommendations.Tracks(20, Tracks.Count);
+                tracks = await Popular.Tracks(20, Tracks.Count);
                 music = await MusicService.ConvertToAudioFile(tracks);
             }
             catch (Flurl.Http.FlurlHttpException)
             {
                 music = new List<AudioFile>();
-                
+
                 //TODO: переход в оффлайн режим
                 await ContentDialogService.Show(new ErrorConnectContentDialog());
             }
@@ -81,6 +81,5 @@ namespace Fooxboy.MusicX.Uwp.ViewModels.VKontakte
         public bool IsLoading { get; set; }
 
         public AudioFile SelectedAudio { get; set; }
-
     }
 }

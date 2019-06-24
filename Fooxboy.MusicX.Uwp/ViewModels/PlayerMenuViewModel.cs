@@ -207,6 +207,52 @@ namespace Fooxboy.MusicX.Uwp.ViewModels
                 
             });
 
+            NavigateToPopular = new RelayCommand(() =>
+            {
+                SettingsSelector = Visibility.Collapsed;
+                MainSelector = Visibility.Collapsed;
+                SearchSelector = Visibility.Collapsed;
+                AccountSelector = Visibility.Collapsed;
+                ProSelector = Visibility.Collapsed;
+                HomeVkontakteSelector = Visibility.Collapsed;
+                RecommendationsSelector = Visibility.Collapsed;
+                PopularSelector = Visibility.Visible;
+
+                Changed("SettingsSelector");
+                Changed("MainSelector");
+                Changed("SearchSelector");
+                Changed("AccountSelector");
+                Changed("ProSelector");
+                Changed("HomeVkontakteSelector");
+                Changed("RecommendationsSelector");
+                Changed("PopularSelector");
+
+                StaticContent.NavigationContentService.Go(typeof(Views.VKontakte.PopularView));
+            });
+
+            NavigateToHomeVkontakte = new RelayCommand(() =>
+            {
+                SettingsSelector = Visibility.Collapsed;
+                MainSelector = Visibility.Collapsed;
+                SearchSelector = Visibility.Collapsed;
+                AccountSelector = Visibility.Collapsed;
+                ProSelector = Visibility.Collapsed;
+                HomeVkontakteSelector = Visibility.Visible;
+                RecommendationsSelector = Visibility.Collapsed;
+                PopularSelector = Visibility.Collapsed;
+
+                Changed("SettingsSelector");
+                Changed("MainSelector");
+                Changed("SearchSelector");
+                Changed("AccountSelector");
+                Changed("ProSelector");
+                Changed("HomeVkontakteSelector");
+                Changed("RecommendationsSelector");
+                Changed("PopularSelector");
+
+                StaticContent.NavigationContentService.Go(typeof(Views.VKontakte.HomeView));
+            });
+
             if (StaticContent.IsAuth)
             {
                 VkontaktePages = Visibility.Visible;
