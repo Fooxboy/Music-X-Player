@@ -17,7 +17,7 @@
             <RowDefinition/>
         </Grid.RowDefinitions>
 
-        <Grid Grid.Row="0">
+        <Grid Grid.Row="0" Background="{ThemeResource ColorSettings}">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition MaxWidth="200"/>
                 <ColumnDefinition/>
@@ -41,7 +41,7 @@
                 </Image.Source>
             </Image>
 
-            <Grid Grid.Column="1" animations:Connected.AnchorElement="{x:Bind coverImage}">
+            <Grid Grid.Column="1"  animations:Connected.AnchorElement="{x:Bind coverImage}">
                 <StackPanel VerticalAlignment="Center" Orientation="Horizontal" Margin="20 -10 20 20">
                     <TextBlock FontFamily="Calibri" FontSize="42" FontWeight="Bold" Text="{x:Bind PlaylistViewModel.Playlist.Name, Mode=TwoWay}"/>
                     <TextBlock FontWeight="Bold" Text="{x:Bind PlaylistViewModel.PLTrackCount, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Margin="10 25 0 0"/>
@@ -105,8 +105,10 @@
                        " FontWeight="Bold"/>
             <TextBlock HorizontalAlignment="Center" 
                        Margin="0 30 0 0" FontSize="20"
+                       Foreground="{ThemeResource SubHeaderText}"
                        Text="Как добавить трек в плейлист?"/>
             <TextBlock HorizontalAlignment="Center"
+                       Foreground="{ThemeResource SubText}"
                        Text="Просто кликните правой кнопкой по треку и нажмите Добавить -> В плейлист"/>
         </StackPanel>
     </Grid>

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Fooxboy.MusicX.Uwp.Services.VKontakte;
 using Windows.UI.Xaml;
 
 namespace Fooxboy.MusicX.Uwp.ViewModels
@@ -23,98 +24,188 @@ namespace Fooxboy.MusicX.Uwp.ViewModels
         }
         private PlayerMenuViewModel()
         {
-            MainSelector = Visibility.Visible;
             SettingsSelector = Visibility.Collapsed;
+            MainSelector = Visibility.Collapsed;
             SearchSelector = Visibility.Collapsed;
-            ProSelector = Visibility.Collapsed;
             AccountSelector = Visibility.Collapsed;
+            ProSelector = Visibility.Collapsed;
+            HomeVkontakteSelector = Visibility.Collapsed;
+            RecommendationsSelector = Visibility.Collapsed;
+            PopularSelector = Visibility.Collapsed;
+
+           
+
+            if (StaticContent.IsAuth)
+            {
+                HomeVkontakteSelector = Visibility.Visible;
+            }
+            else MainSelector = Visibility.Visible;
+
+            Changed("SettingsSelector");
+            Changed("MainSelector");
+            Changed("SearchSelector");
+            Changed("AccountSelector");
+            Changed("ProSelector");
+            Changed("HomeVkontakteSelector");
+            Changed("RecommendationsSelector");
+            Changed("PopularSelector");
+
             NavigateToSettings = new RelayCommand(
                 () =>
                 {
+
                     SettingsSelector = Visibility.Visible;
-                    SearchSelector = Visibility.Collapsed;
                     MainSelector = Visibility.Collapsed;
-                    StaticContent.NavigationContentService.Go(typeof(Views.SettingsView));
-                    ProSelector = Visibility.Collapsed;
+                    SearchSelector = Visibility.Collapsed;
                     AccountSelector = Visibility.Collapsed;
-                    Changed("ProSelector");
+                    ProSelector = Visibility.Collapsed;
+                    HomeVkontakteSelector = Visibility.Collapsed;
+                    RecommendationsSelector = Visibility.Collapsed;
+                    PopularSelector = Visibility.Collapsed;
+
                     Changed("SettingsSelector");
-                    Changed("SearchSelector");
                     Changed("MainSelector");
+                    Changed("SearchSelector");
                     Changed("AccountSelector");
+                    Changed("ProSelector");
+                    Changed("HomeVkontakteSelector");
+                    Changed("RecommendationsSelector");
+                    Changed("PopularSelector");
+
+                    StaticContent.NavigationContentService.Go(typeof(Views.SettingsView));
                 }
                 );
 
             NavigateToMain = new RelayCommand(
                 () =>
                 {
+
                     SettingsSelector = Visibility.Collapsed;
-                    SearchSelector = Visibility.Collapsed;
                     MainSelector = Visibility.Visible;
-                    StaticContent.NavigationContentService.Go(typeof(Views.HomeLocalView));
-                    ProSelector = Visibility.Collapsed;
+                    SearchSelector = Visibility.Collapsed;
                     AccountSelector = Visibility.Collapsed;
-                    Changed("ProSelector");
+                    ProSelector = Visibility.Collapsed;
+                    HomeVkontakteSelector = Visibility.Collapsed;
+                    RecommendationsSelector = Visibility.Collapsed;
+                    PopularSelector = Visibility.Collapsed;
+
                     Changed("SettingsSelector");
-                    Changed("SearchSelector");
                     Changed("MainSelector");
+                    Changed("SearchSelector");
                     Changed("AccountSelector");
+                    Changed("ProSelector");
+                    Changed("HomeVkontakteSelector");
+                    Changed("RecommendationsSelector");
+                    Changed("PopularSelector");
+
+                    StaticContent.NavigationContentService.Go(typeof(Views.HomeLocalView));
                 }
                 );
 
             NavigateToSearch = new RelayCommand(
                 () =>
                 {
-                    //StaticContent.NavigationContentService.Go(typeof(Views.HomeView));
                     SettingsSelector = Visibility.Collapsed;
-                    SearchSelector = Visibility.Visible;
                     MainSelector = Visibility.Collapsed;
-                    ProSelector = Visibility.Collapsed;
+                    SearchSelector = Visibility.Visible;
                     AccountSelector = Visibility.Collapsed;
-                    Changed("ProSelector");
+                    ProSelector = Visibility.Collapsed;
+                    HomeVkontakteSelector = Visibility.Collapsed;
+                    RecommendationsSelector = Visibility.Collapsed;
+                    PopularSelector = Visibility.Collapsed;
+
                     Changed("SettingsSelector");
-                    Changed("SearchSelector");
                     Changed("MainSelector");
+                    Changed("SearchSelector");
                     Changed("AccountSelector");
+                    Changed("ProSelector");
+                    Changed("HomeVkontakteSelector");
+                    Changed("RecommendationsSelector");
+                    Changed("PopularSelector");
                 }
             );
 
             NavigateToPro = new RelayCommand(
                 () =>
                 {
-                    //StaticContent.NavigationContentService.Go(typeof(Views.HomeView));
+
                     SettingsSelector = Visibility.Collapsed;
-                    SearchSelector = Visibility.Collapsed;
                     MainSelector = Visibility.Collapsed;
-                    ProSelector = Visibility.Visible;
+                    SearchSelector = Visibility.Collapsed;
                     AccountSelector = Visibility.Collapsed;
-                    StaticContent.NavigationContentService.Go(typeof(Views.ProVersionView));
+                    ProSelector = Visibility.Visible;
+                    HomeVkontakteSelector = Visibility.Collapsed;
+                    RecommendationsSelector = Visibility.Collapsed;
+                    PopularSelector = Visibility.Collapsed;
+
                     Changed("SettingsSelector");
-                    Changed("SearchSelector");
                     Changed("MainSelector");
-                    Changed("ProSelector");
+                    Changed("SearchSelector");
                     Changed("AccountSelector");
+                    Changed("ProSelector");
+                    Changed("HomeVkontakteSelector");
+                    Changed("RecommendationsSelector");
+                    Changed("PopularSelector");
+
+                    StaticContent.NavigationContentService.Go(typeof(Views.ProVersionView));
+
                 }
             );
 
             NavigateToLogin = new RelayCommand(
                 () =>
                 {
-                    //StaticContent.NavigationContentService.Go(typeof(Views.HomeView));
+
+
                     SettingsSelector = Visibility.Collapsed;
-                    SearchSelector = Visibility.Collapsed;
                     MainSelector = Visibility.Collapsed;
-                    ProSelector = Visibility.Collapsed;
+                    SearchSelector = Visibility.Collapsed;
                     AccountSelector = Visibility.Visible;
-                    if(StaticContent.IsAuth) StaticContent.NavigationContentService.Go(typeof(Views.VKontakte.AccountView));
-                    else StaticContent.NavigationContentService.Go(typeof(Views.VKontakte.AuthView));
+                    ProSelector = Visibility.Collapsed;
+                    HomeVkontakteSelector = Visibility.Collapsed;
+                    RecommendationsSelector = Visibility.Collapsed;
+                    PopularSelector = Visibility.Collapsed;
+
                     Changed("SettingsSelector");
-                    Changed("SearchSelector");
                     Changed("MainSelector");
-                    Changed("ProSelector");
+                    Changed("SearchSelector");
                     Changed("AccountSelector");
+                    Changed("ProSelector");
+                    Changed("HomeVkontakteSelector");
+                    Changed("RecommendationsSelector");
+                    Changed("PopularSelector");
+
+
+                    if (StaticContent.IsAuth) StaticContent.NavigationContentService.Go(typeof(Views.VKontakte.AccountView));
+                    else StaticContent.NavigationContentService.Go(typeof(Views.VKontakte.AuthView));
+
                 }
             );
+
+            NavigateToRecommendations = new RelayCommand(() =>
+            {
+                SettingsSelector = Visibility.Collapsed;
+                MainSelector = Visibility.Collapsed;
+                SearchSelector = Visibility.Collapsed;
+                AccountSelector = Visibility.Collapsed;
+                ProSelector = Visibility.Collapsed;
+                HomeVkontakteSelector = Visibility.Collapsed;
+                RecommendationsSelector = Visibility.Visible;
+                PopularSelector = Visibility.Collapsed;
+
+                Changed("SettingsSelector");
+                Changed("MainSelector");
+                Changed("SearchSelector");
+                Changed("AccountSelector");
+                Changed("ProSelector");
+                Changed("HomeVkontakteSelector");
+                Changed("RecommendationsSelector");
+                Changed("PopularSelector");
+
+                StaticContent.NavigationContentService.Go(typeof(Views.VKontakte.RecommendationsView));
+
+                
+            });
 
             if (StaticContent.IsAuth)
             {

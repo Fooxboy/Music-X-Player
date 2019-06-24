@@ -146,6 +146,10 @@ namespace Fooxboy.MusicX.Uwp.Services
         public void SwitchNext(bool skip = false)
         {
             Seek(TimeSpan.Zero);
+            Seek(TimeSpan.Zero);
+            Seek(TimeSpan.Zero);
+            Seek(TimeSpan.Zero);
+
             currentPlaylist.MoveNext(skip: skip);
         }
 
@@ -160,6 +164,10 @@ namespace Fooxboy.MusicX.Uwp.Services
             else
             {
                 Seek(TimeSpan.Zero);
+                Seek(TimeSpan.Zero);
+                Seek(TimeSpan.Zero);
+                Seek(TimeSpan.Zero);
+                Seek(TimeSpan.Zero);
                 currentPlaylist.MovePrevious();
             }
                 
@@ -170,7 +178,6 @@ namespace Fooxboy.MusicX.Uwp.Services
         /// </summary>
         public void Seek(TimeSpan position)
         {
-            Log.Info("Seeking " + position);
 
             mediaPlayer.PlaybackSession.Position = position;
         }
@@ -182,9 +189,9 @@ namespace Fooxboy.MusicX.Uwp.Services
         {
             try
             {
+                Seek(TimeSpan.Zero);
                 currentPlaylist = null;
                 Pause();
-                Seek(TimeSpan.Zero);
                 if (currentPlaylist != null)
                     currentPlaylist.OnCurrentItemChanged -= CurrentPlaylistOnCurrentItemChanged;
 
@@ -312,8 +319,9 @@ namespace Fooxboy.MusicX.Uwp.Services
 
         private void CurrentPlaylistOnCurrentItemChanged(object sender, AudioFile audio)
         {
-            if (IsPlaying) Pause();
             Seek(TimeSpan.Zero);
+            if (IsPlaying) Pause();
+
             UpdateTransportControl();
 
             if (audio == null)

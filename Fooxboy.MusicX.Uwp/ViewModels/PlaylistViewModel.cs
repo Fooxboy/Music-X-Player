@@ -12,6 +12,7 @@ using Fooxboy.MusicX.Uwp.Services;
 using Fooxboy.MusicX.Uwp.Resources.ContentDialogs;
 using Windows.UI.Xaml;
 using Windows.UI.Popups;
+using Fooxboy.MusicX.Uwp.Services.VKontakte;
 
 namespace Fooxboy.MusicX.Uwp.ViewModels
 {
@@ -130,13 +131,16 @@ namespace Fooxboy.MusicX.Uwp.ViewModels
 
         public async void MusicListView_Tapped(object sender, TappedRoutedEventArgs e)
         {
-            await PlayMusicService.PlayMusicForLibrary(SelectedAudioFile, 3, Playlist);
+            if (SelectedAudioFile.IsLocal) await PlayMusicService.PlayMusicForLibrary(SelectedAudioFile, 3, Playlist);
+            else await MusicService.PlayMusic(SelectedAudioFile, 2, Playlist);
+
         }
 
        
         public async void ListViewMusic_Click(object sender, ItemClickEventArgs e)
         {
-            await PlayMusicService.PlayMusicForLibrary(SelectedAudioFile, 3, Playlist);
+            if (SelectedAudioFile.IsLocal) await PlayMusicService.PlayMusicForLibrary(SelectedAudioFile, 3, Playlist);
+            else await MusicService.PlayMusic(SelectedAudioFile, 2, Playlist);
         }
 
         private AudioFile selectedAudioFile;

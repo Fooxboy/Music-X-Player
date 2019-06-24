@@ -50,11 +50,13 @@ namespace Fooxboy.MusicX.Uwp.ViewModels
 
             SwitchNextCommand = new RelayCommand(() =>
             {
+                PositionSeconds = 0;
                 StaticContent.AudioService.SwitchNext(skip: true);
             });
 
             SwitchPrevCommand = new RelayCommand(() =>
             {
+                PositionSeconds = 0;
                 StaticContent.AudioService.SwitchPrev();
             });
 
@@ -211,6 +213,8 @@ namespace Fooxboy.MusicX.Uwp.ViewModels
 
         private async  void AudioServiceCurrentAudioChanged(object sender, EventArgs e)
         {
+            PositionSeconds = 0;
+            Changed("PositionSeconds");
             Changed("CurrentAudio");
             Changed("Duration");
             Changed("DurationSeconds");
@@ -223,8 +227,6 @@ namespace Fooxboy.MusicX.Uwp.ViewModels
         {
             Changed(nameof(Position));
             Changed(nameof(PositionSeconds));
-            Changed("Duration");
-            Changed("DurationSeconds");
             Changed("PositionMinutes");
         }
 

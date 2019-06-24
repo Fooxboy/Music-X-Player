@@ -56,7 +56,7 @@ namespace Fooxboy.MusicX.Uwp.Services.VKontakte
             //type play:
             //1 - проигрования из списка треков
             //2 - проигрование трека из плейлиста
-
+            StaticContent.AudioService.Seek(TimeSpan.Zero);
             var playlistNowPlay = new PlaylistFile()
             {
                 Artist = "Music X",
@@ -73,6 +73,9 @@ namespace Fooxboy.MusicX.Uwp.Services.VKontakte
                 foreach (var trackMusic in StaticContent.MusicVKontakte) playlistNowPlay.TracksFiles.Add(trackMusic);
                 StaticContent.AudioService.SetCurrentPlaylist(playlistNowPlay.ToAudioPlaylist(), false);
                 StaticContent.AudioService.CurrentPlaylist.CurrentItem = audioFile;
+            }else if(typePlay == 2)
+            {
+
             }
 
             if (!(StaticContent.PlaylistsVKontakte.Any(p => p.Id == 1000)))

@@ -24,6 +24,8 @@ namespace Fooxboy.MusicX.Uwp.Services
                 //1 - проигрования из списка треков
                 //2 - проигрование трека по клику на него
                 //3 - проигрование трека из плейлиста
+                StaticContent.AudioService.Seek(TimeSpan.Zero);
+
                 var lastPlayPlaylist = await PlaylistsService.GetById(1);
                 if (audioFile.Source == null) audioFile.Source = await StorageFile.GetFileFromPathAsync(audioFile.SourceString);
                 if (!(lastPlayPlaylist.TracksFiles.Any(t => t.SourceString == audioFile.SourceString)))
