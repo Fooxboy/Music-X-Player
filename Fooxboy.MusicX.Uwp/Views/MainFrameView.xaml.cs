@@ -43,7 +43,8 @@ namespace Fooxboy.MusicX.Uwp.Views
                     StaticContent.NavigationContentService.Go(typeof(VKontakte.HomeView));
                 }else
                 {
-                    StaticContent.NavigationContentService.Go(typeof(HomeLocalView));
+                    InternetService.GoToOfflineMode();
+                    //StaticContent.NavigationContentService.Go(typeof(HomeLocalView));
                 }
             }else
             {

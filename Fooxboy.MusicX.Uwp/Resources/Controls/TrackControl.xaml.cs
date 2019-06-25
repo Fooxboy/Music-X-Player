@@ -96,7 +96,7 @@ namespace Fooxboy.MusicX.Uwp.Resources.Controls
                     
                 }catch(Exception e)
                 {
-                    await ContentDialogService.Show(new ExceptionDialog("Невозможно удалить этот трек", "Возможно, этот трек был уже удален.", e));
+                    ContentDialogService.Show(new ExceptionDialog("Невозможно удалить этот трек", "Возможно, этот трек был уже удален.", e));
                 }
 
             });

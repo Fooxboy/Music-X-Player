@@ -52,33 +52,44 @@ namespace Fooxboy.MusicX.Uwp.ViewModels.VKontakte
 
         public async Task<List<AudioFile>> GetMoreAudio(CancellationToken token, uint offset)
         {
-            if(firstLoading)
+
+            if(InternetService.Connected)
             {
-                IsLoading = true;
+                if (firstLoading)
+                {
+                    IsLoading = true;
+                    Changed("IsLoading");
+                }
+                IList<IAudioFile> tracks = new List<IAudioFile>();
+                List<AudioFile> music = new List<AudioFile>();
+                try
+                {
+                    tracks = await Recommendations.Tracks(20, Tracks.Count);
+                    music = await MusicService.ConvertToAudioFile(tracks);
+                }
+                catch (Flurl.Http.FlurlHttpException)
+                {
+                    music = new List<AudioFile>();
+
+                    //TODO: переход в оффлайн режим
+                    await ContentDialogService.Show(new ErrorConnectContentDialog());
+                }
+
+                if (music.Count < 20) hasMoreLoading = false;
+
+                firstLoading = false;
+
+                IsLoading = false;
                 Changed("IsLoading");
-            }
-            IList<IAudioFile> tracks = new List<IAudioFile>();
-            List<AudioFile> music = new List<AudioFile>();
-            try
+                return music;
+            }else
             {
-                tracks = await Recommendations.Tracks(20, Tracks.Count);
-                music = await MusicService.ConvertToAudioFile(tracks);
-            }
-            catch (Flurl.Http.FlurlHttpException)
-            {
-                music = new List<AudioFile>();
-                
-                //TODO: переход в оффлайн режим
-                await ContentDialogService.Show(new ErrorConnectContentDialog());
+                hasMoreLoading = false;
+                InternetService.GoToOfflineMode();
+                return new List<AudioFile>();
             }
 
-            if (music.Count < 20) hasMoreLoading = false;
-
-            firstLoading = false;
-
-            IsLoading = false;
-            Changed("IsLoading");
-            return music;
+            
         }
 
         public async Task MusicListView_Tapped(object sender, TappedRoutedEventArgs e)
