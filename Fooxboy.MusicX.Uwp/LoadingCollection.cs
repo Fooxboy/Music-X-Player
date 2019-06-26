@@ -50,7 +50,8 @@ namespace Fooxboy.MusicX.Uwp
         {
             if (_busy)
             {
-                throw new InvalidOperationException("Only one operation in flight at a time");
+                //return new LoadMoreItemsResult() { Count = 0 };
+                //throw new InvalidOperationException("Only one operation in flight at a time");
             }
 
             _busy = true;

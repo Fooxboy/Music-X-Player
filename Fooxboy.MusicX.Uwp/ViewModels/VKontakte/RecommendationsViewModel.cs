@@ -55,41 +55,48 @@ namespace Fooxboy.MusicX.Uwp.ViewModels.VKontakte
 
             if(InternetService.Connected)
             {
-                if (firstLoading)
-                {
-                    IsLoading = true;
-                    Changed("IsLoading");
-                }
-                IList<IAudioFile> tracks = new List<IAudioFile>();
-                List<AudioFile> music = new List<AudioFile>();
+
                 try
                 {
-                    tracks = await Recommendations.Tracks(20, Tracks.Count);
-                    music = await MusicService.ConvertToAudioFile(tracks);
-                }
-                catch (Flurl.Http.FlurlHttpException)
+                    if (firstLoading)
+                    {
+                        IsLoading = true;
+                        Changed("IsLoading");
+                    }
+                    IList<IAudioFile> tracks = new List<IAudioFile>();
+                    List<AudioFile> music = new List<AudioFile>();
+                    try
+                    {
+                        tracks = await Recommendations.Tracks(20, Tracks.Count);
+                        music = await MusicService.ConvertToAudioFile(tracks);
+                    }
+                    catch (Flurl.Http.FlurlHttpException)
+                    {
+                        music = new List<AudioFile>();
+
+                        InternetService.GoToOfflineMode();
+                        await ContentDialogService.Show(new ErrorConnectContentDialog());
+                    }
+
+                    if (music.Count < 20) hasMoreLoading = false;
+
+                    firstLoading = false;
+
+                    IsLoading = false;
+                    Changed("IsLoading");
+                    return music;
+                }catch(Exception e)
                 {
-                    music = new List<AudioFile>();
-
-                    //TODO: переход в оффлайн режим
-                    await ContentDialogService.Show(new ErrorConnectContentDialog());
+                    await ContentDialogService.Show(new ExceptionDialog("Неизвестная ошибка при получении рекомендаций", "Мы не смогли получить рекомендации ВКонтакте", e));
+                    return new List<AudioFile>();
                 }
-
-                if (music.Count < 20) hasMoreLoading = false;
-
-                firstLoading = false;
-
-                IsLoading = false;
-                Changed("IsLoading");
-                return music;
-            }else
+            }
+            else
             {
                 hasMoreLoading = false;
                 InternetService.GoToOfflineMode();
                 return new List<AudioFile>();
             }
-
-            
         }
 
         public async Task MusicListView_Tapped(object sender, TappedRoutedEventArgs e)

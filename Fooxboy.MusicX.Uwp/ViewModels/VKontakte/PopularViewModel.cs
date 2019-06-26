@@ -58,35 +58,44 @@ namespace Fooxboy.MusicX.Uwp.ViewModels.VKontakte
 
             if(InternetService.Connected)
             {
-                if (firstLoading)
-                {
-                    IsLoading = true;
-                    Changed("IsLoading");
-                }
-                IList<IAudioFile> tracks = new List<IAudioFile>();
-                List<AudioFile> music = new List<AudioFile>();
                 try
                 {
-                    tracks = await Popular.Tracks(20, Tracks.Count);
-                    music = await MusicService.ConvertToAudioFile(tracks);
-                }
-                catch (Flurl.Http.FlurlHttpException)
+                    if (firstLoading)
+                    {
+                        IsLoading = true;
+                        Changed("IsLoading");
+                    }
+                    IList<IAudioFile> tracks = new List<IAudioFile>();
+                    List<AudioFile> music = new List<AudioFile>();
+                    try
+                    {
+                        tracks = await Popular.Tracks(20, Tracks.Count);
+                        music = await MusicService.ConvertToAudioFile(tracks);
+                    }
+                    catch (Flurl.Http.FlurlHttpException)
+                    {
+                        music = new List<AudioFile>();
+                        hasMoreLoading = false;
+
+                        await ContentDialogService.Show(new ErrorConnectContentDialog());
+                        InternetService.GoToOfflineMode();
+
+                    }
+
+                    if (music.Count < 20) hasMoreLoading = false;
+
+                    firstLoading = false;
+
+                    IsLoading = false;
+                    Changed("IsLoading");
+                    return music;
+                }catch(Exception e)
                 {
-                    music = new List<AudioFile>();
-                    hasMoreLoading = false;
-
-                    await ContentDialogService.Show(new ErrorConnectContentDialog());
-                    InternetService.GoToOfflineMode();
-
+                    await ContentDialogService.Show(new ExceptionDialog("Неизвестная ошибка при получении списка популярного", "Мы не смогли получить нужную нам информацию о треках", e));
+                    return new List<AudioFile>();
                 }
 
-                if (music.Count < 20) hasMoreLoading = false;
-
-                firstLoading = false;
-
-                IsLoading = false;
-                Changed("IsLoading");
-                return music;
+                
             }else
             {
                 hasMoreLoading = false;

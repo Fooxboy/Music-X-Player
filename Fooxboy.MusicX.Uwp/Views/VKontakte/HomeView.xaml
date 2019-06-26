@@ -16,7 +16,7 @@
         </Grid.RowDefinitions>
 
         <!--Грид в котором плейлисты-->
-        <Grid Grid.Row="1" x:Name="PlaylistsGrid">
+        <Grid Grid.Row="1" Visibility="Collapsed" x:Name="PlaylistsGrid">
             <Grid.RowDefinitions>
                 <RowDefinition Height="auto"/>
                 <RowDefinition Height="*"/>

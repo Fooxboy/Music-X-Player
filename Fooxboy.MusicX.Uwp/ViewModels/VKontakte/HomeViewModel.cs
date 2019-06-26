@@ -22,7 +22,7 @@ namespace Fooxboy.MusicX.Uwp.ViewModels.VKontakte
     {
         private static HomeViewModel instanse;
         private long maxCountElements = -1;
-        const int countTracksLoading = 20;
+        const int countTracksLoading = 50;
         private bool loadingPlaylists = true;
         private bool loadingMusic = true;
         public bool NoPlaylists = false;
@@ -81,47 +81,56 @@ namespace Fooxboy.MusicX.Uwp.ViewModels.VKontakte
         {
             if(InternetService.Connected)
             {
-                if (Music.Count > 0)
-                {
-                    IsLoading = true;
-                    Changed("IsLoading");
-                }
-
-                IList<IAudioFile> tracks = new List<IAudioFile>();
-                List<AudioFile> music = new List<AudioFile>();
                 try
                 {
-                    if (maxCountElements == -1) maxCountElements = await Library.CountTracks();
-                    tracks = await Library.Tracks(countTracksLoading, Music.Count);
-                    music = await MusicService.ConvertToAudioFile(tracks);
-                }
-                catch (Flurl.Http.FlurlHttpException)
-                {
-                    music = new List<AudioFile>();
+                    if (Music.Count > 0)
+                    {
+                        IsLoading = true;
+                        Changed("IsLoading");
+                    }
+
+                    IList<IAudioFile> tracks = new List<IAudioFile>();
+                    List<AudioFile> music = new List<AudioFile>();
+                    try
+                    {
+                        if (maxCountElements == -1) maxCountElements = await Library.CountTracks();
+                        tracks = await Library.Tracks(countTracksLoading, Music.Count);
+                        music = await MusicService.ConvertToAudioFile(tracks);
+                    }
+                    catch (Flurl.Http.FlurlHttpException)
+                    {
+                        music = new List<AudioFile>();
+                        IsLoading = false;
+                        Changed("IsLoading");
+                        loadingMusic = false;
+                        InternetService.GoToOfflineMode();
+                        await ContentDialogService.Show(new ErrorConnectContentDialog());
+                    }
+
                     IsLoading = false;
                     Changed("IsLoading");
-                    loadingMusic = false;
-                    InternetService.GoToOfflineMode();
-                    await ContentDialogService.Show(new ErrorConnectContentDialog());
-                }
+                    if (music.Count < countTracksLoading)
+                    {
+                        loadingMusic = false;
+                    }
+                    else
+                    {
+                        loadingMusic = maxCountElements < Music.Count;
+                    }
 
-                IsLoading = false;
-                Changed("IsLoading");
-                if (music.Count < countTracksLoading)
+                    if (music.Count == 0)
+                    {
+                        VisibilityNoTracks = Visibility.Collapsed;
+                        Changed("VisibilityNoTracks");
+                    }
+                    return music;
+                }catch(Exception e)
                 {
-                    loadingMusic = false;
+                    await ContentDialogService.Show(new ExceptionDialog("Неизвестная ошибка при получении треков",
+                        "Возможно, какой-то информации о треке нет или трек недействителен", e));
+                    return new List<AudioFile>();
                 }
-                else
-                {
-                    loadingMusic = maxCountElements < Music.Count;
-                }
-
-                if (music.Count == 0)
-                {
-                    VisibilityNoTracks = Visibility.Collapsed;
-                    Changed("VisibilityNoTracks");
-                }
-                return music;
+                
             }else
             {
                 InternetService.GoToOfflineMode();
@@ -136,27 +145,34 @@ namespace Fooxboy.MusicX.Uwp.ViewModels.VKontakte
 
             if(InternetService.Connected)
             {
-                IList<IPlaylistFile> playlistsVk;
-                List<PlaylistFile> playlists = new List<PlaylistFile>();
                 try
                 {
-                    playlistsVk = await Library.Playlists(10, 0);
-                    foreach (var playlist in playlistsVk) playlists.Add(await Services.VKontakte.PlaylistsService.ConvertToPlaylistFile(playlist));
-                }
-                catch (Flurl.Http.FlurlHttpException)
-                {
+                    IList<IPlaylistFile> playlistsVk;
+                    List<PlaylistFile> playlists = new List<PlaylistFile>();
+                    try
+                    {
+                        playlistsVk = await Library.Playlists(10, 0);
+                        foreach (var playlist in playlistsVk) playlists.Add(await Services.VKontakte.PlaylistsService.ConvertToPlaylistFile(playlist));
+                    }
+                    catch (Flurl.Http.FlurlHttpException)
+                    {
+                        loadingPlaylists = false;
+                        InternetService.GoToOfflineMode();
+                        await ContentDialogService.Show(new ErrorConnectContentDialog());
+                    }
                     loadingPlaylists = false;
-                    InternetService.GoToOfflineMode();
-                    await ContentDialogService.Show(new ErrorConnectContentDialog());
-                }
-                loadingPlaylists = false;
-                if (playlists.Count == 0)
+                    if (playlists.Count == 0)
+                    {
+                        NoPlaylists = true;
+                        VisibilityPlaylists = Visibility.Collapsed;
+                        Changed("VisibilityPlaylists");
+                    }
+                    return playlists;
+                }catch(Exception e)
                 {
-                    NoPlaylists = true;
-                    VisibilityPlaylists = Visibility.Collapsed;
-                    Changed("VisibilityPlaylists");
+                    await ContentDialogService.Show(new ExceptionDialog("Неизвестная ошибка при получении плейлистов", "Мы не смогли получить определённую информацию", e));
+                    return new List<PlaylistFile>();
                 }
-                return playlists;
             }else
             {
                 InternetService.GoToOfflineMode();

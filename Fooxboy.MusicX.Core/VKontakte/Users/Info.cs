@@ -16,7 +16,9 @@ namespace Fooxboy.MusicX.Core.VKontakte.Users
             var currentUser = users.FirstOrDefault();
             IUserInfo userInfo = new UserInfo()
             {
-                Id = currentUser.Id
+                Id = currentUser.Id,
+                FirstName = currentUser.FirstName,
+                LastName = currentUser.LastName
             };
             return userInfo;
         }

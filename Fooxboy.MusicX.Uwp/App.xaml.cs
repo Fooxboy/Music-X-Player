@@ -92,10 +92,12 @@ namespace Fooxboy.MusicX.Uwp
 
         protected async override void OnLaunched(LaunchActivatedEventArgs e)
         {
+            Log.Trace("OnLaunched");
             DispatcherHelper.Initialize();
             Frame rootFrame = Window.Current.Content as Frame;
             if (rootFrame == null)
             {
+                Log.Trace("rootFrame != null");
                 rootFrame = new Frame();
                 rootFrame.NavigationFailed += OnNavigationFailed;
                 if(e != null)
@@ -115,11 +117,14 @@ namespace Fooxboy.MusicX.Uwp
                 StaticContent.LocalFolder = ApplicationData.Current.LocalFolder;
                 if (await StaticContent.LocalFolder.TryGetItemAsync("Playlists") != null)
                 {
+                    Log.Trace("Set playlistFolder");
                     StaticContent.PlaylistsFolder = await StaticContent.LocalFolder.GetFolderAsync("Playlists");
                 }
 
                 if(await StaticContent.LocalFolder.TryGetItemAsync("Covers") != null)
                 {
+                    Log.Trace("Set CoversFolder");
+
                     StaticContent.CoversFolder = await StaticContent.LocalFolder.GetFolderAsync("Covers");
 
                 }

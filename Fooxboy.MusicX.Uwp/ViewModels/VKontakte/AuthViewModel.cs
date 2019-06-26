@@ -37,15 +37,23 @@ namespace Fooxboy.MusicX.Uwp.ViewModels.VKontakte
                 Changed("IsActiveProgressRing");
                 Changed("VisibilityButton");
 
-                if (Login == null || Password == null) await new MessageDialog("Вы не указали логин или пароль").ShowAsync();
+                if (Login == null || Password == null)
+                {
+                    await new MessageDialog("Вы не указали логин или пароль").ShowAsync();
+                    IsActiveProgressRing = false;
+                    VisibilityButton = Visibility.Visible;
+                    Changed("IsActiveProgressRing");
+                    Changed("VisibilityButton");
+                    return;
+                }
 
                 string token = null;
 
                 try
                 {
-                    token = await Fooxboy.MusicX.Core.VKontakte.Auth.User(Login, Password, AuthService.TwoFactorAuth);
+                    token = await AuthService.FirstAuth(Login, Password);                
                 }
-                catch (VkNet.Exception.UserAuthorizationFailException e)
+                catch (VkNet.Exception.UserAuthorizationFailException)
                 {
                     await ContentDialogService.Show(new IncorrectLoginOrPasswordContentDialog());
                 }
@@ -64,17 +72,27 @@ namespace Fooxboy.MusicX.Uwp.ViewModels.VKontakte
                 catch (Flurl.Http.FlurlHttpException)
                 {
                     await ContentDialogService.Show(new ErrorConnectContentDialog());
+                }catch(Exception e)
+                {
+                    await ContentDialogService.Show(new ExceptionDialog("Неизвестная ошибка авторизации", "", e));
                 }
 
                 if(token != null)
                 {
-                    PlayerMenuViewModel.Instanse.VkontaktePages = Visibility.Visible;
-                    await TokenService.Save(token);
-                    StaticContent.IsAuth = true;
-                    StaticContent.CurrentSessionIsAuth = true;
-                    StaticContent.NavigationContentService.Go(typeof(HomeView));
-
-
+                    try
+                    {
+                        PlayerMenuViewModel.Instanse.VkontaktePages = Visibility.Visible;
+                        await TokenService.Save(token);
+                        StaticContent.IsAuth = true;
+                        StaticContent.CurrentSessionIsAuth = true;
+                        StaticContent.NavigationContentService.Go(typeof(HomeView));
+                    }catch(Exception e)
+                    {
+                        await ContentDialogService.Show(new ExceptionDialog("Неизвестная ошибка после авторизации", "Возможно, ошибка навигации или сохранения", e));
+                        PlayerMenuViewModel.Instanse.VkontaktePages = Visibility.Collapsed;
+                        StaticContent.IsAuth = false;
+                        StaticContent.CurrentSessionIsAuth = false;
+                    }
                 }else
                 {
                     IsActiveProgressRing = false;

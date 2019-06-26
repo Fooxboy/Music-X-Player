@@ -64,31 +64,39 @@ namespace Fooxboy.MusicX.Uwp.ViewModels.VKontakte
         {
             if(InternetService.Connected)
             {
-                IList<IPlaylistFile> playlistsVk;
-                List<PlaylistFile> playlists = new List<PlaylistFile>();
                 try
                 {
-                    playlistsVk = await Library.Playlists(20, Playlists.Count);
-                    foreach (var playlist in playlistsVk) playlists.Add(await Services.VKontakte.PlaylistsService.ConvertToPlaylistFile(playlist));
-                }
-                catch (Flurl.Http.FlurlHttpException)
-                {
-                    hasMorePlaylists = false;
-                    await ContentDialogService.Show(new ErrorConnectContentDialog());
-                    InternetService.GoToOfflineMode();
-                }
+                    IList<IPlaylistFile> playlistsVk;
+                    List<PlaylistFile> playlists = new List<PlaylistFile>();
+                    try
+                    {
+                        playlistsVk = await Library.Playlists(20, Playlists.Count);
+                        foreach (var playlist in playlistsVk) playlists.Add(await Services.VKontakte.PlaylistsService.ConvertToPlaylistFile(playlist));
+                    }
+                    catch (Flurl.Http.FlurlHttpException)
+                    {
+                        hasMorePlaylists = false;
+                        await ContentDialogService.Show(new ErrorConnectContentDialog());
+                        InternetService.GoToOfflineMode();
+                    }
 
-                if (playlists.Count == 0)
-                {
-                    VisibilityNoPlaylists = Visibility.Visible;
-                    Changed("VisibilityNoPlaylists");
-                }
+                    if (playlists.Count == 0)
+                    {
+                        VisibilityNoPlaylists = Visibility.Visible;
+                        Changed("VisibilityNoPlaylists");
+                    }
 
-                if (playlists.Count < 20)
+                    if (playlists.Count < 20)
+                    {
+                        hasMorePlaylists = false;
+                    }
+                    return playlists;
+                }catch(Exception e)
                 {
-                    hasMorePlaylists = false;
+                    await ContentDialogService.Show(new ExceptionDialog("Неизвестная ошибка при получении плейлистов", "Мы не смогли получить информацию о Ваших плейлистах", e));
+                    return new List<PlaylistFile>();
                 }
-                return playlists;
+                
             }else
             {
                 InternetService.GoToOfflineMode();
