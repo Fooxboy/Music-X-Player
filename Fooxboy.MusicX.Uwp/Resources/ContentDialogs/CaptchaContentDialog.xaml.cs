@@ -24,12 +24,13 @@ namespace Fooxboy.MusicX.Uwp.Resources.ContentDialogs
             this.InitializeComponent();
         }
 
+
+        public string Image { get; set; }
+        public string Result { get; set; }
+
         private void ContentDialog_PrimaryButtonClick(ContentDialog sender, ContentDialogButtonClickEventArgs args)
         {
-        }
-
-        private void ContentDialog_SecondaryButtonClick(ContentDialog sender, ContentDialogButtonClickEventArgs args)
-        {
+            Result = Code.Text;
         }
     }
 }

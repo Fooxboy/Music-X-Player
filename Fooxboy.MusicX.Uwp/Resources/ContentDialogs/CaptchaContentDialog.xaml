@@ -12,7 +12,8 @@
     <Grid>
 
         <StackPanel>
-            <Image/>
+            <Image Height="100" Width="200" Source="{x:Bind Image}"/>
+            <TextBox x:Name="Code" Style="{ThemeResource TextBoxLoginStyle}"/>
         </StackPanel>
         
         

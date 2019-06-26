@@ -19,7 +19,6 @@ namespace Fooxboy.MusicX.Uwp.Services.VKontakte
         public static TwoFactorAuthContentDialog dialog = null;
         public static string TwoFactorAuth()
         {
-            TwoFactorAuthIsOpen = true;
             DispatcherHelper.CheckBeginInvokeOnUI( () =>
             {
                 var dialogA = new TwoFactorAuthContentDialog();
@@ -61,8 +60,8 @@ namespace Fooxboy.MusicX.Uwp.Services.VKontakte
 
         public async static Task<string> FirstAuth(string login, string password)
         {
-            var token = await Fooxboy.MusicX.Core.VKontakte.Auth.User(login, password, AuthService.TwoFactorAuth);
-            await Fooxboy.MusicX.Core.VKontakte.Auth.Auto(token);
+            var token = await Fooxboy.MusicX.Core.VKontakte.Auth.User(login, password, AuthService.TwoFactorAuth, new CaptchaSolver());
+            await Fooxboy.MusicX.Core.VKontakte.Auth.Auto(token, new CaptchaSolver());
             await SetNameAccount();
             return token;
         }
@@ -70,7 +69,7 @@ namespace Fooxboy.MusicX.Uwp.Services.VKontakte
         public async static Task AutoAuth()
         {
             var tokenObject = await TokenService.Load();
-            await Fooxboy.MusicX.Core.VKontakte.Auth.Auto(tokenObject.Token);
+            await Fooxboy.MusicX.Core.VKontakte.Auth.Auto(tokenObject.Token, new CaptchaSolver());
             await SetNameAccount();
         }
 
