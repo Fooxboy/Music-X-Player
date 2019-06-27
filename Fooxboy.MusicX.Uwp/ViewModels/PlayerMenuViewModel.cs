@@ -3,7 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Fooxboy.MusicX.Uwp.Services;
 using Fooxboy.MusicX.Uwp.Services.VKontakte;
+using Fooxboy.MusicX.Uwp.Views;
 using Windows.UI.Xaml;
 
 namespace Fooxboy.MusicX.Uwp.ViewModels
@@ -176,8 +178,14 @@ namespace Fooxboy.MusicX.Uwp.ViewModels
                     Changed("PopularSelector");
 
 
-                    if (StaticContent.IsAuth) StaticContent.NavigationContentService.Go(typeof(Views.VKontakte.AccountView));
-                    else StaticContent.NavigationContentService.Go(typeof(Views.VKontakte.AuthView));
+                    if (InternetService.Connected)
+                    {
+                        if (StaticContent.IsAuth) StaticContent.NavigationContentService.Go(typeof(Views.VKontakte.AccountView));
+                        else StaticContent.NavigationContentService.Go(typeof(Views.VKontakte.AuthView));
+                    }
+                    else StaticContent.NavigationContentService.Go(typeof(OfflineModeView));
+
+                    
 
                 }
             );

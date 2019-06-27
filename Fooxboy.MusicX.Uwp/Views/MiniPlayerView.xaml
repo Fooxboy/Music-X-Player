@@ -45,8 +45,8 @@
                     <ImageBrush Stretch="Fill">
                         <ImageBrush.ImageSource>
                             <BitmapImage UriSource="{x:Bind Path=ViewModel.CurrentAudio.Cover, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                                                     DecodePixelHeight="40"
-                                                     DecodePixelWidth="40" />
+                                                     DecodePixelHeight="50"
+                                                     DecodePixelWidth="50" />
                         </ImageBrush.ImageSource>
                     </ImageBrush>
                 </Rectangle.Fill>

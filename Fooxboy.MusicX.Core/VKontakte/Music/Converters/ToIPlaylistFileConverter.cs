@@ -19,8 +19,9 @@ namespace Fooxboy.MusicX.Core.VKontakte.Music.Converters
             string year;
             try
             {
-                artist = playlist.MainArtists.FirstOrDefault().Name;
+                artist = playlist.MainArtists.First().Name;
                 isAlbum = true;
+                if (artist == "") isAlbum = false;
             }
             catch
             {

@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using Fooxboy.MusicX.Core.Interfaces;
 using Fooxboy.MusicX.Uwp.Models;
 using Fooxboy.MusicX.Uwp.Utils.Extensions;
+using Windows.Networking.BackgroundTransfer;
 
 namespace Fooxboy.MusicX.Uwp.Services.VKontakte
 {
@@ -33,6 +34,8 @@ namespace Fooxboy.MusicX.Uwp.Services.VKontakte
                 {
                     coverImage = cover;
                 }
+
+                
                
 
                 var audiofile = new AudioFile()

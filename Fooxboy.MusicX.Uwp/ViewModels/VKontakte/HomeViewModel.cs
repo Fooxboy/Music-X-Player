@@ -117,7 +117,7 @@ namespace Fooxboy.MusicX.Uwp.ViewModels.VKontakte
                     }
                     else
                     {
-                        loadingMusic = maxCountElements < Music.Count;
+                        loadingMusic = true;
                     }
 
                     if (music.Count == 0)
