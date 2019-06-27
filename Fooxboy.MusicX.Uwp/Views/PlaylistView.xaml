@@ -44,20 +44,6 @@
             <Grid Grid.Column="1" 
                   animations:Connected.AnchorElement="{x:Bind coverImage}">
 
-                <TextBlock Foreground="{ThemeResource SubText}" 
-                           VerticalAlignment="Center"
-                           Margin="0 0 0 100"
-                           Visibility="{x:Bind PlaylistViewModel.VisibilityInfo, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                               Text="{x:Bind PlaylistViewModel.Playlist.Artist}"/>
-                
-                
-                <StackPanel  
-                                Orientation="Horizontal">
-                   
-
-                    
-                </StackPanel>
-                
                 <StackPanel VerticalAlignment="Center" 
                             Orientation="Horizontal"
                             Margin="0 0 0 40">
@@ -67,10 +53,33 @@
                                FontWeight="Bold"
                                Text="{x:Bind PlaylistViewModel.Playlist.Name, Mode=TwoWay}"/>
                     
-                    <TextBlock FontWeight="Bold" Text="{x:Bind PlaylistViewModel.PLTrackCount, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Margin="10 25 0 0"/>
+                    <TextBlock FontWeight="Bold" Foreground="{ThemeResource SubText}" Text="{x:Bind PlaylistViewModel.PLTrackCount, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Margin="10 25 0 0"/>
                 </StackPanel>
-                
-                <StackPanel VerticalAlignment="Center" Orientation="Horizontal" Margin="0 40 0 0">
+
+                <StackPanel VerticalAlignment="Center" Orientation="Horizontal" Margin="0 20 0 0">
+                    <TextBlock Foreground="{ThemeResource SubHeaderText}" 
+                           VerticalAlignment="Center"
+                           Margin="0 0 0 0"
+                               FontWeight="SemiBold"
+                           Visibility="{x:Bind PlaylistViewModel.VisibilityInfo, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                               Text="{x:Bind PlaylistViewModel.Playlist.Artist}"/>
+                    <TextBlock Margin="5 0 0 0" VerticalAlignment="Center" Foreground="{ThemeResource SubText}" Text="•"/>
+                    <TextBlock Foreground="{ThemeResource SubText}" 
+                               Margin="5 0 0 0"
+                               VerticalAlignment="Center"
+                               Visibility="{x:Bind PlaylistViewModel.VisibilityInfo, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                               Text="{x:Bind PlaylistViewModel.Playlist.Genre}"/>
+                    <TextBlock Margin="5 0 0 0" VerticalAlignment="Center" Foreground="{ThemeResource SubText}" Text="•"/>
+
+                    <TextBlock Foreground="{ThemeResource SubText}" 
+                               VerticalAlignment="Center"
+                               Margin="5 0 0 0"
+                               Visibility="{x:Bind PlaylistViewModel.VisibilityInfo, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                               Text="{x:Bind PlaylistViewModel.Playlist.Year}"/>
+                </StackPanel>
+
+                <StackPanel VerticalAlignment="Center" Orientation="Horizontal" Margin="0 70 0 0">
+                     
                     <Button Padding="0"
                         BorderThickness="0"
                         FontSize="20" FontFamily="Segoe MDL2 Assets"
@@ -93,18 +102,10 @@
                         Grid.Row="1">
                     </Button>
 
-                    <TextBlock Foreground="{ThemeResource SubText}" 
-                               Margin="0 0 0 0"
-                               VerticalAlignment="Center"
-                               Visibility="{x:Bind PlaylistViewModel.VisibilityInfo, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                               Text="{x:Bind PlaylistViewModel.Playlist.Genre}"/>
-
-                    <TextBlock Foreground="{ThemeResource SubText}" 
-                               VerticalAlignment="Center"
-                               Margin="10 0 0 0"
-                               Visibility="{x:Bind PlaylistViewModel.VisibilityInfo, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                               Text="{x:Bind PlaylistViewModel.Playlist.Year}"/>
+                   
                 </StackPanel>
+
+                
             </Grid>
 
         </Grid>
