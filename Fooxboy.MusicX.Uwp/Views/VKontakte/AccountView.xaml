@@ -39,12 +39,13 @@
 
             <TextBlock Text="Аккаунт ВКонтакте"
                        Grid.Column="2"
-                       Margin="0 0 0 35"
+                       Margin="10 0 0 35"
                        VerticalAlignment="Center"
                        Foreground="{ThemeResource SubText}"/>
             <TextBlock Text="{x:Bind ViewModel.NameUser, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                        FontWeight="ExtraBlack"
-                       FontSize="25" 
+                       FontSize="25"
+                       Margin="10 0 0 0"
                        VerticalAlignment="Center"
                        Grid.Column="2"/>
             <Button Grid.Column="3" Margin="10 0 0 0"

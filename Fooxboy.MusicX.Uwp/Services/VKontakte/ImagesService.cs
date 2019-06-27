@@ -50,11 +50,11 @@ namespace Fooxboy.MusicX.Uwp.Services.VKontakte
             StorageFile avatarUser;
             try
             {
-                avatarUser = await StaticContent.CoversFolder.GetFileAsync($"User{url}Photo.jpg");
+                avatarUser = await StaticContent.CoversFolder.GetFileAsync($"User{url.GetHashCode()}Photo.jpg");
             }
             catch
             {
-                avatarUser = await StaticContent.CoversFolder.CreateFileAsync($"User{url}Photo.jpg");
+                avatarUser = await StaticContent.CoversFolder.CreateFileAsync($"User{url.GetHashCode()}Photo.jpg");
                 BackgroundDownloader downloader = new BackgroundDownloader();
                 DownloadOperation download = downloader.CreateDownload(new Uri(url), avatarUser);
                 await download.StartAsync();
