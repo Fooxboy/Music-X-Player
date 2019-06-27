@@ -260,7 +260,18 @@ namespace Fooxboy.MusicX.Uwp.ViewModels
             else VkontaktePages = Visibility.Collapsed;
         }
 
-        public string NameAccount { get; set; } = "Войти в аккаунт";
+        private string nameAccount = "Войти в аккаунт";
+        public string NameAccount
+        {
+            get => nameAccount;
+            set
+            {
+                if (nameAccount == value) return;
+
+                nameAccount = value;
+                Changed("NameAccount");
+            }
+        }
 
         public RelayCommand NavigateToSettings { get; set; }
         public RelayCommand NavigateToMain { get; set; }

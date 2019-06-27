@@ -9,6 +9,6 @@
     Background="{ThemeResource BackgroundApp}">
 
     <Grid>
-
+        <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="50" Text="Раздел загрузки"/>
     </Grid>
 </Page>

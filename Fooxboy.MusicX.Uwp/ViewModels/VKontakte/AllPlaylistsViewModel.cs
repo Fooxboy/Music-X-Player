@@ -44,6 +44,8 @@ namespace Fooxboy.MusicX.Uwp.ViewModels.VKontakte
 
         public PlaylistFile SelectPlaylist { get; set; }
 
+        public bool IsLoading { get; set; }
+
         public LoadingCollection<PlaylistFile> Playlists { get; set; }
 
         public void Playlists_ItemClick(object sender, ItemClickEventArgs e)
@@ -62,30 +64,56 @@ namespace Fooxboy.MusicX.Uwp.ViewModels.VKontakte
 
         public async Task<List<PlaylistFile>> GetMorePlaylist(CancellationToken token, uint offset)
         {
-            IList<IPlaylistFile> playlistsVk;
-            List<PlaylistFile> playlists = new List<PlaylistFile>();
-            try
+            if(InternetService.Connected)
             {
-                playlistsVk = await Library.Playlists(20, Playlists.Count);
-                foreach (var playlist in playlistsVk) playlists.Add(await Services.VKontakte.PlaylistsService.ConvertToPlaylistFile(playlist));
-            }
-            catch (Flurl.Http.FlurlHttpException)
-            {
-                hasMorePlaylists = false;
-                await ContentDialogService.Show(new ErrorConnectContentDialog());
-            }
-            
-            if (playlists.Count == 0)
-            {
-                VisibilityNoPlaylists = Visibility.Visible;
-                Changed("VisibilityNoPlaylists");
-            }
+                try
+                {
+                    IList<IPlaylistFile> playlistsVk;
+                    List<PlaylistFile> playlists = new List<PlaylistFile>();
+                    try
+                    {
+                        IsLoading = true;
+                        Changed("IsLoading");
+                        playlistsVk = await Library.Playlists(20, Playlists.Count);
+                        foreach (var playlist in playlistsVk) playlists.Add(await Services.VKontakte.PlaylistsService.ConvertToPlaylistFile(playlist));
+                    }
+                    catch (Flurl.Http.FlurlHttpException)
+                    {
+                        IsLoading = false;
+                        Changed("IsLoading");
+                        hasMorePlaylists = false;
+                        await ContentDialogService.Show(new ErrorConnectContentDialog());
+                        InternetService.GoToOfflineMode();
+                    }
 
-            if(playlists.Count < 20)
+                    if (playlists.Count == 0)
+                    {
+                        VisibilityNoPlaylists = Visibility.Visible;
+                        Changed("VisibilityNoPlaylists");
+                    }
+
+                    if (playlists.Count < 20)
+                    {
+                        hasMorePlaylists = false;
+                    }
+                    IsLoading = false;
+                    Changed("IsLoading");
+                    return playlists;
+                }catch(Exception e)
+                {
+                    IsLoading = false;
+                    Changed("IsLoading");
+                    await ContentDialogService.Show(new ExceptionDialog("Неизвестная ошибка при получении плейлистов", "Мы не смогли получить информацию о Ваших плейлистах", e));
+                    return new List<PlaylistFile>();
+                }
+                
+            }else
             {
-                hasMorePlaylists = false;
+                IsLoading = false;
+                Changed("IsLoading");
+                InternetService.GoToOfflineMode();
+                return new List<PlaylistFile>();
             }
-            return playlists;
         }
 
         public bool HasMorePlaylists() => hasMorePlaylists;

@@ -33,5 +33,11 @@
                   ItemsSource="{x:Bind ViewModel.Playlists, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
 
         </GridView>
+
+        <ProgressRing Height="50" Width="50" 
+                      HorizontalAlignment="Center"
+                      VerticalAlignment="Center"
+                      Grid.RowSpan="3"
+                      IsActive="{x:Bind ViewModel.IsLoading, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
     </Grid>
 </Page>

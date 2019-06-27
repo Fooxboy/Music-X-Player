@@ -29,7 +29,10 @@ namespace Fooxboy.MusicX.Uwp.Services.VKontakte
                 Tracks = playlist.Tracks,
                 Id = playlist.Id,
                 Name = playlist.Name,
-                TracksFiles = await MusicService.ConvertToAudioFile(playlist.Tracks)
+                TracksFiles = await MusicService.ConvertToAudioFile(playlist.Tracks),
+                Genre = playlist.Genre,
+                IsAlbum = playlist.IsAlbum,
+                Year = playlist.Year
             };
 
             return playlistFile;

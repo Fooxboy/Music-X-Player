@@ -4,6 +4,7 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:local="using:Fooxboy.MusicX.Uwp.Views"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:UI="using:Microsoft.Advertising.WinRT.UI"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d"
     Background="{ThemeResource BackgroundApp}">
@@ -63,7 +64,7 @@
                        VerticalAlignment="Center" 
                        Text="{x:Bind ViewModel.VersionApp, Mode=TwoWay}"/>
 
-            <TextBlock Text="Разработчки" 
+            <TextBlock Text="Разработчики" 
                        FontWeight="Bold"
                        HorizontalAlignment="Right"
                        Margin="0 0 30 0"
@@ -82,12 +83,41 @@
                                  IsEnabled="{x:Bind ViewModel.EnableDarkTheme, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                                  Margin="30 0 0 0" Click="{x:Bind ViewModel.RadioButton_ClickDark}" IsChecked="{x:Bind ViewModel.SelectDarkTheme, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" 
                                  GroupName="Theme"/>
+                    
+                    <UI:AdControl Margin="30 10 0 0" ApplicationId="9ncjgg7b13q1" 
+                      AdUnitId="1100051155" 
+                      Height="50"
+                      Width="320"/>
+                    
                     <TextBlock Text="Музыка на этом компьютере" Margin="30 30 0 0" FontSize="18" FontWeight="Bold"/>
                     
                     <ToggleSwitch Margin="30 5 0 0" Header="Папка Музыка" IsOn="{x:Bind ViewModel.MusicLibraryIsOn,
                         Mode=TwoWay,
                         UpdateSourceTrigger=PropertyChanged}" OnContent="Включено" OffContent="Отключено"/>
                     <ToggleSwitch Margin="30 0 0 0" Header="Папка Документы" IsEnabled="False" IsOn="False" OnContent="Включено" OffContent="Отключено"/>
+
+                    <UI:AdControl Margin="30 10 0 0" ApplicationId="9ncjgg7b13q1" 
+                      AdUnitId="1100051155" 
+                      Height="50"
+                      Width="320"/>
+                    <TextBlock Text="Музыка ВКонтакте" Margin="30 30 0 0" FontSize="18" FontWeight="Bold"/>
+
+                    <ToggleSwitch Margin="30 5 0 0" Header="Транслировать музыку в статус ВКонтакте" IsEnabled="True" IsOn="False" OnContent="Включено" OffContent="Отключено"/>
+
+                    <UI:AdControl Margin="30 10 0 0" ApplicationId="9ncjgg7b13q1" 
+                      AdUnitId="1100051155" 
+                      Height="50"
+                      Width="320"/>
+
+                    <UI:AdControl Margin="30 10 0 0" ApplicationId="9ncjgg7b13q1" 
+                      AdUnitId="1100051155" 
+                      Height="50"
+                      Width="320"/>
+
+                    <UI:AdControl Margin="30 10 0 0" ApplicationId="9ncjgg7b13q1" 
+                      AdUnitId="1100051155" 
+                      Height="50"
+                      Width="320"/>
                 </StackPanel>
             </ScrollViewer>
         </Grid>

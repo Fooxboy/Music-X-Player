@@ -66,6 +66,17 @@ namespace Fooxboy.MusicX.Uwp.ViewModels
         }
 
 
+        public Visibility VisibilityInfo
+        {
+            get
+            {
+                return Playlist.IsAlbum ? Visibility.Visible : Visibility.Collapsed;
+            }set
+            {
+                //support x:bind;
+            }
+        }
+
         private string pltrackcount;
         public string PLTrackCount
         {

@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices.WindowsRuntime;
-using Fooxboy.MusicX.Uwp.ViewModels.VKontakte;
+using Fooxboy.MusicX.Uwp.Views.VKontakte;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
 using Windows.UI.Xaml;
@@ -16,24 +16,27 @@ using Windows.UI.Xaml.Navigation;
 
 // Документацию по шаблону элемента "Пустая страница" см. по адресу https://go.microsoft.com/fwlink/?LinkId=234238
 
-namespace Fooxboy.MusicX.Uwp.Views.VKontakte
+namespace Fooxboy.MusicX.Uwp.Views
 {
     /// <summary>
     /// Пустая страница, которую можно использовать саму по себе или для перехода внутри фрейма.
     /// </summary>
-    public sealed partial class AccountView : Page
+    public sealed partial class OfflineModeView : Page
     {
-
-        public AccountViewModel ViewModel { get; set; }
-        public AccountView()
+        public OfflineModeView()
         {
             this.InitializeComponent();
-            ViewModel = AccountViewModel.Instanse;
         }
 
-        protected async override void OnNavigatedTo(NavigationEventArgs e)
+        private void Button_Click(object sender, RoutedEventArgs e)
         {
-           await ViewModel.LoadingInfo();
+            StaticContent.NavigationContentService.Go(typeof(DownloadsView));
+        }
+
+        private void Button_Click_1(object sender, RoutedEventArgs e)
+        {
+            StaticContent.NavigationContentService.Go(typeof(HomeLocalView));
+
         }
     }
 }

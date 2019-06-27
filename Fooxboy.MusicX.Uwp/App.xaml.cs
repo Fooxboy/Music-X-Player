@@ -44,16 +44,30 @@ namespace Fooxboy.MusicX.Uwp
         public App()
         {
             var settings = ApplicationData.Current.LocalSettings;
-
-
-            Windows.Storage.ApplicationDataCompositeValue composite =
+            InternetService.CheckConnection();
+            try
+            {
+                Windows.Storage.ApplicationDataCompositeValue composite =
                     (Windows.Storage.ApplicationDataCompositeValue)settings.Values["themeApp"];
 
-            if (composite == null)
-            {
-                this.RequestedTheme = ApplicationTheme.Light;
-            }
-            else
+                if (composite == null)
+                {
+                    this.RequestedTheme = ApplicationTheme.Light;
+                }
+                else
+                {
+                    var theme = (int)settings.Values["themeApp"];
+                    if (theme == 0)
+                    {
+                        this.RequestedTheme = ApplicationTheme.Light;
+
+                    }
+                    else
+                    {
+                        this.RequestedTheme = ApplicationTheme.Dark;
+                    }
+                }
+            }catch
             {
                 var theme = (int)settings.Values["themeApp"];
                 if (theme == 0)
@@ -67,6 +81,7 @@ namespace Fooxboy.MusicX.Uwp
                 }
             }
             
+            
 
             Log.Run();
             Log.Trace("Инициализация объекта приложения");
@@ -77,10 +92,12 @@ namespace Fooxboy.MusicX.Uwp
 
         protected async override void OnLaunched(LaunchActivatedEventArgs e)
         {
+            Log.Trace("OnLaunched");
             DispatcherHelper.Initialize();
             Frame rootFrame = Window.Current.Content as Frame;
             if (rootFrame == null)
             {
+                Log.Trace("rootFrame != null");
                 rootFrame = new Frame();
                 rootFrame.NavigationFailed += OnNavigationFailed;
                 if(e != null)
@@ -100,11 +117,14 @@ namespace Fooxboy.MusicX.Uwp
                 StaticContent.LocalFolder = ApplicationData.Current.LocalFolder;
                 if (await StaticContent.LocalFolder.TryGetItemAsync("Playlists") != null)
                 {
+                    Log.Trace("Set playlistFolder");
                     StaticContent.PlaylistsFolder = await StaticContent.LocalFolder.GetFolderAsync("Playlists");
                 }
 
                 if(await StaticContent.LocalFolder.TryGetItemAsync("Covers") != null)
                 {
+                    Log.Trace("Set CoversFolder");
+
                     StaticContent.CoversFolder = await StaticContent.LocalFolder.GetFolderAsync("Covers");
 
                 }
@@ -117,23 +137,53 @@ namespace Fooxboy.MusicX.Uwp
                     StaticContent.Config = config;
                 }
 
-                if(StaticContent.Config.ThemeApp == 0)
-                {
-                    appView.TitleBar.ButtonForegroundColor = Colors.Black;
-                }
-                else
-                {
-                    appView.TitleBar.ButtonForegroundColor = Colors.White;
-                }
+                var settings = ApplicationData.Current.LocalSettings;
 
                 try
                 {
+                    Windows.Storage.ApplicationDataCompositeValue composite =
+                            (Windows.Storage.ApplicationDataCompositeValue)settings.Values["themeApp"];
+
+                    if (composite == null)
+                    {
+                        appView.TitleBar.ButtonForegroundColor = Colors.Black;
+                    }
+                    else
+                    {
+                        var theme = (int)settings.Values["themeApp"];
+                        if (theme == 0)
+                        {
+                            appView.TitleBar.ButtonForegroundColor = Colors.Black;
+
+                        }
+                        else
+                        {
+                            appView.TitleBar.ButtonForegroundColor = Colors.White;
+                        }
+                    }
+                }catch
+                {
+                    var theme = (int)settings.Values["themeApp"];
+                    if (theme == 0)
+                    {
+                        appView.TitleBar.ButtonForegroundColor = Colors.Black;
+
+                    }
+                    else
+                    {
+                        appView.TitleBar.ButtonForegroundColor = Colors.White;
+                    }
+                }
+
+
+
+                if (InternetService.Connected)
+                {
                     StaticContent.IsAuth = await AuthService.IsAuth();
                     if (StaticContent.IsAuth) await AuthService.AutoAuth();
-                }
-                catch (Flurl.Http.FlurlHttpException)
+                }else
                 {
-                    //TODO: переход в офлайн режим
+                    StaticContent.IsAuth = false;
                 }
 
 

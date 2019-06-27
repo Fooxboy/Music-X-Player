@@ -32,9 +32,7 @@ namespace Fooxboy.MusicX.Uwp.Views
             StaticContent.NavigationContentService = new Services.NavigationService() { RootFrame = ContentFrame };
             PlayerMenuFrame.Navigate(typeof(PlayerMenuView));
             PlayerBottomFrame.Navigate(typeof(MiniPlayerView));
-
-
-            
+            BottomAdsFrame.Navigate(typeof(AdsBottomPanelView));
 
             if (StaticContent.IsAuth)
             {
@@ -43,7 +41,8 @@ namespace Fooxboy.MusicX.Uwp.Views
                     StaticContent.NavigationContentService.Go(typeof(VKontakte.HomeView));
                 }else
                 {
-                    StaticContent.NavigationContentService.Go(typeof(HomeLocalView));
+                    InternetService.GoToOfflineMode();
+                    //StaticContent.NavigationContentService.Go(typeof(HomeLocalView));
                 }
             }else
             {

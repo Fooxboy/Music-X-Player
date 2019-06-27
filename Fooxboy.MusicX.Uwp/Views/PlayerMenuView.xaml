@@ -76,12 +76,10 @@
                         BorderThickness="0" 
                         FontSize="20" FontFamily="Segoe MDL2 Assets"
                         Content="&#xE149;" Width="30"
+                              IsChecked="{x:Bind PlayerViewModel.Repeat, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                              
                         Height="30" Margin="0,0,10,0"
                               Command="{x:Bind PlayerViewModel.RepeatSwitch}">
-
-                    <ToggleButton.Background>
-                        <SolidColorBrush Opacity="0"/>
-                    </ToggleButton.Background>
                 </ToggleButton>
 
                 <Button Padding="0" 

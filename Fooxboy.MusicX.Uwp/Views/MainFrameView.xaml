@@ -17,13 +17,15 @@
             <RowDefinition Height="32"/>
             <RowDefinition Height="*"/>
             <RowDefinition x:Name="PlayerBottom" Height="20"/>
+            <RowDefinition x:Name="AdsPanel" Height="50"/>
         </Grid.RowDefinitions>
        
 
 
-        <Frame Grid.Column="0" Grid.RowSpan="2" x:Name="PlayerMenuFrame"/>
+        <Frame Grid.Column="0" Grid.RowSpan="4" x:Name="PlayerMenuFrame"/>
         <Frame Grid.Column="1" Grid.RowSpan="2" x:Name="ContentFrame"/>
         <Frame Grid.ColumnSpan="2" Grid.Row="2" x:Name="PlayerBottomFrame"/>
+        <Frame Grid.Column="1"  Grid.Row="3" x:Name="BottomAdsFrame"/>
         <Grid x:Name="TitleBar" Grid.Row="0" Grid.ColumnSpan="2" Background="Transparent"/>
 
     </Grid>
