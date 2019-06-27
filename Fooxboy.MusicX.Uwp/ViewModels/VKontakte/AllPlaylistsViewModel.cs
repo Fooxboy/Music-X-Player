@@ -44,6 +44,8 @@ namespace Fooxboy.MusicX.Uwp.ViewModels.VKontakte
 
         public PlaylistFile SelectPlaylist { get; set; }
 
+        public bool IsLoading { get; set; }
+
         public LoadingCollection<PlaylistFile> Playlists { get; set; }
 
         public void Playlists_ItemClick(object sender, ItemClickEventArgs e)
@@ -70,11 +72,15 @@ namespace Fooxboy.MusicX.Uwp.ViewModels.VKontakte
                     List<PlaylistFile> playlists = new List<PlaylistFile>();
                     try
                     {
+                        IsLoading = true;
+                        Changed("IsLoading");
                         playlistsVk = await Library.Playlists(20, Playlists.Count);
                         foreach (var playlist in playlistsVk) playlists.Add(await Services.VKontakte.PlaylistsService.ConvertToPlaylistFile(playlist));
                     }
                     catch (Flurl.Http.FlurlHttpException)
                     {
+                        IsLoading = false;
+                        Changed("IsLoading");
                         hasMorePlaylists = false;
                         await ContentDialogService.Show(new ErrorConnectContentDialog());
                         InternetService.GoToOfflineMode();
@@ -90,15 +96,21 @@ namespace Fooxboy.MusicX.Uwp.ViewModels.VKontakte
                     {
                         hasMorePlaylists = false;
                     }
+                    IsLoading = false;
+                    Changed("IsLoading");
                     return playlists;
                 }catch(Exception e)
                 {
+                    IsLoading = false;
+                    Changed("IsLoading");
                     await ContentDialogService.Show(new ExceptionDialog("Неизвестная ошибка при получении плейлистов", "Мы не смогли получить информацию о Ваших плейлистах", e));
                     return new List<PlaylistFile>();
                 }
                 
             }else
             {
+                IsLoading = false;
+                Changed("IsLoading");
                 InternetService.GoToOfflineMode();
                 return new List<PlaylistFile>();
             }

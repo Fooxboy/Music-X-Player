@@ -22,7 +22,7 @@ namespace Fooxboy.MusicX.Uwp.ViewModels.VKontakte
     {
         private static HomeViewModel instanse;
         private long maxCountElements = -1;
-        const int countTracksLoading = 50;
+        const int countTracksLoading = 20;
         private bool loadingPlaylists = true;
         private bool loadingMusic = true;
         public bool NoPlaylists = false;
@@ -93,6 +93,8 @@ namespace Fooxboy.MusicX.Uwp.ViewModels.VKontakte
                     List<AudioFile> music = new List<AudioFile>();
                     try
                     {
+                        IsLoading = true;
+                        Changed("IsLoading");
                         if (maxCountElements == -1) maxCountElements = await Library.CountTracks();
                         tracks = await Library.Tracks(countTracksLoading, Music.Count);
                         music = await MusicService.ConvertToAudioFile(tracks);
