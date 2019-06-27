@@ -11,7 +11,7 @@
     Background="{ThemeResource SystemControlAcrylicWindowBrush}"
     MinWidth="220" 
     MinHeight="500">
-    <Grid >
+    <Grid>
         <Grid.RowDefinitions>
             <RowDefinition MinHeight="400" Height="*"/>
             <RowDefinition Height="*"/>
@@ -170,13 +170,15 @@
 
 
             <Grid>
-                <ScrollViewer Grid.Row="0">
+                <ScrollViewer Grid.Row="0" 
+                              VerticalScrollBarVisibility="Visible">
                     <StackPanel Grid.Row="0"
                                 Padding="0,10,0,0" 
                                 Orientation="Vertical" 
                                 HorizontalAlignment="Stretch" 
                                 VerticalAlignment="Stretch" 
-                                BorderThickness="0">
+                                BorderThickness="0"
+                                MinHeight="300">
 
                         <Button FontSize="16" 
                                 HorizontalContentAlignment="Left"
@@ -340,102 +342,106 @@
                                 </Grid>
                             </Button.Content>
                         </Button>
-                    </StackPanel>
-                </ScrollViewer>
-               
 
-                <Button  Padding="0" Grid.Row="1" FontSize="16" 
+                        <StackPanel VerticalAlignment="Bottom">
+                            <Button  Padding="0" Grid.Row="1" FontSize="16" 
                              HorizontalContentAlignment="Left" 
                              HorizontalAlignment="Stretch" Height="40"
-                             Margin="0,0,0,90" VerticalAlignment="Bottom" 
+                             VerticalAlignment="Bottom" 
                              BorderThickness="0"
                              Command="{x:Bind PlayerMenuViewModel.NavigateToPro}">
-                    <Button.Background>
-                        <SolidColorBrush Opacity="0"/>
-                    </Button.Background>
-                    <Button.Content>
-                        <Grid>
-                            <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="5"/>
-                                <ColumnDefinition Width="30"/>
-                                <ColumnDefinition Width="auto"/>
-                            </Grid.ColumnDefinitions>
-                            <Rectangle Visibility="{x:Bind PlayerMenuViewModel.ProSelector, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" Grid.Column="0" Fill="#0078d7" Height="30" Width="5"/>
-                            <TextBlock Grid.Column="1" 
+                                <Button.Background>
+                                    <SolidColorBrush Opacity="0"/>
+                                </Button.Background>
+                                <Button.Content>
+                                    <Grid>
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="5"/>
+                                            <ColumnDefinition Width="30"/>
+                                            <ColumnDefinition Width="auto"/>
+                                        </Grid.ColumnDefinitions>
+                                        <Rectangle Visibility="{x:Bind PlayerMenuViewModel.ProSelector, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" Grid.Column="0" Fill="#0078d7" Height="30" Width="5"/>
+                                        <TextBlock Grid.Column="1" 
                                            Padding="5" FontSize="20"
                                            FontFamily="Segoe MDL2 Assets"
                                            Text="&#xE192;" Width="30" Height="30"/>
-                            <TextBlock Grid.Column="2"
+                                        <TextBlock Grid.Column="2"
                                            Padding="5" Text="MusicX Pro"/>
-                        </Grid>
-                    </Button.Content>
-                </Button>
+                                    </Grid>
+                                </Button.Content>
+                            </Button>
 
-                <Button  Padding="0" Grid.Row="1" FontSize="16"
+                            <Button  Padding="0" Grid.Row="1" FontSize="16"
                              HorizontalContentAlignment="Left"  
                              Command="{x:Bind PlayerMenuViewModel.NavigateToLogin}"
                              HorizontalAlignment="Stretch" Height="40"
-                             Margin="0,0,0,50" VerticalAlignment="Bottom" BorderThickness="0">
-                    <Button.Background>
-                        <SolidColorBrush Opacity="0"/>
-                    </Button.Background>
-                    <Button.Content>
-                        <Grid>
-                            <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="5"/>
-                                <ColumnDefinition Width="30"/>
-                                <ColumnDefinition Width="auto"/>
-                            </Grid.ColumnDefinitions>
-                            <Rectangle Visibility="{x:Bind PlayerMenuViewModel.AccountSelector, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" Grid.Column="0" Fill="#0078d7" Height="30" Width="5"/>
-                            <Ellipse  Grid.Column="1" Width="25" Height="25">
-                                <Ellipse.Fill>
-                                    <ImageBrush>
-                                        <ImageBrush.ImageSource>
-                                            <BitmapImage UriSource="/Assets/Images/logo.png"
+                              VerticalAlignment="Bottom" BorderThickness="0">
+                                <Button.Background>
+                                    <SolidColorBrush Opacity="0"/>
+                                </Button.Background>
+                                <Button.Content>
+                                    <Grid>
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="5"/>
+                                            <ColumnDefinition Width="30"/>
+                                            <ColumnDefinition Width="auto"/>
+                                        </Grid.ColumnDefinitions>
+                                        <Rectangle Visibility="{x:Bind PlayerMenuViewModel.AccountSelector, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" Grid.Column="0" Fill="#0078d7" Height="30" Width="5"/>
+                                        <Ellipse  Grid.Column="1" Width="25" Height="25">
+                                            <Ellipse.Fill>
+                                                <ImageBrush>
+                                                    <ImageBrush.ImageSource>
+                                                        <BitmapImage UriSource="/Assets/Images/logo.png"
                                                      DecodePixelHeight="25"
                                                      DecodePixelWidth="25" />
-                                        </ImageBrush.ImageSource>
-                                    </ImageBrush>
-                                </Ellipse.Fill>
-                            </Ellipse>
-                            <TextBlock Grid.Column="2" Padding="5" Text="{x:Bind PlayerMenuViewModel.NameAccount, Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"/>
-                        </Grid>
-                    </Button.Content>
-                </Button>
-                <Button  Padding="0" Grid.Row="1"
+                                                    </ImageBrush.ImageSource>
+                                                </ImageBrush>
+                                            </Ellipse.Fill>
+                                        </Ellipse>
+                                        <TextBlock Grid.Column="2" Padding="5" Text="{x:Bind PlayerMenuViewModel.NameAccount, Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"/>
+                                    </Grid>
+                                </Button.Content>
+                            </Button>
+                            <Button  Padding="0" Grid.Row="1"
                              FontSize="16" 
                              HorizontalContentAlignment="Left"
                              HorizontalAlignment="Stretch"
                              Height="40"
-                             Margin="0,0,0,10" 
+                             
                              VerticalAlignment="Bottom"
                              BorderThickness="0"
                              Command="{x:Bind PlayerMenuViewModel.NavigateToSettings}"
                              >
-                    <Button.Background>
-                        <SolidColorBrush Opacity="0"/>
-                    </Button.Background>
-                    <Button.Content>
-                        <Grid>
-                            <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="5"/>
-                                <ColumnDefinition Width="30"/>
-                                <ColumnDefinition Width="auto"/>
-                            </Grid.ColumnDefinitions>
-                            <Rectangle Visibility="{x:Bind PlayerMenuViewModel.SettingsSelector, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" Grid.Column="0" Fill="#0078d7" Height="30" Width="5"/>
-                            <TextBlock Grid.Column="1"
+                                <Button.Background>
+                                    <SolidColorBrush Opacity="0"/>
+                                </Button.Background>
+                                <Button.Content>
+                                    <Grid>
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="5"/>
+                                            <ColumnDefinition Width="30"/>
+                                            <ColumnDefinition Width="auto"/>
+                                        </Grid.ColumnDefinitions>
+                                        <Rectangle Visibility="{x:Bind PlayerMenuViewModel.SettingsSelector, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" Grid.Column="0" Fill="#0078d7" Height="30" Width="5"/>
+                                        <TextBlock Grid.Column="1"
                                            Padding="5"
                                            FontSize="20"
                                            FontFamily="Segoe MDL2 Assets" 
                                            Text="&#xE713;" Width="30"
                                            Height="30"/>
 
-                            <TextBlock Grid.Column="2"
+                                        <TextBlock Grid.Column="2"
                                            Padding="5" 
                                            Text="Настройки" Height="32" VerticalAlignment="Top"/>
-                        </Grid>
-                    </Button.Content>
-                </Button>
+                                    </Grid>
+                                </Button.Content>
+                            </Button>
+                        </StackPanel>
+                    </StackPanel>
+                </ScrollViewer>
+               
+
+               
             </Grid>
 
             
