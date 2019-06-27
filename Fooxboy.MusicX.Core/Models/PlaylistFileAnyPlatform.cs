@@ -13,5 +13,8 @@ namespace Fooxboy.MusicX.Core.Models
         public long Id { get; set; }
         public string Cover { get; set; }
         public IList<IAudioFile> Tracks { get; set; }
+        public bool IsAlbum { get; set; }
+        public string Genre { get; set; }
+        public string Year { get; set; }
     }
 }

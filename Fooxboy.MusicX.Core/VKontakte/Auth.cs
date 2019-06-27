@@ -25,7 +25,6 @@ namespace Fooxboy.MusicX.Core.VKontakte
                 TwoFactorAuthorization = twoFactorAuth
             });
 
-
             StaticContent.VkApi = api;
             var userInfo = await  Users.Info.CurrentUser();
             StaticContent.UserId = userInfo.Id;
