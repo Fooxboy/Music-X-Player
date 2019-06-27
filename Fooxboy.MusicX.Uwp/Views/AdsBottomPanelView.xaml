@@ -1,0 +1,28 @@
+﻿<Page
+    x:Class="Fooxboy.MusicX.Uwp.Views.AdsBottomPanelView"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:Fooxboy.MusicX.Uwp.Views"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:UI="using:Microsoft.Advertising.WinRT.UI"
+    mc:Ignorable="d"
+    Background="{ThemeResource BackgroundApp}">
+
+    <Grid>
+        <StackPanel HorizontalAlignment="Center">
+            <UI:AdControl ApplicationId="9ncjgg7b13q1" 
+                      AdUnitId="1100051155" 
+                      Height="50"
+                      Width="320"/>
+            
+            <UI:AdControl Margin="10 0 0 0" ApplicationId="9ncjgg7b13q1" 
+                      AdUnitId="1100051155" 
+                      Height="50"
+                      Width="320"/>
+            
+        </StackPanel>
+        
+
+    </Grid>
+</Page>

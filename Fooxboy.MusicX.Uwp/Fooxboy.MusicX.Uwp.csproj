@@ -209,6 +209,9 @@
     <Compile Include="ViewModels\VKontakte\HomeViewModel.cs" />
     <Compile Include="ViewModels\VKontakte\PopularViewModel.cs" />
     <Compile Include="ViewModels\VKontakte\RecommendationsViewModel.cs" />
+    <Compile Include="Views\AdsBottomPanelView.xaml.cs">
+      <DependentUpon>AdsBottomPanelView.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\AllPlaylistsView.xaml.cs">
       <DependentUpon>AllPlaylistsView.xaml</DependentUpon>
     </Compile>
@@ -408,6 +411,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Views\AdsBottomPanelView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Views\AllPlaylistsView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -506,7 +513,14 @@
       <Version>2.1.0</Version>
     </PackageReference>
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <SDKReference Include="Microsoft.Advertising.Xaml, Version=10.0">
+      <Name>Microsoft Advertising SDK for XAML</Name>
+    </SDKReference>
+    <SDKReference Include="Microsoft.VCLibs, Version=14.0">
+      <Name>Visual C++ 2015 Runtime for Universal Windows Platform Apps</Name>
+    </SDKReference>
+  </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Fooxboy.MusicX.Core\Fooxboy.MusicX.Core.csproj">
       <Project>{dc2f5311-ffb3-4810-8980-cc6ad7c036e0}</Project>

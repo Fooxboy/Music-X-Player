@@ -70,7 +70,7 @@ namespace Fooxboy.MusicX.Uwp.ViewModels
                 Shuffle = !Shuffle;
             });
 
-
+            Changed("Repeat");
             Changed("Volume");
 
         }
@@ -165,13 +165,16 @@ namespace Fooxboy.MusicX.Uwp.ViewModels
             }
         }
 
+
         public bool Shuffle
         {
             get { return StaticContent.AudioService.Shuffle; }
             set
             {
+                if (StaticContent.AudioService.Shuffle == value) return;
                 StaticContent.AudioService.Shuffle = value;
                 StaticContent.Shuffle = StaticContent.AudioService.Shuffle;
+                Changed("Shuffle");
             }
         }
 
@@ -211,7 +214,7 @@ namespace Fooxboy.MusicX.Uwp.ViewModels
             Changed("Volume");
         }
 
-        private async  void AudioServiceCurrentAudioChanged(object sender, EventArgs e)
+        private void AudioServiceCurrentAudioChanged(object sender, EventArgs e)
         {
             PositionSeconds = 0;
             Changed("PositionSeconds");
@@ -225,6 +228,11 @@ namespace Fooxboy.MusicX.Uwp.ViewModels
 
         private void AudioServicePositionChanged(object sender, TimeSpan position)
         {
+            if(position.Seconds == Duration.TotalSeconds)
+            {
+                PositionSeconds = 0;
+                StaticContent.AudioService.SwitchNext(skip: true);
+            }
             Changed(nameof(Position));
             Changed(nameof(PositionSeconds));
             Changed("PositionMinutes");
