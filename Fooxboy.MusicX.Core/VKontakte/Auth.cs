@@ -17,7 +17,11 @@ namespace Fooxboy.MusicX.Core.VKontakte
             var services = new ServiceCollection();
             services.AddAudioBypass();
             var api = new VkApi(services);
+
+
             api.CaptchaSolver = captchaSolver;
+
+
             await api.AuthorizeAsync(new ApiAuthParams()
             {
                 Login = login,

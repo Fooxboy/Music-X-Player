@@ -19,7 +19,17 @@ namespace Fooxboy.MusicX.Uwp.Services.VKontakte
             }else
             {
                 cover = await ImagesService.CoverPlaylist(playlist);
-            }     
+            }
+
+            List<AudioFile> tracksFiles;
+
+            if(playlist.IsAlbum)
+            {
+                tracksFiles = await MusicService.ConvertToAudioFile(playlist.Tracks, cover);
+            }else
+            {
+                tracksFiles = await MusicService.ConvertToAudioFile(playlist.Tracks, cover);
+            }
 
             var playlistFile = new PlaylistFile()
             {
@@ -29,7 +39,7 @@ namespace Fooxboy.MusicX.Uwp.Services.VKontakte
                 Tracks = playlist.Tracks,
                 Id = playlist.Id,
                 Name = playlist.Name,
-                TracksFiles = await MusicService.ConvertToAudioFile(playlist.Tracks),
+                TracksFiles = tracksFiles,
                 Genre = playlist.Genre,
                 IsAlbum = playlist.IsAlbum,
                 Year = playlist.Year

@@ -11,7 +11,7 @@ namespace Fooxboy.MusicX.Uwp.Services.VKontakte
 {
     public static class MusicService
     {
-        public async static Task<List<AudioFile>> ConvertToAudioFile(IList<IAudioFile> music)
+        public async static Task<List<AudioFile>> ConvertToAudioFile(IList<IAudioFile> music, string cover = null)
         {
             var tracks = new List<AudioFile>();
 
@@ -19,13 +19,21 @@ namespace Fooxboy.MusicX.Uwp.Services.VKontakte
             {
                 string coverImage;
 
-                if (track.Cover == "no")
+                if(cover == null)
                 {
-                    coverImage = "ms-appx:///Assets/Images/placeholder.png";
+                    if (track.Cover == "no")
+                    {
+                        coverImage = "ms-appx:///Assets/Images/placeholder.png";
+                    }
+                    else
+                    {
+                        coverImage = await ImagesService.CoverAudio(track);
+                    }
                 }else
                 {
-                    coverImage = await ImagesService.CoverAudio(track);
+                    coverImage = cover;
                 }
+               
 
                 var audiofile = new AudioFile()
                 {
