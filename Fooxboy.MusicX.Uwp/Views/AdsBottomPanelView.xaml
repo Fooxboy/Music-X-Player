@@ -11,6 +11,8 @@
 
     <Grid>
         <StackPanel HorizontalAlignment="Center">
+            
+            
             <UI:AdControl ApplicationId="9ncjgg7b13q1" 
                       AdUnitId="1100051155" 
                       Height="50"
