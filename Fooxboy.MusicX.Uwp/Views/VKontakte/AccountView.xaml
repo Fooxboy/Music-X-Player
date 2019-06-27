@@ -9,6 +9,49 @@
     Background="{ThemeResource BackgroundApp}">
 
     <Grid>
-        <TextBlock Text="AccountView"/>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="36"/>
+            <RowDefinition Height="150"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+        <Rectangle Grid.RowSpan="2" Fill="{ThemeResource ColorSettings}"/>
+
+        <Grid Grid.Row="1">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="30"/>
+                <ColumnDefinition Width="100"/>
+                <ColumnDefinition Width="auto"/>
+                <ColumnDefinition Width="auto"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+
+            <Rectangle RadiusX="999" RadiusY="999" Grid.Column="1" Height="100" Width="100">
+                <Rectangle.Fill>
+                    <ImageBrush>
+                        <ImageBrush.ImageSource>
+                            <BitmapImage DecodePixelHeight="100" 
+                                         UriSource="{x:Bind ViewModel.ImageUser, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" 
+                                         DecodePixelWidth="100" />
+                        </ImageBrush.ImageSource>
+                    </ImageBrush>
+                </Rectangle.Fill>
+            </Rectangle>
+
+            <TextBlock Text="Аккаунт ВКонтакте"
+                       Grid.Column="2"
+                       Margin="0 0 0 35"
+                       VerticalAlignment="Center"
+                       Foreground="{ThemeResource SubText}"/>
+            <TextBlock Text="{x:Bind ViewModel.NameUser, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                       FontWeight="ExtraBlack"
+                       FontSize="25" 
+                       VerticalAlignment="Center"
+                       Grid.Column="2"/>
+            <Button Grid.Column="3" Margin="10 0 0 0"
+                    Style="{ThemeResource ButtonLoginStyle}"
+                    VerticalAlignment="Center"
+                    Command="{x:Bind ViewModel.LogOutCommand}"
+                    Content="Выйти с аккаунта"/>
+        </Grid>
     </Grid>
 </Page>

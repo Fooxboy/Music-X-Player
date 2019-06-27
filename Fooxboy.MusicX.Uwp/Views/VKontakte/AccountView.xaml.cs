@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices.WindowsRuntime;
+using Fooxboy.MusicX.Uwp.ViewModels.VKontakte;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
 using Windows.UI.Xaml;
@@ -22,9 +23,17 @@ namespace Fooxboy.MusicX.Uwp.Views.VKontakte
     /// </summary>
     public sealed partial class AccountView : Page
     {
+
+        public AccountViewModel ViewModel { get; set; }
         public AccountView()
         {
             this.InitializeComponent();
+            ViewModel = AccountViewModel.Instanse;
+        }
+
+        protected async override void OnNavigatedTo(NavigationEventArgs e)
+        {
+           await ViewModel.LoadingInfo();
         }
     }
 }

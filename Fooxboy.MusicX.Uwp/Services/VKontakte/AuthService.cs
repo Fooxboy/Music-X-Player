@@ -6,6 +6,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using Fooxboy.MusicX.Uwp.Resources.ContentDialogs;
 using Fooxboy.MusicX.Uwp.ViewModels;
+using Fooxboy.MusicX.Uwp.Views;
 using GalaSoft.MvvmLight.Threading;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
@@ -77,6 +78,7 @@ namespace Fooxboy.MusicX.Uwp.Services.VKontakte
         {
             StaticContent.IsAuth = false;
             PlayerMenuViewModel.Instanse.VkontaktePages = Visibility.Collapsed;
+            StaticContent.NavigationContentService.Go(typeof(HomeLocalView));
             await TokenService.Delete();
         }
 

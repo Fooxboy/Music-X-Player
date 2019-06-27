@@ -203,6 +203,7 @@
     <Compile Include="ViewModels\PlayerViewModel.cs" />
     <Compile Include="ViewModels\PlaylistViewModel.cs" />
     <Compile Include="ViewModels\SettingsViewModel.cs" />
+    <Compile Include="ViewModels\VKontakte\AccountViewModel.cs" />
     <Compile Include="ViewModels\VKontakte\AllPlaylistsViewModel.cs" />
     <Compile Include="ViewModels\VKontakte\AuthViewModel.cs" />
     <Compile Include="ViewModels\VKontakte\HomeViewModel.cs" />

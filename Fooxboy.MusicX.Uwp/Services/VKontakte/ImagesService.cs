@@ -44,6 +44,25 @@ namespace Fooxboy.MusicX.Uwp.Services.VKontakte
             return coverFile.Path;
         }
 
+
+        public async static Task<string> AvatarUser(string url)
+        {
+            StorageFile avatarUser;
+            try
+            {
+                avatarUser = await StaticContent.CoversFolder.GetFileAsync($"User{url}Photo.jpg");
+            }
+            catch
+            {
+                avatarUser = await StaticContent.CoversFolder.CreateFileAsync($"User{url}Photo.jpg");
+                BackgroundDownloader downloader = new BackgroundDownloader();
+                DownloadOperation download = downloader.CreateDownload(new Uri(url), avatarUser);
+                await download.StartAsync();
+            }
+
+            return avatarUser.Path;
+        }
+
         public async static Task<string> CoverPlaylist(IPlaylistFile playlist)
         {
             var uriImage = playlist.Cover;

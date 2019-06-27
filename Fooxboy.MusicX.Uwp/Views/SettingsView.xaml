@@ -63,7 +63,7 @@
                        VerticalAlignment="Center" 
                        Text="{x:Bind ViewModel.VersionApp, Mode=TwoWay}"/>
 
-            <TextBlock Text="Разработчки" 
+            <TextBlock Text="Разработчики" 
                        FontWeight="Bold"
                        HorizontalAlignment="Right"
                        Margin="0 0 30 0"
@@ -88,6 +88,9 @@
                         Mode=TwoWay,
                         UpdateSourceTrigger=PropertyChanged}" OnContent="Включено" OffContent="Отключено"/>
                     <ToggleSwitch Margin="30 0 0 0" Header="Папка Документы" IsEnabled="False" IsOn="False" OnContent="Включено" OffContent="Отключено"/>
+                    <TextBlock Text="Музыка ВКонтакте" Margin="30 30 0 0" FontSize="18" FontWeight="Bold"/>
+
+                    <ToggleSwitch Margin="30 5 0 0" Header="Транслировать музыку в статус ВКонтакте" IsEnabled="True" IsOn="False" OnContent="Включено" OffContent="Отключено"/>
                 </StackPanel>
             </ScrollViewer>
         </Grid>
