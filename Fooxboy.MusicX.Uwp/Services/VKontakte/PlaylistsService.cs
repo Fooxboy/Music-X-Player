@@ -28,7 +28,7 @@ namespace Fooxboy.MusicX.Uwp.Services.VKontakte
                 tracksFiles = await MusicService.ConvertToAudioFile(playlist.Tracks, cover);
             }else
             {
-                tracksFiles = await MusicService.ConvertToAudioFile(playlist.Tracks, cover);
+                tracksFiles = await MusicService.ConvertToAudioFile(playlist.Tracks);
             }
 
             var playlistFile = new PlaylistFile()

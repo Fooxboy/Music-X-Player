@@ -12,21 +12,18 @@ namespace Fooxboy.MusicX.Core.VKontakte.Music.Converters
     {
         public static IPlaylistFile ToIPlaylistFile(this AudioPlaylist playlist, IList<IAudioFile> tracks)
         {
-            bool isAlbum;
+            bool isAlbum = playlist.Type == 1;
             string cover;
-            string artist;
-            string genre;
-            string year;
+            string artist = "";
+            string genre = "";
+            string year = "";
             try
             {
                 artist = playlist.MainArtists.First().Name;
-                isAlbum = true;
-                if (artist == "") isAlbum = false;
             }
             catch
             {
                 artist = "Неизвестный исполнитель";
-                isAlbum = false;
             }
             try
             {
