@@ -57,5 +57,13 @@ namespace Fooxboy.MusicX.Core.VKontakte.Music
             }
             return playlists;
         }
+
+
+        public async static Task StreamToStatus()
+        {
+            if (StaticContent.VkApi == null) throw new Exception("Пользователь не авторизован");
+
+            //StaticContent.VkApi.Audio.SetBroadcastAsync();
+        }
     }
 }

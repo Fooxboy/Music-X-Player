@@ -62,7 +62,7 @@
                        Grid.Column="1"
                        FontSize="20"
                        Margin="100 0 0 0"
-                       Visibility="{x:Bind ViewModel.VisibilityAds, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                       Visibility="{x:Bind ViewModel.VisibilityPro, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                        Foreground="{ThemeResource SubHeaderText}"
                        HorizontalAlignment="Center"
                        VerticalAlignment="Top"/>
