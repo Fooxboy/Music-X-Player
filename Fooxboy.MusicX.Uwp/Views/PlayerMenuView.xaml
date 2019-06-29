@@ -93,7 +93,7 @@
                 </Button>
                 <Button Padding="0" Style="{ThemeResource ButtonPlayerStyle}"  
                         Command="{x:Bind PlayerViewModel.PlayPauseCommand}" 
-                        BorderThickness="0"  FontFamily="HoloLens MDL2 Assets" 
+                        BorderThickness="0"
                         FontSize="20"  Width="37"
                         Height="37" Margin="0,0,10,0" >
                     <Button.Background>
@@ -104,11 +104,11 @@
                         <Grid>
                             <FontIcon x:Name="Play" 
                                       Visibility="{x:Bind PlayerViewModel.VisibilityTextPlay, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                                      FontFamily="HoloLens MDL2 Assets"
-                                      Glyph="&#xE768;" />
+                                      FontFamily="Segoe MDL2 Assets"
+                                      Glyph="&#xE102;" />
                             <FontIcon x:Name="Pause" Visibility="{x:Bind PlayerViewModel.VisibilityTextPause, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" 
-                                      FontFamily="HoloLens MDL2 Assets" 
-                                      Glyph="&#xE769;" />
+                                      FontFamily="Segoe MDL2 Assets" 
+                                      Glyph="&#xE103;" />
                         </Grid>
                     </Button.Content>
                 </Button>
@@ -269,7 +269,7 @@
                                 Height="40" Padding="0" 
                                 Visibility="{x:Bind PlayerMenuViewModel.VkontaktePages, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                                 BorderThickness="0"
-                                Command="{x:Bind PlayerMenuViewModel.NavigateToMain}">
+                                Command="{x:Bind PlayerMenuViewModel.NavigateToDownloads}">
                             <Button.Background>
                                 <SolidColorBrush Opacity="0"/>
                             </Button.Background>
@@ -280,7 +280,7 @@
                                         <ColumnDefinition Width="30"/>
                                         <ColumnDefinition Width="auto"/>
                                     </Grid.ColumnDefinitions>
-                                    <Rectangle Visibility="{x:Bind PlayerMenuViewModel.MainSelector, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" Grid.Column="0" Fill="#0078d7" Height="30" Width="5"/>
+                                    <Rectangle Visibility="{x:Bind PlayerMenuViewModel.DownloadsSelector, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" Grid.Column="0" Fill="#0078d7" Height="30" Width="5"/>
                                     <TextBlock Grid.Column="1" Padding="5"
                                                FontSize="20" 
                                                FontFamily="Segoe MDL2 Assets" Text="&#xE118;"

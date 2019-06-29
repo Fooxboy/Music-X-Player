@@ -10,7 +10,7 @@
     Background="{ThemeResource BackgroundApp}">
 
     <Grid>
-        <Button Style="{ThemeResource ButtonLoginStyle}" Margin="0 0 10 0" HorizontalAlignment="Right" Content="Купить Pro"/>
+        <Button Style="{ThemeResource ButtonLoginStyle}" Margin="0 0 10 0" Click="Button_Click" HorizontalAlignment="Right" Content="Купить Pro"/>
         <StackPanel Orientation="Horizontal" HorizontalAlignment="Stretch">
             <UI:AdControl ApplicationId="9ncjgg7b13q1" 
                       AdUnitId="1100051155" 

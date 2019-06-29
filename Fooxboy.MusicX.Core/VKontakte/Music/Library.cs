@@ -19,6 +19,7 @@ namespace Fooxboy.MusicX.Core.VKontakte.Music
                 Count = count,
                 Offset = offset
             });
+
             IList<IAudioFile> tracks = new List<IAudioFile>();
             foreach (var track in music) tracks.Add(track.ToIAudioFile());
             return tracks;

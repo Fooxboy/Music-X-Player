@@ -132,6 +132,10 @@ namespace Fooxboy.MusicX.Uwp.ViewModels
             {
                 return StaticContent.IsPro ? Visibility.Collapsed : Visibility.Visible;
             }
+            set
+            {
+                //support x:bind
+            }
         }
          
         public async Task RadioButton_ClickDark(object sender, RoutedEventArgs e)

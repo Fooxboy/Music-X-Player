@@ -248,6 +248,7 @@ namespace Fooxboy.MusicX.Uwp.ViewModels
                 HomeVkontakteSelector = Visibility.Visible;
                 RecommendationsSelector = Visibility.Collapsed;
                 PopularSelector = Visibility.Collapsed;
+                DownloadsSelector = Visibility.Collapsed;
 
                 Changed("SettingsSelector");
                 Changed("MainSelector");
@@ -257,8 +258,34 @@ namespace Fooxboy.MusicX.Uwp.ViewModels
                 Changed("HomeVkontakteSelector");
                 Changed("RecommendationsSelector");
                 Changed("PopularSelector");
+                Changed("DownloadsSelector");
 
                 StaticContent.NavigationContentService.Go(typeof(Views.VKontakte.HomeView));
+            });
+
+            NavigateToDownloads = new RelayCommand(() =>
+            {
+                SettingsSelector = Visibility.Collapsed;
+                MainSelector = Visibility.Collapsed;
+                SearchSelector = Visibility.Collapsed;
+                AccountSelector = Visibility.Collapsed;
+                ProSelector = Visibility.Collapsed;
+                HomeVkontakteSelector = Visibility.Collapsed;
+                RecommendationsSelector = Visibility.Collapsed;
+                PopularSelector = Visibility.Collapsed;
+                DownloadsSelector = Visibility.Visible;
+
+                Changed("SettingsSelector");
+                Changed("MainSelector");
+                Changed("SearchSelector");
+                Changed("AccountSelector");
+                Changed("ProSelector");
+                Changed("HomeVkontakteSelector");
+                Changed("RecommendationsSelector");
+                Changed("PopularSelector");
+                Changed("DownloadsSelector");
+
+                StaticContent.NavigationContentService.Go(typeof(Views.VKontakte.DownloadsView));
             });
 
             if (StaticContent.IsAuth)
@@ -302,6 +329,7 @@ namespace Fooxboy.MusicX.Uwp.ViewModels
         public RelayCommand NavigateToHomeVkontakte { get; set; }
         public RelayCommand NavigateToRecommendations { get; set; }
         public RelayCommand NavigateToPopular { get; set; }
+        public RelayCommand NavigateToDownloads { get; set; }
 
         public Visibility SettingsSelector { get; set; }
         public Visibility MainSelector { get; set; }
@@ -311,6 +339,8 @@ namespace Fooxboy.MusicX.Uwp.ViewModels
         public Visibility HomeVkontakteSelector { get; set; }
         public Visibility RecommendationsSelector { get; set; }
         public Visibility PopularSelector { get; set; }
+        public Visibility DownloadsSelector { get; set; }
+
         private Visibility vkontaktePages;
         public Visibility VkontaktePages
         {
