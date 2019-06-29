@@ -286,8 +286,17 @@ namespace Fooxboy.MusicX.Uwp
                 Volume = StaticContent.Volume
             };
             var json = JsonConvert.SerializeObject(file);
-            var lastFile = await StaticContent.LocalFolder.GetFileAsync("LastPlay.json");
-            await FileIO.WriteTextAsync(lastFile, json);
+            try
+            {
+                var lastFile = await StaticContent.LocalFolder.GetFileAsync("LastPlay.json");
+                await FileIO.WriteTextAsync(lastFile, json);
+            }
+            catch
+            {
+                var lastFile = await StaticContent.LocalFolder.CreateFileAsync("LastPlay.json");
+                await FileIO.WriteTextAsync(lastFile, json);
+            }
+            
             deferral.Complete();
         }
 

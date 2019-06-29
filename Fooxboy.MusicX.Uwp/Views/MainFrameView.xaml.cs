@@ -32,7 +32,15 @@ namespace Fooxboy.MusicX.Uwp.Views
             StaticContent.NavigationContentService = new Services.NavigationService() { RootFrame = ContentFrame };
             PlayerMenuFrame.Navigate(typeof(PlayerMenuView));
             PlayerBottomFrame.Navigate(typeof(MiniPlayerView));
-            BottomAdsFrame.Navigate(typeof(AdsBottomPanelView));
+            if(StaticContent.IsPro)
+            {
+                AdsPanel.Height = new GridLength(0, GridUnitType.Pixel);
+            }
+            else
+            {
+                BottomAdsFrame.Navigate(typeof(AdsBottomPanelView));
+            }
+            
 
             if (StaticContent.IsAuth)
             {

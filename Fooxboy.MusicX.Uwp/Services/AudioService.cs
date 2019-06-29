@@ -476,7 +476,7 @@ namespace Fooxboy.MusicX.Uwp.Services
 
         private void CommandManager_NextReceived(MediaPlaybackCommandManager sender, MediaPlaybackCommandManagerNextReceivedEventArgs args)
         {
-            SwitchNext();
+            SwitchNext(true);
         }
 
         private void CommandManager_PreviousReceived(MediaPlaybackCommandManager sender, MediaPlaybackCommandManagerPreviousReceivedEventArgs args)

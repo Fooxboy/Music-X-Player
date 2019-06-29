@@ -35,11 +35,21 @@ namespace Fooxboy.MusicX.Uwp.Views
 
         private async void Page_Loaded(object sender, RoutedEventArgs e)
         {
-
+            goPro.Visibility = StaticContent.IsPro ? Visibility.Collapsed : Visibility.Visible;
             if(!StaticContent.OpenFiles)
             {
-                var lastPlayMusic = await MusicFilesService.GetLastPlayAudio();
-                var track = lastPlayMusic.Track;
+                Models.LastPlay lastPlayMusic = null;
+                Models.AudioFile track = null;
+
+                try
+                {
+                    lastPlayMusic = await MusicFilesService.GetLastPlayAudio();
+                    track = lastPlayMusic.Track;
+                }catch
+                {
+
+                }
+                
                 if (track != null)
                 {
                     try

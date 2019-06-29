@@ -46,6 +46,7 @@
                                       Opacity="0.5">
             <Border Width="150"
                     x:Name="BorderShadow"
+                    CornerRadius="3"
                         Height="150"
                         Background="White"/>
         </controls:DropShadowPanel>

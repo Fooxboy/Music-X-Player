@@ -119,11 +119,19 @@ namespace Fooxboy.MusicX.Uwp.ViewModels
                 await ConfigService.SaveConfig(Config);
                 var settings = ApplicationData.Current.LocalSettings;
                 settings.Values["themeApp"] = 0;
-                new MessageDialog("Тема будет изменена при следующем запуске приложения");
+                await new MessageDialog("Тема будет изменена при следующем запуске приложения").ShowAsync();
                 Changed("SelectDarkTheme");
                 Changed("SelectLightTheme");
             }
             
+        }
+
+        public Visibility VisibilityAds
+        {
+            get
+            {
+                return StaticContent.IsPro ? Visibility.Collapsed : Visibility.Visible;
+            }
         }
          
         public async Task RadioButton_ClickDark(object sender, RoutedEventArgs e)
@@ -136,7 +144,7 @@ namespace Fooxboy.MusicX.Uwp.ViewModels
                 await ConfigService.SaveConfig(Config);
                 var settings = ApplicationData.Current.LocalSettings;
                 settings.Values["themeApp"] = 1;
-                new MessageDialog("Тема будет изменена при следующем запуске приложения");
+                await new MessageDialog("Тема будет изменена при следующем запуске приложения").ShowAsync();
                 Changed("SelectDarkTheme");
                 Changed("SelectLightTheme");
             }

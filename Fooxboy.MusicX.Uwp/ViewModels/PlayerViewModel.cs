@@ -62,7 +62,7 @@ namespace Fooxboy.MusicX.Uwp.ViewModels
 
             RepeatSwitch = new RelayCommand(() =>
             {
-                Repeat = !Repeat;
+                
             });
 
             ShuffleSwitch = new RelayCommand(() =>
@@ -228,10 +228,10 @@ namespace Fooxboy.MusicX.Uwp.ViewModels
 
         private void AudioServicePositionChanged(object sender, TimeSpan position)
         {
-            if(position.Seconds == Duration.TotalSeconds)
+            if(position.TotalSeconds == Duration.TotalSeconds)
             {
                 PositionSeconds = 0;
-                StaticContent.AudioService.SwitchNext(skip: true);
+                StaticContent.AudioService.SwitchNext(skip: !Repeat);
             }
             Changed(nameof(Position));
             Changed(nameof(PositionSeconds));

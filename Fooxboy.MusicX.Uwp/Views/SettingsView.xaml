@@ -85,6 +85,7 @@
                                  GroupName="Theme"/>
                     
                     <UI:AdControl Margin="30 10 0 0" ApplicationId="9ncjgg7b13q1" 
+                                  Visibility="{x:Bind ViewModel.VisibilityAds}"
                       AdUnitId="1100051155" 
                       Height="50"
                       Width="320"/>
@@ -98,6 +99,7 @@
 
                     <UI:AdControl Margin="30 10 0 0" ApplicationId="9ncjgg7b13q1" 
                       AdUnitId="1100051155" 
+                                  Visibility="{x:Bind ViewModel.VisibilityAds}"
                       Height="50"
                       Width="320"/>
                     <TextBlock Text="Музыка ВКонтакте" Margin="30 30 0 0" FontSize="18" FontWeight="Bold"/>
@@ -105,16 +107,19 @@
                     <ToggleSwitch Margin="30 5 0 0" Header="Транслировать музыку в статус ВКонтакте" IsEnabled="True" IsOn="False" OnContent="Включено" OffContent="Отключено"/>
 
                     <UI:AdControl Margin="30 10 0 0" ApplicationId="9ncjgg7b13q1" 
+                                  Visibility="{x:Bind ViewModel.VisibilityAds}"
                       AdUnitId="1100051155" 
                       Height="50"
                       Width="320"/>
 
                     <UI:AdControl Margin="30 10 0 0" ApplicationId="9ncjgg7b13q1" 
+                                  Visibility="{x:Bind ViewModel.VisibilityAds}"
                       AdUnitId="1100051155" 
                       Height="50"
                       Width="320"/>
 
                     <UI:AdControl Margin="30 10 0 0" ApplicationId="9ncjgg7b13q1" 
+                                  Visibility="{x:Bind ViewModel.VisibilityAds}"
                       AdUnitId="1100051155" 
                       Height="50"
                       Width="320"/>

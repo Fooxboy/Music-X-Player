@@ -344,7 +344,7 @@
                         </Button>
 
                         <StackPanel VerticalAlignment="Bottom">
-                            <Button  Padding="0" Grid.Row="1" FontSize="16" 
+                            <Button x:Name="goPro" Padding="0" Grid.Row="1" FontSize="16" 
                              HorizontalContentAlignment="Left" 
                              HorizontalAlignment="Stretch" Height="40"
                              VerticalAlignment="Bottom" 
