@@ -47,7 +47,7 @@ namespace Fooxboy.MusicX.Uwp.ViewModels
             else
             {
                 EnableDarkTheme = false;
-                ContentDarkTheme = "Темная (Темная тема доступна только  в Music X Pro)";
+                ContentDarkTheme = "Темная (Темная тема доступна только в Music X Pro)";
                 Changed("EnableDarkTheme");
                 Changed("ContentDarkTheme");
             }

@@ -387,17 +387,17 @@
                                             <ColumnDefinition Width="auto"/>
                                         </Grid.ColumnDefinitions>
                                         <Rectangle Visibility="{x:Bind PlayerMenuViewModel.AccountSelector, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" Grid.Column="0" Fill="#0078d7" Height="30" Width="5"/>
-                                        <Ellipse  Grid.Column="1" Width="25" Height="25">
-                                            <Ellipse.Fill>
+                                        <Rectangle RadiusX="999" RadiusY="999"  Grid.Column="1" Width="25" Height="25">
+                                            <Rectangle.Fill>
                                                 <ImageBrush>
                                                     <ImageBrush.ImageSource>
-                                                        <BitmapImage UriSource="/Assets/Images/logo.png"
+                                                        <BitmapImage UriSource="{x:Bind PlayerMenuViewModel.PhotoAccount, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                                                      DecodePixelHeight="25"
                                                      DecodePixelWidth="25" />
                                                     </ImageBrush.ImageSource>
                                                 </ImageBrush>
-                                            </Ellipse.Fill>
-                                        </Ellipse>
+                                            </Rectangle.Fill>
+                                        </Rectangle>
                                         <TextBlock Grid.Column="2" Padding="5" Text="{x:Bind PlayerMenuViewModel.NameAccount, Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"/>
                                     </Grid>
                                 </Button.Content>

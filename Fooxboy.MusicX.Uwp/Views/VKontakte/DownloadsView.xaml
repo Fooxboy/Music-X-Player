@@ -4,11 +4,110 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:local="using:Fooxboy.MusicX.Uwp.Views.VKontakte"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:controls="using:Microsoft.Toolkit.Uwp.UI.Controls"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d"
     Background="{ThemeResource BackgroundApp}">
 
     <Grid>
-        <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="50" Text="Раздел загрузки"/>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="32"/>
+            <RowDefinition Height="140"/>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
+
+        <Rectangle Grid.Row="0" Fill="{ThemeResource ColorSettings}" />
+        <Grid Grid.Row="1" Background="{ThemeResource ColorSettings}">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="auto"/>
+                <RowDefinition Height="auto"/>
+            </Grid.RowDefinitions>
+
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="100"/>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+            </Grid.ColumnDefinitions>
+
+            <TextBlock Text="Загружается сейчас"
+                       Margin="30 0 0 0"
+                       FontFamily="Calibri"
+                       Grid.Row="0" 
+                       Grid.ColumnSpan="2"
+                       FontWeight="ExtraBold" 
+                       FontSize="30"/>
+
+
+            <controls:DropShadowPanel Width="60"
+                                      Height="60"
+                                      Grid.Row="1"
+                                      Grid.Column="0"
+                                      VerticalAlignment="Center"
+                                      HorizontalAlignment="Left"
+                                      x:Name="CoverPlaylistShadow"
+                                      ShadowOpacity="1"
+                                      Margin="30 20 0 0"
+                                      OffsetY="0"
+                                      BlurRadius="20"
+                                      Opacity="0.5">
+                <Border Width="60"
+                    x:Name="BorderShadow"
+                    CornerRadius="3"
+                        Height="60"
+                        Background="White"/>
+            </controls:DropShadowPanel>
+
+            <controls:ImageEx IsCacheEnabled="False"
+                              Width="60"
+                              Height="60"
+                              Grid.Row="1"
+                              Grid.Column="0"
+                              Margin="30 20 0 0"
+                              DecodePixelHeight="60"
+                              DecodePixelWidth="60"
+                              CornerRadius="3"
+                              VerticalAlignment="Center"
+                              HorizontalAlignment="Left"
+                              Source="ms-appx:///Assets/Images/placeholder.png"
+                              PlaceholderSource="ms-appx:///Assets/Images/placeholder.png"/>
+
+
+
+            <StackPanel Grid.Row="1" Margin="0 20 0 0" Grid.Column="1">
+                <TextBlock FontSize="16" Text="Никогда"/>
+                <TextBlock Foreground="{ThemeResource ColorArtistText}" Text="Fooxboy"/>
+                <StackPanel Orientation="Horizontal">
+                    <TextBlock FontSize="10" Foreground="{ThemeResource SubText}" Text="Никогда"/>
+                    <TextBlock FontSize="10" Margin="2 0 0 0" Foreground="{ThemeResource SubText}" Text="•"/>
+                    <TextBlock FontSize="10"  Margin="2 0 0 0" Foreground="{ThemeResource SubText}" Text="2019"/>
+                </StackPanel>
+            </StackPanel>
+
+            <StackPanel Visibility="Collapsed" Grid.ColumnSpan="3" HorizontalAlignment="Center" VerticalAlignment="Center"  Grid.RowSpan="3">
+                <FontIcon FontSize="42"
+                          FontFamily="Segoe MDL2 Assets" 
+                          Glyph="&#xE105;" />
+                
+                <TextBlock FontSize="20"
+                           HorizontalAlignment="Center"
+                           FontWeight="Bold" 
+                           Foreground="{ThemeResource SubHeaderText}"
+                           Text="Сейчас у Вас ничего не загружается "/>
+                
+                <TextBlock Text="Скачайте же что нибудь!"
+                           HorizontalAlignment="Center" 
+                           Foreground="{ThemeResource SubText}"/>
+            </StackPanel>
+
+        </Grid>
+
+        <Grid Grid.Row="2">
+
+            <TextBlock Text="Уже загружено"
+                       Margin="30 0 0 0"
+                       FontFamily="Calibri"
+                       FontWeight="ExtraBold" 
+                       FontSize="30"/>
+        </Grid>
     </Grid>
 </Page>

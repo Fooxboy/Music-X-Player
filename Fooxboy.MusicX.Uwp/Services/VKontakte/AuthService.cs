@@ -59,11 +59,20 @@ namespace Fooxboy.MusicX.Uwp.Services.VKontakte
             viewmodel.NameAccount = name;
         }
 
+        public async static Task SetPhotoAccount()
+        {
+            var user = await Fooxboy.MusicX.Core.VKontakte.Users.Info.CurrentUser();
+            var photo = await ImagesService.AvatarUser(user.PhotoUser);
+            var viewmodel = PlayerMenuViewModel.Instanse;
+            viewmodel.PhotoAccount = photo;
+        }
+
         public async static Task<string> FirstAuth(string login, string password)
         {
             var token = await Fooxboy.MusicX.Core.VKontakte.Auth.User(login, password, AuthService.TwoFactorAuth, new CaptchaSolver());
             await Fooxboy.MusicX.Core.VKontakte.Auth.Auto(token, new CaptchaSolver());
             await SetNameAccount();
+            await SetPhotoAccount();
             return token;
         }
 
@@ -72,6 +81,8 @@ namespace Fooxboy.MusicX.Uwp.Services.VKontakte
             var tokenObject = await TokenService.Load();
             await Fooxboy.MusicX.Core.VKontakte.Auth.Auto(tokenObject.Token, new CaptchaSolver());
             await SetNameAccount();
+            await SetPhotoAccount();
+
         }
 
         public async static Task LogOut()

@@ -281,6 +281,19 @@ namespace Fooxboy.MusicX.Uwp.ViewModels
             }
         }
 
+        private string photoAccount = "ms-appx:///Assets/Images/logo.png";
+        public string PhotoAccount
+        {
+            get => photoAccount;
+            set
+            {
+                if (photoAccount == value) return;
+
+                photoAccount = value;
+                Changed("PhotoAccount");
+            }
+        }
+
         public RelayCommand NavigateToSettings { get; set; }
         public RelayCommand NavigateToMain { get; set; }
         public RelayCommand NavigateToSearch { get; set; }
