@@ -109,7 +109,7 @@ namespace Fooxboy.MusicX.Uwp
                 }
 
                 CoreApplication.GetCurrentView().TitleBar.ExtendViewIntoTitleBar = true;
-
+                StaticContent.IsPro = await StoreService.IsBuyPro();
                 var appView = ApplicationView.GetForCurrentView();
                 appView.TitleBar.ButtonBackgroundColor = Colors.Transparent;
                 appView.TitleBar.ButtonInactiveBackgroundColor = Colors.Transparent;
@@ -138,6 +138,9 @@ namespace Fooxboy.MusicX.Uwp
                 }
 
                 var settings = ApplicationData.Current.LocalSettings;
+
+
+
 
                 try
                 {

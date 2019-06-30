@@ -185,6 +185,7 @@
     <Compile Include="Services\PlayerService.cs" />
     <Compile Include="Services\PlaylistsService.cs" />
     <Compile Include="Services\PlayMusicService.cs" />
+    <Compile Include="Services\StoreService.cs" />
     <Compile Include="Services\TileHelperService.cs" />
     <Compile Include="Services\VKontakte\AuthService.cs" />
     <Compile Include="Services\VKontakte\CaptchaSolver.cs" />

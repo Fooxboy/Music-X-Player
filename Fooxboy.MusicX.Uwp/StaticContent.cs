@@ -73,6 +73,6 @@ namespace Fooxboy.MusicX.Uwp
         public static bool IsAuth { get; set; }
 
         public static ConfigApp Config { get; set; }
-        public const bool IsPro = false;
+        public static bool IsPro = false;
     }
 }
