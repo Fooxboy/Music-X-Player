@@ -11,9 +11,9 @@
 
     <Grid>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="200"/>
+            <ColumnDefinition Width="190"/>
             <ColumnDefinition Width="*"/>
-            <ColumnDefinition Width="200"/>
+            <ColumnDefinition Width="190"/>
         </Grid.ColumnDefinitions>
 
 
@@ -57,12 +57,14 @@
             <StackPanel Margin="10 0 0 0" VerticalAlignment="Center" Grid.Column="1">
                 <TextBlock Text="{x:Bind Path=ViewModel.CurrentAudio.Title, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" 
                        Margin="0,0,5,0" FontSize="15"  
+                       TextTrimming="CharacterEllipsis"
                        VerticalAlignment="Center"
                        TextWrapping="NoWrap" />
 
                 <TextBlock Text="{x:Bind Path=ViewModel.CurrentAudio.Artist, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                        Foreground="{ThemeResource ColorArtistText}"
                        FontSize="12"
+                       TextTrimming="CharacterEllipsis"
                        VerticalAlignment="Center"/>
             </StackPanel>
 
@@ -140,16 +142,15 @@
                            Text="{x:Bind ViewModel.PositionMinutes, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                            VerticalAlignment="Center"
                            HorizontalAlignment="Left"/>
-                <TextBlock Margin="10 0 0 0"
+                <TextBlock Margin="10 2 0 0"
                            VerticalAlignment="Center"
-                           Width="30"
                            Text="{x:Bind ViewModel.CurrentAudio.DurationMinutes, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" 
                            HorizontalAlignment="Right"/>
                 <Slider Style="{StaticResource SliderPlayerStyle}"
                     Value="{x:Bind ViewModel.PositionSeconds, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                     Maximum="{x:Bind ViewModel.DurationSeconds, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                     Height="23" Width="250" 
-                        VerticalAlignment="Center"
+                    VerticalAlignment="Center"
                     HorizontalAlignment="Center" />
                 
             </Grid>

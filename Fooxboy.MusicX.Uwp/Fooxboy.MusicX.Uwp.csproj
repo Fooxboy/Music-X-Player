@@ -133,6 +133,7 @@
     <Compile Include="Models\AudioFile.cs" />
     <Compile Include="Models\AudioPlaylist.cs" />
     <Compile Include="Models\ConfigApp.cs" />
+    <Compile Include="Models\DownloadAudioFile.cs" />
     <Compile Include="Models\FileMp3Abstraction.cs" />
     <Compile Include="Models\LastPlay.cs" />
     <Compile Include="Models\MusicCollection.cs" />

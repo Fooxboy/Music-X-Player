@@ -232,10 +232,12 @@ namespace Fooxboy.MusicX.Uwp.ViewModels
             {
                 PositionSeconds = 0;
                 StaticContent.AudioService.SwitchNext(skip: !Repeat);
+                Changed("PositionSeconds");
             }
             Changed(nameof(Position));
             Changed(nameof(PositionSeconds));
             Changed("PositionMinutes");
+            Changed("DurationSeconds");
         }
 
     }
