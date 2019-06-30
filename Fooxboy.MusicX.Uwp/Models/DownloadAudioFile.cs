@@ -14,5 +14,6 @@ namespace Fooxboy.MusicX.Uwp.Models
         public string AlbumYear { get; set; }
         public string Cover { get; set; }
         public string Url { get; set; }
+        public bool FromAlbum { get; set; }
     }
 }

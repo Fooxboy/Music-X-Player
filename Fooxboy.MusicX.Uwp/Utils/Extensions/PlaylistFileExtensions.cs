@@ -13,12 +13,12 @@ namespace Fooxboy.MusicX.Uwp.Utils.Extensions
         {
             var audioPlaylist = new AudioPlaylist()
             {
-                Shuffle = false,
+                Shuffle = StaticContent.Shuffle,
                 Cover = source.Cover,
                 CurrentItem = source.TracksFiles.Count != 0? source.TracksFiles[0]: null,
                 Id = source.Id,
                 Items = source.TracksFiles.Count != 0 ? source.TracksFiles: new List<AudioFile>(),
-                Repeat = Enums.RepeatMode.None,
+                Repeat = StaticContent.Repeat,
                 Artist = source.Artist,
                 Name = source.Name
             };

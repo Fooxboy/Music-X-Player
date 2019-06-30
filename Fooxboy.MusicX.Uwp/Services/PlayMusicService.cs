@@ -83,11 +83,8 @@ namespace Fooxboy.MusicX.Uwp.Services
                 }
             }catch(Exception e)
             {
-                await new ExceptionDialog("Невозможно возпроизвести трек.", "Возможно, файл не поддерживается или поврежден.", e).ShowAsync();
-
+                await ContentDialogService.Show(new ExceptionDialog("Невозможно возпроизвести трек.", "Возможно, файл не поддерживается или поврежден.", e));
             }
-
-
         }
     }
 }
