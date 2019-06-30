@@ -41,6 +41,7 @@
             <controls:DropShadowPanel Width="60"
                                       Height="60"
                                       Grid.Row="1"
+                                      Visibility="{x:Bind ViewModel.VisibilityNowDownload, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                                       Grid.Column="0"
                                       VerticalAlignment="Center"
                                       HorizontalAlignment="Left"
@@ -51,14 +52,17 @@
                                       BlurRadius="20"
                                       Opacity="0.5">
                 <Border Width="60"
-                    x:Name="BorderShadow"
-                    CornerRadius="3"
+                        Visibility="{x:Bind ViewModel.VisibilityNowDownload, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                        
+                        x:Name="BorderShadow"
+                        CornerRadius="3"
                         Height="60"
                         Background="White"/>
             </controls:DropShadowPanel>
 
             <controls:ImageEx IsCacheEnabled="False"
                               Width="60"
+                              Visibility="{x:Bind ViewModel.VisibilityNowDownload, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                               Height="60"
                               Grid.Row="1"
                               Grid.Column="0"
@@ -73,7 +77,8 @@
 
 
 
-            <StackPanel Grid.Row="1" Margin="0 20 0 0" Grid.Column="1">
+            <StackPanel Visibility="{x:Bind ViewModel.VisibilityNowDownload, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                        Grid.Row="1" Margin="0 20 0 0" Grid.Column="1">
                 <TextBlock FontSize="16" Text="Никогда"/>
                 <TextBlock Foreground="{ThemeResource ColorArtistText}" Text="Fooxboy"/>
                 <StackPanel Orientation="Horizontal">
@@ -83,7 +88,7 @@
                 </StackPanel>
             </StackPanel>
 
-            <StackPanel Visibility="Collapsed" Grid.ColumnSpan="3" HorizontalAlignment="Center" VerticalAlignment="Center"  Grid.RowSpan="3">
+            <StackPanel Visibility="{x:Bind ViewModel.VisibilityNoNowDownload, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Grid.ColumnSpan="3" HorizontalAlignment="Center" VerticalAlignment="Center"  Grid.RowSpan="3">
                 <FontIcon FontSize="42"
                           FontFamily="Segoe MDL2 Assets" 
                           Glyph="&#xE105;" />

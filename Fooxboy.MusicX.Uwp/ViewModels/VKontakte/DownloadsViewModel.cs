@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Windows.UI.Xaml;
 
 namespace Fooxboy.MusicX.Uwp.ViewModels.VKontakte
 {
@@ -25,6 +26,24 @@ namespace Fooxboy.MusicX.Uwp.ViewModels.VKontakte
         private DownloadsViewModel()
         {
 
+        }
+
+        public Visibility VisibilityNoNowDownload
+        {
+            get => Visibility.Visible;
+            set
+            {
+                //supprort x:bind
+            }
+        }
+
+        public Visibility VisibilityNowDownload
+        {
+            get => Visibility.Collapsed;
+            set
+            {
+                //supprort x:bind
+            }
         }
     }
 }

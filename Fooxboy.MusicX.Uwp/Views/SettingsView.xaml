@@ -56,7 +56,7 @@
                        FontWeight="Bold"
                        HorizontalAlignment="Center"
                        VerticalAlignment="Top"/>
-            
+
             <TextBlock Text="Pro" 
                        Grid.Row="1" 
                        Grid.Column="1"
@@ -66,9 +66,7 @@
                        Foreground="{ThemeResource SubHeaderText}"
                        HorizontalAlignment="Center"
                        VerticalAlignment="Top"/>
-
-
-
+            
             <TextBlock Grid.Row="1"
                        Grid.Column="1"
                        Foreground="{ThemeResource ColorArtistText}"
