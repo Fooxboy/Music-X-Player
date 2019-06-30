@@ -34,8 +34,8 @@ namespace Fooxboy.MusicX.Uwp.ViewModels
             HomeVkontakteSelector = Visibility.Collapsed;
             RecommendationsSelector = Visibility.Collapsed;
             PopularSelector = Visibility.Collapsed;
+            DownloadsSelector = Visibility.Collapsed;
 
-           
 
             if (StaticContent.IsAuth)
             {
@@ -51,6 +51,7 @@ namespace Fooxboy.MusicX.Uwp.ViewModels
             Changed("HomeVkontakteSelector");
             Changed("RecommendationsSelector");
             Changed("PopularSelector");
+            Changed("DownloadsSelector");
 
             NavigateToSettings = new RelayCommand(
                 () =>
@@ -64,6 +65,9 @@ namespace Fooxboy.MusicX.Uwp.ViewModels
                     HomeVkontakteSelector = Visibility.Collapsed;
                     RecommendationsSelector = Visibility.Collapsed;
                     PopularSelector = Visibility.Collapsed;
+                    DownloadsSelector = Visibility.Collapsed;
+
+
 
                     Changed("SettingsSelector");
                     Changed("MainSelector");
@@ -73,6 +77,8 @@ namespace Fooxboy.MusicX.Uwp.ViewModels
                     Changed("HomeVkontakteSelector");
                     Changed("RecommendationsSelector");
                     Changed("PopularSelector");
+                    Changed("DownloadsSelector");
+
 
                     StaticContent.NavigationContentService.Go(typeof(Views.SettingsView));
                 }
@@ -90,6 +96,8 @@ namespace Fooxboy.MusicX.Uwp.ViewModels
                     HomeVkontakteSelector = Visibility.Collapsed;
                     RecommendationsSelector = Visibility.Collapsed;
                     PopularSelector = Visibility.Collapsed;
+                    DownloadsSelector = Visibility.Collapsed;
+
 
                     Changed("SettingsSelector");
                     Changed("MainSelector");
@@ -99,6 +107,8 @@ namespace Fooxboy.MusicX.Uwp.ViewModels
                     Changed("HomeVkontakteSelector");
                     Changed("RecommendationsSelector");
                     Changed("PopularSelector");
+                    Changed("DownloadsSelector");
+
 
                     StaticContent.NavigationContentService.Go(typeof(Views.HomeLocalView));
                 }
@@ -115,6 +125,8 @@ namespace Fooxboy.MusicX.Uwp.ViewModels
                     HomeVkontakteSelector = Visibility.Collapsed;
                     RecommendationsSelector = Visibility.Collapsed;
                     PopularSelector = Visibility.Collapsed;
+                    DownloadsSelector = Visibility.Collapsed;
+
 
                     Changed("SettingsSelector");
                     Changed("MainSelector");
@@ -124,6 +136,8 @@ namespace Fooxboy.MusicX.Uwp.ViewModels
                     Changed("HomeVkontakteSelector");
                     Changed("RecommendationsSelector");
                     Changed("PopularSelector");
+                    Changed("DownloadsSelector");
+
                 }
             );
 
@@ -139,6 +153,8 @@ namespace Fooxboy.MusicX.Uwp.ViewModels
                     HomeVkontakteSelector = Visibility.Collapsed;
                     RecommendationsSelector = Visibility.Collapsed;
                     PopularSelector = Visibility.Collapsed;
+                    DownloadsSelector = Visibility.Collapsed;
+
 
                     Changed("SettingsSelector");
                     Changed("MainSelector");
@@ -148,6 +164,8 @@ namespace Fooxboy.MusicX.Uwp.ViewModels
                     Changed("HomeVkontakteSelector");
                     Changed("RecommendationsSelector");
                     Changed("PopularSelector");
+                    Changed("DownloadsSelector");
+
 
                     StaticContent.NavigationContentService.Go(typeof(Views.ProVersionView));
 
@@ -167,6 +185,8 @@ namespace Fooxboy.MusicX.Uwp.ViewModels
                     HomeVkontakteSelector = Visibility.Collapsed;
                     RecommendationsSelector = Visibility.Collapsed;
                     PopularSelector = Visibility.Collapsed;
+                    DownloadsSelector = Visibility.Collapsed;
+
 
                     Changed("SettingsSelector");
                     Changed("MainSelector");
@@ -176,6 +196,8 @@ namespace Fooxboy.MusicX.Uwp.ViewModels
                     Changed("HomeVkontakteSelector");
                     Changed("RecommendationsSelector");
                     Changed("PopularSelector");
+                    Changed("DownloadsSelector");
+
 
 
                     if (InternetService.Connected)
@@ -200,6 +222,8 @@ namespace Fooxboy.MusicX.Uwp.ViewModels
                 HomeVkontakteSelector = Visibility.Collapsed;
                 RecommendationsSelector = Visibility.Visible;
                 PopularSelector = Visibility.Collapsed;
+                DownloadsSelector = Visibility.Collapsed;
+
 
                 Changed("SettingsSelector");
                 Changed("MainSelector");
@@ -209,6 +233,8 @@ namespace Fooxboy.MusicX.Uwp.ViewModels
                 Changed("HomeVkontakteSelector");
                 Changed("RecommendationsSelector");
                 Changed("PopularSelector");
+                Changed("DownloadsSelector");
+
 
                 StaticContent.NavigationContentService.Go(typeof(Views.VKontakte.RecommendationsView));
 
@@ -225,6 +251,8 @@ namespace Fooxboy.MusicX.Uwp.ViewModels
                 HomeVkontakteSelector = Visibility.Collapsed;
                 RecommendationsSelector = Visibility.Collapsed;
                 PopularSelector = Visibility.Visible;
+                DownloadsSelector = Visibility.Collapsed;
+
 
                 Changed("SettingsSelector");
                 Changed("MainSelector");
@@ -234,6 +262,8 @@ namespace Fooxboy.MusicX.Uwp.ViewModels
                 Changed("HomeVkontakteSelector");
                 Changed("RecommendationsSelector");
                 Changed("PopularSelector");
+                Changed("DownloadsSelector");
+
 
                 StaticContent.NavigationContentService.Go(typeof(Views.VKontakte.PopularView));
             });
