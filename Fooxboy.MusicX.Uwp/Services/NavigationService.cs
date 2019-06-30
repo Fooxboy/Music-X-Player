@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Windows.UI.Core;
 using Windows.UI.Xaml.Controls;
+using Windows.UI.Xaml.Media;
 
 namespace Fooxboy.MusicX.Uwp.Services
 {
@@ -35,6 +36,7 @@ namespace Fooxboy.MusicX.Uwp.Services
             }
             this.Pages.Push(page);
             this.UpdateButtonBack();
+            this.RootFrame.CacheSize = 3;
             this.RootFrame.Navigate(page, data);
         }
 
