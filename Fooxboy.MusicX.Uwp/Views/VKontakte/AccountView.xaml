@@ -54,5 +54,13 @@
                     Command="{x:Bind ViewModel.LogOutCommand}"
                     Content="Выйти с аккаунта"/>
         </Grid>
+
+        <Grid Grid.Row="2">
+            <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center">
+                <FontIcon FontSize="70" FontFamily="Segoe MDL2 Assets" Glyph="&#xEA18;" />
+                <TextBlock FontSize="20" Margin="0 30 0 0" FontWeight="Bold" Text="Music X не получает других данных Вашего аккаунта"/>
+            </StackPanel>
+            
+        </Grid>
     </Grid>
 </Page>
