@@ -213,6 +213,7 @@
     <Compile Include="ViewModels\VKontakte\HomeViewModel.cs" />
     <Compile Include="ViewModels\VKontakte\PopularViewModel.cs" />
     <Compile Include="ViewModels\VKontakte\RecommendationsViewModel.cs" />
+    <Compile Include="ViewModels\VKontakte\SearchViewModel.cs" />
     <Compile Include="Views\AdsBottomPanelView.xaml.cs">
       <DependentUpon>AdsBottomPanelView.xaml</DependentUpon>
     </Compile>
@@ -266,6 +267,9 @@
     </Compile>
     <Compile Include="Views\VKontakte\RecommendationsView.xaml.cs">
       <DependentUpon>RecommendationsView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\VKontakte\SearchView.xaml.cs">
+      <DependentUpon>SearchView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\WelcomeView.xaml.cs">
       <DependentUpon>WelcomeView.xaml</DependentUpon>
@@ -487,6 +491,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\VKontakte\RecommendationsView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\VKontakte\SearchView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

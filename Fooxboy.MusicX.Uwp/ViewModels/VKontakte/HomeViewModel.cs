@@ -38,7 +38,7 @@ namespace Fooxboy.MusicX.Uwp.ViewModels.VKontakte
             }
         }
 
-        
+
 
         private HomeViewModel()
         {
@@ -55,6 +55,21 @@ namespace Fooxboy.MusicX.Uwp.ViewModels.VKontakte
             Changed("VisibilityNoTracks");
             Changed("IsLoading");
             Changed("Music");
+
+            RefreshCommand = new RelayCommand(() =>
+            {
+                StaticContent.MusicVKontakte.Clear();
+                StaticContent.PlaylistsVKontakte.Clear();
+                Changed("Music");
+                Changed("Playlists");
+                ClearReady();
+            });
+
+            NavigateToSearchCommand = new RelayCommand(() =>
+            {
+                StaticContent.NavigationContentService.Go(typeof(SearchView), TextSearch);
+            });
+
         }
 
         public void ClearReady()
@@ -62,6 +77,8 @@ namespace Fooxboy.MusicX.Uwp.ViewModels.VKontakte
             loadingMusic = true;
             loadingPlaylists = true;
         }
+
+        public string TextSearch { get; set; }
 
 
         public LoadingCollection<AudioFile> Music
