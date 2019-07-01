@@ -79,18 +79,47 @@
                        Margin="282 20 0 0"
                        FontFamily="Calibri"
                        Grid.Row="0"  MinWidth="300"/>
-            <!--<Button FontSize="22"
-                    BorderThickness="0"
-                    FontFamily="Segoe MDL2 Assets"
-                    Content="&#xE149;"
-                    Style="{ThemeResource ButtonPlayerStyle}"
+            <Button BorderThickness="0"
+                    Style="{ThemeResource ButtonLoginStyle}"
                     Grid.Row="0"
-                    Height="42" Width="42"
-                    Command=""
+                    Height="42"
                     Margin="0 0 30 0"
+                    Command="{x:Bind ViewModel.RefreshCommand}"
                     HorizontalAlignment="Right"
-                    VerticalAlignment="Center" >
-            </Button>-->
+                    VerticalAlignment="Center">
+                <Button.Content>
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="auto"/>
+                            <ColumnDefinition Width="auto"/>
+                        </Grid.ColumnDefinitions>
+
+                        <FontIcon Grid.Column="0" FontSize="16" FontFamily="Segoe MDL2 Assets" Glyph="&#xE117;" />
+                        <TextBlock Grid.Column="1" Margin="10 0 0 0" FontSize="16" Text="Обновить"/>
+                    </Grid>
+                </Button.Content>
+            </Button>
+
+            <Button BorderThickness="0"
+                    Style="{ThemeResource ButtonLoginStyle}"
+                    Grid.Row="0"
+                    Height="42"
+                    Command="{x:Bind ViewModel.NavigateToSearchCommand}"
+                    Margin="0 0 150 0"
+                    HorizontalAlignment="Right"
+                    VerticalAlignment="Center">
+                <Button.Content>
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="auto"/>
+                            <ColumnDefinition Width="auto"/>
+                        </Grid.ColumnDefinitions>
+
+                        <FontIcon Grid.Column="0" FontSize="16" FontFamily="Segoe MDL2 Assets" Glyph="&#xE1A3;" />
+                        <TextBlock Grid.Column="1" Margin="10 0 0 0" FontSize="16" Text="Найти"/>
+                    </Grid>
+                </Button.Content>
+            </Button>
             <!--<TextBox x:Name="SearchBox"
                      Grid.Row="0"
                      Style="{ThemeResource TextBoxLoginStyle}"

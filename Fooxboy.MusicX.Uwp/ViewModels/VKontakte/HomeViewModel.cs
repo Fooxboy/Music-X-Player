@@ -274,5 +274,9 @@ namespace Fooxboy.MusicX.Uwp.ViewModels.VKontakte
                 Changed("VisibilityPlaylists");
             }
         }
+
+
+        public RelayCommand RefreshCommand { get; set; }
+        public RelayCommand NavigateToSearchCommand { get; set; }
     }
 }
