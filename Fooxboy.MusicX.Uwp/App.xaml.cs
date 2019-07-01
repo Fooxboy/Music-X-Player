@@ -50,6 +50,9 @@ namespace Fooxboy.MusicX.Uwp
                 Windows.Storage.ApplicationDataCompositeValue composite =
                     (Windows.Storage.ApplicationDataCompositeValue)settings.Values["themeApp"];
 
+                Windows.Storage.ApplicationDataCompositeValue composite2 =
+                    (Windows.Storage.ApplicationDataCompositeValue)settings.Values["IsPro"];
+
                 if (composite == null)
                 {
                     this.RequestedTheme = ApplicationTheme.Light;
@@ -67,7 +70,18 @@ namespace Fooxboy.MusicX.Uwp
                         this.RequestedTheme = ApplicationTheme.Dark;
                     }
                 }
-            }catch
+
+                if (composite2 == null)
+                {
+                    StaticContent.IsPro = false;
+                }
+                else
+                {
+                    var IsPro = (bool)settings.Values["IsPro"];
+                    StaticContent.IsPro = IsPro;
+                }
+            }
+            catch
             {
                 var theme = (int)settings.Values["themeApp"];
                 if (theme == 0)
@@ -79,6 +93,10 @@ namespace Fooxboy.MusicX.Uwp
                 {
                     this.RequestedTheme = ApplicationTheme.Dark;
                 }
+
+
+                var IsPro = (bool)settings.Values["IsPro"];
+                StaticContent.IsPro = IsPro;
             }
             
             
@@ -109,7 +127,16 @@ namespace Fooxboy.MusicX.Uwp
                 }
 
                 CoreApplication.GetCurrentView().TitleBar.ExtendViewIntoTitleBar = true;
-                StaticContent.IsPro = await StoreService.IsBuyPro();
+                //try
+                //{
+                //    StaticContent.IsPro = await StoreService.IsBuyPro();
+                //    //StaticContent.IsPro = true;
+                //}catch(Exception eee)
+                //{
+                //    //await ContentDialogService.Show(new ExceptionDialog("Ошибка при получении лицензии", "АУЕ БЛЯ", eee));
+                //    StaticContent.IsPro = false;
+                //}
+                
                 var appView = ApplicationView.GetForCurrentView();
                 appView.TitleBar.ButtonBackgroundColor = Colors.Transparent;
                 appView.TitleBar.ButtonInactiveBackgroundColor = Colors.Transparent;

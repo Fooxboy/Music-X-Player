@@ -6,6 +6,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using Fooxboy.MusicX.Uwp.Resources.ContentDialogs;
 using Fooxboy.MusicX.Uwp.ViewModels;
+using Fooxboy.MusicX.Uwp.ViewModels.VKontakte;
 using Fooxboy.MusicX.Uwp.Views;
 using GalaSoft.MvvmLight.Threading;
 using Windows.UI.Xaml;
@@ -89,6 +90,11 @@ namespace Fooxboy.MusicX.Uwp.Services.VKontakte
         {
             StaticContent.IsAuth = false;
             PlayerMenuViewModel.Instanse.VkontaktePages = Visibility.Collapsed;
+            PlayerMenuViewModel.Instanse.NameAccount = "Войти в аккаунт";
+            PlayerMenuViewModel.Instanse.PhotoAccount = "ms-appx:///Assets/Images/logo.png";
+            StaticContent.MusicVKontakte.Clear();
+            StaticContent.PlaylistsVKontakte.Clear();
+            HomeViewModel.Instanse.ClearReady();
             StaticContent.NavigationContentService.Go(typeof(HomeLocalView));
             await TokenService.Delete();
         }

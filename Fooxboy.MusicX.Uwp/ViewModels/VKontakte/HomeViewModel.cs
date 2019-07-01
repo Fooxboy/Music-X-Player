@@ -57,6 +57,12 @@ namespace Fooxboy.MusicX.Uwp.ViewModels.VKontakte
             Changed("Music");
         }
 
+        public void ClearReady()
+        {
+            loadingMusic = true;
+            loadingPlaylists = true;
+        }
+
 
         public LoadingCollection<AudioFile> Music
         {
@@ -153,7 +159,7 @@ namespace Fooxboy.MusicX.Uwp.ViewModels.VKontakte
                     List<PlaylistFile> playlists = new List<PlaylistFile>();
                     try
                     {
-                        playlistsVk = await Library.Playlists(10, 0);
+                        playlistsVk = await Library.Playlists(5, 0);
                         foreach (var playlist in playlistsVk) playlists.Add(await Services.VKontakte.PlaylistsService.ConvertToPlaylistFile(playlist));
                     }
                     catch (Flurl.Http.FlurlHttpException)

@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Windows.Services.Store;
+using Windows.Storage;
 using Windows.UI.Popups;
 
 namespace Fooxboy.MusicX.Uwp.Services
@@ -48,11 +49,15 @@ namespace Fooxboy.MusicX.Uwp.Services
             switch (result.Status)
             {
                 case StorePurchaseStatus.AlreadyPurchased:
-                    await new MessageDialog("Music X Pro уже куплен!", "Покупка Music X Pro").ShowAsync();
+                    await new MessageDialog("Music X Pro уже находится в Вашей библиотеке, если до этого Music X не определял лицензию, перезапустите приложение.!", "Покупка Music X Pro").ShowAsync();
+                    var settings = ApplicationData.Current.LocalSettings;
+                    settings.Values["IsPro"] = true;
                     break;
 
                 case StorePurchaseStatus.Succeeded:
                     await new MessageDialog("Music X Pro успешно куплен! Для применения изменений, перезапустите приложение", "Покупка Music X Pro").ShowAsync();
+                    var settings2 = ApplicationData.Current.LocalSettings;
+                    settings2.Values["IsPro"] = true;
                     StaticContent.IsPro = true;
                     break;
 
@@ -67,7 +72,6 @@ namespace Fooxboy.MusicX.Uwp.Services
                 case StorePurchaseStatus.ServerError:
                     await new MessageDialog($"Произошла ошибка на серере при покупке Music X Pro: {extendedError}", "Покупка Music X Pro").ShowAsync();
                     break;
-
                 default:
                     await new MessageDialog($"Произошла неизвестная на серере при покупке Music X Pro: {extendedError}", "Покупка Music X Pro").ShowAsync();
                     break;
