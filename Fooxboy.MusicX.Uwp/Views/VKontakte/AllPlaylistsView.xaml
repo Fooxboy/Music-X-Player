@@ -25,6 +25,7 @@
         <GridView x:Name="Playlists" 
                   Margin="0 0 0 0"
                   Padding="0 20 0 0"
+                  BorderThickness="0"
                   Grid.Row="2"
                   SelectedItem="{x:Bind ViewModel.SelectPlaylist, Mode=TwoWay}"
                   ItemTemplate="{ThemeResource PlaylistTemplate}" 

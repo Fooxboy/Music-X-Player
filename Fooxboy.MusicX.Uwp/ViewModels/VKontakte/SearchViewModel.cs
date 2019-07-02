@@ -2,8 +2,14 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
+using Fooxboy.MusicX.Core.Interfaces;
+using Fooxboy.MusicX.Core.VKontakte.Music;
 using Fooxboy.MusicX.Uwp.Models;
+using Fooxboy.MusicX.Uwp.Resources.ContentDialogs;
+using Fooxboy.MusicX.Uwp.Services;
+using Fooxboy.MusicX.Uwp.Services.VKontakte;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Input;
@@ -30,6 +36,13 @@ namespace Fooxboy.MusicX.Uwp.ViewModels.VKontakte
             instanse = null;
         }
 
+        private SearchViewModel()
+        {
+            Music = new LoadingCollection<AudioFile>();
+            Music.HasMoreItemsRequested = HasMoreLoading;
+            Music.OnMoreItemsRequested = GetMoreAudio;
+        }
+
         public LoadingCollection<AudioFile> Music { get; set; }
 
         public AudioFile SelectTrack { get; set; }
@@ -47,7 +60,8 @@ namespace Fooxboy.MusicX.Uwp.ViewModels.VKontakte
             }
         }
 
-        public Visibility IsLoading { get; set; } 
+        public bool IsLoading { get; set; }
+        public bool hasLoading = true;
 
         public string HeaderText { get; set; }
 
@@ -60,5 +74,58 @@ namespace Fooxboy.MusicX.Uwp.ViewModels.VKontakte
         {
 
         }
+
+        public async Task<List<AudioFile>> GetMoreAudio(CancellationToken token, uint offset)
+        {
+            IsLoading = true;
+            Changed("IsLoading");
+            IList<IAudioFile> tracks = new List<IAudioFile>();
+            List<AudioFile> music = new List<AudioFile>();
+
+            if (InternetService.Connected)
+            {
+                try
+                {
+                    try
+                    {
+                        tracks = await Search.Tracks(Request, 20, Music.Count);
+                        music = await MusicService.ConvertToAudioFile(tracks);
+                    }
+                    catch (Flurl.Http.FlurlHttpException)
+                    {
+                        music = new List<AudioFile>();
+                        hasLoading = false;
+
+                        await ContentDialogService.Show(new ErrorConnectContentDialog());
+                        InternetService.GoToOfflineMode();
+                        return music;
+                    }
+
+                    if (music.Count < 20) hasLoading = false;
+                    IsLoading = false;
+                    Changed("IsLoading");
+                    return music;
+                }catch(Exception e)
+                {
+                    hasLoading = false;
+                    await ContentDialogService.Show(new ExceptionDialog("Неизвестная ошибка при поиске треков", "Music X не смог получить результаты поиска", e));
+                    music = new List<AudioFile>();
+                    return music;
+                }
+               
+            }else
+            {
+                await ContentDialogService.Show(new ErrorConnectContentDialog());
+                InternetService.GoToOfflineMode();
+                music = new List<AudioFile>();
+                hasLoading = false;
+                return music;
+            }
+
+        }
+
+        public bool HasMoreLoading() => hasLoading;
+
+
     }
 }

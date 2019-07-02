@@ -95,7 +95,7 @@
                         </Grid.ColumnDefinitions>
 
                         <FontIcon Grid.Column="0" FontSize="16" FontFamily="Segoe MDL2 Assets" Glyph="&#xE117;" />
-                        <TextBlock Grid.Column="1" Margin="10 0 0 0" FontSize="16" Text="Обновить"/>
+                        <TextBlock Grid.Column="1" Margin="10 0 0 0" FontSize="14" Text="Обновить"/>
                     </Grid>
                 </Button.Content>
             </Button>
@@ -120,8 +120,7 @@
                      HorizontalAlignment="Right"
                      Margin="0 0 195 0" Height="32"
                      Width="200"
-                     PlaceholderText="Найти музыку"
-                     TextChanged="TextBox_OnTextChanged"/>
+                     PlaceholderText="Найти музыку"/>
 
             <ListView Grid.Row="1" 
                       x:Name="MusicListView"

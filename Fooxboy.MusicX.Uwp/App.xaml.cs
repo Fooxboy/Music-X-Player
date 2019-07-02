@@ -94,9 +94,15 @@ namespace Fooxboy.MusicX.Uwp
                     this.RequestedTheme = ApplicationTheme.Dark;
                 }
 
-
-                var IsPro = (bool)settings.Values["IsPro"];
-                StaticContent.IsPro = IsPro;
+                try
+                {
+                    var IsPro = (bool)settings.Values["IsPro"];
+                    StaticContent.IsPro = IsPro;
+                } catch
+                {
+                    StaticContent.IsPro = false;
+                }
+                
             }
             
             

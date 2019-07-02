@@ -12,6 +12,7 @@
             <SolidColorBrush x:Key="BackgroundColorLoginTextBoxOverPointer" Color="#2E2E2E"/>
             <SolidColorBrush x:Key="BackgroundColorLoginTextBoxFocus" Color="#212121"/>
             <SolidColorBrush x:Key="BackgroundApp" Color="#191919"/>
+            <SolidColorBrush x:Key="MainTextColor" Color="White"/>
         </ResourceDictionary>
     </ResourceDictionary.ThemeDictionaries>
 </ResourceDictionary>

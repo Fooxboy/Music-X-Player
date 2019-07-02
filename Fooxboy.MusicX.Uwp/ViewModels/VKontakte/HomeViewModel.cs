@@ -86,6 +86,7 @@ namespace Fooxboy.MusicX.Uwp.ViewModels.VKontakte
             get => StaticContent.MusicVKontakte;
             set
             {
+                if (StaticContent.MusicVKontakte == value) return;
                 StaticContent.MusicVKontakte = value;
                 Changed("Music");
             }
@@ -95,6 +96,7 @@ namespace Fooxboy.MusicX.Uwp.ViewModels.VKontakte
             get => StaticContent.PlaylistsVKontakte;
             set
             {
+                if (StaticContent.PlaylistsVKontakte == value) return;
                 StaticContent.PlaylistsVKontakte = value;
                 Changed("Playlists");
             }

@@ -22,7 +22,7 @@
                        FontWeight="ExtraBold" 
                        FontSize="42" />
 
-        <ListView Grid.Row="1" 
+        <ListView Grid.Row="2" 
                       x:Name="MusicListView"
                       HorizontalAlignment="Stretch"
                       ItemContainerStyle="{StaticResource ListViewItemContainerStyle}"
@@ -31,17 +31,20 @@
                       ItemsSource="{x:Bind ViewModel.Music, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                       ItemClick="{x:Bind ViewModel.MusicListView_ItemClick}"
                       ItemTemplate="{ThemeResource TrackTemplate}">
-        <ListView.ItemsPanel >
-            <ItemsPanelTemplate >
-                <ItemsStackPanel HorizontalAlignment="Stretch"
+            <ListView.ItemsPanel >
+                <ItemsPanelTemplate >
+                    <ItemsStackPanel HorizontalAlignment="Stretch"
                                          VerticalAlignment="Stretch" />
-            </ItemsPanelTemplate>
-
-
-        </ListView.ItemsPanel>
-
+                </ItemsPanelTemplate>
+            </ListView.ItemsPanel>
         </ListView>
 
+        <ProgressRing HorizontalAlignment="Center"
+                      Grid.RowSpan="3"
+                      Height="50"
+                      Width="50"
+                      IsActive="{x:Bind ViewModel.IsLoading, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                      VerticalAlignment="Center"/>
 
     </Grid>
 </Page>

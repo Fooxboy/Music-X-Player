@@ -92,14 +92,14 @@
                                            CheckMode="{ThemeResource ListViewItemCheckMode}" 
                                            DragOpacity="{ThemeResource ListViewItemDragThemeOpacity}"
                                            DisabledOpacity="{ThemeResource ListViewItemDisabledThemeOpacity}"
-                                           DragBackground="LightGray"
+                                           DragBackground="{ThemeResource BackgroundApp}"
                                            DragForeground="{ThemeResource ListViewItemDragForeground}"
                                            FocusBorderBrush="{ThemeResource ListViewItemFocusBorderBrush}"
                                            FocusVisualMargin="{TemplateBinding FocusVisualMargin}"
                                            FocusSecondaryBorderBrush="{ThemeResource ListViewItemFocusSecondaryBorderBrush}" 
                                            HorizontalContentAlignment="{TemplateBinding HorizontalContentAlignment}" 
                                            Control.IsTemplateFocusTarget="True" 
-                                           PressedBackground="LightGray"
+                                           PressedBackground="{ThemeResource BackgroundApp}"
                                            PlaceholderBackground="{ThemeResource ListViewItemPlaceholderBackground}"
                                            PointerOverForeground="{ThemeResource ListViewItemForegroundPointerOver}" 
                                            PointerOverBackground="{ThemeResource ListViewItemBackgroundPointerOver}" 
@@ -110,8 +110,8 @@
                                            SelectedForeground="{ThemeResource ListViewItemForegroundSelected}" 
                                            SelectionCheckMarkVisualEnabled="{ThemeResource ListViewItemSelectionCheckMarkVisualEnabled}" 
                                            SelectedBackground="Transparent" 
-                                           SelectedPressedBackground="LightGray"
-                                           SelectedPointerOverBackground="LightGray"
+                                           SelectedPressedBackground="{ThemeResource BackgroundApp}"
+                                           SelectedPointerOverBackground="{ThemeResource BackgroundApp}"
                                            VerticalContentAlignment="{TemplateBinding VerticalContentAlignment}">
                         <VisualStateManager.VisualStateGroups>
                             <VisualStateGroup x:Name="CommonStates">
