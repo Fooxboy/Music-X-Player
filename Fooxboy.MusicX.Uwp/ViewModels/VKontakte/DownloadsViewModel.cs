@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -23,6 +24,11 @@ namespace Fooxboy.MusicX.Uwp.ViewModels.VKontakte
                 return instanse;
             }
         }
+
+
+        public ObservableCollection<AudioFile> Music { get; set; }
+
+        public AudioFile SelectedAudio { get; set; }
 
         public DownloaderService Service { get; set; }
 

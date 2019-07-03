@@ -30,5 +30,10 @@ namespace Fooxboy.MusicX.Uwp.Views.VKontakte
             ViewModel = DownloadsViewModel.Instanse;
             this.InitializeComponent();
         }
+
+        private void MusicListView_ItemClick(object sender, ItemClickEventArgs e)
+        {
+
+        }
     }
 }

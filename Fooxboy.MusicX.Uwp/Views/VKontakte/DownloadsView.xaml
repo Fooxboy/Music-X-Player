@@ -128,12 +128,37 @@
         </Grid>
 
         <Grid Grid.Row="2">
-
+            <Grid.RowDefinitions>
+                <RowDefinition Height="auto"/>
+                <RowDefinition/>
+            </Grid.RowDefinitions>
             <TextBlock Text="Уже загружено"
                        Margin="30 0 0 0"
+                       Grid.Row="0"
                        FontFamily="Calibri"
                        FontWeight="ExtraBold" 
                        FontSize="30"/>
+
+            <ListView Grid.Row="1" 
+                      x:Name="MusicListView"
+                      HorizontalAlignment="Stretch"
+                      ItemContainerStyle="{StaticResource ListViewItemContainerStyle}"
+                      Style="{StaticResource ListViewStyle}"
+                      SelectedItem="{x:Bind ViewModel.SelectedAudio, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                      ItemsSource="{x:Bind ViewModel.Music, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                      ItemClick="MusicListView_ItemClick"
+                      ItemTemplate="{ThemeResource TrackTemplate}">
+                <ListView.ItemsPanel >
+                    <ItemsPanelTemplate >
+                        <ItemsStackPanel HorizontalAlignment="Stretch"
+                                         VerticalAlignment="Stretch" />
+                    </ItemsPanelTemplate>
+
+
+                </ListView.ItemsPanel>
+
+            </ListView>
+            
         </Grid>
     </Grid>
 </Page>

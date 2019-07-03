@@ -9,6 +9,7 @@ namespace Fooxboy.MusicX.Uwp.Models
     public class DownloadAudioFile
     {
         public string Title { get; set; }
+        public AudioFile AudioFile { get; set; }
         public string Artist { get; set; }
         public string AlbumName { get; set; }
         public string AlbumYear { get; set; }

@@ -100,7 +100,8 @@ namespace Fooxboy.MusicX.Uwp.Services.VKontakte
                     Artist = audio.Artist,
                     Cover = audio.Cover,
                     Url = audio.SourceString,
-                    FromAlbum = false
+                    FromAlbum = false,
+                    AudioFile = audio
                 };
                 AddToQueue(track);
 

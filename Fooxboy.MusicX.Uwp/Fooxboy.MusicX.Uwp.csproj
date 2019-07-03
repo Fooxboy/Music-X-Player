@@ -190,6 +190,7 @@
     <Compile Include="Services\VKontakte\AuthService.cs" />
     <Compile Include="Services\VKontakte\CaptchaSolver.cs" />
     <Compile Include="Services\VKontakte\DownloaderService.cs" />
+    <Compile Include="Services\VKontakte\DownloadLibraryService.cs" />
     <Compile Include="Services\VKontakte\ImagesService.cs" />
     <Compile Include="Services\VKontakte\MusicService.cs" />
     <Compile Include="Services\VKontakte\PlaylistsService.cs" />
