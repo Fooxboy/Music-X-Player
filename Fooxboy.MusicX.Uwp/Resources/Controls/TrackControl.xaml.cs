@@ -96,7 +96,7 @@ namespace Fooxboy.MusicX.Uwp.Resources.Controls
                     
                 }catch(Exception e)
                 {
-                    ContentDialogService.Show(new ExceptionDialog("Невозможно удалить этот трек", "Возможно, этот трек был уже удален.", e));
+                    await ContentDialogService.Show(new ExceptionDialog("Невозможно удалить этот трек", "Возможно, этот трек был уже удален.", e));
                 }
 
             });
@@ -115,6 +115,9 @@ namespace Fooxboy.MusicX.Uwp.Resources.Controls
                         }
                         else
                         {
+                            Like.Visibility = Visibility.Collapsed;
+                            LikeAdd.Visibility = Visibility.Visible;
+                            Track.IsFavorite = true;
                             playlist.TracksFiles.Add(Track);
                             await Services.PlaylistsService.SavePlaylist(playlist);
                         }
@@ -128,6 +131,17 @@ namespace Fooxboy.MusicX.Uwp.Resources.Controls
                     await ContentDialogService.Show(new ExceptionDialog("Невозможно добавить трек в избранное", "Возможно, этот трек поврежден или не существует плейлиста, если ошибка будет повторяться, переустановите приложение.", e));
                 }
 
+            });
+
+            RemoveFavoriteCommand = new RelayCommand(() =>
+            {
+
+            });
+
+            DownloadCommand = new RelayCommand(async () =>
+            {
+                var service = DownloaderService.GetService;
+                await service.StartDownloadAudio(Track);
             });
 
         }
@@ -160,16 +174,35 @@ namespace Fooxboy.MusicX.Uwp.Resources.Controls
         private RelayCommand DeleteCommand { get; set; }
         private RelayCommand AddToPlaylistCommand { get; set; }
         public RelayCommand AddToFavoriteCommand { get; set; }
+        public RelayCommand RemoveFavoriteCommand { get; set; }
+        public RelayCommand DownloadCommand { get; set; }
 
         private void Grid_PointerEntered(object sender, PointerRoutedEventArgs e)
         {
-            if(Track.IsLocal) Like.Visibility = Visibility.Visible;
+            if (Track.IsLocal)
+            {
+                if(Track.IsFavorite)
+                {
+                    Like.Visibility = Visibility.Collapsed;
+                    LikeAdd.Visibility = Visibility.Visible;
+                }else
+                {
+                    Like.Visibility = Visibility.Visible;
+                    LikeAdd.Visibility = Visibility.Collapsed;
+                }
+            }
 
         }
 
+
+
         private void Grid_PointerExited(object sender, PointerRoutedEventArgs e)
         {
-            if(Track.IsLocal) Like.Visibility = Visibility.Collapsed;
+            if (Track.IsLocal)
+            {
+                LikeAdd.Visibility = Visibility.Collapsed;
+                Like.Visibility = Visibility.Collapsed;
+            }
         }
 
         private void Grid_RightTapped(object sender, RightTappedRoutedEventArgs e)
@@ -192,8 +225,10 @@ namespace Fooxboy.MusicX.Uwp.Resources.Controls
                             CommandParameter = playlist
                         });
                     }
-
                 }
+            }else
+            {
+                AddTo.Visibility = Visibility.Collapsed;
             }
         }
     }

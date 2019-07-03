@@ -55,7 +55,6 @@ namespace Fooxboy.MusicX.Uwp.ViewModels.VKontakte
 
             if(InternetService.Connected)
             {
-
                 try
                 {
                     if (firstLoading)

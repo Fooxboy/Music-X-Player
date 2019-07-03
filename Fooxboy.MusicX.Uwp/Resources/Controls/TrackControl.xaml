@@ -101,6 +101,35 @@
                 VerticalAlignment="Center"
                 Command="{x:Bind AddToFavoriteCommand}" 
                 FontFamily="Segoe MDL2 Assets"/>
+
+        <Button Content="&#xE0A5;" x:Name="LikeAdd" Grid.Column="2"
+                HorizontalAlignment="Right" 
+                Style="{ThemeResource ButtonPlayerStyle}"
+                Grid.RowSpan="2"
+                FontSize="18"
+                Visibility="Collapsed"
+                Height="32"
+                Margin="0 0 30 0"
+                Background="Transparent"
+                BorderThickness="0"
+                VerticalAlignment="Center"
+                Command="{x:Bind AddToFavoriteCommand}" 
+                FontFamily="Segoe MDL2 Assets"/>
+
+        <Button Content="&#xE118;" x:Name="Download" Grid.Column="2"
+                HorizontalAlignment="Right" 
+                Style="{ThemeResource ButtonPlayerStyle}"
+                Grid.RowSpan="2"
+                FontSize="18"
+                Visibility="Collapsed"
+                Height="32"
+                Margin="0 0 30 0"
+                Background="Transparent"
+                BorderThickness="0"
+                VerticalAlignment="Center"
+                Command="{x:Bind AddToFavoriteCommand}" 
+                FontFamily="Segoe MDL2 Assets"/>
+        
         <TextBlock Text="{x:Bind Track.DurationMinutes, Mode=TwoWay}"
                        Grid.Column="2" 
                        HorizontalAlignment="Right"

@@ -62,6 +62,10 @@ namespace Fooxboy.MusicX.Uwp.Services
                     }
                     audio.Source = file;
                     audio.SourceString = file.Path;
+                    var playlist = await Services.PlaylistsService.GetById(2);
+                    audio.IsFavorite = playlist.TracksFiles.Any(t => t.SourceString == audio.SourceString);
+                    audio.IsInLibrary = true;
+                    audio.IsDownload = true;
                     return audio;
                 }
             }catch(Exception e)
