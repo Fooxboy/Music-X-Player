@@ -62,7 +62,8 @@ namespace Fooxboy.MusicX.Uwp.ViewModels.VKontakte
         public string Album { get; set; }
         public string YearAlbum { get; set; }
         public string Cover { get; set; }
-
+        public ulong Maximum { get; set; }
+        public ulong CurrentValue { get; set; }
 
         private void Service_DownloadComplete(object sender, EventArgs e)
         {
@@ -72,14 +73,18 @@ namespace Fooxboy.MusicX.Uwp.ViewModels.VKontakte
                 Artist = Service.CurrentDownloadTrack.Artist;
                 Album = Service.CurrentDownloadTrack.AlbumName;
                 YearAlbum = Service.CurrentDownloadTrack.AlbumYear;
+                Cover = Service.CurrentDownloadTrack.Cover;
                 VisibilityNoNowDownload = Visibility.Collapsed;
                 VisibilityNowDownload = Visibility.Visible;
+                Maximum = Service.Maximum;
                 Changed("VisibilityNoNowDownload");
                 Changed("VisibilityNowDownload");
                 Changed("Title");
                 Changed("Artist");
                 Changed("Album");
                 Changed("YearAlbum");
+                Changed("Maximum");
+                Changed("Cover");
             }
             else
             {
@@ -98,14 +103,19 @@ namespace Fooxboy.MusicX.Uwp.ViewModels.VKontakte
                 Artist = Service.CurrentDownloadTrack.Artist;
                 Album = Service.CurrentDownloadTrack.AlbumName;
                 YearAlbum = Service.CurrentDownloadTrack.AlbumYear;
+                Cover = Service.CurrentDownloadTrack.Cover;
                 VisibilityNoNowDownload = Visibility.Collapsed;
                 VisibilityNowDownload = Visibility.Visible;
+                Maximum = Service.Maximum;
                 Changed("VisibilityNoNowDownload");
                 Changed("VisibilityNowDownload");
                 Changed("Title");
                 Changed("Artist");
                 Changed("Album");
                 Changed("YearAlbum");
+                Changed("Maximum");
+                Changed("Cover");
+
             }
             else
             {
@@ -118,6 +128,8 @@ namespace Fooxboy.MusicX.Uwp.ViewModels.VKontakte
 
         private void Service_DownloadProgressChanged(object sender, ulong e)
         {
+            CurrentValue = e;
+            Changed("CurrentValue");
             throw new NotImplementedException();
         }
 
