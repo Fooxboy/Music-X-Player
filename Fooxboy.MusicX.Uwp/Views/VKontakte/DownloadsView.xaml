@@ -72,20 +72,20 @@
                               CornerRadius="3"
                               VerticalAlignment="Center"
                               HorizontalAlignment="Left"
-                              Source="ms-appx:///Assets/Images/placeholder.png"
+                              Source="{x:Bind ViewModel.CurrentDownloadFile.Cover, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                               PlaceholderSource="ms-appx:///Assets/Images/placeholder.png"/>
 
 
 
             <StackPanel Visibility="{x:Bind ViewModel.VisibilityNowDownload, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                         Grid.Row="1" Margin="0 20 0 0" Grid.Column="1">
-                <TextBlock FontSize="16" Text="{x:Bind ViewModel.Title, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+                <TextBlock FontSize="16" Text="{x:Bind ViewModel.CurrentDownloadFile.Title, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
                 <TextBlock Foreground="{ThemeResource ColorArtistText}" 
-                           Text="{x:Bind ViewModel.Artist, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+                           Text="{x:Bind ViewModel.CurrentDownloadFile.Artist, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
                 <StackPanel Orientation="Horizontal">
                     <TextBlock FontSize="10"
                                Foreground="{ThemeResource SubText}"
-                               Text="{x:Bind ViewModel.Album, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+                               Text="{x:Bind ViewModel.CurrentDownloadFile.AlbumName, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
                     <TextBlock FontSize="10"
                                Margin="2 0 0 0"
                                Foreground="{ThemeResource SubText}"
@@ -93,20 +93,20 @@
                     <TextBlock FontSize="10"
                                Margin="2 0 0 0"
                                Foreground="{ThemeResource SubText}"
-                               Text="{x:Bind ViewModel.YearAlbum, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+                               Text="{x:Bind ViewModel.CurrentDownloadFile.AlbumYear, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
                 </StackPanel>
             </StackPanel>
 
 
             <ProgressBar Grid.Row="1"
-                         Width="700"
+                         Width="400"
                          Visibility="{x:Bind ViewModel.VisibilityNowDownload, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                         Maximum="{x:Bind ViewModel.Maximum, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                         Maximum="{x:Bind ViewModel.MaximumValue, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                          Value="{x:Bind ViewModel.CurrentValue, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" 
-                         Margin="0 0 200 0"
+                         Margin="200 0 0 0"
                          Grid.ColumnSpan="2" 
                          Grid.Column="1"
-                         HorizontalAlignment="Center"
+                         HorizontalAlignment="Left"
                          VerticalAlignment="Center"/>
 
             <StackPanel Margin="0 30 0 0" Visibility="{x:Bind ViewModel.VisibilityNoNowDownload, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Grid.ColumnSpan="3" HorizontalAlignment="Center" VerticalAlignment="Center"  Grid.RowSpan="3">

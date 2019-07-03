@@ -25,6 +25,12 @@
                         </MenuFlyoutItem.Icon>
                     </MenuFlyoutItem>
 
+                    <MenuFlyoutItem Text="Скачать" x:Name="DownloadItem" Command="{x:Bind DownloadCommand}">
+                        <MenuFlyoutItem.Icon>
+                            <FontIcon FontFamily="Segoe MDL2 Assets" Glyph="&#xE118;" />
+                        </MenuFlyoutItem.Icon>
+                    </MenuFlyoutItem>
+
                     <MenuFlyoutItem Text="Удалить" Command="{x:Bind DeleteCommand}">
                         <MenuFlyoutItem.Icon>
                             <FontIcon FontFamily="Segoe MDL2 Assets" Glyph="&#xE74D;" />

@@ -190,6 +190,9 @@ namespace Fooxboy.MusicX.Uwp.Resources.Controls
                     Like.Visibility = Visibility.Visible;
                     LikeAdd.Visibility = Visibility.Collapsed;
                 }
+            }else
+            {
+                Download.Visibility = Visibility.Visible;
             }
 
         }
@@ -202,6 +205,9 @@ namespace Fooxboy.MusicX.Uwp.Resources.Controls
             {
                 LikeAdd.Visibility = Visibility.Collapsed;
                 Like.Visibility = Visibility.Collapsed;
+            }else
+            {
+                Download.Visibility = Visibility.Collapsed;
             }
         }
 
@@ -209,6 +215,8 @@ namespace Fooxboy.MusicX.Uwp.Resources.Controls
         {
             if(Track.IsLocal)
             {
+                DownloadItem.Visibility = Visibility.Collapsed;
+
                 foreach (var playlist in StaticContent.Playlists)
                 {
                     if (playlist.Id != 1 & playlist.Id != 2 & playlist.Id != 1000)
@@ -228,6 +236,7 @@ namespace Fooxboy.MusicX.Uwp.Resources.Controls
                 }
             }else
             {
+                DownloadItem.Visibility = Visibility.Visible;
                 AddTo.Visibility = Visibility.Collapsed;
             }
         }

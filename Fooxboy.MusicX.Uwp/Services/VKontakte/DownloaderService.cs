@@ -1,9 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net;
 using System.Text;
 using System.Threading.Tasks;
 using Fooxboy.MusicX.Uwp.Models;
+using Fooxboy.MusicX.Uwp.Resources.ContentDialogs;
+using GalaSoft.MvvmLight.Threading;
 using Windows.Networking.BackgroundTransfer;
 using Windows.Storage;
 using Windows.UI.Xaml;
@@ -29,22 +32,33 @@ namespace Fooxboy.MusicX.Uwp.Services.VKontakte
         private DownloaderService()
         {
             Timer = new DispatcherTimer();
-            Timer.Interval = TimeSpan.FromSeconds(1);
+            Timer.Interval = TimeSpan.FromSeconds(2);
             Timer.Tick += CheckProgress;
-
+            Timer.Start();
             DownloadComplete += DonwloadFileComplete;
         }
 
 
-        private void CheckProgress(object sender, object o)
+        private async void CheckProgress(object sender, object o)
         {
             if(CurrentDownloadOperation != null && CurrentDownloadTrack != null)
             {
                 var a = CurrentDownloadOperation.Progress.BytesReceived;
                 DownloadProgressChanged?.Invoke(this, a);
-                if(CurrentDownloadOperation.Progress.Status == BackgroundTransferStatus.Completed)
+                if(CurrentDownloadOperation.Progress.Status == BackgroundTransferStatus.Completed&& DownloadAccess)
                 {
                     DownloadComplete?.Invoke(this, null);
+                }else if(CurrentDownloadOperation.Progress.Status == BackgroundTransferStatus.Idle && DownloadAccess)
+                {
+                    try
+                    {
+                        await CurrentDownloadOperation.StartAsync();
+                    }
+                    catch
+                    {
+                        //ниче не делаем, операция уже запущена
+                    }
+                    
                 }
             }
         }
@@ -53,6 +67,7 @@ namespace Fooxboy.MusicX.Uwp.Services.VKontakte
         public event EventHandler DownloadComplete;
         public event EventHandler DownloadQueueComplete;
         public event EventHandler<ulong> DownloadProgressChanged;
+        public bool DownloadAccess = false;
 
 
         public ulong Maximum { get; set; }
@@ -60,34 +75,54 @@ namespace Fooxboy.MusicX.Uwp.Services.VKontakte
         public DownloadAudioFile CurrentDownloadTrack { get; set; }
         public DownloadOperation CurrentDownloadOperation { get; set; }
 
+
+        private static string GetFileSize(Uri uriPath)
+        {
+            var webRequest = HttpWebRequest.Create(uriPath);
+            webRequest.Method = "HEAD";
+
+            using (var webResponse = webRequest.GetResponse())
+            {
+                var fileSize = webResponse.Headers.Get("Content-Length");
+                return fileSize;
+            }
+        }
+
         public async Task StartDownloadAudio(AudioFile audio)
         {
-            var track = new DownloadAudioFile()
+            try
             {
-                Title = audio.Title,
-                AlbumName = audio.Title,
-                AlbumYear = "2019",
-                Artist = audio.Artist,
-                Cover = audio.Cover,
-                Url = audio.SourceString,
-                FromAlbum = false
-            };
-            AddToQueue(track);
+                var track = new DownloadAudioFile()
+                {
+                    Title = audio.Title,
+                    AlbumName = audio.Title,
+                    AlbumYear = "2019",
+                    Artist = audio.Artist,
+                    Cover = audio.Cover,
+                    Url = audio.SourceString,
+                    FromAlbum = false
+                };
+                AddToQueue(track);
 
-            StorageFolder folder = await KnownFolders.MusicLibrary.TryGetItemAsync("Music X") == null ? 
-                await KnownFolders.MusicLibrary.CreateFolderAsync("Music X") 
-                : await KnownFolders.MusicLibrary.GetFolderAsync("Music X");
+                StorageFolder folder = await KnownFolders.MusicLibrary.TryGetItemAsync("Music X") == null ?
+                    await KnownFolders.MusicLibrary.CreateFolderAsync("Music X")
+                    : await KnownFolders.MusicLibrary.GetFolderAsync("Music X");
 
 
-            if (folder.TryGetItemAsync($"{track.Artist} - {track.Title} (Music X).mp3") != null) return;
+                if ((await folder.TryGetItemAsync($"{track.Artist} - {track.Title} (Music X).mp3")) != null) return;
 
-            if (CurrentDownloadTrack == null)
+                if (CurrentDownloadTrack == null)
+                {
+                    var task = Task.Run(async () =>
+                    {
+                        await DownloadAudio(track);
+                    });
+                }
+            }catch(Exception e)
             {
-               var task =  Task.Run(async () =>
-               {
-                   await DownloadAudio(track);
-               });
+                await ContentDialogService.Show(new ExceptionDialog("Невозможно начать загрузку трека", "Попробуйте чуть-чуть позже", e));
             }
+            
         }
 
         public async Task StartDownloadPlaylist(PlaylistFile playlist)
@@ -125,6 +160,7 @@ namespace Fooxboy.MusicX.Uwp.Services.VKontakte
         private async Task DownloadAudio(DownloadAudioFile track)
         {
             CurrentDownloadTrack = track;
+            DownloadAccess = false;
             StorageFile trackFile = null;
             if (!track.FromAlbum)
             {
@@ -134,7 +170,7 @@ namespace Fooxboy.MusicX.Uwp.Services.VKontakte
             {
                 var libraryTracks = await KnownFolders.MusicLibrary.GetFolderAsync("Music X");
                 var libraryPlaylist = await libraryTracks.GetFolderAsync(track.AlbumName);
-                if (libraryPlaylist.TryGetItemAsync($"{track.Artist} - {track.Title} (Music X).mp3") != null)
+                if (await libraryPlaylist.TryGetItemAsync($"{track.Artist} - {track.Title} (Music X).mp3") != null)
                 {
                     DownloadComplete?.Invoke(this, null);
                 }else
@@ -146,13 +182,22 @@ namespace Fooxboy.MusicX.Uwp.Services.VKontakte
             BackgroundDownloader downloader = new BackgroundDownloader();
             DownloadOperation download = downloader.CreateDownload(new Uri(track.Url), trackFile);
             CurrentDownloadOperation = download;
-            Maximum = download.Progress.TotalBytesToReceive;
-            CurrentDownloadFileChanged?.Invoke(this, null);
+            Maximum = ulong.Parse(GetFileSize(new Uri(track.Url)));
+            var task = Task.Run(() =>
+            {
+                DispatcherHelper.CheckBeginInvokeOnUI(() =>
+                {
+                    CurrentDownloadFileChanged?.Invoke(this, null);
+                });
+
+            });
+            
+            DownloadAccess = true;
             await download.StartAsync();
         }
 
 
-        private async void DonwloadFileComplete(object a, EventArgs e)
+        private void DonwloadFileComplete(object a, EventArgs e)
         {
             if(CurrentDownloadTrack != null)
             {

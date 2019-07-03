@@ -18,6 +18,7 @@ using Fooxboy.MusicX.Uwp.Services;
 using Windows.UI.Popups;
 using Fooxboy.MusicX.Core.Interfaces;
 using Fooxboy.MusicX.Uwp.Services.VKontakte;
+using Fooxboy.MusicX.Uwp.Resources.ContentDialogs;
 
 // Документацию по шаблону элемента "Пользовательский элемент управления" см. по адресу https://go.microsoft.com/fwlink/?LinkId=234236
 
@@ -65,16 +66,46 @@ namespace Fooxboy.MusicX.Uwp.Resources.Controls
                     await new MessageDialog("Вы не можете удалить этот плейлист", "Невозможно удалить плейлист").ShowAsync();
                 }
             });
+
+            DownloadCommand = new RelayCommand(async () =>
+            {
+                try
+                {
+                    var service = DownloaderService.GetService;
+                    await service.StartDownloadPlaylist(Playlist);
+                }catch(Exception e)
+                {
+                    await ContentDialogService.Show(new ExceptionDialog("Невозможно начать загрузку плейлиста", "Попробуйте ещё раз", e));
+                }
+               
+            });
+
+            
         }
+
 
         public PlaylistFile Playlist
         {
             get => (PlaylistFile)GetValue(PlaylistProperty);
-            set => SetValue(PlaylistProperty, value);
+            set
+            {
+                if (value.IsLocal)
+                {
+                    DownloadItem.Visibility = Visibility.Collapsed;
+                }
+                else
+                {
+                    DownloadItem.Visibility = Visibility.Visible;
+
+                }
+
+                SetValue(PlaylistProperty, value);
+            }
         }
 
         public RelayCommand PlayCommand { get; set; }
         public RelayCommand DeleteCommand { get; set; }
+        public RelayCommand DownloadCommand { get; set; }
 
         private async void Grid_PointerEntered(object sender, PointerRoutedEventArgs e)
         {

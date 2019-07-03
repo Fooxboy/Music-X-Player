@@ -70,8 +70,11 @@ namespace Fooxboy.MusicX.Uwp.ViewModels
         {
             get
             {
-                return Playlist.IsAlbum ? Visibility.Visible : Visibility.Collapsed;
-            }set
+                if (Playlist != null) return Playlist.IsAlbum ? Visibility.Visible : Visibility.Collapsed;
+                else return Visibility.Collapsed;
+
+            }
+            set
             {
                 //support x:bind;
             }
@@ -142,9 +145,11 @@ namespace Fooxboy.MusicX.Uwp.ViewModels
 
         public async void MusicListView_Tapped(object sender, TappedRoutedEventArgs e)
         {
-            if (SelectedAudioFile.IsLocal) await PlayMusicService.PlayMusicForLibrary(SelectedAudioFile, 3, Playlist);
-            else await MusicService.PlayMusic(SelectedAudioFile, 2, Playlist);
-
+            if(SelectedAudioFile != null)
+            {
+                if (SelectedAudioFile.IsLocal) await PlayMusicService.PlayMusicForLibrary(SelectedAudioFile, 3, Playlist);
+                else await MusicService.PlayMusic(SelectedAudioFile, 2, Playlist);
+            }
         }
 
        
