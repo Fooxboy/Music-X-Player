@@ -18,5 +18,8 @@ namespace Fooxboy.MusicX.Core.Models
         public string SourceString { get; set; }
         public string Cover { get; set; }
         public string DurationMinutes { get; set; }
+        public bool IsFavorite { get; set; }
+        public bool IsInLibrary { get; set; }
+        public bool IsDownload { get; set; }
     }
 }

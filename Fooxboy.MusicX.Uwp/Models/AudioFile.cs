@@ -28,5 +28,8 @@ namespace Fooxboy.MusicX.Uwp.Models
         public string Cover { get; set; }
         public bool IsLocal { get; set; }
         public string DurationMinutes { get; set; }
+        public bool IsFavorite { get; set; }
+        public bool IsInLibrary { get; set; }
+        public bool IsDownload { get; set; }
     }
 }

@@ -10,7 +10,7 @@ namespace Fooxboy.MusicX.Core.VKontakte.Music.Converters
     public static class ToIAudioFileConverter
     {
 
-        public static IAudioFile ToIAudioFile(this Audio audio)
+        public static IAudioFile ToIAudioFile(this Audio audio, bool IsLibrary = false)
         {
             try
             {
@@ -44,7 +44,10 @@ namespace Fooxboy.MusicX.Core.VKontakte.Music.Converters
                     OwnerId = audio.OwnerId.Value,
                     PlaylistId = idPlaylist,
                     SourceString = audio.Url.DecodeAudioUrl().ToString(),
-                    Title = audio.Title
+                    Title = audio.Title,
+                    IsDownload = false,
+                    IsFavorite = false,
+                    IsInLibrary = IsLibrary
                 };
 
                 return audioFile;

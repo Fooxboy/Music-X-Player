@@ -16,6 +16,9 @@ namespace Fooxboy.MusicX.Core.Interfaces
         double DurationSeconds { get; set; }
         string SourceString { get; set; }
         string Cover { get; set; }
+        bool IsFavorite { get; set; }
+        bool IsInLibrary { get; set; }
+        bool IsDownload { get; set; }
         string DurationMinutes { get; set; }
     }
 }

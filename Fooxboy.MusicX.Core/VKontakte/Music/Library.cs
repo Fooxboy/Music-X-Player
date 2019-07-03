@@ -21,7 +21,7 @@ namespace Fooxboy.MusicX.Core.VKontakte.Music
             });
 
             IList<IAudioFile> tracks = new List<IAudioFile>();
-            foreach (var track in music) tracks.Add(track.ToIAudioFile());
+            foreach (var track in music) tracks.Add(track.ToIAudioFile(true));
             return tracks;
         }
 

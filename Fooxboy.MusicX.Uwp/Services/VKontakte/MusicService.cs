@@ -52,7 +52,10 @@ namespace Fooxboy.MusicX.Uwp.Services.VKontakte
                     PlaylistId = track.PlaylistId,
                     Source = null,
                     SourceString = track.SourceString,
-                    Title = track.Title
+                    Title = track.Title,
+                    IsFavorite = false,
+                    IsDownload = false,
+                    IsInLibrary = track.IsInLibrary
                 };
 
                 tracks.Add(audiofile);
