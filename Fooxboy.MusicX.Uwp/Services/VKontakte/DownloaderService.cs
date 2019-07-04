@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Net;
 using System.Text;
@@ -47,6 +48,31 @@ namespace Fooxboy.MusicX.Uwp.Services.VKontakte
                 DownloadProgressChanged?.Invoke(this, a);
                 if(CurrentDownloadOperation.Progress.Status == BackgroundTransferStatus.Completed&& DownloadAccess)
                 {
+                    var trackFile = currentFileAudio;
+                    var track = CurrentDownloadTrack;
+
+
+                    var mp3FileAbs = new FileMp3Abstraction()
+                    {
+                        Name = trackFile.Name,
+                        ReadStream = await trackFile.OpenStreamForReadAsync(),
+                        WriteStream = await trackFile.OpenStreamForWriteAsync(),
+                    };
+
+                    using (var mp3File = TagLib.File.Create(mp3FileAbs))
+                    {
+                        mp3File.Tag.AlbumArtists = new string[] { track.Artist };
+                        mp3File.Tag.Title = track.Title;
+                        mp3File.Tag.Album = track.AlbumName;
+                        mp3File.Tag.Year = uint.Parse(track.AlbumYear);
+                        mp3File.Tag.Lyrics = "Загружено с ВКонтакте с помощью Music X Player (UWP)";
+                        mp3File.Tag.Copyright = "Music X Player 2019";
+                        mp3File.Tag.Conductor = "Music X Player";
+                        mp3File.Tag.Comment = "Загружено с ВКонтакте с помощью Music X Player (UWP)";
+                        mp3File.Tag.Pictures = new TagLib.IPicture[] { new TagLib.Picture(await ImagesService.CoverAudio(track.AudioFile)) };
+                        mp3File.Save();
+                    }
+
                     DownloadComplete?.Invoke(this, null);
                 }else if(CurrentDownloadOperation.Progress.Status == BackgroundTransferStatus.Idle && DownloadAccess)
                 {
@@ -128,7 +154,7 @@ namespace Fooxboy.MusicX.Uwp.Services.VKontakte
 
         public async Task StartDownloadPlaylist(PlaylistFile playlist)
         {
-            foreach (var audio in playlist.Tracks)
+            foreach (var audio in playlist.TracksFiles)
             {
                 var track = new DownloadAudioFile()
                 {
@@ -138,7 +164,8 @@ namespace Fooxboy.MusicX.Uwp.Services.VKontakte
                     Artist = audio.Artist,
                     Cover = audio.Cover,
                     Url = audio.SourceString,
-                    FromAlbum = true
+                    FromAlbum = true,
+                    AudioFile = audio
                 };
                 AddToQueue(track);
             }
@@ -157,6 +184,8 @@ namespace Fooxboy.MusicX.Uwp.Services.VKontakte
             });
 
         }
+
+        public StorageFile currentFileAudio;
 
         private async Task DownloadAudio(DownloadAudioFile track)
         {
@@ -179,7 +208,7 @@ namespace Fooxboy.MusicX.Uwp.Services.VKontakte
                     trackFile = await libraryPlaylist.CreateFileAsync($"{track.Artist} - {track.Title} (Music X).mp3");
                 }
             }
-            
+            currentFileAudio = trackFile;
             BackgroundDownloader downloader = new BackgroundDownloader();
             DownloadOperation download = downloader.CreateDownload(new Uri(track.Url), trackFile);
             CurrentDownloadOperation = download;
@@ -195,6 +224,7 @@ namespace Fooxboy.MusicX.Uwp.Services.VKontakte
             
             DownloadAccess = true;
             await download.StartAsync();
+
         }
 
 

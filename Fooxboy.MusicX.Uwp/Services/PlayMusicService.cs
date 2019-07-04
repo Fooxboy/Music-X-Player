@@ -73,13 +73,11 @@ namespace Fooxboy.MusicX.Uwp.Services
                     {
                         StaticContent.AudioService.SetCurrentPlaylist(playlistNowPlay.ToAudioPlaylist(), true);
                     }
-
-                   
                 }
 
                 if (!(StaticContent.Playlists.Any(p => p.Id == 1000)))
                 {
-                    StaticContent.Playlists.Add(StaticContent.NowPlayPlaylist);
+                    StaticContent.Playlists.Insert(0, StaticContent.NowPlayPlaylist);
                 }
             }catch(Exception e)
             {

@@ -31,9 +31,11 @@ namespace Fooxboy.MusicX.Uwp.Views.VKontakte
             this.InitializeComponent();
         }
 
-        private void MusicListView_ItemClick(object sender, ItemClickEventArgs e)
-        {
+       
 
+        protected async override void OnNavigatedTo(NavigationEventArgs e)
+        {
+            await ViewModel.StartLoadingTracks();
         }
     }
 }

@@ -9,6 +9,7 @@ using Fooxboy.MusicX.Uwp.Models;
 using Fooxboy.MusicX.Uwp.Resources.ContentDialogs;
 using Newtonsoft.Json;
 using Windows.Storage;
+using Windows.Storage.Search;
 
 namespace Fooxboy.MusicX.Uwp.Services
 {
@@ -28,7 +29,7 @@ namespace Fooxboy.MusicX.Uwp.Services
                     StaticContent.Music.Clear();
                     if (StaticContent.Config.FindInMusicLibrary)
                     {
-                        var files = await KnownFolders.MusicLibrary.GetFilesAsync();
+                        var files = await KnownFolders.MusicLibrary.GetFilesAsync(CommonFileQuery.OrderByName);
                         foreach (var f in files)
                         {
                             if (f.FileType == ".mp3" || f.FileType == ".wav" || f.FileType == ".flac")

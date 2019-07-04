@@ -68,6 +68,10 @@ namespace Fooxboy.MusicX.Uwp.Services
                     audio.IsDownload = true;
                     return audio;
                 }
+            }
+            catch (CorruptFileException)
+            {
+                return null;
             }catch(Exception e)
             {
                 AudioFile audio = new AudioFile()
@@ -86,7 +90,7 @@ namespace Fooxboy.MusicX.Uwp.Services
                     Title = file.DisplayName
                 };
 
-                await new ExceptionDialog("Ошибка при обработке файла", $"Файл {file.Name} не может быть обработан по неизвестной причине", e).ShowAsync();
+                await ContentDialogService.Show(new ExceptionDialog("Ошибка при обработке файла", $"Файл {file.Name} не может быть обработан по неизвестной причине", e));
                 return audio;
             }
            

@@ -5,8 +5,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Fooxboy.MusicX.Uwp.Models;
+using Fooxboy.MusicX.Uwp.Services;
 using Fooxboy.MusicX.Uwp.Services.VKontakte;
+using Windows.Storage;
 using Windows.UI.Xaml;
+using Windows.UI.Xaml.Controls;
 
 namespace Fooxboy.MusicX.Uwp.ViewModels.VKontakte
 {
@@ -31,14 +34,14 @@ namespace Fooxboy.MusicX.Uwp.ViewModels.VKontakte
         public AudioFile SelectedAudio { get; set; }
 
         public DownloaderService Service { get; set; }
-
+        private PlaylistFile playlistCurrent;
         private DownloadsViewModel()
         {
             Service = DownloaderService.GetService;
             Service.CurrentDownloadFileChanged += Service_CurrentDownloadFileChanged;
             Service.DownloadProgressChanged += Service_DownloadProgressChanged;
             Service.DownloadQueueComplete += Service_DownloadQueueComplete;
-            //Service.DownloadComplete += Service_DownloadComplete;
+            Service.DownloadComplete += Service_DownloadComplete;
 
             if (Service.CurrentDownloadTrack != null)
             {
@@ -61,35 +64,55 @@ namespace Fooxboy.MusicX.Uwp.ViewModels.VKontakte
                 Changed("VisibilityNoNowDownload");
                 Changed("VisibilityNowDownload");
             }
+
+            playlistCurrent = new PlaylistFile()
+            {
+                Artist = "",
+                Cover = "ms-appx:///Assets/Images/playlist-placeholder.png",
+                Id = 778,
+                IsLocal = true,
+                Year = "2019",
+                IsAlbum = false,
+                Genre = "без жанра",
+                Name = "Загруженное"
+            };
+
         }
 
         public double MaximumValue { get; set; }
         public double CurrentValue { get; set; }
-        public DownloadAudioFile CurrentDownloadFile {get;set;}
+        public DownloadAudioFile CurrentDownloadFile { get; set; }
+
+        public async Task StartLoadingTracks()
+        {
+            if ((await KnownFolders.MusicLibrary.TryGetItemAsync("Music X")) != null)
+            {
+                var tracks = await DownloadLibraryService.GetTracks();
+                Music = new ObservableCollection<AudioFile>(tracks);
+                if(tracks.Count == 0)
+                {
+                    VisibilityNoDownloadsTracks = Visibility.Visible;
+                    Changed("VisibilityNoDownloadsTracks");
+                }else
+                {
+                    playlistCurrent.TracksFiles = Music.ToList();
+                    VisibilityNoDownloadsTracks = Visibility.Collapsed;
+                    Changed("VisibilityNoDownloadsTracks");
+                }
+                Changed("Music");
+            }
+        }
+
 
         private void Service_DownloadComplete(object sender, EventArgs e)
         {
             if (Service.CurrentDownloadTrack != null)
             {
-               
-                VisibilityNoNowDownload = Visibility.Collapsed;
-                VisibilityNowDownload = Visibility.Visible;
-                MaximumValue = Service.Maximum;
-                Changed("VisibilityNoNowDownload");
-                Changed("VisibilityNowDownload");
-                Changed("TitleString");
-                Changed("ArtistString");
-                Changed("AlbumString");
-                Changed("YearAlbumString");
-                Changed("MaximumValue");
-                Changed("CoverString");
+                Music.Add(Service.CurrentDownloadTrack.AudioFile);
             }
             else
             {
-                VisibilityNoNowDownload = Visibility.Visible;
-                VisibilityNowDownload = Visibility.Collapsed;
-                Changed("VisibilityNoNowDownload");
-                Changed("VisibilityNowDownload");
+               
             }
         }
 
@@ -132,8 +155,15 @@ namespace Fooxboy.MusicX.Uwp.ViewModels.VKontakte
             }
         }
 
+        public async void MusicListView_ItemClick(object sender, ItemClickEventArgs e)
+        {
+            await PlayMusicService.PlayMusicForLibrary(SelectedAudio, 3, playlistCurrent);
+        }
+
         public Visibility VisibilityNoNowDownload { get; set; }
 
         public Visibility VisibilityNowDownload { get; set; }
+        public Visibility VisibilityNoDownloadsTracks { get; set; }
+
     }
 }

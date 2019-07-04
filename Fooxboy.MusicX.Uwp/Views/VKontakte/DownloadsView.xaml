@@ -146,7 +146,7 @@
                       Style="{StaticResource ListViewStyle}"
                       SelectedItem="{x:Bind ViewModel.SelectedAudio, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                       ItemsSource="{x:Bind ViewModel.Music, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                      ItemClick="MusicListView_ItemClick"
+                      ItemClick="{x:Bind ViewModel.MusicListView_ItemClick}"
                       ItemTemplate="{ThemeResource TrackTemplate}">
                 <ListView.ItemsPanel >
                     <ItemsPanelTemplate >
@@ -158,7 +158,16 @@
                 </ListView.ItemsPanel>
 
             </ListView>
-            
+
+            <StackPanel Grid.Row="1"
+                        HorizontalAlignment="Center"
+                        Visibility="{x:Bind ViewModel.VisibilityNoDownloadsTracks, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                        VerticalAlignment="Center">
+                <FontIcon FontFamily="Segoe MDL2 Assets" FontSize="50" Glyph="&#xE118;" />
+                <TextBlock Text="Список загрузок пуст" HorizontalAlignment="Center" FontSize="20" FontWeight="Bold"/>
+                <TextBlock Text="Чтобы скачать трек, нажмите на иконку загрузки" Foreground="{ThemeResource SubText}"/>
+            </StackPanel>
+
         </Grid>
     </Grid>
 </Page>
