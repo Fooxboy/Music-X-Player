@@ -105,20 +105,19 @@ namespace Fooxboy.MusicX.Uwp.ViewModels.VKontakte
         }
 
 
-        private void Service_DownloadComplete(object sender, EventArgs e)
+        private void Service_DownloadComplete(object sender, DownloadAudioFile e)
         {
-            if (Service.CurrentDownloadTrack != null)
-            {
-                VisibilityNoDownloadsTracks = Visibility.Collapsed;
-                Changed("VisibilityNoDownloadsTracks");
 
-                Music.Add(Service.CurrentDownloadTrack.AudioFile);
-                Changed("Music");
-            }
-            else
-            {
-               
-            }
+            if (e == null) return;
+
+            if (e.AudioFile.Source == null) return;
+            VisibilityNoDownloadsTracks = Visibility.Collapsed;
+            Changed("VisibilityNoDownloadsTracks");
+
+            if (Music.Any(a => a == e.AudioFile)) return;
+
+            Music.Add(e.AudioFile);
+            Changed("Music");
         }
 
         private void Service_DownloadQueueComplete(object sender, EventArgs e)
@@ -162,11 +161,13 @@ namespace Fooxboy.MusicX.Uwp.ViewModels.VKontakte
 
         public async void MusicListView_ItemClick(object sender, ItemClickEventArgs e)
         {
+            playlistCurrent.TracksFiles = Music.ToList();
             await PlayMusicService.PlayMusicForLibrary(SelectedAudio, 3, playlistCurrent);
         }
 
         public async void MusicListView_Tapped(object sender, TappedRoutedEventArgs e)
         {
+            playlistCurrent.TracksFiles = Music.ToList();
             await PlayMusicService.PlayMusicForLibrary(SelectedAudio, 3, playlistCurrent);
         }
 

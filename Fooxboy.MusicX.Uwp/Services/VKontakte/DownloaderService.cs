@@ -48,6 +48,7 @@ namespace Fooxboy.MusicX.Uwp.Services.VKontakte
                 DownloadProgressChanged?.Invoke(this, a);
                 if (CurrentDownloadOperation.Progress.Status == BackgroundTransferStatus.Completed && DownloadAccess)
                 {
+                    DownloadAccess = false;
                     var trackFile = currentFileAudio;
                     var track = CurrentDownloadTrack;
 
@@ -59,19 +60,46 @@ namespace Fooxboy.MusicX.Uwp.Services.VKontakte
                         WriteStream = await trackFile.OpenStreamForWriteAsync(),
                     };
 
-                    using (var mp3File = TagLib.File.Create(mp3FileAbs))
+                    var task = Task.Run(() =>
                     {
-                        mp3File.Tag.AlbumArtists = new string[] { track.Artist };
-                        mp3File.Tag.Title = track.Title;
-                        mp3File.Tag.Album = track.AlbumName;
-                        mp3File.Tag.Year = uint.Parse(track.AlbumYear);
-                        mp3File.Tag.Lyrics = "Загружено с ВКонтакте с помощью Music X Player (UWP)";
-                        mp3File.Tag.Copyright = "Music X Player (UWP)";
-                        mp3File.Tag.Conductor = "Music X Player";
-                        mp3File.Tag.Comment = "Загружено с ВКонтакте с помощью Music X Player (UWP)";
-                        mp3File.Save();
-                    }
-                    DownloadComplete?.Invoke(this, null);
+                        using (var mp3File = TagLib.File.Create(mp3FileAbs))
+                        {
+                            mp3File.Tag.AlbumArtists = new string[] { track.Artist };
+                            mp3File.Tag.Title = track.Title;
+                            mp3File.Tag.Album = track.AlbumName;
+                            mp3File.Tag.Year = uint.Parse(track.AlbumYear);
+                            mp3File.Tag.Lyrics = "Загружено с ВКонтакте с помощью Music X Player (UWP)";
+                            mp3File.Tag.Copyright = "Music X Player (UWP)";
+                            mp3File.Tag.Conductor = "Music X Player";
+                            mp3File.Tag.Comment = "Загружено с ВКонтакте с помощью Music X Player (UWP)";
+                            mp3File.Save();
+                        }
+                    });
+
+                    var task2 = task.ContinueWith((b) =>
+                    {
+                        var currentDownloadedTrack = new DownloadAudioFile()
+                        {
+                            AlbumName = CurrentDownloadTrack.AlbumName,
+                            FromAlbum = CurrentDownloadTrack.FromAlbum,
+                            AudioFile = CurrentDownloadTrack.AudioFile,
+                            AlbumYear = CurrentDownloadTrack.AlbumYear,
+                            Artist = CurrentDownloadTrack.Artist,
+                            Cover = CurrentDownloadTrack.Cover,
+                            Title = CurrentDownloadTrack.Title,
+                            Url = CurrentDownloadTrack.Url
+                        };
+
+                        currentDownloadedTrack.AudioFile.SourceString = currentFileAudio.Path;
+                        currentDownloadedTrack.AudioFile.Source = currentFileAudio;
+                        currentDownloadedTrack.AudioFile.IsLocal = true;
+
+                        DispatcherHelper.CheckBeginInvokeOnUI(() =>
+                        {
+                            DownloadComplete?.Invoke(this, currentDownloadedTrack);
+                        });
+                    });
+  
                 } else if (CurrentDownloadOperation.Progress.Status == BackgroundTransferStatus.Idle && DownloadAccess)
                 {
                     try
@@ -83,16 +111,17 @@ namespace Fooxboy.MusicX.Uwp.Services.VKontakte
                         //ниче не делаем, операция уже запущена
                     }
 
-                } else if (CurrentDownloadOperation.Progress.Status == BackgroundTransferStatus.Error)
+                } else if (CurrentDownloadOperation.Progress.Status == BackgroundTransferStatus.Error && DownloadAccess)
                 {
+                    DownloadAccess = false;
                     await ContentDialogService.Show(new ExceptionDialog("Возникла ошибка при загрузке трека", "Возможно, ссылка недоступна", new Exception("BackgroundTransferStatus.Error")));
-                    DownloadComplete?.Invoke(this, null);
+                    DownloadComplete?.Invoke(this, CurrentDownloadTrack);
                 }
             }
         }
 
         public event EventHandler CurrentDownloadFileChanged;
-        public event EventHandler DownloadComplete;
+        public event EventHandler<DownloadAudioFile> DownloadComplete;
         public event EventHandler DownloadQueueComplete;
         public event EventHandler<ulong> DownloadProgressChanged;
         public bool DownloadAccess = false;
@@ -101,6 +130,7 @@ namespace Fooxboy.MusicX.Uwp.Services.VKontakte
         public ulong Maximum { get; set; }
         public List<DownloadAudioFile> QueueTracks { get; set; }
         public DownloadAudioFile CurrentDownloadTrack { get; set; }
+        public DownloadAudioFile CurrentDownloadedTrack { get; set; }
         public DownloadOperation CurrentDownloadOperation { get; set; }
 
 
@@ -204,7 +234,7 @@ namespace Fooxboy.MusicX.Uwp.Services.VKontakte
                 var libraryPlaylist = await libraryTracks.GetFolderAsync(track.AlbumName);
                 if (await libraryPlaylist.TryGetItemAsync($"{track.Artist} - {track.Title} (Music X).mp3") != null)
                 {
-                    DownloadComplete?.Invoke(this, null);
+                    DownloadComplete?.Invoke(this, CurrentDownloadTrack);
                 }else
                 {
                     trackFile = await libraryPlaylist.CreateFileAsync($"{track.Artist} - {track.Title} (Music X).mp3");
@@ -215,6 +245,8 @@ namespace Fooxboy.MusicX.Uwp.Services.VKontakte
             DownloadOperation download = downloader.CreateDownload(new Uri(track.Url), trackFile);
             CurrentDownloadOperation = download;
             Maximum = ulong.Parse(GetFileSize(new Uri(track.Url)));
+            
+
             var task = Task.Run(() =>
             {
                 DispatcherHelper.CheckBeginInvokeOnUI(() =>
@@ -230,27 +262,30 @@ namespace Fooxboy.MusicX.Uwp.Services.VKontakte
         }
 
 
-        private void DonwloadFileComplete(object a, EventArgs e)
+        private void DonwloadFileComplete(object a, DownloadAudioFile e)
         {
+            
             var settings = ApplicationData.Current.LocalSettings;
 
             settings.Values["CountDownloads"] = (int)settings.Values["CountDownloads"] + 1;
 
-            if (CurrentDownloadTrack != null)
+            QueueTracks.Remove(e);
+            if (QueueTracks.Count == 0)
             {
-                QueueTracks.Remove(CurrentDownloadTrack);
-                if (QueueTracks.Count == 0) DownloadQueueComplete?.Invoke(this, null);
-                else
+                DispatcherHelper.CheckBeginInvokeOnUI(() =>
                 {
-                    var task = Task.Run(async () =>
-                    {
-                        await DownloadAudio(QueueTracks.First());
-                    });
-                    
-                }
-
-                CurrentDownloadTrack = null;
+                    DownloadQueueComplete?.Invoke(this, null);
+                });
             }
+            else
+            {
+                var task = Task.Run(async () =>
+                {
+                    await DownloadAudio(QueueTracks.First());
+                });
+            }
+
+            CurrentDownloadTrack = null;
         }
 
         DispatcherTimer Timer; 
