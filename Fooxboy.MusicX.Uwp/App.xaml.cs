@@ -45,6 +45,16 @@ namespace Fooxboy.MusicX.Uwp
         {
             var settings = ApplicationData.Current.LocalSettings;
             InternetService.CheckConnection();
+
+            try
+            {
+                var a = (int)settings.Values["CountDownloads"];
+
+            }
+            catch
+            {
+                settings.Values["CountDownloads"] = 0;
+            }
             try
             {
                 Windows.Storage.ApplicationDataCompositeValue composite =
@@ -52,9 +62,6 @@ namespace Fooxboy.MusicX.Uwp
 
                 Windows.Storage.ApplicationDataCompositeValue composite2 =
                     (Windows.Storage.ApplicationDataCompositeValue)settings.Values["IsPro"];
-
-                Windows.Storage.ApplicationDataCompositeValue composite3 =
-                   (Windows.Storage.ApplicationDataCompositeValue)settings.Values["CountDownloads"];
 
                 if (composite == null)
                 {
@@ -82,11 +89,6 @@ namespace Fooxboy.MusicX.Uwp
                 {
                     var IsPro = (bool)settings.Values["IsPro"];
                     StaticContent.IsPro = IsPro;
-                }
-
-                if (composite3 == null)
-                {
-                    settings.Values["CountDownloads"] = 0;
                 }
             }
             catch
