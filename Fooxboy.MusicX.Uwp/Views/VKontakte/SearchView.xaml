@@ -30,6 +30,7 @@
                       SelectedItem="{x:Bind ViewModel.SelectTrack, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                       ItemsSource="{x:Bind ViewModel.Music, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                       ItemClick="{x:Bind ViewModel.MusicListView_ItemClick}"
+                  Tapped="{x:Bind ViewModel.MusicListView_Tapped}"
                       ItemTemplate="{ThemeResource TrackTemplate}">
             <ListView.ItemsPanel >
                 <ItemsPanelTemplate >

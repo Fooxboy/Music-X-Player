@@ -10,6 +10,7 @@ using Fooxboy.MusicX.Uwp.Services.VKontakte;
 using Windows.Storage;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
+using Windows.UI.Xaml.Input;
 
 namespace Fooxboy.MusicX.Uwp.ViewModels.VKontakte
 {
@@ -108,7 +109,11 @@ namespace Fooxboy.MusicX.Uwp.ViewModels.VKontakte
         {
             if (Service.CurrentDownloadTrack != null)
             {
+                VisibilityNoDownloadsTracks = Visibility.Collapsed;
+                Changed("VisibilityNoDownloadsTracks");
+
                 Music.Add(Service.CurrentDownloadTrack.AudioFile);
+                Changed("Music");
             }
             else
             {
@@ -156,6 +161,11 @@ namespace Fooxboy.MusicX.Uwp.ViewModels.VKontakte
         }
 
         public async void MusicListView_ItemClick(object sender, ItemClickEventArgs e)
+        {
+            await PlayMusicService.PlayMusicForLibrary(SelectedAudio, 3, playlistCurrent);
+        }
+
+        public async void MusicListView_Tapped(object sender, TappedRoutedEventArgs e)
         {
             await PlayMusicService.PlayMusicForLibrary(SelectedAudio, 3, playlistCurrent);
         }

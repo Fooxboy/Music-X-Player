@@ -41,6 +41,15 @@ namespace Fooxboy.MusicX.Uwp.ViewModels.VKontakte
             Music = new LoadingCollection<AudioFile>();
             Music.HasMoreItemsRequested = HasMoreLoading;
             Music.OnMoreItemsRequested = GetMoreAudio;
+
+            playlistCurrent = new PlaylistFile()
+            {
+                Artist = "",
+                Cover = "ms-appx:///Assets/Images/playlist-placeholder.png",
+                Id = 666,
+                IsLocal = false,
+                Name = "Результаты поиска"
+            };
         }
 
         public LoadingCollection<AudioFile> Music { get; set; }
@@ -64,15 +73,22 @@ namespace Fooxboy.MusicX.Uwp.ViewModels.VKontakte
         public bool hasLoading = true;
 
         public string HeaderText { get; set; }
+        private PlaylistFile playlistCurrent;
 
-        public void MusicListView_ItemClick(object sender, ItemClickEventArgs e)
+
+        public async void MusicListView_ItemClick(object sender, ItemClickEventArgs e)
         {
             //TODO: проигрование трека ебаный врот
+            playlistCurrent.TracksFiles = Music.ToList();
+
+            await MusicService.PlayMusic(SelectTrack, 2, playlistCurrent);
         }
 
-        public void MusicListView_Tapped(object sender, TappedRoutedEventArgs e)
+        public async void MusicListView_Tapped(object sender, TappedRoutedEventArgs e)
         {
+            playlistCurrent.TracksFiles = Music.ToList();
 
+            await MusicService.PlayMusic(SelectTrack, 2, playlistCurrent);
         }
 
         public async Task<List<AudioFile>> GetMoreAudio(CancellationToken token, uint offset)

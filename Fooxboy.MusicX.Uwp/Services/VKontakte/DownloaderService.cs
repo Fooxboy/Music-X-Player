@@ -46,7 +46,7 @@ namespace Fooxboy.MusicX.Uwp.Services.VKontakte
             {
                 var a = CurrentDownloadOperation.Progress.BytesReceived;
                 DownloadProgressChanged?.Invoke(this, a);
-                if(CurrentDownloadOperation.Progress.Status == BackgroundTransferStatus.Completed&& DownloadAccess)
+                if (CurrentDownloadOperation.Progress.Status == BackgroundTransferStatus.Completed && DownloadAccess)
                 {
                     var trackFile = currentFileAudio;
                     var track = CurrentDownloadTrack;
@@ -66,15 +66,13 @@ namespace Fooxboy.MusicX.Uwp.Services.VKontakte
                         mp3File.Tag.Album = track.AlbumName;
                         mp3File.Tag.Year = uint.Parse(track.AlbumYear);
                         mp3File.Tag.Lyrics = "Загружено с ВКонтакте с помощью Music X Player (UWP)";
-                        mp3File.Tag.Copyright = "Music X Player 2019";
+                        mp3File.Tag.Copyright = "Music X Player (UWP)";
                         mp3File.Tag.Conductor = "Music X Player";
                         mp3File.Tag.Comment = "Загружено с ВКонтакте с помощью Music X Player (UWP)";
-                        mp3File.Tag.Pictures = new TagLib.IPicture[] { new TagLib.Picture(await ImagesService.CoverAudio(track.AudioFile)) };
                         mp3File.Save();
                     }
-
                     DownloadComplete?.Invoke(this, null);
-                }else if(CurrentDownloadOperation.Progress.Status == BackgroundTransferStatus.Idle && DownloadAccess)
+                } else if (CurrentDownloadOperation.Progress.Status == BackgroundTransferStatus.Idle && DownloadAccess)
                 {
                     try
                     {
@@ -84,7 +82,11 @@ namespace Fooxboy.MusicX.Uwp.Services.VKontakte
                     {
                         //ниче не делаем, операция уже запущена
                     }
-                    
+
+                } else if (CurrentDownloadOperation.Progress.Status == BackgroundTransferStatus.Error)
+                {
+                    await ContentDialogService.Show(new ExceptionDialog("Возникла ошибка при загрузке трека", "Возможно, ссылка недоступна", new Exception("BackgroundTransferStatus.Error")));
+                    DownloadComplete?.Invoke(this, null);
                 }
             }
         }
@@ -230,10 +232,13 @@ namespace Fooxboy.MusicX.Uwp.Services.VKontakte
 
         private void DonwloadFileComplete(object a, EventArgs e)
         {
-            if(CurrentDownloadTrack != null)
+            var settings = ApplicationData.Current.LocalSettings;
+
+            settings.Values["CountDownloads"] = (int)settings.Values["CountDownloads"] + 1;
+
+            if (CurrentDownloadTrack != null)
             {
                 QueueTracks.Remove(CurrentDownloadTrack);
-                CurrentDownloadTrack = null;
                 if (QueueTracks.Count == 0) DownloadQueueComplete?.Invoke(this, null);
                 else
                 {
@@ -243,6 +248,8 @@ namespace Fooxboy.MusicX.Uwp.Services.VKontakte
                     });
                     
                 }
+
+                CurrentDownloadTrack = null;
             }
         }
 

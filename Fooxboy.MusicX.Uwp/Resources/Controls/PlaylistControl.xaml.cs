@@ -19,6 +19,7 @@ using Windows.UI.Popups;
 using Fooxboy.MusicX.Core.Interfaces;
 using Fooxboy.MusicX.Uwp.Services.VKontakte;
 using Fooxboy.MusicX.Uwp.Resources.ContentDialogs;
+using Windows.Storage;
 
 // Документацию по шаблону элемента "Пользовательский элемент управления" см. по адресу https://go.microsoft.com/fwlink/?LinkId=234236
 
@@ -71,8 +72,26 @@ namespace Fooxboy.MusicX.Uwp.Resources.Controls
             {
                 try
                 {
-                    var service = DownloaderService.GetService;
-                    await service.StartDownloadPlaylist(Playlist);
+                    var settings = ApplicationData.Current.LocalSettings;
+                    int countTracks = (int)settings.Values["CountDownloads"];
+                    int countTracksWithAlbum = countTracks + Playlist.Tracks.Count;
+
+                    if (!StaticContent.IsPro)
+                    {
+                        if (countTracksWithAlbum > 19) await new MessageDialog("Извините, но загрузка более 20 треков доступна только  в Pro версии.").ShowAsync();
+                        else
+                        {
+                            var service = DownloaderService.GetService;
+                            await service.StartDownloadPlaylist(Playlist);
+                        }
+                    }
+                    else
+                    {
+                        var service = DownloaderService.GetService;
+                        await service.StartDownloadPlaylist(Playlist);
+                    }
+
+                   
                 }catch(Exception e)
                 {
                     await ContentDialogService.Show(new ExceptionDialog("Невозможно начать загрузку плейлиста", "Попробуйте ещё раз", e));

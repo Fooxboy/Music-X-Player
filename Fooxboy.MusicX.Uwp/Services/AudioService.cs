@@ -218,7 +218,7 @@ namespace Fooxboy.MusicX.Uwp.Services
             }
             catch(Exception e)
             {
-                await new ExceptionDialog("Ошибка при установке текущего плейлиста", "Возможно, плейлист поврежден", e).ShowAsync();
+                await ContentDialogService.Show(new ExceptionDialog("Ошибка при установке текущего плейлиста", "Возможно, плейлист поврежден", e));
             }
             
 
@@ -261,7 +261,7 @@ namespace Fooxboy.MusicX.Uwp.Services
                 }
             }catch(Exception e)
             {
-                await new ExceptionDialog("Ошибка при воспроизведении трека", "Возможно трек поврежден или нет доступа к нему.", e).ShowAsync();
+                await ContentDialogService.Show(new ExceptionDialog("Ошибка при воспроизведении трека", "Возможно трек поврежден или нет доступа к нему.", e));
             }
             
         }
@@ -392,7 +392,7 @@ namespace Fooxboy.MusicX.Uwp.Services
                 mediaPlayer.Play();
             }catch(Exception e)
             {
-                await new ExceptionDialog("Невозможно воспроизвести файл", "Возможно он поврежден или нет доступа к нему", e).ShowAsync();
+                await ContentDialogService.Show(new ExceptionDialog("Невозможно воспроизвести файл", "Возможно он поврежден или нет доступа к нему", e));
             }
             
         }
@@ -406,7 +406,7 @@ namespace Fooxboy.MusicX.Uwp.Services
             }
             catch (Exception e)
             {
-                await new ExceptionDialog("Невозможно воспроизвести файл", "Возможно он поврежден или нет доступа к нему", e).ShowAsync();
+                await ContentDialogService.Show(new ExceptionDialog("Невозможно воспроизвести файл", "Возможно он поврежден или нет доступа к нему", e));
             }
 
         }
@@ -470,7 +470,7 @@ namespace Fooxboy.MusicX.Uwp.Services
                 TryResolveTrack(CurrentPlaylist.CurrentItem);
             }
 
-            await new ExceptionDialog("MediaPlayerOnMediaFailed", "MediaPlayerOnMediaFailed", new Exception(args.ErrorMessage)).ShowAsync();
+            await ContentDialogService.Show(new ExceptionDialog("MediaPlayerOnMediaFailed", "MediaPlayerOnMediaFailed", new Exception(args.ErrorMessage)));
                 //Log.Error("Media failed. " + args.Error + " " + args.ErrorMessage);
         }
 

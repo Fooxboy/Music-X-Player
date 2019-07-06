@@ -53,6 +53,9 @@ namespace Fooxboy.MusicX.Uwp
                 Windows.Storage.ApplicationDataCompositeValue composite2 =
                     (Windows.Storage.ApplicationDataCompositeValue)settings.Values["IsPro"];
 
+                Windows.Storage.ApplicationDataCompositeValue composite3 =
+                   (Windows.Storage.ApplicationDataCompositeValue)settings.Values["CountDownloads"];
+
                 if (composite == null)
                 {
                     this.RequestedTheme = ApplicationTheme.Light;
@@ -80,6 +83,11 @@ namespace Fooxboy.MusicX.Uwp
                     var IsPro = (bool)settings.Values["IsPro"];
                     StaticContent.IsPro = IsPro;
                 }
+
+                if (composite3 == null)
+                {
+                    settings.Values["CountDownloads"] = 0;
+                }
             }
             catch
             {
@@ -102,10 +110,11 @@ namespace Fooxboy.MusicX.Uwp
                 {
                     StaticContent.IsPro = false;
                 }
-                
             }
+
             
-            
+
+
 
             Log.Run();
             Log.Trace("Инициализация объекта приложения");

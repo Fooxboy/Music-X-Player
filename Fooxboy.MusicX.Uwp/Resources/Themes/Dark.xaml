@@ -13,6 +13,9 @@
             <SolidColorBrush x:Key="BackgroundColorLoginTextBoxFocus" Color="#212121"/>
             <SolidColorBrush x:Key="BackgroundApp" Color="#191919"/>
             <SolidColorBrush x:Key="MainTextColor" Color="White"/>
+            <SolidColorBrush x:Key="ButtonMainColor" Color="#262626"/>
+            <SolidColorBrush x:Key="ButtonPointColor" Color="#363636"/>
+            <SolidColorBrush x:Key="ButtonClickColor" Color="#4A4A4A"/>
         </ResourceDictionary>
     </ResourceDictionary.ThemeDictionaries>
 </ResourceDictionary>

@@ -140,8 +140,24 @@ namespace Fooxboy.MusicX.Uwp.Resources.Controls
 
             DownloadCommand = new RelayCommand(async () =>
             {
-                var service = DownloaderService.GetService;
-                await service.StartDownloadAudio(Track);
+                var settings = ApplicationData.Current.LocalSettings;
+                int countTracks = (int)settings.Values["CountDownloads"];
+
+                if(!StaticContent.IsPro)
+                {
+                    if (countTracks > 19) await new MessageDialog("Извините, но загрузка более 20 треков доступна только  в Pro версии.").ShowAsync();
+                    else
+                    {
+                        var service = DownloaderService.GetService;
+                        await service.StartDownloadAudio(Track);
+                    }
+                }else
+                {
+                    var service = DownloaderService.GetService;
+                    await service.StartDownloadAudio(Track);
+                }
+
+               
             });
 
         }
