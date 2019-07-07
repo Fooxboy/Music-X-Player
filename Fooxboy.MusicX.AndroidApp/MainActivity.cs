@@ -1,4 +1,5 @@
 ﻿using Android.App;
+using Android.Content;
 using Android.OS;
 using Android.Runtime;
 using Android.Support.Design.Widget;
@@ -37,7 +38,9 @@ namespace Fooxboy.MusicX.AndroidApp
                     textMessage.SetText(Resource.String.title_home);
                     return true;
                 case Resource.Id.navigation_dashboard:
-                    textMessage.SetText(Resource.String.title_dashboard);
+                    Intent intent = new Intent(this.ApplicationContext, typeof(AuthActivity));
+                    intent.SetFlags(ActivityFlags.NewTask);
+                    StartActivity(intent);
                     return true;
                 case Resource.Id.navigation_notifications:
                     textMessage.SetText(Resource.String.title_notifications);

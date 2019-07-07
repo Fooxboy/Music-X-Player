@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:gravity="center_vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:minWidth="25px"
+    android:minHeight="25px">
+    <ImageView
+        android:src="@drawable/vk_logo"
+        android:layout_width="256px"
+        android:layout_height="256px"
+        android:minWidth="128px"
+        android:minHeight="128px"
+        android:layout_gravity="center"
+        android:id="@+id/imageView1" />
+    <TextView
+        android:text="@string/auth_caption"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textAlignment="center"
+        android:textSize="24dp"
+        android:layout_marginBottom="20dp"
+        android:id="@+id/textView1" />
+    <EditText
+        android:inputType="textEmailAddress"
+        android:layout_width="300dp"
+        android:hint="@string/login_hint"
+        android:textAlignment="center"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:background="@drawable/textbox"
+        android:layout_marginBottom="9dp"
+        android:id="@+id/vklogin" />
+    <EditText
+        android:inputType="textPassword"
+        android:layout_width="300dp"
+        android:hint="@string/pwd_hint"
+        android:textAlignment="center"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginBottom="20dp"
+        android:background="@drawable/textbox"
+        android:id="@+id/vkpassword" />
+
+
+    <Button
+        android:text="@string/auth_btn"
+        android:layout_width="100dp"
+        android:layout_height="40dp"
+        android:layout_gravity="center"
+        android:background="@drawable/button"
+        android:textColor="@android:color/white"
+        android:padding="-4dp"
+        android:id="@+id/log_in_btn"/>
+
+</LinearLayout>
