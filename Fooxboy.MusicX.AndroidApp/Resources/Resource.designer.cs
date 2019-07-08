@@ -2671,6 +2671,9 @@ namespace Fooxboy.MusicX.AndroidApp
 			// aapt resource value: 0x7f09005e
 			public const int image = 2131296350;
 			
+			// aapt resource value: 0x7f0900b3
+			public const int imageView1 = 2131296435;
+			
 			// aapt resource value: 0x7f0900ab
 			public const int info = 2131296427;
 			
@@ -2704,8 +2707,8 @@ namespace Fooxboy.MusicX.AndroidApp
 			// aapt resource value: 0x7f090060
 			public const int list_item = 2131296352;
 			
-			// aapt resource value: 0x7f0900b2
-			public const int masked = 2131296434;
+			// aapt resource value: 0x7f0900b5
+			public const int masked = 2131296437;
 			
 			// aapt resource value: 0x7f0900a4
 			public const int media_actions = 2131296420;
@@ -2725,17 +2728,17 @@ namespace Fooxboy.MusicX.AndroidApp
 			// aapt resource value: 0x7f09008c
 			public const int navigation = 2131296396;
 			
-			// aapt resource value: 0x7f0900b4
-			public const int navigation_dashboard = 2131296436;
+			// aapt resource value: 0x7f0900b7
+			public const int navigation_dashboard = 2131296439;
 			
 			// aapt resource value: 0x7f090094
 			public const int navigation_header_container = 2131296404;
 			
-			// aapt resource value: 0x7f0900b3
-			public const int navigation_home = 2131296435;
+			// aapt resource value: 0x7f0900b6
+			public const int navigation_home = 2131296438;
 			
-			// aapt resource value: 0x7f0900b5
-			public const int navigation_notifications = 2131296437;
+			// aapt resource value: 0x7f0900b8
+			public const int navigation_notifications = 2131296440;
 			
 			// aapt resource value: 0x7f09003a
 			public const int never = 2131296314;
@@ -2917,6 +2920,12 @@ namespace Fooxboy.MusicX.AndroidApp
 			// aapt resource value: 0x7f09009c
 			public const int textView2 = 2131296412;
 			
+			// aapt resource value: 0x7f0900b1
+			public const int textViewArtist = 2131296433;
+			
+			// aapt resource value: 0x7f0900b2
+			public const int textViewTitle = 2131296434;
+			
 			// aapt resource value: 0x7f090099
 			public const int text_input_password_toggle = 2131296409;
 			
@@ -2974,8 +2983,8 @@ namespace Fooxboy.MusicX.AndroidApp
 			// aapt resource value: 0x7f090016
 			public const int view_offset_helper = 2131296278;
 			
-			// aapt resource value: 0x7f0900b1
-			public const int visible = 2131296433;
+			// aapt resource value: 0x7f0900b4
+			public const int visible = 2131296436;
 			
 			// aapt resource value: 0x7f09003b
 			public const int withText = 2131296315;
@@ -3227,6 +3236,9 @@ namespace Fooxboy.MusicX.AndroidApp
 			
 			// aapt resource value: 0x7f04003e
 			public const int tooltip = 2130968638;
+			
+			// aapt resource value: 0x7f04003f
+			public const int TrackLayout = 2130968639;
 			
 			static Layout()
 			{

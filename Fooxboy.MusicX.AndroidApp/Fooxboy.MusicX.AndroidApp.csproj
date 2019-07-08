@@ -64,8 +64,10 @@
     <Reference Include="System.Numerics.Vectors" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Adapters\TrackAdapter.cs" />
     <Compile Include="HomeActivity.cs" />
     <Compile Include="MainActivity.cs" />
+    <Compile Include="Models\AudioFile.cs" />
     <Compile Include="Resources\Resource.designer.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -113,7 +115,11 @@
     <PackageReference Include="Xamarin.Android.Support.CustomTabs" Version="28.0.0.1" />
     <PackageReference Include="Xamarin.Essentials" Version="1.1.0" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <AndroidResource Include="Resources\layout\TrackLayout.axml">
+      <SubType>Designer</SubType>
+    </AndroidResource>
+  </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Fooxboy.MusicX.Core\Fooxboy.MusicX.Core.csproj">
       <Project>{dc2f5311-ffb3-4810-8980-cc6ad7c036e0}</Project>
