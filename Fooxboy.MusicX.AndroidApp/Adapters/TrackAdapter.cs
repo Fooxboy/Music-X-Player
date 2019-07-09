@@ -36,7 +36,7 @@ namespace Fooxboy.MusicX.AndroidApp.Adapters
 
             if(view == null)
             {
-                view = LayoutInflater.From(context).Inflate(Resource.Layout.TrackLayout, null, false);
+                view = LayoutInflater.From(context).Inflate(Resource.Layout.TrackLayout, null);
 
                 var artist = view.FindViewById<TextView>(Resource.Id.textViewArtist);
                 var title = view.FindViewById<TextView>(Resource.Id.textViewTitle);
@@ -44,15 +44,9 @@ namespace Fooxboy.MusicX.AndroidApp.Adapters
 
                 artist.Text = list[position].Artist;
                 title.Text = list[position].Title;
-                listView.Scroll += ListView_Scroll;
             }
 
             return view;
-        }
-
-        private void ListView_Scroll(object sender, AbsListView.ScrollEventArgs e)
-        {
-            
         }
 
         public void GetMoreItems()

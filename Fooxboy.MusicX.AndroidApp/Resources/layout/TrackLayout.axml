@@ -6,8 +6,8 @@
     android:layout_height="match_parent">
 
     <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
 
         <TextView
             android:text="Имя исполнителя"
@@ -18,7 +18,7 @@
             android:layout_marginTop="47.0dp"
             android:layout_marginLeft="70.3dp"
             android:textColor="#ff4e4e4e"
-            android:textSize="15dp" />
+            android:textSize="13dp" />
         <TextView
             android:text="Название трека"
             android:textAppearance="?android:attr/textAppearanceMedium"

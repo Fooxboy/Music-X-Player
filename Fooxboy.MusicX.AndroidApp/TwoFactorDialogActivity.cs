@@ -21,6 +21,16 @@ namespace Fooxboy.MusicX.AndroidApp
             Xamarin.Essentials.Platform.Init(this, savedInstanceState);
             SetContentView(Resource.Layout.twofactor_dialog);
 
+            var button = FindViewById<Button>(Resource.Id.twofactor_confirm);
+            button.Click += Button_Click;
+
+        }
+
+        private void Button_Click(object sender, EventArgs e)
+        {
+            var text = FindViewById<EditText>(Resource.Id.authcode);
+
+            Services.StaticContentService.CodeTwoFactorAuth = text.Text;
         }
     }
 }

@@ -24,6 +24,10 @@ namespace Fooxboy.MusicX.AndroidApp
             textMessage = FindViewById<Button>(Resource.Id.message);
             BottomNavigationView navigation = FindViewById<BottomNavigationView>(Resource.Id.navigation);
             navigation.SetOnNavigationItemSelectedListener(this);
+
+            var f = new HomeFragment();
+            FragmentManager.BeginTransaction().Replace(Resource.Id.content_frame, f).Commit();
+            SetTitle(Resource.String.title_home);
             /*textMessage.Click += (e, a) =>
             {
                 Intent intent = new Intent(this, typeof(Resource.Layout.homeActivity));

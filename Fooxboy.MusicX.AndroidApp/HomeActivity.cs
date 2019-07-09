@@ -27,18 +27,26 @@ namespace Fooxboy.MusicX.AndroidApp
 
             var list = new List<Models.AudioFile>();
 
-            for (var i= 0; i<50; i++)
+            var i = 0;
+            while(i < 50)
             {
                 list.Add(new Models.AudioFile()
                 {
                     Title = $"Название трека {i}",
                     Artist = $"Имя исполнителя {i}"
                 });
+                i++;
             }
 
 
             tracksListView.Adapter = new TrackAdapter(this, list, tracksListView);
-            
+
+            tracksListView.ItemClick += TracksListView_ItemClick;
+        }
+
+        private void TracksListView_ItemClick(object sender, AdapterView.ItemClickEventArgs e)
+        {
+            Toast.MakeText(this, "ТЫК НАХУЙ", ToastLength.Short);
         }
     }
 }
