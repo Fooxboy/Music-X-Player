@@ -6,15 +6,16 @@ using Android.App;
 // General Information about an assembly is controlled through the following 
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
-[assembly: AssemblyTitle("Fooxboy.MusicX.AndroidApp")]
-[assembly: AssemblyDescription("")]
+[assembly: AssemblyTitle("Music X")]
+[assembly: AssemblyDescription("Многофункциональный кроссплатформенный mp3-плеер")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("")]
 [assembly: AssemblyProduct("Fooxboy.MusicX.AndroidApp")]
-[assembly: AssemblyCopyright("Copyright ©  2018")]
+[assembly: AssemblyCopyright("Copyright ©  2019")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 [assembly: ComVisible(false)]
+[assembly: Application(Icon = "@drawable/androicon")]
 
 // Version information for an assembly consists of the following four values:
 //
