@@ -15,9 +15,7 @@ namespace Fooxboy.MusicX.AndroidApp
     [Activity(Label = "@string/app_name", Theme = "@style/AppTheme")]
     public class MainActivity : AppCompatActivity, BottomNavigationView.IOnNavigationItemSelectedListener
     {
-        Button textMessage;
-        private Bundle sIS;
-
+        private Button textMessage;
         protected override void OnCreate(Bundle savedInstanceState)
         {
             base.OnCreate(savedInstanceState);

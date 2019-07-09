@@ -23,7 +23,7 @@ namespace Fooxboy.MusicX.AndroidApp
 
             SetContentView(Resource.Layout.homeActivity);
 
-            var tracksListView = FindViewById<ListView>(Resource.Id.listView2);
+            var tracksListView = FindViewById<ListView>(Resource.Id.tracks);
 
             var list = new List<Models.AudioFile>();
 
