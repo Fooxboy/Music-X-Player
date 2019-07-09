@@ -45,6 +45,7 @@
         android:layout_marginBottom="20dp"
         android:background="@drawable/textbox"
         android:id="@+id/vkpassword" />
+    
 
     <RelativeLayout
         android:layout_width="wrap_content"
@@ -60,6 +61,17 @@
             android:textColor="@android:color/white"
             android:padding="-4dp"
             android:id="@+id/log_in_btn"/>
+
+        <ProgressBar
+            android:layout_width="50dp"
+            android:layout_gravity="center"
+            android:layout_height="50dp"
+            android:id="@+id/progressBarLogin"
+            android:layout_marginBottom="0.0dp"
+            android:indeterminate="false"
+            android:layout_centerVertical="true"
+            android:layout_centerInParent="true"
+            android:visibility="invisible" />
 
     </RelativeLayout>
 

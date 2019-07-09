@@ -17,9 +17,9 @@ namespace Fooxboy.MusicX.AndroidApp
     public class HomeActivity:Activity
     {
 
-        public override void OnCreate(Bundle savedInstanceState, PersistableBundle persistentState)
+        protected override void OnCreate(Bundle savedInstanceState)
         {
-            base.OnCreate(savedInstanceState, persistentState);
+            base.OnCreate(savedInstanceState);
 
             SetContentView(Resource.Layout.homeActivity);
 
@@ -33,7 +33,8 @@ namespace Fooxboy.MusicX.AndroidApp
                 list.Add(new Models.AudioFile()
                 {
                     Title = $"Название трека {i}",
-                    Artist = $"Имя исполнителя {i}"
+                    Artist = $"Имя исполнителя {i}",
+                    
                 });
                 i++;
             }

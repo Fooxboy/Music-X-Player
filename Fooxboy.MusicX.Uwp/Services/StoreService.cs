@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Fooxboy.MusicX.Uwp.Resources.ContentDialogs;
 using Windows.Services.Store;
 using Windows.Storage;
 using Windows.UI.Popups;
@@ -49,16 +50,17 @@ namespace Fooxboy.MusicX.Uwp.Services
             switch (result.Status)
             {
                 case StorePurchaseStatus.AlreadyPurchased:
-                    await new MessageDialog("Music X Pro уже находится в Вашей библиотеке, если до этого Music X не определял лицензию, перезапустите приложение.!", "Покупка Music X Pro").ShowAsync();
                     var settings = ApplicationData.Current.LocalSettings;
                     settings.Values["IsPro"] = true;
+                    await ContentDialogService.Show(new ThanksBuyProContentDialog());
+
                     break;
 
                 case StorePurchaseStatus.Succeeded:
-                    await new MessageDialog("Music X Pro успешно куплен! Для применения изменений, перезапустите приложение", "Покупка Music X Pro").ShowAsync();
                     var settings2 = ApplicationData.Current.LocalSettings;
                     settings2.Values["IsPro"] = true;
                     StaticContent.IsPro = true;
+                    await ContentDialogService.Show(new ThanksBuyProContentDialog());
                     break;
 
                 case StorePurchaseStatus.NotPurchased:
@@ -73,7 +75,7 @@ namespace Fooxboy.MusicX.Uwp.Services
                     await new MessageDialog($"Произошла ошибка на серере при покупке Music X Pro: {extendedError}", "Покупка Music X Pro").ShowAsync();
                     break;
                 default:
-                    await new MessageDialog($"Произошла неизвестная на серере при покупке Music X Pro: {extendedError}", "Покупка Music X Pro").ShowAsync();
+                    await new MessageDialog($"Произошла неизвестная на сервере при покупке Music X Pro: {extendedError}", "Покупка Music X Pro").ShowAsync();
                     break;
             }
         }

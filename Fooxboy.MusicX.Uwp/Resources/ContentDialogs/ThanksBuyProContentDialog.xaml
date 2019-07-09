@@ -1,0 +1,20 @@
+﻿<ContentDialog
+    x:Class="Fooxboy.MusicX.Uwp.Resources.ContentDialogs.ThanksBuyProContentDialog"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:Fooxboy.MusicX.Uwp.Resources.ContentDialogs"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d"
+    Title="Music X Pro"
+    PrimaryButtonText="ОК"
+    PrimaryButtonClick="ContentDialog_PrimaryButtonClick">
+    <Grid>
+        <StackPanel>
+            <FontIcon  HorizontalAlignment="Center" FontSize="50" FontFamily="Segoe MDL2 Assets" Glyph="&#xE14D;" />
+            <TextBlock Margin="0 30 0 30" FontSize="19" HorizontalAlignment="Center" Text="Спасибо за покупку Music X Pro" FontWeight="Bold"/>
+            <TextBlock HorizontalAlignment="Center" TextWrapping="Wrap" Foreground="{ThemeResource SubHeaderText}" Text="Для того, чтобы изменения вступили в силу, Вы должны перезапустить приложение."/>
+            <TextBlock HorizontalAlignment="Center" TextWrapping="Wrap" Foreground="{ThemeResource SubText}" Text="На будущее: если Вы удалили приложение, лицензия на Pro версию не изчезнет. Если приложение не увидит лицензию, нажмите ещё раз купить, и подождите пока Microsoft Store сообщит программе, что Вы уже купили приложение."/>
+        </StackPanel>
+    </Grid>
+</ContentDialog>

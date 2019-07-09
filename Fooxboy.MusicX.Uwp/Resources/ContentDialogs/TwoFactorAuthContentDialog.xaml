@@ -6,14 +6,14 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d"
-    Title="Двухфакторная авторизация"
+    Title="Двойная аунтификация"
     PrimaryButtonClick="ContentDialog_PrimaryButtonClick"
     PrimaryButtonText="Подтвердить">
     <Grid>
         <StackPanel>
-            <TextBlock TextWrapping="Wrap" Text="На Ваш номер телефона должено прийти смс сообщений с кодом подтверждения."/>
-            <TextBlock Text="Если сообщение не пришло, проверте в личных сообщениях ВКонтакте."/>
-            <TextBox x:Name="TextBox" Margin="0 30 0 0" Style="{ThemeResource TextBoxLoginStyle}"
+            <TextBlock TextWrapping="Wrap" Text="Код подтверждения отправлен."/>
+            <TextBlock TextWrapping="Wrap" Foreground="{ThemeResource SubText}" Text="Вам должен прийти код подтверждения в личные сообщения ВКонтакте или на номер мобильного телефона."/>
+            <TextBox x:Name="TextBox" Width="300" Margin="0 30 0 0" Style="{ThemeResource TextBoxLoginStyle}"
                      PlaceholderText="Введите код подтверждения"/>
         </StackPanel>
     </Grid>
