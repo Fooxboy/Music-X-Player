@@ -37,12 +37,10 @@
         android:layout_marginTop="10dp"
         android:id="@+id/textView2" />
     <ListView
-        android:minWidth="25dp"
-        android:minHeight="25dp"
+        android:id="@+id/tracks"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:id="@+id/listView2"
-        android:background="#ffc3c3c3" />
+        />
 
 
 

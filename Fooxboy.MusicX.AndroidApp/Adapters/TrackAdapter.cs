@@ -20,7 +20,7 @@ namespace Fooxboy.MusicX.AndroidApp.Adapters
 
         private ListView listView;
 
-        public TrackAdapter(Context context, List<AudioFile> list, ListView listview)
+        public TrackAdapter(Context context, List<AudioFile> list, ListView listview) :base()
         {
             this.list = list;
             this.context = context;
@@ -34,19 +34,24 @@ namespace Fooxboy.MusicX.AndroidApp.Adapters
         {
             View view = convertView;
 
-            if(view == null)
+            if(convertView == null)
             {
-                view = LayoutInflater.From(context).Inflate(Resource.Layout.TrackLayout, null);
+                view = LayoutInflater.From(parent.Context).Inflate(Resource.Layout.TrackLayout, parent, false);
 
                 var artist = view.FindViewById<TextView>(Resource.Id.textViewArtist);
                 var title = view.FindViewById<TextView>(Resource.Id.textViewTitle);
 
-
                 artist.Text = list[position].Artist;
                 title.Text = list[position].Title;
+               // listView.Scroll += ListView_Scroll;
             }
 
             return view;
+        }
+
+        private void ListView_Scroll(object sender, AbsListView.ScrollEventArgs e)
+        {
+            
         }
 
         public void GetMoreItems()
