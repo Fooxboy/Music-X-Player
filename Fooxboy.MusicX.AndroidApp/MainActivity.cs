@@ -13,15 +13,12 @@ namespace Fooxboy.MusicX.AndroidApp
     [Activity(Label = "@string/app_name", Theme = "@style/AppTheme")]
     public class MainActivity : AppCompatActivity, BottomNavigationView.IOnNavigationItemSelectedListener
     {
-        Button textMessage;
-
 
         protected override void OnCreate(Bundle savedInstanceState)
         {
             base.OnCreate(savedInstanceState);
             Xamarin.Essentials.Platform.Init(this, savedInstanceState);
             SetContentView(Resource.Layout.activity_main);
-            textMessage = FindViewById<Button>(Resource.Id.message);
             BottomNavigationView navigation = FindViewById<BottomNavigationView>(Resource.Id.navigation);
             navigation.SetOnNavigationItemSelectedListener(this);
 

@@ -30,6 +30,9 @@ namespace Fooxboy.MusicX.AndroidApp
             Button btn = FindViewById<Button>(Resource.Id.log_in_btn);
             btn.Click += async (sender, e) => 
             {
+                var progressBarLoading = FindViewById<ProgressBar>(Resource.Id.progressBarLogin);
+                progressBarLoading.Visibility = ViewStates.Visible;
+                btn.Visibility = ViewStates.Invisible;
                 Toast.MakeText(this, "Пытаюсь связаться с ВКонтакте...", ToastLength.Long).Show();
                 var token = await Auth.User(loginText.Text, passwordText.Text, TwoFactorAuth, null);
                 Toast.MakeText(this, "Ваш токен " + token, ToastLength.Long).Show();
