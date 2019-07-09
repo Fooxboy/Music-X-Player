@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <Button
+    <!--<Button
         android:id="@+id/message"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -14,16 +14,23 @@
         android:layout_marginLeft="@dimen/activity_horizontal_margin"
         android:layout_marginStart="@dimen/activity_horizontal_margin"
         android:layout_marginTop="@dimen/activity_vertical_margin"
-        android:text="@string/title_home" />
+        android:text="@string/title_home" />-->
+
+    <FrameLayout
+        android:id="@+id/content_frame" 
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" 
+        android:layout_above="@+id/bottom_navigation"/>
+
 
     <android.support.design.widget.BottomNavigationView
         android:id="@+id/navigation"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="0dp"
-        android:layout_marginStart="0dp"
-        android:background="?android:attr/windowBackground"
-        android:layout_alignParentBottom="true"
+        android:layout_width="match_parent"
+          android:layout_height="56dp"
+          android:layout_gravity="start"
+          android:layout_alignParentBottom="true"
+          android:background="@android:color/white"
+          app:elevation="16dp"
         app:menu="@menu/navigation" />
 
 </RelativeLayout>

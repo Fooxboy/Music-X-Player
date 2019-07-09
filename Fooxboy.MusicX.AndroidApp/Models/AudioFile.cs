@@ -29,4 +29,5 @@ namespace Fooxboy.MusicX.AndroidApp.Models
         public bool IsInLibrary { get; set; }
         public bool IsDownload { get; set; }
         public string DurationMinutes { get; set; }
+    }
 }

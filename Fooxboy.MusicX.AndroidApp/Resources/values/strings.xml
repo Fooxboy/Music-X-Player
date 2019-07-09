@@ -1,8 +1,9 @@
 <resources>
-    <string name="app_name">Fooxboy.MusicX.AndroidApp</string>
-    <string name="title_home">Home</string>
-    <string name="title_dashboard">Dashboard</string>
-    <string name="title_notifications">Notifications</string>
+    <string name="app_name">Music X</string>
+    <string name="title_home">Главная</string>
+    <string name="title_pop">Популярное</string>
+  <string name="title_search">Поиск</string>
+  <string name="title_settings">Поиск</string>
   <string name="auth_caption">Авторизация</string>
   <string name="auth_btn">Войти</string>
   <string name="login_hint">E-Mail или телефон</string>
