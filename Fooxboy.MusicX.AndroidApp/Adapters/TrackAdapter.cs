@@ -9,12 +9,14 @@ using Android.Runtime;
 using Android.Views;
 using Android.Widget;
 using Fooxboy.MusicX.AndroidApp.Models;
+using Java.Interop;
+using Object = Java.Lang.Object;
 
 namespace Fooxboy.MusicX.AndroidApp.Adapters
 {
     public class TrackAdapter:BaseAdapter<AudioFile>
     {
-        public List<AudioFile> list;
+        public List<AudioFile> list { get; set; }
 
         private Context context;
 
@@ -33,18 +35,34 @@ namespace Fooxboy.MusicX.AndroidApp.Adapters
         public override View GetView(int position, View convertView, ViewGroup parent)
         {
             View view = convertView;
-
-            if(convertView == null)
+            TextView artist;
+            TextView title;
+            if (convertView == null)
             {
                 view = LayoutInflater.From(parent.Context).Inflate(Resource.Layout.TrackLayout, parent, false);
 
-                var artist = view.FindViewById<TextView>(Resource.Id.textViewArtist);
-                var title = view.FindViewById<TextView>(Resource.Id.textViewTitle);
+                artist = view.FindViewById<TextView>(Resource.Id.textViewArtist);
+                title = view.FindViewById<TextView>(Resource.Id.textViewTitle);
+
 
                 artist.Text = list[position].Artist;
                 title.Text = list[position].Title;
-               // listView.Scroll += ListView_Scroll;
+
+                view.SetTag(Resource.Id.textViewArtist, list[position].Artist);
+                view.SetTag(Resource.Id.textViewTitle, list[position].Title);
+
+                view.SetOnClickListener(null);
+                // listView.Scroll += ListView_Scroll;
             }
+            else
+            {
+                artist = view.FindViewById<TextView>(Resource.Id.textViewArtist);
+                title = view.FindViewById<TextView>(Resource.Id.textViewTitle);
+            }
+
+            AudioFile a = GetItem(position);
+            artist.Text = a.Artist;
+            title.Text = a.Title;
 
             return view;
         }
@@ -63,5 +81,11 @@ namespace Fooxboy.MusicX.AndroidApp.Adapters
         {
             return position;
         }
+
+        public AudioFile GetItem(int position)
+        {
+            return list[position];
+        }
+
     }
 }
