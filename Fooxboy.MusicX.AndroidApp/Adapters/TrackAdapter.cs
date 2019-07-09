@@ -18,10 +18,13 @@ namespace Fooxboy.MusicX.AndroidApp.Adapters
 
         private Context context;
 
-        public TrackAdapter(Context context, List<AudioFile> list)
+        private ListView listView;
+
+        public TrackAdapter(Context context, List<AudioFile> list, ListView listview)
         {
             this.list = list;
             this.context = context;
+            this.listView = listview;
         }
 
         public override int Count => list.Count;
@@ -38,12 +41,23 @@ namespace Fooxboy.MusicX.AndroidApp.Adapters
                 var artist = view.FindViewById<TextView>(Resource.Id.textViewArtist);
                 var title = view.FindViewById<TextView>(Resource.Id.textViewTitle);
 
+
                 artist.Text = list[position].Artist;
                 title.Text = list[position].Title;
-
+                listView.Scroll += ListView_Scroll;
             }
 
             return view;
+        }
+
+        private void ListView_Scroll(object sender, AbsListView.ScrollEventArgs e)
+        {
+            
+        }
+
+        public void GetMoreItems()
+        {
+
         }
 
         public override long GetItemId(int position)
