@@ -9,12 +9,13 @@
     android:minHeight="25px">
     <ImageView
         android:src="@drawable/vk_logo"
-        android:layout_width="256px"
-        android:layout_height="256px"
-        android:minWidth="128px"
-        android:minHeight="128px"
+        android:layout_width="150px"
+        android:layout_height="150px"
+        android:minWidth="100px"
+        android:minHeight="100px"
         android:layout_gravity="center"
-        android:id="@+id/imageView1" />
+        android:id="@+id/imageView1"
+        android:layout_marginBottom="11.3dp"  />
     <TextView
         android:text="@string/auth_caption"
         android:textAppearance="?android:attr/textAppearanceLarge"
@@ -22,7 +23,7 @@
         android:layout_height="wrap_content"
         android:textAlignment="center"
         android:textSize="24dp"
-        android:layout_marginBottom="20dp"
+        android:layout_marginBottom="36.0dp"
         android:id="@+id/textView1" />
     <EditText
         android:inputType="textEmailAddress"
@@ -45,15 +46,23 @@
         android:background="@drawable/textbox"
         android:id="@+id/vkpassword" />
 
-
-    <Button
-        android:text="@string/auth_btn"
-        android:layout_width="100dp"
-        android:layout_height="40dp"
+    <RelativeLayout
+        android:layout_width="wrap_content"
         android:layout_gravity="center"
-        android:background="@drawable/button"
-        android:textColor="@android:color/white"
-        android:padding="-4dp"
-        android:id="@+id/log_in_btn"/>
+        android:layout_height="wrap_content">
+
+        <Button
+            android:text="@string/auth_btn"
+            android:layout_width="135.3dp"
+            android:layout_height="40dp"
+            android:layout_gravity="center"
+            android:background="@drawable/button"
+            android:textColor="@android:color/white"
+            android:padding="-4dp"
+            android:id="@+id/log_in_btn"/>
+
+    </RelativeLayout>
+
+    
 
 </LinearLayout>

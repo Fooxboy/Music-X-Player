@@ -9,6 +9,7 @@ using Android.Runtime;
 using Android.Views;
 using Android.Widget;
 using Fooxboy.MusicX.Core.VKontakte;
+using Java.Lang;
 
 namespace Fooxboy.MusicX.AndroidApp
 {
@@ -27,10 +28,10 @@ namespace Fooxboy.MusicX.AndroidApp
             passwordText = FindViewById<EditText>(Resource.Id.vkpassword);
 
             Button btn = FindViewById<Button>(Resource.Id.log_in_btn);
-            btn.Click += (sender, e) => 
+            btn.Click += async (sender, e) => 
             {
                 Toast.MakeText(this, "Пытаюсь связаться с ВКонтакте...", ToastLength.Long).Show();
-                var token = Auth.User(loginText.Text, passwordText.Text, TwoFactorAuth, null);
+                var token = await Auth.User(loginText.Text, passwordText.Text, TwoFactorAuth, null);
                 Toast.MakeText(this, "Ваш токен " + token, ToastLength.Long).Show();
             };
 
@@ -41,9 +42,13 @@ namespace Fooxboy.MusicX.AndroidApp
             Intent intent = new Intent(this.ApplicationContext, typeof(TwoFactorDialogActivity));
             intent.SetFlags(ActivityFlags.NewTask);
             StartActivity(intent);
-            
 
-            return null;
+            while (Services.StaticContentService.CodeTwoFactorAuth == null)
+            {
+                Thread.Sleep(1000);
+            }
+
+            return Services.StaticContentService.CodeTwoFactorAuth;
         }
     }
 }
