@@ -13,7 +13,7 @@ using Android.Widget;
 
 namespace Fooxboy.MusicX.AndroidApp
 {
-    [Activity(Label = "SplashActivity", Theme = "@style/Splash", MainLauncher = true)]
+    [Activity(Label = "Music X", Theme = "@style/Splash", MainLauncher = true)]
     public class SplashActivity : AppCompatActivity
     {
         protected override void OnCreate(Bundle savedInstanceState)

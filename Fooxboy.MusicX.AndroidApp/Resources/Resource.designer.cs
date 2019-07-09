@@ -2755,9 +2755,6 @@ namespace Fooxboy.MusicX.AndroidApp
 			// aapt resource value: 0x7f0900a0
 			public const int listView1 = 2131296416;
 			
-			// aapt resource value: 0x7f0900a2
-			public const int listView2 = 2131296418;
-			
 			// aapt resource value: 0x7f090060
 			public const int list_item = 2131296352;
 			
@@ -3015,6 +3012,9 @@ namespace Fooxboy.MusicX.AndroidApp
 			
 			// aapt resource value: 0x7f090096
 			public const int touch_outside = 2131296406;
+			
+			// aapt resource value: 0x7f0900a2
+			public const int tracks = 2131296418;
 			
 			// aapt resource value: 0x7f09000f
 			public const int transition_current_scene = 2131296271;

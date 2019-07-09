@@ -1,4 +1,5 @@
-﻿using Android.App;
+﻿using System.Collections.Generic;
+using Android.App;
 using Android.Content;
 using Android.OS;
 using Android.Runtime;
@@ -6,6 +7,7 @@ using Android.Support.Design.Widget;
 using Android.Support.V7.App;
 using Android.Views;
 using Android.Widget;
+using Fooxboy.MusicX.AndroidApp.Adapters;
 using Fooxboy.MusicX.AndroidApp.Resources.fragments;
 
 namespace Fooxboy.MusicX.AndroidApp
@@ -14,7 +16,7 @@ namespace Fooxboy.MusicX.AndroidApp
     public class MainActivity : AppCompatActivity, BottomNavigationView.IOnNavigationItemSelectedListener
     {
         Button textMessage;
-
+        private Bundle sIS;
 
         protected override void OnCreate(Bundle savedInstanceState)
         {
@@ -29,6 +31,10 @@ namespace Fooxboy.MusicX.AndroidApp
                 Intent intent = new Intent(this, typeof(Resource.Layout.homeActivity));
                 StartActivity(intent);
             };*/
+
+
+            
+
         }
         public override void OnRequestPermissionsResult(int requestCode, string[] permissions, [GeneratedEnum] Android.Content.PM.Permission[] grantResults)
         {

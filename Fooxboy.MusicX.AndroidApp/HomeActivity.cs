@@ -7,38 +7,39 @@ using Android.App;
 using Android.Content;
 using Android.OS;
 using Android.Runtime;
+using Android.Support.V7.App;
 using Android.Views;
 using Android.Widget;
 using Fooxboy.MusicX.AndroidApp.Adapters;
 
 namespace Fooxboy.MusicX.AndroidApp
 {
-    [Activity(Label = "Домашний экран")]
-    public class HomeActivity:Activity
+    [Activity(Label = "Главная", Theme = "@style/AppTheme")]
+    public class HomeActivity: Activity
     {
 
-        public override void OnCreate(Bundle savedInstanceState, PersistableBundle persistentState)
+        protected override void OnCreate(Bundle savedInstanceState)
         {
-            base.OnCreate(savedInstanceState, persistentState);
-
+            base.OnCreate(savedInstanceState);
+            Xamarin.Essentials.Platform.Init(this, savedInstanceState);
             SetContentView(Resource.Layout.homeActivity);
 
-            var tracksListView = FindViewById<ListView>(Resource.Id.listView2);
+
+            var tracksListView = FindViewById<ListView>(Resource.Id.tracks);
 
             var list = new List<Models.AudioFile>();
 
-            for (var i= 0; i<50; i++)
-            {
-                list.Add(new Models.AudioFile()
+            list.Add(new Models.AudioFile()
                 {
-                    Title = $"Название трека {i}",
-                    Artist = $"Имя исполнителя {i}"
+                    Title = "Название трека",
+                    Artist = "Имя исполнителя"
                 });
-            }
-
-
-            tracksListView.Adapter = new TrackAdapter(this, list, tracksListView);
             
+
+
+            tracksListView.Adapter = new TrackAdapter(Application.Context, list, tracksListView);
+            
+
         }
     }
 }
