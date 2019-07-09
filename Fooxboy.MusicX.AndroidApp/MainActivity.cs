@@ -10,7 +10,7 @@ using Fooxboy.MusicX.AndroidApp.Resources.fragments;
 
 namespace Fooxboy.MusicX.AndroidApp
 {
-    [Activity(Label = "@string/app_name", Theme = "@style/AppTheme", MainLauncher = true)]
+    [Activity(Label = "@string/app_name", Theme = "@style/AppTheme")]
     public class MainActivity : AppCompatActivity, BottomNavigationView.IOnNavigationItemSelectedListener
     {
         Button textMessage;
