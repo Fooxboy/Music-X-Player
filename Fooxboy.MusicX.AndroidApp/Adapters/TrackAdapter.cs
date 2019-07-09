@@ -34,33 +34,38 @@ namespace Fooxboy.MusicX.AndroidApp.Adapters
 
         public override View GetView(int position, View convertView, ViewGroup parent)
         {
-            View view = convertView;
+            View view = convertView; //Создаем вью
+                
+            /* задаем переменные для всех полей */
             TextView artist;
             TextView title;
-            if (convertView == null)
+            
+            if (convertView == null) //если вью налл то
             {
-                view = LayoutInflater.From(parent.Context).Inflate(Resource.Layout.TrackLayout, parent, false);
-
+                view = LayoutInflater.From(parent.Context).Inflate(Resource.Layout.TrackLayout, parent, false); //инициализируем вью
+                /*Задаем поля из вью*/
                 artist = view.FindViewById<TextView>(Resource.Id.textViewArtist);
                 title = view.FindViewById<TextView>(Resource.Id.textViewTitle);
 
-
+                /*Задаем полям значения*/
                 artist.Text = list[position].Artist;
                 title.Text = list[position].Title;
-
+                /*Добавляем во вью теги (Это какая-то херь из явы, неебу) */
                 view.SetTag(Resource.Id.textViewArtist, list[position].Artist);
                 view.SetTag(Resource.Id.textViewTitle, list[position].Title);
-
+                /* удаляем клик листенер (в случае чего можно задать свой) */
                 view.SetOnClickListener(null);
-                // listView.Scroll += ListView_Scroll;
+                
             }
-            else
+            else //если вью уже задан
             {
+                /*Задаем поля из вью*/
                 artist = view.FindViewById<TextView>(Resource.Id.textViewArtist);
                 title = view.FindViewById<TextView>(Resource.Id.textViewTitle);
             }
-
-            AudioFile a = GetItem(position);
+            
+            AudioFile a = GetItem(position); // берем готовый элемент из списка 
+            /*Задаем полям значения*/
             artist.Text = a.Artist;
             title.Text = a.Title;
 
