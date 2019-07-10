@@ -78,34 +78,93 @@
                                Text="{x:Bind PlaylistViewModel.Playlist.Year}"/>
                 </StackPanel>
 
-                <StackPanel VerticalAlignment="Center" Orientation="Horizontal" Margin="0 70 0 0">
+                <StackPanel VerticalAlignment="Center" Orientation="Horizontal" Margin="0 85 0 0">
                      
                     <Button Padding="0"
                         BorderThickness="0"
-                        FontSize="20" FontFamily="Segoe MDL2 Assets"
-                        Content="&#xE14B;"
-                        Width="30" 
-                            Style="{ThemeResource ButtonPlayerStyle}"
+                        Style="{ThemeResource ButtonLoginStyle}"
+                            Width="100"
                         Height="30"
+                            IsEnabled="False"
                         Grid.Row="1">
-                      
+                        <Button.Content>
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="auto"/>
+                                    <ColumnDefinition/>
+                                </Grid.ColumnDefinitions>
+
+                                <FontIcon FontSize="20" 
+                                          Grid.Column="0" 
+                                          FontFamily="Segoe MDL2 Assets"
+                                          Glyph="&#xE8B1;" />
+
+                                <TextBlock Margin="5 0 0 0"  Text="Смешать" Grid.Column="1"/>
+                            </Grid>
+                        </Button.Content>
                     </Button>
 
                     <Button Padding="0"
                         BorderThickness="0"
-                        FontSize="20" FontFamily="Segoe MDL2 Assets"
-                        Content="&#xE104;"
-                            Style="{ThemeResource ButtonPlayerStyle}"
-                        Width="30" 
+                            Style="{ThemeResource ButtonLoginStyle}"
+                        Width="100" 
+                            Margin="10 0 0 0"
                         Command="{x:Bind PlaylistViewModel.EditPlaylist}"
                         Height="30"
                         Grid.Row="1">
+
+                        <Button.Content>
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="auto"/>
+                                    <ColumnDefinition/>
+                                </Grid.ColumnDefinitions>
+
+                                <FontIcon FontSize="20" 
+                                          Grid.Column="0" 
+                                          FontFamily="Segoe MDL2 Assets"
+                                          Glyph="&#xE70F;" />
+
+                                <TextBlock Margin="5 0 0 0" Text="Изменить" Grid.Column="1"/>
+                            </Grid>
+                        </Button.Content>
                     </Button>
 
-                   
+                    <Button Padding="0"
+                        BorderThickness="0"
+                            Style="{ThemeResource ButtonLoginStyle}"
+                        Width="100" 
+                            IsEnabled="{x:Bind PlaylistViewModel.DownloadPlaylist, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                            Margin="10 0 0 0"
+                        Command="{x:Bind PlaylistViewModel.DownloadPlaylist}"
+                        Height="30"
+                        Grid.Row="1">
+
+                        <Button.Content>
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="auto"/>
+                                    <ColumnDefinition/>
+                                </Grid.ColumnDefinitions>
+
+                                <FontIcon FontSize="20" 
+                                          Grid.Column="0" 
+                                          FontFamily="Segoe MDL2 Assets"
+                                          Glyph="&#xE896;" />
+
+                                <TextBlock Margin="5 0 0 0"  Text="Скачать" Grid.Column="1"/>
+                            </Grid>
+                        </Button.Content>
+                    </Button>
+
                 </StackPanel>
 
-                
+                <TextBlock VerticalAlignment="Bottom" 
+                           Foreground="{ThemeResource SubText}"
+                           Visibility="{x:Bind PlaylistViewModel.VisibilityDescription, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                           Margin="10 0 0 10" 
+                           TextWrapping="Wrap"
+                           Text="{x:Bind PlaylistViewModel.Playlist.Description, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
             </Grid>
 
         </Grid>

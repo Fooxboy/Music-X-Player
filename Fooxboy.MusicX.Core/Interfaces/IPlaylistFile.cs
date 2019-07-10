@@ -15,5 +15,6 @@ namespace Fooxboy.MusicX.Core.Interfaces
         bool IsAlbum { get; set; }
         string Genre { get; set; }
         string Year { get; set; }
+        string Description { get; set; }
     }
 }

@@ -24,9 +24,9 @@ namespace Fooxboy.MusicX.AndroidApp.Services
 
         }
 
-        public async static Task<List<AudioFile>> GetMusicLibrary(int count, int offset)
+        public static List<AudioFile> GetMusicLibrary(int count, int offset)
         {
-            var tracksvk = await Fooxboy.MusicX.Core.VKontakte.Music.Library.Tracks(count, offset);
+            var tracksvk = Fooxboy.MusicX.Core.VKontakte.Music.Library.TracksSync(count, offset);
             return tracksvk.ConvertToAudioFile();
         }
 
@@ -42,11 +42,11 @@ namespace Fooxboy.MusicX.AndroidApp.Services
                 {
                     if (track.Cover == "no")
                     {
-                        coverImage = "ms-appx:///Assets/Images/placeholder.png";
+                        coverImage = "drawable/placeholder";
                     }
                     else
                     {
-                        //coverImage = await ImagesService.CoverAudio(track);
+                        coverImage = ImagesService.CoverTrack(track);
                     }
                 }
                 else
@@ -55,8 +55,6 @@ namespace Fooxboy.MusicX.AndroidApp.Services
                 }
 
 
-
-                coverImage = null;
                 var audiofile = new AudioFile()
                 {
                     Artist = track.Artist,

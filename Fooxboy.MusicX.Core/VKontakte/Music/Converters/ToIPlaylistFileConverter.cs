@@ -17,6 +17,7 @@ namespace Fooxboy.MusicX.Core.VKontakte.Music.Converters
             string artist = "";
             string genre = "";
             string year = "";
+            string description = "";
             try
             {
                 artist = playlist.MainArtists.First().Name;
@@ -56,6 +57,7 @@ namespace Fooxboy.MusicX.Core.VKontakte.Music.Converters
                 
             }else
             {
+                if(playlist.Description != null) description = playlist.Description;
                 genre = "no";
                 year = "no";
             }
@@ -71,7 +73,8 @@ namespace Fooxboy.MusicX.Core.VKontakte.Music.Converters
                 Name = playlist.Title,
                 IsAlbum = isAlbum,
                 Genre = genre,
-                Year = year
+                Year = year,
+                Description = description
             };
 
             return playlistFile;

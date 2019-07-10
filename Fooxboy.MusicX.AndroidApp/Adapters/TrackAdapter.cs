@@ -39,6 +39,7 @@ namespace Fooxboy.MusicX.AndroidApp.Adapters
             /* задаем переменные для всех полей */
             TextView artist;
             TextView title;
+            ImageView cover;
             
             if (convertView == null) //если вью налл то
             {
@@ -46,10 +47,12 @@ namespace Fooxboy.MusicX.AndroidApp.Adapters
                 /*Задаем поля из вью*/
                 artist = view.FindViewById<TextView>(Resource.Id.textViewArtist);
                 title = view.FindViewById<TextView>(Resource.Id.textViewTitle);
+                cover = view.FindViewById<ImageView>(Resource.Id.imageViewCover);
 
                 /*Задаем полям значения*/
                 artist.Text = list[position].Artist;
                 title.Text = list[position].Title;
+                cover.
                 /*Добавляем во вью теги (Это какая-то херь из явы, неебу) */
                 view.SetTag(Resource.Id.textViewArtist, list[position].Artist);
                 view.SetTag(Resource.Id.textViewTitle, list[position].Title);

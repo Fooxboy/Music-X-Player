@@ -57,10 +57,6 @@ namespace Fooxboy.MusicX.Uwp.Views
                 StaticContent.NavigationContentService.Go(typeof(HomeLocalView));
             }
 
-
-           
-
-
             Windows.UI.ViewManagement.ApplicationView appView = Windows.UI.ViewManagement.ApplicationView.GetForCurrentView();
             appView.SetPreferredMinSize(new Size(600, 800));
 
