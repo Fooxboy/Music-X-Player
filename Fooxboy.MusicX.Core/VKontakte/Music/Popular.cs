@@ -18,5 +18,15 @@ namespace Fooxboy.MusicX.Core.VKontakte.Music
             foreach (var track in music) tracks.Add(track.ToIAudioFile());
             return tracks;
         }
+
+        public static IList<IAudioFile> TracksSync(int count = 100, int offset = 0, bool onlyEng = false)
+        {
+            if (StaticContent.VkApi == null) throw new Exception("Пользователь не авторизован");
+            var music = StaticContent.VkApi.Audio.GetPopular(onlyEng: onlyEng,
+                count: Convert.ToUInt32(count), offset: Convert.ToUInt32(offset));
+            IList<IAudioFile> tracks = new List<IAudioFile>();
+            foreach (var track in music) tracks.Add(track.ToIAudioFile());
+            return tracks;
+        }
     }
 }

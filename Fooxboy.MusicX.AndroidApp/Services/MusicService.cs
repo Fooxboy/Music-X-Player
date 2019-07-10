@@ -1,7 +1,9 @@
 ﻿using System.Collections.Generic;
 using System.IO;
+using System.Threading.Tasks;
 using Android.Provider;
 using Fooxboy.MusicX.AndroidApp.Models;
+using Fooxboy.MusicX.Core.Interfaces;
 
 namespace Fooxboy.MusicX.AndroidApp.Services
 {
@@ -15,12 +17,69 @@ namespace Fooxboy.MusicX.AndroidApp.Services
             var files = Directory.GetFiles(dir);
             foreach (var track in files)
             {
-                
+
             }
 
             return tracks;
 
         }
-        
+
+        public async static Task<List<AudioFile>> GetMusicLibrary(int count, int offset)
+        {
+            var tracksvk = await Fooxboy.MusicX.Core.VKontakte.Music.Library.Tracks(count, offset);
+            return tracksvk.ConvertToAudioFile();
+        }
+
+        public static List<AudioFile> ConvertToAudioFile(this IList<IAudioFile> music, string cover = null)
+        {
+            var tracks = new List<AudioFile>();
+
+            foreach (var track in music)
+            {
+                string coverImage;
+
+                if (cover == null)
+                {
+                    if (track.Cover == "no")
+                    {
+                        coverImage = "ms-appx:///Assets/Images/placeholder.png";
+                    }
+                    else
+                    {
+                        //coverImage = await ImagesService.CoverAudio(track);
+                    }
+                }
+                else
+                {
+                    coverImage = cover;
+                }
+
+
+
+                coverImage = null;
+                var audiofile = new AudioFile()
+                {
+                    Artist = track.Artist,
+                    Cover = coverImage,
+                    DurationMinutes = track.DurationMinutes,
+                    DurationSeconds = track.DurationSeconds,
+                    Id = track.Id,
+                    InternalId = track.InternalId,
+                    IsLocal = false,
+                    OwnerId = track.OwnerId,
+                    PlaylistId = track.PlaylistId,
+                    SourceString = track.SourceString,
+                    Title = track.Title,
+                    IsFavorite = false,
+                    IsDownload = false,
+                    IsInLibrary = track.IsInLibrary
+                };
+
+                tracks.Add(audiofile);
+            }
+
+            return tracks;
+
+        }
     }
 }
