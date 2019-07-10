@@ -9,12 +9,14 @@ using Android.Runtime;
 using Android.Views;
 using Android.Widget;
 using Fooxboy.MusicX.AndroidApp.Models;
+using Java.Interop;
+using Object = Java.Lang.Object;
 
 namespace Fooxboy.MusicX.AndroidApp.Adapters
 {
     public class TrackAdapter:BaseAdapter<AudioFile>
     {
-        public List<AudioFile> list;
+        public List<AudioFile> list { get; set; }
 
         private Context context;
 
@@ -32,19 +34,40 @@ namespace Fooxboy.MusicX.AndroidApp.Adapters
 
         public override View GetView(int position, View convertView, ViewGroup parent)
         {
-            View view = convertView;
-
-            if(convertView == null)
+            View view = convertView; //Создаем вью
+                
+            /* задаем переменные для всех полей */
+            TextView artist;
+            TextView title;
+            
+            if (convertView == null) //если вью налл то
             {
-                view = LayoutInflater.From(parent.Context).Inflate(Resource.Layout.TrackLayout, parent, false);
+                view = LayoutInflater.From(parent.Context).Inflate(Resource.Layout.TrackLayout, parent, false); //инициализируем вью
+                /*Задаем поля из вью*/
+                artist = view.FindViewById<TextView>(Resource.Id.textViewArtist);
+                title = view.FindViewById<TextView>(Resource.Id.textViewTitle);
 
-                var artist = view.FindViewById<TextView>(Resource.Id.textViewArtist);
-                var title = view.FindViewById<TextView>(Resource.Id.textViewTitle);
-
+                /*Задаем полям значения*/
                 artist.Text = list[position].Artist;
                 title.Text = list[position].Title;
-               // listView.Scroll += ListView_Scroll;
+                /*Добавляем во вью теги (Это какая-то херь из явы, неебу) */
+                view.SetTag(Resource.Id.textViewArtist, list[position].Artist);
+                view.SetTag(Resource.Id.textViewTitle, list[position].Title);
+                /* удаляем клик листенер (в случае чего можно задать свой) */
+                view.SetOnClickListener(null);
+                
             }
+            else //если вью уже задан
+            {
+                /*Задаем поля из вью*/
+                artist = view.FindViewById<TextView>(Resource.Id.textViewArtist);
+                title = view.FindViewById<TextView>(Resource.Id.textViewTitle);
+            }
+            
+            AudioFile a = GetItem(position); // берем готовый элемент из списка 
+            /*Задаем полям значения*/
+            artist.Text = a.Artist;
+            title.Text = a.Title;
 
             return view;
         }
@@ -63,5 +86,11 @@ namespace Fooxboy.MusicX.AndroidApp.Adapters
         {
             return position;
         }
+
+        public AudioFile GetItem(int position)
+        {
+            return list[position];
+        }
+
     }
 }

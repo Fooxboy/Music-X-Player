@@ -36,6 +36,10 @@ namespace Fooxboy.MusicX.AndroidApp
                 Toast.MakeText(this, "Пытаюсь связаться с ВКонтакте...", ToastLength.Long).Show();
                 var token = await Auth.User(loginText.Text, passwordText.Text, TwoFactorAuth, null);
                 Toast.MakeText(this, "Ваш токен " + token, ToastLength.Long).Show();
+                var prefs = Application.Context.GetSharedPreferences("MusicX", FileCreationMode.Private);
+                var editor = prefs.Edit();
+                editor.PutString("VKToken", token);
+                editor.Commit();
             };
 
         }

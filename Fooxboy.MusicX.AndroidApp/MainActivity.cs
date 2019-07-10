@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using Android.App;
 using Android.Content;
 using Android.OS;
@@ -15,9 +16,7 @@ namespace Fooxboy.MusicX.AndroidApp
     [Activity(Label = "@string/app_name", Theme = "@style/AppTheme")]
     public class MainActivity : AppCompatActivity, BottomNavigationView.IOnNavigationItemSelectedListener
     {
-        Button textMessage;
-        private Bundle sIS;
-
+        private Button textMessage;
         protected override void OnCreate(Bundle savedInstanceState)
         {
             base.OnCreate(savedInstanceState);
@@ -37,8 +36,10 @@ namespace Fooxboy.MusicX.AndroidApp
             };*/
 
 
+            // ПРОВЕРКА НА ГЕЯ (авторизован ли в вк)
             
 
+            
         }
         public override void OnRequestPermissionsResult(int requestCode, string[] permissions, [GeneratedEnum] Android.Content.PM.Permission[] grantResults)
         {

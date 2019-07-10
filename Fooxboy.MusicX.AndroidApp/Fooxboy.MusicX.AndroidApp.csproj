@@ -64,17 +64,22 @@
     <Reference Include="System.Numerics.Vectors" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Adapters\PlaylistAdapter.cs" />
     <Compile Include="Adapters\TrackAdapter.cs" />
     <Compile Include="HomeActivity.cs" />
     <Compile Include="AuthActivity.cs" />
     <Compile Include="MainActivity.cs" />
     <Compile Include="Models\AudioFile.cs" />
+    <Compile Include="Models\PlaylistFile.cs" />
     <Compile Include="Resources\fragments\HomeFragment.cs" />
     <Compile Include="Resources\Resource.designer.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Services\AuthService.cs" />
+    <Compile Include="Services\MusicService.cs" />
     <Compile Include="Services\StaticContentService.cs" />
     <Compile Include="SplashActivity.cs" />
     <Compile Include="TwoFactorDialogActivity.cs" />
+    <Compile Include="ViewHolders\PlaylistViewHolder.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\AboutResources.txt" />
@@ -194,6 +199,11 @@
   </ItemGroup>
   <ItemGroup>
     <AndroidResource Include="Resources\layout\homeActivity.axml">
+      <SubType>Designer</SubType>
+    </AndroidResource>
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\layout\PlaylistLayout.axml">
       <SubType>Designer</SubType>
     </AndroidResource>
   </ItemGroup>

@@ -1,10 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
+
 <LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
-    <TextView
+    android:layout_height="match_parent"
+        android:layout_marginBottom="56dp">
+                 <TextView
         android:text="@string/PlaylistsTitleString"
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:layout_width="match_parent"
@@ -16,12 +18,12 @@
         android:textSize="17dp"
         android:textStyle="bold"
         android:layout_marginTop="10dp" />
-    <ListView
+    <android.support.v7.widget.RecyclerView
         android:minWidth="25dp"
         android:minHeight="25dp"
         android:layout_width="match_parent"
         android:layout_height="150dp"
-        android:id="@+id/listView1"
+        android:id="@+id/playlists"
         android:scrollbars="horizontal"
         android:fadingEdge="horizontal"
         android:requiresFadingEdge="horizontal"
@@ -41,7 +43,4 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         />
-
-
-
-</LinearLayout>
+            </LinearLayout>
