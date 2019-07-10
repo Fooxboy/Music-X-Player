@@ -15,8 +15,10 @@ using Fooxboy.MusicX.AndroidApp.Adapters;
 
 namespace Fooxboy.MusicX.AndroidApp.Resources.fragments
 {
-    public class HomeFragment : Fragment
+    public class HomeFragment : Fragment, AbsListView.IOnScrollListener
     {
+
+        private int preLast;
         public override void OnCreate(Bundle savedInstanceState)
         {
             base.OnCreate(savedInstanceState);
@@ -41,8 +43,7 @@ namespace Fooxboy.MusicX.AndroidApp.Resources.fragments
 
 
             tracksListView.Adapter = new TrackAdapter(Application.Context, list, tracksListView);
-
-            
+            tracksListView.SetOnScrollListener(this);
 
 
             /* плейлисты ебац */
@@ -61,6 +62,21 @@ namespace Fooxboy.MusicX.AndroidApp.Resources.fragments
 
             return view;
 
+        }
+
+        public void OnScroll(AbsListView view, int firstVisibleItem, int visibleItemCount, int totalItemCount)
+        {
+            //Toast.MakeText(Application.Context, "Оно скролитЬся", ToastLength.Long).Show();
+            if (view.LastVisiblePosition == view.Adapter.Count - 1 && view.GetChildAt(view.ChildCount - 1).Bottom <= view.Height)
+            {
+                Toast.MakeText(Application.Context, "Мы на дне", ToastLength.Long).Show();
+            }
+
+        }
+
+        public void OnScrollStateChanged(AbsListView view, [GeneratedEnum] ScrollState scrollState)
+        {
+            //throw new NotImplementedException();
         }
     }
 }
