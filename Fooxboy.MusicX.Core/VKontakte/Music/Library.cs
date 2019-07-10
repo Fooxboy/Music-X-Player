@@ -65,5 +65,63 @@ namespace Fooxboy.MusicX.Core.VKontakte.Music
 
             //StaticContent.VkApi.Audio.SetBroadcastAsync();
         }
+
+
+
+        public static IList<IAudioFile> TracksSync(int count = 100, int offset = 0)
+        {
+            if (StaticContent.VkApi == null) throw new Exception("Пользователь не авторизован");
+
+            var music =  StaticContent.VkApi.Audio.Get(new VkNet.Model.RequestParams.AudioGetParams()
+            {
+                Count = count,
+                Offset = offset
+            });
+
+            IList<IAudioFile> tracks = new List<IAudioFile>();
+            foreach (var track in music) tracks.Add(track.ToIAudioFile(true));
+            return tracks;
+        }
+
+        public static long CountTracksSync()
+        {
+            if (StaticContent.VkApi == null) throw new Exception("Пользователь не авторизован");
+
+            var count =  StaticContent.VkApi.Audio.GetCount(StaticContent.UserId);
+
+            return count;
+        }
+
+        public static IList<IPlaylistFile> PlaylistsSync(int count = 100, int offset = 0)
+        {
+            if (StaticContent.VkApi == null) throw new Exception("Пользователь не авторизован");
+
+            var playlistsVk = StaticContent.VkApi.Audio.GetPlaylists(StaticContent.UserId,
+                Convert.ToUInt32(count), Convert.ToUInt32(offset));
+
+            IList<IPlaylistFile> playlists = new List<IPlaylistFile>();
+
+            foreach (var playlist in playlistsVk)
+            {
+                var music = StaticContent.VkApi.Audio.Get(new VkNet.Model.RequestParams.AudioGetParams()
+                {
+                    PlaylistId = playlist.Id,
+                });
+
+                IList<IAudioFile> tracks = new List<IAudioFile>();
+                foreach (var track in music) tracks.Add(track.ToIAudioFile());
+
+                playlists.Add(playlist.ToIPlaylistFile(tracks));
+            }
+            return playlists;
+        }
+
+
+        public static void StreamToStatusSync()
+        {
+            if (StaticContent.VkApi == null) throw new Exception("Пользователь не авторизован");
+
+            //StaticContent.VkApi.Audio.SetBroadcastAsync();
+        }
     }
 }

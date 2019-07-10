@@ -25,6 +25,22 @@ namespace Fooxboy.MusicX.Core.VKontakte.Music
             return id.FirstOrDefault();
         }
 
+        public  static long ToLibrarySync(long audioId)
+        {
+            if (StaticContent.VkApi == null) throw new Exception("Пользователь не авторизован");
+
+            var id =  StaticContent.VkApi.Audio.Add(audioId, StaticContent.UserId);
+            return id;
+        }
+
+        public  static long ToPlaylistSync(long audioId, long playlistId)
+        {
+            if (StaticContent.VkApi == null) throw new Exception("Пользователь не авторизован");
+            var id = StaticContent.VkApi.Audio.AddToPlaylist(StaticContent.UserId,
+            playlistId, new List<long>() { audioId });
+            return id.FirstOrDefault();
+        }
+
 
     }
 }

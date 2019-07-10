@@ -47,5 +47,46 @@ namespace Fooxboy.MusicX.Core.VKontakte.Music
             foreach (var track in music) tracks.Add(track.ToIAudioFile());
             return playlist.ToIPlaylistFile(tracks);
         }
+
+
+
+        public static IPlaylistFile CreateSync(string title, string description = null, IList<string> tracks = null)
+        {
+            if (StaticContent.VkApi == null) throw new Exception("Пользователь не авторизован");
+
+            var playlist = StaticContent.VkApi.Audio.CreatePlaylist(StaticContent.UserId, title, description, tracks);
+            return playlist.ToIPlaylistFile(new List<IAudioFile>());
+        }
+
+        public static bool EditSync(int playlistId, string title, string description = null)
+        {
+            if (StaticContent.VkApi == null) throw new Exception("Пользователь не авторизован");
+
+            var result = StaticContent.VkApi.Audio.EditPlaylist(StaticContent.UserId, playlistId, title, description);
+            return result;
+        }
+
+        public static bool DeleteSync(int playlistId)
+        {
+            if (StaticContent.VkApi == null) throw new Exception("Пользователь не авторизован");
+
+            var result = StaticContent.VkApi.Audio.DeletePlaylist(StaticContent.UserId, playlistId);
+            return result;
+        }
+
+        public static IPlaylistFile GetByIdSync(long playlistId)
+        {
+            if (StaticContent.VkApi == null) throw new Exception("Пользователь не авторизован");
+
+            var playlist = StaticContent.VkApi.Audio.GetPlaylistById(StaticContent.UserId, playlistId);
+            var music = StaticContent.VkApi.Audio.Get(new VkNet.Model.RequestParams.AudioGetParams()
+            {
+                PlaylistId = playlist.Id,
+            });
+
+            IList<IAudioFile> tracks = new List<IAudioFile>();
+            foreach (var track in music) tracks.Add(track.ToIAudioFile());
+            return playlist.ToIPlaylistFile(tracks);
+        }
     }
 }
