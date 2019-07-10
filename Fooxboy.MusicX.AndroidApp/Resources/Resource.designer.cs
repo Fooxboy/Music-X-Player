@@ -2488,6 +2488,9 @@ namespace Fooxboy.MusicX.AndroidApp
 			// aapt resource value: 0x7f090033
 			public const int FUNCTION = 2131296307;
 			
+			// aapt resource value: 0x7f0900b8
+			public const int ImagePlaylist = 2131296440;
+			
 			// aapt resource value: 0x7f090034
 			public const int META = 2131296308;
 			
@@ -2572,8 +2575,8 @@ namespace Fooxboy.MusicX.AndroidApp
 			// aapt resource value: 0x7f090055
 			public const int async = 2131296341;
 			
-			// aapt resource value: 0x7f0900bb
-			public const int authcode = 2131296443;
+			// aapt resource value: 0x7f0900bd
+			public const int authcode = 2131296445;
 			
 			// aapt resource value: 0x7f090043
 			public const int auto = 2131296323;
@@ -2659,8 +2662,8 @@ namespace Fooxboy.MusicX.AndroidApp
 			// aapt resource value: 0x7f09009c
 			public const int design_navigation_view = 2131296412;
 			
-			// aapt resource value: 0x7f0900ba
-			public const int dialogTitle = 2131296442;
+			// aapt resource value: 0x7f0900bc
+			public const int dialogTitle = 2131296444;
 			
 			// aapt resource value: 0x7f09001f
 			public const int disableHome = 2131296287;
@@ -2752,23 +2755,20 @@ namespace Fooxboy.MusicX.AndroidApp
 			// aapt resource value: 0x7f09001c
 			public const int listMode = 2131296284;
 			
-			// aapt resource value: 0x7f0900a1
-			public const int listView1 = 2131296417;
-			
 			// aapt resource value: 0x7f090060
 			public const int list_item = 2131296352;
 			
 			// aapt resource value: 0x7f09008e
 			public const int log_in_btn = 2131296398;
 			
-			// aapt resource value: 0x7f0900be
-			public const int masked = 2131296446;
+			// aapt resource value: 0x7f0900c0
+			public const int masked = 2131296448;
 			
 			// aapt resource value: 0x7f0900aa
 			public const int media_actions = 2131296426;
 			
-			// aapt resource value: 0x7f0900b7
-			public const int message = 2131296439;
+			// aapt resource value: 0x7f0900b9
+			public const int message = 2131296441;
 			
 			// aapt resource value: 0x7f090030
 			public const int middle = 2131296304;
@@ -2785,17 +2785,17 @@ namespace Fooxboy.MusicX.AndroidApp
 			// aapt resource value: 0x7f09009b
 			public const int navigation_header_container = 2131296411;
 			
-			// aapt resource value: 0x7f0900bf
-			public const int navigation_home = 2131296447;
-			
-			// aapt resource value: 0x7f0900c0
-			public const int navigation_popular = 2131296448;
-			
 			// aapt resource value: 0x7f0900c1
-			public const int navigation_search = 2131296449;
+			public const int navigation_home = 2131296449;
 			
 			// aapt resource value: 0x7f0900c2
-			public const int navigation_settings = 2131296450;
+			public const int navigation_popular = 2131296450;
+			
+			// aapt resource value: 0x7f0900c3
+			public const int navigation_search = 2131296451;
+			
+			// aapt resource value: 0x7f0900c4
+			public const int navigation_settings = 2131296452;
 			
 			// aapt resource value: 0x7f09003a
 			public const int never = 2131296314;
@@ -2826,6 +2826,9 @@ namespace Fooxboy.MusicX.AndroidApp
 			
 			// aapt resource value: 0x7f09004c
 			public const int pin = 2131296332;
+			
+			// aapt resource value: 0x7f0900a1
+			public const int playlists = 2131296417;
 			
 			// aapt resource value: 0x7f09008f
 			public const int progressBarLogin = 2131296399;
@@ -2980,11 +2983,14 @@ namespace Fooxboy.MusicX.AndroidApp
 			// aapt resource value: 0x7f0900a2
 			public const int textView2 = 2131296418;
 			
-			// aapt resource value: 0x7f0900b8
-			public const int textViewArtist = 2131296440;
+			// aapt resource value: 0x7f0900ba
+			public const int textViewArtist = 2131296442;
 			
-			// aapt resource value: 0x7f0900b9
-			public const int textViewTitle = 2131296441;
+			// aapt resource value: 0x7f0900b7
+			public const int textViewPlaylist = 2131296439;
+			
+			// aapt resource value: 0x7f0900bb
+			public const int textViewTitle = 2131296443;
 			
 			// aapt resource value: 0x7f0900a0
 			public const int text_input_password_toggle = 2131296416;
@@ -3034,8 +3040,8 @@ namespace Fooxboy.MusicX.AndroidApp
 			// aapt resource value: 0x7f090013
 			public const int transition_transform = 2131296275;
 			
-			// aapt resource value: 0x7f0900bc
-			public const int twofactor_confirm = 2131296444;
+			// aapt resource value: 0x7f0900be
+			public const int twofactor_confirm = 2131296446;
 			
 			// aapt resource value: 0x7f09002c
 			public const int uniform = 2131296300;
@@ -3049,8 +3055,8 @@ namespace Fooxboy.MusicX.AndroidApp
 			// aapt resource value: 0x7f090016
 			public const int view_offset_helper = 2131296278;
 			
-			// aapt resource value: 0x7f0900bd
-			public const int visible = 2131296445;
+			// aapt resource value: 0x7f0900bf
+			public const int visible = 2131296447;
 			
 			// aapt resource value: 0x7f09008c
 			public const int vklogin = 2131296396;
@@ -3298,25 +3304,28 @@ namespace Fooxboy.MusicX.AndroidApp
 			public const int notification_template_part_time = 2130968634;
 			
 			// aapt resource value: 0x7f04003b
-			public const int select_dialog_item_material = 2130968635;
+			public const int PlaylistLayout = 2130968635;
 			
 			// aapt resource value: 0x7f04003c
-			public const int select_dialog_multichoice_material = 2130968636;
+			public const int select_dialog_item_material = 2130968636;
 			
 			// aapt resource value: 0x7f04003d
-			public const int select_dialog_singlechoice_material = 2130968637;
+			public const int select_dialog_multichoice_material = 2130968637;
 			
 			// aapt resource value: 0x7f04003e
-			public const int support_simple_spinner_dropdown_item = 2130968638;
+			public const int select_dialog_singlechoice_material = 2130968638;
 			
 			// aapt resource value: 0x7f04003f
-			public const int tooltip = 2130968639;
+			public const int support_simple_spinner_dropdown_item = 2130968639;
 			
 			// aapt resource value: 0x7f040040
-			public const int TrackLayout = 2130968640;
+			public const int tooltip = 2130968640;
 			
 			// aapt resource value: 0x7f040041
-			public const int twofactor_dialog = 2130968641;
+			public const int TrackLayout = 2130968641;
+			
+			// aapt resource value: 0x7f040042
+			public const int twofactor_dialog = 2130968642;
 			
 			static Layout()
 			{

@@ -7,6 +7,7 @@ using Android.App;
 using Android.Content;
 using Android.OS;
 using Android.Runtime;
+using Android.Support.V7.Widget;
 using Android.Util;
 using Android.Views;
 using Android.Widget;
@@ -41,7 +42,25 @@ namespace Fooxboy.MusicX.AndroidApp.Resources.fragments
 
             tracksListView.Adapter = new TrackAdapter(Application.Context, list, tracksListView);
 
+            
+
+
+            /* плейлисты ебац */
+
+            var playlistlistview = view.FindViewById<RecyclerView>(Resource.Id.playlists);
+            var plist = new List<Models.PlaylistFile>();
+            for (int i = 0; i < 15; i++)
+            {
+                plist.Add(new Models.PlaylistFile()
+                {
+                    Name = $"Плейлист {i}",
+                });
+            }
+            playlistlistview.SetLayoutManager(new LinearLayoutManager(Application.Context, LinearLayoutManager.Horizontal, false));
+            playlistlistview.SetAdapter(new PlaylistAdapter(plist));
+
             return view;
+
         }
     }
 }
