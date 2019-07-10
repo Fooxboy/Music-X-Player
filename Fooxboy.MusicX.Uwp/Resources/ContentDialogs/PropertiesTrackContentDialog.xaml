@@ -6,13 +6,28 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d"
-    Title="Свойства файла"
-    PrimaryButtonText="Button1"
+    Title="Метаданные композиции"
+    PrimaryButtonText="Сохранить"
     PrimaryButtonClick="ContentDialog_PrimaryButtonClick">
     <Grid>
-        <StackPanel>
-            <TextBlock Text="Имя файла"/>
-            <TextBlock Text="Исполнитель"/>
-        </StackPanel>
+        <ScrollViewer>
+            <StackPanel>
+                <TextBlock Margin="0 20 0 0" FontWeight="Bold" Text="Имя композиции"/>
+                <TextBox Style="{ThemeResource TextBoxLoginStyle}" Text="{x:Bind TitleTrack}"/>
+                
+                <TextBlock Margin="0 20 0 0" FontWeight="Bold" Text="Имя исполнителя"/>
+                <TextBox Style="{ThemeResource TextBoxLoginStyle}" Text="{x:Bind ArtistName}"/>
+
+                <TextBlock Margin="0 20 0 0" FontWeight="Bold" Text="Название Альбома"/>
+                <TextBox Style="{ThemeResource TextBoxLoginStyle}" Text="{x:Bind AlbumName}"/>
+
+                <TextBlock Margin="0 20 0 0" FontWeight="Bold" Text="Жанр композиции"/>
+                <TextBox Style="{ThemeResource TextBoxLoginStyle}" Text="{x:Bind Genre}"/>
+
+                <TextBlock Margin="0 20 0 0" FontWeight="Bold" Text="Год Альбома"/>
+                <TextBox Style="{ThemeResource TextBoxLoginStyle}" Text="{x:Bind YearAlbum}"/>
+
+            </StackPanel>
+        </ScrollViewer>
     </Grid>
 </ContentDialog>

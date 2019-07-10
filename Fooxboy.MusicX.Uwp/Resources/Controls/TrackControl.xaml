@@ -35,7 +35,7 @@
                         </MenuFlyoutItem.Icon>
                     </MenuFlyoutItem>
 
-                    <MenuFlyoutItem Text="Свойства" >
+                    <MenuFlyoutItem x:Name="PropertyButton" Text="Свойства" Command="{x:Bind GetPropertyCommand}" >
                         <MenuFlyoutItem.Icon>
                             <FontIcon FontFamily="Segoe MDL2 Assets" Glyph="&#xEA42;" />
                         </MenuFlyoutItem.Icon>
