@@ -12,7 +12,7 @@ using Android.Widget;
 
 namespace Fooxboy.MusicX.AndroidApp
 {
-    [Activity(Label = "TwoFactorDialogActivity")]
+    [Activity(Label = "TwoFactorDialogActivity", NoHistory = true)]
     public class TwoFactorDialogActivity : Activity
     {
         protected override void OnCreate(Bundle savedInstanceState)
@@ -31,6 +31,8 @@ namespace Fooxboy.MusicX.AndroidApp
             var text = FindViewById<EditText>(Resource.Id.authcode);
 
             Services.StaticContentService.CodeTwoFactorAuth = text.Text;
+
+            Finish();
         }
     }
 }

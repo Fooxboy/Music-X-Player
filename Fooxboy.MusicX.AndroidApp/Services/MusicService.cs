@@ -42,7 +42,7 @@ namespace Fooxboy.MusicX.AndroidApp.Services
                 {
                     if (track.Cover == "no")
                     {
-                        coverImage = "drawable/placeholder";
+                        coverImage = "placeholder";
                     }
                     else
                     {

@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-
 using Android.App;
 using Android.Content;
 using Android.OS;
@@ -12,6 +11,7 @@ using Android.Util;
 using Android.Views;
 using Android.Widget;
 using Fooxboy.MusicX.AndroidApp.Adapters;
+using Fooxboy.MusicX.AndroidApp.Services;
 
 namespace Fooxboy.MusicX.AndroidApp.Resources.fragments
 {
@@ -31,18 +31,11 @@ namespace Fooxboy.MusicX.AndroidApp.Resources.fragments
 
             var tracksListView = view.FindViewById<ListView>(Resource.Id.tracks);
 
-            var list = new List<Models.AudioFile>();
-            for (int i = 0; i < 15; i++)
-            {
-                list.Add(new Models.AudioFile()
-                {
-                    Title = $"Название трека {i}",
-                    Artist = $"Имя исполнителя  {i}"
-                });
-            }
+            var tracks = MusicService.GetMusicLibrary(20, 0);
 
 
-            tracksListView.Adapter = new TrackAdapter(Application.Context, list, tracksListView);
+            tracksListView.Adapter = new TrackAdapter(Application.Context, tracks, tracksListView);
+
             tracksListView.SetOnScrollListener(this);
 
 

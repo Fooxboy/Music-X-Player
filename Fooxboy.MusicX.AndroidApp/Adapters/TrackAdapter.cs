@@ -10,6 +10,7 @@ using Android.Views;
 using Android.Widget;
 using Fooxboy.MusicX.AndroidApp.Models;
 using Java.Interop;
+using Java.Net;
 using Object = Java.Lang.Object;
 
 namespace Fooxboy.MusicX.AndroidApp.Adapters
@@ -52,10 +53,17 @@ namespace Fooxboy.MusicX.AndroidApp.Adapters
                 /*Задаем полям значения*/
                 artist.Text = list[position].Artist;
                 title.Text = list[position].Title;
-                cover.
+                if(list[position].Cover == "placeholder")
+                {
+                    cover.SetImageResource(Resource.Drawable.placeholder);
+                }else
+                {
+                    cover.SetImageURI(Android.Net.Uri.Parse(list[position].Cover));
+                }
                 /*Добавляем во вью теги (Это какая-то херь из явы, неебу) */
                 view.SetTag(Resource.Id.textViewArtist, list[position].Artist);
                 view.SetTag(Resource.Id.textViewTitle, list[position].Title);
+                view.SetTag(Resource.Id.imageViewCover, list[position].Cover);
                 /* удаляем клик листенер (в случае чего можно задать свой) */
                 view.SetOnClickListener(null);
                 

@@ -44,7 +44,7 @@ namespace Fooxboy.MusicX.AndroidApp.Services
 
         public static string CoverPlaylist(IPlaylistFile playlist)
         {
-            return CoverPlaylistById(playlist.Id, playlist.Cover);п
+            return CoverPlaylistById(playlist.Id, playlist.Cover);
         }
 
         public static string CoverPlaylistById(long playlistId, string uriImage)

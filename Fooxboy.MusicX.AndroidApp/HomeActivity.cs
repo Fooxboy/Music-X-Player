@@ -24,12 +24,7 @@ namespace Fooxboy.MusicX.AndroidApp
 
             SetContentView(Resource.Layout.homeActivity);
 
-            var tracksListView = FindViewById<ListView>(Resource.Id.tracks);
-
-            var tracks = MusicService.GetMusicLibrary(20, 0);
-
-
-            tracksListView.Adapter = new TrackAdapter(this, tracks, tracksListView);
+           
         }
 
     }

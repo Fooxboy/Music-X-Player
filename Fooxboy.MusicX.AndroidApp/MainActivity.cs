@@ -10,6 +10,7 @@ using Android.Views;
 using Android.Widget;
 using Fooxboy.MusicX.AndroidApp.Adapters;
 using Fooxboy.MusicX.AndroidApp.Resources.fragments;
+using Fooxboy.MusicX.AndroidApp.Services;
 
 namespace Fooxboy.MusicX.AndroidApp
 {
@@ -26,9 +27,18 @@ namespace Fooxboy.MusicX.AndroidApp
             BottomNavigationView navigation = FindViewById<BottomNavigationView>(Resource.Id.navigation);
             navigation.SetOnNavigationItemSelectedListener(this);
 
-            var f = new HomeFragment();
-            FragmentManager.BeginTransaction().Replace(Resource.Id.content_frame, f).Commit();
-            SetTitle(Resource.String.title_home);
+            if (AuthService.IsLoggedIn())
+            {
+                var f = new HomeFragment();
+                FragmentManager.BeginTransaction().Replace(Resource.Id.content_frame, f).Commit();
+                SetTitle(Resource.String.title_home);
+            }else
+            {
+                Intent intent = new Intent(this.ApplicationContext, typeof(AuthActivity));
+                intent.SetFlags(ActivityFlags.NewTask);
+                StartActivity(intent);
+            }
+           
             /*textMessage.Click += (e, a) =>
             {
                 Intent intent = new Intent(this, typeof(Resource.Layout.homeActivity));
