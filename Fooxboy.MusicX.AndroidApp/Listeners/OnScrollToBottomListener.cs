@@ -21,10 +21,14 @@ namespace Fooxboy.MusicX.AndroidApp.Listeners
         {
             base.OnScrolled(recyclerView, dx, dy);
 
-            var lm = recyclerView.GetLayoutManager();
-            
-            int visibleItemCount = lm.GetChildCount();//смотрим сколько элементов на экране
-            int totalItemCount = lm.GetItemCount();//сколько всего элементов
+            var lm = (LinearLayoutManager)recyclerView.GetLayoutManager();
+            if (lm.FindLastCompletelyVisibleItemPosition() == recyclerView.GetAdapter().ItemCount - 1)
+            {
+                //МЫ НА ДНЕ СЛАВК
+                Toast.MakeText(Application.Context, "МЫ НА ДНЕ", ToastLength.Long).Show();
+            }
+            /*int visibleItemCount = lm.ChildCount;//смотрим сколько элементов на экране
+            int totalItemCount = lm.ItemCount;//сколько всего элементов
             int firstVisibleItems = lm.FindFirstVisibleItemPosition();//какая позиция первого элемента
 
             if (!isLoading)
@@ -37,7 +41,8 @@ namespace Fooxboy.MusicX.AndroidApp.Listeners
                         loadingListener.loadMoreItems(totalItemCount);//тут я использовал калбэк который просто говорит наружу что нужно еще элементов и с какой позиции начинать загрузку
                     }
                 }
-            }
+            }*/
+
         }
 
     }
