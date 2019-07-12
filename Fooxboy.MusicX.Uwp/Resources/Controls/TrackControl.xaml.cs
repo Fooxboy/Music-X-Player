@@ -201,6 +201,10 @@ namespace Fooxboy.MusicX.Uwp.Resources.Controls
 
         private void Grid_PointerEntered(object sender, PointerRoutedEventArgs e)
         {
+
+            RectanglePlay.Visibility = Visibility.Visible;
+            IconPlay.Visibility = Visibility.Visible;
+
             if (Track.IsLocal)
             {
                 if(Track.IsFavorite)
@@ -223,6 +227,8 @@ namespace Fooxboy.MusicX.Uwp.Resources.Controls
 
         private void Grid_PointerExited(object sender, PointerRoutedEventArgs e)
         {
+            RectanglePlay.Visibility = Visibility.Collapsed;
+            IconPlay.Visibility = Visibility.Collapsed;
             if (Track.IsLocal)
             {
                 LikeAdd.Visibility = Visibility.Collapsed;
@@ -235,8 +241,6 @@ namespace Fooxboy.MusicX.Uwp.Resources.Controls
 
         private void Grid_RightTapped(object sender, RightTappedRoutedEventArgs e)
         {
-
-
             if (Track.IsLocal)
             {
                 PropertyButton.Visibility = Visibility.Visible;

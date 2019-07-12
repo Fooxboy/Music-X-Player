@@ -134,7 +134,7 @@
                         BorderThickness="0"
                             Style="{ThemeResource ButtonLoginStyle}"
                         Width="100" 
-                            IsEnabled="{x:Bind PlaylistViewModel.DownloadPlaylist, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                            IsEnabled="{x:Bind PlaylistViewModel.DownloadIsActive, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                             Margin="10 0 0 0"
                         Command="{x:Bind PlaylistViewModel.DownloadPlaylist}"
                         Height="30"

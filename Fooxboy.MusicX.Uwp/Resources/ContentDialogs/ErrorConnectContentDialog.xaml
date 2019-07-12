@@ -11,8 +11,9 @@
     PrimaryButtonClick="ContentDialog_PrimaryButtonClick">
     <Grid>
         <StackPanel>
-            <TextBlock Text="Отсутствует подключение к интернету"/>
-            <TextBlock Text="Или сервер временно недоступен"/>
+            <FontIcon FontFamily="Segoe MDL2 Assets" FontSize="40" Glyph="&#xF476;" />
+            <TextBlock Margin="0 20 0 0" Text="Отсутствует подключение к интернету"/>
+            <TextBlock Foreground="{ThemeResource SubText}" Text="Или сервер временно недоступен"/>
         </StackPanel>
     </Grid>
 </ContentDialog>

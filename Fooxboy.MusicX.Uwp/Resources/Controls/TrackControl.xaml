@@ -89,6 +89,28 @@
             </Rectangle.Fill>
         </Rectangle>
 
+        <Rectangle RadiusX="2"
+                   Visibility="Collapsed"
+                   x:Name="RectanglePlay"
+                   Fill="Black"
+                   Opacity="0.6 "
+                       RadiusY="2"
+                       Grid.RowSpan="2"
+                       Stretch="Fill"
+                       Width="40"
+                       Grid.Column="0"
+                       Height="40">
+        </Rectangle>
+        <FontIcon Height="40"
+                  Visibility="Collapsed"
+                  x:Name="IconPlay"
+                  FontFamily="Segoe MDL2 Assets"
+                  Grid.Column="0" 
+                  Grid.RowSpan="2" 
+                  Width="40" 
+                  Foreground="White"
+                  Glyph="&#xE768;" />
+
         <TextBlock Margin="10 0 0 0" x:Name="TitleText" Text="{x:Bind Track.Title, Mode=TwoWay}" Grid.Column="1" Grid.Row="0"/>
         <TextBlock Margin="10 0 0 0" Foreground="{ThemeResource ColorArtistText}"
                        Text="{x:Bind Track.Artist, Mode=TwoWay}"
