@@ -12,7 +12,7 @@ using Android.Widget;
 
 namespace Fooxboy.MusicX.AndroidApp
 {
-    [Activity(Label = "TwoFactorDialogActivity", NoHistory = true)]
+    [Activity(Label = "TwoFactorDialogActivity")]
     public class TwoFactorDialogActivity : Activity
     {
         protected override void OnCreate(Bundle savedInstanceState)

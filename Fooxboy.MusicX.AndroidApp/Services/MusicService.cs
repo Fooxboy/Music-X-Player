@@ -24,7 +24,7 @@ namespace Fooxboy.MusicX.AndroidApp.Services
 
         }
 
-        public static List<AudioFile> GetMusicLibrary(int count, int offset)
+        public  static List<AudioFile> GetMusicLibrary(int count, int offset)
         {
             var tracksvk = Fooxboy.MusicX.Core.VKontakte.Music.Library.TracksSync(count, offset);
             return tracksvk.ConvertToAudioFile();
@@ -46,7 +46,7 @@ namespace Fooxboy.MusicX.AndroidApp.Services
                     }
                     else
                     {
-                        coverImage = ImagesService.CoverTrack(track);
+                        coverImage =  ImagesService.CoverTrack(track);
                     }
                 }
                 else

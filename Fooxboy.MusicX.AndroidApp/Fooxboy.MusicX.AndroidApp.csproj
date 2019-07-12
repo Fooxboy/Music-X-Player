@@ -81,6 +81,7 @@
     <Compile Include="SplashActivity.cs" />
     <Compile Include="TwoFactorDialogActivity.cs" />
     <Compile Include="ViewHolders\PlaylistViewHolder.cs" />
+    <Compile Include="ViewHolders\TracksViewHolder.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\AboutResources.txt" />
@@ -121,6 +122,12 @@
     <AndroidResource Include="Resources\mipmap-xxxhdpi\ic_launcher_round.png" />
   </ItemGroup>
   <ItemGroup>
+    <PackageReference Include="Microsoft.AppCenter.Analytics">
+      <Version>2.1.1</Version>
+    </PackageReference>
+    <PackageReference Include="Microsoft.AppCenter.Crashes">
+      <Version>2.1.1</Version>
+    </PackageReference>
     <PackageReference Include="NLog">
       <Version>4.6.5</Version>
     </PackageReference>

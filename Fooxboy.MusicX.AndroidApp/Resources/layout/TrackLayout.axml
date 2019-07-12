@@ -1,42 +1,44 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-    <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"  
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"  
     android:orientation="horizontal"  
     android:layout_width="fill_parent"  
-    android:layout_height="fill_parent"  
+    android:layout_height="50dp"  
     android:minWidth="25px"  
     android:minHeight="25px"  
     android:paddingBottom="4dp">
 
+    <ImageView
+            android:src="@android:drawable/ic_menu_gallery"
+            android:layout_width="46dp"
+            android:layout_height="46dp"
+        android:layout_marginLeft = "3dp"
+        android:layout_marginTop = "3dp"
+            android:minWidth="25px"
+            android:minHeight="25px"
+            android:id="@+id/imageViewCover" />
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:orientation= "vertical"
+        android:layout_marginLeft="10dp"
+        android:layout_height="wrap_content">
+         <TextView
+            android:text="Название трека"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/textViewTitle"
+            android:textColor="#ff000000" />
         <TextView
             android:text="Имя исполнителя"
             android:textAppearance="?android:attr/textAppearanceMedium"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/textViewArtist"
-            android:layout_marginTop="37.5dp"
-            android:layout_marginLeft="70.3dp"
             android:textColor="#ff4e4e4e"
             android:textSize="15dp" />
-        <TextView
-            android:text="Название трека"
-            android:textAppearance="?android:attr/textAppearanceMedium"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/textViewTitle"
-            android:layout_marginLeft="69.5dp"
-            android:layout_marginTop="17.5dp"
-            android:layout_marginBottom="0.0dp"
-            android:textColor="#ff000000" />
-        <ImageView
-            android:src="@android:drawable/ic_menu_gallery"
-            android:layout_width="60dp"
-            android:layout_height="60dp"
-            android:minWidth="25px"
-            android:minHeight="25px"
-            android:id="@+id/imageViewCover"
-            android:layout_marginRight="0.0dp"
-            android:layout_marginLeft="9.0dp"
-            android:layout_marginTop="8.0dp" />
-    </RelativeLayout>
+       
+        </LinearLayout>  
+    </LinearLayout>
 

@@ -24,5 +24,19 @@ namespace Fooxboy.MusicX.Core.VKontakte.Users
             };
             return userInfo;
         }
+
+        public  static IUserInfo CurrentUserSync()
+        {
+            var users = StaticContent.VkApi.Users.Get(new List<long>(), ProfileFields.Photo200);
+            var currentUser = users.FirstOrDefault();
+            IUserInfo userInfo = new UserInfo()
+            {
+                Id = currentUser.Id,
+                FirstName = currentUser.FirstName,
+                LastName = currentUser.LastName,
+                PhotoUser = currentUser.Photo200.ToString()
+            };
+            return userInfo;
+        }
     }
 }

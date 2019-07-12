@@ -2,106 +2,101 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading.Tasks;
 using Android.App;
 using Android.Content;
+using Android.Graphics;
 using Android.OS;
 using Android.Runtime;
+using Android.Support.V7.Widget;
 using Android.Views;
 using Android.Widget;
 using Fooxboy.MusicX.AndroidApp.Models;
+using Fooxboy.MusicX.AndroidApp.ViewHolders;
 using Java.Interop;
+using Java.IO;
 using Java.Net;
 using Object = Java.Lang.Object;
 
 namespace Fooxboy.MusicX.AndroidApp.Adapters
 {
-    public class TrackAdapter:BaseAdapter<AudioFile>
+
+    public class TrackAdapter : RecyclerView.Adapter
     {
-        public List<AudioFile> list { get; set; }
+        private List<AudioFile> tracks;
 
-        private Context context;
-
-        private ListView listView;
-
-        public TrackAdapter(Context context, List<AudioFile> list, ListView listview) :base()
+        public TrackAdapter(List<AudioFile> t)
         {
-            this.list = list;
-            this.context = context;
-            this.listView = listview;
+            this.tracks = t;
         }
 
-        public override int Count => list.Count;
-        public override AudioFile this[int position] => list[position];
 
-        public override View GetView(int position, View convertView, ViewGroup parent)
+        public override void OnBindViewHolder(RecyclerView.ViewHolder hold, int position)
         {
-            View view = convertView; //Создаем вью
-                
-            /* задаем переменные для всех полей */
-            TextView artist;
-            TextView title;
-            ImageView cover;
-            
-            if (convertView == null) //если вью налл то
-            {
-                view = LayoutInflater.From(parent.Context).Inflate(Resource.Layout.TrackLayout, parent, false); //инициализируем вью
-                /*Задаем поля из вью*/
-                artist = view.FindViewById<TextView>(Resource.Id.textViewArtist);
-                title = view.FindViewById<TextView>(Resource.Id.textViewTitle);
-                cover = view.FindViewById<ImageView>(Resource.Id.imageViewCover);
+            var holder = hold as TracksViewHolder;
+            holder.Artist.Text = tracks[position].Artist;
+            holder.Title.Text = tracks[position].Title;
 
-                /*Задаем полям значения*/
-                artist.Text = list[position].Artist;
-                title.Text = list[position].Title;
-                if(list[position].Cover == "placeholder")
+            if (tracks[position].Cover == "placeholder")
+            {
+                holder.Cover.SetImageResource(Resource.Drawable.placeholder);
+            }else
+            {
+                //var opt = new BitmapFactory.Options();
+                //opt.InJustDecodeBounds = true;
+                //BitmapFactory.DecodeFile(tracks[position].Cover, opt);
+                //opt.InSampleSize = CalculateInSampleSize(opt, 50, 50);
+                //opt.InJustDecodeBounds = false;
+                Bitmap myBitmap = BitmapFactory.DecodeFile(tracks[position].Cover);
+                holder.Cover.SetImageBitmap(myBitmap);
+            }
+        }
+
+        public void AddItems(List<AudioFile> t)
+        {
+            this.tracks.AddRange(t);
+        }
+
+        public static int CalculateInSampleSize(BitmapFactory.Options options, int reqWidth, int reqHeight)
+        {
+            // Начальная высота и ширина изображения
+            int height = options.OutHeight;
+            int width = options.OutWidth;
+            int inSampleSize = 1;
+
+            if (height > reqHeight || width > reqWidth)
+            {
+
+                int halfHeight = height / 2;
+                int halfWidth = width / 2;
+
+                // Рассчитываем наибольшее значение inSampleSize, которое равно степени двойки
+                // и сохраняем высоту и ширину, когда они больше необходимых
+                while ((halfHeight / inSampleSize) > reqHeight
+                        && (halfWidth / inSampleSize) > reqWidth)
                 {
-                    cover.SetImageResource(Resource.Drawable.placeholder);
-                }else
-                {
-                    cover.SetImageURI(Android.Net.Uri.Parse(list[position].Cover));
+                    inSampleSize *= 2;
                 }
-                /*Добавляем во вью теги (Это какая-то херь из явы, неебу) */
-                view.SetTag(Resource.Id.textViewArtist, list[position].Artist);
-                view.SetTag(Resource.Id.textViewTitle, list[position].Title);
-                view.SetTag(Resource.Id.imageViewCover, list[position].Cover);
-                /* удаляем клик листенер (в случае чего можно задать свой) */
-                view.SetOnClickListener(null);
-                
             }
-            else //если вью уже задан
+
+            return inSampleSize;
+        }
+
+        public override RecyclerView.ViewHolder OnCreateViewHolder(ViewGroup parent, int viewType)
+        {
+            View itemView = LayoutInflater.From(parent.Context).
+                Inflate(Resource.Layout.TrackLayout, parent, false);
+            var v = new TracksViewHolder(itemView);
+            return v;
+        }
+
+        public override int ItemCount
+        {
+            get
             {
-                /*Задаем поля из вью*/
-                artist = view.FindViewById<TextView>(Resource.Id.textViewArtist);
-                title = view.FindViewById<TextView>(Resource.Id.textViewTitle);
+                return tracks.Count;
+
             }
-            
-            AudioFile a = GetItem(position); // берем готовый элемент из списка 
-            /*Задаем полям значения*/
-            artist.Text = a.Artist;
-            title.Text = a.Title;
-
-            return view;
         }
-
-        private void ListView_Scroll(object sender, AbsListView.ScrollEventArgs e)
-        {
-            
-        }
-
-        public void GetMoreItems()
-        {
-
-        }
-
-        public override long GetItemId(int position)
-        {
-            return position;
-        }
-
-        public AudioFile GetItem(int position)
-        {
-            return list[position];
-        }
-
     }
 }

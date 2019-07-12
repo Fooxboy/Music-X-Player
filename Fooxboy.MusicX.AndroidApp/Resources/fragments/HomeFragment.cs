@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading;
+using System.Threading.Tasks;
 using Android.App;
 using Android.Content;
 using Android.OS;
@@ -11,7 +13,9 @@ using Android.Util;
 using Android.Views;
 using Android.Widget;
 using Fooxboy.MusicX.AndroidApp.Adapters;
+using Fooxboy.MusicX.AndroidApp.Models;
 using Fooxboy.MusicX.AndroidApp.Services;
+using Java.Lang;
 
 namespace Fooxboy.MusicX.AndroidApp.Resources.fragments
 {
@@ -25,19 +29,46 @@ namespace Fooxboy.MusicX.AndroidApp.Resources.fragments
             
         }
 
+        TrackAdapter adapter = null;
+
         public override View OnCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
         {
             var view = inflater.Inflate(Resource.Layout.homeActivity, container, false);
 
-            var tracksListView = view.FindViewById<ListView>(Resource.Id.tracks);
+            var progressBar = view.FindViewById<ProgressBar>(Resource.Id.progressBarLoagingTracks);
 
-            var tracks = MusicService.GetMusicLibrary(20, 0);
+            progressBar.Visibility = ViewStates.Visible;
+
+            List<AudioFile> tracks = new List<AudioFile>();
+            adapter = new TrackAdapter(tracks);
+
+            var tracksView = view.FindViewById<RecyclerView>(Resource.Id.TracksView);
+            Handler handler = new Handler(Looper.MainLooper);
+
+            tracksView.SetAdapter(adapter);
+            tracksView.SetLayoutManager(new LinearLayoutManager(Application.Context, LinearLayoutManager.Vertical, false));
+
+            var task = Task.Run(() =>
+            {
+                tracks = MusicService.GetMusicLibrary(20, 0);
+                var i = 1 + 1;
+            });
 
 
-            tracksListView.Adapter = new TrackAdapter(Application.Context, tracks, tracksListView);
+            task.ContinueWith((t) =>
+            {
+                while (tracks.Count == 0) System.Threading.Thread.Sleep(500);
 
-            tracksListView.SetOnScrollListener(this);
+                handler.Post(new Runnable(() =>
+                {
+                    adapter.AddItems(tracks);
+                    adapter.NotifyDataSetChanged();
+                    progressBar.Visibility = ViewStates.Invisible;
+                }));
+                
+            });
 
+            var a = task.ConfigureAwait(false);
 
             /* плейлисты ебац */
 
@@ -59,11 +90,19 @@ namespace Fooxboy.MusicX.AndroidApp.Resources.fragments
 
         public void OnScroll(AbsListView view, int firstVisibleItem, int visibleItemCount, int totalItemCount)
         {
-            //Toast.MakeText(Application.Context, "Оно скролитЬся", ToastLength.Long).Show();
-            if (view.LastVisiblePosition == view.Adapter.Count - 1 && view.GetChildAt(view.ChildCount - 1).Bottom <= view.Height)
+            try
             {
-                Toast.MakeText(Application.Context, "Мы на дне", ToastLength.Long).Show();
+                //Toast.MakeText(Application.Context, "Оно скролитЬся", ToastLength.Long).Show();
+                if (view.LastVisiblePosition == view.Adapter.Count - 1 && view.GetChildAt(view.ChildCount - 1).Bottom <= view.Height)
+                {
+                    Toast.MakeText(Application.Context, "Мы на дне", ToastLength.Long).Show();
+                }
             }
+            catch
+            {
+
+            }
+            
 
         }
 
