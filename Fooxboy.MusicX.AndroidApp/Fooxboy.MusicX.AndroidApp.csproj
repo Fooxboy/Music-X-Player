@@ -68,6 +68,7 @@
   <ItemGroup>
     <Compile Include="Adapters\PlaylistAdapter.cs" />
     <Compile Include="Adapters\TrackAdapter.cs" />
+    <Compile Include="DialogFragments\IncorrectLoginDialogFragment.cs" />
     <Compile Include="HomeActivity.cs" />
     <Compile Include="AuthActivity.cs" />
     <Compile Include="Listeners\OnScrollToBottomListener.cs" />
@@ -233,6 +234,11 @@
   </ItemGroup>
   <ItemGroup>
     <AndroidResource Include="Resources\drawable\playlist_placeholder.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\layout\IncorrectLoginDialogLayout.axml">
+      <SubType>Designer</SubType>
+    </AndroidResource>
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\Android\Xamarin.Android.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it.

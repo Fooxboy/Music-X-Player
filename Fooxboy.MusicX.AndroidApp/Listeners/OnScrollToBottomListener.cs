@@ -43,7 +43,7 @@ namespace Fooxboy.MusicX.AndroidApp.Listeners
             var lm = (LinearLayoutManager)recyclerView.GetLayoutManager();
             if (lm.FindLastCompletelyVisibleItemPosition() == recyclerView.GetAdapter().ItemCount - 1)
             {
-                Toast.MakeText(Application.Context, "МЫ НА ДНЕ", ToastLength.Long).Show();
+                //Toast.MakeText(Application.Context, "МЫ НА ДНЕ", ToastLength.Long).Show();
 
                 if (isLoading) return;
                 isLoading = true;
