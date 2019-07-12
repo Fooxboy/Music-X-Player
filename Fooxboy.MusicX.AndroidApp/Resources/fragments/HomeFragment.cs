@@ -45,7 +45,6 @@ namespace Fooxboy.MusicX.AndroidApp.Resources.fragments
             tracksListView.Adapter = new TrackAdapter(Application.Context, list, tracksListView);
             tracksListView.SetOnScrollListener(this);
 
-
             /* плейлисты ебац */
 
             var playlistlistview = view.FindViewById<RecyclerView>(Resource.Id.playlists);
