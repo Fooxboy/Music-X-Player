@@ -12,8 +12,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/textViewPlaylist"
-            android:layout_marginLeft="28dp"
-            android:layout_marginTop="120dp"
+            android:layout_marginLeft="35dp"
+            android:layout_marginTop="130dp"
             android:layout_marginBottom="0.0dp"
             android:textColor="#ff000000" />
         <ImageView
@@ -24,6 +24,6 @@
             android:minHeight="25px"
             android:id="@+id/ImagePlaylist"
             android:layout_marginRight="0.0dp"
-            android:layout_marginLeft="6.0dp"
+            android:layout_marginLeft="15dp"
             android:layout_marginTop="8.0dp" />
     </RelativeLayout>
