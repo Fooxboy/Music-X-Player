@@ -8,11 +8,14 @@ namespace Fooxboy.MusicX.AndroidApp.ViewHolders
 {
     public class PlaylistViewHolder : RecyclerView.ViewHolder
     {
-        public TextView title { get; private set; }
+        public TextView Title { get; private set; }
+
+        public ImageView Cover { get; private set; }
 
         public PlaylistViewHolder(View itemView) : base(itemView)
         {
-            title = itemView.FindViewById<TextView>(Resource.Id.textViewPlaylist);
+            Title = itemView.FindViewById<TextView>(Resource.Id.textViewPlaylist);
+            Cover = itemView.FindViewById<ImageView>(Resource.Id.ImagePlaylist);
         }
     }
 }

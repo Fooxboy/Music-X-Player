@@ -79,6 +79,7 @@
     <Compile Include="Services\AuthService.cs" />
     <Compile Include="Services\ImagesService.cs" />
     <Compile Include="Services\MusicService.cs" />
+    <Compile Include="Services\PlaylistsService.cs" />
     <Compile Include="Services\StaticContentService.cs" />
     <Compile Include="SplashActivity.cs" />
     <Compile Include="TwoFactorDialogActivity.cs" />

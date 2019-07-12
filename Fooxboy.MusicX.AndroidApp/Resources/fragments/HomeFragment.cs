@@ -48,6 +48,8 @@ namespace Fooxboy.MusicX.AndroidApp.Resources.fragments
             tracksView.SetAdapter(adapter);
             tracksView.SetLayoutManager(new LinearLayoutManager(Application.Context, LinearLayoutManager.Vertical, false));
 
+
+            //Tracks;
             var task = Task.Run(() =>
             {
                 tracks = MusicService.GetMusicLibrary(20, 0);
@@ -76,16 +78,35 @@ namespace Fooxboy.MusicX.AndroidApp.Resources.fragments
             /* плейлисты ебац */
 
             var playlistlistview = view.FindViewById<RecyclerView>(Resource.Id.playlists);
-            var plist = new List<Models.PlaylistFile>();
-            for (int i = 0; i < 15; i++)
-            {
-                plist.Add(new Models.PlaylistFile()
-                {
-                    Name = $"Плейлист {i}",
-                });
-            }
+            var plist = new List<PlaylistFile>();
+            var adapterPlaylists = new PlaylistAdapter(plist);
             playlistlistview.SetLayoutManager(new LinearLayoutManager(Application.Context, LinearLayoutManager.Horizontal, false));
-            playlistlistview.SetAdapter(new PlaylistAdapter(plist));
+            playlistlistview.SetAdapter(adapterPlaylists);
+
+
+            var task2 = Task.Run(() =>
+            {
+                plist = PlaylistsService.GetPlaylistLibrary();
+                var i = 1 + 1; //Без этого говна почему-то не работает, лол
+
+            });
+
+            task2.ContinueWith((t) =>
+            {
+                while (plist.Count == 0)
+                {
+                    System.Threading.Thread.Sleep(500);
+                }
+
+                handler.Post(new Runnable(() =>
+                {
+                    adapterPlaylists.AddItems(plist);
+                    adapterPlaylists.NotifyDataSetChanged();
+                    //progressBar.Visibility = ViewStates.Invisible;
+                }));
+            });
+
+            task2.ConfigureAwait(false);
 
             return view;
 
