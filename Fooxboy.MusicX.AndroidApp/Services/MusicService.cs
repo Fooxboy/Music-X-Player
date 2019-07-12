@@ -27,7 +27,8 @@ namespace Fooxboy.MusicX.AndroidApp.Services
         public  static List<AudioFile> GetMusicLibrary(int count, int offset)
         {
             var tracksvk = Fooxboy.MusicX.Core.VKontakte.Music.Library.TracksSync(count, offset);
-            return tracksvk.ConvertToAudioFile();
+            var tracks = tracksvk.ConvertToAudioFile();
+            return tracks;
         }
 
         public static List<AudioFile> ConvertToAudioFile(this IList<IAudioFile> music, string cover = null)

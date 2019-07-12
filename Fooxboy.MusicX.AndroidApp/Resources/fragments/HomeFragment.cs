@@ -57,7 +57,10 @@ namespace Fooxboy.MusicX.AndroidApp.Resources.fragments
 
             task.ContinueWith((t) =>
             {
-                while (tracks.Count == 0) System.Threading.Thread.Sleep(500);
+                while (tracks.Count == 0)
+                {
+                    System.Threading.Thread.Sleep(500);
+                }
 
                 handler.Post(new Runnable(() =>
                 {

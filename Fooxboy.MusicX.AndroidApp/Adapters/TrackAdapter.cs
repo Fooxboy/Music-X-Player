@@ -42,12 +42,13 @@ namespace Fooxboy.MusicX.AndroidApp.Adapters
                 holder.Cover.SetImageResource(Resource.Drawable.placeholder);
             }else
             {
-                //var opt = new BitmapFactory.Options();
-                //opt.InJustDecodeBounds = true;
-                //BitmapFactory.DecodeFile(tracks[position].Cover, opt);
-                //opt.InSampleSize = CalculateInSampleSize(opt, 50, 50);
-                //opt.InJustDecodeBounds = false;
-                Bitmap myBitmap = BitmapFactory.DecodeFile(tracks[position].Cover);
+                var file = new File(tracks[position].Cover);
+                var opt = new BitmapFactory.Options();
+                opt.InJustDecodeBounds = true;
+                BitmapFactory.DecodeFile(file.AbsolutePath, opt);
+                opt.InSampleSize = CalculateInSampleSize(opt, 50, 50);
+                opt.InJustDecodeBounds = false;
+                Bitmap myBitmap = BitmapFactory.DecodeFile(file.AbsolutePath, opt);
                 holder.Cover.SetImageBitmap(myBitmap);
             }
         }
