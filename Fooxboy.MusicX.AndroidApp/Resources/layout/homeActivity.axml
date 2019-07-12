@@ -15,7 +15,7 @@
         android:minWidth="25dp"
         android:minHeight="25dp"
         android:id="@+id/textView1"
-        android:textSize="17dp"
+        android:textSize="20dp"
         android:textStyle="bold"
         android:layout_marginTop="10dp" />
     <android.support.v7.widget.RecyclerView
@@ -33,15 +33,31 @@
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:textSize="17dp"
+        android:textSize="20dp"
         android:layout_marginLeft = "15dp"
         android:textStyle="bold"
         android:layout_marginTop="10dp"
         android:id="@+id/textView2" />
-    <ListView
-        android:id="@+id/tracks"
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-       
-        />
-            </LinearLayout>
+        android:layout_height="match_parent">
+        <ProgressBar
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/progressBarLoagingTracks"
+            android:layout_centerVertical="true"
+            android:layout_centerHorizontal="true" />
+        <android.support.v7.widget.RecyclerView
+            android:layout_width="fill_parent"
+            android:minWidth="25dp"
+            android:minHeight="25dp"
+            android:requiresFadingEdge="vertical"
+            android:fadingEdge="vertical"
+            android:layout_height="fill_parent"
+            android:layout_above="@id/progressBarLoagingTracks"
+            android:id="@+id/TracksView"
+            android:layout_alignParentBottom="true" />
+
+    </RelativeLayout>
+    
+</LinearLayout>

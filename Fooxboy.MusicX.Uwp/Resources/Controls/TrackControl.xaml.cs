@@ -60,6 +60,8 @@ namespace Fooxboy.MusicX.Uwp.Resources.Controls
                 
             });
 
+            
+
             DeleteCommand = new RelayCommand(async () =>
             {
                 try
@@ -156,8 +158,11 @@ namespace Fooxboy.MusicX.Uwp.Resources.Controls
                     var service = DownloaderService.GetService;
                     await service.StartDownloadAudio(Track);
                 }
+            });
 
-               
+            GetPropertyCommand = new RelayCommand(async () =>
+            {
+                await ContentDialogService.Show(new PropertiesTrackContentDialog(Track));
             });
 
         }
@@ -192,6 +197,7 @@ namespace Fooxboy.MusicX.Uwp.Resources.Controls
         public RelayCommand AddToFavoriteCommand { get; set; }
         public RelayCommand RemoveFavoriteCommand { get; set; }
         public RelayCommand DownloadCommand { get; set; }
+        public RelayCommand GetPropertyCommand { get; set; }
 
         private void Grid_PointerEntered(object sender, PointerRoutedEventArgs e)
         {
@@ -229,8 +235,12 @@ namespace Fooxboy.MusicX.Uwp.Resources.Controls
 
         private void Grid_RightTapped(object sender, RightTappedRoutedEventArgs e)
         {
-            if(Track.IsLocal)
+
+
+            if (Track.IsLocal)
             {
+                PropertyButton.Visibility = Visibility.Visible;
+
                 DownloadItem.Visibility = Visibility.Collapsed;
 
                 foreach (var playlist in StaticContent.Playlists)
@@ -252,6 +262,8 @@ namespace Fooxboy.MusicX.Uwp.Resources.Controls
                 }
             }else
             {
+                PropertyButton.Visibility = Visibility.Collapsed;
+
                 DownloadItem.Visibility = Visibility.Visible;
                 AddTo.Visibility = Visibility.Collapsed;
             }

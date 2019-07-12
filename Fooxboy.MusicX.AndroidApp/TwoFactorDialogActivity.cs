@@ -31,6 +31,8 @@ namespace Fooxboy.MusicX.AndroidApp
             var text = FindViewById<EditText>(Resource.Id.authcode);
 
             Services.StaticContentService.CodeTwoFactorAuth = text.Text;
+
+            Finish();
         }
     }
 }

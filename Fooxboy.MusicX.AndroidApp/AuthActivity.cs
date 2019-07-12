@@ -8,6 +8,7 @@ using Android.OS;
 using Android.Runtime;
 using Android.Views;
 using Android.Widget;
+using Fooxboy.MusicX.AndroidApp.Resources.fragments;
 using Fooxboy.MusicX.Core.VKontakte;
 using Java.Lang;
 
@@ -40,6 +41,11 @@ namespace Fooxboy.MusicX.AndroidApp
                 var editor = prefs.Edit();
                 editor.PutString("VKToken", token);
                 editor.Commit();
+
+                Intent intent = new Intent(this.ApplicationContext, typeof(MainActivity));
+                intent.SetFlags(ActivityFlags.NewTask);
+                StartActivity(intent);
+                Finish();
             };
 
         }

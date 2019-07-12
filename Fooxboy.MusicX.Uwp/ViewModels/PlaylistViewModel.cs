@@ -13,6 +13,7 @@ using Fooxboy.MusicX.Uwp.Resources.ContentDialogs;
 using Windows.UI.Xaml;
 using Windows.UI.Popups;
 using Fooxboy.MusicX.Uwp.Services.VKontakte;
+using Windows.Storage;
 
 namespace Fooxboy.MusicX.Uwp.ViewModels
 {
@@ -20,6 +21,8 @@ namespace Fooxboy.MusicX.Uwp.ViewModels
     {
         private PlaylistViewModel()
         {
+            DownloadIsActive = true;
+
             EditPlaylist = new RelayCommand(async () =>
             {
                 if(Playlist.Id != 1 & Playlist.Id != 2 & Playlist.Id != 1000 && Playlist.IsLocal)
@@ -31,6 +34,41 @@ namespace Fooxboy.MusicX.Uwp.ViewModels
                     await new MessageDialog("Этот плейлист невозможно изменить", "Ошибка редактирования плейлиста").ShowAsync();
                 }
                 
+            });
+
+            DownloadPlaylist = new RelayCommand(async () =>
+            {
+                DownloadIsActive = false;
+                Changed("DownloadIsActive");
+
+                try
+                {
+                    var settings = ApplicationData.Current.LocalSettings;
+                    int countTracks = (int)settings.Values["CountDownloads"];
+                    int countTracksWithAlbum = countTracks + Playlist.Tracks.Count;
+
+                    if (!StaticContent.IsPro)
+                    {
+                        if (countTracksWithAlbum > 19) await new MessageDialog("Извините, но загрузка более 20 треков доступна только  в Pro версии.").ShowAsync();
+                        else
+                        {
+                            var service = DownloaderService.GetService;
+                            await service.StartDownloadPlaylist(Playlist);
+                        }
+                    }
+                    else
+                    {
+                        var service = DownloaderService.GetService;
+                        await service.StartDownloadPlaylist(Playlist);
+                    }
+
+
+                }
+                catch (Exception e)
+                {
+                    await ContentDialogService.Show(new ExceptionDialog("Невозможно начать загрузку плейлиста", "Попробуйте ещё раз", e));
+                }
+
             });
         }
 
@@ -45,8 +83,12 @@ namespace Fooxboy.MusicX.Uwp.ViewModels
             }
         }
 
+        public bool DownloadIsActive { get; set; }
 
         public RelayCommand EditPlaylist { get; set; }
+        public RelayCommand DownloadPlaylist { get; set; }
+
+        public string Description { get; set; }
 
         private ObservableCollection<AudioFile> music;
         public ObservableCollection<AudioFile> Music
@@ -65,6 +107,14 @@ namespace Fooxboy.MusicX.Uwp.ViewModels
             }
         }
 
+        public Visibility VisibilityDescription
+        {
+            get
+            {
+                if (Playlist != null) return Playlist.IsAlbum ? Visibility.Collapsed : Visibility.Visible;
+                else return Visibility.Collapsed;
+            }
+        }
 
         public Visibility VisibilityInfo
         {

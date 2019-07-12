@@ -10,6 +10,7 @@ using Android.Runtime;
 using Android.Views;
 using Android.Widget;
 using Fooxboy.MusicX.AndroidApp.Adapters;
+using Fooxboy.MusicX.AndroidApp.Services;
 
 namespace Fooxboy.MusicX.AndroidApp
 {
@@ -23,31 +24,8 @@ namespace Fooxboy.MusicX.AndroidApp
 
             SetContentView(Resource.Layout.homeActivity);
 
-            var tracksListView = FindViewById<ListView>(Resource.Id.tracks);
-
-            var list = new List<Models.AudioFile>();
-
-            var i = 0;
-            while(i < 50)
-            {
-                list.Add(new Models.AudioFile()
-                {
-                    Title = $"Название трека {i}",
-                    Artist = $"Имя исполнителя {i}",
-                    
-                });
-                i++;
-            }
-
-
-            tracksListView.Adapter = new TrackAdapter(this, list, tracksListView);
-
-            tracksListView.ItemClick += TracksListView_ItemClick;
+           
         }
 
-        private void TracksListView_ItemClick(object sender, AdapterView.ItemClickEventArgs e)
-        {
-            Toast.MakeText(this, "ТЫК НАХУЙ", ToastLength.Short);
-        }
     }
 }

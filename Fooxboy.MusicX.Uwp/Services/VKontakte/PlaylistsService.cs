@@ -42,7 +42,8 @@ namespace Fooxboy.MusicX.Uwp.Services.VKontakte
                 TracksFiles = tracksFiles,
                 Genre = playlist.Genre,
                 IsAlbum = playlist.IsAlbum,
-                Year = playlist.Year
+                Year = playlist.Year,
+                Description = playlist.Description
             };
 
             return playlistFile;

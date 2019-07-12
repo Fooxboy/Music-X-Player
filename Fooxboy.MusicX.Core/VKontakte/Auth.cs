@@ -53,5 +53,22 @@ namespace Fooxboy.MusicX.Core.VKontakte
             StaticContent.UserId = userInfo.Id;
         }
 
+        public static void AutoSync(string token, ICaptchaSolver captchaSolver)
+        {
+            var services = new ServiceCollection();
+            services.AddAudioBypass();
+
+            var api = new VkApi(services);
+            api.CaptchaSolver = captchaSolver;
+            api.Authorize(new ApiAuthParams()
+            {
+                AccessToken = token
+            });
+
+            StaticContent.VkApi = api;
+            var userInfo = Users.Info.CurrentUserSync();
+            StaticContent.UserId = userInfo.Id;
+        }
+
     }
 }

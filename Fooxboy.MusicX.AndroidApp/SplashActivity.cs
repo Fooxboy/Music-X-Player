@@ -13,7 +13,7 @@ using Android.Widget;
 
 namespace Fooxboy.MusicX.AndroidApp
 {
-    [Activity(Label = "Music X", Theme = "@style/Splash", MainLauncher = true)]
+    [Activity(Label = "Music X", Theme = "@style/Splash", MainLauncher = true, NoHistory = true)]
     public class SplashActivity : AppCompatActivity
     {
         protected override void OnCreate(Bundle savedInstanceState)
@@ -33,7 +33,7 @@ namespace Fooxboy.MusicX.AndroidApp
         // Simulates background work that happens behind the splash screen
         async void SimulateStartup()
         {
-            await Task.Delay(5000); // Simulate a bit of startup work.
+            //await Task.Delay(5000); // Simulate a bit of startup work.
             StartActivity(new Intent(Application.Context, typeof(MainActivity)));
         }
     }

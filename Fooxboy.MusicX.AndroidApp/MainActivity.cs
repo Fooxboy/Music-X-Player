@@ -10,6 +10,10 @@ using Android.Views;
 using Android.Widget;
 using Fooxboy.MusicX.AndroidApp.Adapters;
 using Fooxboy.MusicX.AndroidApp.Resources.fragments;
+using Fooxboy.MusicX.AndroidApp.Services;
+using Microsoft.AppCenter;
+using Microsoft.AppCenter.Analytics;
+using Microsoft.AppCenter.Crashes;
 
 namespace Fooxboy.MusicX.AndroidApp
 {
@@ -21,25 +25,28 @@ namespace Fooxboy.MusicX.AndroidApp
         {
             base.OnCreate(savedInstanceState);
             Xamarin.Essentials.Platform.Init(this, savedInstanceState);
+
+            AppCenter.Start("ee629636-643f-425c-9ce1-6444adada296",
+                   typeof(Analytics), typeof(Crashes));
+
             SetContentView(Resource.Layout.activity_main);
             textMessage = FindViewById<Button>(Resource.Id.message);
             BottomNavigationView navigation = FindViewById<BottomNavigationView>(Resource.Id.navigation);
             navigation.SetOnNavigationItemSelectedListener(this);
 
-            var f = new HomeFragment();
-            FragmentManager.BeginTransaction().Replace(Resource.Id.content_frame, f).Commit();
-            SetTitle(Resource.String.title_home);
-            /*textMessage.Click += (e, a) =>
+            if (AuthService.IsLoggedIn())
             {
-                Intent intent = new Intent(this, typeof(Resource.Layout.homeActivity));
+                Fooxboy.MusicX.Core.VKontakte.Auth.AutoSync(AuthService.GetToken(), null);
+                var f = new HomeFragment();
+                FragmentManager.BeginTransaction().Replace(Resource.Id.content_frame, f).Commit();
+                SetTitle(Resource.String.title_home);
+            }else
+            {
+
+                Intent intent = new Intent(this.ApplicationContext, typeof(AuthActivity));
+                intent.SetFlags(ActivityFlags.NewTask);
                 StartActivity(intent);
-            };*/
-
-
-            // ПРОВЕРКА НА ГЕЯ (авторизован ли в вк)
-            
-
-            
+            }
         }
         public override void OnRequestPermissionsResult(int requestCode, string[] permissions, [GeneratedEnum] Android.Content.PM.Permission[] grantResults)
         {

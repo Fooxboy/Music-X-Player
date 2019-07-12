@@ -24,10 +24,11 @@ namespace Fooxboy.MusicX.AndroidApp.Services
 
         }
 
-        public async static Task<List<AudioFile>> GetMusicLibrary(int count, int offset)
+        public  static List<AudioFile> GetMusicLibrary(int count, int offset)
         {
-            var tracksvk = await Fooxboy.MusicX.Core.VKontakte.Music.Library.Tracks(count, offset);
-            return tracksvk.ConvertToAudioFile();
+            var tracksvk = Fooxboy.MusicX.Core.VKontakte.Music.Library.TracksSync(count, offset);
+            var tracks = tracksvk.ConvertToAudioFile();
+            return tracks;
         }
 
         public static List<AudioFile> ConvertToAudioFile(this IList<IAudioFile> music, string cover = null)
@@ -42,11 +43,11 @@ namespace Fooxboy.MusicX.AndroidApp.Services
                 {
                     if (track.Cover == "no")
                     {
-                        coverImage = "ms-appx:///Assets/Images/placeholder.png";
+                        coverImage = "placeholder";
                     }
                     else
                     {
-                        //coverImage = await ImagesService.CoverAudio(track);
+                        coverImage =  ImagesService.CoverTrack(track);
                     }
                 }
                 else
@@ -55,8 +56,6 @@ namespace Fooxboy.MusicX.AndroidApp.Services
                 }
 
 
-
-                coverImage = null;
                 var audiofile = new AudioFile()
                 {
                     Artist = track.Artist,

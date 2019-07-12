@@ -22,5 +22,6 @@ namespace Fooxboy.MusicX.Uwp.Models
         public bool IsAlbum { get; set; }
         public string Genre { get; set; }
         public string Year { get; set; }
+        public string Description { get; set; }
     }
 }
