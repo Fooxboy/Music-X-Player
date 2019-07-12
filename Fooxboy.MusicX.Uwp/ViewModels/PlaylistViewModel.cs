@@ -114,6 +114,10 @@ namespace Fooxboy.MusicX.Uwp.ViewModels
                 if (Playlist != null) return Playlist.IsAlbum ? Visibility.Collapsed : Visibility.Visible;
                 else return Visibility.Collapsed;
             }
+            set
+            {
+                //support x:bind
+            }
         }
 
         public Visibility VisibilityInfo
