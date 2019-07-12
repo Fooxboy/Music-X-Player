@@ -16,6 +16,7 @@
         android:layout_marginTop = "3dp"
             android:minWidth="25px"
             android:minHeight="25px"
+        android:background="@drawable/round_img"
             android:id="@+id/imageViewCover" />
 
         <LinearLayout
