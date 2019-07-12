@@ -19,7 +19,7 @@ using Java.Lang;
 
 namespace Fooxboy.MusicX.AndroidApp.Resources.fragments
 {
-    public class HomeFragment : Fragment, AbsListView.IOnScrollListener
+    public class HomeFragment : Fragment
     {
 
         private int preLast;
@@ -47,7 +47,7 @@ namespace Fooxboy.MusicX.AndroidApp.Resources.fragments
 
             tracksView.SetAdapter(adapter);
             tracksView.SetLayoutManager(new LinearLayoutManager(Application.Context, LinearLayoutManager.Vertical, false));
-
+            tracksView.AddOnScrollListener(new Listeners.OnScrollToBottomListener());
 
             //Tracks;
             var task = Task.Run(() =>
@@ -112,27 +112,14 @@ namespace Fooxboy.MusicX.AndroidApp.Resources.fragments
 
         }
 
-        public void OnScroll(AbsListView view, int firstVisibleItem, int visibleItemCount, int totalItemCount)
-        {
-            try
-            {
-                //Toast.MakeText(Application.Context, "Оно скролитЬся", ToastLength.Long).Show();
-                if (view.LastVisiblePosition == view.Adapter.Count - 1 && view.GetChildAt(view.ChildCount - 1).Bottom <= view.Height)
-                {
-                    Toast.MakeText(Application.Context, "Мы на дне", ToastLength.Long).Show();
-                }
-            }
-            catch
-            {
+    
 
-            }
-            
+        //Toast.MakeText(Application.Context, "Оно скролитЬся", ToastLength.Long).Show();
+        //
+        //if (view.LastVisiblePosition == view.Adapter.Count - 1 && view.GetChildAt(view.ChildCount - 1).Bottom <= view.Height)
+        //{
+        //    Toast.MakeText(Application.Context, "Мы на дне", ToastLength.Long).Show();
+        //}
 
-        }
-
-        public void OnScrollStateChanged(AbsListView view, [GeneratedEnum] ScrollState scrollState)
-        {
-            //throw new NotImplementedException();
-        }
     }
 }

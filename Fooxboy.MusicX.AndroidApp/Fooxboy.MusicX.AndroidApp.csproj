@@ -70,6 +70,7 @@
     <Compile Include="Adapters\TrackAdapter.cs" />
     <Compile Include="HomeActivity.cs" />
     <Compile Include="AuthActivity.cs" />
+    <Compile Include="Listeners\OnScrollToBottomListener.cs" />
     <Compile Include="MainActivity.cs" />
     <Compile Include="Models\AudioFile.cs" />
     <Compile Include="Models\PlaylistFile.cs" />
