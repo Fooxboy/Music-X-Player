@@ -30,6 +30,7 @@ namespace Fooxboy.MusicX.AndroidApp.Resources.fragments
         }
 
         TrackAdapter adapter = null;
+        bool HasLoading = true;
 
         public override View OnCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
         {
@@ -47,33 +48,49 @@ namespace Fooxboy.MusicX.AndroidApp.Resources.fragments
 
             tracksView.SetAdapter(adapter);
             tracksView.SetLayoutManager(new LinearLayoutManager(Application.Context, LinearLayoutManager.Vertical, false));
-            tracksView.AddOnScrollListener(new Listeners.OnScrollToBottomListener());
 
-            //Tracks;
-            var task = Task.Run(() =>
+            var scrollListener = new Listeners.OnScrollToBottomListener(() =>
             {
-                tracks = MusicService.GetMusicLibrary(20, 0);
-                var i = 1 + 1;
-            });
-
-
-            task.ContinueWith((t) =>
-            {
-                while (tracks.Count == 0)
+                if (!HasLoading) return;
+                var task = Task.Run(() =>
                 {
-                    System.Threading.Thread.Sleep(500);
+                    handler.Post(new Runnable(() =>
+                    {
+                        progressBar.Visibility = ViewStates.Visible;
+                    }));
+                    tracks = MusicService.GetMusicLibrary(15, adapter.ItemCount);
+                    var i = 1 + 1; //Без этого нихуя не работает.
+                });
+
+                bool end = false;
+                task.ContinueWith((t) =>
+                {
+                    while (tracks.Count == 0)
+                    {
+                        System.Threading.Thread.Sleep(300);
+                    }
+
+                    HasLoading = !(tracks.Count < 15);
+                    handler.Post(new Runnable(() =>
+                    {
+                        var count = adapter.ItemCount;
+                        adapter.AddItems(tracks);
+                        adapter.NotifyItemRangeChanged(count, tracks.Count);
+                        progressBar.Visibility = ViewStates.Invisible;
+                        end = true;
+                    }));
+
+                });
+                var a = task.ConfigureAwait(false);
+                while (!end)
+                {
+                    System.Threading.Thread.Sleep(300);
                 }
-
-                handler.Post(new Runnable(() =>
-                {
-                    adapter.AddItems(tracks);
-                    adapter.NotifyDataSetChanged();
-                    progressBar.Visibility = ViewStates.Invisible;
-                }));
-                
             });
+            tracksView.AddOnScrollListener(scrollListener);
 
-            var a = task.ConfigureAwait(false);
+            if (adapter.ItemCount == 0) scrollListener.InvokeCallback();
+
 
             /* плейлисты ебац */
 

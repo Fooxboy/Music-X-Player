@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-
+using System.Threading.Tasks;
 using Android.App;
 using Android.Content;
 using Android.OS;
@@ -16,6 +16,25 @@ namespace Fooxboy.MusicX.AndroidApp.Listeners
 {
     public class OnScrollToBottomListener: RecyclerView.OnScrollListener
     {
+        private Action callback;
+        private bool isLoading = false;
+        public OnScrollToBottomListener(Action a)
+        {
+            callback = a;
+        }
+
+        public void InvokeCallback()
+        {
+            Toast.MakeText(Application.Context, "МЫ НА ДНЕ", ToastLength.Long).Show();
+
+            if (isLoading) return;
+            isLoading = true;
+            Task.Run(() =>
+            {
+                callback?.Invoke();
+                isLoading = false;
+            });
+        }
 
         public override void OnScrolled(RecyclerView recyclerView, int dx, int dy)
         {
@@ -24,25 +43,19 @@ namespace Fooxboy.MusicX.AndroidApp.Listeners
             var lm = (LinearLayoutManager)recyclerView.GetLayoutManager();
             if (lm.FindLastCompletelyVisibleItemPosition() == recyclerView.GetAdapter().ItemCount - 1)
             {
-                //МЫ НА ДНЕ СЛАВК
                 Toast.MakeText(Application.Context, "МЫ НА ДНЕ", ToastLength.Long).Show();
-            }
-            /*int visibleItemCount = lm.ChildCount;//смотрим сколько элементов на экране
-            int totalItemCount = lm.ItemCount;//сколько всего элементов
-            int firstVisibleItems = lm.FindFirstVisibleItemPosition();//какая позиция первого элемента
 
-            if (!isLoading)
-            {//проверяем, грузим мы что-то или нет, эта переменная должна быть вне класса  OnScrollListener 
-                if ((visibleItemCount + firstVisibleItems) >= totalItemCount)
+                if (isLoading) return;
+                isLoading = true;
+                Task.Run(() =>
                 {
-                    isLoading = true;//ставим флаг что мы попросили еще элемены
-                    if (loadingListener != null)
-                    {
-                        loadingListener.loadMoreItems(totalItemCount);//тут я использовал калбэк который просто говорит наружу что нужно еще элементов и с какой позиции начинать загрузку
-                    }
-                }
-            }*/
+                    callback?.Invoke();
+                    isLoading = false;
+                });
+                
 
+                //МЫ НА ДНЕ СЛАВК
+            }
         }
 
     }
