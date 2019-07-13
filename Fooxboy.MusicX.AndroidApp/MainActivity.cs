@@ -92,7 +92,9 @@ namespace Fooxboy.MusicX.AndroidApp
                     //TODO
                     return true;
                 case Resource.Id.navigation_settings:
-                    //TODO
+                    f = new SettingsFragment();
+                    FragmentManager.BeginTransaction().Replace(Resource.Id.content_frame, f).Commit();
+                    SetTitle(Resource.String.title_settings);
                     return true;
             }
             return false;
