@@ -3400,7 +3400,7 @@ namespace Fooxboy.MusicX.AndroidApp
 			public const int support_simple_spinner_dropdown_item = 2131361857;
 			
 			// aapt resource value: 0x7F0A0042
-			public const int ToolBarLayout = 2131361858;
+			public const int toolbarlayout = 2131361858;
 			
 			// aapt resource value: 0x7F0A0043
 			public const int tooltip = 2131361859;
