@@ -33,6 +33,7 @@
             android:layout_height="100dp"
             android:padding="28dp"
             android:layout_marginLeft="280dp"
+            android:clickable="true"
         android:src="@drawable/exit"
         android:id="@+id/exit_btn"/>
     </RelativeLayout>
