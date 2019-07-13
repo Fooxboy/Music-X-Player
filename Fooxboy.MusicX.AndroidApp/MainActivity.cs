@@ -17,7 +17,7 @@ using Microsoft.AppCenter.Crashes;
 
 namespace Fooxboy.MusicX.AndroidApp
 {
-    [Activity(Label = "@string/app_name", Theme = "@style/AppTheme")]
+    [Activity(Label = "@string/app_name", Theme = "@style/CustomTheme")]
     public class MainActivity : AppCompatActivity, BottomNavigationView.IOnNavigationItemSelectedListener
     {
         private Button textMessage;
@@ -34,6 +34,11 @@ namespace Fooxboy.MusicX.AndroidApp
             BottomNavigationView navigation = FindViewById<BottomNavigationView>(Resource.Id.navigation);
             navigation.SetOnNavigationItemSelectedListener(this);
 
+            var toolbar = FindViewById<Toolbar>(Resource.Id.toolbar);
+            SetActionBar(toolbar);
+            ActionBar.Title = "My Toolbar";
+
+
             if (AuthService.IsLoggedIn())
             {
                 Fooxboy.MusicX.Core.VKontakte.Auth.AutoSync(AuthService.GetToken(), null);
@@ -48,6 +53,20 @@ namespace Fooxboy.MusicX.AndroidApp
                 StartActivity(intent);
             }
         }
+
+        public override bool OnCreateOptionsMenu(IMenu menu)
+        {
+            MenuInflater.Inflate(Resource.Menu.top_menus, menu);
+            return base.OnCreateOptionsMenu(menu);
+        }
+
+        public override bool OnOptionsItemSelected(IMenuItem item)
+        {
+            Toast.MakeText(this, "ТЫК НАХУЙ",
+                ToastLength.Short).Show();
+            return base.OnOptionsItemSelected(item);
+        }
+
         public override void OnRequestPermissionsResult(int requestCode, string[] permissions, [GeneratedEnum] Android.Content.PM.Permission[] grantResults)
         {
             Xamarin.Essentials.Platform.OnRequestPermissionsResult(requestCode, permissions, grantResults);
