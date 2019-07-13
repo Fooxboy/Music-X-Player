@@ -248,7 +248,7 @@
     <AndroidResource Include="Resources\drawable\round_img.xml" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Resources\layout\toolbar.xml" />
+    <AndroidResource Include="Resources\layout\toolbar.xml" />
   </ItemGroup>
   <ItemGroup>
     <AndroidResource Include="Resources\drawable\ic_search.png" />
