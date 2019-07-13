@@ -20,7 +20,6 @@ namespace Fooxboy.MusicX.AndroidApp
     [Activity(Label = "@string/app_name")]
     public class MainActivity : AppCompatActivity, BottomNavigationView.IOnNavigationItemSelectedListener
     {
-        private Button textMessage;
         protected override void OnCreate(Bundle savedInstanceState)
         {
             base.OnCreate(savedInstanceState);
@@ -29,15 +28,15 @@ namespace Fooxboy.MusicX.AndroidApp
             AppCenter.Start("ee629636-643f-425c-9ce1-6444adada296",
                    typeof(Analytics), typeof(Crashes));
 
+            
+
             SetContentView(Resource.Layout.activity_main);
-            textMessage = FindViewById<Button>(Resource.Id.message);
-            BottomNavigationView navigation = FindViewById<BottomNavigationView>(Resource.Id.navigation);
-            navigation.SetOnNavigationItemSelectedListener(this);
 
             var toolbar = FindViewById<Toolbar>(Resource.Id.toolbar);
             SetActionBar(toolbar);
-            ActionBar.Title = "Log";
-
+            ActionBar.Title = "title bar";
+            BottomNavigationView navigation = FindViewById<BottomNavigationView>(Resource.Id.navigation);
+            navigation.SetOnNavigationItemSelectedListener(this);
 
             if (AuthService.IsLoggedIn())
             {

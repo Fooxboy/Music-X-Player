@@ -6,25 +6,15 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <include
-        android:id="@+id/toolbar"
-        layout="@layout/toolbarlayout" />
-    <!--<Button
-        android:id="@+id/message"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_centerInParent="true"
-        android:layout_marginLeft="@dimen/activity_horizontal_margin"
-        android:layout_marginStart="@dimen/activity_horizontal_margin"
-        android:layout_marginTop="@dimen/activity_vertical_margin"
-        android:text="@string/title_home" />-->
+
+    <include android:id="@+id/toolbar" layout="@layout/toolbar" />
 
     <FrameLayout
-        android:id="@+id/content_frame" 
+        android:id="@+id/content_frame"
         android:layout_width="match_parent"
-        android:layout_height="match_parent" 
-        android:layout_above="@+id/bottom_navigation"/>
-
+        android:layout_height="match_parent"
+        android:layout_above="@+id/bottom_navigation"
+        android:layout_marginTop="?android:attr/actionBarSize" />
 
     <android.support.design.widget.BottomNavigationView
         android:id="@+id/navigation"

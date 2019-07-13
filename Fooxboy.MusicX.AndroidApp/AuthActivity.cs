@@ -15,7 +15,7 @@ using Java.Lang;
 
 namespace Fooxboy.MusicX.AndroidApp
 {
-    [Activity(Label = "@string/app_name", Theme = "@style/AppTheme")]
+    [Activity(Label = "@string/app_name")]
     public class AuthActivity : Activity
     {
         private EditText loginText;
