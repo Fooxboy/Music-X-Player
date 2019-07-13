@@ -10,4 +10,5 @@
   <string name="pwd_hint">Пароль</string>
     <string name="PlaylistsTitleString">Плейлисты</string>
     <string name="MusicTitleString">Музыка</string>
+  <string name="settings_main">Основные</string>
 </resources>
