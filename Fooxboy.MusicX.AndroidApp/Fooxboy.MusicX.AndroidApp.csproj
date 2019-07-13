@@ -248,6 +248,15 @@
     <AndroidResource Include="Resources\drawable\round_img.xml" />
   </ItemGroup>
   <ItemGroup>
+    <AndroidResource Include="Resources\layout\ToolBarLayout.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\drawable\ic_search.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\menu\top_menus.xml" />
+  </ItemGroup>
+  <ItemGroup>
     <AndroidResource Include="Resources\layout\activity_settings.axml">
       <SubType>Designer</SubType>
     </AndroidResource>
