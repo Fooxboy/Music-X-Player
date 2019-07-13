@@ -33,7 +33,7 @@
             android:textAppearance="?android:attr/textAppearanceMedium"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="3dp"
+            android:layout_marginTop="0dp"
             android:id="@+id/textViewTitle"
             android:textColor="#ff000000"
             android:fadingEdge="horizontal"
@@ -63,7 +63,7 @@
         android:id="@+id/DurationTrack"
         android:layout_gravity="center|right"
         android:textAlignment="textEnd"
-        android:layout_marginRight="12.0dp" />
+        android:layout_marginRight="15.0dp" />
 
 </LinearLayout>
 
