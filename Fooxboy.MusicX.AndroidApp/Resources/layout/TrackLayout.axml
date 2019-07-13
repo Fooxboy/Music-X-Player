@@ -1,46 +1,69 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"  
-    android:orientation="horizontal"  
-    android:layout_width="fill_parent"  
-    android:layout_height="50dp"  
-    android:minWidth="25px"  
-    android:minHeight="25px"  
-    android:paddingBottom="4dp">
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="horizontal"
+    android:layout_width="match_parent"
+    android:layout_height="62dp"
+    android:minWidth="25px"
+    android:minHeight="25px"
+    android:paddingBottom="4dp"
+    android:gravity="fill">
 
-    <ImageView
-            android:src="@android:drawable/ic_menu_gallery"
-            android:layout_width="46dp"
-            android:layout_height="46dp"
+    <com.makeramen.roundedimageview.RoundedImageView
+        android:src= "@drawable/placeholder"
+        android:layout_width="45dp"
+        android:layout_height="45dp"
         android:layout_marginLeft = "15dp"
-        android:layout_marginTop = "3dp"
-            android:minWidth="25px"
-            android:minHeight="25px"
-        android:background="@drawable/round_img"
-            android:id="@+id/imageViewCover" />
+        android:minWidth="25px"
+        android:minHeight="25px"
+        app:riv_corner_radius="5dp"
+        android:id="@+id/imageViewCover"
+        android:foregroundGravity="bottom"
+        android:layout_gravity="center" />
 
-        <LinearLayout
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:orientation= "vertical"
+        android:layout_marginLeft="15dp"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center">
+        <TextView
+            android:textAppearance="?android:attr/textAppearanceMedium"
             android:layout_width="wrap_content"
-            android:orientation= "vertical"
-            android:layout_marginLeft="10dp"
-            android:layout_height="wrap_content">
-             <TextView
-                android:text="Название трека"
-                android:textAppearance="?android:attr/textAppearanceMedium"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="3dp"
-                android:id="@+id/textViewTitle"
-                android:textColor="#ff000000" />
-            <TextView
-                android:text="Имя исполнителя"
-                android:textAppearance="?android:attr/textAppearanceMedium"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:id="@+id/textViewArtist"
-                android:textColor="#ff4e4e4e"
-                android:textSize="15dp" />
-       
-        </LinearLayout>  
+            android:layout_height="wrap_content"
+            android:layout_marginTop="3dp"
+            android:id="@+id/textViewTitle"
+            android:textColor="#ff000000"
+            android:fadingEdge="horizontal"
+            android:scrollHorizontally="true"
+            android:singleLine="true"
+            android:textSize = "15dp"
+            android:text="Название трека"
+            android:maxWidth="220dp" />
+        <TextView
+            android:text="Имя исполнителя"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fadingEdge="horizontal"
+            android:scrollHorizontally="true"
+            android:id="@+id/textViewArtist"
+            android:textColor="#ff4e4e4e"
+            android:textSize="12dp"
+            android:maxWidth="205dp"
+            android:singleLine="true" />
     </LinearLayout>
+    <TextView
+        android:text="0:00"
+        android:textAppearance="?android:attr/textAppearanceSmall"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/DurationTrack"
+        android:layout_gravity="center|right"
+        android:textAlignment="textEnd"
+        android:layout_marginRight="12.0dp" />
+
+</LinearLayout>
 

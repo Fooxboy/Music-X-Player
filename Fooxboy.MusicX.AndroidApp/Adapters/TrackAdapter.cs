@@ -36,6 +36,7 @@ namespace Fooxboy.MusicX.AndroidApp.Adapters
             var holder = hold as TracksViewHolder;
             holder.Artist.Text = tracks[position].Artist;
             holder.Title.Text = tracks[position].Title;
+            holder.Duration.Text = tracks[position].DurationMinutes;
 
             if (tracks[position].Cover == "placeholder")
             {

@@ -3,6 +3,7 @@ using Android.Runtime;
 using Android.Support.V7.Widget;
 using Android.Views;
 using Android.Widget;
+using ImageViews.Rounded;
 
 namespace Fooxboy.MusicX.AndroidApp.ViewHolders
 {
@@ -10,12 +11,12 @@ namespace Fooxboy.MusicX.AndroidApp.ViewHolders
     {
         public TextView Title { get; private set; }
 
-        public ImageView Cover { get; private set; }
+        public RoundedImageView Cover { get; private set; }
 
         public PlaylistViewHolder(View itemView) : base(itemView)
         {
             Title = itemView.FindViewById<TextView>(Resource.Id.textViewPlaylist);
-            Cover = itemView.FindViewById<ImageView>(Resource.Id.ImagePlaylist);
+            Cover = itemView.FindViewById<RoundedImageView>(Resource.Id.ImagePlaylist);
         }
     }
 }

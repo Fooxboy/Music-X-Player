@@ -29,7 +29,7 @@ namespace Fooxboy.MusicX.AndroidApp.DialogFragments
             var button = view.FindViewById<Button>(Resource.Id.buttonIncorrectLoginOk);
             button.Click += Button_Click;
 
-            return base.OnCreateView(inflater, container, savedInstanceState);
+            return view;
 
         }
 

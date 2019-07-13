@@ -32,7 +32,7 @@ namespace Fooxboy.MusicX.AndroidApp
             Button btn = FindViewById<Button>(Resource.Id.log_in_btn);
             btn.Click += async (sender, e) => 
             {
-                if(loginText.Text == null || passwordText.Text == null)
+                if(loginText.Text == "" || passwordText.Text == "")
                 {
                     Toast.MakeText(this, "Вы не указали логин и пароль", ToastLength.Long).Show();
                     return;
