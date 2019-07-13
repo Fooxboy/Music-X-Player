@@ -25,7 +25,7 @@ namespace Fooxboy.MusicX.AndroidApp.Listeners
 
         public void InvokeCallback()
         {
-            Toast.MakeText(Application.Context, "МЫ НА ДНЕ", ToastLength.Long).Show();
+            //Toast.MakeText(Application.Context, "МЫ НА ДНЕ", ToastLength.Long).Show();
 
             if (isLoading) return;
             isLoading = true;
