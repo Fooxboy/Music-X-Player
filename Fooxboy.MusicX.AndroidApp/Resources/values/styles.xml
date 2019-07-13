@@ -3,7 +3,6 @@
   <style name="CustomTheme" parent="@android:style/Theme.Material.Light.DarkActionBar">
     <item name="android:windowNoTitle">true</item>
     <item name="android:windowActionBar">false</item>
-    <item name="android:statusBarColor">#5A8622</item>
   </style>
 
   <style name="Splash" parent="Theme.AppCompat.Light.NoActionBar">
