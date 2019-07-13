@@ -21,8 +21,6 @@ namespace Fooxboy.MusicX.AndroidApp.Resources.fragments
 {
     public class HomeFragment : Fragment
     {
-
-        private int preLast;
         public override void OnCreate(Bundle savedInstanceState)
         {
             base.OnCreate(savedInstanceState);
@@ -60,6 +58,7 @@ namespace Fooxboy.MusicX.AndroidApp.Resources.fragments
                     }));
                     tracks = MusicService.GetMusicLibrary(15, adapter.ItemCount);
                     var i = 1 + 1; //Без этого нихуя не работает.
+                    Fooxboy.MusicX.Core.Log.Debug(i.ToString());
                 });
 
                 bool end = false;
@@ -105,6 +104,7 @@ namespace Fooxboy.MusicX.AndroidApp.Resources.fragments
             {
                 plist = PlaylistsService.GetPlaylistLibrary();
                 var i = 1 + 1; //Без этого говна почему-то не работает, лол
+                Fooxboy.MusicX.Core.Log.Debug(i.ToString());
 
             });
 

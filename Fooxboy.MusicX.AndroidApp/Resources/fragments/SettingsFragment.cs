@@ -30,16 +30,16 @@ namespace Fooxboy.MusicX.AndroidApp.Resources.fragments
             //exit_btn.SetOnClickListener(new Listeners.OnClickListener());
             
             //Строки из-за которых оно падает
-            exit_btn.Click += delegate
-            {
-                var prefs = Application.Context.GetSharedPreferences("MusicX", FileCreationMode.Private);
-                var editor = prefs.Edit();
-                editor.PutString("VKToken", null);
-                editor.Commit();
-                Intent intent = new Intent(Application.Context, typeof(AuthActivity));
-                intent.SetFlags(ActivityFlags.NewTask);
-                Application.Context.StartActivity(intent);
-            };
+            //exit_btn.Click += delegate
+            //{
+            //    var prefs = Application.Context.GetSharedPreferences("MusicX", FileCreationMode.Private);
+            //    var editor = prefs.Edit();
+            //    editor.PutString("VKToken", null);
+            //    editor.Commit();
+            //    Intent intent = new Intent(Application.Context, typeof(AuthActivity));
+            //    intent.SetFlags(ActivityFlags.NewTask);
+            //    Application.Context.StartActivity(intent);
+            //};
             return view;
         }
     }
