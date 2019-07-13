@@ -17,7 +17,7 @@ using Microsoft.AppCenter.Crashes;
 
 namespace Fooxboy.MusicX.AndroidApp
 {
-    [Activity(Label = "@string/app_name", Theme = "@style/CustomTheme")]
+    [Activity(Label = "@string/app_name")]
     public class MainActivity : AppCompatActivity, BottomNavigationView.IOnNavigationItemSelectedListener
     {
         private Button textMessage;
@@ -36,7 +36,7 @@ namespace Fooxboy.MusicX.AndroidApp
 
             var toolbar = FindViewById<Toolbar>(Resource.Id.toolbar);
             SetActionBar(toolbar);
-            ActionBar.Title = "My Toolbar";
+            ActionBar.Title = "Log";
 
 
             if (AuthService.IsLoggedIn())
