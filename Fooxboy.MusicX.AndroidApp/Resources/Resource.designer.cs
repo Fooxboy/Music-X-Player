@@ -3140,13 +3140,16 @@ namespace Fooxboy.MusicX.AndroidApp
 			public const int vklogin = 2131230923;
 			
 			// aapt resource value: 0x7F0800CC
-			public const int vkpassword = 2131230924;
+			public const int vkname = 2131230924;
 			
 			// aapt resource value: 0x7F0800CD
-			public const int withText = 2131230925;
+			public const int vkpassword = 2131230925;
 			
 			// aapt resource value: 0x7F0800CE
-			public const int wrap_content = 2131230926;
+			public const int withText = 2131230926;
+			
+			// aapt resource value: 0x7F0800CF
+			public const int wrap_content = 2131230927;
 			
 			static Id()
 			{

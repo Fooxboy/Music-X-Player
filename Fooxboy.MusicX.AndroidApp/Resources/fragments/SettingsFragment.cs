@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-
+using System.Threading.Tasks;
 using Android.App;
 using Android.Content;
 using Android.OS;
@@ -10,6 +10,9 @@ using Android.Runtime;
 using Android.Util;
 using Android.Views;
 using Android.Widget;
+using Fooxboy.MusicX.AndroidApp.Services;
+using ImageViews.Rounded;
+using Java.Lang;
 
 namespace Fooxboy.MusicX.AndroidApp.Resources.fragments
 {
@@ -25,12 +28,21 @@ namespace Fooxboy.MusicX.AndroidApp.Resources.fragments
         public override View OnCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
         {
             var view = inflater.Inflate(Resource.Layout.activity_settings, container, false);
-            var exit_btn = view.FindViewById<Button>(Resource.Id.exit_btn);
-            //exit_btn.Clickable = true; <--- Строка из-за которой оно падает
-            //exit_btn.SetOnClickListener(new Listeners.OnClickListener());
-            
-            //Строки из-за которых оно падает (вероятно уже нет)
-            exit_btn.SetOnClickListener(this);
+            var exitBtn = view.FindViewById<Button>(Resource.Id.exit_btn);
+            var displayname = view.FindViewById<TextView>(Resource.Id.vkname);
+            var vkPfp = view.FindViewById<RoundedImageView>(Resource.Id.vk_pfp);
+            Task.Run(() =>
+                {
+                    var userdata = Fooxboy.MusicX.Core.VKontakte.Users.Info.CurrentUserSync();
+                    var first = userdata.FirstName;
+                    var last = userdata.LastName;
+                    var im = userdata.PhotoUser;
+                    //TODO подгрузка кортиношки
+                    Handler handler = new Handler(Looper.MainLooper);
+                    handler.Post(new Runnable(() => { displayname.Text = $"{first} {last}"; }));
+                }
+                );
+            exitBtn.SetOnClickListener(this);
             return view;
         }
 
