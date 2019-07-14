@@ -9,7 +9,7 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="56dp"
-        android:layout_margin="15dp"
+        android:layout_margin="15dp" 
         android:background="@drawable/shadow"
         android:orientation="horizontal">
 
@@ -23,10 +23,12 @@
                 android:gravity="center_vertical|center_horizontal"
                 android:text="Music X"
                 android:textColor="@android:color/darker_gray"
-                android:textSize="14dp" />
-
+                android:textSize="14dp"
+                android:id="@+id/titlebar_title"
+            />
+            
         </RelativeLayout>
-
+        
     </LinearLayout>
 
     <FrameLayout
@@ -35,10 +37,8 @@
         android:layout_height="match_parent"
         android:layout_above="@+id/bottom_navigation"
         android:layout_marginTop="?android:attr/actionBarSize" >
-
+        
     </FrameLayout>
-    
-    
 
     <android.support.design.widget.BottomNavigationView
         android:id="@+id/navigation"

@@ -36,10 +36,13 @@ namespace Fooxboy.MusicX.AndroidApp.Resources.fragments
                     var userdata = Fooxboy.MusicX.Core.VKontakte.Users.Info.CurrentUserSync();
                     var first = userdata.FirstName;
                     var last = userdata.LastName;
-                    var im = userdata.PhotoUser;
-                    //TODO подгрузка кортиношки
+                    var im = ImagesService.PhotoUser(userdata.PhotoUser);
                     Handler handler = new Handler(Looper.MainLooper);
-                    handler.Post(new Runnable(() => { displayname.Text = $"{first} {last}"; }));
+                    handler.Post(new Runnable(() =>
+                    {
+                        displayname.Text = $"{first} {last}"; 
+                        vkPfp.SetImageString(im, vkPfp.Width, vkPfp.Height);
+                    }));
                 }
                 );
             exitBtn.SetOnClickListener(this);
