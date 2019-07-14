@@ -13,43 +13,69 @@
         android:background="@drawable/shadow">
     
         <com.makeramen.roundedimageview.RoundedImageView
-            android:layout_width="100dp"
-            android:layout_height="match_parent"
-            app:riv_corner_radius="999dp"
-            android:padding="14dp"
-        android:src="@drawable/placeholder"/>
+                android:layout_width="100dp"
+                android:layout_height="match_parent"
+                app:riv_corner_radius="999dp"
+                android:padding="14dp"
+                android:src="@drawable/placeholder"
+                android:id="@+id/vk_pfp"
+        />
 
         <TextView
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-        android:gravity="center_vertical"
-            android:layout_marginLeft="100dp"
-            android:textSize="18dp"
-        android:text="Иван Неиванов"/>
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="center_vertical"
+                android:layout_marginLeft="100dp"
+                android:textSize="18dp"
+                android:text="Иван Неиванов"
+                android:id="@+id/vkname"
+                android:textColor="@color/colorPrimaryDark"
+        />
         <Button
-                android:layout_width="46dp"
-                android:layout_height="46dp" 
+                android:layout_width="44dp"
+                android:layout_height="44dp"
                 android:layout_alignParentEnd="true"
                 android:layout_marginVertical="24dp"
                 android:layout_marginEnd="20dp"
                 android:gravity="center_vertical"
-                android:background="@drawable/exit"
+                android:background="@drawable/exit" 
                 android:id="@+id/exit_btn"
-                
         />
     </RelativeLayout>
-
-    <!-- put whatever you want -->
-
+    
+    <RelativeLayout android:layout_width="match_parent"
+                    android:layout_marginLeft="15dp"
+                    android:layout_marginRight="15dp"
+                    android:layout_marginTop="7.5dp"
+                    android:layout_height="70dp"
+                    android:background="@drawable/shadow"
+    >
+        
+        <ImageView android:layout_width="70dp" 
+                   android:layout_height="match_parent"
+                   android:src="@drawable/androidicon_pro"
+        />
+        <TextView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="center_vertical"
+                android:layout_marginLeft="70dp"
+                android:textSize="18dp"
+                android:text="Получите полный функционал с Music X Pro"
+                android:textColor="@color/colorPrimaryDark"
+        />
+    </RelativeLayout>
+    
     <TextView
-        android:text="@string/settings_main"
-        android:textAppearance="?android:attr/textAppearanceLarge"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="5dp"
-        android:layout_marginLeft="15dp"
-        android:minWidth="25px"
-        android:minHeight="25px"
-        android:id="@+id/textView1" />
+            android:text="@string/settings_main"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:layout_marginLeft="15dp"
+            android:minWidth="25px"
+            android:minHeight="25px"
+            android:id="@+id/textView1" 
+    />
 
 </LinearLayout>
