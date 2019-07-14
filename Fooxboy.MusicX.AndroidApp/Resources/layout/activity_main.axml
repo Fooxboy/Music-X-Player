@@ -23,7 +23,9 @@
                 android:gravity="center_vertical|center_horizontal"
                 android:text="Music X"
                 android:textColor="@android:color/darker_gray"
-                android:textSize="14dp" />
+                android:textSize="14dp"
+                android:id="@+id/titlebar_title"
+            />
             
         </RelativeLayout>
         

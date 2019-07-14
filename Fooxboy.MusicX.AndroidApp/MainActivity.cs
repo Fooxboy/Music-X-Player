@@ -59,13 +59,14 @@ namespace Fooxboy.MusicX.AndroidApp
         public bool OnNavigationItemSelected(IMenuItem item)
         {
             Fragment f;
+            var title = FindViewById<TextView>(Resource.Id.titlebar_title);
             switch (item.ItemId)
             {
                 case Resource.Id.navigation_home:
                     // textMessage.SetText(Resource.String.title_home);
                     f = new HomeFragment();
                     FragmentManager.BeginTransaction().Replace(Resource.Id.content_frame, f).Commit();
-                    SetTitle(Resource.String.title_home);
+                    title.Text = "Главная";
                     return true;
                 case Resource.Id.navigation_popular:
                     Intent intent = new Intent(this.ApplicationContext, typeof(AuthActivity));
@@ -78,7 +79,7 @@ namespace Fooxboy.MusicX.AndroidApp
                 case Resource.Id.navigation_settings:
                     f = new SettingsFragment();
                     FragmentManager.BeginTransaction().Replace(Resource.Id.content_frame, f).Commit();
-                    SetTitle(Resource.String.title_settings);
+                    title.Text = "Настройки";
                     return true;
             }
             return false;

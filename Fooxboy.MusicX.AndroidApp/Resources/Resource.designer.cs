@@ -3082,74 +3082,80 @@ namespace Fooxboy.MusicX.AndroidApp
 			// aapt resource value: 0x7F0800B9
 			public const int title = 2131230905;
 			
+			// aapt resource value: 0x7F0800BC
+			public const int titlebar_title = 2131230908;
+			
 			// aapt resource value: 0x7F0800BA
 			public const int titleDividerNoCustom = 2131230906;
 			
 			// aapt resource value: 0x7F0800BB
 			public const int title_template = 2131230907;
 			
-			// aapt resource value: 0x7F0800BC
-			public const int toolbar = 2131230908;
-			
 			// aapt resource value: 0x7F0800BD
-			public const int top = 2131230909;
+			public const int toolbar = 2131230909;
 			
 			// aapt resource value: 0x7F0800BE
-			public const int topPanel = 2131230910;
+			public const int top = 2131230910;
 			
 			// aapt resource value: 0x7F0800BF
-			public const int touch_outside = 2131230911;
+			public const int topPanel = 2131230911;
+			
+			// aapt resource value: 0x7F0800C0
+			public const int touch_outside = 2131230912;
 			
 			// aapt resource value: 0x7F080008
 			public const int TracksView = 2131230728;
 			
-			// aapt resource value: 0x7F0800C0
-			public const int transition_current_scene = 2131230912;
-			
 			// aapt resource value: 0x7F0800C1
-			public const int transition_layout_save = 2131230913;
+			public const int transition_current_scene = 2131230913;
 			
 			// aapt resource value: 0x7F0800C2
-			public const int transition_position = 2131230914;
+			public const int transition_layout_save = 2131230914;
 			
 			// aapt resource value: 0x7F0800C3
-			public const int transition_scene_layoutid_cache = 2131230915;
+			public const int transition_position = 2131230915;
 			
 			// aapt resource value: 0x7F0800C4
-			public const int transition_transform = 2131230916;
+			public const int transition_scene_layoutid_cache = 2131230916;
 			
 			// aapt resource value: 0x7F0800C5
-			public const int twofactor_confirm = 2131230917;
+			public const int transition_transform = 2131230917;
 			
 			// aapt resource value: 0x7F0800C6
-			public const int uniform = 2131230918;
+			public const int twofactor_confirm = 2131230918;
 			
 			// aapt resource value: 0x7F0800C7
-			public const int up = 2131230919;
+			public const int uniform = 2131230919;
 			
 			// aapt resource value: 0x7F0800C8
-			public const int useLogo = 2131230920;
+			public const int up = 2131230920;
 			
 			// aapt resource value: 0x7F0800C9
-			public const int view_offset_helper = 2131230921;
+			public const int useLogo = 2131230921;
 			
 			// aapt resource value: 0x7F0800CA
-			public const int visible = 2131230922;
+			public const int view_offset_helper = 2131230922;
 			
 			// aapt resource value: 0x7F0800CB
-			public const int vklogin = 2131230923;
-			
-			// aapt resource value: 0x7F0800CC
-			public const int vkname = 2131230924;
+			public const int visible = 2131230923;
 			
 			// aapt resource value: 0x7F0800CD
-			public const int vkpassword = 2131230925;
+			public const int vklogin = 2131230925;
 			
 			// aapt resource value: 0x7F0800CE
-			public const int withText = 2131230926;
+			public const int vkname = 2131230926;
 			
 			// aapt resource value: 0x7F0800CF
-			public const int wrap_content = 2131230927;
+			public const int vkpassword = 2131230927;
+			
+			// aapt resource value: 0x7F0800CC
+			public const int vk_pfp = 2131230924;
+			
+			// aapt resource value: 0x7F0800D0
+			public const int withText = 2131230928;
+			
+			// aapt resource value: 0x7F0800D1
+			public const int wrap_content = 2131230929;
 			
 			static Id()
 			{
