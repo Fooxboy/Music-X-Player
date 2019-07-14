@@ -13,7 +13,7 @@ using Android.Widget;
 
 namespace Fooxboy.MusicX.AndroidApp.Resources.fragments
 {
-    public class SettingsFragment : Fragment
+    public class SettingsFragment : Fragment, View.IOnClickListener
     {
         public override void OnCreate(Bundle savedInstanceState)
         {
@@ -25,22 +25,24 @@ namespace Fooxboy.MusicX.AndroidApp.Resources.fragments
         public override View OnCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
         {
             var view = inflater.Inflate(Resource.Layout.activity_settings, container, false);
-            var exit_btn = view.FindViewById<ImageView>(Resource.Id.exit_btn);
+            var exit_btn = view.FindViewById<Button>(Resource.Id.exit_btn);
             //exit_btn.Clickable = true; <--- Строка из-за которой оно падает
             //exit_btn.SetOnClickListener(new Listeners.OnClickListener());
             
-            //Строки из-за которых оно падает
-            //exit_btn.Click += delegate
-            //{
-            //    var prefs = Application.Context.GetSharedPreferences("MusicX", FileCreationMode.Private);
-            //    var editor = prefs.Edit();
-            //    editor.PutString("VKToken", null);
-            //    editor.Commit();
-            //    Intent intent = new Intent(Application.Context, typeof(AuthActivity));
-            //    intent.SetFlags(ActivityFlags.NewTask);
-            //    Application.Context.StartActivity(intent);
-            //};
+            //Строки из-за которых оно падает (вероятно уже нет)
+            exit_btn.SetOnClickListener(this);
             return view;
+        }
+
+        public void OnClick(View v)
+        {
+            var prefs = Application.Context.GetSharedPreferences("MusicX", FileCreationMode.Private);
+            var editor = prefs.Edit();
+            editor.PutString("VKToken", null);
+            editor.Commit();
+            Intent intent = new Intent(Application.Context, typeof(AuthActivity));
+            intent.SetFlags(ActivityFlags.NewTask);
+            Application.Context.StartActivity(intent);
         }
     }
 }
