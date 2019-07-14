@@ -536,6 +536,9 @@
     <PackageReference Include="Newtonsoft.Json">
       <Version>12.0.2</Version>
     </PackageReference>
+    <PackageReference Include="NLog">
+      <Version>4.6.5</Version>
+    </PackageReference>
     <PackageReference Include="taglib-sharp-netstandard2.0">
       <Version>2.1.0</Version>
     </PackageReference>
