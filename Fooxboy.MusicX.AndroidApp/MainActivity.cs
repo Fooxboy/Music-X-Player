@@ -17,7 +17,7 @@ using Microsoft.AppCenter.Crashes;
 
 namespace Fooxboy.MusicX.AndroidApp
 {
-    [Activity(Label = "@string/app_name")]
+    [Activity(Label = "@string/app_name", Theme = "@style/CustomTheme")]
     public class MainActivity : AppCompatActivity, BottomNavigationView.IOnNavigationItemSelectedListener
     {
         protected override void OnCreate(Bundle savedInstanceState)
