@@ -84,6 +84,7 @@
     <Compile Include="Services\MusicService.cs" />
     <Compile Include="Services\PlaylistsService.cs" />
     <Compile Include="Services\StaticContentService.cs" />
+    <Compile Include="Services\TaskService.cs" />
     <Compile Include="SplashActivity.cs" />
     <Compile Include="TwoFactorDialogActivity.cs" />
     <Compile Include="ViewHolders\PlaylistViewHolder.cs" />
