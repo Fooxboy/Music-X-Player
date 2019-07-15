@@ -11,6 +11,7 @@ using Android.Widget;
 using Fooxboy.MusicX.AndroidApp.Adapters;
 using Fooxboy.MusicX.AndroidApp.Resources.fragments;
 using Fooxboy.MusicX.AndroidApp.Services;
+using MediaManager;
 using Microsoft.AppCenter;
 using Microsoft.AppCenter.Analytics;
 using Microsoft.AppCenter.Crashes;
@@ -28,7 +29,7 @@ namespace Fooxboy.MusicX.AndroidApp
             AppCenter.Start("ee629636-643f-425c-9ce1-6444adada296",
                    typeof(Analytics), typeof(Crashes));
 
-            
+            CrossMediaManager.Current.Init();
 
             SetContentView(Resource.Layout.activity_main);
 

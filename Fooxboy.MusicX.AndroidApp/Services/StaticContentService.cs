@@ -15,5 +15,7 @@ namespace Fooxboy.MusicX.AndroidApp.Services
     public static class StaticContentService
     {
         public static string CodeTwoFactorAuth { get; set; }
+        public static bool RepeatPlaylist { get; set; }
+        public static bool RepeatTrack { get; set; }
     }
 }

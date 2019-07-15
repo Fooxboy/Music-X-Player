@@ -84,6 +84,7 @@
     <Compile Include="Services\AuthService.cs" />
     <Compile Include="Services\ImagesService.cs" />
     <Compile Include="Services\MusicService.cs" />
+    <Compile Include="Services\PlayingService.cs" />
     <Compile Include="Services\PlaylistsService.cs" />
     <Compile Include="Services\StaticContentService.cs" />
     <Compile Include="Services\TaskService.cs" />
@@ -139,6 +140,9 @@
     </PackageReference>
     <PackageReference Include="NLog">
       <Version>4.6.5</Version>
+    </PackageReference>
+    <PackageReference Include="Plugin.MediaManager">
+      <Version>0.7.2</Version>
     </PackageReference>
     <PackageReference Include="VkNet">
       <Version>1.44.0</Version>

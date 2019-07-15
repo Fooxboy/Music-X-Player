@@ -47,6 +47,12 @@ namespace Fooxboy.MusicX.AndroidApp.Models
             }
         }
 
+        public void SetCurrentTrack(AudioFile track)
+        {
+            currentItem = track;
+            currentIndex = currentItems.IndexOf(track);
+        }
+
         public AudioPlaylist(PlaylistFile playlist, AudioFile currentPlayAudioFile, bool repeat, bool repeatTrack)
         {
             currentItem = currentPlayAudioFile;
