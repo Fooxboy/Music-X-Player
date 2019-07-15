@@ -94,7 +94,7 @@
                                     <ColumnDefinition/>
                                 </Grid.ColumnDefinitions>
 
-                                <FontIcon FontSize="20" 
+                                <FontIcon FontSize="17" 
                                           Grid.Column="0" 
                                           FontFamily="Segoe MDL2 Assets"
                                           Glyph="&#xE8B1;" />
@@ -120,7 +120,7 @@
                                     <ColumnDefinition/>
                                 </Grid.ColumnDefinitions>
 
-                                <FontIcon FontSize="20" 
+                                <FontIcon FontSize="17" 
                                           Grid.Column="0" 
                                           FontFamily="Segoe MDL2 Assets"
                                           Glyph="&#xE70F;" />
@@ -147,7 +147,7 @@
                                     <ColumnDefinition/>
                                 </Grid.ColumnDefinitions>
 
-                                <FontIcon FontSize="20" 
+                                <FontIcon FontSize="17" 
                                           Grid.Column="0" 
                                           FontFamily="Segoe MDL2 Assets"
                                           Glyph="&#xE896;" />
