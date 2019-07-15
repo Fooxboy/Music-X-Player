@@ -11,6 +11,7 @@ namespace Fooxboy.MusicX.AndroidApp.Services
         public string Title { get; set; }
         public string Artist { get; set; }
         public string Cover { get; set; }
+        public AudioFile CurrentAudioFile { get; set; } 
 
         
         public static PlayingService Instanse => inst ?? (inst = new PlayingService());
@@ -27,6 +28,7 @@ namespace Fooxboy.MusicX.AndroidApp.Services
             Title = args.Title;
             Artist = args.Artist;
             Cover = args.Cover;
+            CurrentAudioFile = args;
         }
     }
 }
