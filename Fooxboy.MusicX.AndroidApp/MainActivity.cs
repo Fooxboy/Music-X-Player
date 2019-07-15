@@ -11,6 +11,7 @@ using Android.Widget;
 using Fooxboy.MusicX.AndroidApp.Adapters;
 using Fooxboy.MusicX.AndroidApp.Resources.fragments;
 using Fooxboy.MusicX.AndroidApp.Services;
+using MediaManager;
 using Microsoft.AppCenter;
 using Microsoft.AppCenter.Analytics;
 using Microsoft.AppCenter.Crashes;
