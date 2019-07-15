@@ -68,14 +68,12 @@
   <ItemGroup>
     <Compile Include="Adapters\PlaylistAdapter.cs" />
     <Compile Include="Adapters\TrackAdapter.cs" />
-    <Compile Include="Delegates\EventHandler.cs" />
     <Compile Include="DialogFragments\IncorrectLoginDialogFragment.cs" />
     <Compile Include="HomeActivity.cs" />
     <Compile Include="AuthActivity.cs" />
     <Compile Include="Listeners\OnScrollToBottomListener.cs" />
     <Compile Include="MainActivity.cs" />
     <Compile Include="Models\AudioFile.cs" />
-    <Compile Include="Models\AudioPlaylist.cs" />
     <Compile Include="Models\PlaylistFile.cs" />
     <Compile Include="Resources\fragments\HomeFragment.cs" />
     <Compile Include="Resources\fragments\SettingsFragment.cs" />
@@ -84,8 +82,6 @@
     <Compile Include="Services\AuthService.cs" />
     <Compile Include="Services\ImagesService.cs" />
     <Compile Include="Services\MusicService.cs" />
-    <Compile Include="Services\PlayerService.cs" />
-    <Compile Include="Services\PlayingService.cs" />
     <Compile Include="Services\PlaylistsService.cs" />
     <Compile Include="Services\StaticContentService.cs" />
     <Compile Include="Services\TaskService.cs" />
@@ -102,9 +98,12 @@
     <None Include="Assets\AboutAssets.txt" />
   </ItemGroup>
   <ItemGroup>
+    <AndroidResource Include="Resources\drawable\play.png" />
+    <AndroidResource Include="Resources\drawable\skip.png" />
     <AndroidResource Include="Resources\layout\activity_main.axml">
       <SubType>Designer</SubType>
     </AndroidResource>
+    <AndroidResource Include="Resources\layout\player_min.axml" />
     <AndroidResource Include="Resources\layout\activity_mainPlayer.axml" />
     <AndroidResource Include="Resources\values\colors.xml" />
     <AndroidResource Include="Resources\values\dimens.xml" />
