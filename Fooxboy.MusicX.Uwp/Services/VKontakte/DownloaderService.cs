@@ -37,8 +37,20 @@ namespace Fooxboy.MusicX.Uwp.Services.VKontakte
             Timer.Tick += CheckProgress;
             Timer.Start();
             DownloadComplete += DonwloadFileComplete;
+
+            App.Current.Resuming += Current_Resuming;
+            App.Current.Suspending += Current_Suspending;
         }
 
+        private void Current_Suspending(object sender, Windows.ApplicationModel.SuspendingEventArgs e)
+        {
+            this.Timer.Stop();
+        }
+
+        private void Current_Resuming(object sender, object e)
+        {
+            if (CurrentDownloadedTrack != null) this.Timer.Start();
+        }
 
         private async void CheckProgress(object sender, object o)
         {
@@ -226,6 +238,8 @@ namespace Fooxboy.MusicX.Uwp.Services.VKontakte
         private async Task DownloadAudio(DownloadAudioFile track)
         {
 
+            if (!this.Timer.IsEnabled) this.Timer.Start();
+
             var trackArtist = track.Artist.Replace("*", "").Replace(".", "").Replace("\"", "").Replace("\\", "").Replace("/", "").Replace("[", "").Replace("]", "").Replace(":", "").Replace(";", "").Replace("|", "").Replace("=", "").Replace(",", "");
             var trackTitle = track.Title.Replace("*", "").Replace(".", "").Replace("\"", "").Replace("\\", "").Replace("/", "").Replace("[", "").Replace("]", "").Replace(":", "").Replace(";", "").Replace("|", "").Replace("=", "").Replace(",", "");
             CurrentDownloadTrack = track;
@@ -282,6 +296,7 @@ namespace Fooxboy.MusicX.Uwp.Services.VKontakte
             {
                 DispatcherHelper.CheckBeginInvokeOnUI(() =>
                 {
+                    this.Timer.Stop();
                     DownloadQueueComplete?.Invoke(this, null);
                 });
             }
