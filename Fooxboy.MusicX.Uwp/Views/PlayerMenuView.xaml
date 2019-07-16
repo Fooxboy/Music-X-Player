@@ -267,7 +267,6 @@
                                 HorizontalContentAlignment="Left"
                                 HorizontalAlignment="Stretch"
                                 Height="40" Padding="0" 
-                                Visibility="{x:Bind PlayerMenuViewModel.VkontaktePages, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                                 BorderThickness="0"
                                 Command="{x:Bind PlayerMenuViewModel.NavigateToDownloads}">
                             <Button.Background>
