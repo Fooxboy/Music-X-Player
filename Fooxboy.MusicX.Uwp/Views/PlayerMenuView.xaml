@@ -82,7 +82,7 @@
                 <ToggleButton Padding="0"
                         Style ="{StaticResource ToggleButtonStyle}" 
                         BorderThickness="0" 
-                        FontSize="20" FontFamily="Segoe MDL2 Assets"
+                        FontSize="18" FontFamily="Segoe MDL2 Assets"
                         Content="&#xE149;" Width="30"
                               IsChecked="{x:Bind PlayerViewModel.Repeat, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                               
@@ -130,6 +130,7 @@
                 </Button>
 
                 <Grid Width="30" 
+                      Margin="0,0,10,0"
                             Height="30">
                     <Button x:Name="DownloadTrack"
                             FontSize="20" FontFamily="Segoe MDL2 Assets"
