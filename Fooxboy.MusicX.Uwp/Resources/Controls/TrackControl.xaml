@@ -19,6 +19,11 @@
                             <FontIcon FontFamily="Segoe MDL2 Assets" Glyph="&#xE768;" />
                         </MenuFlyoutItem.Icon>
                     </MenuFlyoutItem>
+                    <MenuFlyoutItem x:Name="AddOnLibrary" Text="Добавить в мою музыку" Command="{x:Bind AddOnLibraryCommand}">
+                        <MenuFlyoutItem.Icon>
+                            <FontIcon FontFamily="Segoe MDL2 Assets" Glyph="&#xE109;" />
+                        </MenuFlyoutItem.Icon>
+                    </MenuFlyoutItem>
                     <MenuFlyoutItem x:Name="DownloadItem" Text="Скачать" Command="{x:Bind DownloadCommand}">
                         <MenuFlyoutItem.Icon>
                             <FontIcon FontFamily="Segoe MDL2 Assets" Glyph="&#xE118;" />

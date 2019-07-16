@@ -152,11 +152,29 @@ namespace Fooxboy.MusicX.Uwp.Resources.Controls
                     {
                         var service = DownloaderService.GetService;
                         await service.StartDownloadAudio(Track);
+                        Download.IsEnabled = false;
                     }
                 }else
                 {
                     var service = DownloaderService.GetService;
                     await service.StartDownloadAudio(Track);
+                    Download.IsEnabled = false;
+                }
+            });
+
+            AddOnLibraryCommand = new RelayCommand(async () =>
+            {
+                try
+                {
+                    await Fooxboy.MusicX.Core.VKontakte.Music.Add.ToLibrary(Track.Id);
+                    await new MessageDialog("Трек добавлен в Вашу библиотеку").ShowAsync();
+                }catch(Flurl.Http.FlurlHttpException)
+                {
+                    InternetService.GoToOfflineMode();
+                }
+                catch (Exception e)
+                {
+                    await ContentDialogService.Show(new ExceptionDialog("Ошибка при добавлении трека", "Возникла ошибка при добавлении трека в Вашу библиотеку", e));
                 }
             });
 
@@ -198,6 +216,8 @@ namespace Fooxboy.MusicX.Uwp.Resources.Controls
         public RelayCommand RemoveFavoriteCommand { get; set; }
         public RelayCommand DownloadCommand { get; set; }
         public RelayCommand GetPropertyCommand { get; set; }
+        public RelayCommand AddOnLibraryCommand { get; set; }
+
 
         private void Grid_PointerEntered(object sender, PointerRoutedEventArgs e)
         {
@@ -244,7 +264,7 @@ namespace Fooxboy.MusicX.Uwp.Resources.Controls
             if (Track.IsLocal)
             {
                 PropertyButton.Visibility = Visibility.Visible;
-
+                AddOnLibrary.Visibility = Visibility.Collapsed;
                 DownloadItem.Visibility = Visibility.Collapsed;
 
                 foreach (var playlist in StaticContent.Playlists)
@@ -267,9 +287,16 @@ namespace Fooxboy.MusicX.Uwp.Resources.Controls
             }else
             {
                 PropertyButton.Visibility = Visibility.Collapsed;
-
                 DownloadItem.Visibility = Visibility.Visible;
                 AddTo.Visibility = Visibility.Collapsed;
+
+                if(Track.IsInLibrary)
+                {
+                    AddOnLibrary.Visibility = Visibility.Collapsed;
+                }else
+                {
+                    AddOnLibrary.Visibility = Visibility.Visible;
+                }
             }
         }
     }
