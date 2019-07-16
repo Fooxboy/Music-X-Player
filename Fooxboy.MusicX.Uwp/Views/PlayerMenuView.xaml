@@ -29,18 +29,26 @@
             <Grid Grid.Row="0" Margin="10 20 10 0">
                 <controls:DropShadowPanel Width="190"  Height="190" 
                                           x:Name="AlbumCoverShadow" 
+                                          CornerRadius="3"
                                           ShadowOpacity="1" OffsetY="-5"
                                           OffsetX="-5" BlurRadius="40"
                                           Opacity="0.5">
-                    <Border Width="200" Height="200" Background="White"/>
+                    <Border Width="200" Height="200" CornerRadius="3" Background="White"/>
                 </controls:DropShadowPanel>
-                <Image  Stretch="Fill"  Width="200"  Height="200">
-                    <Image.Source>
-                        <BitmapImage UriSource="{x:Bind Path=PlayerViewModel.CurrentAudio.Cover, Mode=TwoWay }"
+
+                <Rectangle Width="200" Height="200" RadiusX="3" RadiusY="3">
+                    <Rectangle.Fill>
+                        <ImageBrush  Stretch="Fill" >
+                            <ImageBrush.ImageSource>
+                                <BitmapImage UriSource="{x:Bind Path=PlayerViewModel.CurrentAudio.Cover, Mode=TwoWay }"
                                                      DecodePixelHeight="200"
                                                      DecodePixelWidth="200" />
-                    </Image.Source>
-                </Image>
+                            </ImageBrush.ImageSource>
+                        </ImageBrush>
+                    </Rectangle.Fill>
+                </Rectangle>
+                
+                
             </Grid>
             <ScrollViewer Width="200" x:Name="trackScroll" VerticalScrollBarVisibility="Disabled" HorizontalScrollBarVisibility="Hidden"
               VerticalScrollMode="Disabled" HorizontalScrollMode="Enabled" Grid.Row="1" Loaded="trackScroll_Loaded"
@@ -121,15 +129,39 @@
                         Margin="0,0,10,0">
                 </Button>
 
-                <ToggleButton Style="{StaticResource ToggleButtonStyle}" Padding="0"
-                        BorderThickness="0" 
-                        FontSize="20" FontFamily="Segoe MDL2 Assets"
-                        Content="&#xE14B;"
-                        Width="30" 
-                        Height="30"
-                        Command="{x:Bind PlayerViewModel.ShuffleSwitch}">
-                </ToggleButton>
-                
+                <Grid Width="30" 
+                            Height="30">
+                    <Button x:Name="DownloadTrack"
+                            FontSize="20" FontFamily="Segoe MDL2 Assets"
+                            HorizontalAlignment="Center"
+                            Content="&#xE896;"
+                            IsEnabled="{x:Bind PlayerViewModel.DownloadIsEnable, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                            Visibility="{x:Bind PlayerViewModel.DownloadButtonVisibility, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                            Command="{x:Bind PlayerViewModel.DownloadCommand}"
+                            Width="30" 
+                            Height="30"
+                            Style="{ThemeResource ButtonPlayerStyle}"/>
+                    <Button x:Name="AddToFavorite" 
+                            FontSize="20"
+                            HorizontalAlignment="Center"
+                            Visibility="{x:Bind PlayerViewModel.AddToFavoriteButtonVisibility, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                            Command ="{x:Bind PlayerViewModel.AddToFavoriteCommand}"
+                            FontFamily="Segoe MDL2 Assets"
+                            Style="{ThemeResource ButtonPlayerStyle}"
+                            Width="30" 
+                            Height="30"
+                            Content="&#xE1CE;"/>
+                    <Button x:Name="RemoveToFavoite" 
+                            FontSize="20"
+                            Width="30" 
+                            HorizontalAlignment="Center"
+                            Style="{ThemeResource ButtonPlayerStyle}"
+                            Height="30"
+                            Visibility="{x:Bind PlayerViewModel.RemoveToFavoriteButtonVisibility, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                            FontFamily="Segoe MDL2 Assets"
+                            Content="&#xE1CF;"/>
+                </Grid>
+
             </StackPanel >
             <StackPanel Grid.Row="5" Orientation="Horizontal" HorizontalAlignment="Center">
                 <TextBlock Padding="0,5,5,5" 
