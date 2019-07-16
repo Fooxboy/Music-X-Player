@@ -94,7 +94,7 @@
                                       ShadowOpacity="1" OffsetY="0"
                                       OffsetX="0" BlurRadius="30"
                                       Opacity="0.5">
-                            <Border Width="300" Height="120" CornerRadius="3" Background="White"/>
+                            <Border Width="300" Height="120" CornerRadius="5" Background="White"/>
                         </controls:DropShadowPanel>
                         
                         <Rectangle RadiusX="3" 
@@ -122,7 +122,7 @@
                       Height="50"
                       Width="320"/>
 
-                    <Grid Margin="30 30 0 0 ">
+                    <Grid Margin="30 40 0 0 ">
                         <controls:DropShadowPanel Width="300" 
                                                   Height="160" 
                                       Grid.Column="0"
@@ -130,7 +130,7 @@
                                       ShadowOpacity="1" OffsetY="0"
                                       OffsetX="0" BlurRadius="30"
                                       Opacity="0.5">
-                            <Border Width="300" Height="160" CornerRadius="3" Background="White"/>
+                            <Border Width="300" Height="160" CornerRadius="5" Background="White"/>
                         </controls:DropShadowPanel>
 
                         <Rectangle RadiusX="3" 
@@ -159,7 +159,7 @@
                       Height="50"
                       Width="320"/>
 
-                    <Grid Margin="30 30 0 0">
+                    <Grid Margin="30 40 0 0">
                         <controls:DropShadowPanel Width="300" 
                                                   Height="110" 
                                       Grid.Column="0"
@@ -167,7 +167,7 @@
                                       ShadowOpacity="1" OffsetY="0"
                                       OffsetX="0" BlurRadius="30"
                                       Opacity="0.5">
-                            <Border Width="300" Height="110" CornerRadius="3" Background="White"/>
+                            <Border Width="300" Height="110" CornerRadius="5" Background="White"/>
                         </controls:DropShadowPanel>
 
                         <Rectangle RadiusX="3" 

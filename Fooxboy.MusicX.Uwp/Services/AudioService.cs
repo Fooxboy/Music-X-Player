@@ -461,16 +461,23 @@ namespace Fooxboy.MusicX.Uwp.Services
             SwitchNext();
         }
 
-        private async void MediaPlayerOnMediaFailed(MediaPlayer sender, MediaPlayerFailedEventArgs args)
+        private void MediaPlayerOnMediaFailed(MediaPlayer sender, MediaPlayerFailedEventArgs args)
         {
             if (args.Error == MediaPlayerError.SourceNotSupported)
             {
                 //audio source url may expire
                 CurrentPlaylist.CurrentItem.Source = null;
                 TryResolveTrack(CurrentPlaylist.CurrentItem);
+            }else if(args.Error == MediaPlayerError.NetworkError)
+            {
+                InternetService.GoToOfflineMode();
             }
 
-            await ContentDialogService.Show(new ExceptionDialog("MediaPlayerOnMediaFailed", "MediaPlayerOnMediaFailed", new Exception(args.ErrorMessage)));
+            DispatcherHelper.CheckBeginInvokeOnUI(async() =>
+            {
+                await ContentDialogService.Show(new ExceptionDialog("Невозможно загрузить аудио файл", $"Невозможно загрузить файл по этой причине: {args.Error.ToString()}", new Exception(args.ErrorMessage)));
+
+            });
                 //Log.Error("Media failed. " + args.Error + " " + args.ErrorMessage);
         }
 

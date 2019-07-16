@@ -17,30 +17,30 @@
 
         <Grid Grid.Row="1" HorizontalAlignment="Center" VerticalAlignment="Center">
             <controls:DropShadowPanel Width="600" 
-                                                  Height="600" 
+                                                  Height="400" 
                                       Grid.Column="0"
                                       HorizontalAlignment="Left"
                                       ShadowOpacity="1" OffsetY="0"
                                       OffsetX="0" BlurRadius="30"
                                       Opacity="0.5">
-                <Border Width="600" Height="600" CornerRadius="3" Background="White"/>
+                <Border Width="600" Height="400" CornerRadius="5" Background="White"/>
             </controls:DropShadowPanel>
 
             <Rectangle RadiusX="3" 
                                    HorizontalAlignment="Left"
                                    RadiusY="3"
                                    Fill="{ThemeResource BlockBackground}"
-                                   Height="600"
+                                   Height="400"
                                    Width="600"/>
 
             <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center">
                 <FontIcon FontSize="80" FontFamily="Segoe MDL2 Assets" Glyph="&#xEB5E;" />
                 <TextBlock  HorizontalAlignment="Center" Text="Вы перешли в offline режим" FontSize="26" FontWeight="Bold"/>
                 <TextBlock Foreground="{ThemeResource SubHeaderText}"
-                       Text="У Вас нет доступа к интернету. По этому Вы не можете послушать музыку онлайн"/>
+                       Text="У Вас нет доступа к интернету. Поэтому Вы не можете послушать музыку онлайн"/>
                 <TextBlock Foreground="{ThemeResource SubText}"
                        HorizontalAlignment="Center"
-                       Text="Но Вы можете послушать локальную музыку"/>
+                       Text="Но Вы можете послушать музыку на этом компьютере"/>
 
                 <StackPanel Margin="0 30 0 0 " Orientation="Horizontal" HorizontalAlignment="Center">
                     <Button Style="{ThemeResource ButtonLoginStyle}" Click="Button_Click" Width="160" Content="Загруженная музыка"/>
