@@ -94,10 +94,9 @@ namespace Fooxboy.MusicX.Uwp.Views
                         
                     }catch(Exception ee)
                     {
-                        await new ExceptionDialog("Ошибка при инициализации страницы плеера", "Возможно, трек, который последний раз играл - был удален или поврежден", ee).ShowAsync();
+                        await ContentDialogService.Show(new ExceptionDialog("Ошибка при инициализации страницы плеера", "Возможно, трек, который последний раз играл - был удален или поврежден или к нему нет доступа.", ee));
                     }
-                    
-
+                   
                     StaticContent.Volume = lastPlayMusic.Volume;
                     if (StaticContent.AudioService.IsPlaying) StaticContent.AudioService.Pause();
                 }

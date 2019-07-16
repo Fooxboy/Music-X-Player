@@ -25,7 +25,7 @@ namespace Fooxboy.MusicX.Uwp.Services
 
             } catch(Exception e)
             {
-                await new ExceptionDialog("Невозможно получить плейлист", "Возможно, этого плейлиста больше не существует.", e).ShowAsync();
+                await ContentDialogService.Show(new ExceptionDialog("Невозможно получить плейлист", "Возможно, этого плейлиста больше не существует.", e));
                 return null;
             }
 
@@ -55,7 +55,7 @@ namespace Fooxboy.MusicX.Uwp.Services
                 await FileIO.WriteTextAsync(filePlaylist, jsonString);
             }catch(Exception e)
             {
-                await new ExceptionDialog("Невозможно сохранить плейлист", "Возможно, этот плейлист уже существует.", e).ShowAsync();
+                await ContentDialogService.Show(new ExceptionDialog("Невозможно сохранить плейлист", "Возможно, этот плейлист уже существует.", e));
 
             }
         }
@@ -74,7 +74,7 @@ namespace Fooxboy.MusicX.Uwp.Services
                 }
             }catch(Exception e)
             {
-                await new ExceptionDialog("Невозможно получить список плейлистов", "Вам стоит переустановить приложение, если эта ошибка не изчезнет.", e).ShowAsync();
+                await ContentDialogService.Show(new ExceptionDialog("Невозможно получить список плейлистов", "Вам стоит переустановить приложение, если эта ошибка не изчезнет.", e));
             }
             
         }
@@ -95,7 +95,7 @@ namespace Fooxboy.MusicX.Uwp.Services
                 await PlayMusicService.PlayMusicForLibrary(playlist.TracksFiles[0], 3, playlist);
             }catch(Exception e)
             {
-                await new ExceptionDialog("Невозможно воспроизвести плейлист", "Возможно, он поврежден или он не существует", e).ShowAsync();
+                await ContentDialogService.Show(new ExceptionDialog("Невозможно воспроизвести плейлист", "Возможно, он поврежден или он не существует", e));
             }
            
         }
@@ -117,7 +117,7 @@ namespace Fooxboy.MusicX.Uwp.Services
                 await file.DeleteAsync();
             }catch(Exception e)
             {
-                await new ExceptionDialog("Невозможно удалить плейлист", "Возможно, этот плейлист уже был удален или он поврежден.", e).ShowAsync();
+                await ContentDialogService.Show(new ExceptionDialog("Невозможно удалить плейлист", "Возможно, этот плейлист уже был удален или он поврежден.", e));
 
             }
 

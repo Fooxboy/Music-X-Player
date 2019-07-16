@@ -55,7 +55,7 @@ namespace Fooxboy.MusicX.Uwp.ViewModels
                     }
                     catch (Exception e)
                     {
-                        await new ExceptionDialog("Невозможно создать плейлист", "Возможно, такой плейлист уже существует. Попробуйте ещё раз.", e).ShowAsync();
+                        await ContentDialogService.Show(new ExceptionDialog("Невозможно создать плейлист", "Возможно, такой плейлист уже существует. Попробуйте ещё раз.", e));
 
                     }
                 }
@@ -96,7 +96,7 @@ namespace Fooxboy.MusicX.Uwp.ViewModels
                     }
                 }catch(Exception e)
                 {
-                    await new ExceptionDialog("Ошибка при выборе файла", "Неизвестная ошибка", e).ShowAsync();
+                    await ContentDialogService.Show(new ExceptionDialog("Ошибка при выборе файла", "Неизвестная ошибка", e));
                 }
                 
             });

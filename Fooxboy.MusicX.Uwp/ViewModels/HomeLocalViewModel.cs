@@ -86,7 +86,7 @@ namespace Fooxboy.MusicX.Uwp.ViewModels
                 }
             }catch(Exception ee)
             {
-                await new ExceptionDialog("Ошибка при загрузке домашней страницы", "Music X не смог запустить последний файл, который играл у Вас на компьютере.", ee).ShowAsync();
+                await ContentDialogService.Show(new ExceptionDialog("Ошибка при загрузке домашней страницы", "Music X не смог запустить последний файл, который играл у Вас на компьютере.", ee));
             }
            
             Changed("Playlists");
@@ -149,10 +149,8 @@ namespace Fooxboy.MusicX.Uwp.ViewModels
                 }
             }catch(Exception ee)
             {
-                await new ExceptionDialog("Ошибка при клике на трек", "Возможно, произошла неизвестная ошибка", ee).ShowAsync();
-            }
-            
-            
+                await ContentDialogService.Show(new ExceptionDialog("Ошибка при клике на трек", "Произошла неизвестная ошибка", ee));
+            }        
         }
 
         private AudioFile selectedAudioFile;

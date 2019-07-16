@@ -77,7 +77,7 @@ namespace Fooxboy.MusicX.Uwp.Services
                     }
             }catch(Exception e)
             {
-                await new ExceptionDialog("Ошибка при поиске файлов", "Возможно, нет доступа к папке", e).ShowAsync();
+                await ContentDialogService.Show(new ExceptionDialog("Ошибка при поиске файлов", "Возможно, нет доступа к папке", e));
             }
             
         }

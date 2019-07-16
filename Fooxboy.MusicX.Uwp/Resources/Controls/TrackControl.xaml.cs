@@ -205,7 +205,7 @@ namespace Fooxboy.MusicX.Uwp.Resources.Controls
                 await MusicFilesService.UpdateMusicCollection();
             }catch(Exception e)
             {
-                await new ExceptionDialog("Невозможно добавить трек в плейлист", "Возможно, плейлиста не существует или трек был удален", e).ShowAsync();
+                await ContentDialogService.Show(new ExceptionDialog("Невозможно добавить трек в плейлист", "Возможно, плейлиста не существует или трек был удален", e));
             }
             
         }

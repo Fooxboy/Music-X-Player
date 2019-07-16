@@ -22,7 +22,7 @@ namespace Fooxboy.MusicX.Uwp.Services
                 await FileIO.WriteTextAsync(configFile, configString);
             }catch(Exception e)
             {
-                await new ExceptionDialog("Не удалось сохранить настройки приложения", "Возможно, файл занят другим приложением, если ошибка будет повторятся, переустановите приложение", e).ShowAsync();
+                await ContentDialogService.Show(new ExceptionDialog("Не удалось сохранить настройки приложения", "Возможно, файл занят другим приложением, если ошибка будет повторятся, переустановите приложение", e));
             }
             
         }
