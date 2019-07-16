@@ -4,12 +4,44 @@ using System.Linq;
 using System.Text;
 using Fooxboy.MusicX.Core.Interfaces;
 using Fooxboy.MusicX.Core.Models;
+using Fooxboy.MusicX.Core.Models.Music.ArtistInfo;
 using VkNet.Model.Attachments;
 
 namespace Fooxboy.MusicX.Core.VKontakte.Music.Converters
 {
     public static class ToIPlaylistFileConverter
     {
+        
+        public static IPlaylistFile ToIPlaylistFile(this PlaylistInfoVkModel  playlist, IList<IAudioFile> tracks, string artist)
+        {
+            string cover;
+            string genre = "";
+            string year = "";
+            string description = "";
+           
+            cover = playlist.Photo.Photo600.ToString();
+            genre = playlist.Genres[0].Name;
+            year = playlist.Year.ToString();
+            
+
+
+            IPlaylistFile playlistFile = new PlaylistFileAnyPlatform()
+            {
+                Artist = artist,
+                Cover = cover,
+                Id = playlist.Id,
+                IsLocal = false,
+                Tracks = tracks,
+                Name = playlist.Title,
+                IsAlbum = true,
+                Genre = genre,
+                Year = year,
+                Description = description
+            };
+
+            return playlistFile;
+        }
+        
         public static IPlaylistFile ToIPlaylistFile(this AudioPlaylist playlist, IList<IAudioFile> tracks)
         {
             bool isAlbum = playlist.Type == 1;

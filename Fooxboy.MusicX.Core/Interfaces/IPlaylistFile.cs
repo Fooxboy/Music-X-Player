@@ -11,9 +11,11 @@ namespace Fooxboy.MusicX.Core.Interfaces
         IList<IAudioFile> Tracks { get; set; }
         bool IsLocal { get; set; }
         long Id { get; set; }
+        long OwnerId { get; set; }
         string Cover { get; set; }
         bool IsAlbum { get; set; }
         string Genre { get; set; }
+        long Plays { get; set; }
         string Year { get; set; }
         string Description { get; set; }
     }

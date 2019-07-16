@@ -18,14 +18,20 @@
             <RowDefinition/>
         </Grid.RowDefinitions>
 
-        <Rectangle Fill="{ThemeResource ColorSettings}" Grid.RowSpan="3"/>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="auto"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+
+        <Rectangle Fill="{ThemeResource ColorSettings}" Grid.ColumnSpan="2" Grid.RowSpan="3"/>
         <TextBlock Text="Настройки" 
+                   Grid.ColumnSpan="2"
                    FontWeight="Bold"
                    FontSize="30"
                    Grid.Row="1"
                    Margin="30 0 0 0"/>
 
-        <Grid Grid.Row="2">
+        <Grid Grid.Row="2" Grid.ColumnSpan="2">
             <Grid.RowDefinitions>
                 <RowDefinition/>
                 <RowDefinition/>
