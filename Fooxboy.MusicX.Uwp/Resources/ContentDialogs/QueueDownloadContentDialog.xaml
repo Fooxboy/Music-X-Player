@@ -1,0 +1,51 @@
+﻿<ContentDialog
+    x:Class="Fooxboy.MusicX.Uwp.Resources.ContentDialogs.QueueDownloadContentDialog"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:Fooxboy.MusicX.Uwp.Resources.ContentDialogs"
+    xmlns:models="using:Fooxboy.MusicX.Uwp.Models"
+    xmlns:controls="using:Microsoft.Toolkit.Uwp.UI.Controls"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d"
+    Title="Очередь загрузки"
+    PrimaryButtonText="ОК"
+    PrimaryButtonClick="ContentDialog_PrimaryButtonClick">
+    <Grid>
+
+        <ListView SelectedItem="{x:Bind SelectAudioFile}" ItemsSource="{x:Bind Tracks}">
+            <ListView.DataContext>
+                <DataTemplate x:DataType="models:DownloadAudioFile">
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="50"/>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="50"/>
+                        </Grid.ColumnDefinitions>
+
+                        <controls:ImageEx Grid.Column="0" 
+                                          Width="50" 
+                                          Height="50"
+                                          DecodePixelHeight="50"
+                                          CornerRadius="3"
+                                          DecodePixelWidth="50"
+                                          Source="{x:Bind Cover, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                          PlaceholderSource="ms-appx:///Assets/Images/placeholder.png"/>
+
+                        <StackPanel Orientation="Horizontal" Grid.Column="1">
+                            <TextBlock Text="{x:Bind Artist, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+                            <TextBlock Text="-"/>
+                            <TextBlock Text="{x:Bind Title, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+                            <TextBlock Text="•"/>
+                            <TextBlock Foreground="{ThemeResource SubHeaderText}" Text="{x:Bind AlbumName, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+                            <TextBlock Text="•"/>
+                            <TextBlock Foreground="{ThemeResource SubText}" Text="{x:Bind AlbumYear, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+                        </StackPanel>
+
+                        <Button Grid.Column="2" Click="Button_Click" FontFamily="Segoe MDL2 Assets" Content="&#xE711;"/>
+                    </Grid>
+                </DataTemplate>
+            </ListView.DataContext>
+        </ListView>
+    </Grid>
+</ContentDialog>

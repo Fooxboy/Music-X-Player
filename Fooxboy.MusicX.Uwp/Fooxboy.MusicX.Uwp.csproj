@@ -160,6 +160,9 @@
     <Compile Include="Resources\ContentDialogs\PropertiesTrackContentDialog.xaml.cs">
       <DependentUpon>PropertiesTrackContentDialog.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Resources\ContentDialogs\QueueDownloadContentDialog.xaml.cs">
+      <DependentUpon>QueueDownloadContentDialog.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Resources\ContentDialogs\ThanksBuyProContentDialog.xaml.cs">
       <DependentUpon>ThanksBuyProContentDialog.xaml</DependentUpon>
     </Compile>
@@ -375,6 +378,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Resources\ContentDialogs\PropertiesTrackContentDialog.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Resources\ContentDialogs\QueueDownloadContentDialog.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

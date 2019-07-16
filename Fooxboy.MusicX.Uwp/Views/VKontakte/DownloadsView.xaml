@@ -125,6 +125,13 @@
                            Foreground="{ThemeResource SubText}"/>
             </StackPanel>
 
+            <Button HorizontalAlignment="Right"
+                    Grid.Column="2" 
+                    Style="{ThemeResource ButtonLoginStyle}"
+                    Margin="0 0 30 0"
+                    VerticalAlignment="Top" 
+                    Content="Показать очередь"/>
+
         </Grid>
 
         <Grid Grid.Row="2">
