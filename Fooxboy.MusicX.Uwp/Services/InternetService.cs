@@ -19,24 +19,24 @@ namespace Fooxboy.MusicX.Uwp.Services
         {
             if(!NetworkInterface.GetIsNetworkAvailable())
             {
-                Connected = false;
-                return Connected;
+                return false;
             }
-            Connected = false;
+            var tempConnected = false;
             Ping pinger = null;
             try
             {
                 pinger = new Ping();
                 var reply = pinger.Send("8.8.8.8");
-                Connected = reply.Status == IPStatus.Success;
+                tempConnected = reply.Status == IPStatus.Success;
             }catch
             {
-                Connected = false;
+                tempConnected = false;
             }finally
             {
                 pinger?.Dispose();
             }
-            return Connected;
+
+            return tempConnected;
         }
 
     

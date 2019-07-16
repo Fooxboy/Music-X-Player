@@ -44,7 +44,7 @@ namespace Fooxboy.MusicX.Uwp
         public App()
         {
             var settings = ApplicationData.Current.LocalSettings;
-            InternetService.CheckConnection();
+            InternetService.Init();
 
             try
             {
