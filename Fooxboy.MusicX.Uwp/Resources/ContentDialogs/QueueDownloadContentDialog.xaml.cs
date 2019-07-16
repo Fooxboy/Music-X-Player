@@ -49,6 +49,7 @@ namespace Fooxboy.MusicX.Uwp.Resources.ContentDialogs
             {
                 var service = DownloaderService.GetService;
                 service.QueueTracks.Remove(SelectAudioFile);
+                Tracks.Remove(SelectAudioFile);
             }
         }
     }

@@ -21,6 +21,8 @@ namespace Fooxboy.MusicX.Uwp.Services
             return Connected;
         }
 
+    
+
         public static void Init()
         {
             timer = new DispatcherTimer();

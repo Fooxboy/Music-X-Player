@@ -5,6 +5,7 @@
     xmlns:local="using:Fooxboy.MusicX.Uwp.Views"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:UI="using:Microsoft.Advertising.WinRT.UI"
+   xmlns:controls="using:Microsoft.Toolkit.Uwp.UI.Controls"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d"
     Background="{ThemeResource BackgroundApp}">
@@ -85,36 +86,104 @@
         <Grid Grid.Row="3">
             <ScrollViewer>
                 <StackPanel>
-                    <TextBlock Text="Тема оформления" Margin="30 30 0 0" FontSize="18" FontWeight="Bold"/>
-                    <RadioButton Content="Светлая" Click="{x:Bind ViewModel.RadioButton_ClickLight}" IsEnabled="True" IsChecked="{x:Bind ViewModel.SelectLightTheme, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" 
-                                 Margin="30 0 0 0
-                                 " GroupName="Theme"/>
-                    <RadioButton Content="{x:Bind ViewModel.ContentDarkTheme, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                    <Grid Margin="30 30 0 0">
+                        <controls:DropShadowPanel Width="300" 
+                                                  Height="120" 
+                                      Grid.Column="0"
+                                      HorizontalAlignment="Left"
+                                      ShadowOpacity="1" OffsetY="0"
+                                      OffsetX="0" BlurRadius="30"
+                                      Opacity="0.5">
+                            <Border Width="300" Height="120" CornerRadius="3" Background="White"/>
+                        </controls:DropShadowPanel>
+                        
+                        <Rectangle RadiusX="3" 
+                                   HorizontalAlignment="Left"
+                                   RadiusY="3"
+                                   Fill="{ThemeResource BlockBackground}"
+                                   Height="120"
+                                   Width="300"/>
+
+                        <StackPanel Margin="20 15 0 0">
+                            <TextBlock Text="Тема оформления"  FontSize="18" FontWeight="Bold"/>
+                            <RadioButton Content="Светлая" Click="{x:Bind ViewModel.RadioButton_ClickLight}" IsEnabled="True" IsChecked="{x:Bind ViewModel.SelectLightTheme, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" 
+                                  GroupName="Theme"/>
+                            <RadioButton Content="{x:Bind ViewModel.ContentDarkTheme, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                                  IsEnabled="{x:Bind ViewModel.EnableDarkTheme, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                                 Margin="30 0 0 0" Click="{x:Bind ViewModel.RadioButton_ClickDark}" IsChecked="{x:Bind ViewModel.SelectDarkTheme, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" 
+                                 Click="{x:Bind ViewModel.RadioButton_ClickDark}" IsChecked="{x:Bind ViewModel.SelectDarkTheme, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" 
                                  GroupName="Theme"/>
+                        </StackPanel>
+                    </Grid>
+                    
                     
                     <UI:AdControl Margin="30 10 0 0" ApplicationId="9ncjgg7b13q1" 
                                   Visibility="{x:Bind ViewModel.VisibilityAds}"
                       AdUnitId="1100051155" 
                       Height="50"
                       Width="320"/>
-                    
-                    <TextBlock Text="Музыка на этом компьютере" Margin="30 30 0 0" FontSize="18" FontWeight="Bold"/>
-                    
-                    <ToggleSwitch Margin="30 5 0 0" Header="Папка Музыка" IsOn="{x:Bind ViewModel.MusicLibraryIsOn,
+
+                    <Grid Margin="30 30 0 0 ">
+                        <controls:DropShadowPanel Width="300" 
+                                                  Height="160" 
+                                      Grid.Column="0"
+                                      HorizontalAlignment="Left"
+                                      ShadowOpacity="1" OffsetY="0"
+                                      OffsetX="0" BlurRadius="30"
+                                      Opacity="0.5">
+                            <Border Width="300" Height="160" CornerRadius="3" Background="White"/>
+                        </controls:DropShadowPanel>
+
+                        <Rectangle RadiusX="3" 
+                                   HorizontalAlignment="Left"
+                                   RadiusY="3"
+                                   Fill="{ThemeResource BlockBackground}"
+                                   Height="160"
+                                   Width="300"/>
+
+                        <StackPanel Margin="20 15 0 0 ">
+                            <TextBlock Text="Музыка на этом компьютере" FontSize="18" FontWeight="Bold"/>
+                            <ToggleSwitch Header="Папка Музыка" IsOn="{x:Bind ViewModel.MusicLibraryIsOn,
                         Mode=TwoWay,
                         UpdateSourceTrigger=PropertyChanged}" OnContent="Включено" OffContent="Отключено"/>
-                    <ToggleSwitch Margin="30 0 0 0" Header="Папка Документы" IsEnabled="False" IsOn="False" OnContent="Включено" OffContent="Отключено"/>
+                            <ToggleSwitch  Header="Папка Документы" IsEnabled="False" IsOn="False" OnContent="Включено" OffContent="Отключено"/>
+                        </StackPanel>
+
+                        
+                    </Grid>
+                    
+                    
 
                     <UI:AdControl Margin="30 10 0 0" ApplicationId="9ncjgg7b13q1" 
                       AdUnitId="1100051155" 
                                   Visibility="{x:Bind ViewModel.VisibilityAds}"
                       Height="50"
                       Width="320"/>
-                    <TextBlock Text="Музыка ВКонтакте" Margin="30 30 0 0" FontSize="18" FontWeight="Bold"/>
 
-                    <ToggleSwitch Margin="30 5 0 0" Header="Транслировать музыку в статус ВКонтакте" IsEnabled="True" IsOn="False" OnContent="Включено" OffContent="Отключено"/>
+                    <Grid Margin="30 30 0 0">
+                        <controls:DropShadowPanel Width="300" 
+                                                  Height="110" 
+                                      Grid.Column="0"
+                                      HorizontalAlignment="Left"
+                                      ShadowOpacity="1" OffsetY="0"
+                                      OffsetX="0" BlurRadius="30"
+                                      Opacity="0.5">
+                            <Border Width="300" Height="110" CornerRadius="3" Background="White"/>
+                        </controls:DropShadowPanel>
+
+                        <Rectangle RadiusX="3" 
+                                   HorizontalAlignment="Left"
+                                   RadiusY="3"
+                                   Fill="{ThemeResource BlockBackground}"
+                                   Height="110"
+                                   Width="300"/>
+
+                        <StackPanel Margin="20 10 0 0">
+                            <TextBlock Text="Музыка ВКонтакте"  FontSize="18" FontWeight="Bold"/>
+
+                            <ToggleSwitch  Header="Транслировать музыку в статус ВКонтакте" IsEnabled="True" IsOn="False" OnContent="Включено" OffContent="Отключено"/>
+                        </StackPanel>
+                    </Grid>
+                    
 
                     <UI:AdControl Margin="30 10 0 0" ApplicationId="9ncjgg7b13q1" 
                                   Visibility="{x:Bind ViewModel.VisibilityAds}"
