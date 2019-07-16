@@ -168,7 +168,10 @@ namespace Fooxboy.MusicX.Uwp.Services.VKontakte
                     : await KnownFolders.MusicLibrary.GetFolderAsync("Music X");
 
 
-                if ((await folder.TryGetItemAsync($"{track.Artist} - {track.Title} (Music X).mp3")) != null) return;
+                var trackArtist = track.Artist.Replace("*", "").Replace(".", "").Replace("\"", "").Replace("\\", "").Replace("/", "").Replace("[", "").Replace("]", "").Replace(":", "").Replace(";", "").Replace("|", "").Replace("=", "").Replace(",", "");
+                var trackTitle = track.Title.Replace("*", "").Replace(".", "").Replace("\"", "").Replace("\\", "").Replace("/", "").Replace("[", "").Replace("]", "").Replace(":", "").Replace(";", "").Replace("|", "").Replace("=", "").Replace(",", "");
+
+                if ((await folder.TryGetItemAsync($"{trackArtist} - {trackTitle} (Music X).mp3")) != null) return;
 
                 if (CurrentDownloadTrack == null)
                 {
@@ -206,9 +209,10 @@ namespace Fooxboy.MusicX.Uwp.Services.VKontakte
                 await KnownFolders.MusicLibrary.CreateFolderAsync("Music X")
                 : await KnownFolders.MusicLibrary.GetFolderAsync("Music X");
 
-            StorageFolder playlistFolder = await folder.TryGetItemAsync(playlist.Name) == null ?
-                await folder.CreateFolderAsync(playlist.Name)
-                : await folder.GetFolderAsync(playlist.Name);
+            var playlistName = playlist.Name.Replace("*", "").Replace(".", "").Replace("\"", "").Replace("\\", "").Replace("/", "").Replace("[", "").Replace("]", "").Replace(":", "").Replace(";", "").Replace("|", "").Replace("=", "").Replace(",", "");
+            StorageFolder playlistFolder = await folder.TryGetItemAsync(playlistName) == null ?
+                await folder.CreateFolderAsync(playlistName)
+                : await folder.GetFolderAsync(playlistName);
 
             var task = Task.Run(async () =>
             {
@@ -221,23 +225,27 @@ namespace Fooxboy.MusicX.Uwp.Services.VKontakte
 
         private async Task DownloadAudio(DownloadAudioFile track)
         {
+
+            var trackArtist = track.Artist.Replace("*", "").Replace(".", "").Replace("\"", "").Replace("\\", "").Replace("/", "").Replace("[", "").Replace("]", "").Replace(":", "").Replace(";", "").Replace("|", "").Replace("=", "").Replace(",", "");
+            var trackTitle = track.Title.Replace("*", "").Replace(".", "").Replace("\"", "").Replace("\\", "").Replace("/", "").Replace("[", "").Replace("]", "").Replace(":", "").Replace(";", "").Replace("|", "").Replace("=", "").Replace(",", "");
             CurrentDownloadTrack = track;
             DownloadAccess = false;
             StorageFile trackFile = null;
             if (!track.FromAlbum)
             {
                 var libraryTracks = await KnownFolders.MusicLibrary.GetFolderAsync("Music X");
-                trackFile = await libraryTracks.CreateFileAsync($"{track.Artist} - {track.Title} (Music X).mp3");
+                trackFile = await libraryTracks.CreateFileAsync($"{trackArtist} - {trackTitle} (Music X).mp3");
             }else
             {
                 var libraryTracks = await KnownFolders.MusicLibrary.GetFolderAsync("Music X");
+                var albumName = track.AlbumName.Replace("*", "").Replace(".", "").Replace("\"", "").Replace("\\", "").Replace("/", "").Replace("[", "").Replace("]", "").Replace(":", "").Replace(";", "").Replace("|", "").Replace("=", "").Replace(",", "");
                 var libraryPlaylist = await libraryTracks.GetFolderAsync(track.AlbumName);
-                if (await libraryPlaylist.TryGetItemAsync($"{track.Artist} - {track.Title} (Music X).mp3") != null)
+                if (await libraryPlaylist.TryGetItemAsync($"{trackArtist} - {trackTitle} (Music X).mp3") != null)
                 {
                     DownloadComplete?.Invoke(this, CurrentDownloadTrack);
                 }else
                 {
-                    trackFile = await libraryPlaylist.CreateFileAsync($"{track.Artist} - {track.Title} (Music X).mp3");
+                    trackFile = await libraryPlaylist.CreateFileAsync($"{trackArtist} - {trackTitle} (Music X).mp3");
                 }
             }
             currentFileAudio = trackFile;
