@@ -17,7 +17,25 @@ namespace Fooxboy.MusicX.Uwp.Services
         public static DispatcherTimer timer;
         public static bool CheckConnection()
         {
-            Connected = NetworkInterface.GetIsNetworkAvailable();
+            if(!NetworkInterface.GetIsNetworkAvailable())
+            {
+                Connected = false;
+                return Connected;
+            }
+            Connected = false;
+            Ping pinger = null;
+            try
+            {
+                pinger = new Ping();
+                var reply = pinger.Send("8.8.8.8");
+                Connected = reply.Status == IPStatus.Success;
+            }catch
+            {
+                Connected = false;
+            }finally
+            {
+                pinger?.Dispose();
+            }
             return Connected;
         }
 

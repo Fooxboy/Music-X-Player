@@ -199,11 +199,18 @@ namespace Fooxboy.MusicX.Uwp.ViewModels
 
         public async void MusicListView_Tapped(object sender, TappedRoutedEventArgs e)
         {
-            if(SelectedAudioFile != null)
+            try
             {
-                if (SelectedAudioFile.IsLocal) await PlayMusicService.PlayMusicForLibrary(SelectedAudioFile, 3, Playlist);
-                else await MusicService.PlayMusic(SelectedAudioFile, 2, Playlist);
+                if (SelectedAudioFile != null)
+                {
+                    if (SelectedAudioFile.IsLocal) await PlayMusicService.PlayMusicForLibrary(SelectedAudioFile, 3, Playlist);
+                    else await MusicService.PlayMusic(SelectedAudioFile, 2, Playlist);
+                }
+            }catch(Exception ee)
+            {
+                await ContentDialogService.Show(new ExceptionDialog("Ошибка при воспроизведении трека", "Невозможно воспроизвести текущий трек", ee));
             }
+           
         }
 
        
