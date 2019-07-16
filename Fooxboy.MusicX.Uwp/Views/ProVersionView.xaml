@@ -70,9 +70,6 @@
                 Click="Button_Click"
                 Content="Получить MusicX Pro"/>
             </Grid>
-            
-            
         </StackPanel>
-         
     </Grid>
 </Page>
