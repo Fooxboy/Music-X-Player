@@ -223,16 +223,22 @@ namespace Fooxboy.MusicX.Uwp
                 }
 
 
-
-                if (InternetService.Connected)
+                try
                 {
-                    StaticContent.IsAuth = await AuthService.IsAuth();
-                    if (StaticContent.IsAuth) await AuthService.AutoAuth();
-                }else
+                    if (InternetService.Connected)
+                    {
+                        StaticContent.IsAuth = await AuthService.IsAuth();
+                        if (StaticContent.IsAuth) await AuthService.AutoAuth();
+                    }
+                    else
+                    {
+                        StaticContent.IsAuth = false;
+                    }
+                }catch(Exception ee)
                 {
                     StaticContent.IsAuth = false;
                 }
-
+                
 
                 Log.Trace("Размещение фрейма в текущем окне.");
                 Window.Current.Content = rootFrame;

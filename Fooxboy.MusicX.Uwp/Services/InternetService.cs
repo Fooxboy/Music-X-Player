@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using Windows.Networking.Connectivity;
 using System.Net.NetworkInformation;
 using System.Text;
 using System.Threading.Tasks;
@@ -11,32 +12,16 @@ namespace Fooxboy.MusicX.Uwp.Services
 {
     public static class InternetService
     {
-        public static bool Connected { get; set; }
-        public static bool CurrentUIInConnected { get; set; }
+        public static bool Connected { get; set; } = true;
+        public static bool CurrentUIInConnected { get; set; } = true;
 
         public static DispatcherTimer timer;
         public static bool CheckConnection()
         {
-            if(!NetworkInterface.GetIsNetworkAvailable())
-            {
-                return false;
-            }
-            var tempConnected = false;
-            Ping pinger = null;
-            try
-            {
-                pinger = new Ping();
-                var reply = pinger.Send("8.8.8.8");
-                tempConnected = reply.Status == IPStatus.Success;
-            }catch
-            {
-                tempConnected = false;
-            }finally
-            {
-                pinger?.Dispose();
-            }
+            var profile = NetworkInformation.GetInternetConnectionProfile();
 
-            return tempConnected;
+            if (profile == null) return false;
+            return profile.GetNetworkConnectivityLevel() == NetworkConnectivityLevel.InternetAccess;
         }
 
     
@@ -45,7 +30,7 @@ namespace Fooxboy.MusicX.Uwp.Services
         {
             timer = new DispatcherTimer();
             timer.Tick += CheckConnectionAuto;
-            timer.Interval = TimeSpan.FromMilliseconds(500);
+            timer.Interval = TimeSpan.FromMilliseconds(1000);
             timer.Start();
 
             App.Current.Resuming += Current_Resuming;
@@ -71,12 +56,14 @@ namespace Fooxboy.MusicX.Uwp.Services
                 if(!CurrentUIInConnected)
                 {
                     GoToOnlineMode();
+                    CurrentUIInConnected = true;
                 }
             }else
             {
                 if(CurrentUIInConnected)
                 {
                     GoToOfflineMode();
+                    CurrentUIInConnected = false;
                 }
             }
         }

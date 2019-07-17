@@ -5,6 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Fooxboy.MusicX.Uwp.Models;
+using Fooxboy.MusicX.Uwp.Resources.ContentDialogs;
 using Fooxboy.MusicX.Uwp.Services;
 using Fooxboy.MusicX.Uwp.Services.VKontakte;
 using Windows.Storage;
@@ -29,7 +30,7 @@ namespace Fooxboy.MusicX.Uwp.ViewModels.VKontakte
             }
         }
 
-
+        public RelayCommand ShowQueueCommand { get; set; }
         public ObservableCollection<AudioFile> Music { get; set; }
 
         public AudioFile SelectedAudio { get; set; }
@@ -77,6 +78,11 @@ namespace Fooxboy.MusicX.Uwp.ViewModels.VKontakte
                 Genre = "без жанра",
                 Name = "Загруженное"
             };
+
+            ShowQueueCommand = new RelayCommand(async () =>
+            {
+                await ContentDialogService.Show(new QueueDownloadContentDialog(Service.QueueTracks));
+            });
 
         }
 

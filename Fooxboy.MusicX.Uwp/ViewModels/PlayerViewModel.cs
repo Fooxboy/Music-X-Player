@@ -98,8 +98,7 @@ namespace Fooxboy.MusicX.Uwp.ViewModels
                     DownloadIsEnable = false;
                     Changed("DownloadIsEnable");
                     var service = DownloaderService.GetService;
-                    await service.StartDownloadAudio(CurrentAudio);
-                    
+                    await service.StartDownloadAudio(CurrentAudio);  
                 }
             });
 

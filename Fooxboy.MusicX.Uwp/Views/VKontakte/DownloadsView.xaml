@@ -128,7 +128,8 @@
             <Button HorizontalAlignment="Right"
                     Grid.Column="2" 
                     Style="{ThemeResource ButtonLoginStyle}"
-                    Margin="0 0 30 0"
+                    Margin="20 0 30 0"
+                    Command="{x:Bind ViewModel.ShowQueueCommand}"
                     VerticalAlignment="Top" 
                     Content="Показать очередь"/>
 
