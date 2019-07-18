@@ -68,12 +68,14 @@
   <ItemGroup>
     <Compile Include="Adapters\PlaylistAdapter.cs" />
     <Compile Include="Adapters\TrackAdapter.cs" />
+    <Compile Include="Delegates\EventHandler.cs" />
     <Compile Include="DialogFragments\IncorrectLoginDialogFragment.cs" />
     <Compile Include="HomeActivity.cs" />
     <Compile Include="AuthActivity.cs" />
     <Compile Include="Listeners\OnScrollToBottomListener.cs" />
     <Compile Include="MainActivity.cs" />
     <Compile Include="Models\AudioFile.cs" />
+    <Compile Include="Models\AudioPlaylist.cs" />
     <Compile Include="Models\PlaylistFile.cs" />
     <Compile Include="Resources\fragments\HomeFragment.cs" />
     <Compile Include="Resources\fragments\SettingsFragment.cs" />
