@@ -82,6 +82,8 @@
     <Compile Include="Services\AuthService.cs" />
     <Compile Include="Services\ImagesService.cs" />
     <Compile Include="Services\MusicService.cs" />
+    <Compile Include="Services\PlayerService.cs" />
+    <Compile Include="Services\PlayingService.cs" />
     <Compile Include="Services\PlaylistsService.cs" />
     <Compile Include="Services\StaticContentService.cs" />
     <Compile Include="Services\TaskService.cs" />
