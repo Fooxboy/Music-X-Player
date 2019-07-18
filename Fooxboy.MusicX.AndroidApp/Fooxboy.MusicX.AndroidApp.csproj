@@ -102,6 +102,7 @@
   <ItemGroup>
     <AndroidResource Include="Resources\drawable\play.png" />
     <AndroidResource Include="Resources\drawable\skip.png" />
+    <AndroidResource Include="Resources\drawable\skip_back.png" />
     <AndroidResource Include="Resources\layout\activity_main.axml">
       <SubType>Designer</SubType>
     </AndroidResource>
