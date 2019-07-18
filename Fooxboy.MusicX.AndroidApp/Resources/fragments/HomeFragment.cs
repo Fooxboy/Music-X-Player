@@ -43,7 +43,9 @@ namespace Fooxboy.MusicX.AndroidApp.Resources.fragments
 
             var tracksView = view.FindViewById<RecyclerView>(Resource.Id.TracksView);
             Handler handler = new Handler(Looper.MainLooper);
-
+            
+            tracksView.Click += TracksViewOnClick;
+            
             tracksView.SetAdapter(adapter);
             tracksView.SetLayoutManager(new LinearLayoutManager(Application.Context, LinearLayoutManager.Vertical, false));
 
@@ -124,12 +126,21 @@ namespace Fooxboy.MusicX.AndroidApp.Resources.fragments
             });
 
             task2.ConfigureAwait(false);
+            
+            
+            
 
             return view;
 
         }
 
-    
+        private void TracksViewOnClick(object sender, EventArgs e)
+        {
+            
+            
+            throw new NotImplementedException();
+        }
+
 
         //Toast.MakeText(Application.Context, "Оно скролитЬся", ToastLength.Long).Show();
         //

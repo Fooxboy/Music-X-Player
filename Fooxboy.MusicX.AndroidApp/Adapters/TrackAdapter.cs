@@ -11,6 +11,7 @@ using Android.Runtime;
 using Android.Support.V7.Widget;
 using Android.Views;
 using Android.Widget;
+using Fooxboy.MusicX.AndroidApp.Interfaces;
 using Fooxboy.MusicX.AndroidApp.Models;
 using Fooxboy.MusicX.AndroidApp.ViewHolders;
 using Java.Interop;
@@ -20,9 +21,12 @@ using Object = Java.Lang.Object;
 
 namespace Fooxboy.MusicX.AndroidApp.Adapters
 {
-
-    public class TrackAdapter : RecyclerView.Adapter
+    
+  
+    public class TrackAdapter : RecyclerView.Adapter, IItemClickListener
     {
+
+        public event Delegates.EventHandler<AudioFile> ItemClick; 
         private List<AudioFile> tracks;
 
         public TrackAdapter(List<AudioFile> t)
@@ -36,6 +40,7 @@ namespace Fooxboy.MusicX.AndroidApp.Adapters
             var holder = hold as TracksViewHolder;
             holder.Artist.Text = tracks[position].Artist;
             holder.Title.Text = tracks[position].Title;
+            holder.SetItemClickListener(this);
             holder.Duration.Text = tracks[position].DurationMinutes;
 
             if (tracks[position].Cover == "placeholder")
@@ -99,6 +104,11 @@ namespace Fooxboy.MusicX.AndroidApp.Adapters
                 return tracks.Count;
 
             }
+        }
+
+        public void OnClick(View itemView, int position, bool isLongClick)
+        {
+            ItemClick?.Invoke(itemView, tracks[position]);
         }
     }
 }
