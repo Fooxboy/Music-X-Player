@@ -19,7 +19,7 @@
         </Grid.RowDefinitions>
 
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="auto"/>
+            <ColumnDefinition Width="350"/>
             <ColumnDefinition Width="*"/>
         </Grid.ColumnDefinitions>
 
@@ -89,127 +89,132 @@
                        Grid.Column="2"/>
         </Grid>
 
-        <Grid Grid.Row="3">
-            <ScrollViewer>
-                <StackPanel>
-                    <Grid Margin="30 30 0 0">
-                        <controls:DropShadowPanel Width="300" 
+        <Grid Grid.Row="3" Grid.ColumnSpan="2">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="350"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+            <ScrollViewer Grid.ColumnSpan="2">
+                <Grid >
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="350"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+
+                    <StackPanel Grid.Column="0">
+                        <Grid Margin="30 30 0 0">
+                            <controls:DropShadowPanel Width="300" 
                                                   Height="120" 
                                       Grid.Column="0"
                                       HorizontalAlignment="Left"
                                       ShadowOpacity="1" OffsetY="0"
                                       OffsetX="0" BlurRadius="30"
                                       Opacity="0.5">
-                            <Border Width="300" Height="120" CornerRadius="5" Background="White"/>
-                        </controls:DropShadowPanel>
-                        
-                        <Rectangle RadiusX="3" 
+                                <Border Width="300" Height="120" CornerRadius="5" Background="White"/>
+                            </controls:DropShadowPanel>
+
+                            <Rectangle RadiusX="3" 
                                    HorizontalAlignment="Left"
                                    RadiusY="3"
                                    Fill="{ThemeResource BlockBackground}"
                                    Height="120"
                                    Width="300"/>
 
-                        <StackPanel Margin="20 15 0 0">
-                            <TextBlock Text="Тема оформления"  FontSize="18" FontWeight="Bold"/>
-                            <RadioButton Content="Светлая" Click="{x:Bind ViewModel.RadioButton_ClickLight}" IsEnabled="True" IsChecked="{x:Bind ViewModel.SelectLightTheme, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" 
+                            <StackPanel Margin="20 15 0 0">
+                                <TextBlock Text="Тема оформления"  FontSize="18" FontWeight="Bold"/>
+                                <RadioButton Content="Светлая" Click="{x:Bind ViewModel.RadioButton_ClickLight}" IsEnabled="True" IsChecked="{x:Bind ViewModel.SelectLightTheme, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" 
                                   GroupName="Theme"/>
-                            <RadioButton Content="{x:Bind ViewModel.ContentDarkTheme, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                <RadioButton Content="{x:Bind ViewModel.ContentDarkTheme, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                                  IsEnabled="{x:Bind ViewModel.EnableDarkTheme, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                                  Click="{x:Bind ViewModel.RadioButton_ClickDark}" IsChecked="{x:Bind ViewModel.SelectDarkTheme, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" 
                                  GroupName="Theme"/>
-                        </StackPanel>
-                    </Grid>
-                    
-                    
-                    <UI:AdControl Margin="30 10 0 0" ApplicationId="9ncjgg7b13q1" 
-                                  Visibility="{x:Bind ViewModel.VisibilityAds}"
-                      AdUnitId="1100051155" 
-                      Height="50"
-                      Width="320"/>
+                            </StackPanel>
+                        </Grid>
 
-                    <Grid Margin="30 40 0 0 ">
-                        <controls:DropShadowPanel Width="300" 
+                        <Grid Margin="30 40 0 0 ">
+                            <controls:DropShadowPanel Width="300" 
                                                   Height="160" 
                                       Grid.Column="0"
                                       HorizontalAlignment="Left"
                                       ShadowOpacity="1" OffsetY="0"
                                       OffsetX="0" BlurRadius="30"
                                       Opacity="0.5">
-                            <Border Width="300" Height="160" CornerRadius="5" Background="White"/>
-                        </controls:DropShadowPanel>
+                                <Border Width="300" Height="160" CornerRadius="5" Background="White"/>
+                            </controls:DropShadowPanel>
 
-                        <Rectangle RadiusX="3" 
+                            <Rectangle RadiusX="3" 
                                    HorizontalAlignment="Left"
                                    RadiusY="3"
                                    Fill="{ThemeResource BlockBackground}"
                                    Height="160"
                                    Width="300"/>
 
-                        <StackPanel Margin="20 15 0 0 ">
-                            <TextBlock Text="Музыка на этом компьютере" FontSize="18" FontWeight="Bold"/>
-                            <ToggleSwitch Header="Папка Музыка" IsOn="{x:Bind ViewModel.MusicLibraryIsOn,
+                            <StackPanel Margin="20 15 0 0 ">
+                                <TextBlock Text="Музыка на этом компьютере" FontSize="18" FontWeight="Bold"/>
+                                <ToggleSwitch Header="Папка Музыка" IsOn="{x:Bind ViewModel.MusicLibraryIsOn,
                         Mode=TwoWay,
                         UpdateSourceTrigger=PropertyChanged}" OnContent="Включено" OffContent="Отключено"/>
-                            <ToggleSwitch  Header="Папка Документы" IsEnabled="False" IsOn="False" OnContent="Включено" OffContent="Отключено"/>
-                        </StackPanel>
+                                <ToggleSwitch  Header="Папка Документы" IsEnabled="False" IsOn="False" OnContent="Включено" OffContent="Отключено"/>
+                            </StackPanel>
 
-                        
-                    </Grid>
-                    
-                    
 
-                    <UI:AdControl Margin="30 10 0 0" ApplicationId="9ncjgg7b13q1" 
-                      AdUnitId="1100051155" 
-                                  Visibility="{x:Bind ViewModel.VisibilityAds}"
-                      Height="50"
-                      Width="320"/>
+                        </Grid>
 
-                    <Grid Margin="30 40 0 0">
-                        <controls:DropShadowPanel Width="300" 
+
+
+
+                        <Grid Margin="30 40 0 0">
+                            <controls:DropShadowPanel Width="300" 
                                                   Height="110" 
                                       Grid.Column="0"
                                       HorizontalAlignment="Left"
                                       ShadowOpacity="1" OffsetY="0"
                                       OffsetX="0" BlurRadius="30"
                                       Opacity="0.5">
-                            <Border Width="300" Height="110" CornerRadius="5" Background="White"/>
-                        </controls:DropShadowPanel>
+                                <Border Width="300" Height="110" CornerRadius="5" Background="White"/>
+                            </controls:DropShadowPanel>
 
-                        <Rectangle RadiusX="3" 
+                            <Rectangle RadiusX="3" 
                                    HorizontalAlignment="Left"
                                    RadiusY="3"
                                    Fill="{ThemeResource BlockBackground}"
                                    Height="110"
                                    Width="300"/>
 
-                        <StackPanel Margin="20 10 0 0">
-                            <TextBlock Text="Музыка ВКонтакте"  FontSize="18" FontWeight="Bold"/>
+                            <StackPanel Margin="20 10 0 0">
+                                <TextBlock Text="Музыка ВКонтакте"  FontSize="18" FontWeight="Bold"/>
 
-                            <ToggleSwitch  Header="Транслировать музыку в статус ВКонтакте" IsEnabled="True" IsOn="False" OnContent="Включено" OffContent="Отключено"/>
-                        </StackPanel>
-                    </Grid>
-                    
+                                <ToggleSwitch  Header="Транслировать музыку в статус ВКонтакте" IsEnabled="True" IsOn="False" OnContent="Включено" OffContent="Отключено"/>
+                            </StackPanel>
+                        </Grid>
+                    </StackPanel>
 
-                    <UI:AdControl Margin="30 10 0 0" ApplicationId="9ncjgg7b13q1" 
+                    <StackPanel Grid.Column="1" HorizontalAlignment="Right">
+                        <UI:AdControl Margin="30 30 0 0" ApplicationId="9ncjgg7b13q1" 
                                   Visibility="{x:Bind ViewModel.VisibilityAds}"
                       AdUnitId="1100051155" 
-                      Height="50"
-                      Width="320"/>
-
-                    <UI:AdControl Margin="30 10 0 0" ApplicationId="9ncjgg7b13q1" 
+                      Height="250"
+                      Width="300"/>
+                        <UI:AdControl HorizontalAlignment="Right" 
+                                      Margin="30 30 0 0" ApplicationId="9ncjgg7b13q1" 
                                   Visibility="{x:Bind ViewModel.VisibilityAds}"
                       AdUnitId="1100051155" 
-                      Height="50"
-                      Width="320"/>
-
-                    <UI:AdControl Margin="30 10 0 0" ApplicationId="9ncjgg7b13q1" 
+                      Height="250"
+                      Width="300"/>
+                        <UI:AdControl HorizontalAlignment="Right"
+                                      Margin="30 30 0 0" ApplicationId="9ncjgg7b13q1" 
                                   Visibility="{x:Bind ViewModel.VisibilityAds}"
                       AdUnitId="1100051155" 
-                      Height="50"
-                      Width="320"/>
-                </StackPanel>
+                      Height="250"
+                      Width="300"/>
+                    </StackPanel>
+
+                   
+                </Grid>
+                
             </ScrollViewer>
+            
+
         </Grid>
     </Grid>
 </Page>

@@ -3,7 +3,10 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices.WindowsRuntime;
+using Fooxboy.MusicX.Uwp.Resources.ContentDialogs;
+using Fooxboy.MusicX.Uwp.Services;
 using Fooxboy.MusicX.Uwp.ViewModels.VKontakte;
+using GalaSoft.MvvmLight.Threading;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
 using Windows.UI.Xaml;
@@ -35,7 +38,16 @@ namespace Fooxboy.MusicX.Uwp.Views.VKontakte
 
         protected async override void OnNavigatedTo(NavigationEventArgs e)
         {
-            await ViewModel.StartLoadingTracks();
+            try
+            {
+                await ViewModel.StartLoadingTracks();
+            }catch(Exception ex)
+            {
+                DispatcherHelper.CheckBeginInvokeOnUI(async () =>
+                {
+                    await ContentDialogService.Show(new ExceptionDialog("Ошибка загрузки треков", "Music X не смог загрузить список Ваших загруженных треков.", ex));
+                });
+            }
         }
     }
 }

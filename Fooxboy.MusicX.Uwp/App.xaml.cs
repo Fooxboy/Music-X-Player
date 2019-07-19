@@ -11,6 +11,9 @@ using Fooxboy.MusicX.Uwp.Services;
 using Fooxboy.MusicX.Uwp.Services.VKontakte;
 using Fooxboy.MusicX.Uwp.ViewModels;
 using GalaSoft.MvvmLight.Threading;
+using Microsoft.AppCenter;
+using Microsoft.AppCenter.Analytics;
+using Microsoft.AppCenter.Push;
 using Newtonsoft.Json;
 using Windows.ApplicationModel;
 using Windows.ApplicationModel.Activation;
@@ -142,7 +145,8 @@ namespace Fooxboy.MusicX.Uwp
                         //TODO: Загрузить состояние из ранее приостановленного приложения
                     }
                 }
-
+                AppCenter.Start("96c77488-34ce-43d0-b0d3-c4b1ce326c7f", typeof(Analytics), typeof(Push));
+                AppCenter.LogLevel = LogLevel.Verbose;
                 CoreApplication.GetCurrentView().TitleBar.ExtendViewIntoTitleBar = true;
                 //try
                 //{
@@ -303,6 +307,7 @@ namespace Fooxboy.MusicX.Uwp
 
             Window.Current.Activate();
             SystemNavigationManager.GetForCurrentView().BackRequested += OnBackRequested;
+            Push.CheckLaunchedFromNotification(e);
         }
 
         /// <summary>

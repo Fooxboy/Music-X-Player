@@ -29,13 +29,14 @@ namespace Fooxboy.MusicX.Uwp.Services.VKontakte
             }
         }
 
-
+        bool TimerStart;
         private DownloaderService()
         {
             Timer = new DispatcherTimer();
             Timer.Interval = TimeSpan.FromSeconds(2);
             Timer.Tick += CheckProgress;
             Timer.Start();
+            TimerStart = true;
             DownloadComplete += DonwloadFileComplete;
 
             App.Current.Resuming += Current_Resuming;
@@ -45,11 +46,13 @@ namespace Fooxboy.MusicX.Uwp.Services.VKontakte
         private void Current_Suspending(object sender, Windows.ApplicationModel.SuspendingEventArgs e)
         {
             this.Timer.Stop();
+            TimerStart = false;
         }
 
         private void Current_Resuming(object sender, object e)
         {
             if (CurrentDownloadedTrack != null) this.Timer.Start();
+            TimerStart = true;
         }
 
         private async void CheckProgress(object sender, object o)
@@ -164,10 +167,10 @@ namespace Fooxboy.MusicX.Uwp.Services.VKontakte
             {
                 var track = new DownloadAudioFile()
                 {
-                    Title = audio.Title,
-                    AlbumName = audio.Title,
+                    Title = audio.Title.Replace("*", "").Replace(".", "").Replace("\"", "").Replace("\\", "").Replace("/", "").Replace("[", "").Replace("]", "").Replace(":", "").Replace(";", "").Replace("|", "").Replace("=", "").Replace(",", ""),
+                    AlbumName = audio.Title.Replace("*", "").Replace(".", "").Replace("\"", "").Replace("\\", "").Replace("/", "").Replace("[", "").Replace("]", "").Replace(":", "").Replace(";", "").Replace("|", "").Replace("=", "").Replace(",", ""),
                     AlbumYear = "2019",
-                    Artist = audio.Artist,
+                    Artist = audio.Artist.Replace("*", "").Replace(".", "").Replace("\"", "").Replace("\\", "").Replace("/", "").Replace("[", "").Replace("]", "").Replace(":", "").Replace(";", "").Replace("|", "").Replace("=", "").Replace(",", ""),
                     Cover = audio.Cover,
                     Url = audio.SourceString,
                     FromAlbum = false,
@@ -180,10 +183,7 @@ namespace Fooxboy.MusicX.Uwp.Services.VKontakte
                     : await KnownFolders.MusicLibrary.GetFolderAsync("Music X");
 
 
-                var trackArtist = track.Artist.Replace("*", "").Replace(".", "").Replace("\"", "").Replace("\\", "").Replace("/", "").Replace("[", "").Replace("]", "").Replace(":", "").Replace(";", "").Replace("|", "").Replace("=", "").Replace(",", "");
-                var trackTitle = track.Title.Replace("*", "").Replace(".", "").Replace("\"", "").Replace("\\", "").Replace("/", "").Replace("[", "").Replace("]", "").Replace(":", "").Replace(";", "").Replace("|", "").Replace("=", "").Replace(",", "");
-
-                if ((await folder.TryGetItemAsync($"{trackArtist} - {trackTitle} (Music X).mp3")) != null) return;
+                if ((await folder.TryGetItemAsync($"{track.Artist} - {track.Title} (Music X).mp3")) != null) return;
 
                 if (CurrentDownloadTrack == null)
                 {
@@ -205,10 +205,10 @@ namespace Fooxboy.MusicX.Uwp.Services.VKontakte
             {
                 var track = new DownloadAudioFile()
                 {
-                    Title = audio.Title,
-                    AlbumName = playlist.Name,
+                    Title = audio.Title.Replace("*", "").Replace(".", "").Replace("\"", "").Replace("\\", "").Replace("/", "").Replace("[", "").Replace("]", "").Replace(":", "").Replace(";", "").Replace("|", "").Replace("=", "").Replace(",", ""),
+                    AlbumName = playlist.Name.Replace("*", "").Replace(".", "").Replace("\"", "").Replace("\\", "").Replace("/", "").Replace("[", "").Replace("]", "").Replace(":", "").Replace(";", "").Replace("|", "").Replace("=", "").Replace(",", ""),
                     AlbumYear = playlist.Year,
-                    Artist = audio.Artist,
+                    Artist = audio.Artist.Replace("*", "").Replace(".", "").Replace("\"", "").Replace("\\", "").Replace("/", "").Replace("[", "").Replace("]", "").Replace(":", "").Replace(";", "").Replace("|", "").Replace("=", "").Replace(",", ""),
                     Cover = audio.Cover,
                     Url = audio.SourceString,
                     FromAlbum = true,
@@ -238,28 +238,27 @@ namespace Fooxboy.MusicX.Uwp.Services.VKontakte
         private async Task DownloadAudio(DownloadAudioFile track)
         {
 
-            if (!this.Timer.IsEnabled) this.Timer.Start();
+            if (!TimerStart) this.Timer.Start();
 
-            var trackArtist = track.Artist.Replace("*", "").Replace(".", "").Replace("\"", "").Replace("\\", "").Replace("/", "").Replace("[", "").Replace("]", "").Replace(":", "").Replace(";", "").Replace("|", "").Replace("=", "").Replace(",", "");
-            var trackTitle = track.Title.Replace("*", "").Replace(".", "").Replace("\"", "").Replace("\\", "").Replace("/", "").Replace("[", "").Replace("]", "").Replace(":", "").Replace(";", "").Replace("|", "").Replace("=", "").Replace(",", "");
+           
             CurrentDownloadTrack = track;
             DownloadAccess = false;
             StorageFile trackFile = null;
             if (!track.FromAlbum)
             {
                 var libraryTracks = await KnownFolders.MusicLibrary.GetFolderAsync("Music X");
-                trackFile = await libraryTracks.CreateFileAsync($"{trackArtist} - {trackTitle} (Music X).mp3");
+                trackFile = await libraryTracks.CreateFileAsync($"{track.Artist} - {track.Title} (Music X).mp3");
             }else
             {
                 var libraryTracks = await KnownFolders.MusicLibrary.GetFolderAsync("Music X");
                 var albumName = track.AlbumName.Replace("*", "").Replace(".", "").Replace("\"", "").Replace("\\", "").Replace("/", "").Replace("[", "").Replace("]", "").Replace(":", "").Replace(";", "").Replace("|", "").Replace("=", "").Replace(",", "");
                 var libraryPlaylist = await libraryTracks.GetFolderAsync(track.AlbumName);
-                if (await libraryPlaylist.TryGetItemAsync($"{trackArtist} - {trackTitle} (Music X).mp3") != null)
+                if (await libraryPlaylist.TryGetItemAsync($"{track.Artist} - {track.Title} (Music X).mp3") != null)
                 {
                     DownloadComplete?.Invoke(this, CurrentDownloadTrack);
                 }else
                 {
-                    trackFile = await libraryPlaylist.CreateFileAsync($"{trackArtist} - {trackTitle} (Music X).mp3");
+                    trackFile = await libraryPlaylist.CreateFileAsync($"{track.Artist} - {track.Title} (Music X).mp3");
                 }
             }
             currentFileAudio = trackFile;
