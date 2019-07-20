@@ -190,19 +190,19 @@
                     </StackPanel>
 
                     <StackPanel Grid.Column="1" HorizontalAlignment="Right">
-                        <UI:AdControl Margin="30 30 0 0" ApplicationId="9ncjgg7b13q1" 
+                        <UI:AdControl Margin="30 30 30 0" ApplicationId="9ncjgg7b13q1" 
                                   Visibility="{x:Bind ViewModel.VisibilityAds}"
                       AdUnitId="1100051155" 
                       Height="250"
                       Width="300"/>
                         <UI:AdControl HorizontalAlignment="Right" 
-                                      Margin="30 30 0 0" ApplicationId="9ncjgg7b13q1" 
+                                      Margin="30 30 30 0" ApplicationId="9ncjgg7b13q1" 
                                   Visibility="{x:Bind ViewModel.VisibilityAds}"
                       AdUnitId="1100051155" 
                       Height="250"
                       Width="300"/>
                         <UI:AdControl HorizontalAlignment="Right"
-                                      Margin="30 30 0 0" ApplicationId="9ncjgg7b13q1" 
+                                      Margin="30 30 30 0" ApplicationId="9ncjgg7b13q1" 
                                   Visibility="{x:Bind ViewModel.VisibilityAds}"
                       AdUnitId="1100051155" 
                       Height="250"
