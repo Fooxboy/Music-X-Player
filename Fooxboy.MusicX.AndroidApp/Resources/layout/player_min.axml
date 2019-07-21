@@ -1,54 +1,76 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
                 xmlns:app="http://schemas.android.com/apk/res-auto"
-                android:orientation="vertical"
+                android:orientation="horizontal"
                 android:layout_width="match_parent"
-                android:layout_height="85dp"
+                android:layout_height="60dp"
                 android:background="#FFFFFF"
 >
     
     <com.makeramen.roundedimageview.RoundedImageView
-            android:layout_width="75dp"
+            android:layout_width="45dp"
             android:id="@+id/player_min_cover"
-            android:layout_height="75dp"
-            android:layout_marginVertical="5dp"
-            android:layout_marginLeft="5dp"
-            app:riv_corner_radius="999dp"
+            android:layout_height="45dp"
+            android:layout_gravity="center_vertical"
+            android:layout_marginLeft="20dp"
+            app:riv_corner_radius="5dp"
             android:src="@drawable/placeholder"
             
     />
-    <TextView android:layout_width="match_parent" 
-              android:layout_height="25dp"
-              android:layout_marginTop="20dp"
-              android:layout_marginLeft="90dp"
-              android:textSize="19dp"
-              android:text="Congratulations"
-              android:textColor="@color/colorPrimaryDark"
-              android:id="@+id/player_min_trackName"
-              
-              />
-    <TextView android:layout_width="match_parent"
-              android:layout_height="18dp"
-              android:layout_marginTop="46dp"
-              android:layout_marginLeft="90dp"
-              android:text="PewDiePie"
-              android:textColor="@color/colorPrimaryDark"
-              android:id="@+id/player_min_artist"
-    />
     
-    <Button android:layout_width="45dp" 
-            android:layout_height="45dp"
-            android:layout_alignParentEnd="true"
-            android:layout_marginTop="20dp"
-            android:layout_marginRight="65dp"
-            android:background="@drawable/play"
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:orientation="vertical"
+        android:layout_gravity="center_vertical"
+        android:layout_marginLeft="10dp"
+        android:layout_height="wrap_content">
+        
+        <TextView android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:fadingEdge="horizontal"
+            android:scrollHorizontally="true"
+            android:singleLine="true"
+            android:textSize="12dp"
+            android:text="Название трека"
+            android:textColor="@color/colorPrimaryDark"
+            android:id="@+id/player_min_trackName"
+
             />
-    <Button android:layout_width="45dp"
-            android:layout_height="45dp"
-            android:layout_alignParentEnd="true"
-            android:layout_marginTop="20dp"
-            android:layout_marginRight="10dp"
-            android:background="@drawable/skip"
-    />
+        <TextView android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Имя исполнителя"
+            android:textColor="@color/colorPrimaryDark"
+            android:id="@+id/player_min_artist"
+            />
+    </LinearLayout>
     
-</RelativeLayout>
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_centerInParent="true"
+            android:orientation="horizontal">
+
+            <Button
+                android:layout_width="25dp"
+                android:layout_height="25dp"
+                android:layout_marginRight="5dp"
+                android:layout_alignParentEnd="true"
+                android:background="@drawable/play" />
+
+            <Button
+                android:layout_width="25dp"
+                android:layout_height="25dp"
+                android:layout_alignParentEnd="true"
+                android:background="@drawable/skip" />
+
+        </LinearLayout>
+    </RelativeLayout>
+    
+    
+    
+</LinearLayout>

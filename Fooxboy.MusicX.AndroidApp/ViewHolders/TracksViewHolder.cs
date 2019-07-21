@@ -28,6 +28,8 @@ namespace Fooxboy.MusicX.AndroidApp.ViewHolders
             Artist = itemView.FindViewById<TextView>(Resource.Id.textViewArtist);
             Duration = itemView.FindViewById<TextView>(Resource.Id.DurationTrack);
             Cover = itemView.FindViewById<RoundedImageView>(Resource.Id.imageViewCover);
+            itemView.SetOnClickListener(this);
+            itemView.SetOnLongClickListener(this);
         }
         
         

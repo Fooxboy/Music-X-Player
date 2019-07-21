@@ -52,6 +52,8 @@ namespace Fooxboy.MusicX.AndroidApp.Resources.fragments
             tracksView.SetAdapter(adapter);
             tracksView.SetLayoutManager(new LinearLayoutManager(Application.Context, LinearLayoutManager.Vertical, false));
 
+            tracksView.Clickable = true;
+            
             var scrollListener = new Listeners.OnScrollToBottomListener(() =>
             {
                 if (!HasLoading) return;
@@ -140,18 +142,18 @@ namespace Fooxboy.MusicX.AndroidApp.Resources.fragments
 
         private void AdapterOnItemClick(object sender, AudioFile args)
         {
-            
+            Toast.MakeText(Application.Context, $"Ты тыкнул: {args.Artist} - {args.Title} ", ToastLength.Long).Show();
             //Создание плейлиста из локальных трекаф
             var playlist = new PlaylistFile();
             playlist.Artist = "Music X";
             playlist.Cover = "playlist_placeholder";
             playlist.Genre = "";
+            playlist.Id = 1000;
             playlist.IsAlbum = false;
             playlist.TracksFiles = TracksInLibrary;
             var player = PlayerService.Instanse;
-            player.Play(playlist, playlist.TracksFiles.Single(t => t.SourceString == args.SourceString));
+            player.Play(playlist, playlist.TracksFiles.First(t => t.SourceString == args.SourceString));
         
-            Toast.MakeText(Application.Context, $"Ты тыкнул: {args.Artist} - {args.Title} ", ToastLength.Long).Show();
         }
 
         //Toast.MakeText(Application.Context, "Оно скролитЬся", ToastLength.Long).Show();
