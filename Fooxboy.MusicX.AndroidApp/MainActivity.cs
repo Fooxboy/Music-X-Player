@@ -29,7 +29,7 @@ namespace Fooxboy.MusicX.AndroidApp
             AppCenter.Start("ee629636-643f-425c-9ce1-6444adada296",
                    typeof(Analytics), typeof(Crashes));
 
-            CrossMediaManager.Current.Init();
+            CrossMediaManager.Current.Init(this);
 
             SetContentView(Resource.Layout.activity_main);
 
