@@ -39,6 +39,13 @@
         android:layout_marginTop="?android:attr/actionBarSize" >
         
     </FrameLayout>
+    
+    <FrameLayout android:id="@+id/miniplayer_frame"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="56dp"
+        android:layout_width="fill_parent">
+    </FrameLayout>
 
     <android.support.design.widget.BottomNavigationView
         android:id="@+id/navigation"

@@ -49,6 +49,11 @@ namespace Fooxboy.MusicX.AndroidApp
                 intent.SetFlags(ActivityFlags.NewTask);
                 StartActivity(intent);
             }
+
+            var miniplayerFragment = new MiniPlayerFragment();
+            FragmentManager.BeginTransaction().Replace(Resource.Id.miniplayer_frame, miniplayerFragment).Commit();
+            
+            MiniPlayerService.SetFrame(FindViewById<FrameLayout>(Resource.Id.miniplayer_frame));
         }
 
         public override void OnRequestPermissionsResult(int requestCode, string[] permissions, [GeneratedEnum] Android.Content.PM.Permission[] grantResults)

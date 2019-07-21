@@ -30,6 +30,8 @@ namespace Fooxboy.MusicX.AndroidApp.Resources.fragments
         TrackAdapter adapter = null;
         bool HasLoading = true;
 
+        public List<AudioFile> TracksInLibrary ;
+
         public override View OnCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
         {
             var view = inflater.Inflate(Resource.Layout.homeActivity, container, false);
@@ -39,12 +41,13 @@ namespace Fooxboy.MusicX.AndroidApp.Resources.fragments
             progressBar.Visibility = ViewStates.Visible;
 
             List<AudioFile> tracks = new List<AudioFile>();
+            TracksInLibrary = tracks;
             adapter = new TrackAdapter(tracks);
 
             var tracksView = view.FindViewById<RecyclerView>(Resource.Id.TracksView);
             Handler handler = new Handler(Looper.MainLooper);
             
-            tracksView.Click += TracksViewOnClick;
+            adapter.ItemClick += AdapterOnItemClick;
             
             tracksView.SetAdapter(adapter);
             tracksView.SetLayoutManager(new LinearLayoutManager(Application.Context, LinearLayoutManager.Vertical, false));
@@ -76,6 +79,7 @@ namespace Fooxboy.MusicX.AndroidApp.Resources.fragments
                     {
                         var count = adapter.ItemCount;
                         adapter.AddItems(tracks);
+                        TracksInLibrary.AddRange(tracks);
                         adapter.NotifyItemRangeChanged(count, tracks.Count);
                         progressBar.Visibility = ViewStates.Invisible;
                         end = true;
@@ -134,13 +138,21 @@ namespace Fooxboy.MusicX.AndroidApp.Resources.fragments
 
         }
 
-        private void TracksViewOnClick(object sender, EventArgs e)
+        private void AdapterOnItemClick(object sender, AudioFile args)
         {
             
-            
-            throw new NotImplementedException();
+            //Создание плейлиста из локальных трекаф
+            var playlist = new PlaylistFile();
+            playlist.Artist = "Music X";
+            playlist.Cover = "playlist_placeholder";
+            playlist.Genre = "";
+            playlist.IsAlbum = false;
+            playlist.TracksFiles = TracksInLibrary;
+            var player = PlayerService.Instanse;
+            player.Play(playlist, playlist.TracksFiles.Single(t => t.SourceString == args.SourceString));
+        
+            Toast.MakeText(Application.Context, $"Ты тыкнул: {args.Artist} - {args.Title} ", ToastLength.Long).Show();
         }
-
 
         //Toast.MakeText(Application.Context, "Оно скролитЬся", ToastLength.Long).Show();
         //

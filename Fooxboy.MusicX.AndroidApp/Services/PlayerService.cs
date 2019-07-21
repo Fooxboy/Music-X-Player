@@ -1,11 +1,14 @@
+using Android.Views;
+using Android.Widget;
 using Fooxboy.MusicX.AndroidApp.Models;
+using ImageViews.Rounded;
 
 namespace Fooxboy.MusicX.AndroidApp.Services
 {
     public class PlayerService
     {
         public PlayingService MainService;
-        private static PlayingService inst;
+        private static PlayerService inst;
         
         
         public string Title { get; set; }
@@ -13,9 +16,20 @@ namespace Fooxboy.MusicX.AndroidApp.Services
         public string Cover { get; set; }
         public AudioFile CurrentAudioFile { get; set; } 
 
-        
-        public static PlayingService Instanse => inst ?? (inst = new PlayingService());
 
+        public static PlayerService Instanse => inst ?? (inst = new PlayerService());
+
+
+        public void Play(PlaylistFile playlist = null, AudioFile audio= null)
+        {
+            StaticContentService.NowPlay =playlist?.TracksFiles;
+            MainService.Play(playlist, audio);
+        }
+
+        public void Pause()
+        {
+            MainService.Pause();
+        }
 
         private PlayerService()
         {
@@ -25,10 +39,23 @@ namespace Fooxboy.MusicX.AndroidApp.Services
 
         private void MainServiceOnCurrentAudioChanged(object sender, AudioFile args)
         {
+            
             Title = args.Title;
             Artist = args.Artist;
             Cover = args.Cover;
             CurrentAudioFile = args;
+
+            if (MiniPlayerService.MiniPlayer != null)
+            {
+                var view = MiniPlayerService.MiniPlayer;
+                var title = view.FindViewById<TextView>(Resource.Id.player_min_trackName);
+                var artist = view.FindViewById<TextView>(Resource.Id.player_min_artist);
+                var cover = view.FindViewById<RoundedImageView>(Resource.Id.player_min_cover);
+
+                title.Text = Title;
+                artist.Text = Artist;
+                cover.SetImageString(Cover, 50, 50);
+            }
         }
     }
 }
