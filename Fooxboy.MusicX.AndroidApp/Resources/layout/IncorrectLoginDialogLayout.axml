@@ -27,9 +27,10 @@ android:padding="7dp">
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/buttonIncorrectLoginOk"
-        android:layout_gravity="top|right"
+        android:layout_gravity="center"
         android:gravity="center" 
         android:background="@android:color/transparent"
+        
     />
 
 
