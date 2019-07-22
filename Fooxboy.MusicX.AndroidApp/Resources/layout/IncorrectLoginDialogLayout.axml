@@ -2,7 +2,8 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical"
     android:layout_width="300dp"
-    android:layout_height="200dp">
+    android:layout_height="140dp"
+android:padding="7dp">
     <TextView
         android:text="Неверный логин или пароль"
         android:textAppearance="?android:attr/textAppearanceMedium"
@@ -27,7 +28,9 @@
         android:layout_height="wrap_content"
         android:id="@+id/buttonIncorrectLoginOk"
         android:layout_gravity="top|right"
-        android:gravity="center" />
+        android:gravity="center" 
+        android:background="@android:color/transparent"
+    />
 
 
 </LinearLayout>
