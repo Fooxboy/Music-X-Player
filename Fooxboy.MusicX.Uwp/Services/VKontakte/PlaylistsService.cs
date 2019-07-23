@@ -40,6 +40,8 @@ namespace Fooxboy.MusicX.Uwp.Services.VKontakte
                 Id = playlist.Id,
                 Name = playlist.Name,
                 TracksFiles = tracksFiles,
+                OnRequest = playlist.OnRequest,
+                OwnerId =  playlist.OwnerId,
                 Genre = playlist.Genre,
                 IsAlbum = playlist.IsAlbum,
                 Year = playlist.Year,

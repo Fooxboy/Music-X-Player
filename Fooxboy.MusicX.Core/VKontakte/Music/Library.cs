@@ -45,15 +45,15 @@ namespace Fooxboy.MusicX.Core.VKontakte.Music
 
             foreach (var playlist in playlistsVk)
             {
-                var music = await StaticContent.VkApi.Audio.GetAsync(new VkNet.Model.RequestParams.AudioGetParams()
-                {
-                    PlaylistId = playlist.Id,
-                });
+                //var music = await StaticContent.VkApi.Audio.GetAsync(new VkNet.Model.RequestParams.AudioGetParams()
+                //{
+                //    PlaylistId = playlist.Id,
+                //});
 
-                IList<IAudioFile> tracks = new List<IAudioFile>();
-                foreach (var track in music) tracks.Add(track.ToIAudioFile());
+                //IList<IAudioFile> tracks = new List<IAudioFile>();
+                //foreach (var track in music) tracks.Add(track.ToIAudioFile());
 
-                playlists.Add(playlist.ToIPlaylistFile(tracks));
+                playlists.Add(playlist.ToIPlaylistFile(new List<IAudioFile>())) ;
             }
             return playlists;
         }

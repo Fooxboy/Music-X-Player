@@ -93,10 +93,7 @@ namespace Fooxboy.MusicX.Uwp.ViewModels
         private ObservableCollection<AudioFile> music;
         public ObservableCollection<AudioFile> Music
         {
-            get
-            {
-                return music;
-            }
+            get => music;
             set
             {
                 if (value != music)
@@ -105,6 +102,23 @@ namespace Fooxboy.MusicX.Uwp.ViewModels
                     Changed("Music");
                 }
             }
+        }
+
+        public async void LoadingTracks()
+        {
+            VisibilotyNoTrack = Visibility.Collapsed;
+            VisibilityIsLoading = true;
+            Changed("VisibilityIsLoading");
+            var tracks = await Fooxboy.MusicX.Core.VKontakte.Music.Playlist.GetTracks(Playlist.Id);
+            Music = new ObservableCollection<AudioFile>(await MusicService.ConvertToAudioFile(tracks, Playlist.Cover));
+            Playlist.TracksFiles = await MusicService.ConvertToAudioFile(tracks, Playlist.Cover);
+            Changed("Playlist");
+            Changed("Playlist.TracksFiles");
+            Changed("Music");
+            VisibilityIsLoading = false;
+            if (tracks.Count == 0) visibilityNoTrack = Visibility.Visible;
+            Changed("VisibilityIsLoading");
+            //TODO: загрузка треков.
         }
 
         public Visibility VisibilityDescription
@@ -119,6 +133,9 @@ namespace Fooxboy.MusicX.Uwp.ViewModels
                 //support x:bind
             }
         }
+
+
+        public bool VisibilityIsLoading { get; set; }
 
         public Visibility VisibilityInfo
         {

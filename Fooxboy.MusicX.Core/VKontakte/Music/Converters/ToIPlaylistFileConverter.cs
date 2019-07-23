@@ -104,6 +104,9 @@ namespace Fooxboy.MusicX.Core.VKontakte.Music.Converters
                 Tracks = tracks,
                 Name = playlist.Title,
                 IsAlbum = isAlbum,
+                OnRequest = tracks.Count == 0,
+                Plays = playlist.Plays,
+                OwnerId = playlist.OwnerId.Value,
                 Genre = genre,
                 Year = year,
                 Description = description

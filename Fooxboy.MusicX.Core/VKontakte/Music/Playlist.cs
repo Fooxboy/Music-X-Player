@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Text;
 using System.Threading.Tasks;
@@ -87,6 +88,19 @@ namespace Fooxboy.MusicX.Core.VKontakte.Music
             IList<IAudioFile> tracks = new List<IAudioFile>();
             foreach (var track in music) tracks.Add(track.ToIAudioFile());
             return playlist.ToIPlaylistFile(tracks);
+        }
+
+        public async static Task<IList<IAudioFile>> GetTracks(long playlistId, long ownerId = 0)
+        {
+
+            var music = ownerId == 0 ? await StaticContent.VkApi.Audio.GetAsync(new VkNet.Model.RequestParams.AudioGetParams() { PlaylistId = playlistId }):
+                await StaticContent.VkApi.Audio.GetAsync(new VkNet.Model.RequestParams.AudioGetParams() { PlaylistId = playlistId, OwnerId = ownerId });
+
+            IList<IAudioFile> tracks = new List<IAudioFile>();
+            foreach (var track in music) tracks.Add(track.ToIAudioFile());
+
+            return tracks;
+
         }
     }
 }

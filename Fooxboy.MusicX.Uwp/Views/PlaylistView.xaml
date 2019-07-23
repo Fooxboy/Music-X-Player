@@ -169,11 +169,13 @@
 
         </Grid>
 
+
+
         <ListView ItemContainerStyle="{StaticResource ListViewItemContainerStyle}"
                   Grid.Row="1"
                   ItemTemplate="{ThemeResource TrackTemplate}"
                   Style="{StaticResource ListViewStyle}" HorizontalAlignment="Stretch"
-                  ItemsSource="{x:Bind PlaylistViewModel.Playlist.TracksFiles, Mode=TwoWay}"
+                  ItemsSource="{x:Bind PlaylistViewModel.Playlist.TracksFiles, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                   x:Name="MusicListView"
                   SelectedItem="{x:Bind PlaylistViewModel.SelectedAudioFile, Mode=TwoWay}"
                   ItemClick="{x:Bind PlaylistViewModel.ListViewMusic_Click}"
@@ -184,6 +186,8 @@
                 </ItemsPanelTemplate>
             </ListView.ItemsPanel>
         </ListView>
+
+        
 
         <StackPanel Visibility="{x:Bind PlaylistViewModel.VisibilotyNoTrack, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                     HorizontalAlignment="Center" 
@@ -205,5 +209,10 @@
                        Foreground="{ThemeResource SubText}"
                        Text="Просто кликните правой кнопкой по треку и нажмите Добавить -> В плейлист"/>
         </StackPanel>
+        <ProgressRing Height="70" Width="70"
+                      Visibility="Visible"
+                      HorizontalAlignment="Center" 
+                      IsEnabled="{x:Bind PlaylistViewModel.VisibilityIsLoading, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                      VerticalAlignment="Center" Grid.Row="1"/>
     </Grid>
 </Page>
