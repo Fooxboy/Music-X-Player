@@ -21,11 +21,11 @@
     <AppxAutoIncrementPackageRevision>True</AppxAutoIncrementPackageRevision>
     <AppxBundle>Auto</AppxBundle>
     <AppxBundlePlatforms>x86|x64</AppxBundlePlatforms>
-    <PackageCertificateThumbprint>C2AE5D8FD27A278E9D293CE60C0638292F60AD28</PackageCertificateThumbprint>
+    <PackageCertificateThumbprint>78DDB2C592908C7353350DAD06C2A7EBDE86F5CF</PackageCertificateThumbprint>
     <AppInstallerUpdateFrequency>1</AppInstallerUpdateFrequency>
     <AppInstallerCheckForUpdateFrequency>OnApplicationRun</AppInstallerCheckForUpdateFrequency>
-    <AppxSymbolPackageEnabled>True</AppxSymbolPackageEnabled>
-    <AppxPackageDir>E:\Projects\Fooxboy.MusicX\Fooxboy.MusicX.Uwp\AppPackages\1.3.15</AppxPackageDir>
+    <AppxSymbolPackageEnabled>False</AppxSymbolPackageEnabled>
+    <AppxPackageDir>B:\Music X\Releases\1.3.20</AppxPackageDir>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x86'">
     <DebugSymbols>true</DebugSymbols>
@@ -554,7 +554,7 @@
       <Version>12.0.2</Version>
     </PackageReference>
     <PackageReference Include="NLog">
-      <Version>4.6.5</Version>
+      <Version>4.6.6</Version>
     </PackageReference>
     <PackageReference Include="taglib-sharp-netstandard2.0">
       <Version>2.1.0</Version>
