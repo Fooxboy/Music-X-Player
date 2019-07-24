@@ -54,16 +54,9 @@ namespace Fooxboy.MusicX.Core.VKontakte.Music
             var plists = response.Items[3].Playlists;
             var list = new List<IPlaylistFile>();
             
-            //TODO: сделать треки плейлистов по запросу.
             foreach (var plist in plists)
             {
-                var musicPlist = await StaticContent.VkApi.Audio.GetAsync(new VkNet.Model.RequestParams.AudioGetParams()
-                {
-                    PlaylistId = response.Items[2].Playlist.Id
-                });
-                IList<IAudioFile> tracksPlist = new List<IAudioFile>();
-                foreach (var track in musicPlist) tracksPlist.Add(track.ToIAudioFile());
-                list.Add(plist.ToIPlaylistFile(tracksPlist, artist.Name));
+                list.Add(plist.ToIPlaylistFile(new List<IAudioFile>(), artist.Name));
             }
 
             artist.Albums = list;

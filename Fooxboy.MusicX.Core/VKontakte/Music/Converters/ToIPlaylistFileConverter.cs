@@ -30,11 +30,14 @@ namespace Fooxboy.MusicX.Core.VKontakte.Music.Converters
                 Artist = artist,
                 Cover = cover,
                 Id = playlist.Id,
+                OwnerId = playlist.OwnerId,
                 IsLocal = false,
                 Tracks = tracks,
+                AccessKey = playlist.AccessKey,
                 Name = playlist.Title,
                 IsAlbum = true,
                 Genre = genre,
+                OnRequest = true,
                 Year = year,
                 Description = description
             };
@@ -103,6 +106,7 @@ namespace Fooxboy.MusicX.Core.VKontakte.Music.Converters
                 IsLocal = false,
                 Tracks = tracks,
                 Name = playlist.Title,
+                AccessKey = playlist.AccessKey,
                 IsAlbum = isAlbum,
                 OnRequest = tracks.Count == 0,
                 Plays = playlist.Plays,

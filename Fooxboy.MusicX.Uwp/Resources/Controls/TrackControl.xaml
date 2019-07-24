@@ -147,13 +147,15 @@
             Grid.Row="0"
             Grid.Column="1"
             Margin="10,0,0,0"
-            Text="{x:Bind Track.Title, Mode=TwoWay}" />
+            Text="{x:Bind Track.Title, Mode=TwoWay}"
+            TextTrimming="WordEllipsis" />
         <TextBlock
             Grid.Row="1"
             Grid.Column="1"
             Margin="10,0,0,0"
             Foreground="{ThemeResource ColorArtistText}"
-            Text="{x:Bind Track.Artist, Mode=TwoWay}" />
+            Text="{x:Bind Track.Artist, Mode=TwoWay}"
+            TextTrimming="WordEllipsis" />
         <Button
             x:Name="Like"
             Grid.RowSpan="2"

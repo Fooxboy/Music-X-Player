@@ -5,6 +5,8 @@ using System.Text;
 using System.Threading.Tasks;
 using Fooxboy.MusicX.Core.Interfaces;
 using Fooxboy.MusicX.Core.VKontakte.Music.Converters;
+using VkNet.Model.Attachments;
+using VkNet.Utils;
 
 namespace Fooxboy.MusicX.Core.VKontakte.Music
 {
@@ -90,11 +92,16 @@ namespace Fooxboy.MusicX.Core.VKontakte.Music
             return playlist.ToIPlaylistFile(tracks);
         }
 
-        public async static Task<IList<IAudioFile>> GetTracks(long playlistId, long ownerId = 0)
+        public async static Task<IList<IAudioFile>> GetTracks(long playlistId, long ownerId = 0, string key = null)
         {
+            var param = new VkParameters();
+            param.Add("playlist_id", playlistId);
+            param.Add("owner_id", ownerId);
+            param.Add("access_key", key);
+            var music = await StaticContent.VkApi.CallAsync<VkCollection<Audio>>("audio.get", param);
 
-            var music = ownerId == 0 ? await StaticContent.VkApi.Audio.GetAsync(new VkNet.Model.RequestParams.AudioGetParams() { PlaylistId = playlistId }):
-                await StaticContent.VkApi.Audio.GetAsync(new VkNet.Model.RequestParams.AudioGetParams() { PlaylistId = playlistId, OwnerId = ownerId });
+            //var music = ownerId == 0 ? await StaticContent.VkApi.Audio.GetAsync(new VkNet.Model.RequestParams.AudioGetParams() { PlaylistId = playlistId }):
+            //    await StaticContent.VkApi.Audio.GetAsync(new VkNet.Model.RequestParams.AudioGetParams() { PlaylistId = playlistId, OwnerId = ownerId});
 
             IList<IAudioFile> tracks = new List<IAudioFile>();
             foreach (var track in music) tracks.Add(track.ToIAudioFile());

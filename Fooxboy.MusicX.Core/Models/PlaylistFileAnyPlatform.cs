@@ -18,6 +18,7 @@ namespace Fooxboy.MusicX.Core.Models
         public string Genre { get; set; }
         public long Plays { get; set; }
         public string Year { get; set; }
+        public string AccessKey { get; set; }
         public string Description { get; set; }
         public bool OnRequest { get; set; } = false;
     }

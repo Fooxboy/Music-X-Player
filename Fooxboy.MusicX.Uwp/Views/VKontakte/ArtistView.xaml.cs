@@ -31,11 +31,16 @@ namespace Fooxboy.MusicX.Uwp.Views.VKontakte
             ViewModel = new ArtistViewModel();
         }
 
+
+
         protected async override void OnNavigatedTo(NavigationEventArgs e)
         {
             var info = (ArtistParameter)e.Parameter;
             await ViewModel.StartLoading(info.Id, info.Name);
             //base.OnNavigatedTo(e);
         }
+
+
+        
     }
 }

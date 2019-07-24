@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Windows.UI.Xaml.Controls;
+using Windows.UI.Xaml.Input;
 using Fooxboy.MusicX.Uwp.Models;
 using Fooxboy.MusicX.Uwp.Services.VKontakte;
 using Microsoft.Advertising.Ads.Requests.AdBroker;
@@ -29,7 +31,9 @@ namespace Fooxboy.MusicX.Uwp.ViewModels.VKontakte
                 
             };
 
-    public async Task StartLoading(long artistId, string artistName)
+
+
+        public async Task StartLoading(long artistId, string artistName)
         {
             IsLoading = true;
             Changed("IsLoading");
@@ -61,5 +65,41 @@ namespace Fooxboy.MusicX.Uwp.ViewModels.VKontakte
             Changed("IsLoading");
             
         }
+
+        public AudioFile SelectPopularAudioFile { get; set; }
+
+        public PlaylistFile SelectPlaylist { get; set; }
+
+        public  async void UIElement_OnTappedTracks(object sender, TappedRoutedEventArgs e)
+        {
+            if (SelectPopularAudioFile != null)
+            {
+                var playlistCurrent = new PlaylistFile()
+                {
+                    Artist = NameArtist,
+                    Cover = "ms-appx:///Assets/Images/playlist-placeholder.png",
+                    Id = 666,
+                    IsLocal = false,
+                    Name = "Популярные треки исполнителя"
+                };
+
+                playlistCurrent.TracksFiles = PopularTracks;
+
+                await MusicService.PlayMusic(SelectPopularAudioFile, 2, playlistCurrent);
+            }
+        }
+
+        public void UIElement_OnTappedPlaylist(object sender, TappedRoutedEventArgs e)
+        {
+            if (SelectPlaylist == null) return;
+            StaticContent.NavigationContentService.Go(typeof(Views.PlaylistView), SelectPlaylist);
+        }
+        public void UIElement_OnTapped(object sender, TappedRoutedEventArgs e)
+        {
+            if (LastRelease == null) return;
+            StaticContent.NavigationContentService.Go(typeof(Views.PlaylistView), LastRelease);
+            //throw new NotImplementedException();
+        }
+
     }
 }

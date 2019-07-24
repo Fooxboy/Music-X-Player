@@ -24,7 +24,7 @@ namespace Fooxboy.MusicX.Uwp.Resources.ContentDialogs
     {
         public QueueDownloadContentDialog(List<DownloadAudioFile> tracks)
         {
-
+            if (tracks == null) tracks = new List<DownloadAudioFile>();
             Tracks = new ObservableCollection<DownloadAudioFile>(tracks);
             this.InitializeComponent();
 

@@ -18,6 +18,7 @@ namespace Fooxboy.MusicX.Core.Interfaces
         string Genre { get; set; }
         long Plays { get; set; }
         string Year { get; set; }
+        string AccessKey { get; set; }
         string Description { get; set; }
     }
 }
