@@ -6,6 +6,7 @@ using Fooxboy.MusicX.Core.Interfaces;
 using Fooxboy.MusicX.Core.Models;
 using Fooxboy.MusicX.Core.Models.Music.ArtistInfo;
 using Fooxboy.MusicX.Core.VKontakte.Music.Converters;
+using Newtonsoft.Json;
 using VkNet.Utils;
 
 namespace Fooxboy.MusicX.Core.VKontakte.Music
@@ -17,13 +18,26 @@ namespace Fooxboy.MusicX.Core.VKontakte.Music
             var parameters = new VkParameters();
             parameters.Add("artist_id", artistId);
             parameters.Add("extended", 1);
-            var response = await StaticContent.VkApi.CallAsync<Response>("audio.getCatalog", parameters);
+            parameters.Add("access_token", StaticContent.VkApi.Token);
+            parameters.Add("v", "5.101");
+            var json = await StaticContent.VkApi.InvokeAsync("audio.getCatalog", parameters);
 
+            var r = JsonConvert.DeserializeObject<Response>(json);
+            //var r = await StaticContent.VkApi.CallAsync<Response>("audio.getCatalog", parameters);
+            var response = r.response;
             IArtist artist = new ArtistAnyPlatform();
 
             artist.Name = response.Items[0].Artist.Name;
             artist.Domain = response.Items[0].Artist.Domain;
-            artist.Banner = response.Items[0].Artist.Photo[2].Url.ToString();
+            try
+            {
+                artist.Banner = response.Items[0].Artist.Photo[2].Url.ToString();
+
+            }
+            catch
+            {
+                artist.Banner = "no";
+            }
             artist.Id = long.Parse(response.Items[0].Artist.Id);
             artist.PopularTracks = (response.Items[1].Audios).ToIAudioFileList();
             

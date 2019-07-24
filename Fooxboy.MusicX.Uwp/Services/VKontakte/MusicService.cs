@@ -53,6 +53,8 @@ namespace Fooxboy.MusicX.Uwp.Services.VKontakte
                     OwnerId = track.OwnerId,
                     PlaylistId = track.PlaylistId,
                     Source = null,
+                    IsLicensed = track.IsLicensed,
+                    ArtistId = track.ArtistId,
                     SourceString = track.SourceString,
                     Title = track.Title,
                     IsFavorite = false,

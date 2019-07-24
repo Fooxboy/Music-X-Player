@@ -30,7 +30,7 @@ namespace Fooxboy.MusicX.AndroidApp.Resources.fragments
         TrackAdapter adapter = null;
         bool HasLoading = true;
 
-        public List<AudioFile> TracksInLibrary ;
+        public List<AudioFile> TracksInLibrary;
 
         public override View OnCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
         {

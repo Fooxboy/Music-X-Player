@@ -131,6 +131,7 @@
     <Compile Include="Enums\RepeatMode.cs" />
     <Compile Include="Interfaces\IPlaylist.cs" />
     <Compile Include="LoadingCollection.cs" />
+    <Compile Include="Models\ArtistParameter.cs" />
     <Compile Include="Models\AudioFile.cs" />
     <Compile Include="Models\AudioPlaylist.cs" />
     <Compile Include="Models\ConfigApp.cs" />
@@ -216,6 +217,7 @@
     <Compile Include="ViewModels\SettingsViewModel.cs" />
     <Compile Include="ViewModels\VKontakte\AccountViewModel.cs" />
     <Compile Include="ViewModels\VKontakte\AllPlaylistsViewModel.cs" />
+    <Compile Include="ViewModels\VKontakte\ArtistViewModel.cs" />
     <Compile Include="ViewModels\VKontakte\AuthViewModel.cs" />
     <Compile Include="ViewModels\VKontakte\DownloadsViewModel.cs" />
     <Compile Include="ViewModels\VKontakte\HomeViewModel.cs" />
@@ -303,6 +305,7 @@
     <Content Include="Assets\Images\placeholder.png" />
     <Content Include="Assets\Images\playlist-placeholder.png" />
     <Content Include="Assets\Images\vk-logo.png" />
+    <Content Include="Assets\Images\testArtistPhoto.jpg" />
     <Content Include="Assets\LargeTile.scale-100.png" />
     <Content Include="Assets\LargeTile.scale-125.png" />
     <Content Include="Assets\LargeTile.scale-150.png" />
@@ -399,6 +402,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Resources\Controls\TrackControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Resources\Styles\ArtistViewStyle.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

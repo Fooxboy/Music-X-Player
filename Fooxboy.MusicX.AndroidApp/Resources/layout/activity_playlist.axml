@@ -94,6 +94,22 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
+         <android.support.v7.widget.RecyclerView
+            android:layout_width="fill_parent"
+            android:minWidth="25dp"
+            android:minHeight="25dp"
+            android:requiresFadingEdge="vertical"
+            android:fadingEdge="vertical"
+            android:layout_height="fill_parent"
+            android:id="@+id/tracksPlaylistView"
+            android:layout_alignParentBottom="true" />
+
+        <ProgressBar
+            android:layout_width="50dp"
+            android:id= "@+id/progressBarPlaylistView"
+            android:layout_centerVertical="true"
+            android:layout_centerHorizontal="true"
+            android:layout_height="50dp"/>
 
         <!-- тут вообщем вью надо -->
 

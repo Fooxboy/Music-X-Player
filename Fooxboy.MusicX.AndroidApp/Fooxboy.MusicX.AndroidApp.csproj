@@ -79,6 +79,7 @@
     <Compile Include="Models\AudioPlaylist.cs" />
     <Compile Include="Models\PlaylistFile.cs" />
     <Compile Include="Resources\fragments\HomeFragment.cs" />
+    <Compile Include="Resources\fragments\PlaylistFragment.cs" />
     <Compile Include="Resources\fragments\SettingsFragment.cs" />
     <Compile Include="Resources\Resource.designer.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
