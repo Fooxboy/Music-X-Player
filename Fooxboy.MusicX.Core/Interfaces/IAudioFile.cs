@@ -11,6 +11,8 @@ namespace Fooxboy.MusicX.Core.Interfaces
         long InternalId { get; set; }
         string Title { get; set; }
         string Artist { get; set; }
+        long ArtistId { get; set; }
+        bool IsLicensed { get; set; }
         long PlaylistId { get; set; }
         bool IsLocal { get; set; }
         double DurationSeconds { get; set; }
