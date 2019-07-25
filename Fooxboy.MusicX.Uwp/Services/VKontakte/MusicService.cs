@@ -93,7 +93,7 @@ namespace Fooxboy.MusicX.Uwp.Services.VKontakte
 
 
                     foreach (var trackMusic in StaticContent.MusicVKontakte) playlistNowPlay.TracksFiles.Add(trackMusic);
-                    var index = playlistPlay.TracksFiles.IndexOf(playlistPlay.TracksFiles.Single(t => t.Id == audioFile.Id));
+                    var index = playlistNowPlay.TracksFiles.IndexOf(playlistNowPlay.TracksFiles.Single(t => t.Id == audioFile.Id));
 
                     if (index != 0)
                     {
