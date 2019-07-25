@@ -7,8 +7,11 @@ using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Input;
 using Fooxboy.MusicX.Uwp.Models;
+using Fooxboy.MusicX.Uwp.Resources.ContentDialogs;
+using Fooxboy.MusicX.Uwp.Services;
 using Fooxboy.MusicX.Uwp.Services.VKontakte;
 using Microsoft.Advertising.Ads.Requests.AdBroker;
+using PlaylistsService = Fooxboy.MusicX.Uwp.Services.VKontakte.PlaylistsService;
 
 namespace Fooxboy.MusicX.Uwp.ViewModels.VKontakte
 {
@@ -41,40 +44,54 @@ namespace Fooxboy.MusicX.Uwp.ViewModels.VKontakte
 
         public async Task StartLoading(long artistId, string artistName)
         {
-            IsLoading = true;
-            Changed("IsLoading");
-            NameArtist = artistName;
-            Changed("NameArtist");
-            var artist = await Fooxboy.MusicX.Core.VKontakte.Music.Artists.GetById(artistId);
-            NameArtist = artist.Name;
-            Changed("NameArtist");
-            PopularTracks =  await MusicService.ConvertToAudioFile(artist.PopularTracks);
-            PopularTracksVisibility = Visibility.Visible;
-            Changed("PopularTracksVisibility");
-            Changed("PopularTracks");
-            var albums = new List<PlaylistFile>();
-            foreach (var plist in artist.Albums) { albums.Add(await PlaylistsService.ConvertToPlaylistFile(plist));}
-            Albums = albums;
-            AlbumsVisibility = Visibility.Visible;
-            Changed("AlbumsVisibility");
-            Changed("Albums");
-            if(artist.Banner != "no")
+            try
             {
-                //todo: загрузка баннера.
-                Banner = await ImagesService.BannerArtist(artist.Banner);
-                Changed("Banner");
-            }
-            else
-            {
-                //TODO: поставить playholder artist.
-            }
+                IsLoading = true;
+                Changed("IsLoading");
+                NameArtist = artistName;
+                Changed("NameArtist");
+                var artist = await Fooxboy.MusicX.Core.VKontakte.Music.Artists.GetById(artistId);
+                NameArtist = artist.Name;
+                Changed("NameArtist");
+                PopularTracks = await MusicService.ConvertToAudioFile(artist.PopularTracks);
+                PopularTracksVisibility = Visibility.Visible;
+                Changed("PopularTracksVisibility");
+                Changed("PopularTracks");
+                var albums = new List<PlaylistFile>();
+                foreach (var plist in artist.Albums)
+                {
+                    albums.Add(await PlaylistsService.ConvertToPlaylistFile(plist));
+                }
 
-            LastRelease = await PlaylistsService.ConvertToPlaylistFile(artist.LastRelease);
-            LastAlbumVisibility = Visibility.Visible;
-            Changed("LastAlbumVisibility");
-            Changed("LastRelease");
-            IsLoading = false;
-            Changed("IsLoading");
+                Albums = albums;
+                AlbumsVisibility = Visibility.Visible;
+                Changed("AlbumsVisibility");
+                Changed("Albums");
+                if (artist.Banner != "no")
+                {
+                    //todo: загрузка баннера.
+                    Banner = await ImagesService.BannerArtist(artist.Banner);
+                    Changed("Banner");
+                }
+                else
+                {
+                    //TODO: поставить playholder artist.
+                }
+
+                LastRelease = await PlaylistsService.ConvertToPlaylistFile(artist.LastRelease);
+                LastAlbumVisibility = Visibility.Visible;
+                Changed("LastAlbumVisibility");
+                Changed("LastRelease");
+                IsLoading = false;
+                Changed("IsLoading");
+            }
+            catch (Exception e)
+            {
+                await ContentDialogService.Show(new ExceptionDialog("Ошибка при загрузке карточки исполнителя",
+                    "Возможно, исполнитель недоступен в Вашей стране или ВКонтакте не вернул необходимую информацию",
+                    e));
+            }
+            
             
         }
 
