@@ -115,7 +115,7 @@
                         <Grid Margin="30,30,0,0">
                             <controls:DropShadowPanel
                                 Grid.Column="0"
-                                Width="300"
+                                Width="320"
                                 Height="120"
                                 HorizontalAlignment="Left"
                                 BlurRadius="30"
@@ -124,14 +124,14 @@
                                 Opacity="0.5"
                                 ShadowOpacity="1">
                                 <Border
-                                    Width="300"
+                                    Width="320"
                                     Height="120"
                                     Background="White"
                                     CornerRadius="5" />
                             </controls:DropShadowPanel>
 
                             <Rectangle
-                                Width="300"
+                                Width="320"
                                 Height="120"
                                 HorizontalAlignment="Left"
                                 Fill="{ThemeResource BlockBackground}"
@@ -150,6 +150,7 @@
                                     IsChecked="{x:Bind ViewModel.SelectLightTheme, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                                     IsEnabled="True" />
                                 <RadioButton
+                                    Margin="0,0,20,0"
                                     Click="{x:Bind ViewModel.RadioButton_ClickDark}"
                                     Content="{x:Bind ViewModel.ContentDarkTheme, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                                     GroupName="Theme"
@@ -170,14 +171,14 @@
                                 Opacity="0.5"
                                 ShadowOpacity="1">
                                 <Border
-                                    Width="300"
+                                    Width="320"
                                     Height="160"
                                     Background="White"
                                     CornerRadius="5" />
                             </controls:DropShadowPanel>
 
                             <Rectangle
-                                Width="300"
+                                Width="320"
                                 Height="160"
                                 HorizontalAlignment="Left"
                                 Fill="{ThemeResource BlockBackground}"
@@ -211,7 +212,7 @@
                         <Grid Margin="30,40,0,0">
                             <controls:DropShadowPanel
                                 Grid.Column="0"
-                                Width="300"
+                                Width="320"
                                 Height="110"
                                 HorizontalAlignment="Left"
                                 BlurRadius="30"
@@ -220,14 +221,14 @@
                                 Opacity="0.5"
                                 ShadowOpacity="1">
                                 <Border
-                                    Width="300"
+                                    Width="320"
                                     Height="110"
                                     Background="White"
                                     CornerRadius="5" />
                             </controls:DropShadowPanel>
 
                             <Rectangle
-                                Width="300"
+                                Width="320"
                                 Height="110"
                                 HorizontalAlignment="Left"
                                 Fill="{ThemeResource BlockBackground}"
