@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Input;
 using Fooxboy.MusicX.Uwp.Models;
@@ -15,6 +16,11 @@ namespace Fooxboy.MusicX.Uwp.ViewModels.VKontakte
     {
         public string NameArtist { get; set; }
         public bool IsLoading { get; set; }
+        public Visibility PopularTracksVisibility { get; set; } = Visibility.Collapsed;
+        public Visibility LastAlbumVisibility { get; set; } = Visibility.Collapsed;
+        public Visibility AlbumsVisibility { get; set; } = Visibility.Collapsed;
+
+        public Visibility VisibilityAds => StaticContent.IsPro ? Visibility.Collapsed : Visibility.Visible;
         public List<AudioFile> PopularTracks { get; set; }
         public List<PlaylistFile> Albums { get; set; }
         public string Banner { get; set; }
@@ -43,10 +49,14 @@ namespace Fooxboy.MusicX.Uwp.ViewModels.VKontakte
             NameArtist = artist.Name;
             Changed("NameArtist");
             PopularTracks =  await MusicService.ConvertToAudioFile(artist.PopularTracks);
+            PopularTracksVisibility = Visibility.Visible;
+            Changed("PopularTracksVisibility");
             Changed("PopularTracks");
             var albums = new List<PlaylistFile>();
             foreach (var plist in artist.Albums) { albums.Add(await PlaylistsService.ConvertToPlaylistFile(plist));}
             Albums = albums;
+            AlbumsVisibility = Visibility.Visible;
+            Changed("AlbumsVisibility");
             Changed("Albums");
             if(artist.Banner != "no")
             {
@@ -60,6 +70,8 @@ namespace Fooxboy.MusicX.Uwp.ViewModels.VKontakte
             }
 
             LastRelease = await PlaylistsService.ConvertToPlaylistFile(artist.LastRelease);
+            LastAlbumVisibility = Visibility.Visible;
+            Changed("LastAlbumVisibility");
             Changed("LastRelease");
             IsLoading = false;
             Changed("IsLoading");

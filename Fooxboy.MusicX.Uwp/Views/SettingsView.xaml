@@ -2,159 +2,204 @@
     x:Class="Fooxboy.MusicX.Uwp.Views.SettingsView"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-    xmlns:local="using:Fooxboy.MusicX.Uwp.Views"
-    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:UI="using:Microsoft.Advertising.WinRT.UI"
-   xmlns:controls="using:Microsoft.Toolkit.Uwp.UI.Controls"
+    xmlns:controls="using:Microsoft.Toolkit.Uwp.UI.Controls"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:local="using:Fooxboy.MusicX.Uwp.Views"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    mc:Ignorable="d"
-    Background="{ThemeResource BackgroundApp}">
+    Background="{ThemeResource BackgroundApp}"
+    mc:Ignorable="d">
 
-    <Grid Margin="0 0 0 0">
+    <Grid Margin="0,0,0,0">
         <Grid.RowDefinitions>
-            <RowDefinition Height="32"/>
-            <RowDefinition Height="auto"/>
-            <RowDefinition Height="170"/>
-            <RowDefinition/>
+            <RowDefinition Height="32" />
+            <RowDefinition Height="auto" />
+            <RowDefinition Height="170" />
+            <RowDefinition />
         </Grid.RowDefinitions>
 
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="350"/>
-            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="350" />
+            <ColumnDefinition Width="*" />
         </Grid.ColumnDefinitions>
 
-        <Rectangle Fill="{ThemeResource ColorSettings}" Grid.ColumnSpan="2" Grid.RowSpan="3"/>
-        <TextBlock Text="Настройки" 
-                   Grid.ColumnSpan="2"
-                   FontWeight="Bold"
-                   FontSize="30"
-                   Grid.Row="1"
-                   Margin="30 0 0 0"/>
+        <Rectangle
+            Grid.RowSpan="3"
+            Grid.ColumnSpan="2"
+            Fill="{ThemeResource ColorSettings}" />
+        <TextBlock
+            Grid.Row="1"
+            Grid.ColumnSpan="2"
+            Margin="30,0,0,0"
+            FontSize="30"
+            FontWeight="Bold"
+            Text="Настройки" />
 
         <Grid Grid.Row="2" Grid.ColumnSpan="2">
             <Grid.RowDefinitions>
-                <RowDefinition/>
-                <RowDefinition/>
+                <RowDefinition />
+                <RowDefinition />
             </Grid.RowDefinitions>
 
             <Grid.ColumnDefinitions>
-                <ColumnDefinition/>
-                <ColumnDefinition/>
-                <ColumnDefinition/>
+                <ColumnDefinition />
+                <ColumnDefinition />
+                <ColumnDefinition />
             </Grid.ColumnDefinitions>
 
-            <Image Grid.RowSpan="2"
-                   Grid.Column="1"
-                   HorizontalAlignment="Center"
-                   VerticalAlignment="Top"
-                   Height="100"
-                   Width="100">
+            <Image
+                Grid.RowSpan="2"
+                Grid.Column="1"
+                Width="100"
+                Height="100"
+                HorizontalAlignment="Center"
+                VerticalAlignment="Top">
                 <Image.Source>
-                    <BitmapImage DecodePixelHeight="100"
-                                 UriSource="ms-appx:///Assets/Images/logo.png"
-                                 DecodePixelWidth="100"/>
+                    <BitmapImage
+                        DecodePixelHeight="100"
+                        DecodePixelWidth="100"
+                        UriSource="ms-appx:///Assets/Images/logo.png" />
                 </Image.Source>
             </Image>
 
-            <TextBlock Text="Music X" 
-                       Grid.Row="1" 
-                       Grid.Column="1"
-                       FontSize="20"
-                       FontWeight="Bold"
-                       HorizontalAlignment="Center"
-                       VerticalAlignment="Top"/>
+            <TextBlock
+                Grid.Row="1"
+                Grid.Column="1"
+                HorizontalAlignment="Center"
+                VerticalAlignment="Top"
+                FontSize="20"
+                FontWeight="Bold"
+                Text="Music X" />
 
-            <TextBlock Text="Pro" 
-                       Grid.Row="1" 
-                       Grid.Column="1"
-                       FontSize="20"
-                       Margin="110 0 0 0"
-                       Visibility="{x:Bind ViewModel.VisibilityPro, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                       Foreground="{ThemeResource SubHeaderText}"
-                       HorizontalAlignment="Center"
-                       VerticalAlignment="Top"/>
-            
-            <TextBlock Grid.Row="1"
-                       Grid.Column="1"
-                       Foreground="{ThemeResource ColorArtistText}"
-                       HorizontalAlignment="Center" 
-                       VerticalAlignment="Center" 
-                       Text="{x:Bind ViewModel.VersionApp, Mode=TwoWay}"/>
+            <TextBlock
+                Grid.Row="1"
+                Grid.Column="1"
+                Margin="110,0,0,0"
+                HorizontalAlignment="Center"
+                VerticalAlignment="Top"
+                FontSize="20"
+                Foreground="{ThemeResource SubHeaderText}"
+                Text="Pro"
+                Visibility="{x:Bind ViewModel.VisibilityPro, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
 
-            <TextBlock Text="Разработчики" 
-                       FontWeight="Bold"
-                       HorizontalAlignment="Right"
-                       Margin="0 0 30 0"
-                       Grid.Row="0" 
-                       Grid.Column="2"/>
+            <TextBlock
+                Grid.Row="1"
+                Grid.Column="1"
+                HorizontalAlignment="Center"
+                VerticalAlignment="Center"
+                Foreground="{ThemeResource ColorArtistText}"
+                Text="{x:Bind ViewModel.VersionApp, Mode=TwoWay}" />
+
+            <TextBlock
+                Grid.Row="0"
+                Grid.Column="2"
+                Margin="0,0,30,0"
+                HorizontalAlignment="Right"
+                FontWeight="Bold"
+                Text="Разработчики" />
         </Grid>
 
         <Grid Grid.Row="3" Grid.ColumnSpan="2">
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="350"/>
-                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="350" />
+                <ColumnDefinition Width="*" />
             </Grid.ColumnDefinitions>
             <ScrollViewer Grid.ColumnSpan="2">
-                <Grid >
+                <Grid>
                     <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="350"/>
-                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="350" />
+                        <ColumnDefinition Width="*" />
                     </Grid.ColumnDefinitions>
 
                     <StackPanel Grid.Column="0">
-                        <Grid Margin="30 30 0 0">
-                            <controls:DropShadowPanel Width="300" 
-                                                  Height="120" 
-                                      Grid.Column="0"
-                                      HorizontalAlignment="Left"
-                                      ShadowOpacity="1" OffsetY="0"
-                                      OffsetX="0" BlurRadius="30"
-                                      Opacity="0.5">
-                                <Border Width="300" Height="120" CornerRadius="5" Background="White"/>
+                        <Grid Margin="30,30,0,0">
+                            <controls:DropShadowPanel
+                                Grid.Column="0"
+                                Width="300"
+                                Height="120"
+                                HorizontalAlignment="Left"
+                                BlurRadius="30"
+                                OffsetX="0"
+                                OffsetY="0"
+                                Opacity="0.5"
+                                ShadowOpacity="1">
+                                <Border
+                                    Width="300"
+                                    Height="120"
+                                    Background="White"
+                                    CornerRadius="5" />
                             </controls:DropShadowPanel>
 
-                            <Rectangle RadiusX="3" 
-                                   HorizontalAlignment="Left"
-                                   RadiusY="3"
-                                   Fill="{ThemeResource BlockBackground}"
-                                   Height="120"
-                                   Width="300"/>
+                            <Rectangle
+                                Width="300"
+                                Height="120"
+                                HorizontalAlignment="Left"
+                                Fill="{ThemeResource BlockBackground}"
+                                RadiusX="3"
+                                RadiusY="3" />
 
-                            <StackPanel Margin="20 15 0 0">
-                                <TextBlock Text="Тема оформления"  FontSize="18" FontWeight="Bold"/>
-                                <RadioButton Content="Светлая" Click="{x:Bind ViewModel.RadioButton_ClickLight}" IsEnabled="True" IsChecked="{x:Bind ViewModel.SelectLightTheme, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" 
-                                  GroupName="Theme"/>
-                                <RadioButton Content="{x:Bind ViewModel.ContentDarkTheme, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                                 IsEnabled="{x:Bind ViewModel.EnableDarkTheme, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                                 Click="{x:Bind ViewModel.RadioButton_ClickDark}" IsChecked="{x:Bind ViewModel.SelectDarkTheme, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" 
-                                 GroupName="Theme"/>
+                            <StackPanel Margin="20,15,0,0">
+                                <TextBlock
+                                    FontSize="18"
+                                    FontWeight="Bold"
+                                    Text="Тема оформления" />
+                                <RadioButton
+                                    Click="{x:Bind ViewModel.RadioButton_ClickLight}"
+                                    Content="Светлая"
+                                    GroupName="Theme"
+                                    IsChecked="{x:Bind ViewModel.SelectLightTheme, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                    IsEnabled="True" />
+                                <RadioButton
+                                    Click="{x:Bind ViewModel.RadioButton_ClickDark}"
+                                    Content="{x:Bind ViewModel.ContentDarkTheme, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                    GroupName="Theme"
+                                    IsChecked="{x:Bind ViewModel.SelectDarkTheme, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                    IsEnabled="{x:Bind ViewModel.EnableDarkTheme, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
                             </StackPanel>
                         </Grid>
 
-                        <Grid Margin="30 40 0 0 ">
-                            <controls:DropShadowPanel Width="300" 
-                                                  Height="160" 
-                                      Grid.Column="0"
-                                      HorizontalAlignment="Left"
-                                      ShadowOpacity="1" OffsetY="0"
-                                      OffsetX="0" BlurRadius="30"
-                                      Opacity="0.5">
-                                <Border Width="300" Height="160" CornerRadius="5" Background="White"/>
+                        <Grid Margin="30,40,0,0">
+                            <controls:DropShadowPanel
+                                Grid.Column="0"
+                                Width="300"
+                                Height="160"
+                                HorizontalAlignment="Left"
+                                BlurRadius="30"
+                                OffsetX="0"
+                                OffsetY="0"
+                                Opacity="0.5"
+                                ShadowOpacity="1">
+                                <Border
+                                    Width="300"
+                                    Height="160"
+                                    Background="White"
+                                    CornerRadius="5" />
                             </controls:DropShadowPanel>
 
-                            <Rectangle RadiusX="3" 
-                                   HorizontalAlignment="Left"
-                                   RadiusY="3"
-                                   Fill="{ThemeResource BlockBackground}"
-                                   Height="160"
-                                   Width="300"/>
+                            <Rectangle
+                                Width="300"
+                                Height="160"
+                                HorizontalAlignment="Left"
+                                Fill="{ThemeResource BlockBackground}"
+                                RadiusX="3"
+                                RadiusY="3" />
 
-                            <StackPanel Margin="20 15 0 0 ">
-                                <TextBlock Text="Музыка на этом компьютере" FontSize="18" FontWeight="Bold"/>
-                                <ToggleSwitch Header="Папка Музыка" IsOn="{x:Bind ViewModel.MusicLibraryIsOn,
-                        Mode=TwoWay,
-                        UpdateSourceTrigger=PropertyChanged}" OnContent="Включено" OffContent="Отключено"/>
-                                <ToggleSwitch  Header="Папка Документы" IsEnabled="False" IsOn="False" OnContent="Включено" OffContent="Отключено"/>
+                            <StackPanel Margin="20,15,0,0">
+                                <TextBlock
+                                    FontSize="18"
+                                    FontWeight="Bold"
+                                    Text="Музыка на этом компьютере" />
+                                <ToggleSwitch
+                                    Header="Папка Музыка"
+                                    IsOn="{x:Bind ViewModel.MusicLibraryIsOn, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                    OffContent="Отключено"
+                                    OnContent="Включено" />
+                                <ToggleSwitch
+                                    Header="Папка Документы"
+                                    IsEnabled="False"
+                                    IsOn="False"
+                                    OffContent="Отключено"
+                                    OnContent="Включено" />
                             </StackPanel>
 
 
@@ -163,57 +208,79 @@
 
 
 
-                        <Grid Margin="30 40 0 0">
-                            <controls:DropShadowPanel Width="300" 
-                                                  Height="110" 
-                                      Grid.Column="0"
-                                      HorizontalAlignment="Left"
-                                      ShadowOpacity="1" OffsetY="0"
-                                      OffsetX="0" BlurRadius="30"
-                                      Opacity="0.5">
-                                <Border Width="300" Height="110" CornerRadius="5" Background="White"/>
+                        <Grid Margin="30,40,0,0">
+                            <controls:DropShadowPanel
+                                Grid.Column="0"
+                                Width="300"
+                                Height="110"
+                                HorizontalAlignment="Left"
+                                BlurRadius="30"
+                                OffsetX="0"
+                                OffsetY="0"
+                                Opacity="0.5"
+                                ShadowOpacity="1">
+                                <Border
+                                    Width="300"
+                                    Height="110"
+                                    Background="White"
+                                    CornerRadius="5" />
                             </controls:DropShadowPanel>
 
-                            <Rectangle RadiusX="3" 
-                                   HorizontalAlignment="Left"
-                                   RadiusY="3"
-                                   Fill="{ThemeResource BlockBackground}"
-                                   Height="110"
-                                   Width="300"/>
+                            <Rectangle
+                                Width="300"
+                                Height="110"
+                                HorizontalAlignment="Left"
+                                Fill="{ThemeResource BlockBackground}"
+                                RadiusX="3"
+                                RadiusY="3" />
 
-                            <StackPanel Margin="20 10 0 0">
-                                <TextBlock Text="Музыка ВКонтакте"  FontSize="18" FontWeight="Bold"/>
+                            <StackPanel Margin="20,10,0,0">
+                                <TextBlock
+                                    FontSize="18"
+                                    FontWeight="Bold"
+                                    Text="Музыка ВКонтакте" />
 
-                                <ToggleSwitch  Header="Транслировать музыку в статус ВКонтакте" IsEnabled="True" IsOn="False" OnContent="Включено" OffContent="Отключено"/>
+                                <ToggleSwitch
+                                    Header="Транслировать музыку в статус ВКонтакте"
+                                    IsEnabled="True"
+                                    IsOn="False"
+                                    OffContent="Отключено"
+                                    OnContent="Включено" />
                             </StackPanel>
                         </Grid>
                     </StackPanel>
 
                     <StackPanel Grid.Column="1" HorizontalAlignment="Right">
-                        <UI:AdControl Margin="30 30 30 0" ApplicationId="9ncjgg7b13q1" 
-                                  Visibility="{x:Bind ViewModel.VisibilityAds}"
-                      AdUnitId="1100051155" 
-                      Height="250"
-                      Width="300"/>
-                        <UI:AdControl HorizontalAlignment="Right" 
-                                      Margin="30 30 30 0" ApplicationId="9ncjgg7b13q1" 
-                                  Visibility="{x:Bind ViewModel.VisibilityAds}"
-                      AdUnitId="1100051155" 
-                      Height="250"
-                      Width="300"/>
-                        <UI:AdControl HorizontalAlignment="Right"
-                                      Margin="30 30 30 0" ApplicationId="9ncjgg7b13q1" 
-                                  Visibility="{x:Bind ViewModel.VisibilityAds}"
-                      AdUnitId="1100051155" 
-                      Height="250"
-                      Width="300"/>
+                        <UI:AdControl
+                            Width="300"
+                            Height="250"
+                            Margin="30,30,30,0"
+                            AdUnitId="1100051155"
+                            ApplicationId="9ncjgg7b13q1"
+                            Visibility="{x:Bind ViewModel.VisibilityAds}" />
+                        <UI:AdControl
+                            Width="300"
+                            Height="250"
+                            Margin="30,30,30,0"
+                            HorizontalAlignment="Right"
+                            AdUnitId="1100051155"
+                            ApplicationId="9ncjgg7b13q1"
+                            Visibility="{x:Bind ViewModel.VisibilityAds}" />
+                        <UI:AdControl
+                            Width="300"
+                            Height="250"
+                            Margin="30,30,30,0"
+                            HorizontalAlignment="Right"
+                            AdUnitId="1100051155"
+                            ApplicationId="9ncjgg7b13q1"
+                            Visibility="{x:Bind ViewModel.VisibilityAds}" />
                     </StackPanel>
 
-                   
+
                 </Grid>
-                
+
             </ScrollViewer>
-            
+
 
         </Grid>
     </Grid>
