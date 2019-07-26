@@ -45,7 +45,6 @@ namespace Fooxboy.MusicX.Uwp.Services
         /// </summary>
         public void Back()
         {
-
             if (Pages.Count >= 2)
             {
                 try

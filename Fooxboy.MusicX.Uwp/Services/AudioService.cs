@@ -99,8 +99,20 @@ namespace Fooxboy.MusicX.Uwp.Services
         {
             Application.Current.Resuming += AppResuming;
             Application.Current.Suspending += AppSuspending;
+            Application.Current.EnteredBackground += Current_EnteredBackground;
+            Application.Current.LeavingBackground += Current_LeavingBackground;
             mediaPlayer.AudioCategory = MediaPlayerAudioCategory.Media;
             Initialize();
+        }
+
+        private void Current_LeavingBackground(object sender, LeavingBackgroundEventArgs e)
+        {
+            Initialize();
+        }
+
+        private void Current_EnteredBackground(object sender, EnteredBackgroundEventArgs e)
+        {
+            Close();
         }
 
         /// <summary>
@@ -296,10 +308,10 @@ namespace Fooxboy.MusicX.Uwp.Services
             mediaPlayer.PlaybackSession.PlaybackStateChanged -= MediaPlayerOnCurrentStateChanged;
             mediaPlayer.MediaEnded -= MediaPlayerOnMediaEnded;
 
-            mediaPlayer.CommandManager.NextReceived -= CommandManager_NextReceived;
-            mediaPlayer.CommandManager.PreviousReceived -= CommandManager_PreviousReceived;
-            mediaPlayer.CommandManager.PlayReceived -= CommandManager_PlayReceived;
-            mediaPlayer.CommandManager.PauseReceived -= CommandManager_PauseReceived;
+            //mediaPlayer.CommandManager.NextReceived -= CommandManager_NextReceived;
+            //mediaPlayer.CommandManager.PreviousReceived -= CommandManager_PreviousReceived;
+            //mediaPlayer.CommandManager.PlayReceived -= CommandManager_PlayReceived;
+            //mediaPlayer.CommandManager.PauseReceived -= CommandManager_PauseReceived;
 
             currentPlaylist.OnCurrentItemChanged -= CurrentPlaylistOnCurrentItemChanged;
 

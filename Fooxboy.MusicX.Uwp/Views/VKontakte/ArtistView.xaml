@@ -10,6 +10,7 @@
     xmlns:models="using:Fooxboy.MusicX.Uwp.Models"
     xmlns:toolkit="using:Microsoft.Toolkit.Uwp.UI.Controls"
     Background="{ThemeResource BackgroundApp}"
+     NavigationCacheMode="Disabled"
     mc:Ignorable="d">
 
     <ScrollViewer>

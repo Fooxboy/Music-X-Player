@@ -22,6 +22,7 @@ using Windows.Foundation;
 using Windows.Foundation.Collections;
 using Windows.Foundation.Metadata;
 using Windows.Storage;
+using Windows.System;
 using Windows.UI;
 using Windows.UI.Core;
 using Windows.UI.ViewManagement;
@@ -354,6 +355,8 @@ namespace Fooxboy.MusicX.Uwp
                 var lastFile = await StaticContent.LocalFolder.CreateFileAsync("LastPlay.json");
                 await FileIO.WriteTextAsync(lastFile, json);
             }
+
+            //MemoryManager.
             
             deferral.Complete();
         }
