@@ -2,30 +2,46 @@
     x:Class="Fooxboy.MusicX.Uwp.Resources.ContentDialogs.PropertiesTrackContentDialog"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-    xmlns:local="using:Fooxboy.MusicX.Uwp.Resources.ContentDialogs"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:local="using:Fooxboy.MusicX.Uwp.Resources.ContentDialogs"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    mc:Ignorable="d"
     Title="Метаданные композиции"
+    Loading="PropertiesTrackContentDialog_OnLoading"
+    PrimaryButtonClick="ContentDialog_PrimaryButtonClick"
     PrimaryButtonText="Сохранить"
-    PrimaryButtonClick="ContentDialog_PrimaryButtonClick">
+    mc:Ignorable="d">
     <Grid>
         <ScrollViewer>
             <StackPanel>
-                <TextBlock Margin="0 20 0 0" FontWeight="Bold" Text="Имя композиции"/>
-                <TextBox Style="{ThemeResource TextBoxLoginStyle}" Text="{x:Bind TitleTrack}"/>
-                
-                <TextBlock Margin="0 20 0 0" FontWeight="Bold" Text="Имя исполнителя"/>
-                <TextBox Style="{ThemeResource TextBoxLoginStyle}" Text="{x:Bind ArtistName}"/>
+                <TextBlock
+                    Margin="0,20,0,0"
+                    FontWeight="Bold"
+                    Text="Имя композиции" />
+                <TextBox Style="{ThemeResource TextBoxLoginStyle}" Text="{x:Bind TitleTrack, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
 
-                <TextBlock Margin="0 20 0 0" FontWeight="Bold" Text="Название Альбома"/>
-                <TextBox Style="{ThemeResource TextBoxLoginStyle}" Text="{x:Bind AlbumName}"/>
+                <TextBlock
+                    Margin="0,20,0,0"
+                    FontWeight="Bold"
+                    Text="Имя исполнителя" />
+                <TextBox Style="{ThemeResource TextBoxLoginStyle}" Text="{x:Bind ArtistName, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
 
-                <TextBlock Margin="0 20 0 0" FontWeight="Bold" Text="Жанр композиции"/>
-                <TextBox Style="{ThemeResource TextBoxLoginStyle}" Text="{x:Bind Genre}"/>
+                <TextBlock
+                    Margin="0,20,0,0"
+                    FontWeight="Bold"
+                    Text="Название Альбома" />
+                <TextBox Style="{ThemeResource TextBoxLoginStyle}" Text="{x:Bind AlbumName, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
 
-                <TextBlock Margin="0 20 0 0" FontWeight="Bold" Text="Год Альбома"/>
-                <TextBox Style="{ThemeResource TextBoxLoginStyle}" Text="{x:Bind YearAlbum}"/>
+                <TextBlock
+                    Margin="0,20,0,0"
+                    FontWeight="Bold"
+                    Text="Жанр композиции" />
+                <TextBox Style="{ThemeResource TextBoxLoginStyle}" Text="{x:Bind Genre, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+
+                <TextBlock
+                    Margin="0,20,0,0"
+                    FontWeight="Bold"
+                    Text="Год Альбома" />
+                <TextBox Style="{ThemeResource TextBoxLoginStyle}" Text="{x:Bind YearAlbum, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
 
             </StackPanel>
         </ScrollViewer>
