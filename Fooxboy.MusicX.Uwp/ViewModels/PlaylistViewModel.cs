@@ -117,6 +117,8 @@ namespace Fooxboy.MusicX.Uwp.ViewModels
             Changed("Music");
             VisibilityIsLoading = false;
             if (tracks.Count == 0) visibilityNoTrack = Visibility.Visible;
+            PLTrackCount = $"{playlist.TracksFiles.Count} трек(а/ов)";
+            Changed("PLTrackCount");
             Changed("VisibilityIsLoading");
             Changed("visibilityNoTrack");
         }
