@@ -72,9 +72,18 @@ namespace Fooxboy.MusicX.Uwp.Resources.Controls
             {
                 try
                 {
+                    if (Playlist.TracksFiles.Count == 0)
+                    {
+                        var tracks = await Fooxboy.MusicX.Core.VKontakte.Music.Playlist.GetTracks(Playlist.Id, Playlist.OwnerId, Playlist.AccessKey);
+                        //var music = await MusicService.ConvertToAudioFile(tracks, Playlist.Cover);
+                        Playlist.TracksFiles = await MusicService.ConvertToAudioFile(tracks, Playlist.Cover);
+                    }
+
+                    if (Playlist.TracksFiles.Count == 0) return;
+
                     var settings = ApplicationData.Current.LocalSettings;
                     int countTracks = (int)settings.Values["CountDownloads"];
-                    int countTracksWithAlbum = countTracks + Playlist.Tracks.Count;
+                    int countTracksWithAlbum = countTracks + Playlist.TracksFiles.Count;
 
                     if (!StaticContent.IsPro)
                     {
