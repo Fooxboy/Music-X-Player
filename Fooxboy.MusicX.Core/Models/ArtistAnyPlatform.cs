@@ -12,5 +12,7 @@ namespace Fooxboy.MusicX.Core.Models
         public IPlaylistFile LastRelease { get; set; }
         public List<IAudioFile> PopularTracks { get; set; }
         public List<IPlaylistFile> Albums { get; set; }
+        public string BlockPoularTracksId { get; set; }
+        public string BlockAlbumsId { get; set; }
     }
 }

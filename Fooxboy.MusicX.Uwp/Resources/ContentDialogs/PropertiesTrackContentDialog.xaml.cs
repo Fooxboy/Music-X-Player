@@ -27,6 +27,8 @@ namespace Fooxboy.MusicX.Uwp.Resources.ContentDialogs
             this.InitializeComponent();
             track = file;
 
+            //todo: сделать это говно рабочим
+
             using (var mp3File = TagLib.File.Create(file.Source.Path))
             {
                 if (mp3File.Tag.AlbumArtists.Count() != 0) ArtistName = mp3File.Tag.AlbumArtists[0];

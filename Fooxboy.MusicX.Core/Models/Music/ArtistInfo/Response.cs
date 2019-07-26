@@ -9,6 +9,12 @@ namespace Fooxboy.MusicX.Core.Models.Music.ArtistInfo
         public ResponseItem response { get; set; }
     }
 
+    public class Response<T>
+    {
+        [JsonProperty("response")]
+        public T response { get; set; }
+    }
+
     public class ResponseItem
     {
         [JsonProperty("items")]

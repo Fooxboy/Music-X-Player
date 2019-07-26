@@ -65,8 +65,10 @@
                                     VerticalAlignment="Center"
                                     Background="Transparent"
                                     BorderThickness="0"
+                                    Command="{x:Bind ViewModel.ShowPopularTracksCommand}"
                                     Content="Показать все"
-                                    CornerRadius="2" />
+                                    CornerRadius="2"
+                                    Foreground="{ThemeResource SubHeaderText}" />
                             </Grid>
 
 
@@ -115,19 +117,20 @@
                             <ColumnDefinition Width="0.4*" />
                         </Grid.ColumnDefinitions>
 
-                        <StackPanel>
+                        <StackPanel Visibility="{x:Bind ViewModel.AlbumsVisibility, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
                             <Grid Margin="30,0,0,0">
                                 <TextBlock
                                     FontSize="25"
                                     FontWeight="Bold"
-                                    Text="Альбомы"
-                                    Visibility="{x:Bind ViewModel.AlbumsVisibility, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                                    Text="Альбомы" />
                                 <Button
                                     HorizontalAlignment="Right"
                                     Background="Transparent"
                                     BorderThickness="0"
+                                    Command="{x:Bind ViewModel.ShowAblumsCommand}"
                                     Content="Показать все"
-                                    CornerRadius="2" />
+                                    CornerRadius="2"
+                                    Foreground="{ThemeResource SubHeaderText}" />
                             </Grid>
 
                             <GridView
@@ -135,8 +138,7 @@
                                 ItemTemplate="{ThemeResource PlaylistTemplate}"
                                 ItemsSource="{x:Bind ViewModel.Albums, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                                 SelectedItem="{x:Bind ViewModel.SelectPlaylist, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                                Tapped="{x:Bind ViewModel.UIElement_OnTappedPlaylist}"
-                                Visibility="{x:Bind ViewModel.AlbumsVisibility, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                                Tapped="{x:Bind ViewModel.UIElement_OnTappedPlaylist}" />
                         </StackPanel>
 
                         <StackPanel Grid.Column="1">

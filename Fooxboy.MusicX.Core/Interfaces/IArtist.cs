@@ -11,5 +11,7 @@ namespace Fooxboy.MusicX.Core.Interfaces
         IPlaylistFile LastRelease { get; set; }
         List<IAudioFile> PopularTracks { get; set; }
         List<IPlaylistFile> Albums { get; set; }
+        string BlockPoularTracksId { get; set; }
+        string BlockAlbumsId { get; set; }
     }
 }

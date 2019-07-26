@@ -6,10 +6,12 @@ using System.Threading.Tasks;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Input;
+using Fooxboy.MusicX.Core.Interfaces;
 using Fooxboy.MusicX.Uwp.Models;
 using Fooxboy.MusicX.Uwp.Resources.ContentDialogs;
 using Fooxboy.MusicX.Uwp.Services;
 using Fooxboy.MusicX.Uwp.Services.VKontakte;
+using Fooxboy.MusicX.Uwp.Views.VKontakte.Artist;
 using Microsoft.Advertising.Ads.Requests.AdBroker;
 using PlaylistsService = Fooxboy.MusicX.Uwp.Services.VKontakte.PlaylistsService;
 
@@ -17,6 +19,19 @@ namespace Fooxboy.MusicX.Uwp.ViewModels.VKontakte
 {
     public class ArtistViewModel:BaseViewModel
     {
+
+        public ArtistViewModel()
+        {
+            ShowPopularTracksCommand = new RelayCommand(() =>
+            {
+                StaticContent.NavigationContentService.Go(typeof(ArtistAllPopularTracks), Artist.BlockPoularTracksId);
+            });
+
+            ShowAblumsCommand = new RelayCommand((() =>
+            {
+                StaticContent.NavigationContentService.Go(typeof(ArtistAllAlbums), Artist.BlockAlbumsId);
+            }));
+        }
         public string NameArtist { get; set; }
         public bool IsLoading { get; set; }
         public Visibility PopularTracksVisibility { get; set; } = Visibility.Collapsed;
@@ -41,7 +56,7 @@ namespace Fooxboy.MusicX.Uwp.ViewModels.VKontakte
             };
 
 
-
+        public IArtist Artist { get; set; }
         public async Task StartLoading(long artistId, string artistName)
         {
             try
@@ -51,9 +66,13 @@ namespace Fooxboy.MusicX.Uwp.ViewModels.VKontakte
                 NameArtist = artistName;
                 Changed("NameArtist");
                 var artist = await Fooxboy.MusicX.Core.VKontakte.Music.Artists.GetById(artistId);
+                Artist = artist;
                 NameArtist = artist.Name;
                 Changed("NameArtist");
-                PopularTracks = await MusicService.ConvertToAudioFile(artist.PopularTracks);
+                var tracks = new List<IAudioFile>();
+                for (int i =0; i<6; i++) tracks.Add(artist.PopularTracks[i]);
+                
+                PopularTracks = await MusicService.ConvertToAudioFile(tracks);
                 PopularTracksVisibility = Visibility.Visible;
                 Changed("PopularTracksVisibility");
                 Changed("PopularTracks");
@@ -69,7 +88,6 @@ namespace Fooxboy.MusicX.Uwp.ViewModels.VKontakte
                 Changed("Albums");
                 if (artist.Banner != "no")
                 {
-                    //todo: загрузка баннера.
                     Banner = await ImagesService.BannerArtist(artist.Banner);
                     Changed("Banner");
                 }
@@ -98,6 +116,8 @@ namespace Fooxboy.MusicX.Uwp.ViewModels.VKontakte
         public AudioFile SelectPopularAudioFile { get; set; }
 
         public PlaylistFile SelectPlaylist { get; set; }
+        public RelayCommand ShowPopularTracksCommand { get; set; }
+        public RelayCommand ShowAblumsCommand { get; set; }
 
         public  async void UIElement_OnTappedTracks(object sender, TappedRoutedEventArgs e)
         {

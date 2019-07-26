@@ -218,6 +218,8 @@
     <Compile Include="ViewModels\VKontakte\AccountViewModel.cs" />
     <Compile Include="ViewModels\VKontakte\AllPlaylistsViewModel.cs" />
     <Compile Include="ViewModels\VKontakte\ArtistViewModel.cs" />
+    <Compile Include="ViewModels\VKontakte\Artist\ArtistAllAlbumsViewModel.cs" />
+    <Compile Include="ViewModels\VKontakte\Artist\ArtistAllPopularTracksViewModel.cs" />
     <Compile Include="ViewModels\VKontakte\AuthViewModel.cs" />
     <Compile Include="ViewModels\VKontakte\DownloadsViewModel.cs" />
     <Compile Include="ViewModels\VKontakte\HomeViewModel.cs" />
@@ -262,6 +264,12 @@
     </Compile>
     <Compile Include="Views\VKontakte\ArtistView.xaml.cs">
       <DependentUpon>ArtistView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\VKontakte\Artist\ArtistAllAlbums.xaml.cs">
+      <DependentUpon>ArtistAllAlbums.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\VKontakte\Artist\ArtistAllPopularTracks.xaml.cs">
+      <DependentUpon>ArtistAllPopularTracks.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\VKontakte\AuthView.xaml.cs">
       <DependentUpon>AuthView.xaml</DependentUpon>
@@ -497,6 +505,14 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Views\VKontakte\Artist\ArtistAllAlbums.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\VKontakte\Artist\ArtistAllPopularTracks.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Views\VKontakte\AuthView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -581,6 +597,7 @@
       <Name>Fooxboy.MusicX.Core</Name>
     </ProjectReference>
   </ItemGroup>
+  <ItemGroup />
   <PropertyGroup Condition=" '$(VisualStudioVersion)' == '' or '$(VisualStudioVersion)' &lt; '14.0' ">
     <VisualStudioVersion>14.0</VisualStudioVersion>
   </PropertyGroup>
