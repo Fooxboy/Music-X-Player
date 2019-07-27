@@ -74,18 +74,18 @@
                         <Button android:layout_width="40dp" 
                                 android:layout_height="40dp"
                                 android:text=""
-                                android:background="@drawable/skip_back"
+                                android:background="@drawable/back_ic"
                                 />
                         <Button android:layout_width="40dp"
                                 android:layout_height="40dp"
                                 android:text=""
-                                android:background="@drawable/play"
+                                android:background="@drawable/play_ic"
                                 android:layout_marginHorizontal="50dp"
                         />
                         <Button android:layout_width="40dp"
                                 android:layout_height="40dp"
                                 android:text=""
-                                android:background="@drawable/skip"
+                                android:background="@drawable/next_ic"
                         />
                         
                 </LinearLayout>

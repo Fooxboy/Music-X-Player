@@ -96,7 +96,23 @@
                 Margin="0,0,30,0"
                 HorizontalAlignment="Right"
                 FontWeight="Bold"
-                Text="Разработчики" />
+                Text="Разработчик" />
+
+            <HyperlinkButton
+                Grid.Row="0"
+                Grid.Column="2"
+                Margin="0,0,30,0"
+                HorizontalAlignment="Right"
+                Content="Страница ВКонтакте"
+                NavigateUri="https://vk.com/fooxboy" />
+
+            <HyperlinkButton
+                Grid.Row="0"
+                Grid.Column="2"
+                Margin="0,45,30,0"
+                HorizontalAlignment="Right"
+                Content="Профиль Telegram"
+                NavigateUri="https://t.me/fooxboy" />
         </Grid>
 
         <Grid Grid.Row="3" Grid.ColumnSpan="2">
