@@ -47,6 +47,14 @@ namespace Fooxboy.MusicX.Uwp.Resources.Controls
                 if(Playlist.IsLocal) await Services.PlaylistsService.PlayPlaylist(Playlist);
                 else
                 {
+                    if (Playlist.TracksFiles.Count == 0)
+                    {
+                        var tracks = await Fooxboy.MusicX.Core.VKontakte.Music.Playlist.GetTracks(Playlist.Id, Playlist.OwnerId, Playlist.AccessKey);
+                        Playlist.TracksFiles = await MusicService.ConvertToAudioFile(tracks, Playlist.Cover);
+                    }
+
+                    if (Playlist.TracksFiles.Count == 0) return;
+
                     await MusicService.PlayMusic(Playlist.TracksFiles.First(), 2, Playlist);
                 }
 

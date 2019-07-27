@@ -96,7 +96,7 @@
                 Margin="0,0,30,0"
                 HorizontalAlignment="Right"
                 FontWeight="Bold"
-                Text="Разработчик" />
+                Text="Разработчик:" />
 
             <HyperlinkButton
                 Grid.Row="0"
