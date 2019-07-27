@@ -124,7 +124,8 @@ namespace Fooxboy.MusicX.Uwp.Views
                 {
                     FindInDocumentsLibrary = false,
                     FindInMusicLibrary = true,
-                    ThemeApp = 0
+                    ThemeApp = 0,
+                    StreamMusic = true
                 };
                 var configString = JsonConvert.SerializeObject(config);
                 await FileIO.WriteTextAsync(configFile, configString);

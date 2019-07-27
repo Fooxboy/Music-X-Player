@@ -260,9 +260,10 @@
                                 <ToggleSwitch
                                     Header="Транслировать музыку в статус ВКонтакте"
                                     IsEnabled="True"
-                                    IsOn="False"
+                                    IsOn="{x:Bind ViewModel.StreamMusic, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                                     OffContent="Отключено"
-                                    OnContent="Включено" />
+                                    OnContent="Включено"
+                                    Toggled="{x:Bind ViewModel.ToggleSwitch_OnToggled}" />
                             </StackPanel>
                         </Grid>
                     </StackPanel>

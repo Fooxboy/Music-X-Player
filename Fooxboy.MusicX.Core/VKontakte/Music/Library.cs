@@ -5,6 +5,7 @@ using System.Linq;
 using Fooxboy.MusicX.Core.Interfaces;
 using Fooxboy.MusicX.Core.VKontakte.Music.Converters;
 using System.Threading.Tasks;
+using VkNet.Utils;
 
 namespace Fooxboy.MusicX.Core.VKontakte.Music
 {
@@ -59,11 +60,19 @@ namespace Fooxboy.MusicX.Core.VKontakte.Music
         }
 
 
-        public async static Task StreamToStatus()
+        public async static Task StreamToStatus(long audioId, long ownerId, string accessKey = null)
         {
             if (StaticContent.VkApi == null) throw new Exception("Пользователь не авторизован");
-
-            //StaticContent.VkApi.Audio.SetBroadcastAsync();
+            var audioString = $"audio{ownerId}_{audioId}";
+            audioString = accessKey == null ? audioString : $"{audioString}_{accessKey}";
+            var param = new VkParameters();
+            param.Add("audio_ids", audioId);
+            param.Add("target_ids", StaticContent.UserId);
+            param.Add("access_token", StaticContent.VkApi.Token);
+            param.Add("v", "5.101");
+            var json = await StaticContent.VkApi.InvokeAsync("audio.setBroadcast", param);
+            //var b =json + "a";
+            // var ab = await StaticContent.VkApi.CallAsync<List<long>>("audio.setBroadcast", param);
         }
 
 

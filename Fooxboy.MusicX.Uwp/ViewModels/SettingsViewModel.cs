@@ -9,6 +9,7 @@ using Microsoft.Toolkit.Uwp.Helpers;
 using Windows.Storage;
 using Windows.UI.Popups;
 using Windows.UI.Xaml;
+using Windows.UI.Xaml.Input;
 
 namespace Fooxboy.MusicX.Uwp.ViewModels
 {
@@ -35,6 +36,8 @@ namespace Fooxboy.MusicX.Uwp.ViewModels
             //var documentsPath = KnownFolders.DocumentsLibrary.Path;
 
             musicLib = Config.FindInMusicLibrary;
+            StreamMusic = Config.StreamMusic;
+            Changed("StreamMusic");
             Changed("MusicLibraryIsOn");
 
             if(StaticContent.IsPro)
@@ -108,6 +111,7 @@ namespace Fooxboy.MusicX.Uwp.ViewModels
 
         public bool SelectDarkTheme { get; set; }
         public bool SelectLightTheme { get; set; }
+        public  bool StreamMusic { get; set; }
 
         public async Task RadioButton_ClickLight(object sender, RoutedEventArgs e)
         {
@@ -148,6 +152,19 @@ namespace Fooxboy.MusicX.Uwp.ViewModels
             {
                 //support x:bind
             }
+        }
+
+
+        public async void ToggleSwitch_OnToggled(object sender, RoutedEventArgs e)
+        {
+            Config.StreamMusic = !StreamMusic;
+            await ConfigService.SaveConfig(Config);
+        }
+
+        public async void UIElement_OnTapped(object sender, TappedRoutedEventArgs e)
+        {
+            
+            //hrow new NotImplementedException();
         }
 
         public async Task RadioButton_ClickDark(object sender, RoutedEventArgs e)

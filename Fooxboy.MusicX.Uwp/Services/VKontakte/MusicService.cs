@@ -71,6 +71,8 @@ namespace Fooxboy.MusicX.Uwp.Services.VKontakte
 
         public async static Task PlayMusic(AudioFile audioFile, int typePlay, PlaylistFile playlistPlay= null)
         {
+
+            if (StaticContent.Config.StreamMusic) await MusicX.Core.VKontakte.Music.Library.StreamToStatus(audioFile.Id, audioFile.OwnerId);
             try
             {
                 //type play:
