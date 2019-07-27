@@ -311,10 +311,10 @@
     <Content Include="Assets\Images\logo-clear.png" />
     <Content Include="Assets\Images\logo.png" />
     <Content Include="Assets\Images\now.png" />
+    <Content Include="Assets\Images\placeholder-artist.jpg" />
     <Content Include="Assets\Images\placeholder.png" />
     <Content Include="Assets\Images\playlist-placeholder.png" />
     <Content Include="Assets\Images\vk-logo.png" />
-    <Content Include="Assets\Images\testArtistPhoto.jpg" />
     <Content Include="Assets\LargeTile.scale-100.png" />
     <Content Include="Assets\LargeTile.scale-125.png" />
     <Content Include="Assets\LargeTile.scale-150.png" />

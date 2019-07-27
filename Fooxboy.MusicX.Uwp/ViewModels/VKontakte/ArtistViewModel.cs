@@ -93,7 +93,7 @@ namespace Fooxboy.MusicX.Uwp.ViewModels.VKontakte
                 }
                 else
                 {
-                    //TODO: поставить playholder artist.
+                    //Assets/Images/placeholder-artist.jpg
                 }
 
                 LastRelease = await PlaylistsService.ConvertToPlaylistFile(artist.LastRelease);
