@@ -3,17 +3,23 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using VkNet.Utils;
 
 namespace Fooxboy.MusicX.Core.VKontakte.Music
 {
     public static class Add
     {
 
-        public async static Task<long> ToLibrary(long audioId)
+        public async static Task<long> ToLibrary(long audioId, string accessKey = null)
         {
             if (StaticContent.VkApi == null) throw new Exception("Пользователь не авторизован");
+            var param = new VkParameters();
+            param.Add("audio_id", audioId);
+            param.Add("owner_id", StaticContent.UserId);
+            if(accessKey != null) param.Add("access_key", accessKey);
+            var id = await StaticContent.VkApi.CallAsync<long>("audio.add", param);
 
-            var id = await StaticContent.VkApi.Audio.AddAsync(audioId, StaticContent.UserId);
+            //var id = await StaticContent.VkApi.Audio.AddAsync(audioId, StaticContent.UserId);
             return id;
         }
 

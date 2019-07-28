@@ -55,6 +55,7 @@ namespace Fooxboy.MusicX.Uwp.Services.VKontakte
                     Source = null,
                     IsLicensed = track.IsLicensed,
                     ArtistId = track.ArtistId,
+                    AccessKey = track.AccessKey,
                     SourceString = track.SourceString,
                     Title = track.Title,
                     IsFavorite = false,

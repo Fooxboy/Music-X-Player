@@ -167,7 +167,7 @@ namespace Fooxboy.MusicX.Uwp.Resources.Controls
             {
                 try
                 {
-                    await Fooxboy.MusicX.Core.VKontakte.Music.Add.ToLibrary(Track.Id);
+                    await Fooxboy.MusicX.Core.VKontakte.Music.Add.ToLibrary(Track.Id, Track.AccessKey);
                     await new MessageDialog("Трек добавлен в Вашу библиотеку").ShowAsync();
                 }catch(Flurl.Http.FlurlHttpException)
                 {

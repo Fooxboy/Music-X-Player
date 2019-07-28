@@ -48,6 +48,7 @@ namespace Fooxboy.MusicX.Core.VKontakte.Music.Converters
                     Title = audio.Title,
                     IsDownload = false,
                     IsFavorite = false,
+                    AccessKey =  audio.AccessKey,
                     IsInLibrary = false
                 };
 
@@ -66,6 +67,7 @@ namespace Fooxboy.MusicX.Core.VKontakte.Music.Converters
                     InternalId = 0,
                     IsLocal = false,
                     OwnerId = 0,
+                    AccessKey =  null,
                     PlaylistId = 0,
                     SourceString = "no",
                     Title = "Аудиозапись недоступна",
@@ -140,6 +142,7 @@ namespace Fooxboy.MusicX.Core.VKontakte.Music.Converters
                     Title = audio.Title,
                     IsDownload = false,
                     IsFavorite = false,
+                    AccessKey = audio.AccessKey,
                     IsInLibrary = IsLibrary
                 };
 
