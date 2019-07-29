@@ -8,7 +8,6 @@ using Android.Content;
 using Android.OS;
 using Android.Runtime;
 using Android.Support.V7.Widget;
-using Android.Util;
 using Android.Views;
 using Android.Widget;
 using Fooxboy.MusicX.AndroidApp.Adapters;
@@ -18,7 +17,7 @@ using Java.Lang;
 
 namespace Fooxboy.MusicX.AndroidApp.Resources.fragments
 {
-    public class PlaylistFragment : Fragment
+    public class TracksFragment : Fragment
     {
 
         TrackAdapter adapter = null;
@@ -36,23 +35,23 @@ namespace Fooxboy.MusicX.AndroidApp.Resources.fragments
 
         public override View OnCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
         {
-            var view = inflater.Inflate(Resource.Layout.homeActivity, container, false);
+
+            var view = inflater.Inflate(Resource.Layout.activity_tracks, container, false);
+
             List<AudioFile> tracks = new List<AudioFile>();
             Tracks = tracks;
             adapter = new TrackAdapter(tracks);
 
-            var tracksView = view.FindViewById<RecyclerView>(Resource.Id.tracksPlaylistView);
+            var tracksView = view.FindViewById<RecyclerView>(Resource.Id.list_tracks);
             Handler handler = new Handler(Looper.MainLooper);
 
-            var progressBar = view.FindViewById<ProgressBar>(Resource.Id.progressBarLoagingTracks);
+            var progressBar = view.FindViewById<ProgressBar>(Resource.Id.progressBar_tracks);
             var task = Task.Run(() =>
             {
                 handler.Post(new Runnable(() =>
                 {
                     progressBar.Visibility = ViewStates.Visible;
                 }));
-               // tracks = 
-               //TODO: получение треков плейлиста.
                 tracks = MusicService.GetMusicLibrary(15, adapter.ItemCount);
                 var i = 1 + 1; //Без этого нихуя не работает.
                 Fooxboy.MusicX.Core.Log.Debug(i.ToString());
@@ -81,5 +80,6 @@ namespace Fooxboy.MusicX.AndroidApp.Resources.fragments
 
 
         }
+
     }
 }
