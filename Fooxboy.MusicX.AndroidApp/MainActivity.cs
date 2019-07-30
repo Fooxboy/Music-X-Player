@@ -74,6 +74,11 @@ namespace Fooxboy.MusicX.AndroidApp
                     FragmentManager.BeginTransaction().Replace(Resource.Id.content_frame, f).Commit();
                     title.Text = "Главная";
                     return true;
+                case Resource.Id.navigation_tracks:
+                    f = new TracksFragment();
+                    FragmentManager.BeginTransaction().Replace(Resource.Id.content_frame, f).Commit();
+                    title.Text = "Ваша музыка";
+                    return true;
                 case Resource.Id.navigation_popular:
                     Intent intent = new Intent(this.ApplicationContext, typeof(AuthActivity));
                     intent.SetFlags(ActivityFlags.NewTask);

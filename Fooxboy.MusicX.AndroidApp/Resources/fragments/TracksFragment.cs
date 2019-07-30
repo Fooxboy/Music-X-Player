@@ -33,6 +33,9 @@ namespace Fooxboy.MusicX.AndroidApp.Resources.fragments
             // Create your fragment here
         }
 
+        public List<AudioFile> TracksInLibrary= new List<AudioFile>();
+
+
         public override View OnCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
         {
 
@@ -43,41 +46,79 @@ namespace Fooxboy.MusicX.AndroidApp.Resources.fragments
             adapter = new TrackAdapter(tracks);
 
             var tracksView = view.FindViewById<RecyclerView>(Resource.Id.list_tracks);
+            var progressBar = view.FindViewById<ProgressBar>(Resource.Id.progressBar_tracks);
+
             Handler handler = new Handler(Looper.MainLooper);
 
-            var progressBar = view.FindViewById<ProgressBar>(Resource.Id.progressBar_tracks);
-            var task = Task.Run(() =>
+            adapter.ItemClick += AdapterOnItemClick;
+
+            tracksView.SetAdapter(adapter);
+            tracksView.SetLayoutManager(new LinearLayoutManager(Application.Context, LinearLayoutManager.Vertical, false));
+
+            tracksView.Clickable = true;
+
+            var scrollListener = new Listeners.OnScrollToBottomListener(() =>
             {
-                handler.Post(new Runnable(() =>
+                if (!HasLoading) return;
+                var task = Task.Run(() =>
                 {
-                    progressBar.Visibility = ViewStates.Visible;
-                }));
-                tracks = MusicService.GetMusicLibrary(15, adapter.ItemCount);
-                var i = 1 + 1; //Без этого нихуя не работает.
-                Fooxboy.MusicX.Core.Log.Debug(i.ToString());
-            });
+                    handler.Post(new Runnable(() =>
+                    {
+                        progressBar.Visibility = ViewStates.Visible;
+                    }));
+                    tracks = MusicService.GetMusicLibrary(15, adapter.ItemCount);
+                    var i = 1 + 1; //Без этого нихуя не работает.
+                    Fooxboy.MusicX.Core.Log.Debug(i.ToString());
+                });
 
+                bool end = false;
+                task.ContinueWith((t) =>
+                {
+                    while (tracks.Count == 0)
+                    {
+                        System.Threading.Thread.Sleep(300);
+                    }
 
-            task.ContinueWith((t) =>
-            {
-                while (tracks.Count == 0)
+                    HasLoading = !(tracks.Count < 15);
+                    handler.Post(new Runnable(() =>
+                    {
+                        var count = adapter.ItemCount;
+                        adapter.AddItems(tracks);
+                        TracksInLibrary.AddRange(tracks);
+                        adapter.NotifyItemRangeChanged(count, tracks.Count);
+                        progressBar.Visibility = ViewStates.Invisible;
+                        end = true;
+                    }));
+
+                });
+                var a = task.ConfigureAwait(false);
+                while (!end)
                 {
                     System.Threading.Thread.Sleep(300);
                 }
-
-                HasLoading = !(tracks.Count < 15);
-                handler.Post(new Runnable(() =>
-                {
-                    var count = adapter.ItemCount;
-                    adapter.AddItems(tracks);
-                    Tracks.AddRange(tracks);
-                    adapter.NotifyItemRangeChanged(count, tracks.Count);
-                    progressBar.Visibility = ViewStates.Invisible;
-                }));
-
             });
+            tracksView.AddOnScrollListener(scrollListener);
+
+            if (adapter.ItemCount == 0) scrollListener.InvokeCallback();
+
             return view;
 
+        }
+
+
+        private void AdapterOnItemClick(object sender, AudioFile args)
+        {
+            Toast.MakeText(Application.Context, $"Ты тыкнул: {args.Artist} - {args.Title} ", ToastLength.Long).Show();
+            //Создание плейлиста из локальных трекаф
+            var playlist = new PlaylistFile();
+            playlist.Artist = "Music X";
+            playlist.Cover = "playlist_placeholder";
+            playlist.Genre = "";
+            playlist.Id = 1000;
+            playlist.IsAlbum = false;
+            playlist.TracksFiles = TracksInLibrary;
+            var player = PlayerService.Instanse;
+            player.Play(playlist, playlist.TracksFiles.First(t => t.SourceString == args.SourceString));
 
         }
 
