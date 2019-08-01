@@ -49,6 +49,14 @@
             Foreground="{ThemeResource SubText}"
             Text="Давайте начнем." />
 
+        <!-- <ToggleSwitch
+            x:Name="ToggleButton"
+            Grid.Row="4"
+            HorizontalAlignment="Center"
+            Header="Использовать папку Музыка по умолчанию"
+            OffContent="Нет"
+            OnContent="Да" />-->
+
         <ProgressRing
             x:Name="ProgressRing"
             Grid.Row="4"
