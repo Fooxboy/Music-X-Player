@@ -3,56 +3,90 @@
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:controls="using:Microsoft.Toolkit.Uwp.UI.Controls"
-    xmlns:local="using:Fooxboy.MusicX.Uwp.Views.VKontakte"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:local="using:Fooxboy.MusicX.Uwp.Views.VKontakte"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    mc:Ignorable="d"
-    Background="{ThemeResource BackgroundApp}">
+    Background="{ThemeResource BackgroundApp}"
+    mc:Ignorable="d">
 
     <Grid>
 
-        <controls:DropShadowPanel Width="400" 
-                                          Height="500" 
-                                          Grid.Column="0"
-                                  VerticalAlignment="Center"
-                                          HorizontalAlignment="Center"
-                                          ShadowOpacity="1" OffsetY="0"
-                                          OffsetX="0" BlurRadius="30"
-                                          Opacity="0.5">
-            <Border Width="400" Height="500" CornerRadius="3" Background="White"/>
+        <controls:DropShadowPanel
+            Grid.Column="0"
+            Width="400"
+            Height="500"
+            HorizontalAlignment="Center"
+            VerticalAlignment="Center"
+            BlurRadius="30"
+            OffsetX="0"
+            OffsetY="0"
+            Opacity="0.5"
+            ShadowOpacity="1">
+            <Border
+                Width="400"
+                Height="500"
+                Background="White"
+                CornerRadius="3" />
         </controls:DropShadowPanel>
 
-        <Rectangle RadiusX="3" 
-                                  VerticalAlignment="Center"
-                                  HorizontalAlignment="Center"
-                                   RadiusY="3"
-                                   Fill="{ThemeResource BlockBackground}"
-                                   Height="500"
-                                   Width="400"/>
+        <Rectangle
+            Width="400"
+            Height="500"
+            HorizontalAlignment="Center"
+            VerticalAlignment="Center"
+            Fill="{ThemeResource BlockBackground}"
+            RadiusX="3"
+            RadiusY="3" />
 
         <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center">
-            <Image Height="100" Width="100">
+            <Image Width="100" Height="100">
                 <Image.Source>
-                    <BitmapImage DecodePixelHeight="100"
-                                 DecodePixelWidth="100" 
-                                 UriSource="/Assets/Images/vk-logo.png"/>
+                    <BitmapImage
+                        DecodePixelHeight="100"
+                        DecodePixelWidth="100"
+                        UriSource="/Assets/Images/vk-logo.png" />
                 </Image.Source>
             </Image>
 
-            <TextBlock Margin="0 10 0 0" HorizontalAlignment="Center" Foreground="{ThemeResource SubText}" Text="Войдите в свой аккаунт ВКонтакте"/>
+            <TextBlock
+                Margin="0,10,0,0"
+                HorizontalAlignment="Center"
+                Foreground="{ThemeResource SubText}"
+                Text="Войдите в свой аккаунт ВКонтакте" />
 
-            <TextBox Style="{StaticResource TextBoxLoginStyle}" Text="{x:Bind ViewModel.Login, Mode=TwoWay}" Margin="0 30 0 0 " PlaceholderText="Номер телефона или адрес электронной почты"/>
-            <PasswordBox Style="{StaticResource PasswordBoxLoginStyle}" Password="{x:Bind ViewModel.Password, Mode=TwoWay}" Margin="0 10 0 0" PlaceholderText="Пароль"/>
+            <TextBox
+                Margin="0,30,0,0"
+                PlaceholderText="Номер телефона или адрес электронной почты"
+                Style="{StaticResource TextBoxLoginStyle}"
+                Text="{x:Bind ViewModel.Login, Mode=TwoWay}" />
+            <PasswordBox
+                Margin="0,10,0,0"
+                Password="{x:Bind ViewModel.Password, Mode=TwoWay}"
+                PlaceholderText="Пароль"
+                Style="{StaticResource PasswordBoxLoginStyle}" />
             <Grid HorizontalAlignment="Center">
-                <Button Style="{StaticResource ButtonLoginStyle}" 
-                        Visibility="{x:Bind ViewModel.VisibilityButton, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" 
-                        Command="{x:Bind ViewModel.LoginCommand}" Width="100"
-                        HorizontalAlignment="Center" Margin="0 20 0 0" 
-                        Content="Войти"/>
-                <ProgressRing  Height="40" Margin="0 20 0 0"  HorizontalAlignment="Center" IsActive="{x:Bind ViewModel.IsActiveProgressRing, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Width="40"/>
+                <Button
+                    Width="100"
+                    Margin="0,20,0,0"
+                    HorizontalAlignment="Center"
+                    Command="{x:Bind ViewModel.LoginCommand}"
+                    Content="Войти"
+                    Style="{StaticResource ButtonLoginStyle}"
+                    Visibility="{x:Bind ViewModel.VisibilityButton, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                <ProgressRing
+                    Width="40"
+                    Height="40"
+                    Margin="0,20,0,0"
+                    HorizontalAlignment="Center"
+                    IsActive="{x:Bind ViewModel.IsActiveProgressRing, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
             </Grid>
         </StackPanel>
 
-        <TextBlock HorizontalAlignment="Center" Foreground="{ThemeResource SubText}" Margin="0 0 0 10" VerticalAlignment="Bottom" Text="MusicX 2019"/>
+        <TextBlock
+            Margin="0,0,0,10"
+            HorizontalAlignment="Center"
+            VerticalAlignment="Bottom"
+            Foreground="{ThemeResource SubText}"
+            Text="MusicX 2019" />
     </Grid>
 </Page>

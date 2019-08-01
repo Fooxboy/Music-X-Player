@@ -2,26 +2,34 @@
     x:Class="Fooxboy.MusicX.Uwp.Views.AdsBottomPanelView"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-    xmlns:local="using:Fooxboy.MusicX.Uwp.Views"
-    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:UI="using:Microsoft.Advertising.WinRT.UI"
-    mc:Ignorable="d"
-    Background="{ThemeResource BackgroundApp}">
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:local="using:Fooxboy.MusicX.Uwp.Views"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    Background="{ThemeResource BackgroundApp}"
+    mc:Ignorable="d">
 
     <Grid>
-        <Button Style="{ThemeResource ButtonLoginStyle}" Margin="0 0 10 0" Click="Button_Click" HorizontalAlignment="Right" Content="Купить Pro"/>
-        <StackPanel Orientation="Horizontal" HorizontalAlignment="Stretch">
-            <UI:AdControl ApplicationId="9ncjgg7b13q1" 
-                      AdUnitId="1100051155" 
-                      Height="50"
-                      Width="320"/>
+        <Button
+            Margin="0,0,10,0"
+            HorizontalAlignment="Right"
+            Click="Button_Click"
+            Content="Купить Pro"
+            Style="{ThemeResource ButtonLoginStyle}" />
+        <StackPanel HorizontalAlignment="Stretch" Orientation="Horizontal">
+            <UI:AdControl
+                Width="320"
+                Height="50"
+                AdUnitId="1100051155"
+                ApplicationId="9ncjgg7b13q1" />
 
-            <UI:AdControl Margin="30 0 0 0" ApplicationId="9ncjgg7b13q1" 
-                      AdUnitId="1100051155" 
-                      Height="50"
-                      Width="320"/>
-            
+            <UI:AdControl
+                Width="320"
+                Height="50"
+                Margin="30,0,0,0"
+                AdUnitId="1100051155"
+                ApplicationId="9ncjgg7b13q1" />
+
         </StackPanel>
 
     </Grid>
