@@ -2,6 +2,7 @@ using Android.Media;
 using Fooxboy.MusicX.AndroidApp.Delegates;
 using System;
 using System.Threading.Tasks;
+using Android.Support.V4.Media;
 using Fooxboy.MusicX.AndroidApp.Models;
 using MediaManager;
 using MediaManager.Media;
@@ -41,7 +42,8 @@ namespace Fooxboy.MusicX.AndroidApp.Services
 
         public bool IsPlay => player.IsPlaying();
         public TimeSpan Duration => player.Duration;
-
+        
+        public TimeSpan Position => player.Position;
 
         public void Play(PlaylistFile playlist = null, AudioFile audio = null)
         {
