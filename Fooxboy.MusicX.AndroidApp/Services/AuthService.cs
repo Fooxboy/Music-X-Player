@@ -31,6 +31,7 @@ namespace Fooxboy.MusicX.AndroidApp.Services
             ft.AddToBackStack(null);
             // Create and show the dialog.
             IncorrectLoginDialogFragment newFragment = IncorrectLoginDialogFragment.NewInstance(null);
+            
             //Add fragment
             newFragment.Show(ft, "dialog");
         }

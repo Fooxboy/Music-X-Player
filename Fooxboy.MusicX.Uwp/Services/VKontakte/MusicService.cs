@@ -53,6 +53,9 @@ namespace Fooxboy.MusicX.Uwp.Services.VKontakte
                     OwnerId = track.OwnerId,
                     PlaylistId = track.PlaylistId,
                     Source = null,
+                    IsLicensed = track.IsLicensed,
+                    ArtistId = track.ArtistId,
+                    AccessKey = track.AccessKey,
                     SourceString = track.SourceString,
                     Title = track.Title,
                     IsFavorite = false,
@@ -69,6 +72,8 @@ namespace Fooxboy.MusicX.Uwp.Services.VKontakte
 
         public async static Task PlayMusic(AudioFile audioFile, int typePlay, PlaylistFile playlistPlay= null)
         {
+
+            if (StaticContent.Config.StreamMusic) await MusicX.Core.VKontakte.Music.Library.StreamToStatus(audioFile.Id, audioFile.OwnerId);
             try
             {
                 //type play:
@@ -88,9 +93,23 @@ namespace Fooxboy.MusicX.Uwp.Services.VKontakte
 
                 if (typePlay == 1)
                 {
+
+
                     foreach (var trackMusic in StaticContent.MusicVKontakte) playlistNowPlay.TracksFiles.Add(trackMusic);
-                    StaticContent.AudioService.SetCurrentPlaylist(playlistNowPlay.ToAudioPlaylist(), false);
-                    StaticContent.AudioService.CurrentPlaylist.CurrentItem = audioFile;
+                    var index = playlistNowPlay.TracksFiles.IndexOf(playlistNowPlay.TracksFiles.Single(t => t.Id == audioFile.Id));
+
+                    if (index != 0)
+                    {
+                        StaticContent.AudioService.SetCurrentPlaylist(playlistNowPlay.ToAudioPlaylist(), false);
+                        StaticContent.AudioService.CurrentPlaylist.CurrentItem = audioFile;
+                    }
+                    else
+                    {
+                        StaticContent.AudioService.SetCurrentPlaylist(playlistNowPlay.ToAudioPlaylist(), true);
+                        StaticContent.AudioService.SwitchNext();
+
+                    }
+
                     StaticContent.NowPlayPlaylist = playlistNowPlay;
                 }
                 else if (typePlay == 2)
@@ -109,6 +128,7 @@ namespace Fooxboy.MusicX.Uwp.Services.VKontakte
                     else
                     {
                         StaticContent.AudioService.SetCurrentPlaylist(playlistPlay.ToAudioPlaylist(), true);
+                        StaticContent.AudioService.SwitchNext();
                     }
                 }
 

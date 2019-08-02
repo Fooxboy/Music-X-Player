@@ -79,11 +79,35 @@ namespace Fooxboy.MusicX.Uwp.Services.VKontakte
 
         public async static Task AutoAuth()
         {
-            var tokenObject = await TokenService.Load();
-            await Fooxboy.MusicX.Core.VKontakte.Auth.Auto(tokenObject.Token, new CaptchaSolver());
-            await SetNameAccount();
-            await SetPhotoAccount();
+            try
+            {
+                var tokenObject = await TokenService.Load();
+                await Fooxboy.MusicX.Core.VKontakte.Auth.Auto(tokenObject.Token, new CaptchaSolver());
+                await SetNameAccount();
+                await SetPhotoAccount();
+            }catch (VkNet.Exception.UserAuthorizationFailException)
+            {
+                await TokenService.Delete();
+                //await ContentDialogService.Show(new IncorrectLoginOrPasswordContentDialog());
+            }
+            catch (VkNet.Exception.VkAuthorizationException)
+            {
+                await TokenService.Delete();
 
+                //await ContentDialogService.Show(new IncorrectLoginOrPasswordContentDialog());
+            }
+            catch (VkNet.Exception.VkApiAuthorizationException)
+            {
+                await TokenService.Delete();
+
+                //await ContentDialogService.Show(new IncorrectLoginOrPasswordContentDialog());
+            }
+            catch (VkNet.Exception.UserDeletedOrBannedException)
+            {
+                await TokenService.Delete();
+
+                //await ContentDialogService.Show(new IncorrectLoginOrPasswordContentDialog());
+            }
         }
 
         public async static Task LogOut()
@@ -103,7 +127,7 @@ namespace Fooxboy.MusicX.Uwp.Services.VKontakte
         {
             try
             {
-                await StaticContent.LocalFolder.GetFileAsync("token.json");
+                var file = await StaticContent.LocalFolder.GetFileAsync("token.json");
                 return true;
             }
             catch

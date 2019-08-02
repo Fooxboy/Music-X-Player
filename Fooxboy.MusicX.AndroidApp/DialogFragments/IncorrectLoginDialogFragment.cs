@@ -28,11 +28,22 @@ namespace Fooxboy.MusicX.AndroidApp.DialogFragments
 
             var button = view.FindViewById<Button>(Resource.Id.buttonIncorrectLoginOk);
             button.Click += Button_Click;
-
             return view;
 
         }
 
+        public override void OnResume()
+        {
+            base.OnResume();
+
+            var window = Dialog.Window;
+            var requestedWidth = (int)(350 * (this.Resources.DisplayMetrics.Density));
+            var requestedHeight = (int)(140 * (this.Resources.DisplayMetrics.Density));
+
+            window.SetLayout(requestedWidth, requestedHeight);
+            window.SetGravity(GravityFlags.Center);           
+        }
+        
         private void Button_Click(object sender, EventArgs e)
         {
             this.Dismiss();

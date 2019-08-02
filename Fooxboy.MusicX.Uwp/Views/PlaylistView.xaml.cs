@@ -54,6 +54,10 @@ namespace Fooxboy.MusicX.Uwp.Views
             {
                 PlaylistViewModel.Playlist = playlist;
             }
+
+
+
+            if (playlist.OnRequest) PlaylistViewModel.LoadingTracks();
             
             
         }

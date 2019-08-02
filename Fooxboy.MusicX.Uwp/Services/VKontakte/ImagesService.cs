@@ -72,6 +72,24 @@ namespace Fooxboy.MusicX.Uwp.Services.VKontakte
             return avatarUser.Path;
         }
 
+        public async static Task<string> BannerArtist(string url)
+        {
+            StorageFile bannerArtist;
+            try
+            {
+                bannerArtist = await StaticContent.CoversFolder.GetFileAsync($"Artist{url.GetHashCode()}Banner.jpg");
+            }
+            catch
+            {
+                bannerArtist = await StaticContent.CoversFolder.CreateFileAsync($"Artist{url.GetHashCode()}Banner.jpg");
+                BackgroundDownloader downloader = new BackgroundDownloader();
+                DownloadOperation download = downloader.CreateDownload(new Uri(url), bannerArtist);
+                await download.StartAsync();
+            }
+
+            return bannerArtist.Path;
+        }
+
         public async static Task<string> CoverPlaylist(IPlaylistFile playlist)
         {
             var uriImage = playlist.Cover;

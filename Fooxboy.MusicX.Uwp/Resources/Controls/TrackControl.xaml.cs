@@ -20,6 +20,7 @@ using Windows.UI.Xaml.Data;
 using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Navigation;
+using Fooxboy.MusicX.Uwp.Views.VKontakte;
 
 // Документацию по шаблону элемента "Пользовательский элемент управления" см. по адресу https://go.microsoft.com/fwlink/?LinkId=234236
 
@@ -166,7 +167,7 @@ namespace Fooxboy.MusicX.Uwp.Resources.Controls
             {
                 try
                 {
-                    await Fooxboy.MusicX.Core.VKontakte.Music.Add.ToLibrary(Track.Id);
+                    await Fooxboy.MusicX.Core.VKontakte.Music.Add.ToLibrary(Track.Id, Track.AccessKey);
                     await new MessageDialog("Трек добавлен в Вашу библиотеку").ShowAsync();
                 }catch(Flurl.Http.FlurlHttpException)
                 {
@@ -181,6 +182,15 @@ namespace Fooxboy.MusicX.Uwp.Resources.Controls
             GetPropertyCommand = new RelayCommand(async () =>
             {
                 await ContentDialogService.Show(new PropertiesTrackContentDialog(Track));
+            });
+
+            GoToArtistCommand = new RelayCommand(() =>
+            {
+                StaticContent.NavigationContentService.Go(typeof(ArtistView), new ArtistParameter()
+                {
+                    Id = Track.ArtistId,
+                    Name = Track.Artist
+                });
             });
 
         }
@@ -217,6 +227,7 @@ namespace Fooxboy.MusicX.Uwp.Resources.Controls
         public RelayCommand DownloadCommand { get; set; }
         public RelayCommand GetPropertyCommand { get; set; }
         public RelayCommand AddOnLibraryCommand { get; set; }
+        public RelayCommand GoToArtistCommand { get; set; }
 
 
         private void Grid_PointerEntered(object sender, PointerRoutedEventArgs e)
@@ -263,6 +274,7 @@ namespace Fooxboy.MusicX.Uwp.Resources.Controls
         {
             if (Track.IsLocal)
             {
+                GoToArtist.Visibility = Visibility.Collapsed;
                 PropertyButton.Visibility = Visibility.Visible;
                 AddOnLibrary.Visibility = Visibility.Collapsed;
                 DownloadItem.Visibility = Visibility.Collapsed;
@@ -286,6 +298,7 @@ namespace Fooxboy.MusicX.Uwp.Resources.Controls
                 }
             }else
             {
+                GoToArtist.Visibility = Visibility.Collapsed;
                 PropertyButton.Visibility = Visibility.Collapsed;
                 DownloadItem.Visibility = Visibility.Visible;
                 AddTo.Visibility = Visibility.Collapsed;
@@ -297,6 +310,15 @@ namespace Fooxboy.MusicX.Uwp.Resources.Controls
                 {
                     AddOnLibrary.Visibility = Visibility.Visible;
                 }
+
+                if (Track.IsLicensed)
+                {
+                    if (Track.ArtistId != 0)
+                    {
+                        GoToArtist.Visibility = Visibility.Visible;
+                    }
+                }
+
             }
         }
     }

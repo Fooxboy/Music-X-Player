@@ -14,9 +14,11 @@ namespace Fooxboy.MusicX.Core.Interfaces
         long OwnerId { get; set; }
         string Cover { get; set; }
         bool IsAlbum { get; set; }
+        bool OnRequest { get; set; }
         string Genre { get; set; }
         long Plays { get; set; }
         string Year { get; set; }
+        string AccessKey { get; set; }
         string Description { get; set; }
     }
 }

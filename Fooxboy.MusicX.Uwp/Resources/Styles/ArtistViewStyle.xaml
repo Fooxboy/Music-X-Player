@@ -1,0 +1,34 @@
+﻿<ResourceDictionary
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:Fooxboy.MusicX.Uwp.Resources.Styles">
+
+    <Style x:Key="amamam" TargetType="GridViewItem">
+        <Setter Property="HorizontalAlignment" Value="Stretch" />
+        <Setter Property="VerticalAlignment" Value="Stretch" />
+        <Setter Property="BorderThickness" Value="0" />
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="GridViewItem">
+                    <GridViewItemPresenter
+                        Margin="{TemplateBinding Padding}"
+                        HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
+                        VerticalAlignment="{TemplateBinding VerticalContentAlignment}"
+                        ContentTransitions="{TemplateBinding ContentTransitions}" />
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+    <ItemsPanelTemplate x:Key="GridViewItemsPanel1">
+        <ItemsWrapGrid
+            HorizontalAlignment="Stretch"
+            VerticalAlignment="Stretch"
+            Orientation="Vertical" />
+    </ItemsPanelTemplate>
+    <ControlTemplate x:Key="GridViewTemplate" TargetType="GridView">
+        <Grid />
+    </ControlTemplate>
+    <ItemsPanelTemplate x:Key="GroupStylePanel1">
+        <VariableSizedWrapGrid />
+    </ItemsPanelTemplate>
+</ResourceDictionary>

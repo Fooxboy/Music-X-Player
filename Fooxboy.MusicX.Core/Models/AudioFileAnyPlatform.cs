@@ -12,6 +12,9 @@ namespace Fooxboy.MusicX.Core.Models
         public long InternalId { get; set; }
         public string Title { get; set; }
         public string Artist { get; set; }
+        public string AccessKey { get; set; }
+        public long ArtistId { get; set; }
+        public bool IsLicensed { get; set; }
         public long PlaylistId { get; set; }
         public bool IsLocal { get; set; }
         public double DurationSeconds { get; set; }

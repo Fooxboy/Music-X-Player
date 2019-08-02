@@ -45,8 +45,18 @@ namespace Fooxboy.MusicX.Uwp.Services
         /// </summary>
         public void Back()
         {
+            if (Pages.Count >= 2)
+            {
+                try
+                {
+                    this.RootFrame.GoBack();
 
-            if (Pages.Count >= 2) this.RootFrame.GoBack();
+                }
+                catch
+                {
+
+                }
+            }
             this.Pages.Pop();
             this.UpdateButtonBack();
         }

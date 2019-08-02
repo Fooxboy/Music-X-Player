@@ -3,22 +3,27 @@
 
     <item
         android:id="@+id/navigation_home"
-        android:icon="@drawable/ic_home_24dp"
+        android:icon="@drawable/home_menu"
         android:title="@string/title_home" />
 
     <item
+      android:id="@+id/navigation_tracks"
+      android:icon="@drawable/audio_menu"
+      android:title="@string/title_pop" />
+
+    <item
         android:id="@+id/navigation_popular"
-        android:icon="@drawable/ic_star_24dp"
+        android:icon="@drawable/star_menu"
         android:title="@string/title_pop" />
 
   <item
     android:id="@+id/navigation_search"
-    android:icon="@drawable/ic_search_24dp"
+    android:icon="@drawable/search_menu"
     android:title="@string/title_search" />
 
     <item
       android:id="@+id/navigation_settings"
-      android:icon="@drawable/ic_settings_24dp"
+      android:icon="@drawable/settings_menu"
       android:title="@string/title_settings" />
 
 </menu>

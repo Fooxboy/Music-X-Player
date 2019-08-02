@@ -1,22 +1,20 @@
-﻿<ResourceDictionary
-    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" 
-    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
 
     <ResourceDictionary.ThemeDictionaries>
         <ResourceDictionary x:Key="Dark">
-            <SolidColorBrush x:Key="ColorArtistText" Color="#D9D9D9"/>
-            <SolidColorBrush x:Key="SubText" Color="#D0D0D0"/>
-            <SolidColorBrush x:Key="ColorSettings" Color="#363636"/>
-            <SolidColorBrush x:Key="SubHeaderText" Color="#E6E6E6"/>
-            <SolidColorBrush x:Key="BackgroundColorLoginTextBox" Color="#363636"/>
-            <SolidColorBrush x:Key="BackgroundColorLoginTextBoxOverPointer" Color="#2E2E2E"/>
-            <SolidColorBrush x:Key="BackgroundColorLoginTextBoxFocus" Color="#212121"/>
-            <SolidColorBrush x:Key="BackgroundApp" Color="#191919"/>
-            <SolidColorBrush x:Key="MainTextColor" Color="White"/>
-            <SolidColorBrush x:Key="ButtonMainColor" Color="#262626"/>
-            <SolidColorBrush x:Key="ButtonPointColor" Color="#FF292929"/>
-            <SolidColorBrush x:Key="ButtonClickColor" Color="#4A4A4A"/>
-            <SolidColorBrush x:Key="BlockBackground" Color="#FF131313"/>
+            <SolidColorBrush x:Key="ColorArtistText" Color="#D9D9D9" />
+            <SolidColorBrush x:Key="SubText" Color="#D0D0D0" />
+            <SolidColorBrush x:Key="ColorSettings" Color="#363636" />
+            <SolidColorBrush x:Key="SubHeaderText" Color="#E6E6E6" />
+            <SolidColorBrush x:Key="BackgroundColorLoginTextBox" Color="#363636" />
+            <SolidColorBrush x:Key="BackgroundColorLoginTextBoxOverPointer" Color="#2E2E2E" />
+            <SolidColorBrush x:Key="BackgroundColorLoginTextBoxFocus" Color="#212121" />
+            <SolidColorBrush x:Key="BackgroundApp" Color="#191919" />
+            <SolidColorBrush x:Key="MainTextColor" Color="White" />
+            <SolidColorBrush x:Key="ButtonMainColor" Color="#262626" />
+            <SolidColorBrush x:Key="ButtonPointColor" Color="#FF292929" />
+            <SolidColorBrush x:Key="ButtonClickColor" Color="#4A4A4A" />
+            <SolidColorBrush x:Key="BlockBackground" Color="#FF131313" />
         </ResourceDictionary>
     </ResourceDictionary.ThemeDictionaries>
 </ResourceDictionary>

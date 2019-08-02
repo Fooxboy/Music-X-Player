@@ -5,6 +5,7 @@ using System.Linq;
 using Fooxboy.MusicX.Core.Interfaces;
 using Fooxboy.MusicX.Core.VKontakte.Music.Converters;
 using System.Threading.Tasks;
+using VkNet.Utils;
 
 namespace Fooxboy.MusicX.Core.VKontakte.Music
 {
@@ -45,25 +46,33 @@ namespace Fooxboy.MusicX.Core.VKontakte.Music
 
             foreach (var playlist in playlistsVk)
             {
-                var music = await StaticContent.VkApi.Audio.GetAsync(new VkNet.Model.RequestParams.AudioGetParams()
-                {
-                    PlaylistId = playlist.Id,
-                });
+                //var music = await StaticContent.VkApi.Audio.GetAsync(new VkNet.Model.RequestParams.AudioGetParams()
+                //{
+                //    PlaylistId = playlist.Id,
+                //});
 
-                IList<IAudioFile> tracks = new List<IAudioFile>();
-                foreach (var track in music) tracks.Add(track.ToIAudioFile());
+                //IList<IAudioFile> tracks = new List<IAudioFile>();
+                //foreach (var track in music) tracks.Add(track.ToIAudioFile());
 
-                playlists.Add(playlist.ToIPlaylistFile(tracks));
+                playlists.Add(playlist.ToIPlaylistFile(new List<IAudioFile>())) ;
             }
             return playlists;
         }
 
 
-        public async static Task StreamToStatus()
+        public async static Task StreamToStatus(long audioId, long ownerId, string accessKey = null)
         {
             if (StaticContent.VkApi == null) throw new Exception("Пользователь не авторизован");
-
-            //StaticContent.VkApi.Audio.SetBroadcastAsync();
+            var audioString = $"audio{ownerId}_{audioId}";
+            audioString = accessKey == null ? audioString : $"{audioString}_{accessKey}";
+            var param = new VkParameters();
+            param.Add("audio_ids", audioId);
+            param.Add("target_ids", StaticContent.UserId);
+            param.Add("access_token", StaticContent.VkApi.Token);
+            param.Add("v", "5.101");
+            var json = await StaticContent.VkApi.InvokeAsync("audio.setBroadcast", param);
+            //var b =json + "a";
+            // var ab = await StaticContent.VkApi.CallAsync<List<long>>("audio.setBroadcast", param);
         }
 
 

@@ -11,5 +11,6 @@ namespace Fooxboy.MusicX.Uwp.Models
         public int ThemeApp { get; set; }
         public bool FindInMusicLibrary { get; set; }
         public bool FindInDocumentsLibrary { get; set; }
+        public bool StreamMusic { get; set; }
     }
 }

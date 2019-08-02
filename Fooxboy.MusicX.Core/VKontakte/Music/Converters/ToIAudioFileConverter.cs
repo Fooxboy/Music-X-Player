@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 using Fooxboy.MusicX.Core.Interfaces;
 using Fooxboy.MusicX.Core.Models;
@@ -47,6 +48,7 @@ namespace Fooxboy.MusicX.Core.VKontakte.Music.Converters
                     Title = audio.Title,
                     IsDownload = false,
                     IsFavorite = false,
+                    AccessKey =  audio.AccessKey,
                     IsInLibrary = false
                 };
 
@@ -65,6 +67,7 @@ namespace Fooxboy.MusicX.Core.VKontakte.Music.Converters
                     InternalId = 0,
                     IsLocal = false,
                     OwnerId = 0,
+                    AccessKey =  null,
                     PlaylistId = 0,
                     SourceString = "no",
                     Title = "Аудиозапись недоступна",
@@ -106,6 +109,21 @@ namespace Fooxboy.MusicX.Core.VKontakte.Music.Converters
                 if (duration.Hours > 0)
                     durationM = duration.ToString("h\\:mm\\:ss");
                 durationM = duration.ToString("m\\:ss");
+                bool isLicensed = false;
+                long artistId = 0;
+                try
+                {
+                    if (audio.IsLicensed.Value)
+                    {
+                        isLicensed = true;
+                        artistId = Int64.Parse(audio.MainArtists.First().Id);
+                    }
+                }
+                catch
+                {
+
+                }
+                
 
                 IAudioFile audioFile = new AudioFileAnyPlatform()
                 {
@@ -114,6 +132,8 @@ namespace Fooxboy.MusicX.Core.VKontakte.Music.Converters
                     DurationSeconds = audio.Duration,
                     Id = audio.Id.Value,
                     IsLocal = false,
+                    IsLicensed = isLicensed,
+                    ArtistId = artistId,
                     InternalId = audio.Id.Value,
                     DurationMinutes = durationM,
                     OwnerId = audio.OwnerId.Value,
@@ -122,6 +142,7 @@ namespace Fooxboy.MusicX.Core.VKontakte.Music.Converters
                     Title = audio.Title,
                     IsDownload = false,
                     IsFavorite = false,
+                    AccessKey = audio.AccessKey,
                     IsInLibrary = IsLibrary
                 };
 

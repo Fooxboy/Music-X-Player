@@ -22,6 +22,7 @@ using Windows.Foundation;
 using Windows.Foundation.Collections;
 using Windows.Foundation.Metadata;
 using Windows.Storage;
+using Windows.System;
 using Windows.UI;
 using Windows.UI.Core;
 using Windows.UI.ViewManagement;
@@ -32,6 +33,7 @@ using Windows.UI.Xaml.Data;
 using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Navigation;
+using Microsoft.AppCenter.Crashes;
 
 namespace Fooxboy.MusicX.Uwp
 {
@@ -145,7 +147,7 @@ namespace Fooxboy.MusicX.Uwp
                         //TODO: Загрузить состояние из ранее приостановленного приложения
                     }
                 }
-                AppCenter.Start("96c77488-34ce-43d0-b0d3-c4b1ce326c7f", typeof(Analytics), typeof(Push));
+                AppCenter.Start("96c77488-34ce-43d0-b0d3-c4b1ce326c7f", typeof(Analytics), typeof(Push), typeof(Crashes));
                 AppCenter.LogLevel = LogLevel.Verbose;
                 CoreApplication.GetCurrentView().TitleBar.ExtendViewIntoTitleBar = true;
                 //try
@@ -354,6 +356,8 @@ namespace Fooxboy.MusicX.Uwp
                 var lastFile = await StaticContent.LocalFolder.CreateFileAsync("LastPlay.json");
                 await FileIO.WriteTextAsync(lastFile, json);
             }
+
+            //MemoryManager.
             
             deferral.Complete();
         }

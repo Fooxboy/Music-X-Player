@@ -2,73 +2,127 @@
     x:Class="Fooxboy.MusicX.Uwp.Views.ProVersionView"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-    xmlns:local="using:Fooxboy.MusicX.Uwp.Views"
     xmlns:controls="using:Microsoft.Toolkit.Uwp.UI.Controls"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:local="using:Fooxboy.MusicX.Uwp.Views"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    mc:Ignorable="d"
-    Background="{ThemeResource BackgroundApp}">
+    Background="{ThemeResource BackgroundApp}"
+    mc:Ignorable="d">
 
     <Grid>
 
         <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center">
 
-            <Image Width="200" Height="200" HorizontalAlignment="Center">
+            <Image
+                Width="130"
+                Height="130"
+                HorizontalAlignment="Center">
                 <Image.Source>
-                    <BitmapImage DecodePixelHeight="200" UriSource="ms-appx:///Assets/Images/logo.png" DecodePixelWidth="200"/>
+                    <BitmapImage
+                        DecodePixelHeight="130"
+                        DecodePixelWidth="130"
+                        UriSource="ms-appx:///Assets/Images/logo.png" />
                 </Image.Source>
             </Image>
 
-            <TextBlock FontWeight="Bold" Text="У MusicX есть расширенная версия" FontSize="30" HorizontalAlignment="Center"/>
+            <TextBlock
+                HorizontalAlignment="Center"
+                FontSize="30"
+                FontWeight="Bold"
+                Text="У MusicX есть расширенная версия" />
 
-            <Grid Margin="0 50 0 0" HorizontalAlignment="Center">
-                <controls:DropShadowPanel Width="500" 
-                                          Height="300" 
-                                          Grid.Column="0"
-                                          HorizontalAlignment="Left"
-                                          ShadowOpacity="1" OffsetY="0"
-                                          OffsetX="0" BlurRadius="30"
-                                          Opacity="0.5">
-                    <Border Width="500" Height="300" CornerRadius="3" Background="White"/>
+            <Grid Margin="0,50,0,0" HorizontalAlignment="Center">
+                <controls:DropShadowPanel
+                    Grid.Column="0"
+                    Width="500"
+                    Height="300"
+                    HorizontalAlignment="Left"
+                    BlurRadius="30"
+                    OffsetX="0"
+                    OffsetY="0"
+                    Opacity="0.5"
+                    ShadowOpacity="1">
+                    <Border
+                        Width="500"
+                        Height="300"
+                        Background="White"
+                        CornerRadius="3" />
                 </controls:DropShadowPanel>
 
-                <Rectangle RadiusX="3" 
-                                   HorizontalAlignment="Left"
-                                   RadiusY="3"
-                                   Fill="{ThemeResource BlockBackground}"
-                                   Height="300"
-                                   Width="500"/>
+                <Rectangle
+                    Width="500"
+                    Height="300"
+                    HorizontalAlignment="Left"
+                    Fill="{ThemeResource BlockBackground}"
+                    RadiusX="3"
+                    RadiusY="3" />
 
-                <StackPanel Margin="20 20 0 0">
-                    <TextBlock FontWeight="Bold"  Text="В ней доступны:" FontSize="20" />
-                    <StackPanel Orientation="Horizontal" Margin="0 15 0 0">
-                        <TextBlock  FontSize="20" Foreground="{ThemeResource SubText}" Text="•"/>
-                        <TextBlock Margin="5 0 0 0" Foreground="{ThemeResource SubHeaderText}" Text="Загрузка более 25 треков на компьютер" FontSize="20" HorizontalAlignment="Center"/>
+                <StackPanel Margin="20,20,0,0">
+                    <TextBlock
+                        FontSize="20"
+                        FontWeight="Bold"
+                        Text="В ней доступны:" />
+                    <StackPanel Margin="0,15,0,0" Orientation="Horizontal">
+                        <TextBlock
+                            FontSize="20"
+                            Foreground="{ThemeResource SubText}"
+                            Text="•" />
+                        <TextBlock
+                            Margin="5,0,0,0"
+                            HorizontalAlignment="Center"
+                            FontSize="20"
+                            Foreground="{ThemeResource SubHeaderText}"
+                            Text="Загрузка более 25 треков на компьютер" />
                     </StackPanel>
 
-                    <StackPanel Orientation="Horizontal" Margin="0 5 0 0">
-                        <TextBlock  FontSize="20" Foreground="{ThemeResource SubText}" Text="•"/>
-                        <TextBlock Margin="5 0 0 0" Foreground="{ThemeResource SubHeaderText}" Text="Создание более 15 локальных плейлистов" FontSize="20" HorizontalAlignment="Center"/>
+                    <StackPanel Margin="0,5,0,0" Orientation="Horizontal">
+                        <TextBlock
+                            FontSize="20"
+                            Foreground="{ThemeResource SubText}"
+                            Text="•" />
+                        <TextBlock
+                            Margin="5,0,0,0"
+                            HorizontalAlignment="Center"
+                            FontSize="20"
+                            Foreground="{ThemeResource SubHeaderText}"
+                            Text="Создание более 15 локальных плейлистов" />
                     </StackPanel>
 
-                    <StackPanel Orientation="Horizontal" Margin="0 5 0 0">
-                        <TextBlock  FontSize="20" Foreground="{ThemeResource SubText}" Text="•"/>
-                        <TextBlock Margin="5 0 0 0" Foreground="{ThemeResource SubHeaderText}" Text="Полное отсутствие рекламы" FontSize="20" HorizontalAlignment="Center"/>
+                    <StackPanel Margin="0,5,0,0" Orientation="Horizontal">
+                        <TextBlock
+                            FontSize="20"
+                            Foreground="{ThemeResource SubText}"
+                            Text="•" />
+                        <TextBlock
+                            Margin="5,0,0,0"
+                            HorizontalAlignment="Center"
+                            FontSize="20"
+                            Foreground="{ThemeResource SubHeaderText}"
+                            Text="Полное отсутствие рекламы" />
                     </StackPanel>
 
-                    <StackPanel Orientation="Horizontal" Margin="0 5 0 0">
-                        <TextBlock  FontSize="20" Foreground="{ThemeResource SubText}" Text="•"/>
-                        <TextBlock Margin="5 0 0 0"  Foreground="{ThemeResource SubHeaderText}" Text="И конечно же - темная тема" FontSize="20" HorizontalAlignment="Center"/>
+                    <StackPanel Margin="0,5,0,0" Orientation="Horizontal">
+                        <TextBlock
+                            FontSize="20"
+                            Foreground="{ThemeResource SubText}"
+                            Text="•" />
+                        <TextBlock
+                            Margin="5,0,0,0"
+                            HorizontalAlignment="Center"
+                            FontSize="20"
+                            Foreground="{ThemeResource SubHeaderText}"
+                            Text="И конечно же - темная тема" />
                     </StackPanel>
                 </StackPanel>
 
-                <Button 
-                Grid.Row="9" HorizontalAlignment="Right"
-                    VerticalAlignment="Bottom"
+                <Button
+                    Grid.Row="9"
                     Margin="20"
-                Style="{ThemeResource ButtonLoginStyle}"
-                Click="Button_Click"
-                Content="Получить MusicX Pro"/>
+                    HorizontalAlignment="Right"
+                    VerticalAlignment="Bottom"
+                    Click="Button_Click"
+                    Content="Получить MusicX Pro"
+                    Style="{ThemeResource ButtonLoginStyle}" />
             </Grid>
         </StackPanel>
     </Grid>

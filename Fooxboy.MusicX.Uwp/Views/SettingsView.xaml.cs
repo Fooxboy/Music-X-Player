@@ -31,6 +31,6 @@ namespace Fooxboy.MusicX.Uwp.Views
 
         public SettingsViewModel ViewModel { get; set; }
 
-       
+        
     }
 }

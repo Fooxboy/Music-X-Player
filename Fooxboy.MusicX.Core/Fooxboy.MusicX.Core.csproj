@@ -6,7 +6,7 @@
 
   <ItemGroup>
     <PackageReference Include="NLog" Version="4.6.6" />
-    <PackageReference Include="NLog.Config" Version="4.6.5" />
+    <PackageReference Include="NLog.Config" Version="4.6.6" />
     <PackageReference Include="VkNet" Version="1.44.0" />
     <PackageReference Include="VkNet.AudioBypassService" Version="1.4.1" />
   </ItemGroup>
