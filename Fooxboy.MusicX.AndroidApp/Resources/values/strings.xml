@@ -2,7 +2,8 @@
 <resources>
     <string name="app_name">Music X</string>
     <string name="title_home">Главная</string>
-    <string name="title_pop">Популярное</string>
+  <string name="title_pop">Популярное</string>
+  <string name="title_tracks">Музыка</string>
   <string name="title_search">Поиск</string>
   <string name="title_settings">Настройки</string>
   <string name="auth_caption">Войдите в свой аккаунт ВКонтакте</string>

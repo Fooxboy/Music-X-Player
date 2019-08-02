@@ -9,7 +9,7 @@
     <item
       android:id="@+id/navigation_tracks"
       android:icon="@drawable/audio_menu"
-      android:title="@string/title_pop" />
+      android:title="@string/title_tracks" />
 
     <item
         android:id="@+id/navigation_popular"

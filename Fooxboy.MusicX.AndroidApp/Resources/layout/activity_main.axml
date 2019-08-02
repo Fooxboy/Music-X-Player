@@ -36,8 +36,8 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_above="@+id/miniplayer_frame"
-        android:layout_marginTop="?android:attr/actionBarSize" >
-        
+        android:layout_marginTop="70dp" >
+
     </FrameLayout>
     
     <FrameLayout android:id="@+id/miniplayer_frame"

@@ -44,7 +44,7 @@ namespace Fooxboy.MusicX.AndroidApp.Resources.fragments
             var tracksView = view.FindViewById<RecyclerView>(Resource.Id.tracksPlaylistView);
             Handler handler = new Handler(Looper.MainLooper);
 
-            var progressBar = view.FindViewById<ProgressBar>(Resource.Id.progressBarLoagingTracks);
+            var progressBar = view.FindViewById<ProgressBar>(Resource.Id.progressBar_playlists);
             var task = Task.Run(() =>
             {
                 handler.Post(new Runnable(() =>
