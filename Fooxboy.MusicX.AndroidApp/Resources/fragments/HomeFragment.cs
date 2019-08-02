@@ -142,7 +142,9 @@ namespace Fooxboy.MusicX.AndroidApp.Resources.fragments
 
         private void AdapterOnItemClick(object sender, AudioFile args)
         {
-            Toast.MakeText(Application.Context, $"Ты тыкнул: {args.Artist} - {args.Title} ", ToastLength.Long).Show();
+            var player = PlayerService.Instanse;
+            player.Pause();
+            //Toast.MakeText(Application.Context, $"Ты тыкнул: {args.Artist} - {args.Title} ", ToastLength.Long).Show();
             //Создание плейлиста из локальных трекаф
             var playlist = new PlaylistFile();
             playlist.Artist = "Music X";
@@ -151,7 +153,7 @@ namespace Fooxboy.MusicX.AndroidApp.Resources.fragments
             playlist.Id = 1000;
             playlist.IsAlbum = false;
             playlist.TracksFiles = TracksInLibrary;
-            var player = PlayerService.Instanse;
+            
             player.Play(playlist, playlist.TracksFiles.First(t => t.SourceString == args.SourceString));
         
         }

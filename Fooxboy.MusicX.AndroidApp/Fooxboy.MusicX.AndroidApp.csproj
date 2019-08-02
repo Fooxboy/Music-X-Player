@@ -66,11 +66,11 @@
     <Reference Include="System.Numerics.Vectors" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Activities\MainPlayerActivity.cs" />
     <Compile Include="Adapters\PlaylistAdapter.cs" />
     <Compile Include="Adapters\TrackAdapter.cs" />
     <Compile Include="Delegates\EventHandler.cs" />
     <Compile Include="DialogFragments\IncorrectLoginDialogFragment.cs" />
-    <Compile Include="HomeActivity.cs" />
     <Compile Include="AuthActivity.cs" />
     <Compile Include="Interfaces\IItemClickListener.cs" />
     <Compile Include="Listeners\OnScrollToBottomListener.cs" />
