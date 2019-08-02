@@ -550,6 +550,9 @@
     <PackageReference Include="Microsoft.AppCenter.Auth">
       <Version>2.1.1</Version>
     </PackageReference>
+    <PackageReference Include="Microsoft.AppCenter.Crashes">
+      <Version>2.1.1</Version>
+    </PackageReference>
     <PackageReference Include="Microsoft.AppCenter.Push">
       <Version>2.1.1</Version>
     </PackageReference>
