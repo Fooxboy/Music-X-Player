@@ -78,6 +78,7 @@ namespace Fooxboy.MusicX.AndroidApp.Services
             currentTrack = args;
             CurrentAudioChanged?.Invoke(this, args);
             player.Play(currentTrack.SourceString);
+            CurrentAudioChanged?.Invoke(this, args);
             //throw new NotImplementedException();
         }
 
@@ -103,6 +104,7 @@ namespace Fooxboy.MusicX.AndroidApp.Services
             SeekToStart();
             
             currentPlaylist.Next();
+
         }
 
         public void BackTrack()
