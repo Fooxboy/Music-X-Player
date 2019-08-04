@@ -9,7 +9,7 @@ using ImageViews.Rounded;
 namespace Fooxboy.MusicX.AndroidApp.Activities
 {
     [Activity(Label = "Music X")]
-    public class MainPlayerActivity: Activity
+    public class MainPlayerActivity: Activity, SeekBar.IOnSeekBarChangeListener
     {
         private RoundedImageView cover;
         private TextView position;
@@ -46,6 +46,7 @@ namespace Fooxboy.MusicX.AndroidApp.Activities
             closeButton.Click += CloseButtonOnClick;
             playPauseButton.Click += PlayPauseButtonOnClick;
             nextButton.Click += NextButtonOnClick;
+            seekBar.SetOnSeekBarChangeListener(this);
             UpdateDataPlayer();
         }
 
@@ -61,8 +62,8 @@ namespace Fooxboy.MusicX.AndroidApp.Activities
         private void UpdateDataPlayer()
         {
             cover.SetImageString(player.Cover, 300, 300);
-            position.Text = player.MainService.Position.ToString("g");
-            duration.Text = player.MainService.Duration.ToString("g");
+            position.Text = player.MainService.Position.ToString("m\\:ss");
+            duration.Text = player.MainService.Duration.ToString("m\\:ss");
             seekBar.Progress = Convert.ToInt32(player.MainService.Position.TotalSeconds);
             seekBar.Max = Convert.ToInt32(player.CurrentAudioFile.DurationSeconds);
             title.Text = player.Title;
@@ -119,6 +120,22 @@ namespace Fooxboy.MusicX.AndroidApp.Activities
         {
             //TODO: сделать в PlayingService переключение назад.
             //player.MainService.
+            //throw new NotImplementedException();
+        }
+
+        public void OnProgressChanged(SeekBar bar, int progress, bool fromUser)
+        {
+            player.MainService.SeekTo(TimeSpan.FromSeconds(progress));
+            //throw new NotImplementedException();
+        }
+
+        public void OnStartTrackingTouch(SeekBar bar)
+        {
+            //throw new NotImplementedException();
+        }
+
+        public void OnStopTrackingTouch(SeekBar bar)
+        {
             //throw new NotImplementedException();
         }
     }
