@@ -19,6 +19,7 @@ namespace Fooxboy.MusicX.AndroidApp.Activities
         private TextView artist;
         private Button backButton;
         private Button playPauseButton;
+        private Button closeButton;
         private Button nextButton;
         private PlayerService player;
         
@@ -35,15 +36,22 @@ namespace Fooxboy.MusicX.AndroidApp.Activities
             backButton = FindViewById<Button>(Resource.Id.backButtonTrackMainPlayer);
             playPauseButton = FindViewById<Button>(Resource.Id.playPauseButtonTrackMainPlayer);
             nextButton = FindViewById<Button>(Resource.Id.nextButtonTrackMainPlayer);
+            closeButton = FindViewById<Button>(Resource.Id.closeButtonMainPlayer);
 
             player = PlayerService.Instanse;
             player.MainService.PositionChanged += MainServiceOnPositionChanged;
             player.MainService.CurrentAudioChanged += MainServiceOnCurrentAudioChanged;
             player.MainService.ItemFailed += MainServiceOnItemFailed;
             backButton.Click += BackButtonOnClick;
+            closeButton.Click += CloseButtonOnClick;
             playPauseButton.Click += PlayPauseButtonOnClick;
             nextButton.Click += NextButtonOnClick;
             UpdateDataPlayer();
+        }
+
+        private void CloseButtonOnClick(object sender, EventArgs e)
+        {
+            //throw new NotImplementedException();
         }
 
 

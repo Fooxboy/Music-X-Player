@@ -2,11 +2,16 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto" android:orientation="vertical"
     android:layout_width="match_parent" android:layout_height="match_parent">
-
+    <Button
+        android:layout_width="wrap_content"
+        android:id="@+id/closeButtonMainPlayer"
+        android:text = "Закрыть"
+        android:layout_height="wrap_content"/>
         <com.makeramen.roundedimageview.RoundedImageView
             android:id="@+id/coverTrackMainPlayer"
-            android:layout_width="300dp"
-            android:layout_height="300dp"
+            android:layout_width="350dp"
+            android:layout_height="350dp"
+        android:background="@drawable/shadow"
             android:layout_marginTop="20dp"
             android:layout_gravity="center_horizontal"
             android:src="@drawable/placeholder"
@@ -80,20 +85,20 @@
                                 android:layout_height="40dp"
                             android:id="@+id/backButtonTrackMainPlayer"
                                 android:text=""
-                                android:background="@drawable/skip_back"
+                                android:background="@drawable/back_ic"
                                 />
                         <Button android:layout_width="40dp"
                                 android:layout_height="40dp"
                                 android:text=""
                             android:id="@+id/playPauseButtonTrackMainPlayer"
-                                android:background="@drawable/play"
+                                android:background="@drawable/play_ic"
                                 android:layout_marginHorizontal="50dp"
                         />
                         <Button android:layout_width="40dp"
                             android:id="@+id/nextButtonTrackMainPlayer"
                                 android:layout_height="40dp"
                                 android:text=""
-                                android:background="@drawable/skip"
+                                android:background="@drawable/next_ic"
                         />
                         
                 </LinearLayout>
