@@ -59,6 +59,7 @@ namespace Fooxboy.MusicX.AndroidApp.Services
                     var audioPlaylist = new AudioPlaylist(playlist, audio, StaticContentService.RepeatPlaylist, StaticContentService.RepeatTrack);
                     currentPlaylist = audioPlaylist;
                     currentTrack = audio;
+                    currentPlaylist.OnCurrentItemChanged += CurrentPlaylistOnOnCurrentItemChanged;
                     CurrentAudioChanged?.Invoke(this, audio);
                 }
                 else
@@ -71,7 +72,15 @@ namespace Fooxboy.MusicX.AndroidApp.Services
                 player.Play(currentTrack.SourceString);
             }
         }
-        
+
+        private void CurrentPlaylistOnOnCurrentItemChanged(object sender, AudioFile args)
+        {
+            currentTrack = args;
+            CurrentAudioChanged?.Invoke(this, args);
+            player.Play(currentTrack.SourceString);
+            //throw new NotImplementedException();
+        }
+
 
         public void Pause()
         {
