@@ -118,7 +118,7 @@ namespace Fooxboy.MusicX.AndroidApp.Activities
 
         private void BackButtonOnClick(object sender, EventArgs e)
         {
-            //TODO: сделать в PlayingService переключение назад.
+            player.MainService.BackTrack();
             //player.MainService.
             //throw new NotImplementedException();
         }

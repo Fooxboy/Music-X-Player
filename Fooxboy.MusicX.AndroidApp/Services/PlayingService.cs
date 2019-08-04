@@ -104,6 +104,13 @@ namespace Fooxboy.MusicX.AndroidApp.Services
             
             currentPlaylist.Next();
         }
+
+        public void BackTrack()
+        {
+            Pause();
+            SeekToStart();
+            currentPlaylist.Back();
+        }
         
     }
 }
