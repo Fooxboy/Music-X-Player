@@ -98,7 +98,7 @@ namespace Fooxboy.MusicX.AndroidApp.Activities
         /// <param name="args"></param>
         private void MainServiceOnPositionChanged(object sender, TimeSpan args)
         {
-            position.Text = player.MainService.Position.ToString("g");
+            position.Text = player.MainService.Position.ToString("m\\:ss");
             seekBar.Progress = Convert.ToInt32(player.MainService.Position.TotalSeconds);
         }
 
@@ -125,7 +125,8 @@ namespace Fooxboy.MusicX.AndroidApp.Activities
 
         public void OnProgressChanged(SeekBar bar, int progress, bool fromUser)
         {
-            player.MainService.SeekTo(TimeSpan.FromSeconds(progress));
+            if(fromUser) player.MainService.SeekTo(TimeSpan.FromSeconds(progress));
+
             //throw new NotImplementedException();
         }
 
