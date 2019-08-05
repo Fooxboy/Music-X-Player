@@ -7,12 +7,15 @@
         android:id="@+id/closeButtonMainPlayer"
         android:text = "Закрыть"
         android:layout_height="wrap_content"/>
+
         <com.makeramen.roundedimageview.RoundedImageView
             android:id="@+id/coverTrackMainPlayer"
-            android:layout_width="350dp"
-            android:layout_height="350dp"
-        android:background="@drawable/shadow"
-            android:layout_marginTop="20dp"
+            android:layout_width="400dp"
+            android:layout_height="400dp"
+            android:scaleType="fitStart"
+            android:adjustViewBounds="true"
+            android:background="@drawable/shadow"
+            android:layout_marginTop="10dp"
             android:layout_gravity="center_horizontal"
             android:src="@drawable/placeholder"
             app:riv_corner_radius="5dp" />
