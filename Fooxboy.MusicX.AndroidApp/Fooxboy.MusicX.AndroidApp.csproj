@@ -92,6 +92,7 @@
     <Compile Include="Services\ImagesService.cs" />
     <Compile Include="Services\MiniPlayerService.cs" />
     <Compile Include="Services\MusicService.cs" />
+    <Compile Include="Services\NotificationManager.cs" />
     <Compile Include="Services\PlayerService.cs" />
     <Compile Include="Services\PlayingService.cs" />
     <Compile Include="Services\PlaylistsService.cs" />

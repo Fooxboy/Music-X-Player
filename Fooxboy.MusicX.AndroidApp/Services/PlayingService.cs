@@ -2,7 +2,11 @@ using Android.Media;
 using Fooxboy.MusicX.AndroidApp.Delegates;
 using System;
 using System.Threading.Tasks;
+using Android.App;
 using Android.Support.V4.Media;
+using Android.Support.V4.Media.App;
+using Android.Support.V4.Media.Session;
+using Com.Google.Android.Exoplayer2.UI;
 using Fooxboy.MusicX.AndroidApp.Models;
 using MediaManager;
 using MediaManager.Media;
@@ -68,8 +72,26 @@ namespace Fooxboy.MusicX.AndroidApp.Services
                     currentTrack = audio;
                     CurrentAudioChanged?.Invoke(this, audio);
                 }
+                //var playerNotificationManager = (CrossMediaManager.Android.NotificationManager as MediaManager.Platforms.Android.Notifications.NotificationManager).PlayerNotificationManager;
+                
 
-                player.Play(currentTrack.SourceString);
+                TaskService.RunOnUI(async () =>
+                {
+                    var media = await player.Play(currentTrack.SourceString);
+                    media.Title = currentTrack.Title;
+                    media.AlbumArtUri = currentTrack.Cover;
+                    media.Artist = currentTrack.Artist;
+                    media.AlbumArtist = currentTrack.Artist;
+                    media.ArtUri = currentTrack.Cover;
+                    CrossMediaManager.Android.NotificationManager.UpdateNotification();
+                });
+
+                
+                //player.MediaQueue.Current.Title = audio.Title;
+                //player.MediaQueue.Current.Artist = audio.Title;
+                //player.MediaQueue.Current.AlbumArtUri = audio.Cover;
+                //CrossMediaManager.Android.
+                //player.NotificationManager = null;
             }
         }
 
