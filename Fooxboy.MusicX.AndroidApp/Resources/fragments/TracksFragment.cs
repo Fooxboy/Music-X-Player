@@ -14,6 +14,7 @@ using Fooxboy.MusicX.AndroidApp.Adapters;
 using Fooxboy.MusicX.AndroidApp.Models;
 using Fooxboy.MusicX.AndroidApp.Services;
 using Java.Lang;
+using Exception = System.Exception;
 
 namespace Fooxboy.MusicX.AndroidApp.Resources.fragments
 {
@@ -66,9 +67,18 @@ namespace Fooxboy.MusicX.AndroidApp.Resources.fragments
                     {
                         progressBar.Visibility = ViewStates.Visible;
                     }));
-                    tracks = MusicService.GetMusicLibrary(15, adapter.ItemCount);
-                    var i = 1 + 1; //Без этого нихуя не работает.
-                    Fooxboy.MusicX.Core.Log.Debug(i.ToString());
+                    try
+                    {
+                        tracks = MusicService.GetMusicLibrary(15, adapter.ItemCount);
+                        var i = 1 + 1; //Без этого нихуя не работает.
+                        Fooxboy.MusicX.Core.Log.Debug(i.ToString());
+                    }
+                    catch (Exception e)
+                    {
+                        Toast.MakeText(Application.Context, $"Произошла ошибка: {e.ToString()}", ToastLength.Long).Show();
+
+                    }
+
                 });
 
                 bool end = false;
@@ -108,18 +118,24 @@ namespace Fooxboy.MusicX.AndroidApp.Resources.fragments
 
         private void AdapterOnItemClick(object sender, AudioFile args)
         {
-            Toast.MakeText(Application.Context, $"Ты тыкнул: {args.Artist} - {args.Title} ", ToastLength.Long).Show();
-            //Создание плейлиста из локальных трекаф
-            var playlist = new PlaylistFile();
-            playlist.Artist = "Music X";
-            playlist.Cover = "playlist_placeholder";
-            playlist.Genre = "";
-            playlist.Id = 1000;
-            playlist.IsAlbum = false;
-            playlist.TracksFiles = TracksInLibrary;
-            var player = PlayerService.Instanse;
-            player.Play(playlist, playlist.TracksFiles.First(t => t.SourceString == args.SourceString));
-
+            try
+            {
+                Toast.MakeText(Application.Context, $"Ты тыкнул: {args.Artist} - {args.Title} ", ToastLength.Long).Show();
+                //Создание плейлиста из локальных трекаф
+                var playlist = new PlaylistFile();
+                playlist.Artist = "Music X";
+                playlist.Cover = "playlist_placeholder";
+                playlist.Genre = "";
+                playlist.Id = 1000;
+                playlist.IsAlbum = false;
+                playlist.TracksFiles = TracksInLibrary;
+                var player = PlayerService.Instanse;
+                player.Play(playlist, playlist.TracksFiles.First(t => t.SourceString == args.SourceString));
+            }
+            catch (Exception e)
+            {
+                Toast.MakeText(Application.Context, $"Произошла ошибка: {e.ToString()}", ToastLength.Long).Show();
+            }
         }
 
     }

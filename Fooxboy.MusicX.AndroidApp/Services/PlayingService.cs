@@ -125,7 +125,7 @@ namespace Fooxboy.MusicX.AndroidApp.Services
             Pause();
             SeekToStart();
             
-            currentPlaylist.Next();
+            currentPlaylist.Next(true);
 
         }
 

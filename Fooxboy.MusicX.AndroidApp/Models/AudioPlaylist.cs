@@ -1,5 +1,8 @@
-using System;
+﻿using System;
 using System.Collections.Generic;
+using System.Net.Mime;
+using Android.App;
+using Android.Widget;
 
 namespace Fooxboy.MusicX.AndroidApp.Models
 {
@@ -66,20 +69,28 @@ namespace Fooxboy.MusicX.AndroidApp.Models
 
         public void Next(bool skip = false)
         {
-            if (Items.Count == 0) return;
-            var indexNextTrack = currentIndex + 1;
-            if (indexNextTrack >= Items.Count)
+            try
             {
-                if (repeat)indexNextTrack = 0;
-                else indexNextTrack = skip ? 0 : -1;
+                if (Items.Count == 0) return;
+                var indexNextTrack = currentIndex + 1;
+                if (indexNextTrack >= Items.Count)
+                {
+                    if (repeat) indexNextTrack = 0;
+                    else indexNextTrack = skip ? 0 : -1;
+                }
+
+                if (skip) MoveTo(indexNextTrack);
+                else
+                {
+                    if (repeatTrack) OnCurrentItemChanged?.Invoke(this, currentItem);
+                    else MoveTo(indexNextTrack);
+                }
+            }
+            catch (Exception e)
+            {
+                Toast.MakeText(Application.Context, $"Прошизошла ошибка: {e.ToString()}", ToastLength.Long).Show();
             }
             
-            if (skip) MoveTo(indexNextTrack);
-            else
-            {
-                if (repeatTrack)OnCurrentItemChanged?.Invoke(this, currentItem);
-                else MoveTo(indexNextTrack);
-            }
         }
 
         public void Back()
@@ -91,6 +102,7 @@ namespace Fooxboy.MusicX.AndroidApp.Models
 
         private void MoveTo(int index)
         {
+            if (index == -1) return;
             if (index == currentIndex) return;
             currentIndex = index;
             currentItem = Items[index];

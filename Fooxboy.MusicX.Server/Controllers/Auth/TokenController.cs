@@ -14,6 +14,8 @@ namespace Fooxboy.MusicX.Server.Controllers.Auth
         [HttpGet]
         public ActionResult<string> Get(string token)
         {
+
+
             return token;
         }
 
