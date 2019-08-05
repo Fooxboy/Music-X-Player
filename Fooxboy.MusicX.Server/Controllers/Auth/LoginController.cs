@@ -38,8 +38,9 @@ namespace Fooxboy.MusicX.Server.Controllers.Auth
                         {
                             var token = Generator.Generate(new string[] {login, password});
                             var response = new Login() {AccessToken = token};
+                            user.CurrentAccountToken = token;
+                            db.SaveChanges();
                             return Json(RootResponseBuilder.Build<Login>(response));
-                            //TODO: все ок
                         }
                         else
                         {
