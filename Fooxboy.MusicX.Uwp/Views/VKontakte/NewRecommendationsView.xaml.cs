@@ -12,6 +12,7 @@ using Windows.UI.Xaml.Data;
 using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Navigation;
+using Fooxboy.MusicX.Uwp.ViewModels.VKontakte;
 
 // Документацию по шаблону элемента "Пустая страница" см. по адресу https://go.microsoft.com/fwlink/?LinkId=234238
 
@@ -22,9 +23,19 @@ namespace Fooxboy.MusicX.Uwp.Views.VKontakte
     /// </summary>
     public sealed partial class NewRecommendationsView : Page
     {
+
+        public NewRecommendationsViewModel ViewModel { get; set; }
+
         public NewRecommendationsView()
         {
             this.InitializeComponent();
+            ViewModel = new NewRecommendationsViewModel();
         }
+
+        protected async override void OnNavigatedTo(NavigationEventArgs e)
+        {
+            await ViewModel.StartLoading();
+        }
+
     }
 }

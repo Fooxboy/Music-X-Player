@@ -31,7 +31,7 @@ namespace Fooxboy.MusicX.Core.VKontakte.Music
             return tracks;
         }
 
-        public async static Task<IRecommendations> New(int count, int offset)
+        public async static Task<IRecommendations> New()
         {
             if (StaticContent.VkApi == null) throw new Exception("Пользователь не авторизован");
             var parameters = new VkParameters();

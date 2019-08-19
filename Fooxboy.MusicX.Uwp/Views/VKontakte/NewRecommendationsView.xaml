@@ -9,11 +9,37 @@
     mc:Ignorable="d">
 
     <Grid Margin="0,36,0,0">
-        <TextBlock
-            Margin="30,0,0,0"
-            FontFamily="Calibri"
-            FontSize="42"
-            FontWeight="ExtraBold"
-            Text="Рекомендации" />
+        <StackPanel>
+            <TextBlock
+                Margin="30,0,0,0"
+                FontFamily="Calibri"
+                FontSize="42"
+                FontWeight="ExtraBold"
+                Text="Рекомендации" />
+
+        </StackPanel>
+
+        <ListView
+            Margin="0,50,0,0"
+            HorizontalAlignment="Stretch"
+            ItemContainerStyle="{StaticResource ListViewItemContainerStyle}"
+            ItemTemplate="{ThemeResource BlockTemplate}"
+            ItemsSource="{x:Bind ViewModel.Blocks, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+            Style="{StaticResource ListViewStyle}">
+            <ListView.ItemsPanel>
+                <ItemsPanelTemplate>
+                    <ItemsStackPanel HorizontalAlignment="Stretch" VerticalAlignment="Stretch" />
+                </ItemsPanelTemplate>
+            </ListView.ItemsPanel>
+
+        </ListView>
+
+        <ProgressRing
+            Width="50"
+            Height="50"
+            HorizontalAlignment="Center"
+            VerticalAlignment="Center"
+            IsActive="{x:Bind ViewModel.IsLoading, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+
     </Grid>
 </Page>

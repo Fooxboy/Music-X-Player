@@ -14,14 +14,27 @@ namespace Fooxboy.MusicX.Core.VKontakte.Music.Converters
         
         public static IPlaylistFile ToIPlaylistFile(this PlaylistInfoVkModel  playlist, IList<IAudioFile> tracks, string artist)
         {
-            string cover;
+            string cover = "no";
             string genre = "";
             string year = "";
             string description = "";
-           
-            cover = playlist.Photo.Photo600.ToString();
-            genre = playlist.Genres[0].Name;
-            year = playlist.Year.ToString();
+
+            try
+            {
+                cover = playlist.Photo.Photo600.ToString();
+            }
+            catch { }
+
+            try
+            {
+                genre = playlist.Genres[0].Name;
+            }catch { }
+
+            try
+            {
+                year = playlist.Year.ToString();
+            }catch { }
+            
 
 
             IPlaylistFile playlistFile = new PlaylistFileAnyPlatform()

@@ -1,15 +1,17 @@
 ﻿<ResourceDictionary
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    x:Class="Fooxboy.MusicX.Uwp.Resources.Templates.BlockResourceTemplate"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:local="using:Fooxboy.MusicX.Uwp.Resources.Templates"
-    xmlns:models="using:Fooxboy.MusicX.Uwp.Models">
+    xmlns:models="using:Fooxboy.MusicX.Uwp.Models"
+    xmlns:myControls="using:Fooxboy.MusicX.Uwp.Resources.Controls">
 
     <DataTemplate
         x:Key="BlockTemplate"
         x:DataType="models:Block"
-        x:DefaultBindMode="TwoWay" >
+        x:DefaultBindMode="TwoWay">
         <Grid>
-
+            <myControls:BlockControl Block="{Binding}" />
         </Grid>
     </DataTemplate>
 

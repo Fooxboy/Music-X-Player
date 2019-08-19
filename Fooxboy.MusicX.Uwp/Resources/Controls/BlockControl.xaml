@@ -9,8 +9,8 @@
     xmlns:models="using:Fooxboy.MusicX.Uwp.Models"
     d:DesignHeight="300"
     d:DesignWidth="600"
+    Height="200"
     mc:Ignorable="d">
-
     <Grid>
         <controls:DropShadowPanel
             Margin="5"
@@ -35,11 +35,11 @@
                 <TextBlock
                     Margin="15,15,0,0"
                     HorizontalAlignment="Left"
-                    FontSize="25"
+                    FontSize="20"
                     FontWeight="Bold"
-                    Text="Специально для Вас" />
+                    Text="{x:Bind Block.Title, Mode=TwoWay}" />
                 <Button
-                    Margin="0,15,15,0"
+                    Margin="0,19,15,0"
                     HorizontalAlignment="Right"
                     VerticalAlignment="Top"
                     Content="Показать все"
@@ -48,7 +48,7 @@
                     Margin="18,0,0,10"
                     VerticalAlignment="Bottom"
                     Foreground="{ThemeResource SubText}"
-                    Text="Это описание блока если оно есть" />
+                    Text="{x:Bind Block.Description, Mode=TwoWay}" />
             </Grid>
 
             <Grid>
@@ -62,9 +62,8 @@
                     VerticalContentAlignment="Center"
                     ItemContainerStyle="{ThemeResource amamam}"
                     ItemsPanel="{StaticResource GridViewItemsPanel1}"
-                    ItemsSource="{x:Bind ViewModel.PopularTracks, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                    SelectedItem="{x:Bind ViewModel.SelectPopularAudioFile, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                    Tapped="{x:Bind ViewModel.UIElement_OnTappedTracks}">
+                    ItemsSource="{x:Bind Block.TrackFiles, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                    Visibility="{x:Bind IsTracks}">
                     <GridView.ItemTemplate>
                         <DataTemplate x:DataType="models:AudioFile" x:DefaultBindMode="TwoWay">
                             <Grid Width="300" Margin="5,5,5,5">
@@ -78,15 +77,13 @@
 
 
                 <ListView
-                    ItemClick="{x:Bind ViewModel.ListViewPlaylists_ItemClick}"
                     ItemTemplate="{ThemeResource PlaylistTemplate}"
-                    ItemsSource="{x:Bind ViewModel.Playlists, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                    ItemsSource="{x:Bind Block.PlaylistsFiles, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                     ScrollViewer.HorizontalScrollBarVisibility="Disabled"
                     ScrollViewer.HorizontalScrollMode="Enabled"
                     ScrollViewer.VerticalScrollBarVisibility="Disabled"
                     ScrollViewer.VerticalScrollMode="Disabled"
-                    SelectedItem="{x:Bind ViewModel.SelectPlaylist, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                    Tapped="{x:Bind ViewModel.ListViewPlaylists_Tapped}">
+                    Visibility="{x:Bind IsPlaylists}">
                     <ListView.ItemsPanel>
                         <ItemsPanelTemplate>
                             <ItemsStackPanel

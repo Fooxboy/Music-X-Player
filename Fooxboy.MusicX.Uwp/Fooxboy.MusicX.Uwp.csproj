@@ -182,6 +182,9 @@
     <Compile Include="Resources\Controls\TrackControl.xaml.cs">
       <DependentUpon>TrackControl.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Resources\Templates\BlockTemplate.xaml.cs">
+      <DependentUpon>BlockTemplate.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Resources\Templates\PlaylistTemplate.xaml.cs">
       <DependentUpon>PlaylistTemplate.xaml</DependentUpon>
     </Compile>
@@ -201,6 +204,7 @@
     <Compile Include="Services\StoreService.cs" />
     <Compile Include="Services\TileHelperService.cs" />
     <Compile Include="Services\VKontakte\AuthService.cs" />
+    <Compile Include="Services\VKontakte\BlockService.cs" />
     <Compile Include="Services\VKontakte\CaptchaSolver.cs" />
     <Compile Include="Services\VKontakte\DownloaderService.cs" />
     <Compile Include="Services\VKontakte\DownloadLibraryService.cs" />
@@ -228,6 +232,7 @@
     <Compile Include="ViewModels\VKontakte\AuthViewModel.cs" />
     <Compile Include="ViewModels\VKontakte\DownloadsViewModel.cs" />
     <Compile Include="ViewModels\VKontakte\HomeViewModel.cs" />
+    <Compile Include="ViewModels\VKontakte\NewRecommendationsViewModel.cs" />
     <Compile Include="ViewModels\VKontakte\PopularViewModel.cs" />
     <Compile Include="ViewModels\VKontakte\RecommendationsViewModel.cs" />
     <Compile Include="ViewModels\VKontakte\SearchViewModel.cs" />

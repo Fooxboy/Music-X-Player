@@ -236,8 +236,8 @@ namespace Fooxboy.MusicX.Uwp.ViewModels
                 Changed("DownloadsSelector");
 
 
-                StaticContent.NavigationContentService.Go(typeof(Views.VKontakte.RecommendationsView));
-
+                //StaticContent.NavigationContentService.Go(typeof(Views.VKontakte.RecommendationsView));
+                StaticContent.NavigationContentService.Go(typeof(Views.VKontakte.NewRecommendationsView));
                 
             });
 

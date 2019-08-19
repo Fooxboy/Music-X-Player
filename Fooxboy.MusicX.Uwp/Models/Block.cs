@@ -9,5 +9,7 @@ namespace Fooxboy.MusicX.Uwp.Models
 {
     public class Block: BlockAnyPlatform
     {
+        public List<AudioFile> TrackFiles { get; set; }
+        public List<PlaylistFile> PlaylistsFiles { get; set; }
     }
 }
