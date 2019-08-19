@@ -22,7 +22,6 @@ namespace Fooxboy.MusicX.Core.VKontakte.Music.Converters
             cover = playlist.Photo.Photo600.ToString();
             genre = playlist.Genres[0].Name;
             year = playlist.Year.ToString();
-            
 
 
             IPlaylistFile playlistFile = new PlaylistFileAnyPlatform()
