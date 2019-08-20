@@ -22,6 +22,8 @@
         <ListView
             Margin="0,50,0,0"
             HorizontalAlignment="Stretch"
+            Background="{ThemeResource BackgroundApp}"
+            IsItemClickEnabled="False"
             ItemContainerStyle="{StaticResource ListViewItemContainerStyle}"
             ItemTemplate="{ThemeResource BlockTemplate}"
             ItemsSource="{x:Bind ViewModel.Blocks, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"

@@ -24,6 +24,12 @@ namespace Fooxboy.MusicX.Uwp.Resources.Controls
         public static readonly DependencyProperty BlockProperty = DependencyProperty.Register("Block", typeof(Block), typeof(BlockControl), new PropertyMetadata(new Block()
         {
             BlockId = "", CountElements = 0, Description = "", PlaylistsFiles = null, TrackFiles =  null, Playlists = null, Tracks = null, Title = "", TypeBlock = "default"
+        }, (d, e) =>
+        {
+            var control = (BlockControl)d;
+            var value = (Block)e.NewValue;
+            if (value.PlaylistsFiles != null) control.ListViewPlaylists.Visibility = Visibility.Visible;
+            if (value.TrackFiles != null) control.GridViewTracks.Visibility = Visibility.Visible;
         }));
 
         public Block Block
@@ -31,18 +37,16 @@ namespace Fooxboy.MusicX.Uwp.Resources.Controls
             get => (Block)GetValue(BlockProperty);
             set
             {
-                if (value.Tracks != null) IsTracks = Visibility.Visible;
-                if (value.Playlists != null) IsPlaylists = Visibility.Visible;
                 SetValue(BlockProperty, value);
+               
             }
         }
 
         public BlockControl()
         {
             this.InitializeComponent();
+            
         }
 
-        public Visibility IsTracks { get; set; } = Visibility.Collapsed;
-        public Visibility IsPlaylists { get; set; } = Visibility.Collapsed;
     }
 }

@@ -9,29 +9,15 @@
     xmlns:models="using:Fooxboy.MusicX.Uwp.Models"
     d:DesignHeight="300"
     d:DesignWidth="600"
-    Height="200"
     mc:Ignorable="d">
-    <Grid>
-        <controls:DropShadowPanel
-            Margin="5"
-            BlurRadius="30"
-            OffsetX="0"
-            OffsetY="0"
-            Opacity="0.5"
-            ShadowOpacity="1">
-            <Border
-                Margin="5"
-                Background="White"
-                CornerRadius="3" />
-        </controls:DropShadowPanel>
+    <Grid Margin="15,0,15,0">
         <Rectangle
-            Margin="5"
             Fill="{ThemeResource BlockBackground}"
             RadiusX="2"
             RadiusY="2" />
 
         <StackPanel>
-            <Grid Height="80">
+            <Grid Height="57">
                 <TextBlock
                     Margin="15,15,0,0"
                     HorizontalAlignment="Left"
@@ -42,10 +28,14 @@
                     Margin="0,19,15,0"
                     HorizontalAlignment="Right"
                     VerticalAlignment="Top"
-                    Content="Показать все"
-                    Style="{ThemeResource ButtonPlayerStyle}" />
+                    BorderThickness="0"
+                    Content="Показать все">
+                    <Button.Background>
+                        <SolidColorBrush Opacity="0" />
+                    </Button.Background>
+                </Button>
                 <TextBlock
-                    Margin="18,0,0,10"
+                    Margin="18,0,0,0"
                     VerticalAlignment="Bottom"
                     Foreground="{ThemeResource SubText}"
                     Text="{x:Bind Block.Description, Mode=TwoWay}" />
@@ -56,6 +46,7 @@
                 <!--  Треки  -->
 
                 <GridView
+                    x:Name="GridViewTracks"
                     Height="200"
                     Margin="0,15,0,0"
                     HorizontalContentAlignment="Left"
@@ -63,10 +54,10 @@
                     ItemContainerStyle="{ThemeResource amamam}"
                     ItemsPanel="{StaticResource GridViewItemsPanel1}"
                     ItemsSource="{x:Bind Block.TrackFiles, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                    Visibility="{x:Bind IsTracks}">
+                    Visibility="Collapsed">
                     <GridView.ItemTemplate>
                         <DataTemplate x:DataType="models:AudioFile" x:DefaultBindMode="TwoWay">
-                            <Grid Width="300" Margin="5,5,5,5">
+                            <Grid Width="300" Margin="-10,5,0,0">
                                 <local:TrackControl Width="300" Track="{Binding}" />
                             </Grid>
                         </DataTemplate>
@@ -77,13 +68,14 @@
 
 
                 <ListView
+                    x:Name="ListViewPlaylists"
                     ItemTemplate="{ThemeResource PlaylistTemplate}"
                     ItemsSource="{x:Bind Block.PlaylistsFiles, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                     ScrollViewer.HorizontalScrollBarVisibility="Disabled"
                     ScrollViewer.HorizontalScrollMode="Enabled"
                     ScrollViewer.VerticalScrollBarVisibility="Disabled"
                     ScrollViewer.VerticalScrollMode="Disabled"
-                    Visibility="{x:Bind IsPlaylists}">
+                    Visibility="Collapsed">
                     <ListView.ItemsPanel>
                         <ItemsPanelTemplate>
                             <ItemsStackPanel
