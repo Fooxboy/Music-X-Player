@@ -73,7 +73,8 @@ namespace Fooxboy.MusicX.Uwp.Resources.Controls
 
         private void ListViewPlaylists_OnTapped(object sender, TappedRoutedEventArgs e)
         {
-            throw new NotImplementedException();
+            if (SelectPlaylist == null) return;
+            StaticContent.NavigationContentService.Go(typeof(Views.PlaylistView), SelectPlaylist);
         }
     }
 }
