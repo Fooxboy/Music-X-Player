@@ -284,6 +284,12 @@
     <Compile Include="Views\VKontakte\AuthView.xaml.cs">
       <DependentUpon>AuthView.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Views\VKontakte\Blocks\AllPlaylistsView.xaml.cs">
+      <DependentUpon>AllPlaylistsView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\VKontakte\Blocks\AllTracksView.xaml.cs">
+      <DependentUpon>AllTracksView.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\VKontakte\DownloadsView.xaml.cs">
       <DependentUpon>DownloadsView.xaml</DependentUpon>
     </Compile>
@@ -535,6 +541,14 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\VKontakte\AuthView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\VKontakte\Blocks\AllPlaylistsView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\VKontakte\Blocks\AllTracksView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
