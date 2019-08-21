@@ -496,24 +496,36 @@ namespace Fooxboy.MusicX.Uwp.Services
 
         private void UpdateTransportControl()
         {
-            mediaPlayer.SystemMediaTransportControls.PlaybackStatus = IsPlaying ? MediaPlaybackStatus.Playing : MediaPlaybackStatus.Stopped;
-
-            var updater = mediaPlayer.SystemMediaTransportControls.DisplayUpdater;
-
-            if (CurrentPlaylist?.CurrentItem != null)
+            try
             {
-                updater.Type = MediaPlaybackType.Music;
-                updater.MusicProperties.Title = CurrentPlaylist.CurrentItem.Title;
-                updater.MusicProperties.Artist = CurrentPlaylist.CurrentItem.Artist;
+                mediaPlayer.SystemMediaTransportControls.PlaybackStatus = IsPlaying ? MediaPlaybackStatus.Playing : MediaPlaybackStatus.Stopped;
+
+                var updater = mediaPlayer.SystemMediaTransportControls.DisplayUpdater;
+
+                if (CurrentPlaylist?.CurrentItem != null)
+                {
+                    updater.Type = MediaPlaybackType.Music;
+                    updater.MusicProperties.Title = CurrentPlaylist.CurrentItem.Title;
+                    updater.MusicProperties.Artist = CurrentPlaylist.CurrentItem.Artist;
                     //updater.ImageProperties.Subtitle = CurrentPlaylist.CurrentItem.Artist;
-                //updater.ImageProperties.Title = CurrentPlaylist.CurrentItem.Title;
-                updater.Thumbnail = RandomAccessStreamReference.CreateFromUri(new Uri(CurrentPlaylist.CurrentItem.Cover));
-                updater.Update();
+                    //updater.ImageProperties.Title = CurrentPlaylist.CurrentItem.Title;
+                    updater.Thumbnail = RandomAccessStreamReference.CreateFromUri(new Uri(CurrentPlaylist.CurrentItem.Cover));
+                    updater.Update();
+                }
+                else
+                {
+                    updater.ClearAll();
+                }
             }
-            else
+            catch (Exception e)
             {
-                updater.ClearAll();
+                DispatcherHelper.CheckBeginInvokeOnUI(async () =>
+                {
+                    await ContentDialogService.Show(new ExceptionDialog("Ошибка при обновлении плитки", $"Music X не смог обновить плитку по неизвестной причине", e));
+
+                });
             }
+            
         }
 
 
