@@ -97,41 +97,41 @@ namespace Fooxboy.MusicX.Uwp.Services
 
         private AudioService()
         {
-            Application.Current.Resuming += AppResuming;
-            Application.Current.Suspending += AppSuspending;
-            Application.Current.EnteredBackground += Current_EnteredBackground;
-            Application.Current.LeavingBackground += Current_LeavingBackground;
             mediaPlayer.AudioCategory = MediaPlayerAudioCategory.Media;
             Initialize();
         }
 
-        private void Current_LeavingBackground(object sender, LeavingBackgroundEventArgs e)
-        {
-            Initialize();
-        }
-
-        private void Current_EnteredBackground(object sender, EnteredBackgroundEventArgs e)
-        {
-            Close();
-        }
+       
 
         /// <summary>
         /// Resume or start playing current track
         /// </summary>
         public void Play()
         {
-            if (CurrentPlaylist.CurrentItem == null)
-                return;
-
-            if (mediaPlayer.PlaybackSession.PlaybackState == MediaPlaybackState.None || mediaPlayer.Source == null)
+            try
             {
-                if (CurrentPlaylist.CurrentItem.IsLocal) PlayFrom(CurrentPlaylist.CurrentItem.Source);
-                else PlayFrom(new Uri(CurrentPlaylist.CurrentItem.SourceString));
+                if (CurrentPlaylist.CurrentItem == null)
+                    return;
+
+                if (mediaPlayer.PlaybackSession.PlaybackState == MediaPlaybackState.None || mediaPlayer.Source == null)
+                {
+                    if (CurrentPlaylist.CurrentItem.IsLocal) PlayFrom(CurrentPlaylist.CurrentItem.Source);
+                    else PlayFrom(new Uri(CurrentPlaylist.CurrentItem.SourceString));
+
+                }
+
+                else
+                    mediaPlayer.Play();
+            }
+            catch (Exception e)
+            {
+                DispatcherHelper.CheckBeginInvokeOnUI(async () =>
+                {
+                    await ContentDialogService.Show(new ExceptionDialog("Невозможно воспроизвести трек", "Возможно, трек поврежден", e));
+                });
 
             }
-                
-            else
-                mediaPlayer.Play();
+
         }
 
         /// <summary>
@@ -157,12 +157,24 @@ namespace Fooxboy.MusicX.Uwp.Services
         /// </summary>
         public void SwitchNext(bool skip = false)
         {
-            Seek(TimeSpan.Zero);
-            Seek(TimeSpan.Zero);
-            Seek(TimeSpan.Zero);
-            Seek(TimeSpan.Zero);
 
-            currentPlaylist.MoveNext(skip: skip);
+            try
+            {
+                Seek(TimeSpan.Zero);
+                Seek(TimeSpan.Zero);
+                Seek(TimeSpan.Zero);
+                Seek(TimeSpan.Zero);
+
+                currentPlaylist.MoveNext(skip: skip);
+            }
+            catch (Exception e)
+            {
+                DispatcherHelper.CheckBeginInvokeOnUI(async () =>
+                {
+                    await ContentDialogService.Show(new ExceptionDialog("Невозможно перейти к следующему треку", "Возможно, плейлист поврежден", e));
+                });
+            }
+            
         }
 
         /// <summary>
@@ -170,19 +182,28 @@ namespace Fooxboy.MusicX.Uwp.Services
         /// </summary>
         public void SwitchPrev()
         {
-            
-            if (Position > TimeSpan.FromSeconds(3))
-                PlayAudio(currentPlaylist.CurrentItem, currentPlaylist.Items);
-            else
+
+            try
             {
-                Seek(TimeSpan.Zero);
-                Seek(TimeSpan.Zero);
-                Seek(TimeSpan.Zero);
-                Seek(TimeSpan.Zero);
-                Seek(TimeSpan.Zero);
-                currentPlaylist.MovePrevious();
+                if (Position > TimeSpan.FromSeconds(3))
+                    PlayAudio(currentPlaylist.CurrentItem, currentPlaylist.Items);
+                else
+                {
+                    Seek(TimeSpan.Zero);
+                    Seek(TimeSpan.Zero);
+                    Seek(TimeSpan.Zero);
+                    Seek(TimeSpan.Zero);
+                    Seek(TimeSpan.Zero);
+                    currentPlaylist.MovePrevious();
+                }
             }
-                
+            catch (Exception e)
+            {
+                DispatcherHelper.CheckBeginInvokeOnUI(async () =>
+                {
+                    await ContentDialogService.Show(new ExceptionDialog("Невозможно перейти к предыдущему треку", "Возможно, плейлист поврежден", e));
+                });
+            }
         }
 
         /// <summary>
@@ -190,8 +211,19 @@ namespace Fooxboy.MusicX.Uwp.Services
         /// </summary>
         public void Seek(TimeSpan position)
         {
+            try
+            {
+                mediaPlayer.PlaybackSession.Position = position;
+            }
+            catch (Exception e)
+            {
+                DispatcherHelper.CheckBeginInvokeOnUI(async () =>
+                {
+                    await ContentDialogService.Show(new ExceptionDialog("Ошибка при перемотке трека", "Возможно, трек поврежден", e));
 
-            mediaPlayer.PlaybackSession.Position = position;
+                });
+            }
+            
         }
 
         /// <summary>
@@ -230,7 +262,10 @@ namespace Fooxboy.MusicX.Uwp.Services
             }
             catch(Exception e)
             {
-                await ContentDialogService.Show(new ExceptionDialog("Ошибка при установке текущего плейлиста", "Возможно, плейлист поврежден", e));
+                DispatcherHelper.CheckBeginInvokeOnUI(async () =>
+                {
+                    await ContentDialogService.Show(new ExceptionDialog("Ошибка при установке текущего плейлиста", "Возможно, плейлист поврежден", e));
+                });
             }
             
 
@@ -273,34 +308,48 @@ namespace Fooxboy.MusicX.Uwp.Services
                 }
             }catch(Exception e)
             {
-                await ContentDialogService.Show(new ExceptionDialog("Ошибка при воспроизведении трека", "Возможно трек поврежден или нет доступа к нему.", e));
+                DispatcherHelper.CheckBeginInvokeOnUI(async () =>
+                {
+                    await ContentDialogService.Show(new ExceptionDialog("Ошибка при воспроизведении трека", "Возможно трек поврежден или нет доступа к нему.", e));
+                });
             }
             
         }
         private void Initialize()
         {
-            mediaPlayer.PlaybackSession.PlaybackStateChanged += MediaPlayerOnCurrentStateChanged;
-            mediaPlayer.MediaEnded += MediaPlayerOnMediaEnded;
-            mediaPlayer.MediaFailed += MediaPlayerOnMediaFailed; ;
+            try
+            {
+                mediaPlayer.PlaybackSession.PlaybackStateChanged += MediaPlayerOnCurrentStateChanged;
+                mediaPlayer.MediaEnded += MediaPlayerOnMediaEnded;
+                mediaPlayer.MediaFailed += MediaPlayerOnMediaFailed;
 
-            mediaPlayer.CommandManager.NextBehavior.EnablingRule = MediaCommandEnablingRule.Always;
-            mediaPlayer.CommandManager.PreviousBehavior.EnablingRule = MediaCommandEnablingRule.Always;
+                mediaPlayer.CommandManager.NextBehavior.EnablingRule = MediaCommandEnablingRule.Always;
+                mediaPlayer.CommandManager.PreviousBehavior.EnablingRule = MediaCommandEnablingRule.Always;
 
-            mediaPlayer.CommandManager.NextReceived += CommandManager_NextReceived;
-            mediaPlayer.CommandManager.PreviousReceived += CommandManager_PreviousReceived;
-            mediaPlayer.CommandManager.PlayReceived += CommandManager_PlayReceived;
-            mediaPlayer.CommandManager.PauseReceived += CommandManager_PauseReceived;
+                mediaPlayer.CommandManager.NextReceived += CommandManager_NextReceived;
+                mediaPlayer.CommandManager.PreviousReceived += CommandManager_PreviousReceived;
+                mediaPlayer.CommandManager.PlayReceived += CommandManager_PlayReceived;
+                mediaPlayer.CommandManager.PauseReceived += CommandManager_PauseReceived;
 
-            currentPlaylist.OnCurrentItemChanged += CurrentPlaylistOnCurrentItemChanged;
+                currentPlaylist.OnCurrentItemChanged += CurrentPlaylistOnCurrentItemChanged;
 
-            positionTimer = new DispatcherTimer();
-            positionTimer.Interval = TimeSpan.FromMilliseconds(500);
-            positionTimer.Tick += PositionTimerOnTick;
+                positionTimer = new DispatcherTimer();
+                positionTimer.Interval = TimeSpan.FromMilliseconds(500);
+                positionTimer.Tick += PositionTimerOnTick;
+
+
+                Volume = StaticContent.Volume;
+                Repeat = StaticContent.Repeat;
+                Shuffle = StaticContent.Shuffle;
+            }
+            catch (Exception e)
+            {
+                DispatcherHelper.CheckBeginInvokeOnUI(async () =>
+                {
+                    await ContentDialogService.Show(new ExceptionDialog("Ошибка при инициализации AudioService", "Попробуйте перезапустить приложение. Если это не поможет, переустановите.", e));
+                });
+            }
             
-
-            Volume = StaticContent.Volume;
-            Repeat = StaticContent.Repeat;
-            Shuffle = StaticContent.Shuffle;
         }
 
         private void Close()
@@ -319,55 +368,61 @@ namespace Fooxboy.MusicX.Uwp.Services
             positionTimer.Tick -= PositionTimerOnTick;
         }
 
-        private void AppResuming(object sender, object e)
-        {
-            Initialize();
-        }
-
-        private void AppSuspending(object sender, SuspendingEventArgs suspendingEventArgs)
-        {
-            Close();
-        }
 
         private void CurrentPlaylistOnCurrentItemChanged(object sender, AudioFile audio)
         {
-            Seek(TimeSpan.Zero);
-            if (IsPlaying) Pause();
-
-            UpdateTransportControl();
-
-            if (audio == null)
-                return;
-
-
-            if (audio.IsLocal)
+            try
             {
-                if(audio.Source != null)
+                Seek(TimeSpan.Zero);
+                if (IsPlaying) Pause();
+
+                UpdateTransportControl();
+
+                if (audio == null)
+                    return;
+
+
+                if (audio.IsLocal)
                 {
-                    PlayFrom(audio.Source);
-                }else
-                {
-                    DispatcherHelper.CheckBeginInvokeOnUI(() =>
+                    if (audio.Source != null)
                     {
-                        CurrentAudioChanged?.Invoke(this, EventArgs.Empty);
-                    });
+                        PlayFrom(audio.Source);
+                    }
+                    else
+                    {
+                        DispatcherHelper.CheckBeginInvokeOnUI(() =>
+                        {
+                            CurrentAudioChanged?.Invoke(this, EventArgs.Empty);
+                        });
 
-                    TryResolveTrack(audio);
+                        TryResolveTrack(audio);
+                    }
+
                 }
-                
+                else PlayFrom(new Uri(audio.SourceString));
+
+
+                DispatcherHelper.CheckBeginInvokeOnUI(() =>
+                {
+                    CurrentAudioChanged?.Invoke(this, EventArgs.Empty);
+                });
             }
-            else PlayFrom(new Uri(audio.SourceString));
-
-
-            DispatcherHelper.CheckBeginInvokeOnUI(() =>
+            catch (Exception e)
             {
-                CurrentAudioChanged?.Invoke(this, EventArgs.Empty);
-            });
+                DispatcherHelper.CheckBeginInvokeOnUI(async () =>
+                {
+                    await ContentDialogService.Show(new ExceptionDialog("Ошибка при смене плейлиста", "Возможно плейлист поврежден.", e));
+
+                });
+            }
+            
 
         }
 
         private void TryResolveTrack(AudioFile audio)
         {
+
+            PlayFrom(audio.Source);
             //if (resolveCancellationToken != null)
             //    resolveCancellationToken.Cancel();
 
@@ -404,7 +459,11 @@ namespace Fooxboy.MusicX.Uwp.Services
                 mediaPlayer.Play();
             }catch(Exception e)
             {
-                await ContentDialogService.Show(new ExceptionDialog("Невозможно воспроизвести файл", "Возможно он поврежден или нет доступа к нему", e));
+                DispatcherHelper.CheckBeginInvokeOnUI(async () =>
+                {
+                    await ContentDialogService.Show(new ExceptionDialog("Невозможно воспроизвести файл", "Возможно он поврежден или нет доступа к нему", e));
+
+                });
             }
             
         }
@@ -418,14 +477,21 @@ namespace Fooxboy.MusicX.Uwp.Services
             }
             catch (Exception e)
             {
-                await ContentDialogService.Show(new ExceptionDialog("Невозможно воспроизвести файл", "Возможно он поврежден или нет доступа к нему", e));
+                DispatcherHelper.CheckBeginInvokeOnUI(async () =>
+                {
+                    await ContentDialogService.Show(new ExceptionDialog("Невозможно воспроизвести файл", "Возможно он поврежден или нет доступа к нему", e));
+
+                });
             }
 
         }
 
         private void PositionTimerOnTick(object sender, object o)
         {
-            PositionChanged?.Invoke(this, Position);
+            DispatcherHelper.CheckBeginInvokeOnUI((() =>
+            {
+                PositionChanged?.Invoke(this, Position);
+            }));
         }
 
         private void UpdateTransportControl()
@@ -453,6 +519,7 @@ namespace Fooxboy.MusicX.Uwp.Services
 
         private void MediaPlayerOnCurrentStateChanged(MediaPlaybackSession sender, object args)
         {
+
             Log.Info(sender.PlaybackState.ToString());
 
             DispatcherHelper.CheckBeginInvokeOnUI(() =>
@@ -480,6 +547,7 @@ namespace Fooxboy.MusicX.Uwp.Services
                 //audio source url may expire
                 CurrentPlaylist.CurrentItem.Source = null;
                 TryResolveTrack(CurrentPlaylist.CurrentItem);
+                return;
             }else if(args.Error == MediaPlayerError.NetworkError)
             {
                 InternetService.GoToOfflineMode();
