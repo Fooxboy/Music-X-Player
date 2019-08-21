@@ -14,6 +14,7 @@ using Windows.UI.Xaml;
 using Windows.UI.Popups;
 using Fooxboy.MusicX.Uwp.Services.VKontakte;
 using Windows.Storage;
+using GalaSoft.MvvmLight.Threading;
 
 namespace Fooxboy.MusicX.Uwp.ViewModels
 {
@@ -106,21 +107,36 @@ namespace Fooxboy.MusicX.Uwp.ViewModels
 
         public async void LoadingTracks()
         {
-            VisibilotyNoTrack = Visibility.Collapsed;
-            VisibilityIsLoading = true;
-            Changed("VisibilityIsLoading");
-            var tracks = await Fooxboy.MusicX.Core.VKontakte.Music.Playlist.GetTracks(Playlist.Id, Playlist.OwnerId, Playlist.AccessKey);
-            Music = new ObservableCollection<AudioFile>(await MusicService.ConvertToAudioFile(tracks, Playlist.Cover));
-            Playlist.TracksFiles = await MusicService.ConvertToAudioFile(tracks, Playlist.Cover);
-            Changed("Playlist");
-            Changed("Playlist.TracksFiles");
-            Changed("Music");
-            VisibilityIsLoading = false;
-            if (tracks.Count == 0) visibilityNoTrack = Visibility.Visible;
-            PLTrackCount = $"{playlist.TracksFiles.Count} трек(а/ов)";
-            Changed("PLTrackCount");
-            Changed("VisibilityIsLoading");
-            Changed("visibilityNoTrack");
+            try
+            {
+                VisibilotyNoTrack = Visibility.Collapsed;
+                VisibilityIsLoading = true;
+                Changed("VisibilityIsLoading");
+                var tracks =
+                    await Fooxboy.MusicX.Core.VKontakte.Music.Playlist.GetTracks(Playlist.Id, Playlist.OwnerId,
+                        Playlist.AccessKey);
+                Music = new ObservableCollection<AudioFile>(
+                    await MusicService.ConvertToAudioFile(tracks, Playlist.Cover));
+                Playlist.TracksFiles = await MusicService.ConvertToAudioFile(tracks, Playlist.Cover);
+                Changed("Playlist");
+                Changed("Playlist.TracksFiles");
+                Changed("Music");
+                VisibilityIsLoading = false;
+                if (tracks.Count == 0) visibilityNoTrack = Visibility.Visible;
+                PLTrackCount = $"{playlist.TracksFiles.Count} трек(а/ов)";
+                Changed("PLTrackCount");
+                Changed("VisibilityIsLoading");
+                Changed("visibilityNoTrack");
+            }
+            catch (Exception e)
+            {
+                DispatcherHelper.CheckBeginInvokeOnUI(async () =>
+                    {
+                        await ContentDialogService.Show(new ExceptionDialog("Невозможно получить данные плейлиста",
+                            "Возможно он был удален или к нему нет доступа.", e));
+                    });
+            }
+            
         }
 
         public Visibility VisibilityDescription

@@ -10,7 +10,7 @@
     d:DesignHeight="300"
     d:DesignWidth="600"
     mc:Ignorable="d">
-    <Grid Margin="15,0,15,0">
+    <Grid Margin="20,0,20,0">
         <Rectangle
             Fill="{ThemeResource BlockBackground}"
             RadiusX="2"

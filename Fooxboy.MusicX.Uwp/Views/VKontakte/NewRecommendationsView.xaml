@@ -19,20 +19,16 @@
 
         </StackPanel>
 
-        <ListView
+        <ListView ItemsPanel="{StaticResource ListViewItemsPanelBlock}"
             Margin="0,50,0,0"
             HorizontalAlignment="Stretch"
             Background="{ThemeResource BackgroundApp}"
+            Foreground="{ThemeResource BackgroundApp}"
             IsItemClickEnabled="False"
-            ItemContainerStyle="{StaticResource ListViewItemContainerStyle}"
+            ItemContainerStyle="{StaticResource ListViewItemRevealStyleBlocks}"
             ItemTemplate="{ThemeResource BlockTemplate}"
             ItemsSource="{x:Bind ViewModel.Blocks, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-            Style="{StaticResource ListViewStyle}">
-            <ListView.ItemsPanel>
-                <ItemsPanelTemplate>
-                    <ItemsStackPanel HorizontalAlignment="Stretch" VerticalAlignment="Stretch" />
-                </ItemsPanelTemplate>
-            </ListView.ItemsPanel>
+            Style="{StaticResource ListViewStyleBlocks}">
 
         </ListView>
 
