@@ -522,7 +522,6 @@ namespace Fooxboy.MusicX.Uwp.Services
                 DispatcherHelper.CheckBeginInvokeOnUI(async () =>
                 {
                     await ContentDialogService.Show(new ExceptionDialog("Ошибка при обновлении плитки", $"Music X не смог обновить плитку по неизвестной причине", e));
-
                 });
             }
             

@@ -13,6 +13,7 @@ using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Navigation;
 using Fooxboy.MusicX.Uwp.Models;
+using Fooxboy.MusicX.Uwp.Services.VKontakte;
 
 // Документацию по шаблону элемента "Пользовательский элемент управления" см. по адресу https://go.microsoft.com/fwlink/?LinkId=234236
 
@@ -48,5 +49,31 @@ namespace Fooxboy.MusicX.Uwp.Resources.Controls
             
         }
 
+        public AudioFile SelectAudioFile { get; set; }
+        public PlaylistFile SelectPlaylist { get; set; }
+
+        private async void GridViewTracks_OnTapped(object sender, TappedRoutedEventArgs e)
+        {
+            if (SelectAudioFile != null)
+            {
+                var playlistCurrent = new PlaylistFile()
+                {
+                    Artist = "Неизвестный исполнитель",
+                    Cover = "ms-appx:///Assets/Images/playlist-placeholder.png",
+                    Id = 666,
+                    IsLocal = false,
+                    Name = Block.Title
+                };
+
+                playlistCurrent.TracksFiles = Block.TrackFiles;
+
+                await MusicService.PlayMusic(SelectAudioFile, 2, playlistCurrent);
+            }
+        }
+
+        private void ListViewPlaylists_OnTapped(object sender, TappedRoutedEventArgs e)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

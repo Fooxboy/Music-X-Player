@@ -54,6 +54,8 @@
                     ItemContainerStyle="{ThemeResource amamam}"
                     ItemsPanel="{StaticResource GridViewItemsPanel1}"
                     ItemsSource="{x:Bind Block.TrackFiles, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                    SelectedItem="{x:Bind SelectAudioFile, Mode=TwoWay}"
+                    Tapped="GridViewTracks_OnTapped"
                     Visibility="Collapsed">
                     <GridView.ItemTemplate>
                         <DataTemplate x:DataType="models:AudioFile" x:DefaultBindMode="TwoWay">
@@ -66,7 +68,6 @@
 
                 <!--  Плейлисты  -->
 
-
                 <ListView
                     x:Name="ListViewPlaylists"
                     ItemTemplate="{ThemeResource PlaylistTemplate}"
@@ -75,6 +76,8 @@
                     ScrollViewer.HorizontalScrollMode="Enabled"
                     ScrollViewer.VerticalScrollBarVisibility="Disabled"
                     ScrollViewer.VerticalScrollMode="Disabled"
+                    SelectedItem="{x:Bind SelectPlaylist, Mode=TwoWay}"
+                    Tapped="ListViewPlaylists_OnTapped"
                     Visibility="Collapsed">
                     <ListView.ItemsPanel>
                         <ItemsPanelTemplate>

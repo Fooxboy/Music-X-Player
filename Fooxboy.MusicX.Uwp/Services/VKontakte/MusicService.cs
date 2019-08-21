@@ -142,7 +142,6 @@ namespace Fooxboy.MusicX.Uwp.Services.VKontakte
             } catch(HttpRequestException)
             {
                 InternetService.GoToOfflineMode();
-
             }catch(Exception e)
             {
                 await ContentDialogService.Show(new ExceptionDialog("Ошибка при воспроизведении трека", "Произошла неизвестная ошибка.", e));
