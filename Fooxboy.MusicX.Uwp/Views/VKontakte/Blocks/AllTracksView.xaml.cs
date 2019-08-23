@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Fooxboy.MusicX.Uwp.ViewModels.VKontakte.Blocks;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -22,9 +23,17 @@ namespace Fooxboy.MusicX.Uwp.Views.VKontakte.Blocks
     /// </summary>
     public sealed partial class AllTracksView : Page
     {
+
+        public AllTracksViewModel ViewModel { get; set; } 
         public AllTracksView()
         {
             this.InitializeComponent();
+            ViewModel = new AllTracksViewModel();
+        }
+
+        protected override void OnNavigatedTo(NavigationEventArgs e)
+        {
+            base.OnNavigatedTo(e);
         }
     }
 }

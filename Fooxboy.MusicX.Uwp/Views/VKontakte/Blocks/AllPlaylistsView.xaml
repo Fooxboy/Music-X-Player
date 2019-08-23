@@ -8,7 +8,34 @@
     mc:Ignorable="d"
     Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
 
-    <Grid>
+    <Grid Margin="0,36,0,0">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+        <TextBlock
+            Grid.Row="0"
+            Margin="30,0,0,0"
+            FontSize="42"
+            FontWeight="Bold"
+            Text="Список всех плейлитсистов" />
 
+        <GridView
+            Grid.Row="1"
+            Padding="0,20,0,0"
+            BorderBrush="{ThemeResource BackgroundApp}"
+            BorderThickness="0"
+            ItemTemplate="{ThemeResource PlaylistTemplate}"
+            ItemsSource="{x:Bind ViewModel.Albums, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+            SelectedItem="{x:Bind ViewModel.SelectAlbum, Mode=TwoWay}"
+            Tapped="{x:Bind ViewModel.Playlists_OnTapped}" />
+
+        <ProgressRing
+            Grid.Row="1"
+            Width="50"
+            Height="50"
+            HorizontalAlignment="Center"
+            VerticalAlignment="Center"
+            IsActive="{x:Bind ViewModel.IsLoading, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
     </Grid>
 </Page>

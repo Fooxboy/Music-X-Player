@@ -8,7 +8,42 @@
     mc:Ignorable="d"
     Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
 
-    <Grid>
+    <Grid Margin="0,36,0,0">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+        <TextBlock
+            Grid.Row="0"
+            Margin="30,0,0,0"
+            FontSize="42"
+            FontWeight="Bold"
+            Text="Популярные треки исполнителя" />
 
+        <ListView
+            x:Name="MusicListView"
+            Grid.Row="1"
+            HorizontalAlignment="Stretch"
+            ItemContainerStyle="{StaticResource ListViewItemContainerStyle}"
+            ItemTemplate="{ThemeResource TrackTemplate}"
+            ItemsSource="{x:Bind ViewModel.Tracks, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+            SelectedItem="{x:Bind ViewModel.SelectTrack, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+            Style="{StaticResource ListViewStyle}"
+            Tapped="{x:Bind ViewModel.MusicListView_OnTapped}">
+            <ListView.ItemsPanel>
+                <ItemsPanelTemplate>
+                    <ItemsStackPanel HorizontalAlignment="Stretch" VerticalAlignment="Stretch" />
+                </ItemsPanelTemplate>
+            </ListView.ItemsPanel>
+
+        </ListView>
+
+        <ProgressRing
+            Grid.Row="1"
+            Width="50"
+            Height="50"
+            HorizontalAlignment="Center"
+            VerticalAlignment="Center"
+            IsActive="{x:Bind ViewModel.IsLoading, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
     </Grid>
 </Page>
