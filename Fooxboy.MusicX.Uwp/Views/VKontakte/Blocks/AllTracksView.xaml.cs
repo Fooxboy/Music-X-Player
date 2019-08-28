@@ -31,9 +31,11 @@ namespace Fooxboy.MusicX.Uwp.Views.VKontakte.Blocks
             ViewModel = new AllTracksViewModel();
         }
 
-        protected override void OnNavigatedTo(NavigationEventArgs e)
+        protected async override void OnNavigatedTo(NavigationEventArgs e)
         {
-            base.OnNavigatedTo(e);
+            await ViewModel.StartLoading((string)e.Parameter);
+
+            //base.OnNavigatedTo(e);
         }
     }
 }

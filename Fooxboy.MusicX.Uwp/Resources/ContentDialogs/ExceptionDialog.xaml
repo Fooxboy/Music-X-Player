@@ -14,7 +14,8 @@
         <StackPanel>
             <TextBlock Text="{x:Bind TitleText}" TextWrapping="Wrap" FontSize="20" FontWeight="Bold"/>
             <TextBlock Text="{x:Bind Info}" TextWrapping="Wrap"/>
-            <TextBlock Text="{x:Bind ExceptionString}" TextWrapping="Wrap"/>
+            <Button x:Name="showButton" Style="{ThemeResource ButtonLoginStyle}" Click="Button_Click" Content="Показать подробности"/>
+            <TextBlock Visibility="Collapsed" x:Name="stackText" Text="{x:Bind ExceptionString}" TextWrapping="Wrap"/>
         </StackPanel>
     </Grid>
 </ContentDialog>

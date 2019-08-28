@@ -34,5 +34,18 @@ namespace Fooxboy.MusicX.Uwp.Resources.ContentDialogs
         public string TitleText { get; set; }
         public string Info { get; set; }
         public string ExceptionString { get; set; }
+
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+            if(stackText.Visibility == Visibility.Collapsed)
+            {
+                showButton.Content = "Скрыть подробности";
+                stackText.Visibility = Visibility.Visible;
+            }else
+            {
+                showButton.Content = "Показать подробности";
+                stackText.Visibility = Visibility.Collapsed;
+            }
+        }
     }
 }

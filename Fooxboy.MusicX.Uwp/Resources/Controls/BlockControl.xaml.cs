@@ -14,6 +14,7 @@ using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Navigation;
 using Fooxboy.MusicX.Uwp.Models;
 using Fooxboy.MusicX.Uwp.Services.VKontakte;
+using Fooxboy.MusicX.Uwp.Services;
 
 // Документацию по шаблону элемента "Пользовательский элемент управления" см. по адресу https://go.microsoft.com/fwlink/?LinkId=234236
 
@@ -75,6 +76,19 @@ namespace Fooxboy.MusicX.Uwp.Resources.Controls
         {
             if (SelectPlaylist == null) return;
             StaticContent.NavigationContentService.Go(typeof(Views.PlaylistView), SelectPlaylist);
+        }
+
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+            if(Block.PlaylistsFiles == null)
+            {
+                StaticContent.NavigationContentService.Go(typeof(Views.VKontakte.Blocks.AllTracksView), Block.BlockId);
+            }else if(Block.TrackFiles == null)
+            {
+                StaticContent.NavigationContentService.Go(typeof(Views.VKontakte.Blocks.AllPlaylistsView), Block.BlockId);
+            }
+
+            
         }
     }
 }

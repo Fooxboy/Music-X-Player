@@ -26,9 +26,43 @@ namespace Fooxboy.MusicX.Uwp.Services
                     }
                 }
 
-                if (!open) await dialog.ShowAsync();
+                try
+                {
+                    if (!open) await dialog.ShowAsync();
+
+                }catch(Exception e)
+                {
+                    //???????????? И как вывести ошибку
+                }
             });
             
-        } 
+        }
+
+        public static void Show(ContentDialog dialog, int a = 0)
+        {
+            DispatcherHelper.CheckBeginInvokeOnUI(async () =>
+            {
+                var openPopups = VisualTreeHelper.GetOpenPopups(Window.Current);
+                bool open = false;
+                foreach (var popup in openPopups)
+                {
+                    if (popup.Child is ContentDialog)
+                    {
+                        open = true;
+                    }
+                }
+
+                try
+                {
+                    if (!open) await dialog.ShowAsync();
+
+                }
+                catch (Exception e)
+                {
+                    //???????????? И как вывести ошибку
+                }
+            });
+
+        }
     }
 }

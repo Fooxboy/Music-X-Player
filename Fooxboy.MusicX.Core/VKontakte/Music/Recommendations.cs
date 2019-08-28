@@ -59,14 +59,33 @@ namespace Fooxboy.MusicX.Core.VKontakte.Music
                 if (blockVk.Playlists != null)
                 {
                     var plists = new List<IPlaylistFile>();
+                    int i = 0;
                     foreach (var pl in blockVk.Playlists)
+                    {
+                        if (i > 10) break;
                         plists.Add(pl.ToIPlaylistFile(new List<IAudioFile>(), "Различные исполнители"));
+                        i++;
+                    }
+                        
                     block.Playlists = plists;
                 }
 
                 if (blockVk.Audios != null)
                 {
-                    var tracks = blockVk.Audios.ToIAudioFileList();
+                    var audios = new List<AudioVkModel>();
+                    for (int i = 0; i < 10; i++)
+                    {
+                        try
+                        {
+                            audios.Add(blockVk.Audios[i]);
+                        }catch
+                        {
+                            break;
+                        }
+                       
+                    }
+                    var tracks = audios.ToIAudioFileList();
+                    
                     block.Tracks = tracks;
                 }
 

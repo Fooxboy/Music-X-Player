@@ -29,6 +29,7 @@
                     HorizontalAlignment="Right"
                     VerticalAlignment="Top"
                     BorderThickness="0"
+                    Click="Button_Click"
                     Content="Показать все">
                     <Button.Background>
                         <SolidColorBrush Opacity="0" />
