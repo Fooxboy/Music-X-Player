@@ -15,7 +15,6 @@ namespace Fooxboy.MusicX.Uwp.Services.VKontakte
 
         public async static Task<string> CoverAudio(IAudioFile audio)
         {
-
             if (audio.PlaylistId != 0)
             {
                 var cover = await CoverPlaylistById(audio.PlaylistId, audio.Cover);
@@ -34,19 +33,29 @@ namespace Fooxboy.MusicX.Uwp.Services.VKontakte
                     }
                     catch
                     {
-                        coverFile = await StaticContent.CoversFolder.CreateFileAsync($"VK{audio.Id}Audio.jpg");
-                        BackgroundDownloader downloader = new BackgroundDownloader();
-                        DownloadOperation download = downloader.CreateDownload(new Uri(uriImage), coverFile);
-                        await download.StartAsync();
+                        var task = Task.Run(async () =>
+                        {
+                            coverFile = await StaticContent.CoversFolder.CreateFileAsync($"VK{audio.Id}Audio.jpg");
+                            BackgroundDownloader downloader = new BackgroundDownloader();
+                            DownloadOperation download = downloader.CreateDownload(new Uri(uriImage), coverFile);
+                            await download.StartAsync();
+                        });
+                        return uriImage;
                     }
 
                 }
                 else
                 {
-                    coverFile = await StaticContent.CoversFolder.CreateFileAsync($"VK{audio.Id}Audio.jpg");
-                    BackgroundDownloader downloader = new BackgroundDownloader();
-                    DownloadOperation download = downloader.CreateDownload(new Uri(uriImage), coverFile);
-                    await download.StartAsync();
+                    var task = Task.Run(async () =>
+                    {
+                        coverFile = await StaticContent.CoversFolder.CreateFileAsync($"VK{audio.Id}Audio.jpg");
+                        BackgroundDownloader downloader = new BackgroundDownloader();
+                        DownloadOperation download = downloader.CreateDownload(new Uri(uriImage), coverFile);
+                        await download.StartAsync();
+                    });
+
+                    return uriImage;
+                   
                 }
 
                 return coverFile.Path;
@@ -81,10 +90,16 @@ namespace Fooxboy.MusicX.Uwp.Services.VKontakte
             }
             catch
             {
-                bannerArtist = await StaticContent.CoversFolder.CreateFileAsync($"Artist{url.GetHashCode()}Banner.jpg");
-                BackgroundDownloader downloader = new BackgroundDownloader();
-                DownloadOperation download = downloader.CreateDownload(new Uri(url), bannerArtist);
-                await download.StartAsync();
+                var a = Task.Run(async () =>
+                {
+                    bannerArtist = await StaticContent.CoversFolder.CreateFileAsync($"Artist{url.GetHashCode()}Banner.jpg");
+                    BackgroundDownloader downloader = new BackgroundDownloader();
+                    DownloadOperation download = downloader.CreateDownload(new Uri(url), bannerArtist);
+                    await download.StartAsync();
+                });
+
+                return url;
+
             }
 
             return bannerArtist.Path;
@@ -100,10 +115,15 @@ namespace Fooxboy.MusicX.Uwp.Services.VKontakte
             }
             catch
             {
-                coverFile = await StaticContent.CoversFolder.CreateFileAsync($"VK{playlist.Id}Playlist.jpg");
-                BackgroundDownloader downloader = new BackgroundDownloader();
-                DownloadOperation download = downloader.CreateDownload(new Uri(uriImage), coverFile);
-                await download.StartAsync();
+                var task = Task.Run(async () =>
+                {
+                    coverFile = await StaticContent.CoversFolder.CreateFileAsync($"VK{playlist.Id}Playlist.jpg");
+                    BackgroundDownloader downloader = new BackgroundDownloader();
+                    DownloadOperation download = downloader.CreateDownload(new Uri(uriImage), coverFile);
+                    await download.StartAsync();
+                });
+
+                return uriImage;
             }
 
             return coverFile.Path;
@@ -118,10 +138,15 @@ namespace Fooxboy.MusicX.Uwp.Services.VKontakte
             }
             catch
             {
-                coverFile = await StaticContent.CoversFolder.CreateFileAsync($"VK{playlistId}Playlist.jpg");
-                BackgroundDownloader downloader = new BackgroundDownloader();
-                DownloadOperation download = downloader.CreateDownload(new Uri(uriImage), coverFile);
-                await download.StartAsync();
+                var task = Task.Run(async () =>
+                {
+                    coverFile = await StaticContent.CoversFolder.CreateFileAsync($"VK{playlistId}Playlist.jpg");
+                    BackgroundDownloader downloader = new BackgroundDownloader();
+                    DownloadOperation download = downloader.CreateDownload(new Uri(uriImage), coverFile);
+                    await download.StartAsync();
+                });
+
+                return uriImage;
             }
 
             return coverFile.Path;

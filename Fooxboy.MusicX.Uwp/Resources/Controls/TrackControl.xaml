@@ -98,27 +98,22 @@
 
         </controls:DropShadowPanel>
 
-        <Rectangle
+
+        <controls:ImageEx
             Grid.RowSpan="2"
             Grid.Column="0"
             Width="40"
+            IsCacheEnabled="False"
+            PlaceholderSource="../../Assets/Images/placeholder.png"
             Height="40"
-            RadiusX="2"
-            RadiusY="2"
+            DecodePixelHeight="40"
+            DecodePixelWidth="40"
+            Source="{x:Bind Track.Cover, Mode=TwoWay}"
+            CornerRadius="2"
             Stretch="Fill">
-
-            <Rectangle.Fill>
-                <ImageBrush>
-                    <ImageBrush.ImageSource>
-                        <BitmapImage
-                            DecodePixelHeight="40"
-                            DecodePixelWidth="40"
-                            UriSource="{x:Bind Track.Cover, Mode=TwoWay}" />
-                    </ImageBrush.ImageSource>
-                </ImageBrush>
-            </Rectangle.Fill>
-        </Rectangle>
-
+            
+        </controls:ImageEx>
+        
         <Rectangle
             x:Name="RectanglePlay"
             Grid.RowSpan="2"

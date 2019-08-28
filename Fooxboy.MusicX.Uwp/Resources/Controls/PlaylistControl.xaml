@@ -62,28 +62,21 @@
                 CornerRadius="3" />
         </controls:DropShadowPanel>
 
-        <Rectangle
-            x:Name="CoverPlaylist"
+        <controls:ImageEx 
             Grid.Row="0"
+            x:Name="CoverPlaylist"
             Width="150"
             Height="150"
             HorizontalAlignment="Center"
             VerticalAlignment="Center"
-            RadiusX="3"
-            RadiusY="3"
+            DecodePixelHeight="150"
+            DecodePixelWidth="150"
+            IsCacheEnabled="False"
+            PlaceholderSource="../../Assets/Images/playlist-placeholder.png"
+            Source="{x:Bind Playlist.Cover, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+            CornerRadius="3"
             Stretch="Fill">
-            <Rectangle.Fill>
-                <ImageBrush>
-                    <ImageBrush.ImageSource>
-                        <BitmapImage
-                            AutoPlay="True"
-                            DecodePixelHeight="150"
-                            DecodePixelWidth="150"
-                            UriSource="{x:Bind Playlist.Cover, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
-                    </ImageBrush.ImageSource>
-                </ImageBrush>
-            </Rectangle.Fill>
-        </Rectangle>
+        </controls:ImageEx>
 
         <TextBlock
             Grid.Row="1"
