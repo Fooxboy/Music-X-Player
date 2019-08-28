@@ -8,6 +8,8 @@ using System.Text;
 using Fooxboy.MusicX.Core.VKontakte.Music.Converters;
 using System.Threading.Tasks;
 using Windows.UI.Xaml.Input;
+using Fooxboy.MusicX.Uwp.Services;
+using Fooxboy.MusicX.Uwp.Resources.ContentDialogs;
 
 namespace Fooxboy.MusicX.Uwp.ViewModels.VKontakte.Blocks
 {
@@ -33,14 +35,23 @@ namespace Fooxboy.MusicX.Uwp.ViewModels.VKontakte.Blocks
 
         public async Task StartLoading(string blockId)
         {
-            IsLoading = true;
-            Changed("IsLoading");
-            var tracksVk = (await MusicX.Core.VKontakte.Music.Block.GetById(blockId)).Audios.ToIAudioFileList();
-            var tracks = await MusicService.ConvertToAudioFile(tracksVk);
-            Tracks = new ObservableCollection<AudioFile>(tracks);
-            Changed("Tracks");
-            IsLoading = false;
-            Changed("IsLoading");
+            try
+            {
+                IsLoading = true;
+                Changed("IsLoading");
+                var tracksVk = (await MusicX.Core.VKontakte.Music.Block.GetById(blockId)).Audios.ToIAudioFileList();
+                var tracks = await MusicService.ConvertToAudioFile(tracksVk);
+                Tracks = new ObservableCollection<AudioFile>(tracks);
+                Changed("Tracks");
+                IsLoading = false;
+                Changed("IsLoading");
+            }catch(Exception e)
+            {
+                IsLoading = false;
+                Changed("IsLoading");
+                await ContentDialogService.Show(new ExceptionDialog("Ошибка при загрузке треков", "Возможно, ВКонтакте не вернул необходимую информацию", e));
+            }
+            
         }
 
         public async void MusicListView_OnTapped(object sender, TappedRoutedEventArgs e)
