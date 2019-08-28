@@ -140,6 +140,7 @@
     <Compile Include="Models\DownloadAudioFile.cs" />
     <Compile Include="Models\FileMp3Abstraction.cs" />
     <Compile Include="Models\LastPlay.cs" />
+    <Compile Include="Models\LikedArtists.cs" />
     <Compile Include="Models\MusicCollection.cs" />
     <Compile Include="Models\PlaylistFile.cs" />
     <Compile Include="Models\RunApp.cs" />
@@ -210,6 +211,7 @@
     <Compile Include="Services\VKontakte\DownloaderService.cs" />
     <Compile Include="Services\VKontakte\DownloadLibraryService.cs" />
     <Compile Include="Services\VKontakte\ImagesService.cs" />
+    <Compile Include="Services\VKontakte\LikedArtistsService.cs" />
     <Compile Include="Services\VKontakte\MusicService.cs" />
     <Compile Include="Services\VKontakte\PlaylistsService.cs" />
     <Compile Include="Services\VKontakte\TokenService.cs" />
