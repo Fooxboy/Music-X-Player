@@ -1,0 +1,27 @@
+﻿<ContentDialog
+    x:Class="Fooxboy.MusicX.Uwp.Resources.ContentDialogs.FeedbackMeContentDialog"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:Fooxboy.MusicX.Uwp.Resources.ContentDialogs"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d"
+    Title="Оцените Music X в Microsoft Store!"
+    PrimaryButtonText="Оценить"
+    SecondaryButtonText="Позже"
+    PrimaryButtonClick="ContentDialog_PrimaryButtonClick"
+    SecondaryButtonClick="ContentDialog_SecondaryButtonClick">
+    <Grid>
+        <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center">
+            <TextBlock FontWeight="Bold" Text="Почему так важно оставить отзыв?"/>
+            <TextBlock Foreground="{ThemeResource SubText}"
+                       TextWrapping="Wrap"
+                       Margin="0 5 0 0"
+                       Text="Отзывы мотивируют продолжать разработку этого приложения и чаще выпускать обновления. Я смогу увидеть, что это приложениие хоть кому-то полезно кроме меня. Так же отзывы поднимают приложение в рейтинге вверх и большее количество людей узнают о Music X. Так что, если Вам действительно нравится это приложение, перейдите на страницу приложения и напишите отзыв. Это займет не более минуты Вашего времени, а мне сделаете приятно."/>
+            <TextBlock Foreground="{ThemeResource SubText}"
+                       TextWrapping="Wrap"
+                       Margin="0 5 0 0" Text="Так же смело предлагайте идеи, может быть именно Ваша идея и станет главным новвоведением следующего релиза!"/>
+        </StackPanel>
+        
+    </Grid>
+</ContentDialog>
