@@ -85,6 +85,7 @@ namespace Fooxboy.MusicX.Uwp.Services
             {
                 var player = ViewModels.PlayerMenuViewModel.Instanse;
                 player.VkontaktePages = Visibility.Collapsed;
+                if (StaticContent.NavigationContentService == null) return;
                 StaticContent.NavigationContentService.Go(typeof(Views.OfflineModeView));
             });
            
