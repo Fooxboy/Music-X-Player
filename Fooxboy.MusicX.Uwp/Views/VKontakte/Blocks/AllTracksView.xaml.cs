@@ -33,7 +33,7 @@ namespace Fooxboy.MusicX.Uwp.Views.VKontakte.Blocks
 
         protected async override void OnNavigatedTo(NavigationEventArgs e)
         {
-            await ViewModel.StartLoading((string)e.Parameter);
+            await ViewModel.StartLoading((string)e.Parameter, "Список треков");
 
             //base.OnNavigatedTo(e);
         }

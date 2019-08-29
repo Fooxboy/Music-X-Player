@@ -31,15 +31,21 @@ namespace Fooxboy.MusicX.Uwp.ViewModels.VKontakte.Blocks
         public PlaylistFile SelectPlaylist { get; set; }
         public AudioFile SelectTrack { get; set; }
         public bool IsLoading { get; set; }
+        public string Title { get; set; }
 
 
-        public async Task StartLoading(string blockId)
+        public async Task StartLoading(string blockId, string titleBlock)
         {
             try
             {
+                Title = titleBlock;
+                Changed("Title");
                 IsLoading = true;
                 Changed("IsLoading");
-                var tracksVk = (await MusicX.Core.VKontakte.Music.Block.GetById(blockId)).Audios.ToIAudioFileList();
+                var block = await MusicX.Core.VKontakte.Music.Block.GetById(blockId);
+                Title = block.Title;
+                Changed("Title");
+                var tracksVk = block.Audios.ToIAudioFileList();
                 var tracks = await MusicService.ConvertToAudioFile(tracksVk);
                 Tracks = new ObservableCollection<AudioFile>(tracks);
                 Changed("Tracks");

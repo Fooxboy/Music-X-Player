@@ -18,7 +18,7 @@
             Margin="30,0,0,0"
             FontSize="42"
             FontWeight="Bold"
-            Text="Список всех плейлитсистов" />
+            Text="{x:Bind ViewModel.Title, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
 
         <GridView
             Grid.Row="1"

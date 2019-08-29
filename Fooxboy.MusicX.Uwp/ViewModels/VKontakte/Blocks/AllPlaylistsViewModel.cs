@@ -25,7 +25,7 @@ namespace Fooxboy.MusicX.Uwp.ViewModels.VKontakte.Blocks
         public PlaylistFile SelectAlbum { get; set; }
         public bool IsLoading { get; set; }
 
-
+        public string Title { get; set; }
         public void Playlists_OnTapped(object sender, TappedRoutedEventArgs e)
         {
             if (SelectAlbum == null) return;
@@ -33,13 +33,18 @@ namespace Fooxboy.MusicX.Uwp.ViewModels.VKontakte.Blocks
         }
 
 
-        public async Task StartLoading(string blockId)
+        public async Task StartLoading(string blockId, string titleBlock)
         {
             try
             {
+                Title = titleBlock;
+                Changed("Title");
                 IsLoading = true;
                 Changed("IsLoading");
-                var almbs = (await MusicX.Core.VKontakte.Music.Block.GetById(blockId)).Playlists;
+                var block = await MusicX.Core.VKontakte.Music.Block.GetById(blockId);
+                Title = block.Title;
+                Changed("Title");
+                var almbs = block.Playlists;
                 var albumsVk = new List<IPlaylistFile>();
                 foreach (var al in almbs) albumsVk.Add(al.ToIPlaylistFile(new List<IAudioFile>(), "Различные исполнители"));
                 var albums = new List<PlaylistFile>();
