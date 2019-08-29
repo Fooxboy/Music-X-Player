@@ -178,7 +178,7 @@
                         Content="&#xE896;"
                         FontFamily="Segoe MDL2 Assets"
                         FontSize="18"
-                        IsEnabled="{x:Bind PlayerViewModel.DownloadIsEnable, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                        IsEnabled="False"
                         Style="{ThemeResource ButtonPlayerStyle}"
                         Visibility="{x:Bind PlayerViewModel.DownloadButtonVisibility, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
                     <Button
@@ -360,7 +360,7 @@
                             BorderThickness="0"
                             Command="{x:Bind PlayerMenuViewModel.NavigateToPopular}"
                             FontSize="16"
-                            Visibility="{x:Bind PlayerMenuViewModel.VkontaktePages, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
+                            Visibility="Collapsed">
                             <Button.Background>
                                 <SolidColorBrush Opacity="0" />
                             </Button.Background>
