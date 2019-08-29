@@ -27,41 +27,54 @@ namespace Fooxboy.MusicX.Core.VKontakte.Music
             var response = r.response;
             IArtist artist = new ArtistAnyPlatform();
 
-            artist.Name = response.Items[0].Artist.Name;
-            artist.Domain = response.Items[0].Artist.Domain;
-            try
+            foreach(var block in response.Items)
             {
-                artist.Banner = response.Items[0].Artist.Photo[2].Url.ToString();
+                if(block.Source == "artist_info")
+                {
+                    artist.Name = block.Artist.Name;
+                    artist.Domain = block.Artist.Domain;
+                    artist.Id = long.Parse(block.Artist.Id);
+                    try
+                    {
+                        artist.Banner = block.Artist.Photo[2].Url.ToString();
+                    }
+                    catch
+                    {
+                        artist.Banner = "no";
+                    }
+                }else if(block.Source == "artist_top_audios")
+                {
+                    artist.PopularTracks = block.Audios.ToIAudioFileList();
+                    artist.BlockPoularTracksId = block.Id;
+                }else if(block.Source == "artist_new_album")
+                {
+                    var music = await StaticContent.VkApi.Audio.GetAsync(new VkNet.Model.RequestParams.AudioGetParams()
+                    {
+                        PlaylistId = block.Playlist.Id
+                    });
 
+                    IList<IAudioFile> tracks = new List<IAudioFile>();
+                    foreach (var track in music) tracks.Add(track.ToIAudioFile());
+
+                    artist.LastRelease = block.Playlist.ToIPlaylistFile(tracks, artist.Name);
+                }else if(block.Source == "artist_main_albums")
+                {
+                    var plists = block.Playlists;
+                    var list = new List<IPlaylistFile>();
+
+                    foreach (var plist in plists)
+                    {
+                        list.Add(plist.ToIPlaylistFile(new List<IAudioFile>(), artist.Name));
+                    }
+
+                    artist.BlockAlbumsId = block.Id;
+                    artist.Albums = list;
+                }else if(block.Source == "artist_pages")
+                {
+                    //TODO
+                }
             }
-            catch
-            {
-                artist.Banner = "no";
-            }
-            artist.Id = long.Parse(response.Items[0].Artist.Id);
-            artist.PopularTracks = (response.Items[1].Audios).ToIAudioFileList();
-            artist.BlockPoularTracksId = response.Items[1].Id;
-            
-            var music = await StaticContent.VkApi.Audio.GetAsync(new VkNet.Model.RequestParams.AudioGetParams()
-            {
-                PlaylistId = response.Items[2].Playlist.Id
-            });
 
-            IList<IAudioFile> tracks = new List<IAudioFile>();
-            foreach (var track in music) tracks.Add(track.ToIAudioFile());
-
-            artist.LastRelease = (response.Items[2].Playlist).ToIPlaylistFile(tracks, artist.Name);
-
-            var plists = response.Items[3].Playlists;
-            var list = new List<IPlaylistFile>();
-            
-            foreach (var plist in plists)
-            {
-                list.Add(plist.ToIPlaylistFile(new List<IAudioFile>(), artist.Name));
-            }
-
-            artist.BlockAlbumsId = response.Items[3].Id;
-            artist.Albums = list;
             return artist;
         }
 

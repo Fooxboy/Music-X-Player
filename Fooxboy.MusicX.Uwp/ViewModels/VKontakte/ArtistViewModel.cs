@@ -38,6 +38,7 @@ namespace Fooxboy.MusicX.Uwp.ViewModels.VKontakte
         public Visibility LastAlbumVisibility { get; set; } = Visibility.Collapsed;
         public Visibility AlbumsVisibility { get; set; } = Visibility.Collapsed;
 
+
         public Visibility VisibilityAds => StaticContent.IsPro ? Visibility.Collapsed : Visibility.Visible;
         public List<AudioFile> PopularTracks { get; set; }
         public List<PlaylistFile> Albums { get; set; }
@@ -96,10 +97,14 @@ namespace Fooxboy.MusicX.Uwp.ViewModels.VKontakte
                     //Assets/Images/placeholder-artist.jpg
                 }
 
-                LastRelease = await PlaylistsService.ConvertToPlaylistFile(artist.LastRelease);
-                LastAlbumVisibility = Visibility.Visible;
-                Changed("LastAlbumVisibility");
-                Changed("LastRelease");
+                if(artist.LastRelease != null)
+                {
+                    LastRelease = await PlaylistsService.ConvertToPlaylistFile(artist.LastRelease);
+                    LastAlbumVisibility = Visibility.Visible;
+                    Changed("LastAlbumVisibility");
+                    Changed("LastRelease");
+                }
+                
                 IsLoading = false;
                 Changed("IsLoading");
             }
