@@ -39,7 +39,7 @@ namespace Fooxboy.MusicX.Core.VKontakte.Music
             parameters.Add("lang", "ru");
             parameters.Add("extended", "1");
             parameters.Add("access_token", StaticContent.VkApi.Token);
-            parameters.Add("count", "7");
+            parameters.Add("count", "10");
             parameters.Add("fields", "first_name_gen, photo_100");
 
             var json = await StaticContent.VkApi.InvokeAsync("audio.getCatalog", parameters);
