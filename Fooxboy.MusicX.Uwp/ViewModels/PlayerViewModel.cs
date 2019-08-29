@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using Fooxboy.MusicX.Uwp.Enums;
 using Fooxboy.MusicX.Uwp.Interfaces;
 using Fooxboy.MusicX.Uwp.Models;
+using Fooxboy.MusicX.Uwp.Resources.ContentDialogs;
 using Fooxboy.MusicX.Uwp.Services;
 using Fooxboy.MusicX.Uwp.Services.VKontakte;
 using Fooxboy.MusicX.Uwp.Utils.Extensions;
@@ -77,29 +78,9 @@ namespace Fooxboy.MusicX.Uwp.ViewModels
                 Shuffle = !Shuffle;
             });
 
-            DownloadCommand = new RelayCommand(async () =>
+            DownloadCommand = new RelayCommand( () =>
             {
-                var settings = ApplicationData.Current.LocalSettings;
-                int countTracks = (int)settings.Values["CountDownloads"];
-
-                if (!StaticContent.IsPro)
-                {
-                    if (countTracks > 19) await new MessageDialog("Извините, но загрузка более 20 треков доступна только  в Pro версии.").ShowAsync();
-                    else
-                    {
-                        DownloadIsEnable = false;
-                        Changed("DownloadIsEnable");
-                        var service = DownloaderService.GetService;
-                        await service.StartDownloadAudio(CurrentAudio);
-                    }
-                }
-                else
-                {
-                    DownloadIsEnable = false;
-                    Changed("DownloadIsEnable");
-                    var service = DownloaderService.GetService;
-                    await service.StartDownloadAudio(CurrentAudio);  
-                }
+                ContentDialogService.Show(new ExceptionDialog("Загрузок больше нет.", "Ждите обновлений и они обязательно вернуться!", new Exception("Раздел с загрузками жеско избили и теперь они находятся в больнице. Доктор говорит, что их выпишут только через несколько апдейтов.")), 1);
             });
 
             AddToFavoriteCommand = new RelayCommand(async () =>
