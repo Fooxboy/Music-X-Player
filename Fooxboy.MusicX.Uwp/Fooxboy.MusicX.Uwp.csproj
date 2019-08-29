@@ -20,13 +20,15 @@
     <GenerateAppInstallerFile>False</GenerateAppInstallerFile>
     <AppxAutoIncrementPackageRevision>True</AppxAutoIncrementPackageRevision>
     <AppxBundle>Auto</AppxBundle>
-    <AppxBundlePlatforms>x86|x64</AppxBundlePlatforms>
+    <AppxBundlePlatforms>x64</AppxBundlePlatforms>
     <PackageCertificateThumbprint>2CACA3A0DBA596A8B55C6470CBE46A20B49BEDC9</PackageCertificateThumbprint>
     <AppInstallerUpdateFrequency>1</AppInstallerUpdateFrequency>
     <AppInstallerCheckForUpdateFrequency>OnApplicationRun</AppInstallerCheckForUpdateFrequency>
     <AppxSymbolPackageEnabled>False</AppxSymbolPackageEnabled>
-    <AppxPackageDir>C:\Users\Fooxboy\Documents\Fooxboy.MusicX\Music X Releases\1.4.26 Store</AppxPackageDir>
+    <AppxPackageDir>C:\Users\Fooxboy\source\repos\Fooxboy.MusicX\Fooxboy.MusicX.Uwp\Packs\1.4.28</AppxPackageDir>
     <AppxPackageSigningEnabled>True</AppxPackageSigningEnabled>
+    <GenerateTestArtifacts>True</GenerateTestArtifacts>
+    <HoursBetweenUpdateChecks>0</HoursBetweenUpdateChecks>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x86'">
     <DebugSymbols>true</DebugSymbols>

@@ -36,41 +36,6 @@ namespace Fooxboy.MusicX.Uwp.ViewModels
                 }
                 
             });
-
-            DownloadPlaylist = new RelayCommand(async () =>
-            {
-                DownloadIsActive = false;
-                Changed("DownloadIsActive");
-
-                try
-                {
-                    var settings = ApplicationData.Current.LocalSettings;
-                    int countTracks = (int)settings.Values["CountDownloads"];
-                    int countTracksWithAlbum = countTracks + Playlist.Tracks.Count;
-
-                    if (!StaticContent.IsPro)
-                    {
-                        if (countTracksWithAlbum > 19) await new MessageDialog("Извините, но загрузка более 20 треков доступна только  в Pro версии.").ShowAsync();
-                        else
-                        {
-                            var service = DownloaderService.GetService;
-                            await service.StartDownloadPlaylist(Playlist);
-                        }
-                    }
-                    else
-                    {
-                        var service = DownloaderService.GetService;
-                        await service.StartDownloadPlaylist(Playlist);
-                    }
-
-
-                }
-                catch (Exception e)
-                {
-                    await ContentDialogService.Show(new ExceptionDialog("Невозможно начать загрузку плейлиста", "Попробуйте ещё раз", e));
-                }
-
-            });
         }
 
         private static PlaylistViewModel instanse;

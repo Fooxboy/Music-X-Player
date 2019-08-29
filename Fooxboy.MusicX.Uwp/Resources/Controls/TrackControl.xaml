@@ -32,14 +32,6 @@
                         </MenuFlyoutItem.Icon>
                     </MenuFlyoutItem>
                     <MenuFlyoutItem
-                        x:Name="DownloadItem"
-                        Command="{x:Bind DownloadCommand}"
-                        Text="Скачать">
-                        <MenuFlyoutItem.Icon>
-                            <FontIcon FontFamily="Segoe MDL2 Assets" Glyph="&#xE118;" />
-                        </MenuFlyoutItem.Icon>
-                    </MenuFlyoutItem>
-                    <MenuFlyoutItem
                         x:Name="GoToArtist"
                         Command="{x:Bind GoToArtistCommand}"
                         Text="Перейти к артисту">
@@ -180,23 +172,6 @@
             BorderThickness="0"
             Command="{x:Bind AddToFavoriteCommand}"
             Content="&#xE0A5;"
-            FontFamily="Segoe MDL2 Assets"
-            FontSize="18"
-            Style="{ThemeResource ButtonPlayerStyle}"
-            Visibility="Collapsed" />
-
-        <Button
-            x:Name="Download"
-            Grid.RowSpan="2"
-            Grid.Column="2"
-            Height="32"
-            Margin="0,0,30,0"
-            HorizontalAlignment="Right"
-            VerticalAlignment="Center"
-            Background="Transparent"
-            BorderThickness="0"
-            Command="{x:Bind DownloadCommand}"
-            Content="&#xE118;"
             FontFamily="Segoe MDL2 Assets"
             FontSize="18"
             Style="{ThemeResource ButtonPlayerStyle}"

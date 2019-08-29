@@ -140,29 +140,7 @@ namespace Fooxboy.MusicX.Uwp.Resources.Controls
             {
 
             });
-
-            DownloadCommand = new RelayCommand(async () =>
-            {
-                var settings = ApplicationData.Current.LocalSettings;
-                int countTracks = (int)settings.Values["CountDownloads"];
-
-                if(!StaticContent.IsPro)
-                {
-                    if (countTracks > 19) await new MessageDialog("Извините, но загрузка более 20 треков доступна только  в Pro версии.").ShowAsync();
-                    else
-                    {
-                        var service = DownloaderService.GetService;
-                        await service.StartDownloadAudio(Track);
-                        Download.IsEnabled = false;
-                    }
-                }else
-                {
-                    var service = DownloaderService.GetService;
-                    await service.StartDownloadAudio(Track);
-                    Download.IsEnabled = false;
-                }
-            });
-
+            
             AddOnLibraryCommand = new RelayCommand(async () =>
             {
                 try
@@ -224,7 +202,6 @@ namespace Fooxboy.MusicX.Uwp.Resources.Controls
         private RelayCommand AddToPlaylistCommand { get; set; }
         public RelayCommand AddToFavoriteCommand { get; set; }
         public RelayCommand RemoveFavoriteCommand { get; set; }
-        public RelayCommand DownloadCommand { get; set; }
         public RelayCommand GetPropertyCommand { get; set; }
         public RelayCommand AddOnLibraryCommand { get; set; }
         public RelayCommand GoToArtistCommand { get; set; }
@@ -249,7 +226,6 @@ namespace Fooxboy.MusicX.Uwp.Resources.Controls
                 }
             }else
             {
-                Download.Visibility = Visibility.Visible;
             }
 
         }
@@ -266,7 +242,6 @@ namespace Fooxboy.MusicX.Uwp.Resources.Controls
                 Like.Visibility = Visibility.Collapsed;
             }else
             {
-                Download.Visibility = Visibility.Collapsed;
             }
         }
 
@@ -277,7 +252,6 @@ namespace Fooxboy.MusicX.Uwp.Resources.Controls
                 GoToArtist.Visibility = Visibility.Collapsed;
                 PropertyButton.Visibility = Visibility.Visible;
                 AddOnLibrary.Visibility = Visibility.Collapsed;
-                DownloadItem.Visibility = Visibility.Collapsed;
 
                 foreach (var playlist in StaticContent.Playlists)
                 {
@@ -300,7 +274,6 @@ namespace Fooxboy.MusicX.Uwp.Resources.Controls
             {
                 GoToArtist.Visibility = Visibility.Collapsed;
                 PropertyButton.Visibility = Visibility.Collapsed;
-                DownloadItem.Visibility = Visibility.Visible;
                 AddTo.Visibility = Visibility.Collapsed;
 
                 if(Track.IsInLibrary)

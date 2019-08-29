@@ -74,49 +74,7 @@ namespace Fooxboy.MusicX.Uwp.Resources.Controls
                 {
                     await new MessageDialog("Вы не можете удалить этот плейлист", "Невозможно удалить плейлист").ShowAsync();
                 }
-            });
-
-            DownloadCommand = new RelayCommand(async () =>
-            {
-                try
-                {
-                    if (Playlist.TracksFiles.Count == 0)
-                    {
-                        var tracks = await Fooxboy.MusicX.Core.VKontakte.Music.Playlist.GetTracks(Playlist.Id, Playlist.OwnerId, Playlist.AccessKey);
-                        //var music = await MusicService.ConvertToAudioFile(tracks, Playlist.Cover);
-                        Playlist.TracksFiles = await MusicService.ConvertToAudioFile(tracks, Playlist.Cover);
-                    }
-
-                    if (Playlist.TracksFiles.Count == 0) return;
-
-                    var settings = ApplicationData.Current.LocalSettings;
-                    int countTracks = (int)settings.Values["CountDownloads"];
-                    int countTracksWithAlbum = countTracks + Playlist.TracksFiles.Count;
-
-                    if (!StaticContent.IsPro)
-                    {
-                        if (countTracksWithAlbum > 19) await new MessageDialog("Извините, но загрузка более 20 треков доступна только  в Pro версии.").ShowAsync();
-                        else
-                        {
-                            var service = DownloaderService.GetService;
-                            await service.StartDownloadPlaylist(Playlist);
-                        }
-                    }
-                    else
-                    {
-                        var service = DownloaderService.GetService;
-                        await service.StartDownloadPlaylist(Playlist);
-                    }
-
-                   
-                }catch(Exception e)
-                {
-                    await ContentDialogService.Show(new ExceptionDialog("Невозможно начать загрузку плейлиста", "Попробуйте ещё раз", e));
-                }
-               
-            });
-
-            
+            }); 
         }
 
 
@@ -125,23 +83,12 @@ namespace Fooxboy.MusicX.Uwp.Resources.Controls
             get => (PlaylistFile)GetValue(PlaylistProperty);
             set
             {
-                if (value.IsLocal)
-                {
-                    DownloadItem.Visibility = Visibility.Collapsed;
-                }
-                else
-                {
-                    DownloadItem.Visibility = Visibility.Visible;
-
-                }
-
                 SetValue(PlaylistProperty, value);
             }
         }
 
         public RelayCommand PlayCommand { get; set; }
         public RelayCommand DeleteCommand { get; set; }
-        public RelayCommand DownloadCommand { get; set; }
 
         private async void Grid_PointerEntered(object sender, PointerRoutedEventArgs e)
         {

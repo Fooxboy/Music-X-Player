@@ -180,39 +180,6 @@
                             </Grid>
                         </Button.Content>
                     </Button>
-
-                    <Button
-                        Grid.Row="1"
-                        Width="100"
-                        Height="30"
-                        Margin="10,0,0,0"
-                        Padding="0"
-                        BorderThickness="0"
-                        Command="{x:Bind PlaylistViewModel.DownloadPlaylist}"
-                        IsEnabled="{x:Bind PlaylistViewModel.DownloadIsActive, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                        Style="{ThemeResource ButtonLoginStyle}">
-
-                        <Button.Content>
-                            <Grid>
-                                <Grid.ColumnDefinitions>
-                                    <ColumnDefinition Width="auto" />
-                                    <ColumnDefinition />
-                                </Grid.ColumnDefinitions>
-
-                                <FontIcon
-                                    Grid.Column="0"
-                                    FontFamily="Segoe MDL2 Assets"
-                                    FontSize="17"
-                                    Glyph="&#xE896;" />
-
-                                <TextBlock
-                                    Grid.Column="1"
-                                    Margin="5,0,0,0"
-                                    Text="Скачать" />
-                            </Grid>
-                        </Button.Content>
-                    </Button>
-
                 </StackPanel>
 
                 <TextBlock
