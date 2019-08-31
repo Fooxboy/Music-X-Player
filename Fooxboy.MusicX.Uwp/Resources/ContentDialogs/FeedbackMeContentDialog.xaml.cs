@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Fooxboy.MusicX.Uwp.Services;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -24,12 +25,17 @@ namespace Fooxboy.MusicX.Uwp.Resources.ContentDialogs
             this.InitializeComponent();
         }
 
-        private void ContentDialog_PrimaryButtonClick(ContentDialog sender, ContentDialogButtonClickEventArgs args)
+        private async void ContentDialog_PrimaryButtonClick(ContentDialog sender, ContentDialogButtonClickEventArgs args)
         {
+            bool result = await Windows.System.Launcher.LaunchUriAsync(new Uri("ms-windows-store://review/?ProductId=9NCJGG7B13Q1"));
+            var config = StaticContent.Config;
+            config.IsRateMe = true;
+            await ConfigService.SaveConfig(config);
         }
 
         private void ContentDialog_SecondaryButtonClick(ContentDialog sender, ContentDialogButtonClickEventArgs args)
         {
+
         }
     }
 }

@@ -16,6 +16,6 @@ namespace Fooxboy.MusicX.Uwp.Models
 
     public class LikedArtists
     {
-        List<LikedArtist> Artists { get; set; }
+        public List<LikedArtist> Artists { get; set; }
     }
 }

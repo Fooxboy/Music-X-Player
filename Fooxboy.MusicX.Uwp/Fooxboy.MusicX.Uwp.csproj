@@ -306,6 +306,9 @@
     <Compile Include="Views\VKontakte\HomeView.xaml.cs">
       <DependentUpon>HomeView.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Views\VKontakte\LikedArtistsView.xaml.cs">
+      <DependentUpon>LikedArtistsView.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\VKontakte\NewRecommendationsView.xaml.cs">
       <DependentUpon>NewRecommendationsView.xaml</DependentUpon>
     </Compile>
@@ -576,6 +579,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\VKontakte\HomeView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\VKontakte\LikedArtistsView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

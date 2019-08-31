@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices.WindowsRuntime;
+using Fooxboy.MusicX.Uwp.Resources.ContentDialogs;
 using Fooxboy.MusicX.Uwp.Services;
 using Fooxboy.MusicX.Uwp.Services.VKontakte;
 using Windows.Foundation;
@@ -24,6 +25,8 @@ namespace Fooxboy.MusicX.Uwp.Views
     /// </summary>
     public sealed partial class MainFrameView : Page
     {
+
+        private DispatcherTimer _timer;
         public MainFrameView()
         {
             this.InitializeComponent();
@@ -40,29 +43,49 @@ namespace Fooxboy.MusicX.Uwp.Views
             {
                 BottomAdsFrame.Navigate(typeof(AdsBottomPanelView));
             }
-            
-
-            if (StaticContent.IsAuth)
-            {
-                if (InternetService.CheckConnection())
-                {
-                    StaticContent.NavigationContentService.Go(typeof(VKontakte.HomeView));
-                }else
-                {
-                    InternetService.GoToOfflineMode();
-                    //StaticContent.NavigationContentService.Go(typeof(HomeLocalView));
-                }
-            }else
-            {
-                StaticContent.NavigationContentService.Go(typeof(HomeLocalView));
-            }
 
             Windows.UI.ViewManagement.ApplicationView appView = Windows.UI.ViewManagement.ApplicationView.GetForCurrentView();
             appView.SetPreferredMinSize(new Size(600, 800));
 
             this.SizeChanged += MainPage_SizeChanged;
+
+            
+
+            if(!StaticContent.Config.IsRateMe & StaticContent.IsAuth)
+            {
+                var timer = new DispatcherTimer();
+                this._timer = timer;
+                timer.Interval = TimeSpan.FromSeconds(60);
+
+
+                timer.Tick += Timer_Tick;
+
+                timer.Start();
+            }
+            if (StaticContent.IsAuth)
+            {
+                if (InternetService.CheckConnection())
+                {
+                    StaticContent.NavigationContentService.Go(typeof(VKontakte.HomeView));
+                }
+                else
+                {
+                    InternetService.GoToOfflineMode();
+                    //StaticContent.NavigationContentService.Go(typeof(HomeLocalView));
+                }
+            }
+            else
+            {
+                StaticContent.NavigationContentService.Go(typeof(HomeLocalView));
+            }
+           
         }
 
+        private async void Timer_Tick(object sender, object e)
+        {
+            await ContentDialogService.Show(new FeedbackMeContentDialog());
+            _timer.Stop();
+        }
 
         private void MainPage_SizeChanged(object sender, SizeChangedEventArgs e)
         {
