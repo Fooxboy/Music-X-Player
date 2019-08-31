@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices.WindowsRuntime;
+using Fooxboy.MusicX.Uwp.Resources.ContentDialogs;
+using Fooxboy.MusicX.Uwp.Services;
 using Fooxboy.MusicX.Uwp.Views.VKontakte;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
@@ -33,9 +35,16 @@ namespace Fooxboy.MusicX.Uwp.Views
             StaticContent.NavigationContentService.Go(typeof(DownloadsView));
         }
 
-        private void Button_Click_1(object sender, RoutedEventArgs e)
+        private async void Button_Click_1(object sender, RoutedEventArgs e)
         {
-            StaticContent.NavigationContentService.Go(typeof(HomeLocalView));
+            try
+            {
+                StaticContent.NavigationContentService.Go(typeof(HomeLocalView));
+            }catch(Exception ee)
+            {
+                await ContentDialogService.Show(new ExceptionDialog("Невозможно попасть на домашнюю страницу", "Эта проблема скоро будет исправлена", ee));
+            }
+            
 
         }
     }
