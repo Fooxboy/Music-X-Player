@@ -266,6 +266,50 @@
                                     Toggled="{x:Bind ViewModel.ToggleSwitch_OnToggled}" />
                             </StackPanel>
                         </Grid>
+
+
+                        <Grid Margin="30,40,0,0">
+                            <controls:DropShadowPanel
+                                Grid.Column="0"
+                                Width="320"
+                                Height="110"
+                                HorizontalAlignment="Left"
+                                BlurRadius="30"
+                                OffsetX="0"
+                                OffsetY="0"
+                                Opacity="0.5"
+                                ShadowOpacity="1">
+                                <Border
+                                    Width="320"
+                                    Height="110"
+                                    Background="White"
+                                    CornerRadius="5" />
+                            </controls:DropShadowPanel>
+
+                            <Rectangle
+                                Width="320"
+                                Height="110"
+                                HorizontalAlignment="Left"
+                                Fill="{ThemeResource BlockBackground}"
+                                RadiusX="3"
+                                RadiusY="3" />
+
+                            <StackPanel Margin="20,10,0,0">
+                                <TextBlock
+                                    FontSize="18"
+                                    FontWeight="Bold"
+                                    Text="Изображения" />
+
+                                <ToggleSwitch
+                                    Header="Кэшировать обложки на диск"
+                                    IsEnabled="True"
+                                    IsOn="{x:Bind ViewModel.SaveImage, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                    OffContent="Отключено"
+                                    OnContent="Включено"
+                                    Toggled="{x:Bind ViewModel.SaveImage_OnToggled}" />
+                            </StackPanel>
+                        </Grid>
+
                     </StackPanel>
 
                     <StackPanel Grid.Column="1" HorizontalAlignment="Right">

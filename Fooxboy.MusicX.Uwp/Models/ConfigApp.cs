@@ -12,6 +12,7 @@ namespace Fooxboy.MusicX.Uwp.Models
         public bool FindInMusicLibrary { get; set; }
         public bool FindInDocumentsLibrary { get; set; }
         public bool StreamMusic { get; set; }
+        public bool SaveImage { get; set; } = true;
 
         public bool IsRateMe { get; set; }
         

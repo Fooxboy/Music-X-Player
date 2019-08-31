@@ -37,6 +37,7 @@ namespace Fooxboy.MusicX.Uwp.ViewModels
 
             musicLib = Config.FindInMusicLibrary;
             StreamMusic = Config.StreamMusic;
+            SaveImage = Config.SaveImage;
             Changed("StreamMusic");
             Changed("MusicLibraryIsOn");
 
@@ -109,6 +110,7 @@ namespace Fooxboy.MusicX.Uwp.ViewModels
         public string ContentDarkTheme { get; set; }
         public bool EnableDarkTheme { get; set; }
 
+        public bool SaveImage { get; set; }
         public bool SelectDarkTheme { get; set; }
         public bool SelectLightTheme { get; set; }
         public  bool StreamMusic { get; set; }
@@ -154,6 +156,12 @@ namespace Fooxboy.MusicX.Uwp.ViewModels
             }
         }
 
+
+        public async void SaveImage_OnToggled(object sender, RoutedEventArgs e)
+        {
+            Config.SaveImage = !SaveImage;
+            await ConfigService.SaveConfig(Config);
+        }
 
         public async void ToggleSwitch_OnToggled(object sender, RoutedEventArgs e)
         {
