@@ -9,6 +9,7 @@ using Fooxboy.MusicX.Uwp.Enums;
 using Fooxboy.MusicX.Uwp.Models;
 using Fooxboy.MusicX.Uwp.Services;
 using Fooxboy.MusicX.Uwp.Utils.Extensions;
+using Microsoft.Toolkit.Uwp.UI.Controls.TextToolbarSymbols;
 using Windows.Storage;
 using Windows.UI.Xaml.Controls;
 
@@ -72,6 +73,7 @@ namespace Fooxboy.MusicX.Uwp
 
         public static bool OpenFiles { get; set; }
         public static bool IsAuth { get; set; }
+        public static PlaylistFile OpenTracks { get; set; }
 
         public static ConfigApp Config { get; set; }
         public static bool IsPro = false;

@@ -106,7 +106,17 @@ namespace Fooxboy.MusicX.Uwp.Services
         {
             var lastFile = await StaticContent.LocalFolder.GetFileAsync("LastPlay.json");
             var json = await FileIO.ReadTextAsync(lastFile);
-            return JsonConvert.DeserializeObject<LastPlay>(json);
+
+
+            var model = JsonConvert.DeserializeObject<LastPlay>(json);
+            if (StaticContent.OpenFiles)
+            {
+                model.Playlist = StaticContent.OpenTracks;
+                model.Track = StaticContent.OpenTracks.TracksFiles[0];
+            }
+
+            return model;
+            
         }
     }
 }

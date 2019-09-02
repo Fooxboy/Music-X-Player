@@ -38,16 +38,7 @@ namespace Fooxboy.MusicX.Uwp.Views.VKontakte
 
         protected async override void OnNavigatedTo(NavigationEventArgs e)
         {
-            try
-            {
-                await ViewModel.StartLoadingTracks();
-            }catch(Exception ex)
-            {
-                DispatcherHelper.CheckBeginInvokeOnUI(async () =>
-                {
-                    await ContentDialogService.Show(new ExceptionDialog("Ошибка загрузки треков", "Music X не смог загрузить список Ваших загруженных треков.", ex));
-                });
-            }
+           
         }
     }
 }

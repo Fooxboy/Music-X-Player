@@ -365,35 +365,28 @@ namespace Fooxboy.MusicX.Uwp
         protected async override void OnFileActivated(FileActivatedEventArgs args)
         {
 
+            var files = args.Files;
+
+
+            var playlist = new PlaylistFile()
+            {
+                Artist = "Music X",
+                Cover = "/Assets/Images/now.png",
+                Id = 1000,
+                Name = "Сейчас играет",
+                TracksFiles = new List<AudioFile>()
+            };
+            foreach (var file in files)
+            {
+                var audio = await FindMetadataService.ConvertToAudioFile((StorageFile)file);
+                playlist.TracksFiles.Add(audio);
+            }
+
+            
+            StaticContent.OpenFiles = true;
+            StaticContent.OpenTracks = playlist;
             OnLaunched(null);
-            //var files = args.Files;
-            //if (files.Count > 1)
-            //{
-            //    var playlist = new PlaylistFile()
-            //    {
-            //        Artist = "Music X",
-            //        Cover = "/Assets/Images/now.png",
-            //        Id = 1000,
-            //        Name = "Сейчас играет",
-            //        Tracks = new List<AudioFile>()
-            //    };
-            //    foreach (var file in files)
-            //    {
-            //        var audio = await FindMetadataService.ConvertToAudioFile((StorageFile)file);
-            //        playlist.Tracks.Add(audio);
-            //    }
 
-            //    StaticContent.NowPlayPlaylist = playlist;
-            //    StaticContent.OpenFiles = true;
-            //}
-            //else
-            //{
-            //    var file = files[0];
-            //    var audio = await FindMetadataService.ConvertToAudioFile((StorageFile)file);
-            //    StaticContent.NowPlay = audio;
-            //    StaticContent.OpenFiles = true;
-
-            //}
 
             //if (Window.Current.Visible)
             //{
