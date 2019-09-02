@@ -10,7 +10,7 @@
   <Identity
     Name="39634Fooxboy.MusicXPlayer"
     Publisher="CN=61DC74F4-6B71-44B2-9289-5E776494890D"
-    Version="1.4.28.0" />
+    Version="1.5.29.0" />
 
   <mp:PhoneIdentity PhoneProductId="911ba3a9-0afb-4a63-8225-0236fa4646cf" PhonePublisherId="00000000-0000-0000-0000-000000000000"/>
 
@@ -38,7 +38,7 @@
         Square44x44Logo="Assets\Square44x44Logo.png"
         Description="Music X - Музыкальный плеер с поддержкой музыки ВКонтакте."
         BackgroundColor="transparent">
-        <uap:DefaultTile Wide310x150Logo="Assets\Wide310x150Logo.png" Square71x71Logo="Assets\SmallTile.png" Square310x310Logo="Assets\LargeTile.png" ShortName="MusicX">
+        <uap:DefaultTile Wide310x150Logo="Assets\Wide310x150Logo.png" Square71x71Logo="Assets\SmallTile.png" Square310x310Logo="Assets\LargeTile.png" ShortName="Music X">
           <uap:ShowNameOnTiles>
             <uap:ShowOn Tile="square310x310Logo"/>
             <uap:ShowOn Tile="wide310x150Logo"/>
