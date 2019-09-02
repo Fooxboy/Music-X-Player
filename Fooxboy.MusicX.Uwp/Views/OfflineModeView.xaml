@@ -64,17 +64,7 @@
                     Margin="0,30,0,0"
                     HorizontalAlignment="Center"
                     Orientation="Horizontal">
-                    <Button
-                        Width="160"
-                        Click="Button_Click"
-                        Content="Загруженная музыка"
-                        Style="{ThemeResource ButtonLoginStyle}" />
-                    <Button
-                        Width="160"
-                        Margin="20,0,0,0"
-                        Click="Button_Click_1"
-                        Content="Локальная музыка"
-                        Style="{ThemeResource ButtonLoginStyle}" />
+                   
                 </StackPanel>
             </StackPanel>
         </Grid>
