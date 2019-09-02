@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Fooxboy.MusicX.Uwp.ViewModels.VKontakte;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -22,9 +23,11 @@ namespace Fooxboy.MusicX.Uwp.Views.VKontakte
     /// </summary>
     public sealed partial class LikedArtistsView : Page
     {
+        public LikedArtistsViewModel ViewModel { get; set; }
         public LikedArtistsView()
         {
             this.InitializeComponent();
+            ViewModel = new LikedArtistsViewModel();
         }
     }
 }
