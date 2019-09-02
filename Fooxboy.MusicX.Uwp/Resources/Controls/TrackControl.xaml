@@ -24,6 +24,7 @@
                         </MenuFlyoutItem.Icon>
                     </MenuFlyoutItem>
                     <MenuFlyoutItem
+                        IsEnabled="False"
                         x:Name="AddOnLibrary"
                         Command="{x:Bind AddOnLibraryCommand}"
                         Text="Добавить в мою музыку">
