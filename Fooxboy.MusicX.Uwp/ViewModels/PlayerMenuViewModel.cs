@@ -35,6 +35,8 @@ namespace Fooxboy.MusicX.Uwp.ViewModels
             RecommendationsSelector = Visibility.Collapsed;
             PopularSelector = Visibility.Collapsed;
             DownloadsSelector = Visibility.Collapsed;
+            LikedArtistsSelector = Visibility.Collapsed;
+
 
 
             if (StaticContent.IsAuth)
@@ -42,7 +44,7 @@ namespace Fooxboy.MusicX.Uwp.ViewModels
                 HomeVkontakteSelector = Visibility.Visible;
             }
             else MainSelector = Visibility.Visible;
-
+            Changed("LikedArtistsSelector");
             Changed("SettingsSelector");
             Changed("MainSelector");
             Changed("SearchSelector");
@@ -63,11 +65,14 @@ namespace Fooxboy.MusicX.Uwp.ViewModels
                     AccountSelector = Visibility.Collapsed;
                     ProSelector = Visibility.Collapsed;
                     HomeVkontakteSelector = Visibility.Collapsed;
+                    LikedArtistsSelector = Visibility.Collapsed;
+
                     RecommendationsSelector = Visibility.Collapsed;
                     PopularSelector = Visibility.Collapsed;
                     DownloadsSelector = Visibility.Collapsed;
 
 
+                    Changed("LikedArtistsSelector");
 
                     Changed("SettingsSelector");
                     Changed("MainSelector");
@@ -94,10 +99,13 @@ namespace Fooxboy.MusicX.Uwp.ViewModels
                     AccountSelector = Visibility.Collapsed;
                     ProSelector = Visibility.Collapsed;
                     HomeVkontakteSelector = Visibility.Collapsed;
+                    LikedArtistsSelector = Visibility.Collapsed;
+
                     RecommendationsSelector = Visibility.Collapsed;
                     PopularSelector = Visibility.Collapsed;
                     DownloadsSelector = Visibility.Collapsed;
 
+                    Changed("LikedArtistsSelector");
 
                     Changed("SettingsSelector");
                     Changed("MainSelector");
@@ -125,8 +133,11 @@ namespace Fooxboy.MusicX.Uwp.ViewModels
                     HomeVkontakteSelector = Visibility.Collapsed;
                     RecommendationsSelector = Visibility.Collapsed;
                     PopularSelector = Visibility.Collapsed;
+                    LikedArtistsSelector = Visibility.Collapsed;
+
                     DownloadsSelector = Visibility.Collapsed;
 
+                    Changed("LikedArtistsSelector");
 
                     Changed("SettingsSelector");
                     Changed("MainSelector");
@@ -153,8 +164,11 @@ namespace Fooxboy.MusicX.Uwp.ViewModels
                     HomeVkontakteSelector = Visibility.Collapsed;
                     RecommendationsSelector = Visibility.Collapsed;
                     PopularSelector = Visibility.Collapsed;
+                    LikedArtistsSelector = Visibility.Collapsed;
+
                     DownloadsSelector = Visibility.Collapsed;
 
+                    Changed("LikedArtistsSelector");
 
                     Changed("SettingsSelector");
                     Changed("MainSelector");
@@ -185,7 +199,11 @@ namespace Fooxboy.MusicX.Uwp.ViewModels
                     HomeVkontakteSelector = Visibility.Collapsed;
                     RecommendationsSelector = Visibility.Collapsed;
                     PopularSelector = Visibility.Collapsed;
+                    LikedArtistsSelector = Visibility.Collapsed;
+
                     DownloadsSelector = Visibility.Collapsed;
+
+                    Changed("LikedArtistsSelector");
 
 
                     Changed("SettingsSelector");
@@ -223,7 +241,10 @@ namespace Fooxboy.MusicX.Uwp.ViewModels
                 RecommendationsSelector = Visibility.Visible;
                 PopularSelector = Visibility.Collapsed;
                 DownloadsSelector = Visibility.Collapsed;
+                LikedArtistsSelector = Visibility.Collapsed;
 
+
+                Changed("LikedArtistsSelector");
 
                 Changed("SettingsSelector");
                 Changed("MainSelector");
@@ -251,8 +272,11 @@ namespace Fooxboy.MusicX.Uwp.ViewModels
                 HomeVkontakteSelector = Visibility.Collapsed;
                 RecommendationsSelector = Visibility.Collapsed;
                 PopularSelector = Visibility.Visible;
+                LikedArtistsSelector = Visibility.Collapsed;
+
                 DownloadsSelector = Visibility.Collapsed;
 
+                Changed("LikedArtistsSelector");
 
                 Changed("SettingsSelector");
                 Changed("MainSelector");
@@ -278,7 +302,10 @@ namespace Fooxboy.MusicX.Uwp.ViewModels
                 HomeVkontakteSelector = Visibility.Visible;
                 RecommendationsSelector = Visibility.Collapsed;
                 PopularSelector = Visibility.Collapsed;
+                LikedArtistsSelector = Visibility.Collapsed;
+
                 DownloadsSelector = Visibility.Collapsed;
+                Changed("LikedArtistsSelector");
 
                 Changed("SettingsSelector");
                 Changed("MainSelector");
@@ -303,7 +330,9 @@ namespace Fooxboy.MusicX.Uwp.ViewModels
                 HomeVkontakteSelector = Visibility.Collapsed;
                 RecommendationsSelector = Visibility.Collapsed;
                 PopularSelector = Visibility.Collapsed;
+                LikedArtistsSelector = Visibility.Collapsed;
                 DownloadsSelector = Visibility.Visible;
+                Changed("LikedArtistsSelector");
 
                 Changed("SettingsSelector");
                 Changed("MainSelector");
@@ -316,6 +345,33 @@ namespace Fooxboy.MusicX.Uwp.ViewModels
                 Changed("DownloadsSelector");
 
                 StaticContent.NavigationContentService.Go(typeof(Views.VKontakte.DownloadsView));
+            });
+
+            NavigateToLikedArtists = new RelayCommand(() =>
+            {
+                SettingsSelector = Visibility.Collapsed;
+                MainSelector = Visibility.Collapsed;
+                SearchSelector = Visibility.Collapsed;
+                AccountSelector = Visibility.Collapsed;
+                ProSelector = Visibility.Collapsed;
+                HomeVkontakteSelector = Visibility.Collapsed;
+                RecommendationsSelector = Visibility.Collapsed;
+                PopularSelector = Visibility.Collapsed;
+                LikedArtistsSelector = Visibility.Visible;
+                DownloadsSelector = Visibility.Collapsed;
+                Changed("LikedArtistsSelector");
+
+                Changed("SettingsSelector");
+                Changed("MainSelector");
+                Changed("SearchSelector");
+                Changed("AccountSelector");
+                Changed("ProSelector");
+                Changed("HomeVkontakteSelector");
+                Changed("RecommendationsSelector");
+                Changed("PopularSelector");
+                Changed("DownloadsSelector");
+
+                StaticContent.NavigationContentService.Go(typeof(Views.VKontakte.LikedArtistsView));
             });
 
             if (StaticContent.IsAuth)
@@ -361,8 +417,11 @@ namespace Fooxboy.MusicX.Uwp.ViewModels
         public RelayCommand NavigateToPopular { get; set; }
         public RelayCommand NavigateToDownloads { get; set; }
 
+        public RelayCommand NavigateToLikedArtists { get; set; }
+
         public Visibility SettingsSelector { get; set; }
         public Visibility MainSelector { get; set; }
+        public Visibility LikedArtistsSelector { get; set; }
         public Visibility SearchSelector { get; set; }
         public Visibility AccountSelector { get; set; }
         public Visibility ProSelector { get; set; }

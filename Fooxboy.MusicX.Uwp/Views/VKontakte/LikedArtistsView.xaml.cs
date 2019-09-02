@@ -29,5 +29,12 @@ namespace Fooxboy.MusicX.Uwp.Views.VKontakte
             this.InitializeComponent();
             ViewModel = new LikedArtistsViewModel();
         }
+
+
+        protected async override void OnNavigatedTo(NavigationEventArgs e)
+        {
+            await ViewModel.StartLoading();
+            //base.OnNavigatedTo(e);
+        }
     }
 }

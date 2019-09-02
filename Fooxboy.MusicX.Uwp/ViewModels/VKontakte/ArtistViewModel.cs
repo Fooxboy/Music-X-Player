@@ -14,6 +14,8 @@ using Fooxboy.MusicX.Uwp.Services.VKontakte;
 using Fooxboy.MusicX.Uwp.Views.VKontakte.Artist;
 using Microsoft.Advertising.Ads.Requests.AdBroker;
 using PlaylistsService = Fooxboy.MusicX.Uwp.Services.VKontakte.PlaylistsService;
+using Windows.Devices.Radios;
+using Windows.UI.Popups;
 
 namespace Fooxboy.MusicX.Uwp.ViewModels.VKontakte
 {
@@ -31,6 +33,19 @@ namespace Fooxboy.MusicX.Uwp.ViewModels.VKontakte
             {
                 StaticContent.NavigationContentService.Go(typeof(ArtistAllAlbums), Artist.BlockAlbumsId);
             }));
+
+            LikeArtist = new RelayCommand(async() =>
+            {
+                try
+                {
+                    await LikedArtistsService.AddLikedArtist(Artist.Id, Artist.Name, Artist.Banner);
+                    var msg = new MessageDialog("Музыкант был добавлен в избранное!");
+                    await msg.ShowAsync();
+                }catch(Exception e)
+                {
+                    await ContentDialogService.Show(new ExceptionDialog("Невозможно добавить исполнителя в избранное", "Повторите позже, если это не поможет перезапустите приложение.", e));
+                }
+            });
         }
         public string NameArtist { get; set; }
         public bool IsLoading { get; set; }
@@ -123,6 +138,8 @@ namespace Fooxboy.MusicX.Uwp.ViewModels.VKontakte
         public PlaylistFile SelectPlaylist { get; set; }
         public RelayCommand ShowPopularTracksCommand { get; set; }
         public RelayCommand ShowAblumsCommand { get; set; }
+
+        public RelayCommand LikeArtist { get; set; }
 
         public  async void UIElement_OnTappedTracks(object sender, TappedRoutedEventArgs e)
         {

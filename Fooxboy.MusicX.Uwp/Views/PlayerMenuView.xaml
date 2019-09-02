@@ -399,6 +399,46 @@
                             HorizontalAlignment="Stretch"
                             HorizontalContentAlignment="Left"
                             BorderThickness="0"
+                            Command="{x:Bind PlayerMenuViewModel.NavigateToLikedArtists}"
+                            FontSize="16">
+                            <Button.Background>
+                                <SolidColorBrush Opacity="0" />
+                            </Button.Background>
+                            <Button.Content>
+                                <Grid>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="5" />
+                                        <ColumnDefinition Width="30" />
+                                        <ColumnDefinition Width="auto" />
+                                    </Grid.ColumnDefinitions>
+                                    <Rectangle
+                                        Grid.Column="0"
+                                        Width="5"
+                                        Height="30"
+                                        Visibility="{x:Bind PlayerMenuViewModel.LikedArtistsSelector, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
+                                        Fill="#0078d7"/>
+                                    <TextBlock
+                                        Grid.Column="1"
+                                        Width="30"
+                                        Height="30"
+                                        Padding="5"
+                                        FontFamily="Segoe MDL2 Assets"
+                                        FontSize="20"
+                                        Text="&#xE208;" />
+                                    <TextBlock
+                                        Grid.Column="2"
+                                        Padding="5"
+                                        Text="Любимые музыканты" />
+                                </Grid>
+                            </Button.Content>
+                        </Button>
+
+                        <Button
+                            Height="40"
+                            Padding="0"
+                            HorizontalAlignment="Stretch"
+                            HorizontalContentAlignment="Left"
+                            BorderThickness="0"
                             Command="{x:Bind PlayerMenuViewModel.NavigateToDownloads}"
                             FontSize="16">
                             <Button.Background>

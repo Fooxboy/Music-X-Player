@@ -11,43 +11,54 @@
     Background="{ThemeResource BackgroundApp}">
 
     <Grid Margin="0 36 0 0">
-        <ListView
+        <StackPanel>
+            <TextBlock
+            Grid.Row="1"
+            Margin="30,0,0,0"
+            FontFamily="Calibri"
+            FontSize="42"
+            FontWeight="ExtraBold"
+            Text="Любимые музыканты" />
+            <ListView
                 HorizontalAlignment="Stretch"
                 ItemContainerStyle="{StaticResource ListViewItemContainerStyle}"
                 ItemsSource="{x:Bind ViewModel.Artists, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                 SelectedItem="{x:Bind ViewModel.SelectArtist, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                 Style="{StaticResource ListViewStyle}"
                 Tapped="{x:Bind ViewModel.GoToArtist}">
-            <ListView.ItemsPanel>
-                <ItemsPanelTemplate>
-                    <ItemsStackPanel HorizontalAlignment="Stretch" VerticalAlignment="Stretch" />
-                </ItemsPanelTemplate>
+                <ListView.ItemsPanel>
+                    <ItemsPanelTemplate>
+                        <ItemsStackPanel HorizontalAlignment="Stretch" VerticalAlignment="Stretch" />
+                    </ItemsPanelTemplate>
 
 
-            </ListView.ItemsPanel>
+                </ListView.ItemsPanel>
 
-            <ListView.ItemTemplate>
-                <DataTemplate x:DefaultBindMode="TwoWay" x:DataType="models:LikedArtist">
-                    <Grid Height="30">
-                        <controls:ImageEx
+                <ListView.ItemTemplate>
+                    <DataTemplate x:DefaultBindMode="TwoWay" x:DataType="models:LikedArtist">
+                        <Grid Height="30">
+                            <controls:ImageEx
                             HorizontalAlignment="Stretch" 
                                           VerticalAlignment="Stretch"
                             Source="{x:Bind Banner}"/>
-                        
-                        <Rectangle Fill="Black" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Opacity="0.5"/>
-                        
-                        <TextBlock FontSize="20" FontWeight="Bold" HorizontalAlignment="Left" VerticalAlignment="Bottom" Margin="10 10 0 0" Text="{x:Bind Name}"/>
-                    </Grid>
-                </DataTemplate>
-            </ListView.ItemTemplate>
 
-        </ListView>
+                            <Rectangle Fill="Black" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Opacity="0.5"/>
+
+                            <TextBlock FontSize="20" FontWeight="Bold" HorizontalAlignment="Left" VerticalAlignment="Bottom" Margin="10 10 0 0" Text="{x:Bind Name}"/>
+                        </Grid>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+
+            </ListView>
+        </StackPanel>
+        
+        
 
         <TextBlock HorizontalAlignment="Center" 
                    VerticalAlignment="Center"
                    FontWeight="Bold"
                    FontSize="28"
                    Visibility="{x:Bind ViewModel.NoArtistsVisibility, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                   Text="У Вас нет избранных музыкантов"/>
+                   Text="У Вас нет любимых музыкантов"/>
     </Grid>
 </Page>

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Fooxboy.MusicX.Uwp.Resources.ContentDialogs;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -30,14 +31,21 @@ namespace Fooxboy.MusicX.Uwp.Services
         /// <param name="data">Данные</param>
         public void Go(Type page, object data = null)
         {
-            if (this.Pages.Count > 0)
+            try
             {
-                if (this.Pages.Peek() == page) return;
+                if (this.Pages.Count > 0)
+                {
+                    if (this.Pages.Peek() == page) return;
+                }
+                this.Pages.Push(page);
+                this.UpdateButtonBack();
+                this.RootFrame.CacheSize = 3;
+                this.RootFrame.Navigate(page, data);
+            }catch(Exception e)
+            {
+                ContentDialogService.Show(new ExceptionDialog("Невозможно перейти на страницу", "Попробуйте перезапустить приложение", e), 1);
             }
-            this.Pages.Push(page);
-            this.UpdateButtonBack();
-            this.RootFrame.CacheSize = 3;
-            this.RootFrame.Navigate(page, data);
+            
         }
 
         /// <summary>
