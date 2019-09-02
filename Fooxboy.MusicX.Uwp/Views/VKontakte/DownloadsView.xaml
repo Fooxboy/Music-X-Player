@@ -13,7 +13,7 @@
 
         <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center">
             <TextBlock TextTrimming="WordEllipsis" FontWeight="Bold" HorizontalAlignment="Center" FontSize="30" Text="Загрузок больше нет."/>
-            <TextBlock Foreground="{ThemeResource SubText}" Margin="0 20 0 0 " HorizontalAlignment="Center" TextTrimming="WordEllipsis" Text="Они не прошли жизненный отбор. Да, так бывает. Но не пугайтесь! Скоро они вернуться к нам в улучшенном виде!"/>
+            <TextBlock Foreground="{ThemeResource SubText}" Margin="0 20 0 0 " HorizontalAlignment="Center" TextTrimming="WordEllipsis" Text="Они не прошли жизненный отбор. Да, так бывает. Но не пугайтесь! Скоро они вернутся к нам в улучшенном виде!"/>
         </StackPanel>
     </Grid>
 </Page>
