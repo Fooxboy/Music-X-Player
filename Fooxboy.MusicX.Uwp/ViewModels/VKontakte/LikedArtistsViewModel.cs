@@ -19,12 +19,12 @@ namespace Fooxboy.MusicX.Uwp.ViewModels.VKontakte
 
         public LikedArtistsViewModel()
         {
-            DeleteCommand = new RelayCommand(async () =>
+            DeleteCommand = new RelayCommand<LikedArtist>(async (artist) =>
             {
                 try
                 {
-                    await LikedArtistsService.RemoveArtist(SelectArtist.Id);
-                    var msg = new MessageDialog($"Исполнитель {SelectArtist.Name} больше не находится в Ваших любимчиках!");
+                    await LikedArtistsService.RemoveArtist(artist.Id);
+                    var msg = new MessageDialog($"Исполнитель {artist.Name} больше не находится в Ваших любимчиках!");
                     Artists.Remove(SelectArtist);
                     Changed("Artists");
                 }catch(Exception e)
@@ -40,7 +40,7 @@ namespace Fooxboy.MusicX.Uwp.ViewModels.VKontakte
         public Visibility NoArtistsVisibility { get; set; } = Visibility.Collapsed;
         public bool IsLoading { get; set; }
 
-        public RelayCommand DeleteCommand { get; set; }
+        public RelayCommand<LikedArtist> DeleteCommand { get; set; }
 
         public async Task StartLoading()
         {

@@ -35,7 +35,7 @@
                 <ListView.ContextFlyout>
                     <MenuFlyout>
                         <MenuFlyout.Items>
-                            <MenuFlyoutItem Command="{x:Bind ViewModel.DeleteCommand}" Text="Удалить из любимых артистов">
+                            <MenuFlyoutItem Command="{x:Bind ViewModel.DeleteCommand}" CommandParameter="{x:Bind}" Text="Удалить из любимых артистов">
                                 <MenuFlyoutItem.Icon>
                                     <FontIcon FontFamily="Segoe MDL2 Assets" Glyph="&#xE74D;" />
                                 </MenuFlyoutItem.Icon>
