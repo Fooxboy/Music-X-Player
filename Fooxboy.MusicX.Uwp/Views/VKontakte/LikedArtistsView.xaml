@@ -30,21 +30,33 @@
                     <ItemsPanelTemplate>
                         <ItemsStackPanel HorizontalAlignment="Stretch" VerticalAlignment="Stretch" />
                     </ItemsPanelTemplate>
-
-
                 </ListView.ItemsPanel>
 
+                <ListView.ContextFlyout>
+                    <MenuFlyout>
+                        <MenuFlyout.Items>
+                            <MenuFlyoutItem Command="{x:Bind ViewModel.DeleteCommand}" Text="Удалить из любимых артистов">
+                                <MenuFlyoutItem.Icon>
+                                    <FontIcon FontFamily="Segoe MDL2 Assets" Glyph="&#xE74D;" />
+                                </MenuFlyoutItem.Icon>
+                            </MenuFlyoutItem>
+                        </MenuFlyout.Items>
+                    </MenuFlyout>
+                </ListView.ContextFlyout>
                 <ListView.ItemTemplate>
                     <DataTemplate x:DefaultBindMode="TwoWay" x:DataType="models:LikedArtist">
-                        <Grid Height="70">
+                        <Grid Height="150">
                             <controls:ImageEx
                             HorizontalAlignment="Stretch" 
-                                          VerticalAlignment="Stretch"
+                                Stretch="UniformToFill"
+                                VerticalContentAlignment="Center"
+                                HorizontalContentAlignment="Center"
+                                VerticalAlignment="Stretch"
                             Source="{x:Bind Banner}"/>
 
-                            <Rectangle Fill="Black" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Opacity="0.5"/>
+                            <Rectangle Fill="Gray" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Opacity="0.3"/>
 
-                            <TextBlock FontSize="20" FontWeight="Bold" HorizontalAlignment="Left" VerticalAlignment="Bottom" Margin="10 10 0 0" Text="{x:Bind Name}"/>
+                            <TextBlock FontSize="20" FontWeight="Bold" HorizontalAlignment="Left" VerticalAlignment="Bottom" Margin="20 0 0 20" Text="{x:Bind Name}"/>
                         </Grid>
                     </DataTemplate>
                 </ListView.ItemTemplate>

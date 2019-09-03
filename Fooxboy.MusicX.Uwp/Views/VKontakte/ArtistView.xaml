@@ -48,7 +48,7 @@
 
             <Button Grid.Row="0"
                     HorizontalAlignment="Right"
-                    IsEnabled="True"
+                    IsEnabled="{x:Bind ViewModel.EnableAddToLikedArtists, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                     Command="{x:Bind ViewModel.LikeArtist}"
                     Style="{ThemeResource ButtonLoginStyle}"
                     VerticalAlignment="Bottom"

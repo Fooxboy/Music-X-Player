@@ -53,7 +53,7 @@ namespace Fooxboy.MusicX.Uwp.ViewModels.VKontakte
         public Visibility LastAlbumVisibility { get; set; } = Visibility.Collapsed;
         public Visibility AlbumsVisibility { get; set; } = Visibility.Collapsed;
 
-
+        public bool EnableAddToLikedArtists { get; set; }
         public Visibility VisibilityAds => StaticContent.IsPro ? Visibility.Collapsed : Visibility.Visible;
         public List<AudioFile> PopularTracks { get; set; }
         public List<PlaylistFile> Albums { get; set; }
@@ -120,6 +120,16 @@ namespace Fooxboy.MusicX.Uwp.ViewModels.VKontakte
                     Changed("LastRelease");
                 }
                 
+                if(await LikedArtistsService.IsLikedArtist(artist.Id))
+                {
+                    EnableAddToLikedArtists = false;
+                    Changed("EnableAddToLikedArtists");
+                }else
+                {
+                    EnableAddToLikedArtists = true;
+                    Changed("EnableAddToLikedArtists");
+                }
+
                 IsLoading = false;
                 Changed("IsLoading");
             }
