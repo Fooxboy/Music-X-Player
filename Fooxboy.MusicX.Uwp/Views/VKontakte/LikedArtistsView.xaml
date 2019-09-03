@@ -36,7 +36,7 @@
 
                 <ListView.ItemTemplate>
                     <DataTemplate x:DefaultBindMode="TwoWay" x:DataType="models:LikedArtist">
-                        <Grid Height="30">
+                        <Grid Height="70">
                             <controls:ImageEx
                             HorizontalAlignment="Stretch" 
                                           VerticalAlignment="Stretch"
