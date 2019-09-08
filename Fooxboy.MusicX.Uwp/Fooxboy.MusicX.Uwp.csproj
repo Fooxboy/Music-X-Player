@@ -24,8 +24,8 @@
     <PackageCertificateThumbprint>2CACA3A0DBA596A8B55C6470CBE46A20B49BEDC9</PackageCertificateThumbprint>
     <AppInstallerUpdateFrequency>0</AppInstallerUpdateFrequency>
     <AppInstallerCheckForUpdateFrequency>OnApplicationRun</AppInstallerCheckForUpdateFrequency>
-    <AppxSymbolPackageEnabled>False</AppxSymbolPackageEnabled>
-    <AppxPackageDir>C:\Users\Fooxboy\source\repos\Fooxboy.MusicX\Fooxboy.MusicX.Uwp\Packs\1.5.30</AppxPackageDir>
+    <AppxSymbolPackageEnabled>True</AppxSymbolPackageEnabled>
+    <AppxPackageDir>C:\Users\Fooxboy\source\repos\Fooxboy.MusicX\Fooxboy.MusicX.Uwp\Packs\1.5.31 store</AppxPackageDir>
     <AppxPackageSigningEnabled>True</AppxPackageSigningEnabled>
     <GenerateTestArtifacts>True</GenerateTestArtifacts>
     <HoursBetweenUpdateChecks>0</HoursBetweenUpdateChecks>

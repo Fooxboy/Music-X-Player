@@ -114,6 +114,24 @@
                         Foreground="{ThemeResource SubText}"
                         Text="{x:Bind PlaylistViewModel.Playlist.Year}"
                         Visibility="{x:Bind PlaylistViewModel.VisibilityInfo, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                    <TextBlock
+                        Margin="5,0,0,0"
+                        VerticalAlignment="Center"
+                        Foreground="{ThemeResource SubText}"
+                        Text="•"
+                        Visibility="{x:Bind PlaylistViewModel.VisibilityInfo, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                    <TextBlock
+                        Margin="5,0,0,0"
+                        VerticalAlignment="Center"
+                        Foreground="{ThemeResource SubText}"
+                        Text="{x:Bind PlaylistViewModel.Playlist.Plays}"
+                        Visibility="{x:Bind PlaylistViewModel.VisibilityInfo, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                    <TextBlock
+                        Margin="3,0,0,0"
+                        VerticalAlignment="Center"
+                        Foreground="{ThemeResource SubText}"
+                        Text="прослушиваний"
+                        Visibility="{x:Bind PlaylistViewModel.VisibilityInfo, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
                 </StackPanel>
 
                 <StackPanel
