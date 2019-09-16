@@ -76,6 +76,8 @@ namespace Fooxboy.MusicX.Uwp.ViewModels
             ShuffleSwitch = new RelayCommand(() =>
             {
                 Shuffle = !Shuffle;
+
+                StaticContent.Shuffle = Shuffle;
             });
 
             DownloadCommand = new RelayCommand( () =>

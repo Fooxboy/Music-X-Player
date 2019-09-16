@@ -170,16 +170,16 @@
                     Style="{ThemeResource ButtonPlayerStyle}" />
 
                 <Grid Height="30" Margin="0,0,5,0">
-                    <Button
+                    <ToggleButton
                         x:Name="DownloadTrack"
                         Width="30"
                         Height="30"
-                        Command="{x:Bind PlayerViewModel.DownloadCommand}"
-                        Content="&#xE896;"
+                        Command="{x:Bind PlayerViewModel.ShuffleSwitch}"
+                        Content="&#xE8B1;"
                         FontFamily="Segoe MDL2 Assets"
                         FontSize="18"
                         IsEnabled="False"
-                        Style="{ThemeResource ButtonPlayerStyle}"
+                        Style="{ThemeResource ToggleButtonStyle}"
                         Visibility="{x:Bind PlayerViewModel.DownloadButtonVisibility, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
                     <Button
                         x:Name="AddToFavorite"

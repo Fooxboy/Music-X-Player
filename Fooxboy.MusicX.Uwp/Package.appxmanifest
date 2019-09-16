@@ -62,6 +62,12 @@
             <uap:Logo>file.png</uap:Logo>
           </uap:FileTypeAssociation>
         </uap:Extension>
+        <uap:Extension Category="windows.protocol">
+          <uap:Protocol Name="musicx">
+            <uap:Logo>Assets\Images\logo-clear.png</uap:Logo>
+            <uap:DisplayName>Music X</uap:DisplayName>
+          </uap:Protocol>
+        </uap:Extension>
       </Extensions>
     </Application>
   </Applications>
