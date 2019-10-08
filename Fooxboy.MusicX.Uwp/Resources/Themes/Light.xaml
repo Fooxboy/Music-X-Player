@@ -18,6 +18,7 @@
             <SolidColorBrush x:Key="ButtonPointColor" Color="#A6A6A6" />
             <SolidColorBrush x:Key="ButtonClickColor" Color="#8F8F8F" />
             <SolidColorBrush x:Key="BlockBackground" Color="#FFEAEAEA" />
+            <SolidColorBrush x:Key="NotificationBackgroundColor" Color="#F5F5F5" />
         </ResourceDictionary>
     </ResourceDictionary.ThemeDictionaries>
 </ResourceDictionary>
