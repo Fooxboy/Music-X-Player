@@ -15,7 +15,7 @@ using Java.Lang;
 
 namespace Fooxboy.MusicX.AndroidApp
 {
-    [Activity(Label = "@string/app_name")]
+    [Activity(Label = "@string/app_name", NoHistory = true)]
     public class AuthActivity : Activity
     {
         private EditText loginText;
@@ -106,6 +106,12 @@ namespace Fooxboy.MusicX.AndroidApp
             }
 
             return Services.StaticContentService.CodeTwoFactorAuth;
+        }
+        
+        //Prevent Activity from closing by back button/gesture
+        public override void OnBackPressed()
+        {
+            return;
         }
     }
 }
