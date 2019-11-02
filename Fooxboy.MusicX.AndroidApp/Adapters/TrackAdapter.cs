@@ -51,12 +51,13 @@ namespace Fooxboy.MusicX.AndroidApp.Adapters
                 var file = new File(tracks[position].Cover);
                 var opt = new BitmapFactory.Options();
                 opt.InJustDecodeBounds = true;
-                BitmapFactory.DecodeFile(file.AbsolutePath, opt);
+                //BitmapFactory.DecodeFile(file.AbsolutePath, opt);
                 opt.InSampleSize = CalculateInSampleSize(opt, 50, 50);
                 opt.InJustDecodeBounds = false;
-                Bitmap myBitmap = BitmapFactory.DecodeFile(file.AbsolutePath, opt);
+                Bitmap myBitmap = BitmapFactory.DecodeFile(file.Path, opt);
                 holder.Cover.SetImageBitmap(myBitmap);
             }
+            //holder.Cover.SetImageResource(Resource.Drawable.placeholder);
         }
 
         public void AddItems(List<AudioFile> t)

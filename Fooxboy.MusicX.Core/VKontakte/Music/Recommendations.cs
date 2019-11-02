@@ -94,5 +94,70 @@ namespace Fooxboy.MusicX.Core.VKontakte.Music
 
             return recommendations;
         }
+
+        public static IRecommendations NewSync()
+        {
+            if (StaticContent.VkApi == null) throw new Exception("Пользователь не авторизован");
+            var parameters = new VkParameters();
+            parameters.Add("v", "5.103");
+            parameters.Add("lang", "ru");
+            parameters.Add("extended", "1");
+            parameters.Add("access_token", StaticContent.VkApi.Token);
+            parameters.Add("count", "10");
+            parameters.Add("fields", "first_name_gen, photo_100");
+
+            var json = StaticContent.VkApi.Invoke("audio.getCatalog", parameters);
+            var model = JsonConvert.DeserializeObject<Response<Models.Music.Recommendations.ResonseItem>>(json);
+
+            IRecommendations recommendations = new RecommendationsAnyPlatform();
+            recommendations.Blocks = new List<IBlock>();
+            foreach (var blockVk in model.response.Items)
+            {
+                IBlock block = new BlockAnyPlatform();
+                block.BlockId = blockVk.Id;
+                block.CountElements = blockVk.Count;
+                block.Description = blockVk.SubTitle;
+                block.Title = blockVk.Title;
+                block.TypeBlock = blockVk.Type;
+
+                if (blockVk.Playlists != null)
+                {
+                    var plists = new List<IPlaylistFile>();
+                    int i = 0;
+                    foreach (var pl in blockVk.Playlists)
+                    {
+                        if (i > 10) break;
+                        plists.Add(pl.ToIPlaylistFile(new List<IAudioFile>(), "Различные исполнители"));
+                        i++;
+                    }
+
+                    block.Playlists = plists;
+                }
+
+                if (blockVk.Audios != null)
+                {
+                    var audios = new List<AudioVkModel>();
+                    for (int i = 0; i < 10; i++)
+                    {
+                        try
+                        {
+                            audios.Add(blockVk.Audios[i]);
+                        }
+                        catch
+                        {
+                            break;
+                        }
+
+                    }
+                    var tracks = audios.ToIAudioFileList();
+
+                    block.Tracks = tracks;
+                }
+
+                recommendations.Blocks.Add(block);
+            }
+
+            return recommendations;
+        }
     }
 }

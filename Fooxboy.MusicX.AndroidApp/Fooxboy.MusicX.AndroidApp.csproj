@@ -72,7 +72,10 @@
   <ItemGroup>
     <Compile Include="Activities\MainPlayerActivity.cs" />
     <Compile Include="Adapters\PlaylistAdapter.cs" />
+    <Compile Include="Adapters\RecommendationAdapter.cs" />
     <Compile Include="Adapters\TrackAdapter.cs" />
+    <Compile Include="Converters\AudioConverter.cs" />
+    <Compile Include="Converters\PlaylistConverter.cs" />
     <Compile Include="Delegates\EventHandler.cs" />
     <Compile Include="DialogFragments\IncorrectLoginDialogFragment.cs" />
     <Compile Include="AuthActivity.cs" />
@@ -84,6 +87,7 @@
     <Compile Include="Models\PlaylistFile.cs" />
     <Compile Include="Resources\fragments\HomeFragment.cs" />
     <Compile Include="Resources\fragments\PlaylistFragment.cs" />
+    <Compile Include="Resources\fragments\RecommendationsFragment.cs" />
     <Compile Include="Resources\fragments\SettingsFragment.cs" />
     <Compile Include="Resources\fragments\TracksFragment.cs" />
     <Compile Include="Resources\Resource.designer.cs" />
@@ -99,6 +103,7 @@
     <Compile Include="Services\TaskService.cs" />
     <Compile Include="SplashActivity.cs" />
     <Compile Include="TwoFactorDialogActivity.cs" />
+    <Compile Include="ViewHolders\RecommendationsViewHolder.cs" />
     <Compile Include="ViewHolders\PlaylistViewHolder.cs" />
     <Compile Include="ViewHolders\TracksViewHolder.cs" />
   </ItemGroup>
@@ -327,6 +332,22 @@
   </ItemGroup>
   <ItemGroup>
     <AndroidResource Include="Resources\layout\activity_playlists.axml">
+      <SubType>Designer</SubType>
+    </AndroidResource>
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\drawable\outline_pause_black_24dp.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\drawable\arrow_down.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\layout\RecommendationLayout.xml">
+      <SubType>Designer</SubType>
+    </AndroidResource>
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\layout\activity_recommendations.xml">
       <SubType>Designer</SubType>
     </AndroidResource>
   </ItemGroup>
