@@ -96,14 +96,14 @@
                 Margin="0,0,30,0"
                 HorizontalAlignment="Right"
                 FontWeight="Bold"
-                Text="Разработчик:" />
+                Text="Разработчики:" />
 
             <HyperlinkButton
                 Grid.Row="0"
                 Grid.Column="2"
                 Margin="0,0,30,0"
                 HorizontalAlignment="Right"
-                Content="Страница ВКонтакте"
+                Content="Fooxboy во ВКонтакте"
                 NavigateUri="https://vk.com/fooxboy" />
 
             <HyperlinkButton
@@ -111,8 +111,24 @@
                 Grid.Column="2"
                 Margin="0,45,30,0"
                 HorizontalAlignment="Right"
-                Content="Профиль Telegram"
-                NavigateUri="https://t.me/fooxboy" />
+                Content="Fooxboy в Telegram"
+                NavigateUri="https://t.me/Fooxboy" />
+
+            <HyperlinkButton
+                Grid.Row="0"
+                Grid.Column="2"
+                Margin="0,45,30,0"
+                HorizontalAlignment="Right"
+                Content="1uckycat в Telegram"
+                NavigateUri="https://t.me/LuckyCa7" />
+
+            <HyperlinkButton
+                Grid.Row="0"
+                Grid.Column="2"
+                Margin="0,45,30,0"
+                HorizontalAlignment="Right"
+                Content="Канал Music X в Telegram"
+                NavigateUri="https://t.me/MusicXPlayer" />
         </Grid>
 
         <Grid Grid.Row="3" Grid.ColumnSpan="2">
