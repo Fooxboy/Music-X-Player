@@ -107,5 +107,11 @@ namespace Fooxboy.MusicX.AndroidApp
 
             return Services.StaticContentService.CodeTwoFactorAuth;
         }
+        
+        //Prevent Activity from closing by back button/gesture
+        public override void OnBackPressed()
+        {
+            return;
+        }
     }
 }

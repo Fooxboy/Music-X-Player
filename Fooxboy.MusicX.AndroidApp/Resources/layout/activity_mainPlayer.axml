@@ -3,26 +3,29 @@
     xmlns:app="http://schemas.android.com/apk/res-auto" android:orientation="vertical"
     android:layout_width="match_parent" android:layout_height="match_parent">
     <Button
-        android:layout_width="wrap_content"
+        android:layout_width="40dp"
+        android:layout_marginTop="10dp"
         android:id="@+id/closeButtonMainPlayer"
-        android:text = "Закрыть"
-        android:layout_height="wrap_content"/>
+        android:text = ""
+        android:background="@drawable/arrow_down"
+        android:layout_gravity="center"
+        android:layout_height="40dp"/>
 
         <com.makeramen.roundedimageview.RoundedImageView
             android:id="@+id/coverTrackMainPlayer"
-            android:layout_width="400dp"
-            android:layout_height="400dp"
+            android:layout_width="300dp"
+            android:layout_height="300dp"
             android:scaleType="fitStart"
             android:adjustViewBounds="true"
             android:background="@drawable/shadow"
-            android:layout_marginTop="10dp"
+            android:layout_marginTop="30dp"
             android:layout_gravity="center_horizontal"
             android:src="@drawable/placeholder"
             app:riv_corner_radius="5dp" />
         
         
         <RelativeLayout
-            android:layout_marginTop="20dp"
+            android:layout_marginTop="60dp"
             android:layout_marginLeft="20dp"
             android:layout_marginRight="20dp"
             android:layout_width="fill_parent"

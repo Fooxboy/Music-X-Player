@@ -39,10 +39,14 @@ namespace Fooxboy.MusicX.AndroidApp
             if (AuthService.IsLoggedIn())
             {
                 Fooxboy.MusicX.Core.VKontakte.Auth.AutoSync(AuthService.GetToken(), null);
-                var f = new HomeFragment();
+                //var f = new HomeFragment();
+                var f = new RecommendationsFragment();
                 FragmentManager.BeginTransaction().Replace(Resource.Id.content_frame, f).Commit();
                 SetTitle(Resource.String.title_home);
-            }else
+                var title = FindViewById<TextView>(Resource.Id.titlebar_title);
+                title.Text = "Рекомендации";
+            }
+            else
             {
 
                 Intent intent = new Intent(this.ApplicationContext, typeof(AuthActivity));
@@ -70,9 +74,9 @@ namespace Fooxboy.MusicX.AndroidApp
             {
                 case Resource.Id.navigation_home:
                     // textMessage.SetText(Resource.String.title_home);
-                    f = new HomeFragment();
+                    f = new RecommendationsFragment();
                     FragmentManager.BeginTransaction().Replace(Resource.Id.content_frame, f).Commit();
-                    title.Text = "Главная";
+                    title.Text = "Рекомендации";
                     return true;
                 case Resource.Id.navigation_tracks:
                     f = new TracksFragment();

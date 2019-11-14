@@ -52,7 +52,7 @@ namespace Fooxboy.MusicX.AndroidApp.Activities
 
         private void CloseButtonOnClick(object sender, EventArgs e)
         {
-            //throw new NotImplementedException();
+            Finish();
         }
 
 
@@ -61,7 +61,9 @@ namespace Fooxboy.MusicX.AndroidApp.Activities
         /// </summary>
         private void UpdateDataPlayer()
         {
-            cover.SetImageString(player.Cover, 300, 300);
+           // cover.SetImageString(player.Cover, 300, 300);
+            if (player.Cover == "placeholder") cover.SetImageDrawable(GetDrawable(Resource.Drawable.placeholder));
+            if(player.Cover != "placeholder") cover.SetImageString(player.Cover, 300, 300);
             position.Text = player.MainService.Position.ToString("m\\:ss");
             duration.Text = player.MainService.Duration.ToString("m\\:ss");
             seekBar.Progress = Convert.ToInt32(player.MainService.Position.TotalSeconds);
@@ -111,8 +113,17 @@ namespace Fooxboy.MusicX.AndroidApp.Activities
         private void PlayPauseButtonOnClick(object sender, EventArgs e)
         {
             //TODO: сделать именение иконочки
-            if (player.MainService.IsPlay) player.Pause();
-            else player.Play();
+            if (player.MainService.IsPlay)
+            {
+                playPauseButton.Background = GetDrawable(Resource.Drawable.play_ic);
+                player.Pause();
+            }
+            else
+            {
+                playPauseButton.Background = GetDrawable(Resource.Drawable.outline_pause_black_24dp);
+                player.Play();
+            }
+            
             //throw new NotImplementedException();
         }
 
