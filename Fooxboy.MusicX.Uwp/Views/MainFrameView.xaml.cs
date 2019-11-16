@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices.WindowsRuntime;
+using System.Threading.Tasks;
 using Fooxboy.MusicX.Uwp.Resources.ContentDialogs;
 using Fooxboy.MusicX.Uwp.Services;
 using Fooxboy.MusicX.Uwp.Services.VKontakte;
@@ -25,7 +26,7 @@ namespace Fooxboy.MusicX.Uwp.Views
     /// </summary>
     public sealed partial class MainFrameView : Page
     {
-
+        DispatcherTimer _timer2;
         private DispatcherTimer _timer;
         public MainFrameView()
         {
@@ -49,18 +50,21 @@ namespace Fooxboy.MusicX.Uwp.Views
 
             this.SizeChanged += MainPage_SizeChanged;
 
-            
+            var timer2 = new DispatcherTimer();
+            _timer2 = timer2;
+            timer2.Interval = TimeSpan.FromSeconds(80);
+            timer2.Tick += Timer2_Tick;
+            timer2.Start();
 
-            if(!StaticContent.Config.IsRateMe & StaticContent.IsAuth)
+            if (!StaticContent.Config.IsRateMe & StaticContent.IsAuth)
             {
                 var timer = new DispatcherTimer();
                 this._timer = timer;
                 timer.Interval = TimeSpan.FromSeconds(60);
-
-
                 timer.Tick += Timer_Tick;
-
                 timer.Start();
+
+                
             }
             if (StaticContent.IsAuth)
             {
@@ -79,6 +83,13 @@ namespace Fooxboy.MusicX.Uwp.Views
                 StaticContent.NavigationContentService.Go(typeof(HomeLocalView));
             }
            
+        }
+
+        private async void Timer2_Tick(object sender, object e)
+        {
+            await ContentDialogService.Show(new TelegramContentDialog());
+            _timer2.Stop();
+            //throw new NotImplementedException();
         }
 
         private async void Timer_Tick(object sender, object e)
