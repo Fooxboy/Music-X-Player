@@ -79,10 +79,12 @@ namespace Fooxboy.MusicX.AndroidApp.Services
                 {
                     var media = await player.Play(currentTrack.SourceString);
                     media.Title = currentTrack.Title;
-                    media.AlbumArtUri = currentTrack.Cover;
+                    media.AlbumArtUri = ""; //Без этого треки с битыми ссылками будут выкидывать плеер в фатал
                     media.Artist = currentTrack.Artist;
                     media.AlbumArtist = currentTrack.Artist;
-                    media.ArtUri = currentTrack.Cover;
+                    media.ArtUri = null;
+                    if(currentTrack.Cover != "placeholder") media.ArtUri = currentTrack.Cover;
+
                     CrossMediaManager.Android.NotificationManager.UpdateNotification();
                 });
 

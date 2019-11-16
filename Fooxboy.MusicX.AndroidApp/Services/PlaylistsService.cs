@@ -56,6 +56,8 @@ namespace Fooxboy.MusicX.AndroidApp.Services
 
             var playlistFile = new PlaylistFile()
             {
+                AccessKey = playlist.AccessKey,
+                OwnerId = playlist.OwnerId,
                 Artist = playlist.Artist,
                 Cover = cover,
                 IsLocal = false,

@@ -61,15 +61,20 @@ namespace Fooxboy.MusicX.AndroidApp.Activities
         /// </summary>
         private void UpdateDataPlayer()
         {
-           // cover.SetImageString(player.Cover, 300, 300);
-            if (player.Cover == "placeholder") cover.SetImageDrawable(GetDrawable(Resource.Drawable.placeholder));
-            if(player.Cover != "placeholder") cover.SetImageString(player.Cover, 300, 300);
-            position.Text = player.MainService.Position.ToString("m\\:ss");
-            duration.Text = player.MainService.Duration.ToString("m\\:ss");
-            seekBar.Progress = Convert.ToInt32(player.MainService.Position.TotalSeconds);
-            seekBar.Max = Convert.ToInt32(player.CurrentAudioFile.DurationSeconds);
-            title.Text = player.Title;
-            artist.Text = player.Artist;
+            // cover.SetImageString(player.Cover, 300, 300);
+            if (player.MainService.IsPlay) {
+                if (player.Cover == "placeholder") cover.SetImageDrawable(GetDrawable(Resource.Drawable.placeholder));
+                if (player.Cover != "placeholder") cover.SetImageString(player.Cover, 300, 300);
+                position.Text = player.MainService.Position.ToString("m\\:ss");
+                duration.Text = player.MainService.Duration.ToString("m\\:ss");
+                seekBar.Progress = Convert.ToInt32(player.MainService.Position.TotalSeconds);
+                seekBar.Max = Convert.ToInt32(player.CurrentAudioFile.DurationSeconds);
+                title.Text = player.Title;
+                artist.Text = player.Artist;
+
+                playPauseButton.Background = GetDrawable(Resource.Drawable.outline_pause_black_24dp);
+            }
+            
         }
         
         /// <summary>

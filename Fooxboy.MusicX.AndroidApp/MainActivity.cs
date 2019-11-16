@@ -15,6 +15,7 @@ using MediaManager;
 using Microsoft.AppCenter;
 using Microsoft.AppCenter.Analytics;
 using Microsoft.AppCenter.Crashes;
+using Xamarin.Essentials;
 
 namespace Fooxboy.MusicX.AndroidApp
 {
@@ -36,23 +37,40 @@ namespace Fooxboy.MusicX.AndroidApp
             BottomNavigationView navigation = FindViewById<BottomNavigationView>(Resource.Id.navigation);
             navigation.SetOnNavigationItemSelectedListener(this);
 
-            if (AuthService.IsLoggedIn())
-            {
-                Fooxboy.MusicX.Core.VKontakte.Auth.AutoSync(AuthService.GetToken(), null);
-                //var f = new HomeFragment();
-                var f = new RecommendationsFragment();
-                FragmentManager.BeginTransaction().Replace(Resource.Id.content_frame, f).Commit();
-                SetTitle(Resource.String.title_home);
-                var title = FindViewById<TextView>(Resource.Id.titlebar_title);
-                title.Text = "Рекомендации";
+
+            if (Connectivity.NetworkAccess != NetworkAccess.Internet) { 
+                Intent intent = new Intent(this.ApplicationContext, typeof(Activities.OfflineActivity));
+                intent.SetFlags(ActivityFlags.NewTask);
+                StartActivity(intent);
+                this.Finish();
             }
             else
             {
+                if (AuthService.IsLoggedIn())
+                {
 
-                Intent intent = new Intent(this.ApplicationContext, typeof(AuthActivity));
-                intent.SetFlags(ActivityFlags.NewTask);
-                StartActivity(intent);
+                    Fooxboy.MusicX.Core.VKontakte.Auth.AutoSync(AuthService.GetToken(), null);
+                    //var f = new HomeFragment();
+                    var f = new RecommendationsFragment();
+                    FragmentManager.BeginTransaction().Replace(Resource.Id.content_frame, f).Commit();
+                    SetTitle(Resource.String.title_home);
+                    var title = FindViewById<TextView>(Resource.Id.titlebar_title);
+                    title.Text = "Рекомендации";
+
+
+                }
+                else
+                {
+
+                    Intent intent = new Intent(this.ApplicationContext, typeof(AuthActivity));
+                    intent.SetFlags(ActivityFlags.NewTask);
+                    StartActivity(intent);
+                }
             }
+
+            
+
+            
 
             var miniplayerFragment = new MiniPlayerFragment();
             FragmentManager.BeginTransaction().Replace(Resource.Id.miniplayer_frame, miniplayerFragment).Commit();
@@ -84,12 +102,14 @@ namespace Fooxboy.MusicX.AndroidApp
                     title.Text = "Ваша музыка";
                     return true;
                 case Resource.Id.navigation_popular:
-                    Intent intent = new Intent(this.ApplicationContext, typeof(AuthActivity));
-                    intent.SetFlags(ActivityFlags.NewTask);
-                    StartActivity(intent);
+                    f = new ToDoFragment();
+                    FragmentManager.BeginTransaction().Replace(Resource.Id.content_frame, f).Commit();
+                    title.Text = "Популярное";
                     return true;
                 case Resource.Id.navigation_search:
-                    //TODO
+                    f = new SearchFragment();
+                    FragmentManager.BeginTransaction().Replace(Resource.Id.content_frame, f).Commit();
+                    title.Text = "Поиск";
                     return true;
                 case Resource.Id.navigation_settings:
                     f = new SettingsFragment();

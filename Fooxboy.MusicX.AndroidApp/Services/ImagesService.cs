@@ -113,5 +113,19 @@ namespace Fooxboy.MusicX.AndroidApp.Services
 
             return filename;
         }
+
+        public static string BannerArtist(IArtist artist)
+        {
+            string filename = Path.Combine(path, $"VKArtistId{artist.Id}.jpg");
+            if (!System.IO.File.Exists(filename))
+            {
+                using (var client = new WebClient())
+                {
+                    client.DownloadFile(new Uri(artist.Banner), filename);
+                }
+            }
+
+            return filename;
+        }
     }
 }

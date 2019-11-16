@@ -3,7 +3,7 @@
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:padding="15dp"
+    
     android:layout_marginLeft="15dp"
     android:layout_marginRight="15dp"
     android:layout_marginTop="15dp"
@@ -11,7 +11,9 @@
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="5dp"
+        android:padding="15dp">
         <TextView
             android:id="@+id/CardCaption"
             android:textAppearance="?android:attr/textAppearanceLarge"
@@ -46,5 +48,7 @@
         android:minWidth="25dp"
         android:minHeight="25dp"
         android:requiresFadingEdge="vertical"
+        android:layout_marginBottom="15dp"
+        android:layout_marginTop="-10dp"
         android:fadingEdge="vertical"/>
 </LinearLayout>

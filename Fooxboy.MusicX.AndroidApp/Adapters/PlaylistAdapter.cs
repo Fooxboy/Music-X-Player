@@ -1,9 +1,11 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using Android.Content;
 using Android.Graphics;
 using Android.Support.V7.Widget;
 using Android.Views;
 using Android.Widget;
+using Fooxboy.MusicX.AndroidApp.Interfaces;
 using Fooxboy.MusicX.AndroidApp.Models;
 using Fooxboy.MusicX.AndroidApp.ViewHolders;
 using Fooxboy.MusicX.Core.VKontakte.Music;
@@ -11,13 +13,16 @@ using Java.IO;
 
 namespace Fooxboy.MusicX.AndroidApp.Adapters
 {
-    public class PlaylistAdapter:RecyclerView.Adapter
+    public class PlaylistAdapter:RecyclerView.Adapter, IItemClickListener
     {
         private List<PlaylistFile> plists;
+        public event Delegates.EventHandler<PlaylistInBlock> ItemClick;
+        private string BlockID = "";
 
-        public PlaylistAdapter(List<PlaylistFile> p)
+        public PlaylistAdapter(List<PlaylistFile> p, string block = null)
         {
             this.plists = p;
+            if (!String.IsNullOrEmpty(block)) BlockID = block;
         }
 
 
@@ -25,8 +30,8 @@ namespace Fooxboy.MusicX.AndroidApp.Adapters
         {
             PlaylistViewHolder v = holder as PlaylistViewHolder;
             v.Title.Text = this.plists[position].Name;
-
-            if(this.plists[position].Cover == "playlist_placeholder")
+            v.SetItemClickListener(this);
+            if (this.plists[position].Cover == "playlist_placeholder")
             {
                 v.Cover.SetImageResource(Resource.Drawable.playlist_placeholder);
             }else
@@ -78,6 +83,11 @@ namespace Fooxboy.MusicX.AndroidApp.Adapters
                 Inflate(Resource.Layout.PlaylistLayout, parent, false);
             PlaylistViewHolder v = new PlaylistViewHolder(itemView);
             return v;
+        }
+
+        public void OnClick(View itemView, int position, bool isLongClick)
+        {
+            ItemClick?.Invoke(itemView, new PlaylistInBlock(this.plists[position], this.BlockID));
         }
 
         public override int ItemCount

@@ -10,15 +10,21 @@ using Android.Runtime;
 using Android.Support.V7.Widget;
 using Android.Views;
 using Android.Widget;
+using Fooxboy.MusicX.AndroidApp.Interfaces;
 using Fooxboy.MusicX.AndroidApp.Models;
+using Fooxboy.MusicX.AndroidApp.Resources.fragments;
 using Fooxboy.MusicX.AndroidApp.Services;
 using Fooxboy.MusicX.AndroidApp.ViewHolders;
 using Fooxboy.MusicX.Core.Interfaces;
+using static Android.Views.View;
 
 namespace Fooxboy.MusicX.AndroidApp.Adapters
 {
-    public class RecommendationAdapter : RecyclerView.Adapter
+    public class RecommendationAdapter : RecyclerView.Adapter, IItemClickListener
     {
+
+        public event Delegates.EventHandler<IBlock> ItemClick;
+
         public override int ItemCount
         {
             get
@@ -28,31 +34,50 @@ namespace Fooxboy.MusicX.AndroidApp.Adapters
         }
 
         List<IBlock> Blocks;
+        Fragment Parent;
+        RecommendationsViewHolder ViewHolder;
 
-        public RecommendationAdapter(List<IBlock> blocks)
+        public RecommendationAdapter(List<IBlock> blocks, Fragment parent)
         {
             this.Blocks = blocks;
+            this.Parent = parent;
         }
 
         public override void OnBindViewHolder(RecyclerView.ViewHolder holder, int position)
         {
             RecommendationsViewHolder v = holder as RecommendationsViewHolder;
+            this.ViewHolder = v;
+            v.ShowMoreButton.Click += (sender, e) =>
+            {
+                if(Blocks[position].Playlists?.Count > 0)
+                {
+                    //TODO: GOTO PLAYLISTS FRAGMENT (//TODO CREATE PLAYLISTS GRID FRAGMENT)
+                    var frag = new RecommendationPlaylistsFragment();
+                    frag.playlists = PlaylistsService.CovertToPlaylistFiles(this.Blocks[position].Playlists);
+                    Parent.FragmentManager.BeginTransaction().Replace(Resource.Id.content_frame, frag).Commit();
+
+                }
+                else
+                {
+                    var frag = new RecommendationTracksFragment();
+                    frag.tracks = MusicService.ConvertToAudioFile(this.Blocks[position].Tracks);
+                    Parent.FragmentManager.BeginTransaction().Replace(Resource.Id.content_frame, frag).Commit(); ;
+                }
+                Toast.MakeText(Application.Context, $"Произошел кликинг по {this.Blocks[position].Title}", ToastLength.Long).Show();
+            };
             //Установка заголовка согласно нужной рекомендации
             v.Caption.Text = this.Blocks[position].Title;
+            v.SetItemClickListener(this);
             //вот прям тут да между этими комментами
             int counter = 0;
             if (this.Blocks[position].Playlists?.Count > 0)
             {
-                List<PlaylistFile> playlistsInBlock = new List<PlaylistFile>();
-                
-                foreach(var playlist in this.Blocks[position].Playlists)
-                {
-                    if (counter > 2) break;
-                    playlistsInBlock.Add(Converters.PlaylistConverter.FromCoreToAndroid(playlist));
-                    counter++;
-                }
-                v.List.SetAdapter(new PlaylistAdapter(playlistsInBlock));
+                var plistsInBlock = PlaylistsService.CovertToPlaylistFiles(this.Blocks[position].Playlists.Take(2).ToList());
+                var adapter = new PlaylistAdapter(plistsInBlock);
+                adapter.ItemClick += AdapterOnPlaylistClick;
+                v.List.SetAdapter(adapter);
                 v.List.SetLayoutManager(new LinearLayoutManager(Application.Context, LinearLayoutManager.Horizontal, false));
+                v.List.Clickable = true;
             }
             else
             {
@@ -62,12 +87,14 @@ namespace Fooxboy.MusicX.AndroidApp.Adapters
                 foreach (var track in tracks_nonvk)
                 {
                     if (counter > 1) break;
-                    tracksInBlock.Add(Converters.AudioConverter.FromCoreToAndroid(track));
+                    tracksInBlock.Add(track);
                     counter++;
                 }
-                
-                v.List.SetAdapter(new TrackAdapter(tracksInBlock));
+                var adapter = new TrackAdapter(tracksInBlock, this.Blocks[position].Title);
+                adapter.ItemInBlockClick += AdapterOnItemClick;
+                v.List.SetAdapter(adapter);
                 v.List.SetLayoutManager(new LinearLayoutManager(Application.Context, LinearLayoutManager.Vertical, false));
+                v.List.Clickable = true;
             }
             
         }
@@ -83,6 +110,34 @@ namespace Fooxboy.MusicX.AndroidApp.Adapters
                 Inflate(Resource.Layout.RecommendationLayout, parent, false);
             RecommendationsViewHolder v = new RecommendationsViewHolder(itemView);
             return v;
+        }
+
+        private void AdapterOnItemClick(object sender, AudioInBlock args)
+        {
+            Toast.MakeText(Application.Context, $"{args.track.Title} в блоке {args.blockID}", ToastLength.Long).Show();
+            var tracks = this.Blocks.First(b => b.Title == args.blockID).Tracks;
+            var tracksfiles = MusicService.ConvertToAudioFile(tracks);
+            var playlist = new PlaylistFile();
+            playlist.Artist = "Music X";
+            playlist.Cover = "playlist_placeholder";
+            playlist.Genre = "";
+            playlist.Id = 1000;
+            playlist.IsAlbum = false;
+            playlist.TracksFiles = tracksfiles;
+            var player = PlayerService.Instanse;
+            player.Play(playlist, playlist.TracksFiles.First(t => t.SourceString == args.track.SourceString));
+        }
+
+        private void AdapterOnPlaylistClick(object sender, PlaylistInBlock plist)
+        {
+            var fragment = new PlaylistFragment();
+            fragment.playlist = plist.Playlist;
+            Parent.FragmentManager.BeginTransaction().Replace(Resource.Id.content_frame, fragment).Commit();
+        }
+
+        public void OnClick(View itemView, int position, bool isLongClick)
+        {
+            ItemClick?.Invoke(itemView, Blocks[position]);
         }
     }
 }
