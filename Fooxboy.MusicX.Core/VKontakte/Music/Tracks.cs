@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 using System.Threading.Tasks;
+using Fooxboy.MusicX.Core.VKontakte.Music.Converters;
 using VkNet;
 
 namespace Fooxboy.MusicX.Core.VKontakte.Music
@@ -25,7 +26,31 @@ namespace Fooxboy.MusicX.Core.VKontakte.Music
                 OwnerId = ownerId
             });
 
+            var l = new List<ITrack>();
+            foreach (var audio in music)
+            {
+                l.Add(audio.ToITrack());
+            }
+            return l;
+        }
+        
+        public List<ITrack> Get(int count = 10, int offset =0, string accessKey = null, long? playlistId =null, long? ownerId = null)
+        {
+            var music =  _api.Audio.Get(new VkNet.Model.RequestParams.AudioGetParams()
+            {
+                Count = count,
+                Offset = offset, 
+                AccessKey =accessKey,
+                PlaylistId = playlistId,
+                OwnerId = ownerId
+            });
 
+            var l = new List<ITrack>();
+            foreach (var audio in music)
+            {
+                l.Add(audio.ToITrack());
+            }
+            return l;
         }
     }
 }

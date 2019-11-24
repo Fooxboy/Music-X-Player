@@ -10,16 +10,17 @@ namespace Fooxboy.MusicX.Core.Interfaces
         long OwnerId { get; set; }
         string Title { get; set; }
         List<IArtist> Artists { get; set; }
-        string MainArtist { get; set; }
+    
         string Cover { get; set; }
         string AccessKey { get; set; }
         List<ITrack> Tracks { get; set; }
         List<string> Genres { get; set; }
         long Plays { get; set; }
-        string Year { get; set; }
+        long Year { get; set; }
+        bool IsAvailable { get; set; }
         string Description { get; set; }
-        public DateTime TimeUpdate { get; set; }
-        public DateTime TimeCreate { get; set; }
+        DateTime TimeUpdate { get; set; }
+        DateTime TimeCreate { get; set; }
         long Followers { get; set; }
         bool IsFollowing { get; set; }
         long Type { get; set; }

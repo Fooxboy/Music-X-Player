@@ -18,192 +18,103 @@ namespace Fooxboy.MusicX.Core.VKontakte.Music.Converters
             {
                 track.AccessKey = audio.AccessKey;
                 track.Duration = TimeSpan.FromSeconds(audio.Duration);
-                track.GenreId = (int)audio.Genre;
+                track.GenreId = (int) audio.Genre;
                 track.Id = audio.Id.Value;
-                if(audio.Album != null)
+                if (audio.Album != null)
                 {
                     try
                     {
                         IAlbum alb = new Models.Album();
-                        alb.AccessKey = audio.Album.AccessKey ?? null;
+                        alb.AccessKey = audio.Album.AccessKey;
                         alb.Id = audio.Album.Id;
                         alb.OwnerId = audio.Album.OwnerId;
                         alb.Title = audio.Album.Title ?? "";
-                        alb.Cover = audio.Album.Cover.Photo300 ?? null;
+                        alb.Cover = audio.Album.Cover?.Photo300;
                         track.Album = alb;
-                    }catch { }
+                    }
+                    catch
+                    {
+                    }
                 }
 
                 track.Artists = new List<IArtist>();
                 if (audio.IsLicensed != null)
                 {
-                    if(audio.IsLicensed.Value)
-                    {
-                        if(audio.MainArtists != null && audio.MainArtists.Count() != 0)
-                        {
-                            
-                        }
-                    }
-                }
-            }
-
-
-
-            try
-            {
-                string cover;
-                long idPlaylist = 0;
-                if (audio.Album == null)
-                {
-                    cover = "no";
-                    idPlaylist = 0;
-                }
-                else
-                {
-                    cover = audio.Album.Thumb.Photo300.ToString();
-                    idPlaylist = audio.Album.Id;
-                }
-                var duration = TimeSpan.FromSeconds(audio.Duration);
-                string durationM = "";
-                if (duration.Hours > 0)
-                    durationM = duration.ToString("h\\:mm\\:ss");
-                durationM = duration.ToString("m\\:ss");
-
-                IAudioFile audioFile = new AudioFileAnyPlatform()
-                {
-                    Artist = audio.Artist,
-                    Cover = cover,
-                    DurationSeconds = audio.Duration,
-                    Id = audio.Id,
-                    IsLocal = false,
-                    InternalId = audio.Id,
-                    DurationMinutes = durationM,
-                    OwnerId = audio.OwnerId,
-                    PlaylistId = idPlaylist,
-                    SourceString = audio.Url.DecodeAudioUrl().ToString(),
-                    Title = audio.Title,
-                    IsDownload = false,
-                    IsFavorite = false,
-                    AccessKey =  audio.AccessKey,
-                    IsInLibrary = false
-                };
-
-                return audioFile;
-
-            }
-            catch
-            {
-                IAudioFile audioFile = new AudioFileAnyPlatform()
-                {
-                    Artist = "Неизвестный исполнитель",
-                    Cover = "no",
-                    DurationMinutes = "00:00",
-                    DurationSeconds = 0,
-                    Id = 0,
-                    InternalId = 0,
-                    IsLocal = false,
-                    OwnerId = 0,
-                    AccessKey =  null,
-                    PlaylistId = 0,
-                    SourceString = "no",
-                    Title = "Аудиозапись недоступна",
-                };
-
-                return audioFile;
-            }
-        }
-
-        public static List<IAudioFile> ToIAudioFileList(this IList<AudioVkModel> list)
-        {
-            var newlist = new List<IAudioFile>();
-            foreach (var item in list)
-            {
-                newlist.Add(item.ToIAudioFile());
-            }
-
-            return newlist;
-        }
-
-        public static IAudioFile ToIAudioFile(this Audio audio, bool IsLibrary = false)
-        {
-            try
-            {
-                string cover;
-                long idPlaylist = 0;
-                if (audio.Album == null)
-                {
-                    cover = "no";
-                    idPlaylist = 0;
-                }
-                else
-                {
-                    cover = audio.Album.Cover.Photo270;
-                    idPlaylist = audio.Album.Id;
-                }
-                var duration = TimeSpan.FromSeconds(audio.Duration);
-                string durationM = "";
-                if (duration.Hours > 0)
-                    durationM = duration.ToString("h\\:mm\\:ss");
-                durationM = duration.ToString("m\\:ss");
-                bool isLicensed = false;
-                long artistId = 0;
-                try
-                {
                     if (audio.IsLicensed.Value)
                     {
-                        isLicensed = true;
-                        artistId = Int64.Parse(audio.MainArtists.First().Id);
+                        if (audio.MainArtists != null && audio.MainArtists?.Count() != 0)
+                        {
+                            foreach (var artist in audio.MainArtists)
+                            {
+                                try
+                                {
+                                    IArtist art = new Artist();
+                                    art.Domain = artist.Domain;
+                                    art.Id = artist.Id;
+                                    art.Name = artist.Name;
+                                    track.Artists.Add(art);
+                                }
+                                catch
+                                {
+                                }
+
+                            }
+                        }
+
+                        if (audio.FeaturedArtists != null && audio.FeaturedArtists?.Count() != 0)
+                        {
+                            foreach (var artist in audio.FeaturedArtists)
+                            {
+                                if (!(track.Artists.Any(t => t.Id == artist.Id)))
+                                {
+                                    try
+                                    {
+                                        IArtist art = new Artist();
+                                        art.Domain = artist.Domain;
+                                        art.Id = artist.Id;
+                                        art.Name = artist.Name;
+                                        track.Artists.Add(art);
+                                    }
+                                    catch
+                                    {
+                                    }
+
+                                }
+
+                            }
+                        }
+
                     }
                 }
-                catch
-                {
 
-                }
-                
-
-                IAudioFile audioFile = new AudioFileAnyPlatform()
-                {
-                    Artist = audio.Artist,
-                    Cover = cover,
-                    DurationSeconds = audio.Duration,
-                    Id = audio.Id.Value,
-                    IsLocal = false,
-                    IsLicensed = isLicensed,
-                    ArtistId = artistId,
-                    InternalId = audio.Id.Value,
-                    DurationMinutes = durationM,
-                    OwnerId = audio.OwnerId.Value,
-                    PlaylistId = idPlaylist,
-                    SourceString = audio.Url.DecodeAudioUrl().ToString(),
-                    Title = audio.Title,
-                    IsDownload = false,
-                    IsFavorite = false,
-                    AccessKey = audio.AccessKey,
-                    IsInLibrary = IsLibrary
-                };
-
-                return audioFile;
-
+                track.Artist = audio.Artist;
+                track.Subtitle = audio.Subtitle;
+                track.IsAvailable = true;
+                track.Title = audio.Title;
+                track.Url = audio.Url;
+                track.UrlMp3 = audio.Url.DecodeAudioUrl();
+                track.IsLicensed = audio.IsLicensed ?? audio.IsLicensed.Value;
+                track.OwnerId = audio.OwnerId;
             }
             catch
             {
-                IAudioFile audioFile = new AudioFileAnyPlatform()
-                {
-                    Artist = "Неизвестный исполнитель",
-                    Cover = "no",
-                    DurationMinutes = "00:00",
-                    DurationSeconds = 0,
-                    Id = 0,
-                    InternalId = 0,
-                    IsLocal = false,
-                    OwnerId = 0,
-                    PlaylistId = 0,
-                    SourceString = "no",
-                    Title = "Аудиозапись недоступна",
-                };
-
-                return audioFile;
+                track.Title = audio.Title;
+                track.Artist = audio.Artist;
+                track.IsAvailable = false;
             }
+
+            return track;
+        }
+
+        public static List<ITrack> ToITrackList(this IList<Audio> list)
+        {
+            var l = new List<ITrack>();
+            foreach (var track in list)
+            {
+                l.Add(track.ToITrack());
+            }
+
+            return l;
         }
     }
 }
