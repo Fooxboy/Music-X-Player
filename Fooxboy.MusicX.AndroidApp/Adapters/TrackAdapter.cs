@@ -26,12 +26,15 @@ namespace Fooxboy.MusicX.AndroidApp.Adapters
     public class TrackAdapter : RecyclerView.Adapter, IItemClickListener
     {
 
-        public event Delegates.EventHandler<AudioFile> ItemClick; 
+        public event Delegates.EventHandler<AudioFile> ItemClick;
+        public event Delegates.EventHandler<AudioInBlock> ItemInBlockClick;
         private List<AudioFile> tracks;
+        private string blockID = "";
 
-        public TrackAdapter(List<AudioFile> t)
+        public TrackAdapter(List<AudioFile> t, string block = null)
         {
             this.tracks = t;
+            if (!String.IsNullOrEmpty(block)) this.blockID = block;
         }
 
 
@@ -109,7 +112,15 @@ namespace Fooxboy.MusicX.AndroidApp.Adapters
 
         public void OnClick(View itemView, int position, bool isLongClick)
         {
-            ItemClick?.Invoke(itemView, tracks[position]);
+            if(this.blockID != "")
+            {
+                AudioInBlock data = new AudioInBlock(tracks[position], this.blockID);
+                ItemInBlockClick?.Invoke(itemView, data);
+            }
+            else {
+                ItemClick?.Invoke(itemView, tracks[position]);
+            }
+            
         }
     }
 }

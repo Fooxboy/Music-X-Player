@@ -32,14 +32,14 @@
             android:scrollHorizontally="true"
             android:singleLine="true"
             android:textSize="12dp"
-            android:text="Название трека"
+            android:text="Сейчас ничего"
             android:textColor="@color/colorPrimaryDark"
             android:id="@+id/player_min_trackName"
 
             />
         <TextView android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Имя исполнителя"
+            android:text="не воспроизводится"
             android:textColor="@color/colorPrimaryDark"
             android:id="@+id/player_min_artist"
             />
@@ -58,6 +58,7 @@
             android:orientation="horizontal">
 
             <Button
+                android:id="@+id/miniPlayer_Playbtn"
                 android:layout_width="25dp"
                 android:layout_height="25dp"
                 android:layout_marginRight="5dp"
@@ -65,6 +66,7 @@
                 android:background="@drawable/play_ic" />
 
             <Button
+                android:id="@+id/miniPlayer_NextBtn"
                 android:layout_width="25dp"
                 android:layout_height="25dp"
                 android:layout_alignParentEnd="true"

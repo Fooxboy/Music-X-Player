@@ -1,7 +1,9 @@
+using Android.App;
 using Android.Views;
 using Android.Widget;
 using Fooxboy.MusicX.AndroidApp.Models;
 using ImageViews.Rounded;
+using System;
 
 namespace Fooxboy.MusicX.AndroidApp.Services
 {
@@ -22,8 +24,14 @@ namespace Fooxboy.MusicX.AndroidApp.Services
 
         public void Play(PlaylistFile playlist = null, AudioFile audio= null)
         {
-            StaticContentService.NowPlay =playlist?.TracksFiles;
-            MainService.Play(playlist, audio);
+            try
+            {
+                StaticContentService.NowPlay = playlist?.TracksFiles;
+                MainService.Play(playlist, audio);
+            }catch(Exception e)
+            {
+                Toast.MakeText(Application.Context, $"Произошла ошибка: {e.ToString()}", ToastLength.Long).Show();
+            }
         }
 
         public void Pause()
@@ -51,10 +59,12 @@ namespace Fooxboy.MusicX.AndroidApp.Services
                 var title = view.FindViewById<TextView>(Resource.Id.player_min_trackName);
                 var artist = view.FindViewById<TextView>(Resource.Id.player_min_artist);
                 var cover = view.FindViewById<RoundedImageView>(Resource.Id.player_min_cover);
-
+                var playbtn = view.FindViewById<Button>(Resource.Id.miniPlayer_Playbtn);
+                playbtn.SetBackgroundResource(Resource.Drawable.outline_pause_black_24dp);
                 title.Text = Title;
                 artist.Text = Artist;
-                cover.SetImageString(Cover, 50, 50);
+                if (Cover != "placeholder") cover.SetImageString(Cover, 50, 50);
+                if (Cover == "placeholder") cover.SetImageResource(Resource.Drawable.placeholder);
             }
         }
     }

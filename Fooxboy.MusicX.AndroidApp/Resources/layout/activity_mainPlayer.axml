@@ -1,114 +1,132 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto" android:orientation="vertical"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
     android:layout_width="match_parent" android:layout_height="match_parent">
-    <Button
-        android:layout_width="40dp"
-        android:layout_marginTop="10dp"
-        android:id="@+id/closeButtonMainPlayer"
-        android:text = ""
-        android:background="@drawable/arrow_down"
-        android:layout_gravity="center"
-        android:layout_height="40dp"/>
+        <Button
+            android:layout_width="40dp"
+            android:layout_marginTop="10dp"
+            android:id="@+id/closeButtonMainPlayer"
+            android:layout_weight="150"
+            android:background="@drawable/arrow_down"
+            android:layout_centerHorizontal="true"
+            android:layout_height="40dp"
+            />
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:layout_centerHorizontal="true"
+            android:layout_centerVertical="true"
+            android:layout_marginTop="40dp"
+            android:layout_marginBottom="40dp">
 
-        <com.makeramen.roundedimageview.RoundedImageView
-            android:id="@+id/coverTrackMainPlayer"
-            android:layout_width="300dp"
-            android:layout_height="300dp"
-            android:scaleType="fitStart"
-            android:adjustViewBounds="true"
-            android:background="@drawable/shadow"
-            android:layout_marginTop="30dp"
-            android:layout_gravity="center_horizontal"
-            android:src="@drawable/placeholder"
-            app:riv_corner_radius="5dp" />
-        
-        
-        <RelativeLayout
-            android:layout_marginTop="60dp"
-            android:layout_marginLeft="20dp"
-            android:layout_marginRight="20dp"
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content">
-                <LinearLayout
-                    android:layout_width="fill_parent"
-                    android:orientation="horizontal"
-                    android:layout_height="wrap_content">
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:text="0:00"
-                            android:id="@+id/positionTrackMainPlayer"
-                            android:layout_height="wrap_content"/>
 
-                        <SeekBar
-                            android:layout_marginRight="30dp"
-                            android:layout_width="match_parent"
-                            android:id="@+id/seekbarTrackMainPlayer"
-                            android:layout_height="wrap_content"/>
-                       
-                       
-                </LinearLayout>
+            <com.makeramen.roundedimageview.RoundedImageView
+                android:id="@+id/coverTrackMainPlayer"
+                android:layout_width="300dp"
+                android:layout_height="300dp"
+                android:layout_gravity="center"
+                android:layout_marginTop="30dp"
+                android:layout_marginBottom="30dp"
+                android:adjustViewBounds="true"
+                android:scaleType="fitStart"
+                android:background="@drawable/shadow"
+                android:src="@drawable/placeholder"
+                app:riv_corner_radius="5dp"
+                />
+                   <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_weight="20"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/titleTrackMainPlayer"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Название трека"
+                android:textAlignment="center"
+                android:textColor="#000000"
+                android:textSize="25dp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/artistTrackMainPlayer"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Исполнитель"
+                android:textAlignment="center"
+                android:textSize="18dp"
+                />
+        </LinearLayout>
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                >
                 <TextView
                     android:layout_width="wrap_content"
-                    android:layout_alignParentRight="true"
                     android:text="0:00"
-                    android:id="@+id/durationTrackMainPlayer"
+                    android:layout_marginLeft="7dp"
+                    android:id="@+id/positionTrackMainPlayer"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentLeft="true"/>
+
+                <SeekBar
+                    android:layout_marginRight="30dp"
+                    android:layout_marginLeft="30dp"
+                    android:layout_width="match_parent"
+                    android:id="@+id/seekbarTrackMainPlayer"
                     android:layout_height="wrap_content"/>
-        </RelativeLayout>
-        
 
-        <LinearLayout
-                android:layout_marginVertical="80dp"
-                android:layout_width="fill_parent"
-                android:layout_height="wrap_content" android:orientation="vertical">
                 <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:text="Название трека"
-                        android:textSize="25dp"
-                        android:textStyle="bold"
-                    android:id="@+id/titleTrackMainPlayer"
-                        android:layout_marginTop="7dp"
-                        android:textAlignment="center"
-                        android:textColor="#000000"
-                />
-                <TextView android:layout_width="match_parent"
-                          android:layout_height="wrap_content"
-                          android:textAlignment="center"
-                    android:id="@+id/artistTrackMainPlayer"
-                          android:textSize="18dp"
-                          android:text="Исполнитель"
+                    android:id="@+id/durationTrackMainPlayer"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="0:00"
+                    android:layout_marginRight="7dp"
+                    android:layout_alignParentRight="true"/>
 
-                />
-                
-                <LinearLayout android:layout_width="wrap_content" 
-                              android:layout_height="wrap_content"
-                              android:layout_gravity="center"
-                              android:layout_marginTop="20dp"
-                >
-                        
-                        <Button android:layout_width="40dp" 
-                                android:layout_height="40dp"
-                            android:id="@+id/backButtonTrackMainPlayer"
-                                android:text=""
-                                android:background="@drawable/back_ic"
-                                />
-                        <Button android:layout_width="40dp"
-                                android:layout_height="40dp"
-                                android:text=""
-                            android:id="@+id/playPauseButtonTrackMainPlayer"
-                                android:background="@drawable/play_ic"
-                                android:layout_marginHorizontal="50dp"
-                        />
-                        <Button android:layout_width="40dp"
-                            android:id="@+id/nextButtonTrackMainPlayer"
-                                android:layout_height="40dp"
-                                android:text=""
-                                android:background="@drawable/next_ic"
-                        />
-                        
-                </LinearLayout>
-                
+
+            </RelativeLayout>
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="bottom|center"
+                android:layout_marginTop="30dp"
+                android:layout_weight="20">
+
+                <Button
+                    android:id="@+id/backButtonTrackMainPlayer"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:layout_gravity="center"
+                    android:text=""
+                    android:background="@drawable/back_ic"
+                    />
+
+                <Button
+                    android:id="@+id/playPauseButtonTrackMainPlayer"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:layout_gravity="center"
+                    android:layout_marginHorizontal="50dp"
+                    android:text=""
+                    android:background="@drawable/play_ic"
+                    />
+
+                <Button
+                    android:id="@+id/nextButtonTrackMainPlayer"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:layout_gravity="center"
+                    android:text=""
+                    android:background="@drawable/next_ic"
+                    />
+
+            </LinearLayout>
         </LinearLayout>
-    
-</LinearLayout>
+    </RelativeLayout>

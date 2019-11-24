@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="140dp"
+        android:orientation="horizontal"
+        android:background="@drawable/shadow">
+
+        <com.makeramen.roundedimageview.RoundedImageView
+            android:id="@+id/artist_image"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:riv_corner_radius="8dp"
+            android:src="@drawable/placeholder"
+            android:scaleType="centerCrop"
+        />
+
+        <TextView
+            android:id="@+id/artist_name"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:text="Егор Летов"
+            android:textColor="#FFFFFF"
+            android:textStyle="bold"
+            android:textSize="22dp"
+            android:gravity="bottom"
+            android:layout_margin="8dp"
+        />
+
+    </RelativeLayout>
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/artist_blocks"
+         android:layout_width="match_parent"
+         android:layout_height="match_parent"
+    />
+
+</LinearLayout>

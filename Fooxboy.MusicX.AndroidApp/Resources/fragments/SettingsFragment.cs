@@ -31,6 +31,18 @@ namespace Fooxboy.MusicX.AndroidApp.Resources.fragments
             var exitBtn = view.FindViewById<Button>(Resource.Id.exit_btn);
             var displayname = view.FindViewById<TextView>(Resource.Id.vkname);
             var vkPfp = view.FindViewById<RoundedImageView>(Resource.Id.vk_pfp);
+            var fooxboy = view.FindViewById<Button>(Resource.Id.fooxboy_button);
+            fooxboy.Click += (sender, e) =>
+            {
+                var intent = new Intent(Intent.ActionView, Android.Net.Uri.Parse("https://t.me/fooxboy")) ;
+                StartActivity(intent);
+            };
+            var dumbcat = view.FindViewById<Button>(Resource.Id.dumbcat_button);
+            dumbcat.Click += (sender, e) =>
+            {
+                var intent = new Intent(Intent.ActionView, Android.Net.Uri.Parse("https://t.me/Luckyca7"));
+                StartActivity(intent);
+            };
             Task.Run(() =>
                 {
                     var userdata = Fooxboy.MusicX.Core.VKontakte.Users.Info.CurrentUserSync();

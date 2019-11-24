@@ -31,6 +31,11 @@ namespace Fooxboy.MusicX.AndroidApp.Resources.fragments
             base.OnCreate(savedInstanceState);
         }
 
+        private void AdapterOnItemClick(object sender, IBlock item)
+        {
+            Toast.MakeText(Application.Context, $"{item.Title}", ToastLength.Long).Show();
+        }
+
         public override View OnCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
         {
 
@@ -41,10 +46,8 @@ namespace Fooxboy.MusicX.AndroidApp.Resources.fragments
 
 
             
-            
-            
-            adapter = new RecommendationAdapter(new List<IBlock>());
-
+            adapter = new RecommendationAdapter(new List<IBlock>(), this);
+            adapter.ItemClick += AdapterOnItemClick;
             list.Clickable = true;
             //progress.Visibility = ViewStates.Invisible;
             Handler handler = new Handler(Looper.MainLooper);
@@ -58,7 +61,7 @@ namespace Fooxboy.MusicX.AndroidApp.Resources.fragments
                     {
                         handler.Post(new Runnable(() =>
                         {
-                            progress.Visibility = ViewStates.Visible;
+                            System.Threading.Thread.Sleep(300);
                             adapter.AddBlocks(recom_blocks.Take(1).ToList());
                             adapter.NotifyItemRangeChanged(adapter.ItemCount - 4, 4);
                         }));

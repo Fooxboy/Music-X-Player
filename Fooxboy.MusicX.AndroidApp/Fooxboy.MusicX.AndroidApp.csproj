@@ -33,9 +33,9 @@
     <DefineConstants>TRACE;DEBUG</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
-    <AndroidUseSharedRuntime>True</AndroidUseSharedRuntime>
+    <AndroidUseSharedRuntime>false</AndroidUseSharedRuntime>
     <AndroidLinkMode>None</AndroidLinkMode>
-    <EmbedAssembliesIntoApk>false</EmbedAssembliesIntoApk>
+    <EmbedAssembliesIntoApk>true</EmbedAssembliesIntoApk>
     <AotAssemblies>false</AotAssemblies>
     <EnableLLVM>false</EnableLLVM>
     <BundleAssemblies>false</BundleAssemblies>
@@ -43,6 +43,7 @@
     <AndroidSupportedAbis />
     <AndroidUseAapt2>true</AndroidUseAapt2>
     <AndroidDexTool>d8</AndroidDexTool>
+    <AndroidEnableProfiledAot>false</AndroidEnableProfiledAot>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugSymbols>True</DebugSymbols>
@@ -71,11 +72,11 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Activities\MainPlayerActivity.cs" />
+    <Compile Include="Activities\OfflineActivity.cs" />
+    <Compile Include="Adapters\ArtistAdapter.cs" />
     <Compile Include="Adapters\PlaylistAdapter.cs" />
     <Compile Include="Adapters\RecommendationAdapter.cs" />
     <Compile Include="Adapters\TrackAdapter.cs" />
-    <Compile Include="Converters\AudioConverter.cs" />
-    <Compile Include="Converters\PlaylistConverter.cs" />
     <Compile Include="Delegates\EventHandler.cs" />
     <Compile Include="DialogFragments\IncorrectLoginDialogFragment.cs" />
     <Compile Include="AuthActivity.cs" />
@@ -83,12 +84,19 @@
     <Compile Include="Listeners\OnScrollToBottomListener.cs" />
     <Compile Include="MainActivity.cs" />
     <Compile Include="Models\AudioFile.cs" />
+    <Compile Include="Models\AudioInBlock.cs" />
     <Compile Include="Models\AudioPlaylist.cs" />
     <Compile Include="Models\PlaylistFile.cs" />
+    <Compile Include="Models\PlaylistInBlock.cs" />
+    <Compile Include="Resources\fragments\ArtistFragment.cs" />
     <Compile Include="Resources\fragments\HomeFragment.cs" />
     <Compile Include="Resources\fragments\PlaylistFragment.cs" />
+    <Compile Include="Resources\fragments\RecommendationPlaylistsFragment.cs" />
     <Compile Include="Resources\fragments\RecommendationsFragment.cs" />
+    <Compile Include="Resources\fragments\RecommendationTracksFragment.cs" />
+    <Compile Include="Resources\fragments\SearchFragment.cs" />
     <Compile Include="Resources\fragments\SettingsFragment.cs" />
+    <Compile Include="Resources\fragments\ToDoFragment.cs" />
     <Compile Include="Resources\fragments\TracksFragment.cs" />
     <Compile Include="Resources\Resource.designer.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -348,6 +356,34 @@
   </ItemGroup>
   <ItemGroup>
     <AndroidResource Include="Resources\layout\activity_recommendations.xml">
+      <SubType>Designer</SubType>
+    </AndroidResource>
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\layout\offlineActivity.axml">
+      <Generator>MSBuild:UpdateGeneratedFiles</Generator>
+      <SubType>Designer</SubType>
+    </AndroidResource>
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\layout\errorActivity.axml">
+      <Generator>MSBuild:UpdateGeneratedFiles</Generator>
+      <SubType>Designer</SubType>
+    </AndroidResource>
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\layout\todoActivity.axml">
+      <Generator>MSBuild:UpdateGeneratedFiles</Generator>
+      <SubType>Designer</SubType>
+    </AndroidResource>
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\layout\searchActivity.xml">
+      <SubType>Designer</SubType>
+    </AndroidResource>
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\layout\activity_artist.xml">
       <SubType>Designer</SubType>
     </AndroidResource>
   </ItemGroup>

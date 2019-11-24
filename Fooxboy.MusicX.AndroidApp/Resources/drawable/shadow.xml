@@ -9,7 +9,7 @@
   <!-- dropshadow -->
   <item>
     <shape>
-      <solid android:color="#10CCCCCC" />
+      <solid android:color="#10f2f2f2" />
       <padding android:top="1dp" android:right="1dp" android:bottom="1dp" android:left="1dp" />
       <corners android:radius="7dp"/>
 
@@ -18,7 +18,7 @@
 
   <item>
     <shape>
-      <solid android:color="#20CCCCCC" />
+      <solid android:color="#20f2f2f2" />
       <corners android:radius="7dp"/>
       <padding android:top="1dp" android:right="1dp" android:bottom="1dp" android:left="1dp" />
       
@@ -27,7 +27,7 @@
 
   <item>
     <shape>
-      <solid android:color="#40CCCCCC" />
+      <solid android:color="#40f2f2f2" />
       <corners android:radius="7dp"/>
       <padding android:top="1dp" android:right="1dp" android:bottom="1dp" android:left="1dp" />
     </shape>
@@ -35,7 +35,7 @@
 
   <item>
     <shape>
-      <solid android:color="#50CCCCCC" />
+      <solid android:color="#50f2f2f2" />
       <padding android:top="1dp" android:right="1dp" android:bottom="1dp" android:left="1dp" />
       <corners android:radius="7dp"/>
     </shape>
@@ -43,7 +43,7 @@
 
   <item>
     <shape>
-      <solid android:color="#60CCCCCC" />
+      <solid android:color="#60f2f2f2" />
       <padding android:top="1dp" android:right="1dp" android:bottom="1dp" android:left="1dp" />
       <corners android:radius="7dp"/>
     </shape>

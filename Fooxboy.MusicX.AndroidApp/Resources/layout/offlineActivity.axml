@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_marginBottom="56dp">
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:orientation = "vertical"
+        android:layout_centerHorizontal= "true"
+        android:layout_centerVertical= "true"
+        android:layout_height="wrap_content"
+        android:padding="16dp">
+    <TextView
+       android:layout_width="match_parent"
+        android:textSize="20dp"
+        android:layout_centerHorizontal= "true"
+        android:textStyle="bold"
+        android:textColor="#000"
+       android:text="Что-то пошло не так"
+       android:layout_height="wrap_content"
+        android:textAlignment="center"/>
+
+    <TextView
+        android:layout_width="match_parent"
+            android:textAlignment="center"
+        android:text="Похоже, Вы не подключены к интернету.\nMusic X не поддерживает offline-воспроизведение, поэтому просто смиритесь."
+        android:layout_centerHorizontal= "true"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="15dp"/>
+
+        <Button
+            android:id="@+id/giveupButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Give Up"
+            android:layout_gravity="center_horizontal"
+            android:textColor="#FFFFFF"
+        android:background="@drawable/button"/>
+
+    </LinearLayout>
+   
+
+</RelativeLayout>
+
+

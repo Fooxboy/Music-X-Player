@@ -7,12 +7,12 @@
      <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
-        <ProgressBar
+        <!--<ProgressBar
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:id="@+id/progressBar_playlists"
             android:layout_centerVertical="true"
-            android:layout_centerHorizontal="true" />
+            android:layout_centerHorizontal="true" />-->
 
         <android.support.v7.widget.RecyclerView
             android:layout_width="fill_parent"
