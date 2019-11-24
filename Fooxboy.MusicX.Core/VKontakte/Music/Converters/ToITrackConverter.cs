@@ -11,8 +11,44 @@ namespace Fooxboy.MusicX.Core.VKontakte.Music.Converters
 {
     public static class ToIAudioFileConverter
     {
-        public static IAudioFile ToIAudioFile(this AudioVkModel audio)
+        public static ITrack ToITrack(this Audio audio)
         {
+            ITrack track = new Track();
+            try
+            {
+                track.AccessKey = audio.AccessKey;
+                track.Duration = TimeSpan.FromSeconds(audio.Duration);
+                track.GenreId = (int)audio.Genre;
+                track.Id = audio.Id.Value;
+                if(audio.Album != null)
+                {
+                    try
+                    {
+                        IAlbum alb = new Models.Album();
+                        alb.AccessKey = audio.Album.AccessKey ?? null;
+                        alb.Id = audio.Album.Id;
+                        alb.OwnerId = audio.Album.OwnerId;
+                        alb.Title = audio.Album.Title ?? "";
+                        alb.Cover = audio.Album.Cover.Photo300 ?? null;
+                        track.Album = alb;
+                    }catch { }
+                }
+
+                track.Artists = new List<IArtist>();
+                if (audio.IsLicensed != null)
+                {
+                    if(audio.IsLicensed.Value)
+                    {
+                        if(audio.MainArtists != null && audio.MainArtists.Count() != 0)
+                        {
+                            
+                        }
+                    }
+                }
+            }
+
+
+
             try
             {
                 string cover;
