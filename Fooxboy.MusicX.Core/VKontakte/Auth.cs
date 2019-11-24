@@ -12,48 +12,40 @@ namespace Fooxboy.MusicX.Core.VKontakte
 {
     public class Auth
     {
-        public async static Task<string> User(string login, string password, Func<string> twoFactorAuth, ICaptchaSolver captchaSolver)
+        private readonly VkApi _api;
+        public Auth(VkApi api)
         {
-            var services = new ServiceCollection();
-            services.AddAudioBypass();
-            var api = new VkApi(services);
-
-
-            api.CaptchaSolver = captchaSolver;
-
-
-            await api.AuthorizeAsync(new ApiAuthParams()
+            api = _api;
+        }
+        public async Task<string> UserAsync(string login, string password, Func<string> twoFactorAuth, ICaptchaSolver captchaSolver)
+        {
+            _api.CaptchaSolver = captchaSolver;
+            await _api.AuthorizeAsync(new ApiAuthParams()
             {
                 Login = login,
                 Password = password,
                 TwoFactorAuthorization = twoFactorAuth
             });
 
-            StaticContent.VkApi = api;
             var userInfo = await  Users.Info.CurrentUser();
             StaticContent.UserId = userInfo.Id;
-            return api.Token;
+            return _api.Token;
         }
 
 
-        public async static Task Auto(string token, ICaptchaSolver captchaSolver)
+        public async Task AutoAsync(string token, ICaptchaSolver captchaSolver)
         {
-            var services = new ServiceCollection();
-            services.AddAudioBypass();
-
-            var api = new VkApi(services);
-            api.CaptchaSolver = captchaSolver;
-            await api.AuthorizeAsync(new ApiAuthParams()
+            _api.CaptchaSolver = captchaSolver;
+            await _api.AuthorizeAsync(new ApiAuthParams()
             {
                 AccessToken = token
             });
 
-            StaticContent.VkApi = api;
             var userInfo = await Users.Info.CurrentUser();
             StaticContent.UserId = userInfo.Id;
         }
 
-        public static void AutoSync(string token, ICaptchaSolver captchaSolver)
+        public static void Auto(string token, ICaptchaSolver captchaSolver)
         {
             var services = new ServiceCollection();
             services.AddAudioBypass();
@@ -68,6 +60,21 @@ namespace Fooxboy.MusicX.Core.VKontakte
             StaticContent.VkApi = api;
             var userInfo = Users.Info.CurrentUserSync();
             StaticContent.UserId = userInfo.Id;
+        }
+
+        public string User(string login, string password, Func<string> twoFactorAuth, ICaptchaSolver captchaSolver)
+        {
+            _api.CaptchaSolver = captchaSolver;
+            _api.Authorize(new ApiAuthParams()
+            {
+                Login = login,
+                Password = password,
+                TwoFactorAuthorization = twoFactorAuth
+            });
+
+            var userInfo = Users.Info.CurrentUserSync();
+            StaticContent.UserId = userInfo.Id;
+            return _api.Token;
         }
 
     }

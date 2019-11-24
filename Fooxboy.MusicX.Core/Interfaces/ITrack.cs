@@ -12,6 +12,7 @@ namespace Fooxboy.MusicX.Core.Interfaces
         string AccessKey { get; set; }
         List<IArtist> Artists { get; set; }
         int GenreId { get; set; }
+        bool IsAvailable { get; set; }
         bool IsLicensed { get; set; }
         Uri Url { get; set; }
         TimeSpan Duration { get; set; }

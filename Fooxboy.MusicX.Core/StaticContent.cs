@@ -8,7 +8,6 @@ namespace Fooxboy.MusicX.Core
     public static class StaticContent
     {
         public static NLog.Logger Logger { get; set; }
-        public static VkApi VkApi { get; set; }
         public static long UserId { get; set; }
     }
 }
