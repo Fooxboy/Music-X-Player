@@ -11,7 +11,7 @@ namespace Fooxboy.MusicX.Core.Interfaces
         string TypeBlock { get; set; }
         long CountElements { get; set; }
         string BlockId { get; set; }
-        List<IAudioFile> Tracks { get; set; }
-        List<IPlaylistFile> Playlists { get; set; }
+        List<ITrack> Tracks { get; set; }
+        List<IAlbum> Playlists { get; set; }
     }
 }

@@ -8,10 +8,5 @@ namespace Fooxboy.MusicX.Core.Interfaces
         string Name { get; set; }
         string Domain { get; set; }
         string Banner { get; set; }
-        IPlaylistFile LastRelease { get; set; }
-        List<IAudioFile> PopularTracks { get; set; }
-        List<IPlaylistFile> Albums { get; set; }
-        string BlockPoularTracksId { get; set; }
-        string BlockAlbumsId { get; set; }
     }
 }
