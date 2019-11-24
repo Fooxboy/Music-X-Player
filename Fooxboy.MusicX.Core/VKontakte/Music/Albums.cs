@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using Fooxboy.MusicX.Core.Interfaces;
 using Fooxboy.MusicX.Core.VKontakte.Music.Converters;
@@ -17,25 +18,13 @@ namespace Fooxboy.MusicX.Core.VKontakte.Music
         public async Task<List<IAlbum>> GetAsync(long id, uint count=10, uint offset = 0)
         {
             var playlistsVk = await _api.Audio.GetPlaylistsAsync(id, count, offset);
-            var l = new List<IAlbum>();
-            foreach (var playlist in playlistsVk)
-            {
-                l.Add(playlist.ToIAlbum());
-            }
-
-            return l;
+            return playlistsVk.Select(playlist=> playlist.ToIAlbum()).ToList();
         }
         
         public List<IAlbum> Get(long id, uint count=10, uint offset = 0)
         {
             var playlistsVk = _api.Audio.GetPlaylists(id, count, offset);
-            var l = new List<IAlbum>();
-            foreach (var playlist in playlistsVk)
-            {
-                l.Add(playlist.ToIAlbum());
-            }
-
-            return l;
+            return playlistsVk.Select(playlist => playlist.ToIAlbum()).ToList();
         }
     }
 }
