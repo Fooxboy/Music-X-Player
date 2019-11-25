@@ -23,13 +23,15 @@ namespace Fooxboy.MusicX.Core.VKontakte.Music
         }
         public async Task<List<IBlock>> GetAsync()
         {
-            var parameters = new VkParameters();
-            parameters.Add("v", "5.103");
-            parameters.Add("lang", "ru");
-            parameters.Add("extended", "1");
-            parameters.Add("access_token", _api.Token);
-            parameters.Add("count", "10");
-            parameters.Add("fields", "first_name_gen, photo_100");
+            var parameters = new VkParameters
+            {
+                {"v", "5.103"},
+                {"lang", "ru"},
+                {"extended", "1"},
+                {"access_token", _api.Token},
+                {"count", "10"},
+                {"fields", "first_name_gen, photo_100"}
+            };
 
             var json = await _api.InvokeAsync("audio.getCatalog", parameters);
             var model = JsonConvert.DeserializeObject<Response<ResponseItem>>(json);
@@ -38,13 +40,15 @@ namespace Fooxboy.MusicX.Core.VKontakte.Music
         
         public  List<IBlock> Get()
         {
-            var parameters = new VkParameters();
-            parameters.Add("v", "5.103");
-            parameters.Add("lang", "ru");
-            parameters.Add("extended", "1");
-            parameters.Add("access_token", _api.Token);
-            parameters.Add("count", "10");
-            parameters.Add("fields", "first_name_gen, photo_100");
+            var parameters = new VkParameters
+            {
+                {"v", "5.103"},
+                {"lang", "ru"},
+                {"extended", "1"},
+                {"access_token", _api.Token},
+                {"count", "10"},
+                {"fields", "first_name_gen, photo_100"}
+            };
 
             var json =  _api.Invoke("audio.getCatalog", parameters);
             var model = JsonConvert.DeserializeObject<Response<ResponseItem>>(json);
