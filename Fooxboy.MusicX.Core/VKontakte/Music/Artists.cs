@@ -4,6 +4,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Fooxboy.MusicX.Core.Interfaces;
 using Fooxboy.MusicX.Core.Models;
+using Fooxboy.MusicX.Core.Models.Music;
 using Fooxboy.MusicX.Core.Models.Music.ArtistInfo;
 using Fooxboy.MusicX.Core.VKontakte.Music.Converters;
 using Newtonsoft.Json;

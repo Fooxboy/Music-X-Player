@@ -9,5 +9,6 @@ namespace Fooxboy.MusicX.Core.Models
         public string Name { get; set; }
         public string Domain { get; set; }
         public string Banner { get; set; }
+        public List<IBlock> Blocks { get; set; }
     }
 }

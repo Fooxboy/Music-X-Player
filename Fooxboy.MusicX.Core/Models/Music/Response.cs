@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using Newtonsoft.Json;
 
-namespace Fooxboy.MusicX.Core.Models.Music.ArtistInfo
+namespace Fooxboy.MusicX.Core.Models.Music
 {
     public class Response
     {

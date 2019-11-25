@@ -34,8 +34,10 @@ namespace Fooxboy.MusicX.Core.Models.Music.BlockInfo
 
         [JsonProperty("playlists")]
         public List<AudioPlaylist> Playlists { get; set; }
-        [JsonProperty("artist", NullValueHandling = NullValueHandling.Ignore)]
+        [JsonProperty("artist")]
         public ArtistVkModel Artist { get; set; }
+        [JsonProperty("playlist")]
+
         public AudioPlaylist Playlist { get; set; }
     }
 }

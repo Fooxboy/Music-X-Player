@@ -1,9 +1,8 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
-using System.Security.Authentication.ExtendedProtection;
 using Fooxboy.MusicX.Core.Interfaces;
 using Fooxboy.MusicX.Core.Models;
-using Fooxboy.MusicX.Core.Models.Music.ArtistInfo;
+using Fooxboy.MusicX.Core.Models.Music;
 
 namespace Fooxboy.MusicX.Core.VKontakte.Music.Converters
 {
