@@ -7,11 +7,12 @@ namespace Fooxboy.MusicX.Core.Interfaces
     public interface IBlock
     {
         string Title { get; set; }
-        string Description { get; set; }
-        string TypeBlock { get; set; }
-        long CountElements { get; set; }
-        string BlockId { get; set; }
+        string Subtitle { get; set; }
+        long Count { get; set; }
+        string Type { get; set; }
+        string Source { get; set; }
+        string Id { get; set; }
         List<ITrack> Tracks { get; set; }
-        List<IAlbum> Playlists { get; set; }
+        List<IAlbum> Albums { get; set; }
     }
 }

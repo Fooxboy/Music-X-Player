@@ -11,7 +11,6 @@ namespace Fooxboy.MusicX.Core.VKontakte.Music.Converters
 {
     public static class ToIAlbumConverter
     {
-        
         public static IAlbum ToIAlbum(this AudioPlaylist  playlist)
         {
             IAlbum album = new Models.Album();

@@ -27,11 +27,11 @@ namespace Fooxboy.MusicX.Core.Models.Music.BlockInfo
         public string Id { get; set; }
 
         [JsonProperty("audios")]
-        public List<ArtistInfo.AudioVkModel> Audios { get; set; }
+        public List<Audio> Audios { get; set; }
         [JsonProperty("next_from")]
         public string NextFrom { get; set; }
 
         [JsonProperty("playlists")]
-        public List<ArtistInfo.PlaylistInfoVkModel> Playlists { get; set; }
+        public List<AudioPlaylist> Playlists { get; set; }
     }
 }
