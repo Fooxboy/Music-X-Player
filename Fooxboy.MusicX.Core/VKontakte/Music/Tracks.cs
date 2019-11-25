@@ -1,6 +1,7 @@
 ﻿using Fooxboy.MusicX.Core.Interfaces;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Fooxboy.MusicX.Core.VKontakte.Music.Converters;
@@ -25,13 +26,7 @@ namespace Fooxboy.MusicX.Core.VKontakte.Music
                 PlaylistId = playlistId,
                 OwnerId = ownerId
             });
-
-            var l = new List<ITrack>();
-            foreach (var audio in music)
-            {
-                l.Add(audio.ToITrack());
-            }
-            return l;
+            return music.Select(track=> track.ToITrack()).ToList();
         }
         
         public List<ITrack> Get(int count = 10, int offset =0, string accessKey = null, long? playlistId =null, long? ownerId = null)
@@ -44,13 +39,7 @@ namespace Fooxboy.MusicX.Core.VKontakte.Music
                 PlaylistId = playlistId,
                 OwnerId = ownerId
             });
-
-            var l = new List<ITrack>();
-            foreach (var audio in music)
-            {
-                l.Add(audio.ToITrack());
-            }
-            return l;
+            return music.Select(track=> track.ToITrack()).ToList();
         }
     }
 }

@@ -1,19 +1,25 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Fooxboy.MusicX.Core.Interfaces;
 using Fooxboy.MusicX.Core.VKontakte.Music.Converters;
+using VkNet;
 
 namespace Fooxboy.MusicX.Core.VKontakte.Music
 {
-    public static class Search
+    public class Search
     {
-        public async static Task<IList<IAudioFile>> Tracks(string text, long count=20, long offset=0, bool withLyrics= false,
+        private readonly VkApi _api;
+        public Search(VkApi api)
+        {
+            _api = api;
+        }
+        public async Task<List<ITrack>> TracksAsync(string text, long count=20, long offset=0, bool withLyrics= false,
             bool performerOnly = false, bool searchInLibrary = true)
         {
-            if (StaticContent.VkApi == null) throw new Exception("Пользователь не авторизован");
-            var music = await StaticContent.VkApi.Audio.SearchAsync(new VkNet.Model.RequestParams.AudioSearchParams()
+            var music = await _api.Audio.SearchAsync(new VkNet.Model.RequestParams.AudioSearchParams()
             {
                 Query = text,
                 Autocomplete = true,
@@ -24,33 +30,25 @@ namespace Fooxboy.MusicX.Core.VKontakte.Music
                 SearchOwn = searchInLibrary,
                 Sort = VkNet.Enums.AudioSort.Popularity
             });
-
-            IList<IAudioFile> tracks = new List<IAudioFile>();
-            foreach (var track in music) tracks.Add(track.ToIAudioFile());
-            return tracks;
+            return music.Select(track => track.ToITrack()).ToList();
 
         }
 
-        public  static IList<IAudioFile> TracksSync(string text, long count = 20, long offset = 0, bool withLyrics = false,
+        public  IList<ITrack> Tracks(string text, long count = 20, long offset = 0, bool withLyrics = false,
             bool performerOnly = false, bool searchInLibrary = true)
         {
-            if (StaticContent.VkApi == null) throw new Exception("Пользователь не авторизован");
-            var music = StaticContent.VkApi.Audio.Search(new VkNet.Model.RequestParams.AudioSearchParams()
+            var music = _api.Audio.Search(new VkNet.Model.RequestParams.AudioSearchParams()
             {
                 Query = text,
                 Autocomplete = true,
                 Count = count,
                 Offset = offset,
-                Lyrics = withLyrics,
+                Lyrics= withLyrics,
                 PerformerOnly = performerOnly,
                 SearchOwn = searchInLibrary,
                 Sort = VkNet.Enums.AudioSort.Popularity
             });
-
-            IList<IAudioFile> tracks = new List<IAudioFile>();
-            foreach (var track in music) tracks.Add(track.ToIAudioFile());
-            return tracks;
-
+            return music.Select(track => track.ToITrack()).ToList();
         }
     }
 }
