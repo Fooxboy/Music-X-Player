@@ -2,16 +2,24 @@
 using System;
 using System.Collections.Generic;
 using System.Text;
+using Microsoft.Extensions.DependencyInjection;
+using VkNet;
+using VkNet.AudioBypassService.Extensions;
 
 namespace Fooxboy.MusicX.Core.VKontakte
 {
     public class Vk
     {
+        public readonly VkApi vkApi;
         public Vk()
         {
-
+            var services = new ServiceCollection();
+            services.AddAudioBypass();
+            vkApi = new VkApi(services);
+            Auth = new Auth(vkApi);
+            Music = new MusicApi(vkApi);
         }
-        public Auth Auth { get; set; }
-        public MusicApi Music { get; set; }
+        public Auth Auth { get; }
+        public MusicApi Music { get;  }
     }
 }

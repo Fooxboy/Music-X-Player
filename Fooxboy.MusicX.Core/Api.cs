@@ -9,7 +9,7 @@ namespace Fooxboy.MusicX.Core
     {
         private Api()
         {
-            
+            VKontakte = new Vk();
         }
         private static Api _api;
         public static Api GetApi()
