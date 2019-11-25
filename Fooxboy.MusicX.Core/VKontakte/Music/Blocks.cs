@@ -1,5 +1,6 @@
 using System.Threading.Tasks;
 using Fooxboy.MusicX.Core.Interfaces;
+using Fooxboy.MusicX.Core.Models.Music;
 using Fooxboy.MusicX.Core.Models.Music.ArtistInfo;
 using Fooxboy.MusicX.Core.VKontakte.Music.Converters;
 using Newtonsoft.Json;
@@ -17,15 +18,17 @@ namespace Fooxboy.MusicX.Core.VKontakte.Music
         }
         public async Task<IBlock> GetAsync(string id, long count = 100, long offset = 0)
         {
-            var parameters = new VkParameters();
-            parameters.Add("count", count);
-            parameters.Add("extended", 1);
-            parameters.Add("block_id", id);
-            parameters.Add("https", 1);
-            parameters.Add("start_from", "");
-            parameters.Add("lang", "ru");
-            parameters.Add("access_token", _api.Token);
-            parameters.Add("v", "5.103");
+            var parameters = new VkParameters
+            {
+                {"count", count},
+                {"extended", 1},
+                {"block_id", id},
+                {"https", 1},
+                {"start_from", ""},
+                {"lang", "ru"},
+                {"access_token", _api.Token},
+                {"v", "5.103"}
+            };
             var json = await _api.InvokeAsync("audio.getCatalogBlockById", parameters);
             var blockModel = JsonConvert.DeserializeObject<Response<Models.Music.BlockInfo.ResponseItem>>(json);
             return blockModel.ConvertToIBlock();
@@ -33,15 +36,17 @@ namespace Fooxboy.MusicX.Core.VKontakte.Music
         
         public IBlock Get(string id, long count = 100, long offset = 0)
         {
-            var parameters = new VkParameters();
-            parameters.Add("count", count);
-            parameters.Add("extended", 1);
-            parameters.Add("block_id", id);
-            parameters.Add("https", 1);
-            parameters.Add("start_from", "");
-            parameters.Add("lang", "ru");
-            parameters.Add("access_token", _api.Token);
-            parameters.Add("v", "5.103");
+            var parameters = new VkParameters
+            {
+                {"count", count},
+                {"extended", 1},
+                {"block_id", id},
+                {"https", 1},
+                {"start_from", ""},
+                {"lang", "ru"},
+                {"access_token", _api.Token},
+                {"v", "5.103"}
+            };
             var json = _api.Invoke("audio.getCatalogBlockById", parameters);
             var blockModel = JsonConvert.DeserializeObject<Response<Models.Music.BlockInfo.ResponseItem>>(json);
             return blockModel.ConvertToIBlock();
