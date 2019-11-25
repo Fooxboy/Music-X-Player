@@ -18,6 +18,6 @@ namespace Fooxboy.MusicX.Core.Models.Music.ArtistInfo
     public class ResponseItem
     {
         [JsonProperty("items")]
-        public List<ItemInfo> Items { get; set; }
+        public List<Music.BlockInfo.Block> Items { get; set; }
     }
 }

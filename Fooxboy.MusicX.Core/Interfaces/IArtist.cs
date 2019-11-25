@@ -8,5 +8,6 @@ namespace Fooxboy.MusicX.Core.Interfaces
         string Name { get; set; }
         string Domain { get; set; }
         string Banner { get; set; }
+        List<IBlock> Blocks { get; set; }
     }
 }
