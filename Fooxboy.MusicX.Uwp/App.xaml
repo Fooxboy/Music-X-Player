@@ -12,6 +12,8 @@
                 <ResourceDictionary Source="Styles/LoginControlsStyle.xaml" />
                 <ResourceDictionary Source="Styles/ArtistViewStyle.xaml" />
                 <ResourceDictionary Source="Styles/ListViewStyle.xaml" />
+                <ResourceDictionary Source="Styles/AcrylicStyle.xaml" />
+                <ResourceDictionary Source="Styles/ButtonsStyles.xaml" />
                 <ResourceDictionary Source="Resources/Templates/PlaylistTemplate.xaml" />
                 <ResourceDictionary Source="Resources/Templates/TrackTemplate.xaml" />
                 <ResourceDictionary Source="Resources/Templates/BlockTemplate.xaml" />

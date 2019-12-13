@@ -9,6 +9,4 @@
                         TintOpacity="0.5" 
                         TintColor="{ThemeResource BackgroundApp}" 
                         FallbackColor="{ThemeResource BackgroundApp}" />
-
-
 </ResourceDictionary>

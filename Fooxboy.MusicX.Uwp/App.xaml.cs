@@ -49,24 +49,10 @@ namespace Fooxboy.MusicX.Uwp
         public App()
         {
             var settings = ApplicationData.Current.LocalSettings;
-            InternetService.Init();
 
             try
             {
-                var a = (int)settings.Values["CountDownloads"];
-
-            }
-            catch
-            {
-                settings.Values["CountDownloads"] = 0;
-            }
-            try
-            {
-                Windows.Storage.ApplicationDataCompositeValue composite =
-                    (Windows.Storage.ApplicationDataCompositeValue)settings.Values["themeApp"];
-
-                Windows.Storage.ApplicationDataCompositeValue composite2 =
-                    (Windows.Storage.ApplicationDataCompositeValue)settings.Values["IsPro"];
+                var composite = (ApplicationDataCompositeValue)settings.Values["themeApp"];
 
                 if (composite == null)
                 {
@@ -85,46 +71,13 @@ namespace Fooxboy.MusicX.Uwp
                         this.RequestedTheme = ApplicationTheme.Dark;
                     }
                 }
-
-                if (composite2 == null)
-                {
-                    StaticContent.IsPro = false;
-                }
-                else
-                {
-                    var IsPro = (bool)settings.Values["IsPro"];
-                    StaticContent.IsPro = IsPro;
-                }
             }
             catch
             {
                 var theme = (int)settings.Values["themeApp"];
-                if (theme == 0)
-                {
-                    this.RequestedTheme = ApplicationTheme.Light;
-
-                }
-                else
-                {
-                    this.RequestedTheme = ApplicationTheme.Dark;
-                }
-
-                try
-                {
-                    var IsPro = (bool)settings.Values["IsPro"];
-                    StaticContent.IsPro = IsPro;
-                } catch
-                {
-                    StaticContent.IsPro = false;
-                }
+                if (theme == 0) this.RequestedTheme = ApplicationTheme.Light;
+                else this.RequestedTheme = ApplicationTheme.Dark;
             }
-
-            
-
-
-
-            Log.Run();
-            Log.Trace("Инициализация объекта приложения");
             this.InitializeComponent();
             this.Suspending += OnSuspending;
             
@@ -132,12 +85,9 @@ namespace Fooxboy.MusicX.Uwp
 
         protected async override void OnLaunched(LaunchActivatedEventArgs e)
         {
-            Log.Trace("OnLaunched");
-            DispatcherHelper.Initialize();
             Frame rootFrame = Window.Current.Content as Frame;
             if (rootFrame == null)
             {
-                Log.Trace("rootFrame != null");
                 rootFrame = new Frame();
                 rootFrame.NavigationFailed += OnNavigationFailed;
                 if(e != null)
@@ -150,57 +100,17 @@ namespace Fooxboy.MusicX.Uwp
                 AppCenter.Start("96c77488-34ce-43d0-b0d3-c4b1ce326c7f", typeof(Analytics), typeof(Push), typeof(Crashes));
                 AppCenter.LogLevel = LogLevel.Verbose;
                 CoreApplication.GetCurrentView().TitleBar.ExtendViewIntoTitleBar = true;
-                //try
-                //{
-                //    StaticContent.IsPro = await StoreService.IsBuyPro();
-                //    //StaticContent.IsPro = true;
-                //}catch(Exception eee)
-                //{
-                //    //await ContentDialogService.Show(new ExceptionDialog("Ошибка при получении лицензии", "АУЕ БЛЯ", eee));
-                //    StaticContent.IsPro = false;
-                //}
                 
                 var appView = ApplicationView.GetForCurrentView();
                 appView.TitleBar.ButtonBackgroundColor = Colors.Transparent;
                 appView.TitleBar.ButtonInactiveBackgroundColor = Colors.Transparent;
-
-                StaticContent.LocalFolder = ApplicationData.Current.LocalFolder;
-                if (await StaticContent.LocalFolder.TryGetItemAsync("Playlists") != null)
-                {
-                    Log.Trace("Set playlistFolder");
-                    StaticContent.PlaylistsFolder = await StaticContent.LocalFolder.GetFolderAsync("Playlists");
-                }
-
-                if(await StaticContent.LocalFolder.TryGetItemAsync("Covers") != null)
-                {
-                    Log.Trace("Set CoversFolder");
-
-                    StaticContent.CoversFolder = await StaticContent.LocalFolder.GetFolderAsync("Covers");
-
-                }
-
-                if (await StaticContent.LocalFolder.TryGetItemAsync("ConfigApp.json") != null)
-                {
-                    var file = await StaticContent.LocalFolder.GetFileAsync("ConfigApp.json");
-                    var fileString = await FileIO.ReadTextAsync(file);
-                    var config = JsonConvert.DeserializeObject<ConfigApp>(fileString);
-                    StaticContent.Config = config;
-                }
-
                 var settings = ApplicationData.Current.LocalSettings;
-
-
-
 
                 try
                 {
-                    Windows.Storage.ApplicationDataCompositeValue composite =
-                            (Windows.Storage.ApplicationDataCompositeValue)settings.Values["themeApp"];
+                    var composite = (ApplicationDataCompositeValue)settings.Values["themeApp"];
 
-                    if (composite == null)
-                    {
-                        appView.TitleBar.ButtonForegroundColor = Colors.Black;
-                    }
+                    if (composite == null) appView.TitleBar.ButtonForegroundColor = Colors.Black;
                     else
                     {
                         var theme = (int)settings.Values["themeApp"];
@@ -217,101 +127,22 @@ namespace Fooxboy.MusicX.Uwp
                 }catch
                 {
                     var theme = (int)settings.Values["themeApp"];
-                    if (theme == 0)
-                    {
-                        appView.TitleBar.ButtonForegroundColor = Colors.Black;
-
-                    }
-                    else
-                    {
-                        appView.TitleBar.ButtonForegroundColor = Colors.White;
-                    }
+                    if (theme == 0) appView.TitleBar.ButtonForegroundColor = Colors.Black;
+                    else appView.TitleBar.ButtonForegroundColor = Colors.White;
                 }
 
-
-                try
-                {
-                    if (InternetService.Connected)
-                    {
-                        StaticContent.IsAuth = await AuthService.IsAuth();
-                        if (StaticContent.IsAuth) await AuthService.AutoAuth();
-                    }
-                    else
-                    {
-                        StaticContent.IsAuth = false;
-                    }
-                }catch(Exception ee)
-                {
-                    StaticContent.IsAuth = false;
-                }
-                
-
-                Log.Trace("Размещение фрейма в текущем окне.");
                 Window.Current.Content = rootFrame;
             }
-
-            if(e != null)
-            {
-                if (e.PrelaunchActivated == false)
-                {
-                    if (rootFrame.Content == null)
-                    {
-                        if(await StaticContent.LocalFolder.TryGetItemAsync("RunApp.json") == null)
-                        {
-                            var runFile = await StaticContent.LocalFolder.CreateFileAsync("RunApp.json");
-                            var model = new RunApp()
-                            {
-                                CodeName = "Test",
-                                FirstStart = true,
-                                RunUpdate = true
-                            };
-
-                            var json = JsonConvert.SerializeObject(model);
-                            await FileIO.WriteTextAsync(runFile, json);
-
-                            rootFrame.Navigate(typeof(Views.WelcomeView), null);
-                        }else
-                        {
-                            rootFrame.Navigate(typeof(Views.MainFrameView), null);
-                        }  
-                    }
-
-                }
-            }else
+            if (e.PrelaunchActivated == false)
             {
                 if (rootFrame.Content == null)
                 {
-
-                    if (await StaticContent.LocalFolder.TryGetItemAsync("RunApp.json") == null)
-                    {
-                        var runFile = await StaticContent.LocalFolder.CreateFileAsync("RunApp.json");
-                        var model = new RunApp()
-                        {
-                            CodeName = "Test",
-                            FirstStart = true,
-                            RunUpdate = true
-                        };
-
-                        var json = JsonConvert.SerializeObject(model);
-                        await FileIO.WriteTextAsync(runFile, json);
-
-                        rootFrame.Navigate(typeof(Views.WelcomeView), null);
-                    }
-                    else
-                    {
-                        rootFrame.Navigate(typeof(Views.MainFrameView), null);
-                    }
+                    rootFrame.Navigate(typeof(Views.RootWindow), null);
                 }
-
-                
             }
-
-
             Window.Current.Activate();
             SystemNavigationManager.GetForCurrentView().BackRequested += OnBackRequested;
             Push.CheckLaunchedFromNotification(e);
-
-            
         }
 
         /// <summary>
@@ -326,7 +157,7 @@ namespace Fooxboy.MusicX.Uwp
 
         private void OnBackRequested(object sender, BackRequestedEventArgs e)
         {
-            StaticContent.NavigationContentService.Back();
+            //StaticContent.NavigationContentService.Back();
         }
 
         /// <summary>
@@ -339,28 +170,6 @@ namespace Fooxboy.MusicX.Uwp
         private async void OnSuspending(object sender, SuspendingEventArgs e)
         {
             var deferral = e.SuspendingOperation.GetDeferral();
-            //TODO: Сохранить состояние приложения и остановить все фоновые операции
-            var audio = StaticContent.NowPlay;
-            var file = new LastPlay()
-            {
-                Playlist = StaticContent.NowPlayPlaylist,
-                Track = audio,
-                Volume = StaticContent.Volume
-            };
-            var json = JsonConvert.SerializeObject(file);
-            try
-            {
-                var lastFile = await StaticContent.LocalFolder.GetFileAsync("LastPlay.json");
-                await FileIO.WriteTextAsync(lastFile, json);
-            }
-            catch
-            {
-                var lastFile = await StaticContent.LocalFolder.CreateFileAsync("LastPlay.json");
-                await FileIO.WriteTextAsync(lastFile, json);
-            }
-
-            //MemoryManager.
-            
             deferral.Complete();
         }
 
@@ -375,92 +184,6 @@ namespace Fooxboy.MusicX.Uwp
         }
         protected async override void OnFileActivated(FileActivatedEventArgs args)
         {
-
-            var files = args.Files;
-
-
-            var playlist = new PlaylistFile()
-            {
-                Artist = "Music X",
-                Cover = "/Assets/Images/now.png",
-                Id = 1000,
-                Name = "Сейчас играет",
-                TracksFiles = new List<AudioFile>()
-            };
-            foreach (var file in files)
-            {
-                var audio = await FindMetadataService.ConvertToAudioFile((StorageFile)file);
-                playlist.TracksFiles.Add(audio);
-            }
-
-            
-            StaticContent.OpenFiles = true;
-            StaticContent.OpenTracks = playlist;
-            OnLaunched(null);
-
-
-            //if (Window.Current.Visible)
-            //{
-            //    HomeLocalViewModel.Instanse.Page_Loaded(null, null);
-            //}
-            //else
-            //{
-            //    DispatcherHelper.Initialize();
-            //    var rootFrame = new Frame();
-            //    rootFrame.NavigationFailed += OnNavigationFailed;
-            //    CoreApplication.GetCurrentView().TitleBar.ExtendViewIntoTitleBar = true;
-            //    if (ApiInformation.IsTypePresent("Windows.UI.ViewManagement.ApplicationView"))
-            //    {
-            //        var appView = ApplicationView.GetForCurrentView();
-            //        appView.TitleBar.ButtonBackgroundColor = Colors.Transparent;
-            //        appView.TitleBar.ButtonInactiveBackgroundColor = Colors.Transparent;
-            //    }
-
-            //    StaticContent.LocalFolder = ApplicationData.Current.LocalFolder;
-            //    if (await StaticContent.LocalFolder.TryGetItemAsync("Playlists") != null)
-            //    {
-            //        StaticContent.PlaylistsFolder = await StaticContent.LocalFolder.GetFolderAsync("Playlists");
-            //    }
-
-            //    if (await StaticContent.LocalFolder.TryGetItemAsync("Covers") != null)
-            //    {
-            //        StaticContent.CoversFolder = await StaticContent.LocalFolder.GetFolderAsync("Covers");
-
-            //    }
-
-            //    if (await StaticContent.LocalFolder.TryGetItemAsync("ConfigApp.json") != null)
-            //    {
-            //        var file = await StaticContent.LocalFolder.GetFileAsync("ConfigApp.json");
-            //        var fileString = await FileIO.ReadTextAsync(file);
-            //        var config = JsonConvert.DeserializeObject<ConfigApp>(fileString);
-            //        StaticContent.Config = config;
-            //    }
-
-            //    Window.Current.Content = rootFrame;
-
-            //    if (await StaticContent.LocalFolder.TryGetItemAsync("RunApp.json") == null)
-            //    {
-            //        var runFile = await StaticContent.LocalFolder.CreateFileAsync("RunApp.json");
-            //        var model = new RunApp()
-            //        {
-            //            CodeName = "Test",
-            //            FirstStart = true,
-            //            RunUpdate = true
-            //        };
-
-            //        var json = JsonConvert.SerializeObject(model);
-            //        await FileIO.WriteTextAsync(runFile, json);
-
-            //        rootFrame.Navigate(typeof(Views.WelcomeView), null);
-            //    }
-            //    else
-            //    {
-            //        rootFrame.Navigate(typeof(Views.ProVersionView), null);
-            //    }
-
-            //    Window.Current.Activate();
-            //    SystemNavigationManager.GetForCurrentView().BackRequested += OnBackRequested;
-            //}
 
         }
     }
