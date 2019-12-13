@@ -4,8 +4,11 @@
     xmlns:local="using:Fooxboy.MusicX.Uwp.Styles"
     xmlns:media="using:Windows.UI.Xaml.Media">
 
-    <media:AcrylicBrush x:Key="CustomAcrylicBrush" BackgroundSource="Backdrop"
-            TintOpacity="0.219999995082617" TintColor="#FF0000FF" FallbackColor="#FFFFFF00" />
+    <media:AcrylicBrush x:Key="HeaderAcrylicBrush"
+                        BackgroundSource="Backdrop"
+                        TintOpacity="0.5" 
+                        TintColor="{ThemeResource BackgroundApp}" 
+                        FallbackColor="{ThemeResource BackgroundApp}" />
 
 
 </ResourceDictionary>
