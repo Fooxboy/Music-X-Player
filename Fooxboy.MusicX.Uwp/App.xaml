@@ -5,6 +5,7 @@
     xmlns:local="using:Fooxboy.MusicX.Uwp">
     <Application.Resources>
         <ResourceDictionary>
+            
             <ResourceDictionary.MergedDictionaries>
                 <ResourceDictionary Source="Styles/SliderPlayerStyle.xaml" />
                 <ResourceDictionary Source="Styles/ButtonPlayerStyle.xaml" />
