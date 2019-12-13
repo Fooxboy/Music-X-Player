@@ -1,13 +1,13 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFramework>netstandard2.1</TargetFramework>
+    <TargetFramework>netstandard2.0</TargetFramework>
   </PropertyGroup>
 
   <ItemGroup>
     <PackageReference Include="NLog" Version="4.6.8" />
     <PackageReference Include="NLog.Config" Version="4.6.8" />
-    <PackageReference Include="VkNet" Version="1.47.0" />
+    <PackageReference Include="VkNet" Version="1.48.1" />
     <PackageReference Include="VkNet.AudioBypassService" Version="1.5.3" />
   </ItemGroup>
 

@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices.WindowsRuntime;
-using Fooxboy.MusicX.Uwp.ViewModels;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
 using Windows.UI.Xaml;
@@ -21,14 +20,10 @@ namespace Fooxboy.MusicX.Uwp.Views
     /// <summary>
     /// Пустая страница, которую можно использовать саму по себе или для перехода внутри фрейма.
     /// </summary>
-    public sealed partial class MiniPlayerView : Page
+    public sealed partial class RootWindow : Page
     {
-
-        public PlayerViewModel ViewModel { get; set; }
-
-        public MiniPlayerView()
+        public RootWindow()
         {
-            ViewModel = MiniPlayerViewModel.Instanse;
             this.InitializeComponent();
         }
     }
