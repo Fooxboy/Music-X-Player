@@ -14,8 +14,8 @@
                 <ResourceDictionary Source="Resources/Templates/PlaylistTemplate.xaml" />
                 <ResourceDictionary Source="Resources/Templates/TrackTemplate.xaml" />
                 <ResourceDictionary Source="Resources/Templates/BlockTemplate.xaml" />
-                <ResourceDictionary Source="Resources/Themes/Light.xaml" />
-                <ResourceDictionary Source="Resources/Themes/Dark.xaml" />
+                <ResourceDictionary Source="Themes/Light.xaml" />
+                <ResourceDictionary Source="Themes/Dark.xaml" />
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
     </Application.Resources>
