@@ -11,6 +11,8 @@ using Android.Support.V7.Widget;
 using Android.Util;
 using Android.Views;
 using Android.Widget;
+using Fooxboy.MusicX.AndroidApp.Adapters;
+using Fooxboy.MusicX.AndroidApp.Models;
 using Fooxboy.MusicX.AndroidApp.Services;
 using Fooxboy.MusicX.Core.Interfaces;
 using Fooxboy.MusicX.Core.Models.Music.BlockInfo;
@@ -36,15 +38,25 @@ namespace Fooxboy.MusicX.AndroidApp.Resources.fragments
             var artistName = view.FindViewById<TextView>(Resource.Id.artist_name);
             var blocks = view.FindViewById<RecyclerView>(Resource.Id.artist_blocks);
             var banner = view.FindViewById<RoundedImageView>(Resource.Id.artist_image);
-
+            Activity.FindViewById<TextView>(Resource.Id.titlebar_title).Text = "Исполнитель";
             var task = Task.Run(() =>
             {
                 return Core.VKontakte.Music.Artists.GetById(ArtistID).Result;
             });
 
             artistName.Text = task.Result.Name;
-            banner.SetImageString(ImagesService.BannerArtist(task.Result), banner.Width, banner.Height);
-            var blockTracks = new Block();
+            if (task.Result.Name == "Fooxboy") artistName.Text = "Fooxboy (сделал Music X)";
+            banner.SetImageString(ImagesService.BannerArtist(task.Result), 550, 250);
+            var albums = new ArtistBlock("Альбомы");
+            albums.Playlists = task.Result.Albums;
+            var tracks = new ArtistBlock("Треки");
+            tracks.Tracks = task.Result.PopularTracks;
+            var list = new List<ArtistBlock>();
+            list.Add(tracks);
+            list.Add(albums);
+            blocks.SetAdapter(new ArtistAdapter(list, this));
+            blocks.Clickable = true;
+            blocks.SetLayoutManager(new LinearLayoutManager(Application.Context, LinearLayoutManager.Vertical, false));
             return view;
         }
     }

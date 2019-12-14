@@ -43,9 +43,6 @@ namespace Fooxboy.MusicX.AndroidApp.Resources.fragments
 
             var list = view.FindViewById<RecyclerView>(Resource.Id.list_recommendations);
             var progress = view.FindViewById<ProgressBar>(Resource.Id.progressBar_recommendations);
-
-
-            
             adapter = new RecommendationAdapter(new List<IBlock>(), this);
             adapter.ItemClick += AdapterOnItemClick;
             list.Clickable = true;
@@ -57,18 +54,23 @@ namespace Fooxboy.MusicX.AndroidApp.Resources.fragments
                 
                 if(recom_blocks?.Count > 0)
                 {
+
                     Task.Run(() =>
                     {
+                        System.Threading.Thread.Sleep(300);
+                        
+
+                            var buffer = new List<IBlock>();
+                            buffer.Add(recom_blocks.First());
+                            adapter.AddBlocks(buffer);
                         handler.Post(new Runnable(() =>
                         {
-                            System.Threading.Thread.Sleep(300);
-                            adapter.AddBlocks(recom_blocks.Take(1).ToList());
-                            adapter.NotifyItemRangeChanged(adapter.ItemCount - 4, 4);
+                            adapter.NotifyItemRangeChanged(adapter.ItemCount - 1, 1);
                         }));
                             
                     }).ContinueWith((t) =>
                     {
-                        recom_blocks.Remove(recom_blocks[0]);
+                        recom_blocks.Remove(recom_blocks.First());
                         progress.Visibility = ViewStates.Invisible;
                     });
                    
@@ -96,6 +98,7 @@ namespace Fooxboy.MusicX.AndroidApp.Resources.fragments
             return view;
            
         }
+
 
     }
 }

@@ -112,6 +112,7 @@ namespace Fooxboy.MusicX.AndroidApp.Activities
         private void NextButtonOnClick(object sender, EventArgs e)
         {
             player.MainService.NextTrack();
+            UpdateDataPlayer();
             //throw new NotImplementedException();
         }
 

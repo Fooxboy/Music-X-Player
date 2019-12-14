@@ -126,11 +126,17 @@ namespace Fooxboy.MusicX.Core.VKontakte.Music
         }
 
 
-        public static void StreamToStatusSync()
+        public static void StreamToStatusSync(long audioId, long ownerId, string accessKey = null)
         {
             if (StaticContent.VkApi == null) throw new Exception("Пользователь не авторизован");
-
-            //StaticContent.VkApi.Audio.SetBroadcastAsync();
+            var audioString = $"audio{ownerId}_{audioId}";
+            audioString = accessKey == null ? audioString : $"{audioString}_{accessKey}";
+            var param = new VkParameters();
+            param.Add("audio_ids", audioId);
+            param.Add("target_ids", StaticContent.UserId);
+            param.Add("access_token", StaticContent.VkApi.Token);
+            param.Add("v", "5.101");
+            var json = StaticContent.VkApi.Invoke("audio.setBroadcast", param);
         }
     }
 }

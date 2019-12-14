@@ -15,6 +15,7 @@ using Fooxboy.MusicX.AndroidApp.Adapters;
 using Fooxboy.MusicX.AndroidApp.Models;
 using Fooxboy.MusicX.AndroidApp.Services;
 using Fooxboy.MusicX.Core.Interfaces;
+using Java.Lang;
 
 namespace Fooxboy.MusicX.AndroidApp.Resources.fragments
 {
@@ -23,6 +24,10 @@ namespace Fooxboy.MusicX.AndroidApp.Resources.fragments
 
         TrackAdapter adapter;
         List<AudioFile> tracksInResult = new List<AudioFile>();
+        RecyclerView resultsList;
+        ProgressBar progress;
+        RelativeLayout placeholderLayout;
+        EditText edittext;
 
         public override void OnCreate(Bundle savedInstanceState)
         {
@@ -34,23 +39,34 @@ namespace Fooxboy.MusicX.AndroidApp.Resources.fragments
         public override View OnCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
         {
             var view = inflater.Inflate(Resource.Layout.searchActivity, container, false);
-            var edittext = view.FindViewById<EditText>(Resource.Id.searchEditText);
-            var resultsList = view.FindViewById<RecyclerView>(Resource.Id.searchResults);
-            var placeholderLayout = view.FindViewById<RelativeLayout>(Resource.Id.searchPlaceholder);
-            var progress = view.FindViewById<ProgressBar>(Resource.Id.searchProgress);
+            edittext = view.FindViewById<EditText>(Resource.Id.searchEditText);
+            resultsList = view.FindViewById<RecyclerView>(Resource.Id.searchResults);
+            placeholderLayout = view.FindViewById<RelativeLayout>(Resource.Id.searchPlaceholder);
+            progress = view.FindViewById<ProgressBar>(Resource.Id.searchProgress);
             this.adapter = new TrackAdapter(new List<Models.AudioFile>());
             resultsList.Clickable = true;
+            RegisterForContextMenu(resultsList);
             resultsList.SetLayoutManager(new LinearLayoutManager(Application.Context, LinearLayoutManager.Vertical, false));
+            Handler handler = new Handler(Looper.MainLooper);
             edittext.KeyPress += (sender, e) =>
             {
                 e.Handled = false;
-                if(e.Event.Action == KeyEventActions.Down && e.KeyCode == Keycode.Enter)
+                if (e.Event.Action == KeyEventActions.Down && e.KeyCode == Keycode.Enter && edittext.Text != "")
+                {
+
+                    placeholderLayout.Visibility = ViewStates.Gone;
+                    //var results = Core.VKontakte.Music.Search.TracksSync(edittext.Text);
+                    progress.Visibility = ViewStates.Visible;
+                    Task.Run(() => RefreshResults(new Handler(Looper.MainLooper)));
+                    e.Handled = true;
+                }
+                /*if(e.Event.Action == KeyEventActions.Down && e.KeyCode == Keycode.Enter)
                 {
                     
                     placeholderLayout.Visibility = ViewStates.Gone;
                     //var results = Core.VKontakte.Music.Search.TracksSync(edittext.Text);
                     progress.Visibility = ViewStates.Visible;
-                    adapter = new TrackAdapter(new List<Models.AudioFile>());
+                    adapter = new TrackAdapter(new List<Models.AudioFile>(), "false");
                     adapter.ItemClick += AdapterOnItemClick;
                     var results = Core.VKontakte.Music.Search.TracksSync(edittext.Text);
                     this.tracksInResult = Services.MusicService.ConvertToAudioFile(results);
@@ -61,11 +77,26 @@ namespace Fooxboy.MusicX.AndroidApp.Resources.fragments
                     progress.Visibility = ViewStates.Gone;
                     e.Handled = true;
 
-                }
+                }*/
             };
 
 
             return view;
+        }
+
+        private async void RefreshResults(Handler handler)
+        {
+            var results = Core.VKontakte.Music.Search.TracksSync(edittext.Text);
+            this.tracksInResult = Services.MusicService.ConvertToAudioFile(results);
+            adapter = new TrackAdapter(tracksInResult, "false");
+            adapter.ItemClick += AdapterOnItemClick;
+            handler.Post(new Runnable(() =>
+            {
+                resultsList.RemoveAllViewsInLayout();
+                resultsList.RemoveAllViews();
+                resultsList.SwapAdapter(adapter, true);
+                progress.Visibility = ViewStates.Gone;
+            }));
         }
 
         private void AdapterOnItemClick(object sender, AudioFile args)
@@ -84,10 +115,37 @@ namespace Fooxboy.MusicX.AndroidApp.Resources.fragments
                 var player = PlayerService.Instanse;
                 player.Play(playlist, playlist.TracksFiles.First(t => t.SourceString == args.SourceString));
             }
-            catch (Exception e)
+            catch (System.Exception e)
             {
                 Toast.MakeText(Application.Context, $"Произошла ошибка: {e.ToString()}", ToastLength.Long).Show();
             }
         }
+
+        public override bool OnContextItemSelected(IMenuItem i)
+        {
+            var t = tracksInResult[adapter.GetPosition()];
+            switch (i.ItemId)
+            {
+                case 0:
+                    Toast.MakeText(Application.Context, $"Переходим к исполнителю {t.Artist}", ToastLength.Long).Show();
+                    var artist = new ArtistFragment();
+                    if (t.ArtistId != 0)
+                    {
+                        artist.ArtistID = t.ArtistId;
+                        FragmentManager.BeginTransaction().Replace(Resource.Id.content_frame, artist).Commit();
+                    }
+                    else
+                    {
+                        Toast.MakeText(Application.Context, "Ошибка: невозможно перейти к исполнителю.", ToastLength.Long).Show();
+                    }
+
+                    break;
+                case 1:
+                    Toast.MakeText(Application.Context, "Удаляем...", ToastLength.Long).Show();
+                    break;
+            }
+            return true;
+        }
+
     }
 }

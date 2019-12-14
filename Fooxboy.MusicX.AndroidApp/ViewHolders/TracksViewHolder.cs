@@ -15,7 +15,7 @@ using ImageViews.Rounded;
 
 namespace Fooxboy.MusicX.AndroidApp.ViewHolders
 {
-    public class TracksViewHolder : RecyclerView.ViewHolder, View.IOnClickListener,  View.IOnLongClickListener
+    public class TracksViewHolder : RecyclerView.ViewHolder, View.IOnClickListener, View.IOnCreateContextMenuListener, View.IOnContextClickListener
     {
         public TextView Title { get; private set; }
         public TextView Artist { get; private set; }
@@ -29,7 +29,8 @@ namespace Fooxboy.MusicX.AndroidApp.ViewHolders
             Duration = itemView.FindViewById<TextView>(Resource.Id.DurationTrack);
             Cover = itemView.FindViewById<RoundedImageView>(Resource.Id.imageViewCover);
             itemView.SetOnClickListener(this);
-            itemView.SetOnLongClickListener(this);
+            //itemView.SetOnCreateContextMenuListener(this);
+            itemView.SetOnContextClickListener(this);
         }
         
         
@@ -44,10 +45,16 @@ namespace Fooxboy.MusicX.AndroidApp.ViewHolders
             itemClickListener.OnClick(v, AdapterPosition, false);
         }
 
-        public bool OnLongClick(View v)
+
+        public void OnCreateContextMenu(IContextMenu menu, View v, IContextMenuContextMenuInfo menuInfo)
         {
-            itemClickListener.OnClick(v, AdapterPosition, true);
-            return true;
+            menu.Add(Menu.None, 0, Menu.None, "Перейти к исполнителю");
+            menu.Add(Menu.None, 1, Menu.None, "Удалить");
+        }
+
+        public bool OnContextClick(View v)
+        {
+            throw new NotImplementedException();
         }
     }
 }
