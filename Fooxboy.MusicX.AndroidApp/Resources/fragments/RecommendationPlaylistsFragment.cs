@@ -30,9 +30,9 @@ namespace Fooxboy.MusicX.AndroidApp.Resources.fragments
 
         public override View OnCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
         {
-
+            
             var view = inflater.Inflate(Resource.Layout.activity_playlists, container, false);
-            adapter = new PlaylistAdapter(playlists);
+            adapter = new PlaylistAdapter(playlists, "false");
             adapter.ItemClick += AdapterOnItemClick;
             var list = view.FindViewById<RecyclerView>(Resource.Id.list_playlists);
             list.SetAdapter(adapter);
@@ -47,5 +47,11 @@ namespace Fooxboy.MusicX.AndroidApp.Resources.fragments
             fragment.playlist = args.Playlist;
             FragmentManager.BeginTransaction().Replace(Resource.Id.content_frame, fragment).Commit();
         }
+
+        public override bool OnContextItemSelected(IMenuItem i)
+        {
+            return true;
+        }
+
     }
 }
