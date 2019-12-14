@@ -23,13 +23,24 @@ namespace Fooxboy.MusicX.AndroidApp.Adapters
 {
     
   
-    public class TrackAdapter : RecyclerView.Adapter, IItemClickListener
+    public class TrackAdapter : RecyclerView.Adapter, IItemClickListener, View.IOnLongClickListener, View.IOnCreateContextMenuListener
     {
-
+        List<TracksViewHolder> holders = new List<TracksViewHolder>();
         public event Delegates.EventHandler<AudioFile> ItemClick;
         public event Delegates.EventHandler<AudioInBlock> ItemInBlockClick;
         private List<AudioFile> tracks;
         private string blockID = "";
+        private int position;
+
+        public int GetPosition()
+        {
+            return position;
+        }
+
+        public void SetPosition(int pos)
+        {
+            this.position = pos;
+        }
 
         public TrackAdapter(List<AudioFile> t, string block = null)
         {
@@ -45,7 +56,8 @@ namespace Fooxboy.MusicX.AndroidApp.Adapters
             holder.Title.Text = tracks[position].Title;
             holder.SetItemClickListener(this);
             holder.Duration.Text = tracks[position].DurationMinutes;
-
+            holder.ItemView.SetOnLongClickListener(this);
+            //holder.ItemView.SetOnLongClickListener(this);
             if (tracks[position].Cover == "placeholder")
             {
                 holder.Cover.SetImageResource(Resource.Drawable.placeholder);
@@ -61,6 +73,7 @@ namespace Fooxboy.MusicX.AndroidApp.Adapters
                 holder.Cover.SetImageBitmap(myBitmap);
             }
             //holder.Cover.SetImageResource(Resource.Drawable.placeholder);
+            holders.Add(holder);
         }
 
         public void AddItems(List<AudioFile> t)
@@ -97,6 +110,7 @@ namespace Fooxboy.MusicX.AndroidApp.Adapters
         {
             View itemView = LayoutInflater.From(parent.Context).
                 Inflate(Resource.Layout.TrackLayout, parent, false);
+            itemView.SetOnCreateContextMenuListener(this);
             var v = new TracksViewHolder(itemView);
             return v;
         }
@@ -112,7 +126,7 @@ namespace Fooxboy.MusicX.AndroidApp.Adapters
 
         public void OnClick(View itemView, int position, bool isLongClick)
         {
-            if(this.blockID != "")
+            if(this.blockID != "" && this.blockID != "false")
             {
                 AudioInBlock data = new AudioInBlock(tracks[position], this.blockID);
                 ItemInBlockClick?.Invoke(itemView, data);
@@ -121,6 +135,24 @@ namespace Fooxboy.MusicX.AndroidApp.Adapters
                 ItemClick?.Invoke(itemView, tracks[position]);
             }
             
+        }
+
+        public bool OnLongClick(View v)
+        {
+            SetPosition(holders.First(h => h.ItemView == v).Position);
+            return false;
+        }
+
+        public void OnCreateContextMenu(IContextMenu menu, View v, IContextMenuContextMenuInfo menuInfo)
+        {
+            if(this.blockID == "")
+            {
+                menu.Add(Menu.None, 0, Menu.None, "Перейти к исполнителю");
+                menu.Add(Menu.None, 1, Menu.None, "Удалить");
+            }else if(this.blockID == "false")
+            {
+                menu.Add(Menu.None, 0, Menu.None, "Перейти к исполнителю");
+            }
         }
     }
 }

@@ -1,4 +1,5 @@
 using Android.App;
+using Android.Content;
 using Android.Views;
 using Android.Widget;
 using Fooxboy.MusicX.AndroidApp.Models;
@@ -52,6 +53,8 @@ namespace Fooxboy.MusicX.AndroidApp.Services
             Artist = args.Artist;
             Cover = args.Cover;
             CurrentAudioFile = args;
+            var prefs = Application.Context.GetSharedPreferences("MusicX", FileCreationMode.Private);
+            var streamToStatus = prefs.GetBoolean("StreamToStatus", false);
 
             if (MiniPlayerService.MiniPlayer != null)
             {
@@ -66,6 +69,7 @@ namespace Fooxboy.MusicX.AndroidApp.Services
                 if (Cover != "placeholder") cover.SetImageString(Cover, 50, 50);
                 if (Cover == "placeholder") cover.SetImageResource(Resource.Drawable.placeholder);
             }
+            if(streamToStatus) Core.VKontakte.Music.Library.StreamToStatusSync(args.Id, args.OwnerId, args.AccessKey);
         }
     }
 }

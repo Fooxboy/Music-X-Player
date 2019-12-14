@@ -32,16 +32,16 @@ namespace Fooxboy.MusicX.AndroidApp.Resources.fragments
         public override View OnCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
         {
             var view = inflater.Inflate(Resource.Layout.activity_tracks, container, false);
-            adapter = new TrackAdapter(tracks);
+            adapter = new TrackAdapter(tracks, "false");
             var tracksView = view.FindViewById<RecyclerView>(Resource.Id.list_tracks);
             var progressBar = view.FindViewById<ProgressBar>(Resource.Id.progressBar_tracks);
             progressBar.Visibility = ViewStates.Gone;
-
             adapter.ItemClick += AdapterOnItemClick;
-
             tracksView.SetAdapter(adapter);
+            
             tracksView.SetLayoutManager(new LinearLayoutManager(Application.Context, LinearLayoutManager.Vertical, false));
 
+            RegisterForContextMenu(tracksView);
             tracksView.Clickable = true;
             return view;
         }
@@ -66,6 +66,32 @@ namespace Fooxboy.MusicX.AndroidApp.Resources.fragments
             {
                 Toast.MakeText(Application.Context, $"Произошла ошибка: {e.ToString()}", ToastLength.Long).Show();
             }
+        }
+
+        public override bool OnContextItemSelected(IMenuItem i)
+        {
+            var t = tracks[adapter.GetPosition()];
+            switch (i.ItemId)
+            {
+                case 0:
+                    Toast.MakeText(Application.Context, $"Переходим к исполнителю {t.Artist}", ToastLength.Long).Show();
+                    var artist = new ArtistFragment();
+                    if (t.ArtistId != 0)
+                    {
+                        artist.ArtistID = t.ArtistId;
+                        FragmentManager.BeginTransaction().Replace(Resource.Id.content_frame, artist).Commit();
+                    }
+                    else
+                    {
+                        Toast.MakeText(Application.Context, "Ошибка: невозможно перейти к исполнителю.", ToastLength.Long).Show();
+                    }
+
+                    break;
+                case 1:
+                    Toast.MakeText(Application.Context, "Удаляем...", ToastLength.Long).Show();
+                    break;
+            }
+            return true;
         }
     }
 }

@@ -7,7 +7,49 @@
 
     <RelativeLayout
         android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="15dp"
+            android:text="Плейлисты"
+            android:textSize="18dp"
+            android:textStyle="bold"
+            android:textColor="#000000"
+        />
+
+        <ProgressBar
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/progressBar_library_plists"
+            android:layout_centerVertical="true"
+            android:layout_centerHorizontal="true" />
+
+        <android.support.v7.widget.RecyclerView
+            android:layout_width="fill_parent"
+            android:minWidth="25dp"
+            android:minHeight="25dp"
+            android:requiresFadingEdge="vertical"
+            android:fadingEdge="vertical"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="24dp"
+            android:id="@+id/list_plists"/>
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
         android:layout_height="match_parent">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="15dp"
+            android:text="Треки"
+            android:textSize="18dp"
+            android:textStyle="bold"
+            android:textColor="#000000"
+        />
         <ProgressBar
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -22,6 +64,7 @@
             android:requiresFadingEdge="vertical"
             android:fadingEdge="vertical"
             android:layout_height="fill_parent"
+            android:layout_marginTop="24dp"
             android:id="@+id/list_tracks"/>
 
     </RelativeLayout>

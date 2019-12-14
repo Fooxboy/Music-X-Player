@@ -13,7 +13,7 @@ using Java.IO;
 
 namespace Fooxboy.MusicX.AndroidApp.Adapters
 {
-    public class PlaylistAdapter:RecyclerView.Adapter, IItemClickListener
+    public class PlaylistAdapter:RecyclerView.Adapter, IItemClickListener, View.IOnCreateContextMenuListener
     {
         private List<PlaylistFile> plists;
         public event Delegates.EventHandler<PlaylistInBlock> ItemClick;
@@ -81,6 +81,7 @@ namespace Fooxboy.MusicX.AndroidApp.Adapters
         {
             View itemView = LayoutInflater.From(parent.Context).
                 Inflate(Resource.Layout.PlaylistLayout, parent, false);
+            itemView.SetOnCreateContextMenuListener(this);
             PlaylistViewHolder v = new PlaylistViewHolder(itemView);
             return v;
         }
@@ -88,6 +89,11 @@ namespace Fooxboy.MusicX.AndroidApp.Adapters
         public void OnClick(View itemView, int position, bool isLongClick)
         {
             ItemClick?.Invoke(itemView, new PlaylistInBlock(this.plists[position], this.BlockID));
+        }
+
+        public void OnCreateContextMenu(IContextMenu menu, View v, IContextMenuContextMenuInfo menuInfo)
+        {
+            //TODO контекстное меню если очень надо
         }
 
         public override int ItemCount
