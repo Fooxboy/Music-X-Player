@@ -10,7 +10,6 @@ using Android.Runtime;
 using Android.Support.V7.Widget;
 using Android.Views;
 using Android.Widget;
-using Fooxboy.MusicX.AndroidApp.Converters;
 using Fooxboy.MusicX.AndroidApp.Models;
 using Fooxboy.MusicX.AndroidApp.Resources.fragments;
 using Fooxboy.MusicX.AndroidApp.Services;
@@ -21,11 +20,11 @@ namespace Fooxboy.MusicX.AndroidApp.Adapters
 {
     class ArtistAdapter : RecyclerView.Adapter, Interfaces.IItemClickListener
     {
-        public event Delegates.EventHandler<Artist, Block> ItemClick;
-        List<Block> Blocks;
+        public event Delegates.EventHandler<ArtistBlock> ItemClick;
+        List<ArtistBlock> Blocks;
         Fragment Parent;
 
-        public ArtistAdapter(List<Block> blocks, Fragment p)
+        public ArtistAdapter(List<ArtistBlock> blocks, Fragment p)
         {
             Blocks = blocks;
             Parent = p;
@@ -40,11 +39,11 @@ namespace Fooxboy.MusicX.AndroidApp.Adapters
             v.SetItemClickListener(this);
             v.ShowMoreButton.Click += (sender, e) =>
             {
-                if (Blocks[position].Albums?.Count > 0)
+                if (Blocks[position].Playlists?.Count > 0)
                 {
-                    
+                    //TODO: GOTO PLAYLISTS FRAGMENT (//TODO CREATE PLAYLISTS GRID FRAGMENT)
                     var frag = new RecommendationPlaylistsFragment();
-                    frag.playlists = this.Blocks[position].Albums.ToAlbumsList();
+                    frag.playlists = PlaylistsService.CovertToPlaylistFiles(this.Blocks[position].Playlists);
                     Parent.Activity.FindViewById<TextView>(Resource.Id.titlebar_title).Text = Blocks[position].Title;
                     Parent.FragmentManager.BeginTransaction().Replace(Resource.Id.content_frame, frag).Commit();
 
@@ -52,18 +51,18 @@ namespace Fooxboy.MusicX.AndroidApp.Adapters
                 else
                 {
                     var frag = new RecommendationTracksFragment();
-                    frag.tracks = this.Blocks[position].Tracks.ToTracksList();
+                    frag.tracks = MusicService.ConvertToAudioFile(this.Blocks[position].Tracks);
                     Parent.Activity.FindViewById<TextView>(Resource.Id.titlebar_title).Text = Blocks[position].Title;
                     Parent.FragmentManager.BeginTransaction().Replace(Resource.Id.content_frame, frag).Commit();
                 }
                 Toast.MakeText(Application.Context, $"Произошел кликинг по {this.Blocks[position].Title}", ToastLength.Long).Show();
             };
             int counter = 0;
-            if (this.Blocks[position].Albums?.Count > 0)
+            if (this.Blocks[position].Playlists?.Count > 0)
             {
-                var BlockAlbums = this.Blocks[position].Albums.Take(2).ToList().ToAlbumsList();
-                var adapter = new PlaylistAdapter(BlockAlbums, Blocks[position]);
-                adapter.ItemClick += PlaylistAdapterOnItemClick;
+                var plistsInBlock = PlaylistsService.CovertToPlaylistFiles(this.Blocks[position].Playlists.Take(2).ToList());
+                var adapter = new PlaylistAdapter(plistsInBlock, "false");
+                adapter.ItemClick += AdapterOnPlaylistClick;
                 v.List.SetAdapter(adapter);
                 v.List.SetLayoutManager(new LinearLayoutManager(Application.Context, LinearLayoutManager.Horizontal, false));
                 v.List.Clickable = true;
@@ -71,16 +70,16 @@ namespace Fooxboy.MusicX.AndroidApp.Adapters
             else
             {
 
-                //List<Track> BlockTracks = new List<Track>();
-                var BlockTracks = this.Blocks[position].Tracks.ToTracksList().Take(2).ToList();
-                /*foreach (var track in tracks_nonvk)
+                List<AudioFile> tracksInBlock = new List<AudioFile>();
+                var tracks_nonvk = MusicService.ConvertToAudioFile(this.Blocks[position].Tracks);
+                foreach (var track in tracks_nonvk)
                 {
                     if (counter > 1) break;
                     tracksInBlock.Add(track);
                     counter++;
-                }*/
-                var adapter = new TrackAdapter(BlockTracks, this.Blocks[position]);
-                adapter.ItemClick += TrackAdapterOnItemClick;
+                }
+                var adapter = new TrackAdapter(tracksInBlock, this.Blocks[position].Title);
+                adapter.ItemInBlockClick += AdapterOnItemClick;
                 v.List.SetAdapter(adapter);
                 v.List.SetLayoutManager(new LinearLayoutManager(Application.Context, LinearLayoutManager.Vertical, false));
                 v.List.Clickable = true;
@@ -89,7 +88,7 @@ namespace Fooxboy.MusicX.AndroidApp.Adapters
 
         public void OnClick(View itemView, int position, bool isLongClick)
         {
-            //ItemClick?.Invoke(itemView, Blocks[position]); вот честно хз че это
+            ItemClick?.Invoke(itemView, Blocks[position]);
         }
 
         public override RecyclerView.ViewHolder OnCreateViewHolder(ViewGroup parent, int viewType)
@@ -100,29 +99,26 @@ namespace Fooxboy.MusicX.AndroidApp.Adapters
             return v;
         }
 
-        private void TrackAdapterOnItemClick(object sender, Track args, Block block)
+        private void AdapterOnItemClick(object sender, AudioInBlock args)
         {
-            Toast.MakeText(Application.Context, $"{args.Title} в блоке {block.Title}", ToastLength.Long).Show();
-            //var tracks = this.Blocks.First(b => b.Title == args.blockID).Tracks;
-            var tracks = block.Tracks;
-            var tracksfiles = tracks.ToTracksList();
-            var playlist = new Album();
-            playlist.Artists.Add(new Artist()
-            {
-                Name = "Music X"
-            });
+            Toast.MakeText(Application.Context, $"{args.track.Title} в блоке {args.blockID}", ToastLength.Long).Show();
+            var tracks = this.Blocks.First(b => b.Title == args.blockID).Tracks;
+            var tracksfiles = MusicService.ConvertToAudioFile(tracks);
+            var playlist = new PlaylistFile();
+            playlist.Artist = "Music X";
             playlist.Cover = "playlist_placeholder";
-            playlist.Genres = null;
+            playlist.Genre = "";
             playlist.Id = 1000;
-            playlist.Tracks = tracksfiles;
+            playlist.IsAlbum = false;
+            playlist.TracksFiles = tracksfiles;
             var player = PlayerService.Instanse;
-            player.Play(playlist, playlist.Tracks.First(t => t.Url == args.Url));
+            player.Play(playlist, playlist.TracksFiles.First(t => t.SourceString == args.track.SourceString));
         }
 
-        private void PlaylistAdapterOnItemClick(object sender, Album args, Block block)
+        private void AdapterOnPlaylistClick(object sender, PlaylistInBlock plist)
         {
             var fragment = new PlaylistFragment();
-            fragment.playlist = args;
+            fragment.playlist = plist.Playlist;
             Parent.FragmentManager.BeginTransaction().Replace(Resource.Id.content_frame, fragment).Commit();
         }
 

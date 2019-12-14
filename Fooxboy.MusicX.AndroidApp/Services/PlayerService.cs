@@ -67,6 +67,7 @@ namespace Fooxboy.MusicX.AndroidApp.Services
                 if (Cover != null) cover.SetImageString(Cover, 50, 50);
                 else cover.SetImageResource(Resource.Drawable.placeholder);
             }
+            if(streamToStatus) Core.VKontakte.Music.Library.StreamToStatusSync(args.Id, args.OwnerId, args.AccessKey);
         }
     }
 }
