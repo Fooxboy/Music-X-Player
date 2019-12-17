@@ -20,7 +20,7 @@ namespace Fooxboy.MusicX.Uwp
         public static NavigationService NavigationContentService { get; set; }
         public static Frame PlayerMenuFrame { get; set; }
         public static double Volume { get; set; }
-
+         
 
         public static bool CurrentSessionIsAuth { get; set; } = false;
         public static RepeatMode Repeat { get; set; }
