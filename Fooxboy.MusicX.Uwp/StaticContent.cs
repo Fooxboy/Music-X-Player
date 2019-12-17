@@ -17,65 +17,6 @@ namespace Fooxboy.MusicX.Uwp
 {
     public static class StaticContent
     {
-        public static NavigationService NavigationContentService { get; set; }
-        public static Frame PlayerMenuFrame { get; set; }
-        public static double Volume { get; set; }
-
-
-        public static bool CurrentSessionIsAuth { get; set; } = false;
-        public static RepeatMode Repeat { get; set; }
-        public static bool Shuffle { get; set; }
-        public static AudioFile NowPlay
-        {
-            get
-            {
-                return AudioService.CurrentPlaylist.CurrentItem;
-            }
-            set
-            {
-                AudioService.CurrentPlaylist.CurrentItem = value;
-            }
-        }
-        public static StorageFolder CoversFolder { get; set; }
-        public static StorageFolder PlaylistsFolder { get; set; }
-        public static StorageFolder LocalFolder { get; set; }
-        public static PlaylistFile NowPlayPlaylist { get; set; }
-        public static AudioService AudioService => AudioService.Instance;
-        private static ObservableCollection<PlaylistFile> playlists;
-        public static ObservableCollection<PlaylistFile> Playlists
-        {
-            get
-            {
-                if (playlists == null)
-                {
-                    playlists = new ObservableCollection<PlaylistFile>();
-                    return playlists;
-                }
-                else return playlists;
-            }
-        }
-        private static ObservableCollection<AudioFile> music;
-        public static ObservableCollection<AudioFile> Music
-        {
-            get
-            {
-                if (music == null)
-                {
-                    music = new ObservableCollection<AudioFile>();
-                    return music;
-                }
-                else return music;
-            }
-        }
-
-        public static LoadingCollection<AudioFile> MusicVKontakte { get; set; }
-        public static LoadingCollection<PlaylistFile> PlaylistsVKontakte { get; set; }
-
-        public static bool OpenFiles { get; set; }
-        public static bool IsAuth { get; set; }
-        public static PlaylistFile OpenTracks { get; set; }
-
-        public static ConfigApp Config { get; set; }
-        public static bool IsPro = false;
+      
     }
 }
