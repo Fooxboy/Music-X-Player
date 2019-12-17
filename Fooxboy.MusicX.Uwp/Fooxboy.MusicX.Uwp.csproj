@@ -303,7 +303,6 @@
     </AppxManifest>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Assets\Audio\song.mp3" />
     <Content Include="Assets\BadgeLogo.scale-100.png" />
     <Content Include="Assets\BadgeLogo.scale-125.png" />
     <Content Include="Assets\BadgeLogo.scale-150.png" />
@@ -311,12 +310,12 @@
     <Content Include="Assets\BadgeLogo.scale-400.png" />
     <Content Include="Assets\Images\favorites.png" />
     <Content Include="Assets\Images\latest.png" />
-    <Content Include="Assets\Images\logo-clear.png" />
-    <Content Include="Assets\Images\logo.png" />
+    <Content Include="Assets\Images\logo-white.png" />
+    <Content Include="Assets\Images\logo-black.png" />
     <Content Include="Assets\Images\now.png" />
     <Content Include="Assets\Images\placeholder-artist.jpg" />
-    <Content Include="Assets\Images\placeholder.png" />
-    <Content Include="Assets\Images\playlist-placeholder.png" />
+    <Content Include="Assets\Images\placeholder-track.png" />
+    <Content Include="Assets\Images\placeholder-album.png" />
     <Content Include="Assets\Images\vk-logo.png" />
     <Content Include="Assets\LargeTile.scale-100.png" />
     <Content Include="Assets\LargeTile.scale-125.png" />
