@@ -5,20 +5,17 @@
     xmlns:local="using:Fooxboy.MusicX.Uwp">
     <Application.Resources>
         <ResourceDictionary>
-             
             <ResourceDictionary.MergedDictionaries>
-                <ResourceDictionary Source="Styles/SliderPlayerStyle.xaml" />
-                <ResourceDictionary Source="Styles/ButtonPlayerStyle.xaml" />
-                <ResourceDictionary Source="Styles/LoginControlsStyle.xaml" />
-                <ResourceDictionary Source="Styles/ArtistViewStyle.xaml" />
-                <ResourceDictionary Source="Styles/ListViewStyle.xaml" />
-                <ResourceDictionary Source="Styles/AcrylicStyle.xaml" />
-                <ResourceDictionary Source="Styles/ButtonsStyles.xaml" />
+                <ResourceDictionary Source="Resources/Styles/SliderPlayerStyle.xaml" />
+                <ResourceDictionary Source="Resources/Styles/ButtonPlayerStyle.xaml" />
+                <ResourceDictionary Source="Resources/Styles/LoginControlsStyle.xaml" />
+                <ResourceDictionary Source="Resources/Styles/ArtistViewStyle.xaml" />
+                <ResourceDictionary Source="Resources/Styles/ListViewStyle.xaml" />
                 <ResourceDictionary Source="Resources/Templates/PlaylistTemplate.xaml" />
                 <ResourceDictionary Source="Resources/Templates/TrackTemplate.xaml" />
                 <ResourceDictionary Source="Resources/Templates/BlockTemplate.xaml" />
-                <ResourceDictionary Source="Themes/Light.xaml" />
-                <ResourceDictionary Source="Themes/Dark.xaml" />
+                <ResourceDictionary Source="Resources/Themes/Light.xaml" />
+                <ResourceDictionary Source="Resources/Themes/Dark.xaml" />
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
     </Application.Resources>

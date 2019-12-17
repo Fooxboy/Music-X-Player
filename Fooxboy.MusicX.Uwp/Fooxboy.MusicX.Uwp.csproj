@@ -133,21 +133,9 @@
     </Compile>
     <Compile Include="Converters\AudioTimeConverter.cs" />
     <Compile Include="Enums\RepeatMode.cs" />
-    <Compile Include="Interfaces\IPlaylist.cs" />
     <Compile Include="LoadingCollection.cs" />
     <Compile Include="Models\ArtistParameter.cs" />
-    <Compile Include="Models\AudioFile.cs" />
-    <Compile Include="Models\AudioPlaylist.cs" />
-    <Compile Include="Models\Block.cs" />
     <Compile Include="Models\ConfigApp.cs" />
-    <Compile Include="Models\DownloadAudioFile.cs" />
-    <Compile Include="Models\FileMp3Abstraction.cs" />
-    <Compile Include="Models\LastPlay.cs" />
-    <Compile Include="Models\LikedArtists.cs" />
-    <Compile Include="Models\MusicCollection.cs" />
-    <Compile Include="Models\PlaylistFile.cs" />
-    <Compile Include="Models\RunApp.cs" />
-    <Compile Include="Models\TokenFile.cs" />
     <Compile Include="Properties\Annotations.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="RelayCommand.cs" />
@@ -624,7 +612,9 @@
       <Name>Fooxboy.MusicX.Core</Name>
     </ProjectReference>
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="Interfaces\" />
+  </ItemGroup>
   <PropertyGroup Condition=" '$(VisualStudioVersion)' == '' or '$(VisualStudioVersion)' &lt; '14.0' ">
     <VisualStudioVersion>14.0</VisualStudioVersion>
   </PropertyGroup>
