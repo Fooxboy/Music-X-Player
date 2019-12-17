@@ -59,6 +59,7 @@ namespace Fooxboy.MusicX.AndroidApp.Services
                 var audiofile = new AudioFile()
                 {
                     Artist = track.Artist,
+                    ArtistId = track.ArtistId,
                     Cover = coverImage,
                     DurationMinutes = track.DurationMinutes,
                     DurationSeconds = track.DurationSeconds,

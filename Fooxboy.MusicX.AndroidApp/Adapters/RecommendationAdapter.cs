@@ -35,7 +35,7 @@ namespace Fooxboy.MusicX.AndroidApp.Adapters
 
         List<IBlock> Blocks;
         Fragment Parent;
-        RecommendationsViewHolder ViewHolder;
+        List<RecommendationsViewHolder> ViewHolds = new List<RecommendationsViewHolder>();
 
         public RecommendationAdapter(List<IBlock> blocks, Fragment parent)
         {
@@ -46,7 +46,7 @@ namespace Fooxboy.MusicX.AndroidApp.Adapters
         public override void OnBindViewHolder(RecyclerView.ViewHolder holder, int position)
         {
             RecommendationsViewHolder v = holder as RecommendationsViewHolder;
-            this.ViewHolder = v;
+            
             v.ShowMoreButton.Click += (sender, e) =>
             {
                 if(Blocks[position].Playlists?.Count > 0)
@@ -54,6 +54,7 @@ namespace Fooxboy.MusicX.AndroidApp.Adapters
                     //TODO: GOTO PLAYLISTS FRAGMENT (//TODO CREATE PLAYLISTS GRID FRAGMENT)
                     var frag = new RecommendationPlaylistsFragment();
                     frag.playlists = PlaylistsService.CovertToPlaylistFiles(this.Blocks[position].Playlists);
+                    Parent.Activity.FindViewById<TextView>(Resource.Id.titlebar_title).Text = Blocks[position].Title;
                     Parent.FragmentManager.BeginTransaction().Replace(Resource.Id.content_frame, frag).Commit();
 
                 }
@@ -61,7 +62,8 @@ namespace Fooxboy.MusicX.AndroidApp.Adapters
                 {
                     var frag = new RecommendationTracksFragment();
                     frag.tracks = MusicService.ConvertToAudioFile(this.Blocks[position].Tracks);
-                    Parent.FragmentManager.BeginTransaction().Replace(Resource.Id.content_frame, frag).Commit(); ;
+                    Parent.Activity.FindViewById<TextView>(Resource.Id.titlebar_title).Text = Blocks[position].Title;
+                    Parent.FragmentManager.BeginTransaction().Replace(Resource.Id.content_frame, frag).Commit();
                 }
                 Toast.MakeText(Application.Context, $"Произошел кликинг по {this.Blocks[position].Title}", ToastLength.Long).Show();
             };
@@ -96,7 +98,7 @@ namespace Fooxboy.MusicX.AndroidApp.Adapters
                 v.List.SetLayoutManager(new LinearLayoutManager(Application.Context, LinearLayoutManager.Vertical, false));
                 v.List.Clickable = true;
             }
-            
+            this.ViewHolds.Add(v);
         }
 
         public void AddBlocks(List<IBlock> t)

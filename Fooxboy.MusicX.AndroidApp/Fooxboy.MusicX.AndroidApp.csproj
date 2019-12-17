@@ -41,7 +41,7 @@
     <BundleAssemblies>false</BundleAssemblies>
     <MandroidI18n />
     <AndroidSupportedAbis />
-    <AndroidUseAapt2>true</AndroidUseAapt2>
+    <AndroidUseAapt2>false</AndroidUseAapt2>
     <AndroidDexTool>d8</AndroidDexTool>
     <AndroidEnableProfiledAot>false</AndroidEnableProfiledAot>
   </PropertyGroup>
@@ -61,6 +61,7 @@
     <EnableLLVM>false</EnableLLVM>
     <BundleAssemblies>false</BundleAssemblies>
     <AndroidDexTool>d8</AndroidDexTool>
+    <AndroidEnableProfiledAot>false</AndroidEnableProfiledAot>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
@@ -83,6 +84,7 @@
     <Compile Include="Interfaces\IItemClickListener.cs" />
     <Compile Include="Listeners\OnScrollToBottomListener.cs" />
     <Compile Include="MainActivity.cs" />
+    <Compile Include="Models\ArtistBlock.cs" />
     <Compile Include="Models\AudioFile.cs" />
     <Compile Include="Models\AudioInBlock.cs" />
     <Compile Include="Models\AudioPlaylist.cs" />
@@ -386,6 +388,9 @@
     <AndroidResource Include="Resources\layout\activity_artist.xml">
       <SubType>Designer</SubType>
     </AndroidResource>
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\layout\activity_settings.xml" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\Android\Xamarin.Android.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it.

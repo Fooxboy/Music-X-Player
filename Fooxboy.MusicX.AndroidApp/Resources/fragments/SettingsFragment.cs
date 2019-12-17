@@ -16,7 +16,7 @@ using Java.Lang;
 
 namespace Fooxboy.MusicX.AndroidApp.Resources.fragments
 {
-    public class SettingsFragment : Fragment, View.IOnClickListener
+    public class SettingsFragment : Fragment, View.IOnClickListener, Android.Widget.CompoundButton.IOnCheckedChangeListener
     {
         public override void OnCreate(Bundle savedInstanceState)
         {
@@ -32,6 +32,14 @@ namespace Fooxboy.MusicX.AndroidApp.Resources.fragments
             var displayname = view.FindViewById<TextView>(Resource.Id.vkname);
             var vkPfp = view.FindViewById<RoundedImageView>(Resource.Id.vk_pfp);
             var fooxboy = view.FindViewById<Button>(Resource.Id.fooxboy_button);
+            var ver = view.FindViewById<TextView>(Resource.Id.settings_version);
+            var checkbox = view.FindViewById<CheckBox>(Resource.Id.streamtovk_checkbox);
+
+            var prefs = Application.Context.GetSharedPreferences("MusicX", FileCreationMode.Private);
+            checkbox.Checked = prefs.GetBoolean("StreamToStatus", false);
+            checkbox.SetOnCheckedChangeListener(this);
+
+            ver.Text = $"Версия приложения {Application.Context.ApplicationContext.PackageManager.GetPackageInfo(Application.Context.ApplicationContext.PackageName, 0).VersionName}";
             fooxboy.Click += (sender, e) =>
             {
                 var intent = new Intent(Intent.ActionView, Android.Net.Uri.Parse("https://t.me/fooxboy")) ;
@@ -70,6 +78,14 @@ namespace Fooxboy.MusicX.AndroidApp.Resources.fragments
             Intent intent = new Intent(Application.Context, typeof(AuthActivity));
             intent.SetFlags(ActivityFlags.NewTask);
             Application.Context.StartActivity(intent);
+        }
+
+        public void OnCheckedChanged(CompoundButton buttonView, bool isChecked)
+        {
+            var prefs = Application.Context.GetSharedPreferences("MusicX", FileCreationMode.Private).Edit();
+            prefs.PutBoolean("StreamToStatus", isChecked);
+            prefs.Commit();
+
         }
     }
 }
