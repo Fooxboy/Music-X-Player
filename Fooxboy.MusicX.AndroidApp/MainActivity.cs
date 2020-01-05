@@ -48,16 +48,13 @@ namespace Fooxboy.MusicX.AndroidApp
             {
                 if (AuthService.IsLoggedIn())
                 {
-
-                    Fooxboy.MusicX.Core.VKontakte.Auth.AutoSync(AuthService.GetToken(), null);
+                    Core.Api.GetApi().VKontakte.Auth.Auto(AuthService.GetToken(), null);
                     //var f = new HomeFragment();
                     var f = new RecommendationsFragment();
                     FragmentManager.BeginTransaction().Replace(Resource.Id.content_frame, f).Commit();
                     SetTitle(Resource.String.title_home);
                     var title = FindViewById<TextView>(Resource.Id.titlebar_title);
                     title.Text = "Рекомендации";
-
-
                 }
                 else
                 {
@@ -65,13 +62,9 @@ namespace Fooxboy.MusicX.AndroidApp
                     Intent intent = new Intent(this.ApplicationContext, typeof(AuthActivity));
                     intent.SetFlags(ActivityFlags.NewTask);
                     StartActivity(intent);
+                    Finish();
                 }
             }
-
-            
-
-            
-
             var miniplayerFragment = new MiniPlayerFragment();
             FragmentManager.BeginTransaction().Replace(Resource.Id.miniplayer_frame, miniplayerFragment).Commit();
             

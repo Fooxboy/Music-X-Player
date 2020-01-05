@@ -12,18 +12,8 @@ using Android.Widget;
 
 namespace Fooxboy.MusicX.AndroidApp.Models
 {
-    public class PlaylistInBlock
+    public class Artist: Fooxboy.MusicX.Core.Models.Artist
     {
-
-        public PlaylistFile Playlist{get; set;}
-        public string BlockID { get; set; }
-
-        public PlaylistInBlock(PlaylistFile plist, string block)
-        {
-            Playlist = plist;
-            BlockID = block;
-        }
-
-
+        public bool IsFavorite { get; set; }
     }
 }

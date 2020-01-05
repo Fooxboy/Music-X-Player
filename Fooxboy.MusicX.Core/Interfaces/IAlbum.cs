@@ -10,7 +10,6 @@ namespace Fooxboy.MusicX.Core.Interfaces
         long OwnerId { get; set; }
         string Title { get; set; }
         List<IArtist> Artists { get; set; }
-    
         string Cover { get; set; }
         string AccessKey { get; set; }
         List<ITrack> Tracks { get; set; }
