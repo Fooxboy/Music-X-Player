@@ -11,6 +11,7 @@ using Android.Runtime;
 using Android.Support.V7.Widget;
 using Android.Views;
 using Android.Widget;
+using Fooxboy.MusicX.AndroidApp.Converters;
 using Fooxboy.MusicX.AndroidApp.Interfaces;
 using Fooxboy.MusicX.AndroidApp.Models;
 using Fooxboy.MusicX.AndroidApp.ViewHolders;
@@ -26,9 +27,9 @@ namespace Fooxboy.MusicX.AndroidApp.Adapters
     public class TrackAdapter : RecyclerView.Adapter, IItemClickListener, View.IOnLongClickListener, View.IOnCreateContextMenuListener
     {
         List<TracksViewHolder> holders = new List<TracksViewHolder>();
-        public event Delegates.EventHandler<AudioFile> ItemClick;
-        public event Delegates.EventHandler<AudioInBlock> ItemInBlockClick;
-        private List<AudioFile> tracks;
+        public event Delegates.EventHandler<Track> ItemClick;
+        public event Delegates.EventHandler<Block> ItemInBlockClick;
+        private List<Track> tracks;
         private string blockID = "";
         private int position;
 
@@ -42,9 +43,9 @@ namespace Fooxboy.MusicX.AndroidApp.Adapters
             this.position = pos;
         }
 
-        public TrackAdapter(List<AudioFile> t, string block = null)
+        public TrackAdapter(List<Track> track, string block = null)
         {
-            this.tracks = t;
+            this.tracks = track;
             if (!String.IsNullOrEmpty(block)) this.blockID = block;
         }
 
@@ -55,30 +56,38 @@ namespace Fooxboy.MusicX.AndroidApp.Adapters
             holder.Artist.Text = tracks[position].Artist;
             holder.Title.Text = tracks[position].Title;
             holder.SetItemClickListener(this);
-            holder.Duration.Text = tracks[position].DurationMinutes;
+            holder.Duration.Text = tracks[position].Duration.ToDuration();
             holder.ItemView.SetOnLongClickListener(this);
             //holder.ItemView.SetOnLongClickListener(this);
-            if (tracks[position].Cover == "placeholder")
+
+            if(tracks[position].Album is null)
             {
                 holder.Cover.SetImageResource(Resource.Drawable.placeholder);
             }else
             {
-                var file = new File(tracks[position].Cover);
-                var opt = new BitmapFactory.Options();
-                opt.InJustDecodeBounds = true;
-                //BitmapFactory.DecodeFile(file.AbsolutePath, opt);
-                opt.InSampleSize = CalculateInSampleSize(opt, 50, 50);
-                opt.InJustDecodeBounds = false;
-                Bitmap myBitmap = BitmapFactory.DecodeFile(file.Path, opt);
-                holder.Cover.SetImageBitmap(myBitmap);
+                if (tracks[position].Album?.Cover is null)
+                {
+                    holder.Cover.SetImageResource(Resource.Drawable.placeholder);
+                }
+                else
+                {
+                    var file = new File(tracks[position].Album.Cover);
+                    var opt = new BitmapFactory.Options();
+                    opt.InJustDecodeBounds = true;
+                    opt.InSampleSize = CalculateInSampleSize(opt, 50, 50);
+                    opt.InJustDecodeBounds = false;
+                    Bitmap myBitmap = BitmapFactory.DecodeFile(file.Path, opt);
+                    holder.Cover.SetImageBitmap(myBitmap);
+                }
             }
+            
             //holder.Cover.SetImageResource(Resource.Drawable.placeholder);
             holders.Add(holder);
         }
 
-        public void AddItems(List<AudioFile> t)
+        public void AddItems(List<Track> track)
         {
-            this.tracks.AddRange(t);
+            this.tracks.AddRange(track);
         }
 
         public static int CalculateInSampleSize(BitmapFactory.Options options, int reqWidth, int reqHeight)

@@ -79,6 +79,8 @@
     <Compile Include="Adapters\RecommendationAdapter.cs" />
     <Compile Include="Adapters\TrackAdapter.cs" />
     <Compile Include="Consts.cs" />
+    <Compile Include="Converters\TimeSpanConverter.cs" />
+    <Compile Include="Converters\TracksConverter.cs" />
     <Compile Include="Delegates\EventHandler.cs" />
     <Compile Include="DialogFragments\IncorrectLoginDialogFragment.cs" />
     <Compile Include="AuthActivity.cs" />

@@ -12,6 +12,7 @@ using Android.Util;
 using Android.Views;
 using Android.Widget;
 using Fooxboy.MusicX.AndroidApp.Adapters;
+using Fooxboy.MusicX.AndroidApp.Converters;
 using Fooxboy.MusicX.AndroidApp.Models;
 using Fooxboy.MusicX.AndroidApp.Services;
 using ImageViews.Rounded;
@@ -25,15 +26,14 @@ namespace Fooxboy.MusicX.AndroidApp.Resources.fragments
         TrackAdapter adapter = null;
         bool HasLoading = true;
 
-        public List<AudioFile> Tracks;
-        public PlaylistFile playlist;
+        public List<Track> Tracks;
+        public Album playlist;
 
 
         public override void OnCreate(Bundle savedInstanceState)
         {
             base.OnCreate(savedInstanceState);
 
-            // Create your fragment here
         }
 
         public override View OnCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
@@ -42,7 +42,7 @@ namespace Fooxboy.MusicX.AndroidApp.Resources.fragments
             //var tracks_in_playlist_i_know_im_really_bad_at_naming = Core.VKontakte.Music.Playlist.GetById(playlist.Id);
             Activity.FindViewById<TextView>(Resource.Id.titlebar_title).Text = "Плейлист";
             Handler handler = new Handler(Looper.MainLooper);
-            var tracks = new List<AudioFile>();
+            var tracks = new List<Track>();
             adapter = new TrackAdapter(tracks, "false");
 
                 var plists_recycler = view.FindViewById<RecyclerView>(Resource.Id.tracksPlaylistView);
@@ -103,14 +103,30 @@ namespace Fooxboy.MusicX.AndroidApp.Resources.fragments
 
         }
 
-        private void AdapterOnItemClick(object sender, AudioFile args)
+        private void AdapterOnItemClick(object sender, Track args, Block block = null)
         {
             try
             {
+                Album album;
+                var player = PlayerService.Instanse;
+
+                if (block is null)
+                {
+                    album = playlist;
+                }else
+                {
+                    album = new Album();
+                    album.Id = 0;
+                    album.IsAvailable = true;
+                    album.MainArtist = "Music X";
+                    album.Title = block.Title;
+                    album.Tracks = block.Tracks.ToTracksList();
+                }
+
+                player.Play(album, playlist.Tracks.First(t => t.Url == args.Url));
+
                 Toast.MakeText(Application.Context, $"Ты тыкнул: {args.Artist} - {args.Title} ", ToastLength.Long).Show();
                 //Создание плейлиста из локальных трекаф
-                var player = PlayerService.Instanse;
-                player.Play(playlist, playlist.TracksFiles.First(t => t.SourceString == args.SourceString));
             }
             catch (System.Exception e)
             {

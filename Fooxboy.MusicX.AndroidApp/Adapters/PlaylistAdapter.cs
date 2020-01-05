@@ -15,13 +15,13 @@ namespace Fooxboy.MusicX.AndroidApp.Adapters
 {
     public class PlaylistAdapter:RecyclerView.Adapter, IItemClickListener, View.IOnCreateContextMenuListener
     {
-        private List<PlaylistFile> plists;
-        public event Delegates.EventHandler<PlaylistInBlock> ItemClick;
+        private List<Album> albums; // plists;
+        public event Delegates.EventHandler<Block> ItemClick;
         private string BlockID = "";
 
-        public PlaylistAdapter(List<PlaylistFile> p, string block = null)
+        public PlaylistAdapter(List<Album> albums, string block = null)
         {
-            this.plists = p;
+            this.albums = albums;
             if (!String.IsNullOrEmpty(block)) BlockID = block;
         }
 

@@ -33,11 +33,11 @@ namespace Fooxboy.MusicX.AndroidApp.Adapters
             }
         }
 
-        List<IBlock> Blocks;
+        List<Block> Blocks;
         Fragment Parent;
         List<RecommendationsViewHolder> ViewHolds = new List<RecommendationsViewHolder>();
 
-        public RecommendationAdapter(List<IBlock> blocks, Fragment parent)
+        public RecommendationAdapter(List<Block> blocks, Fragment parent)
         {
             this.Blocks = blocks;
             this.Parent = parent;
@@ -49,9 +49,8 @@ namespace Fooxboy.MusicX.AndroidApp.Adapters
             
             v.ShowMoreButton.Click += (sender, e) =>
             {
-                if(Blocks[position].Playlists?.Count > 0)
+                if(Blocks[position].Albums?.Count > 0)
                 {
-                    //TODO: GOTO PLAYLISTS FRAGMENT (//TODO CREATE PLAYLISTS GRID FRAGMENT)
                     var frag = new RecommendationPlaylistsFragment();
                     frag.playlists = PlaylistsService.CovertToPlaylistFiles(this.Blocks[position].Playlists);
                     Parent.Activity.FindViewById<TextView>(Resource.Id.titlebar_title).Text = Blocks[position].Title;
