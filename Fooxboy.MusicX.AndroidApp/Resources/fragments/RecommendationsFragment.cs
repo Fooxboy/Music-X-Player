@@ -24,7 +24,7 @@ namespace Fooxboy.MusicX.AndroidApp.Resources.fragments
         RecommendationAdapter adapter = null;
         bool hasLoading = true;
 
-        List<IBlock> recom_blocks = new List<IBlock>();
+        List<Block> blocks = new List<Block>();
 
         public override void OnCreate(Bundle savedInstanceState)
         {
@@ -40,7 +40,6 @@ namespace Fooxboy.MusicX.AndroidApp.Resources.fragments
         {
 
             var view = inflater.Inflate(Resource.Layout.activity_recommendations, container, false);
-
             var list = view.FindViewById<RecyclerView>(Resource.Id.list_recommendations);
             var progress = view.FindViewById<ProgressBar>(Resource.Id.progressBar_recommendations);
             adapter = new RecommendationAdapter(new List<IBlock>(), this);
