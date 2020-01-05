@@ -21,9 +21,9 @@ namespace Fooxboy.MusicX.AndroidApp.Services
         private readonly IMediaManager player;
         private AudioPlaylist currentPlaylist;
         private long currentPlaylistId = 0;
-        private AudioFile currentTrack;
+        private Track currentTrack;
         public event Delegates.EventHandler<TimeSpan> PositionChanged;
-        public event Delegates.EventHandler<AudioFile> CurrentAudioChanged;
+        public event Delegates.EventHandler<Track> CurrentAudioChanged;
         public event Delegates.EventHandler<Exception> ItemFailed; 
 
         public PlayingService()
@@ -57,7 +57,7 @@ namespace Fooxboy.MusicX.AndroidApp.Services
         
         public TimeSpan Position => player.Position;
 
-        public void Play(PlaylistFile playlist = null, AudioFile audio = null)
+        public void Play(Models.Album playlist = null, Track audio = null)
         {
             //EndsWith(".mp3")
             if (audio.SourceString.Split("//")[1].Split("/")[0].EndsWith(".mp3"))
@@ -113,20 +113,25 @@ namespace Fooxboy.MusicX.AndroidApp.Services
             }
         }
 
-        private void CurrentPlaylistOnOnCurrentItemChanged(object sender, AudioFile args)
+        private void CurrentPlaylistOnOnCurrentItemChanged(object sender, Track args)
         {
             currentTrack = args;
             CurrentAudioChanged?.Invoke(this, args);
             TaskService.RunOnUI(async () =>
             {
-                var media = await player.Play(currentTrack.SourceString);
-                media.MediaUri = currentTrack.SourceString;
+                //TODO: если нихуя не работает, раскомментировать и передать в Play;
+                //var item = await CrossMediaManager.Current.Extractor.CreateMediaItem(currentTrack.Url.ToString());
+                //item.MediaType = MediaType.Hls;
+
+                var media = await player.Play(currentTrack.Url);
+                media.MediaUri = currentTrack.Url.ToString();
                 media.Title = currentTrack.Title;
-                media.AlbumArtUri = ""; //Без этого треки с битыми ссылками будут выкидывать плеер в фатал
+                //media.AlbumArtUri = ""; //Без этого треки с битыми ссылками будут выкидывать плеер в фатал
                 media.Artist = currentTrack.Artist;
                 media.AlbumArtist = currentTrack.Artist;
-                media.ArtUri = null;
-                if (currentTrack.Cover != "placeholder") media.ArtUri = currentTrack.Cover;
+                media.ImageUri = null;
+ 
+                if (currentTrack.Album.Cover != "placeholder") media.ImageUri = currentTrack.Cover;
                 
                 CrossMediaManager.Android.NotificationManager.UpdateNotification();
             });

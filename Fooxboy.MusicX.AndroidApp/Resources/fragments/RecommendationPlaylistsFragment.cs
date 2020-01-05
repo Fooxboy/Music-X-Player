@@ -18,7 +18,7 @@ namespace Fooxboy.MusicX.AndroidApp.Resources.fragments
     class RecommendationPlaylistsFragment : Fragment
     {
 
-        public List<PlaylistFile> playlists;
+        public List<Album> playlists;
         PlaylistAdapter adapter;
 
         public override void OnCreate(Bundle savedInstanceState)
@@ -41,10 +41,10 @@ namespace Fooxboy.MusicX.AndroidApp.Resources.fragments
 
         }
 
-        private void AdapterOnItemClick(object sender, PlaylistInBlock args)
+        private void AdapterOnItemClick(object sender, Block args)
         {
             var fragment = new PlaylistFragment();
-            fragment.playlist = args.Playlist;
+            fragment.playlist = args.Albums;
             FragmentManager.BeginTransaction().Replace(Resource.Id.content_frame, fragment).Commit();
         }
 

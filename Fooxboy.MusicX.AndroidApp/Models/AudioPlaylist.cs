@@ -8,22 +8,22 @@ namespace Fooxboy.MusicX.AndroidApp.Models
 {
     public class AudioPlaylist
     {
-        private AudioFile currentItem;
+        private Track currentItem;
         private int currentIndex = -1;
-        private PlaylistFile originalCurrentPlaylist;
-        private PlaylistFile currentPlaylist;
-        private List<AudioFile> currentItems;
+        private Album originalCurrentPlaylist;
+        private Album currentPlaylist;
+        private List<Track> currentItems;
         private bool repeat = false;
         private bool repeatTrack = false;
         
-        public event Delegates.EventHandler<AudioFile> OnCurrentItemChanged;
+        public event Delegates.EventHandler<Track> OnCurrentItemChanged;
 
-        public List<AudioFile> Items
+        public List<Track> Items
         {
             get => currentItems;
         }
 
-        public AudioFile CurrentItem
+        public Track CurrentItem
         {
             get => currentItem;
         }
@@ -50,18 +50,18 @@ namespace Fooxboy.MusicX.AndroidApp.Models
             }
         }
 
-        public void SetCurrentTrack(AudioFile track)
+        public void SetCurrentTrack(Track track)
         {
             currentItem = track;
             currentIndex = currentItems.IndexOf(track);
         }
 
-        public AudioPlaylist(PlaylistFile playlist, AudioFile currentPlayAudioFile, bool repeat, bool repeatTrack)
+        public AudioPlaylist(Album playlist, Track currentPlayAudioFile, bool repeat, bool repeatTrack)
         {
             currentItem = currentPlayAudioFile;
             currentPlaylist = playlist;
             originalCurrentPlaylist = playlist;
-            currentItems = playlist.TracksFiles;
+            currentItems = playlist.Tracks;
             currentIndex = currentItems.IndexOf(currentPlayAudioFile);
             this.repeat = repeat;
             this.repeatTrack = repeatTrack;

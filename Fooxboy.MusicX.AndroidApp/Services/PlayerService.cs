@@ -17,17 +17,17 @@ namespace Fooxboy.MusicX.AndroidApp.Services
         public string Title { get; set; }
         public string Artist { get; set; }
         public string Cover { get; set; }
-        public AudioFile CurrentAudioFile { get; set; } 
+        public Track CurrentAudioFile { get; set; } 
 
 
         public static PlayerService Instanse => inst ?? (inst = new PlayerService());
 
 
-        public void Play(PlaylistFile playlist = null, AudioFile audio= null)
+        public void Play(Album playlist = null, Track audio= null)
         {
             try
             {
-                StaticContentService.NowPlay = playlist?.TracksFiles;
+                StaticContentService.NowPlay = playlist?.Tracks;
                 MainService.Play(playlist, audio);
             }catch(Exception e)
             {

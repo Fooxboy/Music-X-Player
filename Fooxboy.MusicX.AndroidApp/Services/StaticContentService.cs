@@ -18,6 +18,6 @@ namespace Fooxboy.MusicX.AndroidApp.Services
         public static string CodeTwoFactorAuth { get; set; }
         public static bool RepeatPlaylist { get; set; }
         public static bool RepeatTrack { get; set; }
-        public static List<AudioFile> NowPlay { get; set; } 
+        public static List<Track> NowPlay { get; set; } 
     }
 }
