@@ -14,7 +14,7 @@ namespace Fooxboy.MusicX.Core.Models
         public string MainArtist { get; set; }
         public string Cover { get; set; }
         public string AccessKey { get; set; }
-        public List<ITrack> Tracks { get; set; }
+        public virtual List<ITrack> Tracks { get; set; }
         public List<string> Genres { get; set; }
         public long Plays { get; set; }
         public long Year { get; set; }

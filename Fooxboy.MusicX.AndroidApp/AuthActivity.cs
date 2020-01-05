@@ -7,6 +7,7 @@ using Android.Content;
 using Android.OS;
 using Android.Runtime;
 using Android.Views;
+using Fooxboy.MusicX.Core;
 using Android.Widget;
 using Fooxboy.MusicX.AndroidApp.Resources.fragments;
 using Fooxboy.MusicX.AndroidApp.Services;
@@ -45,7 +46,7 @@ namespace Fooxboy.MusicX.AndroidApp
                 string token = null;
                 try
                 {
-                    token = await Auth.User(loginText.Text, passwordText.Text, TwoFactorAuth, null);
+                    token = await Api.GetApi().VKontakte.Auth.UserAsync(loginText.Text, passwordText.Text, TwoFactorAuth, null);
                     
                 }catch(VkNet.Exception.UserAuthorizationFailException)
                 {

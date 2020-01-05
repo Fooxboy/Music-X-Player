@@ -14,7 +14,8 @@ namespace Fooxboy.MusicX.Core
         private static Api _api;
         public static Api GetApi()
         {
-            _api ??= new Api();
+            if(_api == null) _api = new Api();
+
             return _api;
         }
 
