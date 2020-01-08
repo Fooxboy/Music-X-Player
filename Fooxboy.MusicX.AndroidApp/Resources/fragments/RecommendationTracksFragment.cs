@@ -32,7 +32,7 @@ namespace Fooxboy.MusicX.AndroidApp.Resources.fragments
         public override View OnCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
         {
             var view = inflater.Inflate(Resource.Layout.activity_tracks, container, false);
-            adapter = new TrackAdapter(tracks, "false");
+            adapter = new TrackAdapter(tracks, new Block()); //TODO: тут передавался Фолс а не налл ну тип да
             var tracksView = view.FindViewById<RecyclerView>(Resource.Id.list_tracks);
             var progressBar = view.FindViewById<ProgressBar>(Resource.Id.progressBar_tracks);
             progressBar.Visibility = ViewStates.Gone;
@@ -46,21 +46,23 @@ namespace Fooxboy.MusicX.AndroidApp.Resources.fragments
             return view;
         }
 
-        private void AdapterOnItemClick(object sender, AudioFile args)
+        private void AdapterOnItemClick(object sender, Track args, Block block)
         {
             try
             {
                 Toast.MakeText(Application.Context, $"Ты тыкнул: {args.Artist} - {args.Title} ", ToastLength.Long).Show();
                 //Создание плейлиста из локальных трекаф
-                var playlist = new PlaylistFile();
-                playlist.Artist = "Music X";
+                var playlist = new Album();
+                playlist.Artists[0] = new Artist()
+                {
+                    Name = "Music X"
+                };
                 playlist.Cover = "playlist_placeholder";
-                playlist.Genre = "";
+                playlist.Genres = null;
                 playlist.Id = 1000;
-                playlist.IsAlbum = false;
-                playlist.TracksFiles = tracks;
+                playlist.Tracks = tracks;
                 var player = PlayerService.Instanse;
-                player.Play(playlist, playlist.TracksFiles.First(t => t.SourceString == args.SourceString));
+                player.Play(playlist, playlist.Tracks.First(t => t.Url == args.Url));
             }
             catch (Exception e)
             {
@@ -76,9 +78,9 @@ namespace Fooxboy.MusicX.AndroidApp.Resources.fragments
                 case 0:
                     Toast.MakeText(Application.Context, $"Переходим к исполнителю {t.Artist}", ToastLength.Long).Show();
                     var artist = new ArtistFragment();
-                    if (t.ArtistId != 0)
+                    if (t.Artists[0].Id != "0")
                     {
-                        artist.ArtistID = t.ArtistId;
+                        artist.ArtistID = Convert.ToInt64(t.Artists[0].Id);
                         FragmentManager.BeginTransaction().Replace(Resource.Id.content_frame, artist).Commit();
                     }
                     else
