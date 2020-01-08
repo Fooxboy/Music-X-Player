@@ -2,6 +2,7 @@
 using System.IO;
 using System.Threading.Tasks;
 using Android.Provider;
+using Fooxboy.MusicX.AndroidApp.Converters;
 using Fooxboy.MusicX.AndroidApp.Models;
 using Fooxboy.MusicX.Core.Interfaces;
 
@@ -10,9 +11,9 @@ namespace Fooxboy.MusicX.AndroidApp.Services
     public static class MusicService
     {
 
-        public static List<AudioFile> GetLocal()
+        public static List<Track> GetLocal()
         {
-            var tracks = new List<AudioFile>();
+            var tracks = new List<Track>();
             string dir = Android.OS.Environment.GetExternalStoragePublicDirectory(Android.OS.Environment.DirectoryMusic).ToString();
             var files = Directory.GetFiles(dir);
             foreach (var track in files)
@@ -24,16 +25,18 @@ namespace Fooxboy.MusicX.AndroidApp.Services
 
         }
 
-        public  static List<AudioFile> GetMusicLibrary(int count, int offset)
+        public  static List<Track> GetMusicLibrary(int count, int offset)
         {
-            var tracksvk = Fooxboy.MusicX.Core.VKontakte.Music.Library.TracksSync(count, offset);
-            var tracks = tracksvk.ConvertToAudioFile();
-            return tracks;
+            //TODO: получение библиотеки
+            //var tracksvk = Fooxboy.MusicX.Core.VKontakte.Music.Library.TracksSync(count, offset);
+            /*var tracks = tracksvk.ConvertToAudioFile();
+            return tracks;*/
+            return null;
         }
 
-        public static List<AudioFile> ConvertToAudioFile(this IList<IAudioFile> music, string cover = null)
+        public static List<Track> ConvertToAudioFile(this IList<ITrack> music, string cover = null)
         {
-            var tracks = new List<AudioFile>();
+            var tracks = new List<Track>();
 
             foreach (var track in music)
             {
@@ -41,7 +44,7 @@ namespace Fooxboy.MusicX.AndroidApp.Services
 
                 if (cover == null)
                 {
-                    if (track.Cover == "no")
+                    if (track.Album.Cover is null)
                     {
                         coverImage = "placeholder";
                     }
@@ -56,24 +59,8 @@ namespace Fooxboy.MusicX.AndroidApp.Services
                 }
 
 
-                var audiofile = new AudioFile()
-                {
-                    Artist = track.Artist,
-                    ArtistId = track.ArtistId,
-                    Cover = coverImage,
-                    DurationMinutes = track.DurationMinutes,
-                    DurationSeconds = track.DurationSeconds,
-                    Id = track.Id,
-                    InternalId = track.InternalId,
-                    IsLocal = false,
-                    OwnerId = track.OwnerId,
-                    PlaylistId = track.PlaylistId,
-                    SourceString = track.SourceString,
-                    Title = track.Title,
-                    IsFavorite = false,
-                    IsDownload = false,
-                    IsInLibrary = track.IsInLibrary
-                };
+                var audiofile = track.ToTrack();
+                audiofile.Album.Cover = coverImage;
 
                 tracks.Add(audiofile);
             }
