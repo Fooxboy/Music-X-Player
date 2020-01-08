@@ -42,15 +42,15 @@ namespace Fooxboy.MusicX.AndroidApp.Resources.fragments
             Activity.FindViewById<TextView>(Resource.Id.titlebar_title).Text = "Плейлист";
             Handler handler = new Handler(Looper.MainLooper);
             var tracks = new List<Track>();
-            adapter = new TrackAdapter(tracks, "false");
+            adapter = new TrackAdapter(tracks, new Block()); //TODO: Здесь в блок передавался не налл вообще хз почему. ЭТОТ ТУДУ НА СЛУЧАЙ ПРОБЛЕМ
 
-                var plists_recycler = view.FindViewById<RecyclerView>(Resource.Id.tracksPlaylistView);
-                var trackscount = view.FindViewById<TextView>(Resource.Id.countTracksPlaylistView);
-                var title = view.FindViewById<TextView>(Resource.Id.namePlaylistView);
-                var genre = view.FindViewById<TextView>(Resource.Id.genrePlaylistView);
-                var author = view.FindViewById<TextView>(Resource.Id.artistPlaylistView);
-                var year = view.FindViewById<TextView>(Resource.Id.yearPlaylistView);
-                var cover = view.FindViewById<RoundedImageView>(Resource.Id.coverPlaylistView);
+            var plists_recycler = view.FindViewById<RecyclerView>(Resource.Id.tracksPlaylistView);
+            var trackscount = view.FindViewById<TextView>(Resource.Id.countTracksPlaylistView);
+            var title = view.FindViewById<TextView>(Resource.Id.namePlaylistView);
+            var genre = view.FindViewById<TextView>(Resource.Id.genrePlaylistView);
+            var author = view.FindViewById<TextView>(Resource.Id.artistPlaylistView);
+            var year = view.FindViewById<TextView>(Resource.Id.yearPlaylistView);
+            var cover = view.FindViewById<RoundedImageView>(Resource.Id.coverPlaylistView);
             adapter.ItemClick += AdapterOnItemClick;
 
             if (playlist.Cover != "playlist_placeholder") cover.SetImageString(playlist.Cover, 50, 50);
@@ -80,13 +80,13 @@ namespace Fooxboy.MusicX.AndroidApp.Resources.fragments
 
             var actualtracks = Task.Run(async() =>
             {
-                return await Core.Api.GetApi().VKontakte.Music.Tracks.GetAsync(playlist., playlist.Id, playlist.OwnerId, playlist.AccessKey);
+                return await Core.Api.GetApi().VKontakte.Music.Tracks.GetAsync(999, 0, playlist.AccessKey, playlist.Id, playlist.OwnerId);
                 //return await Core.VKontakte.Music.Playlist.GetTracks;
 
             });
             try { 
-                tracks = MusicService.ConvertToAudioFile(actualtracks.Result);
-                this.playlist.TracksFiles = tracks;
+                tracks = Converters.TracksConverter.ToTracksList(actualtracks.Result);
+                this.playlist.Tracks = tracks;
                 adapter.AddItems(tracks);
                 adapter.ItemClick += AdapterOnItemClick;
 
@@ -94,10 +94,10 @@ namespace Fooxboy.MusicX.AndroidApp.Resources.fragments
                 if (playlist.Cover == "playlist_placeholder") cover.SetImageResource(Resource.Drawable.playlist_placeholder);
 
                 trackscount.Text = $"{actualtracks.Result.Count} треков";
-                title.Text = playlist.Name;
-                genre.Text = playlist.Genre;
-                author.Text = playlist.Artist;
-                year.Text = playlist.Year;
+                title.Text = playlist.Title;
+                genre.Text = genres;
+                author.Text = artists;
+                year.Text = playlist.Year.ToString();
 
                 plists_recycler.SetAdapter(adapter);
                 plists_recycler.Clickable = true;

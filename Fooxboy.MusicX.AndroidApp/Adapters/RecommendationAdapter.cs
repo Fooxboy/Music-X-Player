@@ -23,7 +23,7 @@ namespace Fooxboy.MusicX.AndroidApp.Adapters
     public class RecommendationAdapter : RecyclerView.Adapter, IItemClickListener
     {
 
-        public event Delegates.EventHandler<IBlock> ItemClick;
+        public event Delegates.EventHandler<Block> ItemClick;
 
         public override int ItemCount
         {
@@ -46,7 +46,7 @@ namespace Fooxboy.MusicX.AndroidApp.Adapters
         public override void OnBindViewHolder(RecyclerView.ViewHolder holder, int position)
         {
             RecommendationsViewHolder v = holder as RecommendationsViewHolder;
-            
+            /* TODO: Ой бля ну тут полный пиздец лучше с нуля переписать мой тебе совет
             v.ShowMoreButton.Click += (sender, e) =>
             {
                 if(Blocks[position].Albums?.Count > 0)
@@ -65,7 +65,7 @@ namespace Fooxboy.MusicX.AndroidApp.Adapters
                     Parent.FragmentManager.BeginTransaction().Replace(Resource.Id.content_frame, frag).Commit();
                 }
                 Toast.MakeText(Application.Context, $"Произошел кликинг по {this.Blocks[position].Title}", ToastLength.Long).Show();
-            };
+            };*/
             //Установка заголовка согласно нужной рекомендации
             v.Caption.Text = this.Blocks[position].Title;
             v.SetItemClickListener(this);
