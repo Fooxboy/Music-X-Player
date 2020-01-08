@@ -32,7 +32,7 @@ namespace Fooxboy.MusicX.AndroidApp.Resources.fragments
         {
             
             var view = inflater.Inflate(Resource.Layout.activity_playlists, container, false);
-            adapter = new PlaylistAdapter(playlists, "false");
+            adapter = new PlaylistAdapter(playlists, new Block()); //TODO: опять же тут в блок передается не налл а Фолс вообще хз
             adapter.ItemClick += AdapterOnItemClick;
             var list = view.FindViewById<RecyclerView>(Resource.Id.list_playlists);
             list.SetAdapter(adapter);
@@ -41,10 +41,10 @@ namespace Fooxboy.MusicX.AndroidApp.Resources.fragments
 
         }
 
-        private void AdapterOnItemClick(object sender, Block args)
+        private void AdapterOnItemClick(object sender, Album args, Block block)
         {
             var fragment = new PlaylistFragment();
-            fragment.playlist = args.Albums;
+            fragment.playlist = args;
             FragmentManager.BeginTransaction().Replace(Resource.Id.content_frame, fragment).Commit();
         }
 
