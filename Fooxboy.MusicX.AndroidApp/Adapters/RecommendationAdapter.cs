@@ -10,6 +10,7 @@ using Android.Runtime;
 using Android.Support.V7.Widget;
 using Android.Views;
 using Android.Widget;
+using Fooxboy.MusicX.AndroidApp.Converters;
 using Fooxboy.MusicX.AndroidApp.Interfaces;
 using Fooxboy.MusicX.AndroidApp.Models;
 using Fooxboy.MusicX.AndroidApp.Resources.fragments;
@@ -46,35 +47,33 @@ namespace Fooxboy.MusicX.AndroidApp.Adapters
         public override void OnBindViewHolder(RecyclerView.ViewHolder holder, int position)
         {
             RecommendationsViewHolder v = holder as RecommendationsViewHolder;
-            /* TODO: Ой бля ну тут полный пиздец лучше с нуля переписать мой тебе совет
+
             v.ShowMoreButton.Click += (sender, e) =>
             {
                 if(Blocks[position].Albums?.Count > 0)
                 {
-                    var frag = new RecommendationPlaylistsFragment();
-                    frag.playlists = PlaylistsService.CovertToPlaylistFiles(this.Blocks[position].Playlists);
+                    var Fragment = new RecommendationPlaylistsFragment();
+                    Fragment.playlists = Blocks[position].Albums.ToAlbumsList();
                     Parent.Activity.FindViewById<TextView>(Resource.Id.titlebar_title).Text = Blocks[position].Title;
-                    Parent.FragmentManager.BeginTransaction().Replace(Resource.Id.content_frame, frag).Commit();
-
+                    Parent.FragmentManager.BeginTransaction().Replace(Resource.Id.content_frame, Fragment).Commit();
                 }
                 else
                 {
-                    var frag = new RecommendationTracksFragment();
-                    frag.tracks = MusicService.ConvertToAudioFile(this.Blocks[position].Tracks);
+                    var Fragment = new RecommendationTracksFragment();
+                    Fragment.tracks = Blocks[position].Tracks.ToTracksList();
                     Parent.Activity.FindViewById<TextView>(Resource.Id.titlebar_title).Text = Blocks[position].Title;
-                    Parent.FragmentManager.BeginTransaction().Replace(Resource.Id.content_frame, frag).Commit();
+                    Parent.FragmentManager.BeginTransaction().Replace(Resource.Id.content_frame, Fragment).Commit();
                 }
-                Toast.MakeText(Application.Context, $"Произошел кликинг по {this.Blocks[position].Title}", ToastLength.Long).Show();
-            };*/
+            };
             //Установка заголовка согласно нужной рекомендации
             v.Caption.Text = this.Blocks[position].Title;
             v.SetItemClickListener(this);
             //вот прям тут да между этими комментами
             int counter = 0;
-            if (this.Blocks[position].Playlists?.Count > 0)
+            if (this.Blocks[position].Albums?.Count > 0)
             {
-                var plistsInBlock = PlaylistsService.CovertToPlaylistFiles(this.Blocks[position].Playlists.Take(2).ToList());
-                var adapter = new PlaylistAdapter(plistsInBlock);
+                var BlockAlbums = this.Blocks[position].Albums.Take(2).ToList().ToAlbumsList();
+                var adapter = new PlaylistAdapter(BlockAlbums, Blocks[position]);
                 adapter.ItemClick += PlaylistAdapterOnItemClick;
                 v.List.SetAdapter(adapter);
                 v.List.SetLayoutManager(new LinearLayoutManager(Application.Context, LinearLayoutManager.Horizontal, false));
@@ -83,15 +82,16 @@ namespace Fooxboy.MusicX.AndroidApp.Adapters
             else
             {
 
-                List<AudioFile> tracksInBlock = new List<AudioFile>();
-                var tracks_nonvk = MusicService.ConvertToAudioFile(this.Blocks[position].Tracks);
-                foreach (var track in tracks_nonvk)
+                List<Track> BlockTracks = this.Blocks[position].Tracks.Take(3).ToList().ToTracksList();
+                //var tracks_nonvk = this.Blocks[position].Tracks;
+                //Не знаю зачем я это сделал, но на всякий случай просто оставлю комментом
+                /*foreach (var track in tracks_nonvk)
                 {
                     if (counter > 1) break;
                     tracksInBlock.Add(track);
                     counter++;
-                }
-                var adapter = new TrackAdapter(tracksInBlock, this.Blocks[position].Title);
+                }*/
+                var adapter = new TrackAdapter(BlockTracks, this.Blocks[position]);
                 adapter.ItemClick += TrackAdapterOnItemClick;
                 v.List.SetAdapter(adapter);
                 v.List.SetLayoutManager(new LinearLayoutManager(Application.Context, LinearLayoutManager.Vertical, false));
