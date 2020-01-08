@@ -68,7 +68,7 @@ namespace Fooxboy.MusicX.AndroidApp.Activities
                 position.Text = player.MainService.Position.ToString("m\\:ss");
                 duration.Text = player.MainService.Duration.ToString("m\\:ss");
                 seekBar.Progress = Convert.ToInt32(player.MainService.Position.TotalSeconds);
-                seekBar.Max = Convert.ToInt32(player.CurrentAudioFile.DurationSeconds);
+                seekBar.Max = Convert.ToInt32(player.CurrentAudioFile.Duration.TotalSeconds);
                 title.Text = player.Title;
                 artist.Text = player.Artist;
 
@@ -93,7 +93,7 @@ namespace Fooxboy.MusicX.AndroidApp.Activities
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="args"></param>
-        private void MainServiceOnCurrentAudioChanged(object sender, AudioFile args)
+        private void MainServiceOnCurrentAudioChanged(object sender, Track args)
         {
            UpdateDataPlayer();
         }
