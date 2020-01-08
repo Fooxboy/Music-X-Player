@@ -19,7 +19,7 @@ namespace Fooxboy.MusicX.AndroidApp.Resources.fragments
     class RecommendationTracksFragment : Fragment
     {
 
-        public List<AudioFile> tracks;
+        public List<Track> tracks;
         TrackAdapter adapter;
 
         public override void OnCreate(Bundle savedInstanceState)
