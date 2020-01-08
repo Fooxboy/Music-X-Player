@@ -80,6 +80,7 @@
     <Compile Include="Adapters\TrackAdapter.cs" />
     <Compile Include="Consts.cs" />
     <Compile Include="Converters\AlbumsConverter.cs" />
+    <Compile Include="Converters\BlocksConverter.cs" />
     <Compile Include="Converters\TimeSpanConverter.cs" />
     <Compile Include="Converters\TracksConverter.cs" />
     <Compile Include="Delegates\EventHandler.cs" />
