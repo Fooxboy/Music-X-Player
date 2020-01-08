@@ -53,8 +53,9 @@ namespace Fooxboy.MusicX.AndroidApp.Resources.fragments
             };
             Task.Run(() =>
                 {
-                    var userdata = Fooxboy.MusicX.Core.VKontakte.Users.Info.CurrentUserSync();
-                    var first = userdata.FirstName;
+                    //TODO получение юзердаты
+                    //var userdata = Core.Api.GetApi().VKontakte.Auth.Auto(AuthService.GetToken(), null);
+                    /*var first = userdata.FirstName;
                     var last = userdata.LastName;
                     var im = ImagesService.PhotoUser(userdata.PhotoUser);
                     Handler handler = new Handler(Looper.MainLooper);
@@ -62,7 +63,7 @@ namespace Fooxboy.MusicX.AndroidApp.Resources.fragments
                     {
                         displayname.Text = $"{first} {last}"; 
                         vkPfp.SetImageString(im, vkPfp.Width, vkPfp.Height);
-                    }));
+                    }));*/
                 }
                 );
             exitBtn.SetOnClickListener(this);

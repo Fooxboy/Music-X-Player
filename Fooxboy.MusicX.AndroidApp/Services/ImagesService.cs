@@ -11,6 +11,7 @@ using Android.OS;
 using Android.Runtime;
 using Android.Views;
 using Android.Widget;
+using Fooxboy.MusicX.AndroidApp.Models;
 using Fooxboy.MusicX.Core.Interfaces;
 using ImageViews.Rounded;
 using Java.IO;
@@ -22,11 +23,11 @@ namespace Fooxboy.MusicX.AndroidApp.Services
     public static class ImagesService
     {
         static string path = Xamarin.Essentials.FileSystem.AppDataDirectory;
-        public static string CoverTrack(IAudioFile track)
+        public static string CoverTrack(ITrack track)
         {
-            if(track.PlaylistId != 0)
+            if(track.Album?.Id != 0)
             {
-                return CoverPlaylistById(track.PlaylistId, track.Cover);
+                return CoverPlaylistById(track.Album.Id, track.Album.Cover);
             }else
             {
                 string filename = Path.Combine(path, $"VKTrackId{track.Id}.jpg");
@@ -35,7 +36,7 @@ namespace Fooxboy.MusicX.AndroidApp.Services
                 {
                     using (var client = new WebClient())
                     {
-                        client.DownloadFile(new Uri(track.Cover), filename);
+                        client.DownloadFile(new Uri(track.Album.Cover), filename);
                     }
                 }
 
@@ -94,7 +95,7 @@ namespace Fooxboy.MusicX.AndroidApp.Services
             return inSampleSize;
         }
 
-        public static string CoverPlaylist(IPlaylistFile playlist)
+        public static string CoverPlaylist(IAlbum playlist)
         {
             return CoverPlaylistById(playlist.Id, playlist.Cover);
         }
