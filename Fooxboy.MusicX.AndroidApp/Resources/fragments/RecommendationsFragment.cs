@@ -11,6 +11,7 @@ using Android.Support.V7.Widget;
 using Android.Views;
 using Android.Widget;
 using Fooxboy.MusicX.AndroidApp.Adapters;
+using Fooxboy.MusicX.AndroidApp.Converters;
 using Fooxboy.MusicX.AndroidApp.Models;
 using Fooxboy.MusicX.Core.Interfaces;
 using Fooxboy.MusicX.Core.VKontakte.Music;
@@ -42,7 +43,7 @@ namespace Fooxboy.MusicX.AndroidApp.Resources.fragments
             var view = inflater.Inflate(Resource.Layout.activity_recommendations, container, false);
             var list = view.FindViewById<RecyclerView>(Resource.Id.list_recommendations);
             var progress = view.FindViewById<ProgressBar>(Resource.Id.progressBar_recommendations);
-            adapter = new RecommendationAdapter(new List<IBlock>(), this);
+            adapter = new RecommendationAdapter(new List<Block>(), this);
             adapter.ItemClick += AdapterOnItemClick;
             list.Clickable = true;
             //progress.Visibility = ViewStates.Invisible;
@@ -51,7 +52,7 @@ namespace Fooxboy.MusicX.AndroidApp.Resources.fragments
             {
                 if (!hasLoading) return;
                 
-                if(recom_blocks?.Count > 0)
+                if(blocks?.Count > 0)
                 {
 
                     Task.Run(() =>
@@ -59,8 +60,8 @@ namespace Fooxboy.MusicX.AndroidApp.Resources.fragments
                         System.Threading.Thread.Sleep(300);
                         
 
-                            var buffer = new List<IBlock>();
-                            buffer.Add(recom_blocks.First());
+                            var buffer = new List<Block>();
+                            buffer.Add(blocks.First());
                             adapter.AddBlocks(buffer);
                         handler.Post(new Runnable(() =>
                         {
@@ -69,7 +70,7 @@ namespace Fooxboy.MusicX.AndroidApp.Resources.fragments
                             
                     }).ContinueWith((t) =>
                     {
-                        recom_blocks.Remove(recom_blocks.First());
+                        blocks.Remove(blocks.First());
                         progress.Visibility = ViewStates.Invisible;
                     });
                    
@@ -81,13 +82,14 @@ namespace Fooxboy.MusicX.AndroidApp.Resources.fragments
                 }
             });
 
-            List<IBlock> recs = new List<IBlock>();
+            List<Block> recs = new List<Block>();
             Task.Run(() =>
             {
-                recs = Recommendations.NewSync().Blocks;
+                recs = Core.Api.GetApi().VKontakte.Music.Recommendations.Get().ToBlocksList();
+                //recs = Recommendations.().Blocks;
             }).ContinueWith((t) =>
             {
-                recom_blocks.AddRange(recs);
+                blocks.AddRange(recs);
                 scroll_listener.InvokeCallback();
             });
 
