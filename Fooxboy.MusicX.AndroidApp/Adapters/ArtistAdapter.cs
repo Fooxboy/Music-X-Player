@@ -20,11 +20,11 @@ namespace Fooxboy.MusicX.AndroidApp.Adapters
 {
     class ArtistAdapter : RecyclerView.Adapter, Interfaces.IItemClickListener
     {
-        public event Delegates.EventHandler<ArtistBlock> ItemClick;
-        List<ArtistBlock> Blocks;
+        public event Delegates.EventHandler<Artist, Block> ItemClick;
+        List<Artist> Blocks;
         Fragment Parent;
 
-        public ArtistAdapter(List<ArtistBlock> blocks, Fragment p)
+        public ArtistAdapter(List<Artist> blocks, Fragment p)
         {
             Blocks = blocks;
             Parent = p;
@@ -35,7 +35,7 @@ namespace Fooxboy.MusicX.AndroidApp.Adapters
         public override void OnBindViewHolder(RecyclerView.ViewHolder holder, int position)
         {
             RecommendationsViewHolder v = holder as RecommendationsViewHolder;
-            v.Caption.Text = Blocks[position].Title;
+            v.Caption.Text = Blocks[position].Name;
             v.SetItemClickListener(this);
             v.ShowMoreButton.Click += (sender, e) =>
             {
@@ -61,7 +61,7 @@ namespace Fooxboy.MusicX.AndroidApp.Adapters
             if (this.Blocks[position].Playlists?.Count > 0)
             {
                 var plistsInBlock = PlaylistsService.CovertToPlaylistFiles(this.Blocks[position].Playlists.Take(2).ToList());
-                var adapter = new PlaylistAdapter(plistsInBlock, "false");
+                var adapter = new PlaylistAdapter(, "false");
                 adapter.ItemClick += AdapterOnPlaylistClick;
                 v.List.SetAdapter(adapter);
                 v.List.SetLayoutManager(new LinearLayoutManager(Application.Context, LinearLayoutManager.Horizontal, false));
@@ -115,10 +115,10 @@ namespace Fooxboy.MusicX.AndroidApp.Adapters
             player.Play(playlist, playlist.TracksFiles.First(t => t.SourceString == args.track.SourceString));
         }
 
-        private void AdapterOnPlaylistClick(object sender, PlaylistInBlock plist)
+        private void AdapterOnPlaylistClick(object sender, Album plist)
         {
             var fragment = new PlaylistFragment();
-            fragment.playlist = plist.Playlist;
+            fragment.playlist = plist;
             Parent.FragmentManager.BeginTransaction().Replace(Resource.Id.content_frame, fragment).Commit();
         }
 

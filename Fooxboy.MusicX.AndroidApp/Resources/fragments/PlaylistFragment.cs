@@ -33,7 +33,6 @@ namespace Fooxboy.MusicX.AndroidApp.Resources.fragments
         public override void OnCreate(Bundle savedInstanceState)
         {
             base.OnCreate(savedInstanceState);
-
         }
 
         public override View OnCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
@@ -57,11 +56,23 @@ namespace Fooxboy.MusicX.AndroidApp.Resources.fragments
             if (playlist.Cover != "playlist_placeholder") cover.SetImageString(playlist.Cover, 50, 50);
             if (playlist.Cover == "playlist_placeholder") cover.SetImageResource(Resource.Drawable.playlist_placeholder);
 
-            
-            title.Text = playlist.Name;
-            genre.Text = playlist.Genre;
-            author.Text = playlist.Artist;
-            year.Text = playlist.Year;
+
+            title.Text = playlist.Title;
+            string genres = "";
+            foreach (var g in playlist.Genres) {
+                if (g != playlist.Genres.Last()) genres += $"{g}, ";
+                else genres += g;
+            }
+                
+            genre.Text = genres;
+            string artists = "";
+            foreach (var a in playlist.Artists) {
+                if (a != playlist.Artists.Last()) genres += $"{a.Name}, ";
+                else artists += a.Name;
+            }
+                
+            author.Text = artists;
+            year.Text = playlist.Year.ToString();
 
             plists_recycler.SetAdapter(adapter);
             plists_recycler.Clickable = true;
@@ -69,8 +80,8 @@ namespace Fooxboy.MusicX.AndroidApp.Resources.fragments
 
             var actualtracks = Task.Run(async() =>
             {
-
-                return await Core.VKontakte.Music.Playlist.GetTracks(playlist.Id, playlist.OwnerId, playlist.AccessKey);
+                return await Core.Api.GetApi().VKontakte.Music.Tracks.GetAsync(playlist., playlist.Id, playlist.OwnerId, playlist.AccessKey);
+                //return await Core.VKontakte.Music.Playlist.GetTracks;
 
             });
             try { 
