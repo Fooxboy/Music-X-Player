@@ -16,27 +16,27 @@ namespace Fooxboy.MusicX.AndroidApp.Adapters
     public class PlaylistAdapter:RecyclerView.Adapter, IItemClickListener, View.IOnCreateContextMenuListener
     {
         private List<Album> albums; // plists;
-        public event Delegates.EventHandler<Block> ItemClick;
-        private string BlockID = "";
+        public event Delegates.EventHandler<Album, Block> ItemClick;
+        public Block block;
 
-        public PlaylistAdapter(List<Album> albums, string block = null)
+        public PlaylistAdapter(List<Album> albums, Block b = null)
         {
             this.albums = albums;
-            if (!String.IsNullOrEmpty(block)) BlockID = block;
+            if (!(block is null)) block = b;
         }
 
 
         public override void OnBindViewHolder(RecyclerView.ViewHolder holder, int position)
         {
             PlaylistViewHolder v = holder as PlaylistViewHolder;
-            v.Title.Text = this.plists[position].Name;
+            v.Title.Text = this.albums[position].Title;
             v.SetItemClickListener(this);
-            if (this.plists[position].Cover == "playlist_placeholder")
+            if (this.albums[position].Cover == "playlist_placeholder")
             {
                 v.Cover.SetImageResource(Resource.Drawable.playlist_placeholder);
             }else
             {
-                var file = new File(this.plists[position].Cover);
+                var file = new File(this.albums[position].Cover);
                 var opt = new BitmapFactory.Options();
                 opt.InJustDecodeBounds = true;
                 BitmapFactory.DecodeFile(file.AbsolutePath, opt);
@@ -72,9 +72,9 @@ namespace Fooxboy.MusicX.AndroidApp.Adapters
             return inSampleSize;
         }
 
-        public void AddItems(List<PlaylistFile> p)
+        public void AddItems(List<Album> p)
         {
-            this.plists.AddRange(p);
+            this.albums.AddRange(p);
         }
 
         public override RecyclerView.ViewHolder OnCreateViewHolder(ViewGroup parent, int viewType)
@@ -88,7 +88,7 @@ namespace Fooxboy.MusicX.AndroidApp.Adapters
 
         public void OnClick(View itemView, int position, bool isLongClick)
         {
-            ItemClick?.Invoke(itemView, new PlaylistInBlock(this.plists[position], this.BlockID));
+            ItemClick?.Invoke(itemView, this.albums[position], block);
         }
 
         public void OnCreateContextMenu(IContextMenu menu, View v, IContextMenuContextMenuInfo menuInfo)
@@ -100,7 +100,7 @@ namespace Fooxboy.MusicX.AndroidApp.Adapters
         {
             get
             {
-                return plists.Count;
+                return albums.Count;
 
             }
         }

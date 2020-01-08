@@ -27,10 +27,9 @@ namespace Fooxboy.MusicX.AndroidApp.Adapters
     public class TrackAdapter : RecyclerView.Adapter, IItemClickListener, View.IOnLongClickListener, View.IOnCreateContextMenuListener
     {
         List<TracksViewHolder> holders = new List<TracksViewHolder>();
-        public event Delegates.EventHandler<Track> ItemClick;
-        public event Delegates.EventHandler<Block> ItemInBlockClick;
+        public event Delegates.EventHandler<Track, Block> ItemClick;
         private List<Track> tracks;
-        private string blockID = "";
+        private Block block;
         private int position;
 
         public int GetPosition()
@@ -43,10 +42,10 @@ namespace Fooxboy.MusicX.AndroidApp.Adapters
             this.position = pos;
         }
 
-        public TrackAdapter(List<Track> track, string block = null)
+        public TrackAdapter(List<Track> track, Block b = null)
         {
             this.tracks = track;
-            if (!String.IsNullOrEmpty(block)) this.blockID = block;
+            if (!(b is null)) this.block = b;
         }
 
 
@@ -135,14 +134,16 @@ namespace Fooxboy.MusicX.AndroidApp.Adapters
 
         public void OnClick(View itemView, int position, bool isLongClick)
         {
-            if(this.blockID != "" && this.blockID != "false")
+
+            ItemClick?.Invoke(itemView, tracks[position], block);
+            /*if(this.blockID != "" && this.blockID != "false")
             {
                 AudioInBlock data = new AudioInBlock(tracks[position], this.blockID);
                 ItemInBlockClick?.Invoke(itemView, data);
             }
             else {
                 ItemClick?.Invoke(itemView, tracks[position]);
-            }
+            }*/
             
         }
 
@@ -154,13 +155,12 @@ namespace Fooxboy.MusicX.AndroidApp.Adapters
 
         public void OnCreateContextMenu(IContextMenu menu, View v, IContextMenuContextMenuInfo menuInfo)
         {
-            if(this.blockID == "")
+            if(block is null)
             {
+                menu.Add(Menu.None, 0, Menu.None, "Перейти к исполнителю");
+            }else{
                 menu.Add(Menu.None, 0, Menu.None, "Перейти к исполнителю");
                 menu.Add(Menu.None, 1, Menu.None, "Удалить");
-            }else if(this.blockID == "false")
-            {
-                menu.Add(Menu.None, 0, Menu.None, "Перейти к исполнителю");
             }
         }
     }
