@@ -12,8 +12,6 @@ namespace Fooxboy.MusicX.AndroidApp.Services
     {
         public PlayingService MainService;
         private static PlayerService inst;
-        
-        
         public string Title { get; set; }
         public string Artist { get; set; }
         public string Cover { get; set; }
@@ -46,12 +44,12 @@ namespace Fooxboy.MusicX.AndroidApp.Services
             MainService.CurrentAudioChanged += MainServiceOnCurrentAudioChanged;
         }
 
-        private void MainServiceOnCurrentAudioChanged(object sender, AudioFile args)
+        private void MainServiceOnCurrentAudioChanged(object sender, Track args)
         {
             
             Title = args.Title;
             Artist = args.Artist;
-            Cover = args.Cover;
+            Cover = args.Album?.Cover;
             CurrentAudioFile = args;
             var prefs = Application.Context.GetSharedPreferences("MusicX", FileCreationMode.Private);
             var streamToStatus = prefs.GetBoolean("StreamToStatus", false);
@@ -66,10 +64,9 @@ namespace Fooxboy.MusicX.AndroidApp.Services
                 playbtn.SetBackgroundResource(Resource.Drawable.outline_pause_black_24dp);
                 title.Text = Title;
                 artist.Text = Artist;
-                if (Cover != "placeholder") cover.SetImageString(Cover, 50, 50);
-                if (Cover == "placeholder") cover.SetImageResource(Resource.Drawable.placeholder);
+                if (Cover != null) cover.SetImageString(Cover, 50, 50);
+                else cover.SetImageResource(Resource.Drawable.placeholder);
             }
-            if(streamToStatus) Core.VKontakte.Music.Library.StreamToStatusSync(args.Id, args.OwnerId, args.AccessKey);
         }
     }
 }

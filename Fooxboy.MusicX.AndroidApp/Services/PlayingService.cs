@@ -1,17 +1,9 @@
-using Android.Media;
-using Fooxboy.MusicX.AndroidApp.Delegates;
 using System;
-using System.Threading.Tasks;
 using Android.App;
-using Android.Support.V4.Media;
-using Android.Support.V4.Media.App;
-using Android.Support.V4.Media.Session;
-using Com.Google.Android.Exoplayer2.UI;
 using Fooxboy.MusicX.AndroidApp.Models;
 using MediaManager;
 using MediaManager.Media;
 using MediaManager.Playback;
-using MediaManager.Library;
 using Android.Widget;
 
 namespace Fooxboy.MusicX.AndroidApp.Services
@@ -59,13 +51,6 @@ namespace Fooxboy.MusicX.AndroidApp.Services
 
         public void Play(Models.Album playlist = null, Track audio = null)
         {
-            //EndsWith(".mp3")
-            if (audio.SourceString.Split("//")[1].Split("/")[0].EndsWith(".mp3"))
-            {
-                Toast.MakeText(Application.Context, "URI трека пришел с ошибкой. Невозможно воспроизвести.", ToastLength.Long).Show();
-                return;
-            }
-
             if (playlist == null)
             {
                 if (currentPlaylist == null && currentTrack == null) return;
@@ -93,15 +78,14 @@ namespace Fooxboy.MusicX.AndroidApp.Services
                 TaskService.RunOnUI(async () =>
                 {
                     Toast.MakeText(Application.Context, "[Отладка] Начинаем воспроизводить...", ToastLength.Long).Show();
-                    Toast.MakeText(Application.Context, $"[Отладка] URI: {currentTrack.SourceString}", ToastLength.Long).Show();
-                    var media = await player.Play(currentTrack.SourceString);
+                    Toast.MakeText(Application.Context, $"[Отладка] URI: {currentTrack.Url}", ToastLength.Long).Show();
+                    var media = await player.Play(currentTrack.Url);
                     media.Title = currentTrack.Title;
-                    media.AlbumArtUri = ""; //Без этого треки с битыми ссылками будут выкидывать плеер в фатал
+                    //media.AlbumArtUri = ""; //Без этого треки с битыми ссылками будут выкидывать плеер в фатал
                     media.Artist = currentTrack.Artist;
                     media.AlbumArtist = currentTrack.Artist;
-                    media.ArtUri = null;
-                    if(currentTrack.Cover != "placeholder") media.ArtUri = currentTrack.Cover;
-                    CrossMediaManager.Android.NotificationManager.UpdateNotification();
+                    if (currentTrack.Album?.Cover != "placeholder") media.ImageUri = currentTrack.Album?.Cover;
+                    CrossMediaManager.Android.Notification.UpdateNotification();
                 });
 
                 
@@ -131,9 +115,9 @@ namespace Fooxboy.MusicX.AndroidApp.Services
                 media.AlbumArtist = currentTrack.Artist;
                 media.ImageUri = null;
  
-                if (currentTrack.Album.Cover != "placeholder") media.ImageUri = currentTrack.Cover;
+                if (currentTrack.Album?.Cover != "placeholder") media.ImageUri = currentTrack.Album?.Cover;
                 
-                CrossMediaManager.Android.NotificationManager.UpdateNotification();
+                CrossMediaManager.Android.Notification.UpdateNotification();
             });
             //Play(audio: args);
             CurrentAudioChanged?.Invoke(this, args);
