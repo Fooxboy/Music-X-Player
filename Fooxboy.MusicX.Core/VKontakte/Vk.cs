@@ -18,8 +18,10 @@ namespace Fooxboy.MusicX.Core.VKontakte
             vkApi = new VkApi(services);
             Auth = new Auth(vkApi);
             Music = new MusicApi(vkApi);
+            Users = new UsersApi(vkApi);
         }
         public Auth Auth { get; }
-        public MusicApi Music { get;  }
+        public MusicApi Music { get; }
+        public UsersApi Users { get; set; }
     }
 }
