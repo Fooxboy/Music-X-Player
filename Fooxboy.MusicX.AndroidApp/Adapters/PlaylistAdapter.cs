@@ -96,11 +96,6 @@ namespace Fooxboy.MusicX.AndroidApp.Adapters
             //TODO контекстное меню если очень надо
         }
 
-        public void OnCreateContextMenu(IContextMenu menu, View v, IContextMenuContextMenuInfo menuInfo)
-        {
-            //TODO контекстное меню если очень надо
-        }
-
         public override int ItemCount
         {
             get
