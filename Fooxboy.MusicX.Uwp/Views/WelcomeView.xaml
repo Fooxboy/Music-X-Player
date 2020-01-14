@@ -47,7 +47,7 @@
             HorizontalAlignment="Center"
             FontSize="22"
             Foreground="{ThemeResource SubText}"
-            Text="Давайте начнем." />
+            Text="Новый дизайн. Новые возможности. Новый опыт." />
 
         <!-- <ToggleSwitch
             x:Name="ToggleButton"
