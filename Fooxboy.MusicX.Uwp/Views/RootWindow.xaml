@@ -77,20 +77,13 @@
         </Grid>
 
         
-        
-        
-        
-        
-        
-        
-        
         <Grid Height="70" Grid.Row="1" Margin="100 0 100 20" HorizontalAlignment="Stretch" VerticalAlignment="Bottom">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition/>
                 <ColumnDefinition/>
                 <ColumnDefinition/>
             </Grid.ColumnDefinitions>
-            <Rectangle Grid.ColumnSpan="3" RadiusX="20" RadiusY="20" Fill ="{ThemeResource HeaderAcrylicBrush}"/>
+            <Rectangle Grid.ColumnSpan="3" RadiusX="15" RadiusY="15" Fill ="{ThemeResource HeaderAcrylicBrush}"/>
 
             <StackPanel Grid.Column="0" Orientation="Horizontal">
                 <toolkit:ImageEx Height="60" Width="60" 
@@ -101,7 +94,7 @@
                                 CornerRadius="3"
                                 Stretch="Fill"
                                 IsCacheEnabled="False"
-                                PlaceholderSource="../../Assets/Images/placeholder.png" />
+                                PlaceholderSource="ms-appx:///Assets/Images/placeholder-track.png" />
 
                 
             </StackPanel>
@@ -112,8 +105,21 @@
                     <RowDefinition/>
                 </Grid.RowDefinitions>
 
-                <TextBlock Margin="0 3 0 0" TextTrimming="CharacterEllipsis"  HorizontalAlignment="Stretch" FontWeight="Medium"  FontSize="22" Grid.Row="0" Text="Название композиции"/>
-                <TextBlock Margin="0 0 0 0" TextTrimming="CharacterEllipsis"  HorizontalAlignment="Stretch" Foreground="{ThemeResource ColorArtistText}" FontSize="19" Grid.Row="1" Text="Музыкант"/>
+                <TextBlock Margin="0 3 0 0"
+                           TextTrimming="CharacterEllipsis"
+                           HorizontalAlignment="Stretch"
+                           FontWeight="Medium"
+                           FontSize="22" 
+                           Grid.Row="0" 
+                           Text="Название композиции"/>
+                
+                <TextBlock Margin="0 0 0 0" 
+                           TextTrimming="CharacterEllipsis" 
+                           HorizontalAlignment="Stretch"
+                           Foreground="{ThemeResource ColorArtistText}"
+                           FontSize="19"
+                           Grid.Row="1" 
+                           Text="Музыкант"/>
             </Grid>
 
             <Grid Grid.Column="1">
@@ -128,15 +134,47 @@
 
                 </Grid.ColumnDefinitions>
 
-                <Button Grid.Column="1" Background="Transparent" CornerRadius="99" FontSize="19" Height="42" Width="42" FontFamily="Segoe MDL2 Assets" Content="&#xE1CD;" />
-                <Button Grid.Column="2" Background="Transparent" CornerRadius="99" FontSize="19" Height="42" Width="42" FontFamily="Segoe MDL2 Assets" Content="&#xE892;" />
+                <Button Grid.Column="1"
+                        Background="Transparent" 
+                        CornerRadius="99"
+                        FontSize="19"
+                        Height="42"
+                        Width="42" 
+                        FontFamily="Segoe MDL2 Assets" 
+                        Content="&#xE1CD;" />
+                
+                <Button Grid.Column="2" 
+                        Background="Transparent" 
+                        CornerRadius="99"
+                        FontSize="19" 
+                        Height="42"
+                        Width="42"
+                        FontFamily="Segoe MDL2 Assets"
+                        Content="&#xE892;" />
+                
                 <Grid Grid.Column="3" >
                     <Button Grid.Column="1" Background="Transparent" CornerRadius="99" FontSize="20" Height="43" Width="43" FontFamily="Segoe MDL2 Assets" Content="&#xE768;" />
                     <Button Grid.Column="0" Background="Transparent" Visibility="Collapsed" CornerRadius="99" FontSize="20" Height="43" Width="43" FontFamily="Segoe MDL2 Assets" Content="&#xE769;" />
-
                 </Grid>
-                <Button Grid.Column="4" Background="Transparent" CornerRadius="99" FontSize="19" Height="42" Width="42" FontFamily="Segoe MDL2 Assets" Content="&#xE893;" />
-                <Button Grid.Column="5" Background="Transparent" CornerRadius="99" FontSize="19" Height="42" Width="42" FontFamily="Segoe MDL2 Assets" Content="&#xE8B1;" />
+                
+                <Button Grid.Column="4"
+                        Background="Transparent" 
+                        CornerRadius="99"
+                        FontSize="19"
+                        Height="42"
+                        Width="42"
+                        FontFamily="Segoe MDL2 Assets"
+                        Content="&#xE893;" />
+                
+                <Button Grid.Column="5"
+                        Background="Transparent"
+                        CornerRadius="99"
+                        FontSize="19"
+                        Height="42"
+                        Width="42"
+                        FontFamily="Segoe MDL2 Assets"
+                        Content="&#xE8B1;" />
+                
             </Grid>
 
             

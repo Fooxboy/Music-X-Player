@@ -144,5 +144,10 @@ namespace Fooxboy.MusicX.Uwp.Views
             var rootFrame = (Frame)Window.Current.Content;
             rootFrame.Navigate(typeof(Views.MainFrameView), null);
         }
+
+        private void StartButtonClick(object sender, RoutedEventArgs e)
+        {
+
+        }
     }
 }

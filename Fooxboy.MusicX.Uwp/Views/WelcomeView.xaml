@@ -18,6 +18,14 @@
             <RowDefinition Height="*" />
         </Grid.RowDefinitions>
 
+        <Image Grid.RowSpan="6"
+               Source="ms-appx:///Assets/Images/welcome-background1.jpg"
+               HorizontalAlignment="Stretch" 
+               Stretch="UniformToFill"
+               VerticalAlignment="Stretch"/>
+
+        <Rectangle HorizontalAlignment="Stretch" Grid.RowSpan="6" VerticalAlignment="Stretch" Fill="White" Opacity="0.6"/>
+
         <Image
             Grid.Row="1"
             Width="150"
@@ -28,7 +36,7 @@
                 <BitmapImage
                     DecodePixelHeight="150"
                     DecodePixelWidth="150"
-                    UriSource="ms-appx:///Assets/Images/logo.png" />
+                    UriSource="ms-appx:///Assets/Images/logo-black.png" />
             </Image.Source>
         </Image>
 
@@ -39,7 +47,7 @@
             HorizontalAlignment="Center"
             FontSize="32"
             FontWeight="Bold"
-            Text="Добро пожаловать в MusicX" />
+            Text="Добро пожаловать в MusicX 2.0" />
 
         <TextBlock
             x:Name="Start"
@@ -66,14 +74,20 @@
             HorizontalAlignment="Center"
             IsActive="False" />
 
-        <Button
+        <Button Style="{StaticResource AcceptButtonStyle}"
             x:Name="ButtonStart"
             Grid.Row="4"
-            Width="100"
+            Width="130"
             Margin="0,50,0,0"
+            Opacity="0.9"
             HorizontalAlignment="Center"
-            Click="Button_Click"
-            Content="Начать"
-            Style="{ThemeResource ButtonLoginStyle}" />
+            Click="StartButtonClick">
+            <Button.Content>
+                <StackPanel Orientation="Horizontal">
+                    <TextBlock Text="Продолжить"/>
+                    <FontIcon FontFamily="Segoe MDL2 Assets" Margin="5 0 0 0" FontSize="12" Glyph="&#xE09B;" />
+                </StackPanel>
+            </Button.Content>
+        </Button>
     </Grid>
 </Page>
