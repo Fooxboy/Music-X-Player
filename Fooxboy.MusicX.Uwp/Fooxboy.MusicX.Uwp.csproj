@@ -194,11 +194,8 @@
       <DependentUpon>TrackTemplate.xaml</DependentUpon>
     </Compile>
     <Compile Include="Services\AudioService.cs" />
-    <Compile Include="Services\ConfigService.cs" />
-    <Compile Include="Services\ContentDialogService.cs" />
     <Compile Include="Services\FindMetadataService.cs" />
     <Compile Include="Services\InternetService.cs" />
-    <Compile Include="Services\MusicFilesService.cs" />
     <Compile Include="Services\NavigationService.cs" />
     <Compile Include="Services\PlayerService.cs" />
     <Compile Include="Services\PlaylistsService.cs" />
@@ -218,15 +215,8 @@
     <Compile Include="StaticContent.cs" />
     <Compile Include="Utils\Extensions\CollectionsExtensions.cs" />
     <Compile Include="Utils\Extensions\PlaylistFileExtensions.cs" />
-    <Compile Include="ViewModels\AllPlaylistsViewModel.cs" />
     <Compile Include="ViewModels\BaseViewModel.cs" />
-    <Compile Include="ViewModels\CreatePlaylistViewModel.cs" />
-    <Compile Include="ViewModels\HomeLocalViewModel.cs" />
-    <Compile Include="ViewModels\MiniPlayerViewModel.cs" />
-    <Compile Include="ViewModels\PlayerMenuViewModel.cs" />
-    <Compile Include="ViewModels\PlayerViewModel.cs" />
-    <Compile Include="ViewModels\PlaylistViewModel.cs" />
-    <Compile Include="ViewModels\SettingsViewModel.cs" />
+    <Compile Include="ViewModels\LoginViewModel.cs" />
     <Compile Include="ViewModels\VKontakte\AccountViewModel.cs" />
     <Compile Include="ViewModels\VKontakte\AllPlaylistsViewModel.cs" />
     <Compile Include="ViewModels\VKontakte\ArtistViewModel.cs" />
@@ -242,6 +232,9 @@
     <Compile Include="ViewModels\VKontakte\PopularViewModel.cs" />
     <Compile Include="ViewModels\VKontakte\RecommendationsViewModel.cs" />
     <Compile Include="ViewModels\VKontakte\SearchViewModel.cs" />
+    <Compile Include="Views\HomeView.xaml.cs">
+      <DependentUpon>HomeView.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\LoginView.xaml.cs">
       <DependentUpon>LoginView.xaml</DependentUpon>
     </Compile>
@@ -474,6 +467,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Views\HomeView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Views\LoginView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -549,16 +546,16 @@
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="Microsoft.AppCenter.Analytics">
-      <Version>2.6.2</Version>
+      <Version>2.6.4</Version>
     </PackageReference>
     <PackageReference Include="Microsoft.AppCenter.Auth">
-      <Version>2.6.2</Version>
+      <Version>2.6.4</Version>
     </PackageReference>
     <PackageReference Include="Microsoft.AppCenter.Crashes">
-      <Version>2.6.2</Version>
+      <Version>2.6.4</Version>
     </PackageReference>
     <PackageReference Include="Microsoft.AppCenter.Push">
-      <Version>2.6.2</Version>
+      <Version>2.6.4</Version>
     </PackageReference>
     <PackageReference Include="Microsoft.NETCore.UniversalWindowsPlatform">
       <Version>6.2.9</Version>

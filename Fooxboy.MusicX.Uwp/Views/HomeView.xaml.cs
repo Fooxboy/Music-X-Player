@@ -20,17 +20,11 @@ namespace Fooxboy.MusicX.Uwp.Views
     /// <summary>
     /// Пустая страница, которую можно использовать саму по себе или для перехода внутри фрейма.
     /// </summary>
-    public sealed partial class LoginView : Page
+    public sealed partial class HomeView : Page
     {
-        public LoginView()
+        public HomeView()
         {
             this.InitializeComponent();
-        }
-
-        private void Button_Click(object sender, RoutedEventArgs e)
-        {
-            loginGrid.Visibility = Visibility.Visible;
-            buttonsGrid.Visibility = Visibility.Collapsed;
         }
     }
 }

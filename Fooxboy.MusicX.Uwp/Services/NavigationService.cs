@@ -11,7 +11,7 @@ using Windows.UI.Xaml.Media;
 namespace Fooxboy.MusicX.Uwp.Services
 {
     /// <summary>
-    /// Навигатион сервисе аоаоаооммм
+    /// Сервис навигации по приложению.
     /// </summary>
     public class NavigationService
     {

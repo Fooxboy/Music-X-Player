@@ -5,7 +5,6 @@ using Windows.Networking.Connectivity;
 using System.Net.NetworkInformation;
 using System.Text;
 using System.Threading.Tasks;
-using GalaSoft.MvvmLight.Threading;
 using Windows.UI.Xaml;
 
 namespace Fooxboy.MusicX.Uwp.Services

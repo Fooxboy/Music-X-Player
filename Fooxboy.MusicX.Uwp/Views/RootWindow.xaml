@@ -10,7 +10,6 @@
     Background="{ThemeResource BackgroundApp}">
 
     <Grid>
-
         <Frame x:Name="Root" VerticalAlignment="Stretch" HorizontalAlignment="Stretch"/>
         <Rectangle Height="80" VerticalAlignment="Top" Fill="{ThemeResource HeaderAcrylicBrush}"/>
         <Grid Height="80" VerticalAlignment="Top" HorizontalAlignment="Stretch">

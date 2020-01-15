@@ -11,7 +11,7 @@
 
     <Grid>
         
-        <Grid Visibility="Visible">
+        <Grid x:Name="loginGrid" Visibility="Collapsed">
 
             <Grid.RowDefinitions>
                 <RowDefinition Height="*"/>
@@ -55,7 +55,7 @@
 
         </Grid>
 
-        <Grid Visibility="Collapsed">
+        <Grid x:Name="buttonsGrid" Visibility="Visible">
 
             <Grid.RowDefinitions>
                 <RowDefinition Height="*"/>
@@ -89,8 +89,8 @@
                    Grid.Row="2"/>
 
             <StackPanel Margin="0 30 0 30 " HorizontalAlignment="Center" Grid.Row="3" Orientation="Horizontal">
-                <Button Style="{ThemeResource AcceptButtonStyle}" IsEnabled="False" Content="Войти в аккаунт Music X"/>
-                <Button Margin="10 0 0 0" Style="{StaticResource StandardButtonStyle}" Content="Войти в аккаунт ВКонтакте"/>
+                <Button Style="{ThemeResource AcceptButtonStyle}" IsEnabled="False" Click="Button_Click" Content="Войти в аккаунт Music X"/>
+                <Button Margin="10 0 0 0" Style="{StaticResource StandardButtonStyle}" Click="Button_Click" Content="Войти в аккаунт ВКонтакте"/>
             </StackPanel>
 
             <Button Grid.Row="4" IsEnabled="False" HorizontalAlignment="Center" Style="{ThemeResource StandardButtonStyle}" Content="Создать аккаунт Music X"/>

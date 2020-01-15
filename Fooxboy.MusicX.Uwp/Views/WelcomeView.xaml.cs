@@ -33,121 +33,28 @@ namespace Fooxboy.MusicX.Uwp.Views
             this.InitializeComponent();
         }
 
-        private async void Button_Click(object sender, RoutedEventArgs e)
+        private async void StartButtonClick(object sender, RoutedEventArgs e)
         {
-            ProgressRing.IsActive = true;
-            Start.Text = "Music X выполняет первичную настройку. Пожалуйста, подождите...";
             ButtonStart.Visibility = Visibility.Collapsed;
+            ProgressRing.IsActive = true;
 
-            //создание папки с плейлистами.
+            Start.Text = "Music X готовится к первому запуску. Это не займет много времени.";
             var localpath = ApplicationData.Current.LocalFolder;
-
-            if (await localpath.TryGetItemAsync("Playlists") == null)
-            {
-                var pathPlaylists = await localpath.CreateFolderAsync("Playlists");
-                StaticContent.PlaylistsFolder = pathPlaylists;
-                var filePlaylistId1 = await pathPlaylists.CreateFileAsync("Id1.json");
-                var filePlaylistId2 = await pathPlaylists.CreateFileAsync("Id2.json");
-
-                var playlistLastPlay  = new Models.PlaylistFile()
-                {
-                    Artist = "Music X",
-                    Cover = "ms-appx:///Assets/Images/latest.png",
-                    Id = 1,
-                    Name = "Слушали недавно",
-                    IsLocal = true,
-                    TracksFiles = new List<AudioFile>()
-                };
-
-                var playlistFavorite = new Models.PlaylistFile()
-                {
-                    Artist = "Music X",
-                    Cover = "ms-appx:///Assets/Images/favorites.png",
-                    Id = 2,
-                    Name = "Избранное",
-                    IsLocal = true,
-                    TracksFiles  = new List<AudioFile>()
-                };
-
-                var jsonPlaylistId1 = JsonConvert.SerializeObject(playlistLastPlay);
-                var jsonPlaylistId2 = JsonConvert.SerializeObject(playlistFavorite);
-                await FileIO.WriteTextAsync(filePlaylistId1, jsonPlaylistId1);
-                await FileIO.WriteTextAsync(filePlaylistId2, jsonPlaylistId2);
-            }
-
-            if(await localpath.TryGetItemAsync("Covers") == null)
-            {
-                StaticContent.CoversFolder = await localpath.CreateFolderAsync("Covers");
-            }
-
-            if (await localpath.TryGetItemAsync("MusicCollection.json") == null)
-            {
-                var musicFile = await localpath.CreateFileAsync("MusicCollection.json");
-                var musicString = JsonConvert.SerializeObject(new MusicCollection()
-                {
-                    Music = new List<AudioFile>(),
-                    DateLastUpdate = "none"
-                });
-                await FileIO.WriteTextAsync(musicFile, musicString);
-            }
-
-            if (await localpath.TryGetItemAsync("LastPlay.json") == null)
-            {
-                var lastFile = await localpath.CreateFileAsync("LastPlay.json");
-                var audio = new AudioFile()
-                {
-                    Artist = "",
-                    Cover = "ms-appx:///Assets/Images/placeholder.png",
-                    DurationMinutes = "00:00",
-                    DurationSeconds = 0,
-                    Id = -2,
-                    InternalId = -2,
-                    OwnerId = -2,
-                    PlaylistId = 1,
-                    SourceString = "ms-appx:///Assets/Audio/song.mp3",
-                    Source = await StorageFile.GetFileFromApplicationUriAsync(new Uri("ms-appx:///Assets/Audio/song.mp3")),
-                    Title = "Сейчас ничего не воспроизводится"
-                };
-                var lastplayModel = new LastPlay()
-                {
-                    Playlist = null,
-                    Track = audio,
-                    Volume = 1.0f,
-                };
-                var jsonLastFile = JsonConvert.SerializeObject(lastplayModel);
-                await FileIO.WriteTextAsync(lastFile, jsonLastFile);
-            }
-
-            if (await localpath.TryGetItemAsync("ConfigApp.json") == null)
-            {
-                var configFile = await localpath.CreateFileAsync("ConfigApp.json");
-                var config = new ConfigApp()
-                {
-                    FindInDocumentsLibrary = false,
-                    FindInMusicLibrary = true,
-                    ThemeApp = 0,
-                    StreamMusic = true
-                };
-                var configString = JsonConvert.SerializeObject(config);
-                await FileIO.WriteTextAsync(configFile, configString);
-
-                StaticContent.Config = config;
-            }
-
+            var file = await localpath.CreateFileAsync("config.app");
+            var config = new ConfigApp();
+            config.IsRateMe = false;
+            config.SaveImageToCache = true;
+            config.SaveTracksToCache = false;
+            config.StreamMusic = false;
+            config.ThemeApp = 0;
+            var configString = JsonConvert.SerializeObject(config);
+            await FileIO.WriteTextAsync(file, configString);
             var settings = ApplicationData.Current.LocalSettings;
             settings.Values["themeApp"] = 0;
 
-            await LikedArtistsService.CreateLikedArtstsFile();
 
-            await MusicFilesService.GetMusicLocal(true);
-
-            var rootFrame = (Frame)Window.Current.Content;
-            rootFrame.Navigate(typeof(Views.MainFrameView), null);
-        }
-
-        private void StartButtonClick(object sender, RoutedEventArgs e)
-        {
-
+             var currentFrame = Window.Current.Content as Frame;
+            currentFrame.Navigate(typeof(LoginView));
         }
     }
 }
