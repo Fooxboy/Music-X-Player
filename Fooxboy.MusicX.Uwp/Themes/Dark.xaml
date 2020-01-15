@@ -6,9 +6,9 @@
             <SolidColorBrush x:Key="SubText" Color="#D0D0D0" />
             <SolidColorBrush x:Key="ColorSettings" Color="#363636" />
             <SolidColorBrush x:Key="SubHeaderText" Color="#E6E6E6" />
-            <SolidColorBrush x:Key="BackgroundColorLoginTextBox" Color="#363636" />
-            <SolidColorBrush x:Key="BackgroundColorLoginTextBoxOverPointer" Color="#2E2E2E" />
-            <SolidColorBrush x:Key="BackgroundColorLoginTextBoxFocus" Color="#212121" />
+            <SolidColorBrush x:Key="BackgroundColorTextBox" Color="#363636" />
+            <SolidColorBrush x:Key="BackgroundColorTextBoxOverPointer" Color="#2E2E2E" />
+            <SolidColorBrush x:Key="BackgroundColorTextBoxFocus" Color="#212121" />
             <SolidColorBrush x:Key="BackgroundApp" Color="#191919" />
             <SolidColorBrush x:Key="MainTextColor" Color="White" />
             <SolidColorBrush x:Key="ButtonMainColor" Color="#262626" />
