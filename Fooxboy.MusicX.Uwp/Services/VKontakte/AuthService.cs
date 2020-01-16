@@ -18,38 +18,7 @@ namespace Fooxboy.MusicX.Uwp.Services.VKontakte
 
         public static bool TwoFactorAuthIsOpen = false;
         public static TwoFactorAuthContentDialog dialog = null;
-        public static string TwoFactorAuth()
-        {
-            DispatcherHelper.CheckBeginInvokeOnUI( () =>
-            {
-                var dialogA = new TwoFactorAuthContentDialog();
-                dialog = dialogA;
-            });
-
-            bool buffer = true;
-            var task = Task.Run(async () =>
-            {
-                while(dialog == null)
-                {
-                    await Task.Delay(500);
-                }
-
-                DispatcherHelper.CheckBeginInvokeOnUI(async () =>
-                {
-                    await dialog.ShowAsync();
-                    buffer = false;
-                });
-
-                while (buffer)
-                {
-                    await Task.Delay(1000);
-                }
-                
-            });
-            task.ConfigureAwait(false);
-            task.Wait();
-            return dialog.Result;
-        }
+        
 
         public async static Task SetNameAccount()
         {

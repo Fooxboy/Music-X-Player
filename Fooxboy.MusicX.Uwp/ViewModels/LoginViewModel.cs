@@ -1,5 +1,7 @@
 ﻿using DryIoc;
+using Fooxboy.MusicX.Uwp.Resources.ContentDialogs;
 using Fooxboy.MusicX.Uwp.Services;
+using Microsoft.Toolkit.Uwp.Helpers;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -36,7 +38,7 @@ namespace Fooxboy.MusicX.Uwp.ViewModels
             try
             {
                 var api = Container.Get.Resolve<Core.Api>();
-                var token = await api.VKontakte.Auth.UserAsync(Login, Password, null, null);
+                var token = await api.VKontakte.Auth.UserAsync(Login, Password, TwoFactorAuth, null);
                 var tokenService = Container.Get.Resolve<TokenService>();
                 await tokenService.Save(token);
                 var user = await api.VKontakte.Users.Info.CurrentUserAsync();
@@ -71,6 +73,40 @@ namespace Fooxboy.MusicX.Uwp.ViewModels
                 Changed("VisibilityTextBox");
                 //неизвестная ошибка при логине.
             }
+        }
+
+        public static string TwoFactorAuth()
+        {
+            TwoFactorAuthContentDialog dialog = null;
+            DispatcherHelper.ExecuteOnUIThreadAsync(() =>
+            {
+                var dialogA = new TwoFactorAuthContentDialog();
+                dialog = dialogA;
+            });
+
+            bool buffer = true;
+            var task = Task.Run(async () =>
+            {
+                while (dialog == null)
+                {
+                    await Task.Delay(500);
+                }
+
+                _ = DispatcherHelper.ExecuteOnUIThreadAsync(async () =>
+                  {
+                      await dialog.ShowAsync();
+                      buffer = false;
+                  });
+
+                while (buffer)
+                {
+                    await Task.Delay(1000);
+                }
+
+            });
+            task.ConfigureAwait(false);
+            task.Wait();
+            return dialog.Result;
         }
     }
 }

@@ -133,10 +133,13 @@
     </Compile>
     <Compile Include="Container.cs" />
     <Compile Include="Converters\AudioTimeConverter.cs" />
+    <Compile Include="Converters\TrackConverter.cs" />
     <Compile Include="Enums\RepeatMode.cs" />
     <Compile Include="LoadingCollection.cs" />
+    <Compile Include="Models\Album.cs" />
     <Compile Include="Models\ArtistParameter.cs" />
     <Compile Include="Models\ConfigApp.cs" />
+    <Compile Include="Models\Track.cs" />
     <Compile Include="Properties\Annotations.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="RelayCommand.cs" />
@@ -194,7 +197,6 @@
     <Compile Include="Resources\Templates\TrackTemplate.xaml.cs">
       <DependentUpon>TrackTemplate.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Services\AudioService.cs" />
     <Compile Include="Services\ConfigService.cs" />
     <Compile Include="Services\FindMetadataService.cs" />
     <Compile Include="Services\InternetService.cs" />
@@ -218,6 +220,7 @@
     <Compile Include="Utils\Extensions\PlaylistFileExtensions.cs" />
     <Compile Include="ViewModels\BaseViewModel.cs" />
     <Compile Include="ViewModels\LoginViewModel.cs" />
+    <Compile Include="ViewModels\PlayerViewModel.cs" />
     <Compile Include="ViewModels\VKontakte\AccountViewModel.cs" />
     <Compile Include="ViewModels\VKontakte\AllPlaylistsViewModel.cs" />
     <Compile Include="ViewModels\VKontakte\ArtistViewModel.cs" />
