@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Fooxboy.MusicX.Uwp.ViewModels;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -22,9 +23,12 @@ namespace Fooxboy.MusicX.Uwp.Views
     /// </summary>
     public sealed partial class RootWindow : Page
     {
+        public PlayerViewModel PlayerViewModel { get; set; }
         public RootWindow()
         {
             this.InitializeComponent();
+
+            PlayerViewModel = new PlayerViewModel();
         }
     }
 }

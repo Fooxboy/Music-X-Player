@@ -146,20 +146,22 @@
                         Background="Transparent" 
                         CornerRadius="99"
                         FontSize="19" 
+                        Command="{x:Bind PlayerViewModel.PreviousCommand}"
                         Height="42"
                         Width="42"
                         FontFamily="Segoe MDL2 Assets"
                         Content="&#xE892;" />
                 
                 <Grid Grid.Column="3" >
-                    <Button Grid.Column="1" Background="Transparent" CornerRadius="99" FontSize="20" Height="43" Width="43" FontFamily="Segoe MDL2 Assets" Content="&#xE768;" />
-                    <Button Grid.Column="0" Background="Transparent" Visibility="Collapsed" CornerRadius="99" FontSize="20" Height="43" Width="43" FontFamily="Segoe MDL2 Assets" Content="&#xE769;" />
+                    <Button Grid.Column="1" Command="{x:Bind PlayerViewModel.PlayCommand}" Background="Transparent" CornerRadius="99" FontSize="20" Height="43" Width="43" FontFamily="Segoe MDL2 Assets" Content="&#xE768;" />
+                    <Button Grid.Column="0" Command="{x:Bind PlayerViewModel.PauseCommand}" Background="Transparent" Visibility="Collapsed" CornerRadius="99" FontSize="20" Height="43" Width="43" FontFamily="Segoe MDL2 Assets" Content="&#xE769;" />
                 </Grid>
                 
                 <Button Grid.Column="4"
                         Background="Transparent" 
                         CornerRadius="99"
                         FontSize="19"
+                        Command="{x:Bind PlayerViewModel.NextCommand}"
                         Height="42"
                         Width="42"
                         FontFamily="Segoe MDL2 Assets"
