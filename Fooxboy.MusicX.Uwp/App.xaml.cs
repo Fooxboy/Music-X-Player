@@ -11,8 +11,11 @@ using Windows.UI.Core;
 using Windows.UI.ViewManagement;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
+using DryIoc;
 using Windows.UI.Xaml.Navigation;
 using Microsoft.AppCenter.Crashes;
+using Fooxboy.MusicX.Core;
+using Fooxboy.MusicX.Uwp.Services;
 
 namespace Fooxboy.MusicX.Uwp
 {
@@ -64,6 +67,15 @@ namespace Fooxboy.MusicX.Uwp
 
         protected async override void OnLaunched(LaunchActivatedEventArgs e)
         {
+            //инициализация контейера
+            var c = new DryIoc.Container();
+            c.RegisterInstance<Api>(Core.Api.GetApi());
+            c.Register<ConfigService>();
+            c.Register<TokenService>(made: Made.Of(() => new TokenService(new ConfigService())));
+
+            
+            
+
             Frame rootFrame = Window.Current.Content as Frame;
             if (rootFrame == null)
             {

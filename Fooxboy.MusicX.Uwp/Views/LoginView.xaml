@@ -11,7 +11,7 @@
 
     <Grid>
         
-        <Grid x:Name="loginGrid" Visibility="Collapsed">
+        <Grid x:Name="loginGrid" Visibility="Visible">
 
             <Grid.RowDefinitions>
                 <RowDefinition Height="*"/>
@@ -23,26 +23,46 @@
                 <RowDefinition Height="*"/>
             </Grid.RowDefinitions>
 
-            <Image Grid.Row="1" Width="100" Height="100" Margin="0,0,0,30" HorizontalAlignment="Center">
+            <Image Visibility="{x:Bind ViewModel.VisibilityLogoImage, Mode=TwoWay}" Grid.Row="1" Width="100" Height="100" Margin="0,0,0,30" HorizontalAlignment="Center">
                 <Image.Source>
                     <BitmapImage
                     DecodePixelHeight="100"
-                    DecodePixelWidth="100"
+                    DecodePixelWidth="100"  
                     UriSource="ms-appx:///Assets/Images/logo-black.png" />
                 </Image.Source>
             </Image>
 
+            <PersonPicture Visibility="{x:Bind ViewModel.VisibilityPersonImage}"  Grid.Row="1" Width="100" Height="100" Margin="0,0,0,30" HorizontalAlignment="Center">
+                <PersonPicture.ProfilePicture>
+                    <BitmapImage
+                    DecodePixelHeight="100"
+                    DecodePixelWidth="100"  
+                    UriSource="{x:Bind ViewModel.Image}" />
+                </PersonPicture.ProfilePicture>
+            </PersonPicture>
+
+
             <TextBlock Grid.Row="2"
                        HorizontalAlignment="Center" 
                        FontSize="20"
-                       Margin="0 20 0 0 "
+                       Margin="0 20 0 0"
                        FontWeight="Bold"  Text="Войдите в аккаунт {NamePlatform}"/>
 
-            <TextBox PlaceholderText="Номер телефона или адрес эл. почты" Margin="0 30 0 0" Width="300" Style="{StaticResource StandardTextBoxStyle}" Grid.Row="3" HorizontalAlignment="Center" TextChanged="TextBox_TextChanged_1" />
-            <PasswordBox Style="{StaticResource StandardPasswordBoxStyle}" Width="300" PlaceholderText="Пароль" Margin="0 20 0 0" Grid.Row="4" HorizontalAlignment="Center"/>
+            <ProgressRing Grid.Row="2"
+                          Grid.RowSpan="4"
+                          HorizontalAlignment="Center"
+                          VerticalAlignment="Center"
+                          IsActive="{x:Bind ViewModel.IsLoading, Mode=TwoWay}"
+                          Height="50" Width="50"/>
+            
+            
+
+            <TextBox Text="{x:Bind ViewModel.Login, Mode=TwoWay}" Visibility="{x:Bind ViewModel.VisibilityTextBox, Mode=TwoWay}" PlaceholderText="Номер телефона или адрес эл. почты" Margin="0 30 0 0" Width="300" Style="{StaticResource StandardTextBoxStyle}" Grid.Row="3" HorizontalAlignment="Center" TextChanged="TextBox_TextChanged_1" />
+            <PasswordBox Password="{x:Bind ViewModel.Password}" Visibility="{x:Bind ViewModel.VisibilityTextBox, Mode=TwoWay}" Style="{StaticResource StandardPasswordBoxStyle}" Width="300" PlaceholderText="Пароль" Margin="0 20 0 0" Grid.Row="4" HorizontalAlignment="Center"/>
             <Button Margin="0 30 0 0" 
                     Width="120" 
                     Grid.Row="5" 
+                    Visibility="{x:Bind ViewModel.VisibilityTextBox, Mode=TwoWay}"
                     HorizontalAlignment="Center"
                     Style="{ThemeResource AcceptButtonStyle}">
                 <Button.Content>
@@ -55,7 +75,7 @@
 
         </Grid>
 
-        <Grid x:Name="buttonsGrid" Visibility="Visible">
+        <Grid x:Name="buttonsGrid" Visibility="Collapsed">
 
             <Grid.RowDefinitions>
                 <RowDefinition Height="*"/>

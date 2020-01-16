@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Fooxboy.MusicX.Uwp.ViewModels;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -22,9 +23,12 @@ namespace Fooxboy.MusicX.Uwp.Views
     /// </summary>
     public sealed partial class LoginView : Page
     {
+        public LoginViewModel ViewModel { get; set; }
+
         public LoginView()
         {
             this.InitializeComponent();
+            ViewModel = new LoginViewModel();
         }
 
         private void Button_Click(object sender, RoutedEventArgs e)

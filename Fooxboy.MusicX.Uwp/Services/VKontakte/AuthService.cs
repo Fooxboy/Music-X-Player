@@ -8,7 +8,6 @@ using Fooxboy.MusicX.Uwp.Resources.ContentDialogs;
 using Fooxboy.MusicX.Uwp.ViewModels;
 using Fooxboy.MusicX.Uwp.ViewModels.VKontakte;
 using Fooxboy.MusicX.Uwp.Views;
-using GalaSoft.MvvmLight.Threading;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 

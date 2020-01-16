@@ -131,6 +131,7 @@
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Container.cs" />
     <Compile Include="Converters\AudioTimeConverter.cs" />
     <Compile Include="Enums\RepeatMode.cs" />
     <Compile Include="LoadingCollection.cs" />
@@ -194,6 +195,7 @@
       <DependentUpon>TrackTemplate.xaml</DependentUpon>
     </Compile>
     <Compile Include="Services\AudioService.cs" />
+    <Compile Include="Services\ConfigService.cs" />
     <Compile Include="Services\FindMetadataService.cs" />
     <Compile Include="Services\InternetService.cs" />
     <Compile Include="Services\NavigationService.cs" />
@@ -211,8 +213,7 @@
     <Compile Include="Services\VKontakte\LikedArtistsService.cs" />
     <Compile Include="Services\VKontakte\MusicService.cs" />
     <Compile Include="Services\VKontakte\PlaylistsService.cs" />
-    <Compile Include="Services\VKontakte\TokenService.cs" />
-    <Compile Include="StaticContent.cs" />
+    <Compile Include="Services\TokenService.cs" />
     <Compile Include="Utils\Extensions\CollectionsExtensions.cs" />
     <Compile Include="Utils\Extensions\PlaylistFileExtensions.cs" />
     <Compile Include="ViewModels\BaseViewModel.cs" />
@@ -545,6 +546,9 @@
     </Page>
   </ItemGroup>
   <ItemGroup>
+    <PackageReference Include="DryIoc">
+      <Version>4.0.7</Version>
+    </PackageReference>
     <PackageReference Include="Microsoft.AppCenter.Analytics">
       <Version>2.6.4</Version>
     </PackageReference>
