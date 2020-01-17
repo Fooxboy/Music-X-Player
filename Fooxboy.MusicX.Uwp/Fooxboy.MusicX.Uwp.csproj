@@ -209,8 +209,6 @@
     <Compile Include="Services\VKontakte\AuthService.cs" />
     <Compile Include="Services\VKontakte\BlockService.cs" />
     <Compile Include="Services\VKontakte\CaptchaSolver.cs" />
-    <Compile Include="Services\VKontakte\DownloaderService.cs" />
-    <Compile Include="Services\VKontakte\DownloadLibraryService.cs" />
     <Compile Include="Services\VKontakte\ImagesService.cs" />
     <Compile Include="Services\VKontakte\LikedArtistsService.cs" />
     <Compile Include="Services\VKontakte\MusicService.cs" />
@@ -456,6 +454,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Resources\Templates\TrackTemplate.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Styles\SliderStyle.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

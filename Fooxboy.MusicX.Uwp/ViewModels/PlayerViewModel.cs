@@ -11,10 +11,17 @@ namespace Fooxboy.MusicX.Uwp.ViewModels
     public class PlayerViewModel:BaseViewModel
     {
         public PlayerService PlayerSerivce { get; set; }
+
         public RelayCommand PlayCommand { get; set; }
         public RelayCommand PauseCommand { get; set; }
         public RelayCommand NextCommand { get; set; }
         public RelayCommand PreviousCommand { get; set; }
+        public bool IsPlay => PlayerSerivce.IsPlaying;
+        public string Title { get; set; }
+        public string Artist { get; set; }
+        public string Cover { get; set; }
+        public double Seconds { get; set; }
+        public double SecondsAll { get; set; }
 
         public PlayerViewModel()
         {
@@ -23,6 +30,31 @@ namespace Fooxboy.MusicX.Uwp.ViewModels
             PauseCommand = new RelayCommand(() => PlayerSerivce.Pause());
             NextCommand = new RelayCommand(() => PlayerSerivce.NextTrack());
             PreviousCommand = new RelayCommand(() => PlayerSerivce.PreviousTrack());
+
+            PlayerSerivce.PlayStateChangedEvent += PlayStateChanged;
+            PlayerSerivce.PositionTrackChangedEvent += PositionTrackChanged;
+            PlayerSerivce.TrackChangedEvent += TrackChanged;
+        }
+
+        private void TrackChanged(object sender, EventArgs e)
+        {
+            Title = PlayerSerivce.CurrentTrack.Title;
+            foreach(var artist in PlayerSerivce.CurrentTrack.Artists) Artist += $", {artist.Name}";
+            Cover = PlayerSerivce.CurrentTrack.Album?.Cover;
+            SecondsAll = PlayerSerivce.Duration.TotalSeconds;
+            Changed("Title");
+            Changed("Artist");
+            Changed("Cover");
+        }
+
+        private void PositionTrackChanged(object sender, TimeSpan e)
+        {
+            throw new NotImplementedException();
+        }
+
+        private void PlayStateChanged(object sender, EventArgs e)
+        {
+            throw new NotImplementedException();
         }
     }
 }

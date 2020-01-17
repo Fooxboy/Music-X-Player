@@ -10,6 +10,7 @@
                 <ResourceDictionary Source="Styles/TextBoxStyles.xaml" />
                 <ResourceDictionary Source="Styles/AcrylicStyle.xaml" />
                 <ResourceDictionary Source="Styles/ListViewStyle.xaml" />
+                <ResourceDictionary Source="Styles/SliderStyle.xaml" />
                 <ResourceDictionary Source="Resources/Templates/PlaylistTemplate.xaml" />
                 <ResourceDictionary Source="Resources/Templates/TrackTemplate.xaml" />
                 <ResourceDictionary Source="Resources/Templates/BlockTemplate.xaml" />

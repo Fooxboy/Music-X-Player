@@ -71,18 +71,17 @@
                 <PersonPicture Height="40"  Width="40"/>
                 <Button FontSize="21" Margin="20 0 0 0" Background="Transparent"  CornerRadius="1" Height="40" Width="40"  FontFamily="Segoe MDL2 Assets" Content="&#xE712;" />
             </StackPanel>
-            
-            
         </Grid>
 
         
         <Grid Height="70" Grid.Row="1" Margin="100 0 100 20" HorizontalAlignment="Stretch" VerticalAlignment="Bottom">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition/>
+                <ColumnDefinition Width="auto"/>
                 <ColumnDefinition/>
                 <ColumnDefinition/>
             </Grid.ColumnDefinitions>
-            <Rectangle Grid.ColumnSpan="3" RadiusX="15" RadiusY="15" Fill ="{ThemeResource HeaderAcrylicBrush}"/>
+            <Rectangle Grid.ColumnSpan="4" RadiusX="15" RadiusY="15" Fill ="{ThemeResource HeaderAcrylicBrush}"/>
 
             <StackPanel Grid.Column="0" Orientation="Horizontal">
                 <toolkit:ImageEx Height="60" Width="60" 
@@ -91,6 +90,7 @@
                                 DecodePixelHeight="40"
                                 DecodePixelWidth="40"
                                 CornerRadius="3"
+                                 Source="{x:Bind PlayerViewModel.Cover, Mode=TwoWay}"
                                 Stretch="Fill"
                                 IsCacheEnabled="False"
                                 PlaceholderSource="ms-appx:///Assets/Images/placeholder-track.png" />
@@ -110,7 +110,7 @@
                            FontWeight="Medium"
                            FontSize="22" 
                            Grid.Row="0" 
-                           Text="Название композиции"/>
+                           Text="{x:Bind PlayerViewModel.Title}"/>
                 
                 <TextBlock Margin="0 0 0 0" 
                            TextTrimming="CharacterEllipsis" 
@@ -118,7 +118,7 @@
                            Foreground="{ThemeResource ColorArtistText}"
                            FontSize="19"
                            Grid.Row="1" 
-                           Text="Музыкант"/>
+                           Text="{x:Bind PlayerViewModel.Artist}"/>
             </Grid>
 
             <Grid Grid.Column="1">
@@ -141,7 +141,7 @@
                         Width="42" 
                         FontFamily="Segoe MDL2 Assets" 
                         Content="&#xE1CD;" />
-                
+
                 <Button Grid.Column="2" 
                         Background="Transparent" 
                         CornerRadius="99"
@@ -151,12 +151,12 @@
                         Width="42"
                         FontFamily="Segoe MDL2 Assets"
                         Content="&#xE892;" />
-                
+
                 <Grid Grid.Column="3" >
                     <Button Grid.Column="1" Command="{x:Bind PlayerViewModel.PlayCommand}" Background="Transparent" CornerRadius="99" FontSize="20" Height="43" Width="43" FontFamily="Segoe MDL2 Assets" Content="&#xE768;" />
                     <Button Grid.Column="0" Command="{x:Bind PlayerViewModel.PauseCommand}" Background="Transparent" Visibility="Collapsed" CornerRadius="99" FontSize="20" Height="43" Width="43" FontFamily="Segoe MDL2 Assets" Content="&#xE769;" />
                 </Grid>
-                
+
                 <Button Grid.Column="4"
                         Background="Transparent" 
                         CornerRadius="99"
@@ -166,7 +166,7 @@
                         Width="42"
                         FontFamily="Segoe MDL2 Assets"
                         Content="&#xE893;" />
-                
+
                 <Button Grid.Column="5"
                         Background="Transparent"
                         CornerRadius="99"
@@ -175,10 +175,27 @@
                         Width="42"
                         FontFamily="Segoe MDL2 Assets"
                         Content="&#xE8B1;" />
+            </Grid>
+
+            <Grid Grid.Column="2">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="auto"/>
+                    <ColumnDefinition/>
+                    <ColumnDefinition Width="auto"/>
+                </Grid.ColumnDefinitions>
+
+                <TextBlock Grid.Column="0" Text="{x:Bind PlayerViewModel.Seconds, Mode=TwoWay}" VerticalAlignment="Center"/>
+                <Slider Margin="5 0 5 0" Style="{StaticResource SliderPlayerStyle}"
+                    VerticalAlignment="Center"
+                    HorizontalAlignment="Stretch"
+                    Maximum="{x:Bind PlayerViewModel.SecondsAll, Mode=TwoWay}"
+                        Grid.Column="1"
+                    Value="{x:Bind PlayerViewModel.Seconds}"/>
+                <TextBlock Grid.Column="2" VerticalAlignment="Center" Text="{x:Bind PlayerViewModel.SecondsAll, Mode=TwoWay}"/>
                 
             </Grid>
 
-            
+
         </Grid>
     </Grid>
 </Page>
