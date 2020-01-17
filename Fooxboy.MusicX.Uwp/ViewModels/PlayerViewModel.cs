@@ -17,11 +17,14 @@ namespace Fooxboy.MusicX.Uwp.ViewModels
         public RelayCommand NextCommand { get; set; }
         public RelayCommand PreviousCommand { get; set; }
         public bool IsPlay => PlayerSerivce.IsPlaying;
+        public bool VisibilityPause => !IsPlay;
         public string Title { get; set; }
         public string Artist { get; set; }
         public string Cover { get; set; }
         public double Seconds { get; set; }
         public double SecondsAll { get; set; }
+        public string Time { get; set; }
+        public string AllTime { get; set; }
 
         public PlayerViewModel()
         {
@@ -45,16 +48,25 @@ namespace Fooxboy.MusicX.Uwp.ViewModels
             Changed("Title");
             Changed("Artist");
             Changed("Cover");
+            Changed("SecondsAll");
         }
 
         private void PositionTrackChanged(object sender, TimeSpan e)
         {
-            throw new NotImplementedException();
+            SecondsAll = PlayerSerivce.Duration.TotalSeconds;
+            Seconds = PlayerSerivce.Position.TotalSeconds;
+            Time = Seconds.ToString();
+            AllTime = SecondsAll.ToString();
+            Changed("SecondsAll");
+            Changed("Seconds");
+            Changed("Time");
+            Changed("AllTime");
         }
 
         private void PlayStateChanged(object sender, EventArgs e)
         {
-            throw new NotImplementedException();
+            Changed("IsPlay");
+            Changed("VisibilityPause");
         }
     }
 }

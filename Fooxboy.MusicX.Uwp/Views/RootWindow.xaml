@@ -153,8 +153,8 @@
                         Content="&#xE892;" />
 
                 <Grid Grid.Column="3" >
-                    <Button Grid.Column="1" Command="{x:Bind PlayerViewModel.PlayCommand}" Background="Transparent" CornerRadius="99" FontSize="20" Height="43" Width="43" FontFamily="Segoe MDL2 Assets" Content="&#xE768;" />
-                    <Button Grid.Column="0" Command="{x:Bind PlayerViewModel.PauseCommand}" Background="Transparent" Visibility="Collapsed" CornerRadius="99" FontSize="20" Height="43" Width="43" FontFamily="Segoe MDL2 Assets" Content="&#xE769;" />
+                    <Button Grid.Column="1" Visibility="{x:Bind PlayerViewModel.IsPlay}" Command="{x:Bind PlayerViewModel.PlayCommand}" Background="Transparent" CornerRadius="99" FontSize="20" Height="43" Width="43" FontFamily="Segoe MDL2 Assets" Content="&#xE768;" />
+                    <Button Grid.Column="0" Visibility="{x:Bind PlayerViewModel.VisibilityPause}" Command="{x:Bind PlayerViewModel.PauseCommand}" Background="Transparent" CornerRadius="99" FontSize="20" Height="43" Width="43" FontFamily="Segoe MDL2 Assets" Content="&#xE769;" />
                 </Grid>
 
                 <Button Grid.Column="4"
@@ -184,14 +184,14 @@
                     <ColumnDefinition Width="auto"/>
                 </Grid.ColumnDefinitions>
 
-                <TextBlock Grid.Column="0" Text="{x:Bind PlayerViewModel.Seconds, Mode=TwoWay}" VerticalAlignment="Center"/>
+                <TextBlock Grid.Column="0" Text="{x:Bind PlayerViewModel.Time, Mode=TwoWay}" VerticalAlignment="Center"/>
                 <Slider Margin="5 0 5 0" Style="{StaticResource SliderPlayerStyle}"
                     VerticalAlignment="Center"
                     HorizontalAlignment="Stretch"
                     Maximum="{x:Bind PlayerViewModel.SecondsAll, Mode=TwoWay}"
                         Grid.Column="1"
                     Value="{x:Bind PlayerViewModel.Seconds}"/>
-                <TextBlock Grid.Column="2" VerticalAlignment="Center" Text="{x:Bind PlayerViewModel.SecondsAll, Mode=TwoWay}"/>
+                <TextBlock Grid.Column="2" VerticalAlignment="Center" Text="{x:Bind PlayerViewModel.AllTime, Mode=TwoWay}"/>
                 
             </Grid>
 
