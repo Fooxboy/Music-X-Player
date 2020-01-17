@@ -14,6 +14,7 @@ using Android.Widget;
 using Fooxboy.MusicX.AndroidApp.Adapters;
 using Fooxboy.MusicX.AndroidApp.Models;
 using Fooxboy.MusicX.AndroidApp.Services;
+using Fooxboy.MusicX.AndroidApp.Converters;
 using Fooxboy.MusicX.Core.Interfaces;
 using Java.Lang;
 
@@ -23,7 +24,7 @@ namespace Fooxboy.MusicX.AndroidApp.Resources.fragments
     {
 
         TrackAdapter adapter;
-        List<AudioFile> tracksInResult = new List<AudioFile>();
+        List<Track> tracksInResult = new List<Track>();
         RecyclerView resultsList;
         ProgressBar progress;
         RelativeLayout placeholderLayout;
@@ -43,7 +44,7 @@ namespace Fooxboy.MusicX.AndroidApp.Resources.fragments
             resultsList = view.FindViewById<RecyclerView>(Resource.Id.searchResults);
             placeholderLayout = view.FindViewById<RelativeLayout>(Resource.Id.searchPlaceholder);
             progress = view.FindViewById<ProgressBar>(Resource.Id.searchProgress);
-            this.adapter = new TrackAdapter(new List<Models.AudioFile>());
+            this.adapter = new TrackAdapter(new List<Track>());
             resultsList.Clickable = true;
             RegisterForContextMenu(resultsList);
             resultsList.SetLayoutManager(new LinearLayoutManager(Application.Context, LinearLayoutManager.Vertical, false));
@@ -86,9 +87,11 @@ namespace Fooxboy.MusicX.AndroidApp.Resources.fragments
 
         private async void RefreshResults(Handler handler)
         {
-            var results = Core.VKontakte.Music.Search.TracksSync(edittext.Text);
-            this.tracksInResult = Services.MusicService.ConvertToAudioFile(results);
-            adapter = new TrackAdapter(tracksInResult, "false");
+            //List<ITrack> results = new List<ITrack>();
+            var results = Core.Api.GetApi().VKontakte.Music.Search.Tracks(edittext.Text);
+            //var results = Core.VKontakte.Music.Search.TracksSync(edittext.Text);
+            tracksInResult = results.ToTracksList();
+            adapter = new TrackAdapter(tracksInResult, new Block()); //TODO: тут блок был не налл но фолс
             adapter.ItemClick += AdapterOnItemClick;
             handler.Post(new Runnable(() =>
             {
@@ -99,21 +102,23 @@ namespace Fooxboy.MusicX.AndroidApp.Resources.fragments
             }));
         }
 
-        private void AdapterOnItemClick(object sender, AudioFile args)
+        private void AdapterOnItemClick(object sender, Track args, Block block = null)
         {
             try
             {
                 Toast.MakeText(Application.Context, $"Ты тыкнул: {args.Artist} - {args.Title} ", ToastLength.Long).Show();
                 //Создание плейлиста из локальных трекаф
-                var playlist = new PlaylistFile();
-                playlist.Artist = "Music X";
+                var playlist = new Album();
+                playlist.Artists.Add(new Artist()
+                {
+                    Name = "Music X"
+                });
                 playlist.Cover = "playlist_placeholder";
-                playlist.Genre = "";
+                playlist.Genres = null;
                 playlist.Id = 1000;
-                playlist.IsAlbum = false;
-                playlist.TracksFiles = tracksInResult;
+                playlist.Tracks = tracksInResult;
                 var player = PlayerService.Instanse;
-                player.Play(playlist, playlist.TracksFiles.First(t => t.SourceString == args.SourceString));
+                player.Play(playlist, playlist.Tracks.First(t => t.Url == args.Url));
             }
             catch (System.Exception e)
             {
@@ -129,9 +134,9 @@ namespace Fooxboy.MusicX.AndroidApp.Resources.fragments
                 case 0:
                     Toast.MakeText(Application.Context, $"Переходим к исполнителю {t.Artist}", ToastLength.Long).Show();
                     var artist = new ArtistFragment();
-                    if (t.ArtistId != 0)
+                    if (Convert.ToInt32(t.Artists[0].Id) != 0)
                     {
-                        artist.ArtistID = t.ArtistId;
+                        artist.ArtistID = Convert.ToInt32(t.Artists[0].Id);
                         FragmentManager.BeginTransaction().Replace(Resource.Id.content_frame, artist).Commit();
                     }
                     else

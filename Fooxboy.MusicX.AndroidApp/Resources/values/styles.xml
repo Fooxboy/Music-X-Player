@@ -5,10 +5,13 @@
     <item name="android:windowActionBar">false</item>
       <item name="colorPrimary">@color/colorPrimary</item>
       <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
-    <item  name="android:statusBarColor">#FAFAFA</item>
+    <item  name="android:statusBarColor">#FFF</item>
     <item name="android:navigationBarColor">@android:color/transparent</item>
     <item name="android:windowLightStatusBar">true</item>
       <item name="colorAccent">@color/colorAccent</item>
+    <!---
+    <item name="android:forceDarkAllowed">true</item>
+    -->
   </style>
 
   <style name="Splash" parent="Theme.AppCompat.Light.NoActionBar">

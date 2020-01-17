@@ -22,8 +22,8 @@
     android:title="@string/title_search" />
 
     <item
-      android:id="@+id/navigation_settings"
-      android:icon="@drawable/settings_menu"
-      android:title="@string/title_settings" />
+      android:id="@+id/navigation_downloads"
+      android:icon="@drawable/downloads_menu"
+      android:title="@string/title_downloads" />
 
 </menu>

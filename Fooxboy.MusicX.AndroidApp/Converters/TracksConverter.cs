@@ -7,7 +7,7 @@ namespace Fooxboy.MusicX.AndroidApp.Converters
 {
     public static class TracksConverter
     {
-        public static List<Track> ToTracksList(this List<ITrack> tracks) => tracks.Select(t => t.ToTrack()).ToList();
+        public static List<Track> ToTracksList(this IList<ITrack> tracks) => tracks.Select(t => t.ToTrack()).ToList();
 
         public static Track ToTrack(this ITrack t)
         {

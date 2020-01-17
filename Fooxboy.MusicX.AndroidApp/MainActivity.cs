@@ -49,6 +49,8 @@ namespace Fooxboy.MusicX.AndroidApp
                 if (AuthService.IsLoggedIn())
                 {
                     Core.Api.GetApi().VKontakte.Auth.Auto(AuthService.GetToken(), null);
+                    var user = Core.Api.GetApi().VKontakte.Users.Info.CurrentUser();
+                    Services.StaticContentService.UserId = user.Id;
                     //var f = new HomeFragment();
                     var f = new RecommendationsFragment();
                     FragmentManager.BeginTransaction().Replace(Resource.Id.content_frame, f).Commit();
@@ -104,10 +106,11 @@ namespace Fooxboy.MusicX.AndroidApp
                     FragmentManager.BeginTransaction().Replace(Resource.Id.content_frame, f).Commit();
                     title.Text = "Поиск";
                     return true;
-                case Resource.Id.navigation_settings:
+                case Resource.Id.navigation_downloads:
+                    //TODO: загрузОчки
                     f = new SettingsFragment();
                     FragmentManager.BeginTransaction().Replace(Resource.Id.content_frame, f).Commit();
-                    title.Text = "Настройки";
+                    title.Text = "Загрузки";
                     return true;
             }
             return false;

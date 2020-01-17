@@ -9,6 +9,7 @@ using Android.OS;
 using Android.Runtime;
 using Android.Views;
 using Android.Widget;
+using Fooxboy.MusicX.AndroidApp.Converters;
 using Fooxboy.MusicX.AndroidApp.Models;
 using Fooxboy.MusicX.Core.Interfaces;
 
@@ -17,20 +18,13 @@ namespace Fooxboy.MusicX.AndroidApp.Services
     public static class PlaylistsService
     {
 
-        public static List<PlaylistFile> GetPlaylistLibrary()
+        public static List<Album> GetPlaylistLibrary()
         {
-            var playlistsVk = Fooxboy.MusicX.Core.VKontakte.Music.Library.PlaylistsSync(20);
-            var playlists = playlistsVk.CovertToPlaylistFiles();
+            var playlistsVk = Core.Api.GetApi().VKontakte.Music.Albums.Get(Services.StaticContentService.UserId, 15);
+            var playlists = playlistsVk.ToAlbumsList();
             return playlists;
         }
-
-        public static List<PlaylistFile> CovertToPlaylistFiles(this IList<IPlaylistFile> playlists)
-        {
-            var list = new List<PlaylistFile>();
-            foreach (var playlist in playlists) list.Add(playlist.ConvertToPlaylistFile());
-            return list;
-        }
-
+        /*
         public static PlaylistFile ConvertToPlaylistFile(this IPlaylistFile playlist)
         {
             string cover;
@@ -72,6 +66,6 @@ namespace Fooxboy.MusicX.AndroidApp.Services
             };
 
             return playlistFile;
-        }
+        }*/
     }
 }

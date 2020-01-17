@@ -11,6 +11,7 @@ using Android.Support.V7.Widget;
 using Android.Views;
 using Android.Widget;
 using Fooxboy.MusicX.AndroidApp.Adapters;
+using Fooxboy.MusicX.AndroidApp.Converters;
 using Fooxboy.MusicX.AndroidApp.Models;
 using Fooxboy.MusicX.AndroidApp.Services;
 using Java.Lang;
@@ -25,8 +26,8 @@ namespace Fooxboy.MusicX.AndroidApp.Resources.fragments
         PlaylistAdapter pAdapter = null;
         bool HasLoading = true;
 
-        public List<AudioFile> Tracks;
-        public List<PlaylistFile> Playlists;
+        public List<Track> Tracks;
+        public List<Album> Playlists;
         bool plistsHasLoading = true;
 
         public override void OnCreate(Bundle savedInstanceState)
@@ -36,8 +37,8 @@ namespace Fooxboy.MusicX.AndroidApp.Resources.fragments
             // Create your fragment here
         }
 
-        public List<AudioFile> TracksInLibrary= new List<AudioFile>();
-        public List<PlaylistFile> PlaylistsInLibrary = new List<PlaylistFile>();
+        public List<Track> TracksInLibrary= new List<Track>();
+        public List<Album> PlaylistsInLibrary = new List<Album>();
 
 
         public override View OnCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
@@ -45,11 +46,11 @@ namespace Fooxboy.MusicX.AndroidApp.Resources.fragments
 
             var view = inflater.Inflate(Resource.Layout.activity_tracks, container, false);
 
-            List<AudioFile> tracks = new List<AudioFile>();
+            List<Track> tracks = new List<Track>();
             Tracks = tracks;
             adapter = new TrackAdapter(tracks);
 
-            List<PlaylistFile> plists = new List<PlaylistFile>();
+            List<Album> plists = new List<Album>();
             Playlists = plists;
             pAdapter = new PlaylistAdapter(plists);
 
@@ -61,8 +62,8 @@ namespace Fooxboy.MusicX.AndroidApp.Resources.fragments
 
             Handler handler = new Handler(Looper.MainLooper);
 
-            adapter.ItemClick += AdapterOnItemClick;
-            pAdapter.ItemClick += PlaylistOnItemClick;
+            adapter.ItemClick += TrackAdapterOnItemClick;
+            pAdapter.ItemClick += PlaylistAdapterOnItemClick;
 
             tracksView.SetAdapter(adapter);
             tracksView.SetLayoutManager(new LinearLayoutManager(Application.Context, LinearLayoutManager.Vertical, false));
@@ -85,8 +86,8 @@ namespace Fooxboy.MusicX.AndroidApp.Resources.fragments
                     try
                     {
                         tracks = MusicService.GetMusicLibrary(15, adapter.ItemCount);
-                        var i = 1 + 1; //Без этого нихуя не работает.
-                        Fooxboy.MusicX.Core.Log.Debug(i.ToString());
+                        //var i = 1 + 1; //Без этого нихуя не работает.
+                        //Fooxboy.MusicX.Core.Log.Debug(i.ToString());
                     }
                     catch (Exception e)
                     {
@@ -136,11 +137,7 @@ namespace Fooxboy.MusicX.AndroidApp.Resources.fragments
                     }));
                     try
                     {
-                        //tracks = MusicService.GetMusicLibrary(15, adapter.ItemCount);
-                        var vkplists = Core.VKontakte.Music.Library.PlaylistsSync(15, pAdapter.ItemCount);
-                        plists = PlaylistsService.CovertToPlaylistFiles(vkplists);
-                        var i = 1 + 1; //Без этого нихуя не работает.
-                        Fooxboy.MusicX.Core.Log.Debug(i.ToString());
+                        plists = PlaylistsService.GetPlaylistLibrary();
                     }
                     catch (Exception e)
                     {
@@ -186,28 +183,30 @@ namespace Fooxboy.MusicX.AndroidApp.Resources.fragments
 
         }
 
-        private void PlaylistOnItemClick(object sender, PlaylistInBlock args)
+        private void PlaylistAdapterOnItemClick(object sender, Album args, Block b = null)
         {
             var fragment = new PlaylistFragment();
-            fragment.playlist = args.Playlist;
+            fragment.playlist = args;
             FragmentManager.BeginTransaction().Replace(Resource.Id.content_frame, fragment).Commit();
         }
 
-        private void AdapterOnItemClick(object sender, AudioFile args)
+        private void TrackAdapterOnItemClick(object sender, Track args, Block b = null)
         {
             try
             {
                 Toast.MakeText(Application.Context, $"Ты тыкнул: {args.Artist} - {args.Title} ", ToastLength.Long).Show();
                 //Создание плейлиста из локальных трекаф
-                var playlist = new PlaylistFile();
-                playlist.Artist = "Music X";
+                var playlist = new Album();
+                playlist.Artists.Add(new Artist()
+                {
+                    Name = "Music X"
+                });
                 playlist.Cover = "playlist_placeholder";
-                playlist.Genre = "";
+                playlist.Genres = null;
                 playlist.Id = 1000;
-                playlist.IsAlbum = false;
-                playlist.TracksFiles = TracksInLibrary;
+                playlist.Tracks = TracksInLibrary;
                 var player = PlayerService.Instanse;
-                player.Play(playlist, playlist.TracksFiles.First(t => t.SourceString == args.SourceString));
+                player.Play(playlist, playlist.Tracks.First(t => t.Url == args.Url));
             }
             catch (Exception e)
             {
@@ -223,15 +222,16 @@ namespace Fooxboy.MusicX.AndroidApp.Resources.fragments
                 case 0:
                     Toast.MakeText(Application.Context, $"Переходим к исполнителю {t.Artist}", ToastLength.Long).Show();
                     var artist = new ArtistFragment();
-                    if(t.ArtistId != 0) {
-                        artist.ArtistID = t.ArtistId;
+                    if (Convert.ToInt32(t.Artists[0].Id) != 0)
+                    {
+                        artist.ArtistID = Convert.ToInt32(t.Artists[0].Id);
                         FragmentManager.BeginTransaction().Replace(Resource.Id.content_frame, artist).Commit();
                     }
                     else
                     {
                         Toast.MakeText(Application.Context, "Ошибка: невозможно перейти к исполнителю.", ToastLength.Long).Show();
                     }
-                    
+
                     break;
                 case 1:
                     Toast.MakeText(Application.Context, "Временно недоступно. ВК опять все сломали", ToastLength.Long).Show();

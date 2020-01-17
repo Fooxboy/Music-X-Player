@@ -5,7 +5,7 @@
   <string name="title_pop">Популярное</string>
   <string name="title_tracks">Музыка</string>
   <string name="title_search">Поиск</string>
-  <string name="title_settings">Настройки</string>
+  <string name="title_downloads">Загрузки</string>
   <string name="auth_caption">Войдите в свой аккаунт ВКонтакте</string>
   <string name="auth_btn">Войти</string>
   <string name="login_hint">E-Mail или телефон</string>
