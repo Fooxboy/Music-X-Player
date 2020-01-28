@@ -8,6 +8,11 @@ namespace Fooxboy.MusicX.Uwp
 {
     public static class Container
     {
-        public static DryIoc.Container Get { get; }
+        public static DryIoc.Container Get { get; private set; }
+        public static void SetContainer(DryIoc.Container container)
+        {
+            Get = container;
+        }
+
     }
 }

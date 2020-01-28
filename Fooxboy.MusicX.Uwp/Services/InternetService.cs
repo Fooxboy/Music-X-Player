@@ -6,6 +6,7 @@ using System.Net.NetworkInformation;
 using System.Text;
 using System.Threading.Tasks;
 using Windows.UI.Xaml;
+using Microsoft.Toolkit.Uwp.Helpers;
 
 namespace Fooxboy.MusicX.Uwp.Services
 {
@@ -70,23 +71,23 @@ namespace Fooxboy.MusicX.Uwp.Services
         
         public static void GoToOnlineMode()
         {
-            DispatcherHelper.CheckBeginInvokeOnUI(() =>
-            {
-                var player = ViewModels.PlayerMenuViewModel.Instanse;
-                player.VkontaktePages = Visibility.Visible;
-                StaticContent.NavigationContentService.Go(typeof(Views.VKontakte.HomeView));
-            });
+            //DispatcherHelper.ExecuteOnUIThreadAsync(() =>
+            //{
+            //    var player = ViewModels.PlayerMenuViewModel.Instanse;
+            //    player.VkontaktePages = Visibility.Visible;
+            //    StaticContent.NavigationContentService.Go(typeof(Views.VKontakte.HomeView));
+            //});
         }
 
         public static void GoToOfflineMode()
         {
-            DispatcherHelper.CheckBeginInvokeOnUI(() =>
-            {
-                var player = ViewModels.PlayerMenuViewModel.Instanse;
-                player.VkontaktePages = Visibility.Collapsed;
-                if (StaticContent.NavigationContentService == null) return;
-                StaticContent.NavigationContentService.Go(typeof(Views.OfflineModeView));
-            });
+            //DispatcherHelper.ExecuteOnUIThreadAsync(() =>
+            //{
+            //    var player = ViewModels.PlayerMenuViewModel.Instanse;
+            //    player.VkontaktePages = Visibility.Collapsed;
+            //    if (StaticContent.NavigationContentService == null) return;
+            //    StaticContent.NavigationContentService.Go(typeof(Views.OfflineModeView));
+            //});
            
         }
     }

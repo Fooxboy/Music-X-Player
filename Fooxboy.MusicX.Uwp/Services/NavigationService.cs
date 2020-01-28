@@ -43,7 +43,7 @@ namespace Fooxboy.MusicX.Uwp.Services
                 this.RootFrame.Navigate(page, data);
             }catch(Exception e)
             {
-                ContentDialogService.Show(new ExceptionDialog("Невозможно перейти на страницу", "Попробуйте перезапустить приложение", e), 1);
+                //ContentDialogService.Show(new ExceptionDialog("Невозможно перейти на страницу", "Попробуйте перезапустить приложение", e), 1);
             }
             
         }
@@ -58,7 +58,6 @@ namespace Fooxboy.MusicX.Uwp.Services
                 try
                 {
                     this.RootFrame.GoBack();
-
                 }
                 catch
                 {

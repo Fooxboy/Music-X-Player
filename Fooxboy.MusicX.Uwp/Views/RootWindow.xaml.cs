@@ -1,4 +1,6 @@
-﻿using Fooxboy.MusicX.Uwp.ViewModels;
+﻿using DryIoc;
+using Fooxboy.MusicX.Uwp.Services;
+using Fooxboy.MusicX.Uwp.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -24,11 +26,16 @@ namespace Fooxboy.MusicX.Uwp.Views
     public sealed partial class RootWindow : Page
     {
         public PlayerViewModel PlayerViewModel { get; set; }
+        public NavigationRootViewModel NavigationViewModel { get; set; }
         public RootWindow()
         {
             this.InitializeComponent();
 
             PlayerViewModel = new PlayerViewModel();
+
+            var navigationService = new NavigationService();
+            navigationService.RootFrame = this.Root;
+            Container.Get.RegisterInstance<NavigationService>(navigationService);
         }
     }
 }

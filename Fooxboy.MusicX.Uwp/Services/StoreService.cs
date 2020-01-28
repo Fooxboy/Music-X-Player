@@ -52,15 +52,15 @@ namespace Fooxboy.MusicX.Uwp.Services
                 case StorePurchaseStatus.AlreadyPurchased:
                     var settings = ApplicationData.Current.LocalSettings;
                     settings.Values["IsPro"] = true;
-                    await ContentDialogService.Show(new ThanksBuyProContentDialog());
+                    //await ContentDialogService.Show(new ThanksBuyProContentDialog());
 
                     break;
 
                 case StorePurchaseStatus.Succeeded:
                     var settings2 = ApplicationData.Current.LocalSettings;
                     settings2.Values["IsPro"] = true;
-                    StaticContent.IsPro = true;
-                    await ContentDialogService.Show(new ThanksBuyProContentDialog());
+                    //StaticContent.IsPro = true;
+                    //await ContentDialogService.Show(new ThanksBuyProContentDialog());
                     break;
 
                 case StorePurchaseStatus.NotPurchased:

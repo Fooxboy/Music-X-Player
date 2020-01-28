@@ -72,9 +72,7 @@ namespace Fooxboy.MusicX.Uwp
             c.RegisterInstance<Api>(Core.Api.GetApi());
             c.Register<ConfigService>();
             c.Register<TokenService>(made: Made.Of(() => new TokenService(new ConfigService())));
-
-            
-            
+            Container.SetContainer(c);
 
             Frame rootFrame = Window.Current.Content as Frame;
             if (rootFrame == null)
