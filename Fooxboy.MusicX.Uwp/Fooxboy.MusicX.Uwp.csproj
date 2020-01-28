@@ -207,51 +207,6 @@
     <Compile Include="Views\RootWindow.xaml.cs">
       <DependentUpon>RootWindow.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\VKontakte\AccountView.xaml.cs">
-      <DependentUpon>AccountView.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Views\VKontakte\AllPlaylistsView.xaml.cs">
-      <DependentUpon>AllPlaylistsView.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Views\VKontakte\ArtistView.xaml.cs">
-      <DependentUpon>ArtistView.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Views\VKontakte\Artist\ArtistAllAlbums.xaml.cs">
-      <DependentUpon>ArtistAllAlbums.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Views\VKontakte\Artist\ArtistAllPopularTracks.xaml.cs">
-      <DependentUpon>ArtistAllPopularTracks.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Views\VKontakte\AuthView.xaml.cs">
-      <DependentUpon>AuthView.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Views\VKontakte\Blocks\AllPlaylistsView.xaml.cs">
-      <DependentUpon>AllPlaylistsView.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Views\VKontakte\Blocks\AllTracksView.xaml.cs">
-      <DependentUpon>AllTracksView.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Views\VKontakte\DownloadsView.xaml.cs">
-      <DependentUpon>DownloadsView.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Views\VKontakte\HomeView.xaml.cs">
-      <DependentUpon>HomeView.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Views\VKontakte\LikedArtistsView.xaml.cs">
-      <DependentUpon>LikedArtistsView.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Views\VKontakte\NewRecommendationsView.xaml.cs">
-      <DependentUpon>NewRecommendationsView.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Views\VKontakte\PopularView.xaml.cs">
-      <DependentUpon>PopularView.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Views\VKontakte\RecommendationsView.xaml.cs">
-      <DependentUpon>RecommendationsView.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Views\VKontakte\SearchView.xaml.cs">
-      <DependentUpon>SearchView.xaml</DependentUpon>
-    </Compile>
     <Compile Include="Views\WelcomeView.xaml.cs">
       <DependentUpon>WelcomeView.xaml</DependentUpon>
     </Compile>
@@ -414,66 +369,6 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\RootWindow.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Views\VKontakte\AccountView.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Views\VKontakte\AllPlaylistsView.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Views\VKontakte\ArtistView.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Views\VKontakte\Artist\ArtistAllAlbums.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Views\VKontakte\Artist\ArtistAllPopularTracks.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Views\VKontakte\AuthView.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Views\VKontakte\Blocks\AllPlaylistsView.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Views\VKontakte\Blocks\AllTracksView.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Views\VKontakte\DownloadsView.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Views\VKontakte\HomeView.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Views\VKontakte\LikedArtistsView.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Views\VKontakte\NewRecommendationsView.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Views\VKontakte\PopularView.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Views\VKontakte\RecommendationsView.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Views\VKontakte\SearchView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
