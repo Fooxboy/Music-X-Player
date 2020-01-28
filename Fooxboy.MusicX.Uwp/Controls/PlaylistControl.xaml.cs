@@ -28,15 +28,25 @@ namespace Fooxboy.MusicX.Uwp.Resources.Controls
     public sealed partial class PlaylistControl : UserControl
     {
 
-        public static readonly DependencyProperty PlaylistProperty = DependencyProperty.Register("Playlist",
-            typeof(PlaylistFile), typeof(PlaylistControl), new PropertyMetadata(new PlaylistFile
+        public static readonly DependencyProperty PlaylistProperty = DependencyProperty.Register("Album",
+            typeof(Album), typeof(PlaylistControl), new PropertyMetadata(new Album
             {
-                Artist = "MusicX",
-                Cover = "ms-appx:///Assets/Images/placeholder.png",
-                Id = -1,
-                Name = "MusicX",
-                TracksFiles = new List<AudioFile>(),
-                IsLocal = true
+                Year = 2020,
+                Artists = new List<IArtist>(),
+                Followers = 0,
+                Description = "",
+                Cover = "ms-appx:///Assets/Images/placeholder-album.png",
+                Genres = new List<string>(),
+                Id = -2,
+                IsAvailable = false,
+                IsFollowing = false,
+                OwnerId = -2,
+                Plays = 0,
+                TimeCreate = DateTime.Now,
+                TimeUpdate = DateTime.Now,
+                Title = "",
+                Tracks = new List<Track>(),
+                Type = 0
             }));
 
         public PlaylistControl()
@@ -44,43 +54,19 @@ namespace Fooxboy.MusicX.Uwp.Resources.Controls
             this.InitializeComponent();
             PlayCommand = new RelayCommand( async () =>
             {
-                if(Playlist.IsLocal) await Services.PlaylistsService.PlayPlaylist(Playlist);
-                else
-                {
-                    if (Playlist.TracksFiles.Count == 0)
-                    {
-                        var tracks = await Fooxboy.MusicX.Core.VKontakte.Music.Playlist.GetTracks(Playlist.Id, Playlist.OwnerId, Playlist.AccessKey);
-                        Playlist.TracksFiles = await MusicService.ConvertToAudioFile(tracks, Playlist.Cover);
-                    }
-
-                    if (Playlist.TracksFiles.Count == 0) return;
-
-                    await MusicService.PlayMusic(Playlist.TracksFiles.First(), 2, Playlist);
-                }
-
+               
             });
 
             DeleteCommand = new RelayCommand(async () =>
             {
-                if(Playlist.Id != 1 & Playlist.Id != 2 & Playlist.Id != 1000)
-                {
-                    if(Playlist.IsLocal) await Services.PlaylistsService.DeletePlaylist(Playlist);
-                    else
-                    {
-                        await new MessageDialog("Вы не можете удалить этот плейлист.").ShowAsync();
-                    }
-                }
-                else
-                {
-                    await new MessageDialog("Вы не можете удалить этот плейлист", "Невозможно удалить плейлист").ShowAsync();
-                }
+               
             }); 
         }
 
 
-        public PlaylistFile Playlist
+        public Album Album
         {
-            get => (PlaylistFile)GetValue(PlaylistProperty);
+            get => (Album)GetValue(PlaylistProperty);
             set
             {
                 SetValue(PlaylistProperty, value);

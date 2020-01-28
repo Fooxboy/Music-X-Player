@@ -62,8 +62,8 @@
             DecodePixelHeight="150"
             DecodePixelWidth="150"
             IsCacheEnabled="False"
-            PlaceholderSource="../../Assets/Images/playlist-placeholder.png"
-            Source="{x:Bind Playlist.Cover, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+            PlaceholderSource="../../Assets/Images/placeholder-album.png"
+            Source="{x:Bind Album.Cover, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
             CornerRadius="3"
             Stretch="Fill">
         </controls:ImageEx>
@@ -73,7 +73,7 @@
             Margin="0,10,0,0"
             HorizontalAlignment="Center"
             VerticalAlignment="Bottom"
-            Text="{x:Bind Playlist.Name, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+            Text="{x:Bind Album.Title, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
             TextTrimming="WordEllipsis" />
     </Grid>
 </UserControl>

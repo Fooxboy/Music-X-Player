@@ -40,23 +40,9 @@
                             <FontIcon FontFamily="Segoe MDL2 Assets" Glyph="&#xE2AF;" />
                         </MenuFlyoutItem.Icon>
                     </MenuFlyoutItem>
-                    <MenuFlyoutSubItem x:Name="AddTo" Text="Добавить в">
-                        <MenuFlyoutSubItem.Icon>
-                            <FontIcon FontFamily="Segoe MDL2 Assets" Glyph="&#xE109;" />
-                        </MenuFlyoutSubItem.Icon>
-                    </MenuFlyoutSubItem>
                     <MenuFlyoutItem Command="{x:Bind DeleteCommand}" Text="Удалить">
                         <MenuFlyoutItem.Icon>
                             <FontIcon FontFamily="Segoe MDL2 Assets" Glyph="&#xE74D;" />
-                        </MenuFlyoutItem.Icon>
-                    </MenuFlyoutItem>
-
-                    <MenuFlyoutItem
-                        x:Name="PropertyButton"
-                        Command="{x:Bind GetPropertyCommand}"
-                        Text="Свойства">
-                        <MenuFlyoutItem.Icon>
-                            <FontIcon FontFamily="Segoe MDL2 Assets" Glyph="&#xEA42;" />
                         </MenuFlyoutItem.Icon>
                     </MenuFlyoutItem>
                 </MenuFlyout.Items>
@@ -97,11 +83,11 @@
             Grid.Column="0"
             Width="40"
             IsCacheEnabled="False"
-            PlaceholderSource="../../Assets/Images/placeholder.png"
+            PlaceholderSource="../../Assets/Images/placeholder-track.png"
             Height="40"
             DecodePixelHeight="40"
             DecodePixelWidth="40"
-            Source="{x:Bind Track.Cover, Mode=TwoWay}"
+            Source="{x:Bind Track.Album.Cover, Mode=TwoWay}"
             CornerRadius="2"
             Stretch="Fill">
             
@@ -144,45 +130,12 @@
             Foreground="{ThemeResource ColorArtistText}"
             Text="{x:Bind Track.Artist, Mode=TwoWay}"
             TextTrimming="WordEllipsis" />
-        <Button
-            x:Name="Like"
-            Grid.RowSpan="2"
-            Grid.Column="2"
-            Height="32"
-            Margin="0,0,30,0"
-            HorizontalAlignment="Right"
-            VerticalAlignment="Center"
-            Background="Transparent"
-            BorderThickness="0"
-            Command="{x:Bind AddToFavoriteCommand}"
-            Content="&#xE006;"
-            FontFamily="Segoe MDL2 Assets"
-            FontSize="18"
-            Style="{ThemeResource ButtonPlayerStyle}"
-            Visibility="Collapsed" />
-
-        <Button
-            x:Name="LikeAdd"
-            Grid.RowSpan="2"
-            Grid.Column="2"
-            Height="32"
-            Margin="0,0,30,0"
-            HorizontalAlignment="Right"
-            VerticalAlignment="Center"
-            Background="Transparent"
-            BorderThickness="0"
-            Command="{x:Bind AddToFavoriteCommand}"
-            Content="&#xE0A5;"
-            FontFamily="Segoe MDL2 Assets"
-            FontSize="18"
-            Style="{ThemeResource ButtonPlayerStyle}"
-            Visibility="Collapsed" />
-
+      
         <TextBlock
             Grid.RowSpan="2"
             Grid.Column="2"
             HorizontalAlignment="Right"
             VerticalAlignment="Center"
-            Text="{x:Bind Track.DurationMinutes, Mode=TwoWay}" />
+            Text="{x:Bind Track.Duration, Mode=TwoWay}" />
     </Grid>
 </UserControl>

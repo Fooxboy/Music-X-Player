@@ -7,13 +7,14 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d"
     Title="Двойная аунтификация"
+    CornerRadius="5"
     PrimaryButtonClick="ContentDialog_PrimaryButtonClick"
     PrimaryButtonText="Подтвердить">
     <Grid>
         <StackPanel>
             <TextBlock TextWrapping="Wrap" Text="Код подтверждения отправлен."/>
             <TextBlock TextWrapping="Wrap" Foreground="{ThemeResource SubText}" Text="Вам должен прийти код подтверждения в личные сообщения ВКонтакте или на номер мобильного телефона."/>
-            <TextBox x:Name="TextBox" Width="300" Margin="0 30 0 0" Style="{ThemeResource TextBoxLoginStyle}"
+            <TextBox x:Name="TextBox" Width="300" Margin="0 30 0 0" Style="{ThemeResource StandardTextBoxStyle}"
                      PlaceholderText="Введите код подтверждения"/>
         </StackPanel>
     </Grid>

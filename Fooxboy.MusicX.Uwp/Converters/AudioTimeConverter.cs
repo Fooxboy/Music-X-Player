@@ -7,10 +7,9 @@ using Windows.UI.Xaml.Data;
 
 namespace Fooxboy.MusicX.Uwp.Converters
 {
-    class AudioTimeConverter { 
-
-
-        public static string Convert(double value)
+    public static class AudioTimeConverter 
+    { 
+        public static string ConvertToTime(this double value)
         {
             TimeSpan t = TimeSpan.FromSeconds(value);
             if (t.Hours > 0)
