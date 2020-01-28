@@ -8,7 +8,6 @@ using Fooxboy.MusicX.Core.Interfaces;
 using Fooxboy.MusicX.Uwp.Models;
 using Fooxboy.MusicX.Uwp.Resources.ContentDialogs;
 using Fooxboy.MusicX.Uwp.Services;
-using Fooxboy.MusicX.Uwp.Services.VKontakte;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
 using Windows.Storage;
@@ -20,7 +19,6 @@ using Windows.UI.Xaml.Data;
 using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Navigation;
-using Fooxboy.MusicX.Uwp.Views.VKontakte;
 using Windows.Networking.Sockets;
 
 // Документацию по шаблону элемента "Пользовательский элемент управления" см. по адресу https://go.microsoft.com/fwlink/?LinkId=234236
@@ -107,7 +105,6 @@ namespace Fooxboy.MusicX.Uwp.Resources.Controls
         private void Grid_RightTapped(object sender, RightTappedRoutedEventArgs e)
         {
             GoToArtist.Visibility = Visibility.Collapsed;
-            AddTo.Visibility = Visibility.Collapsed;
             AddOnLibrary.Visibility = Visibility.Visible;
            
             if (Track.IsLicensed)

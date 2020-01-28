@@ -11,8 +11,8 @@
 
     <Grid>
         <Frame x:Name="Root" VerticalAlignment="Stretch" HorizontalAlignment="Stretch"/>
-        <Rectangle Height="80" VerticalAlignment="Top" Fill="{ThemeResource HeaderAcrylicBrush}"/>
-        <Grid Height="80" VerticalAlignment="Top" HorizontalAlignment="Stretch">
+        <Rectangle Height="70" VerticalAlignment="Top" Fill="{ThemeResource HeaderAcrylicBrush}"/>
+        <Grid Height="70" VerticalAlignment="Top" HorizontalAlignment="Stretch">
             <Grid.RowDefinitions>
                 <RowDefinition Height="32"/>
                 <RowDefinition Height="*"/>
@@ -28,53 +28,53 @@
                 <StackPanel Orientation="Vertical">
                     <Button Style="{StaticResource MenuButton}" >
                         <StackPanel Orientation="Horizontal">
-                            <FontIcon FontSize="25" FontFamily="Segoe MDL2 Assets" Glyph="&#xE80F;" />
-                            <TextBlock FontSize="20" Margin="10 0 0 0" Foreground="{ThemeResource MainTextColor}" Text="Главная"/>
+                            <FontIcon FontSize="17" FontFamily="Segoe MDL2 Assets" Glyph="&#xE80F;" />
+                            <TextBlock FontSize="17" Margin="10 0 0 0" Foreground="{ThemeResource MainTextColor}" Text="Главная"/>
                         </StackPanel>
                     </Button>
-                    <Rectangle Margin="0 6 0 0" Visibility="Visible" Height="5" Fill="{ThemeResource SystemAccentColor}"/>
+                    <Rectangle Margin="0 0 0 0" Visibility="Visible" Height="5" Fill="{ThemeResource SystemAccentColor}"/>
                 </StackPanel>
 
                 <StackPanel Margin="15 0 0 0" Orientation="Vertical">
                     <Button Style="{StaticResource MenuButton}" >
                         <StackPanel Orientation="Horizontal">
-                            <FontIcon FontSize="25" FontFamily="Segoe MDL2 Assets" Glyph="&#xEC4F;" />
-                            <TextBlock FontSize="20" Margin="10 0 0 0" Foreground="{ThemeResource MainTextColor}" Text="Рекомендации"/>
+                            <FontIcon FontSize="17" FontFamily="Segoe MDL2 Assets" Glyph="&#xEC4F;" />
+                            <TextBlock FontSize="17" Margin="10 0 0 0" Foreground="{ThemeResource MainTextColor}" Text="Рекомендации"/>
                         </StackPanel>
                     </Button>
-                    <Rectangle Margin="0 6 0 0" Visibility="Collapsed" Height="5" Fill="{ThemeResource SystemAccentColor}"/>
+                    <Rectangle Margin="0 0 0 0" Visibility="Collapsed" Height="5" Fill="{ThemeResource SystemAccentColor}"/>
                 </StackPanel>
 
                 <StackPanel Margin="15 0 0 0" Orientation="Vertical">
                     <Button Style="{StaticResource MenuButton}" >
                         <StackPanel Orientation="Horizontal">
-                            <FontIcon FontSize="25" FontFamily="Segoe MDL2 Assets" Glyph="&#xE734;" />
-                            <TextBlock FontSize="20" Margin="10 0 0 0" Foreground="{ThemeResource MainTextColor}" Text="Любимые исполнители"/>
+                            <FontIcon FontSize="17" FontFamily="Segoe MDL2 Assets" Glyph="&#xE734;" />
+                            <TextBlock FontSize="17" Margin="10 0 0 0" Foreground="{ThemeResource MainTextColor}" Text="Любимые исполнители"/>
                         </StackPanel>
                     </Button>
-                    <Rectangle Margin="0 6 0 0" Visibility="Collapsed" Height="5" Fill="{ThemeResource SystemAccentColor}"/>
+                    <Rectangle Margin="0 0 0 0" Visibility="Collapsed" Height="5" Fill="{ThemeResource SystemAccentColor}"/>
                 </StackPanel>
 
                 <StackPanel Margin="15 0 0 0" Orientation="Vertical">
                     <Button Style="{StaticResource MenuButton}" >
                         <StackPanel Orientation="Horizontal">
-                            <FontIcon FontSize="25" FontFamily="Segoe MDL2 Assets" Glyph="&#xE896;" />
-                            <TextBlock FontSize="20" Margin="10 0 0 0" Foreground="{ThemeResource MainTextColor}" Text="Загрузки"/>
+                            <FontIcon FontSize="17" FontFamily="Segoe MDL2 Assets" Glyph="&#xE896;" />
+                            <TextBlock FontSize="17" Margin="10 0 0 0" Foreground="{ThemeResource MainTextColor}" Text="Загрузки"/>
                         </StackPanel>
                     </Button>
-                    <Rectangle Margin="0 6 0 0" Visibility="Collapsed" Height="5" Fill="{ThemeResource SystemAccentColor}"/>
+                    <Rectangle Margin="0 0 0 0" Visibility="Collapsed" Height="5" Fill="{ThemeResource SystemAccentColor}"/>
                 </StackPanel>
 
             </StackPanel>
 
             <StackPanel Orientation="Horizontal" Grid.Row="1" Grid.Column="1">
-                <PersonPicture Height="40"  Width="40"/>
-                <Button FontSize="21" Margin="20 0 0 0" Background="Transparent"  CornerRadius="1" Height="40" Width="40"  FontFamily="Segoe MDL2 Assets" Content="&#xE712;" />
+                <PersonPicture Margin="30 0 0 0" Height="25"  Width="25"/>
+                <Button FontSize="16" Margin="10 0 0 0" Background="Transparent" BorderThickness="0"  CornerRadius="1" Height="35" Width="35"  FontFamily="Segoe MDL2 Assets" Content="&#xE712;" />
             </StackPanel>
         </Grid>
 
         
-        <Grid Height="70" Grid.Row="1" Margin="100 0 100 20" HorizontalAlignment="Stretch" VerticalAlignment="Bottom">
+        <Grid Height="55" Grid.Row="1" Margin="100 0 100 20" HorizontalAlignment="Stretch" VerticalAlignment="Bottom">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition/>
                 <ColumnDefinition Width="auto"/>
@@ -84,7 +84,7 @@
             <Rectangle Grid.ColumnSpan="4" RadiusX="15" RadiusY="15" Fill ="{ThemeResource HeaderAcrylicBrush}"/>
 
             <StackPanel Grid.Column="0" Orientation="Horizontal">
-                <toolkit:ImageEx Height="60" Width="60" 
+                <toolkit:ImageEx Height="40" Width="40" 
                                 HorizontalAlignment="Left"
                                 Margin="15 0 0 0"
                                 DecodePixelHeight="40"
@@ -136,43 +136,47 @@
                 <Button Grid.Column="1"
                         Background="Transparent" 
                         CornerRadius="99"
-                        FontSize="19"
-                        Height="42"
-                        Width="42" 
+                        FontSize="17"
+                        BorderThickness="0"
+                        Height="37"
+                        Width="37" 
                         FontFamily="Segoe MDL2 Assets" 
                         Content="&#xE1CD;" />
 
                 <Button Grid.Column="2" 
                         Background="Transparent" 
                         CornerRadius="99"
-                        FontSize="19" 
+                        BorderThickness="0"
+                        FontSize="17" 
                         Command="{x:Bind PlayerViewModel.PreviousCommand}"
-                        Height="42"
-                        Width="42"
+                        Height="37"
+                        Width="37"
                         FontFamily="Segoe MDL2 Assets"
                         Content="&#xE892;" />
 
                 <Grid Grid.Column="3" >
-                    <Button Grid.Column="1" Visibility="{x:Bind PlayerViewModel.IsPlay}" Command="{x:Bind PlayerViewModel.PlayCommand}" Background="Transparent" CornerRadius="99" FontSize="20" Height="43" Width="43" FontFamily="Segoe MDL2 Assets" Content="&#xE768;" />
-                    <Button Grid.Column="0" Visibility="{x:Bind PlayerViewModel.VisibilityPause}" Command="{x:Bind PlayerViewModel.PauseCommand}" Background="Transparent" CornerRadius="99" FontSize="20" Height="43" Width="43" FontFamily="Segoe MDL2 Assets" Content="&#xE769;" />
+                    <Button Grid.Column="1" BorderThickness="0" Visibility="{x:Bind PlayerViewModel.IsPlay}" Command="{x:Bind PlayerViewModel.PlayCommand}" Background="Transparent" CornerRadius="99" FontSize="20" Height="43" Width="43" FontFamily="Segoe MDL2 Assets" Content="&#xE768;" />
+                    <Button Grid.Column="0" BorderThickness="0" Visibility="{x:Bind PlayerViewModel.VisibilityPause}" Command="{x:Bind PlayerViewModel.PauseCommand}" Background="Transparent" CornerRadius="99" FontSize="20" Height="43" Width="43" FontFamily="Segoe MDL2 Assets" Content="&#xE769;" />
                 </Grid>
 
                 <Button Grid.Column="4"
                         Background="Transparent" 
                         CornerRadius="99"
-                        FontSize="19"
+                        FontSize="17"
                         Command="{x:Bind PlayerViewModel.NextCommand}"
-                        Height="42"
-                        Width="42"
+                        Height="37"
+                        Width="37"
+                        BorderThickness="0"
                         FontFamily="Segoe MDL2 Assets"
                         Content="&#xE893;" />
 
                 <Button Grid.Column="5"
                         Background="Transparent"
                         CornerRadius="99"
-                        FontSize="19"
-                        Height="42"
-                        Width="42"
+                        FontSize="17"
+                        Height="37"
+                        Width="37"
+                        BorderThickness="0"
                         FontFamily="Segoe MDL2 Assets"
                         Content="&#xE8B1;" />
             </Grid>

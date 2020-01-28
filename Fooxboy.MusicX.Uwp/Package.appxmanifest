@@ -8,14 +8,14 @@
   IgnorableNamespaces="uap mp uap3">
 
   <Identity
-    Name="39634Fooxboy.MusicXPlayer"
-    Publisher="CN=61DC74F4-6B71-44B2-9289-5E776494890D"
-    Version="1.6.33.0" />
+    Name="39634Fooxboy.MusicXPlayerBeta"
+    Publisher="CN=Fooxboy"
+    Version="2.0.33.0" />
 
   <mp:PhoneIdentity PhoneProductId="911ba3a9-0afb-4a63-8225-0236fa4646cf" PhonePublisherId="00000000-0000-0000-0000-000000000000"/>
 
   <Properties>
-    <DisplayName>Music X Player</DisplayName>
+    <DisplayName>Music X Player Beta</DisplayName>
     <PublisherDisplayName>Fooxboy</PublisherDisplayName>
     <Logo>Assets\StoreLogo.png</Logo>
   </Properties>
@@ -33,7 +33,7 @@
       Executable="$targetnametoken$.exe"
       EntryPoint="Fooxboy.MusicX.Uwp.App">
       <uap:VisualElements
-        DisplayName="Music X"
+        DisplayName="Music X Beta"
         Square150x150Logo="Assets\Square150x150Logo.png"
         Square44x44Logo="Assets\Square44x44Logo.png"
         Description="Music X - Музыкальный плеер с поддержкой музыки ВКонтакте."

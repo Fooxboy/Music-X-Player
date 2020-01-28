@@ -17,8 +17,6 @@ using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Navigation;
 using Fooxboy.MusicX.Uwp.Services;
 using Fooxboy.MusicX.Core.Interfaces;
-using Fooxboy.MusicX.Uwp.Services.VKontakte;
-
 // The Blank Page item template is documented at https://go.microsoft.com/fwlink/?LinkId=234238
 
 namespace Fooxboy.MusicX.Uwp.Views

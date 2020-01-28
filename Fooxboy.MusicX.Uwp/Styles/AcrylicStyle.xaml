@@ -6,7 +6,7 @@
 
     <media:AcrylicBrush x:Key="HeaderAcrylicBrush"
                         BackgroundSource="Backdrop"
-                        TintOpacity="0.5" 
-                        TintColor="{ThemeResource BackgroundApp}" 
-                        FallbackColor="{ThemeResource BackgroundApp}" />
+                        TintOpacity="0.2" 
+                        TintColor="Thistle" 
+                        FallbackColor="{ThemeResource SystemColorBackgroundColor}" />
 </ResourceDictionary>

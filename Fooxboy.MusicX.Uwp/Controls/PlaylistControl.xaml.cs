@@ -17,7 +17,6 @@ using Windows.UI.Xaml.Navigation;
 using Fooxboy.MusicX.Uwp.Services;
 using Windows.UI.Popups;
 using Fooxboy.MusicX.Core.Interfaces;
-using Fooxboy.MusicX.Uwp.Services.VKontakte;
 using Fooxboy.MusicX.Uwp.Resources.ContentDialogs;
 using Windows.Storage;
 
@@ -45,7 +44,7 @@ namespace Fooxboy.MusicX.Uwp.Resources.Controls
                 TimeCreate = DateTime.Now,
                 TimeUpdate = DateTime.Now,
                 Title = "",
-                Tracks = new List<Track>(),
+                Tracks = new List<ITrack>(),
                 Type = 0
             }));
 

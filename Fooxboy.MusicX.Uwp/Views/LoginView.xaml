@@ -23,7 +23,7 @@
                 <RowDefinition Height="*"/>
             </Grid.RowDefinitions>
 
-            <Image Visibility="{x:Bind ViewModel.VisibilityLogoImage, Mode=TwoWay}" Grid.Row="1" Width="100" Height="100" Margin="0,0,0,30" HorizontalAlignment="Center">
+            <Image Visibility="{x:Bind ViewModel.VisibilityLogoImage}" Grid.Row="1" Width="100" Height="100" Margin="0,0,0,30" HorizontalAlignment="Center">
                 <Image.Source>
                     <BitmapImage
                     DecodePixelHeight="100"
@@ -57,12 +57,12 @@
             
             
 
-            <TextBox Text="{x:Bind ViewModel.Login, Mode=TwoWay}" Visibility="{x:Bind ViewModel.VisibilityTextBox, Mode=TwoWay}" PlaceholderText="Номер телефона или адрес эл. почты" Margin="0 30 0 0" Width="300" Style="{StaticResource StandardTextBoxStyle}" Grid.Row="3" HorizontalAlignment="Center" TextChanged="TextBox_TextChanged_1" />
-            <PasswordBox Password="{x:Bind ViewModel.Password}" Visibility="{x:Bind ViewModel.VisibilityTextBox, Mode=TwoWay}" Style="{StaticResource StandardPasswordBoxStyle}" Width="300" PlaceholderText="Пароль" Margin="0 20 0 0" Grid.Row="4" HorizontalAlignment="Center"/>
+            <TextBox Text="{x:Bind ViewModel.Login}" Visibility="{x:Bind ViewModel.VisibilityTextBox}" PlaceholderText="Номер телефона или адрес эл. почты" Margin="0 30 0 0" Width="300" Style="{StaticResource StandardTextBoxStyle}" Grid.Row="3" HorizontalAlignment="Center" />
+            <PasswordBox Password="{x:Bind ViewModel.Password}" Visibility="{x:Bind ViewModel.VisibilityTextBox}" Style="{StaticResource StandardPasswordBoxStyle}" Width="300" PlaceholderText="Пароль" Margin="0 20 0 0" Grid.Row="4" HorizontalAlignment="Center"/>
             <Button Margin="0 30 0 0" 
                     Width="120" 
                     Grid.Row="5" 
-                    Visibility="{x:Bind ViewModel.VisibilityTextBox, Mode=TwoWay}"
+                    Visibility="{x:Bind ViewModel.VisibilityTextBox}"
                     HorizontalAlignment="Center"
                     Style="{ThemeResource AcceptButtonStyle}">
                 <Button.Content>
