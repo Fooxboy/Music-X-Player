@@ -4,6 +4,7 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:local="using:Fooxboy.MusicX.Uwp.Views"
     xmlns:toolkit="using:Microsoft.Toolkit.Uwp.UI.Controls"
+    xmlns:controls="using:Microsoft.Toolkit.Uwp.UI.Controls"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d"
@@ -122,11 +123,38 @@
                 <ColumnDefinition />
                 <ColumnDefinition Width="auto"/>
             </Grid.ColumnDefinitions>
-            
-            <Rectangle x:Name="RectangleBackground" Grid.ColumnSpan="4" RadiusX="15" RadiusY="15" Fill ="{ThemeResource HeaderAcrylicBrush}"/>
 
             
+
             
+            <Rectangle x:Name="RectangleBackground" SizeChanged="RectangleBackground_SizeChanged" Grid.ColumnSpan="4" RadiusX="10" RadiusY="10" Fill ="{ThemeResource BottomAcrylicBrush}"/>
+            
+            <controls:DropShadowPanel  Grid.ColumnSpan="4" BlurRadius="30"
+                                  ShadowOpacity="0.4"
+                                  OffsetX="0"
+                                  OffsetY="0"
+                                  Color="Gray"
+                                              CornerRadius="15"
+                                              VerticalAlignment="Stretch"
+                                              HorizontalAlignment="Stretch"
+                                  IsMasked="True">
+                <Border x:Name="BorderRectangleBackground" Opacity="0"  CornerRadius="10"/>
+
+            </controls:DropShadowPanel>
+
+            <controls:DropShadowPanel Margin="15 0 20 0" Grid.Column="0" BlurRadius="20"
+                                  ShadowOpacity="0.4"
+                                  OffsetX="0"
+                                  OffsetY="0"
+                                  Color="Black"
+                                              CornerRadius="15"
+                                              VerticalAlignment="Center"
+                                              HorizontalAlignment="Left"
+                                  IsMasked="True">
+                <Border Background="White" Height="40" Width="40" CornerRadius="3"/>
+
+            </controls:DropShadowPanel>
+
             <StackPanel Grid.Column="0" Orientation="Horizontal">
                 <toolkit:ImageEx Height="40" Width="40" 
                                 HorizontalAlignment="Left"

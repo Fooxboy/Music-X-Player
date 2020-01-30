@@ -11,6 +11,41 @@
 
     <Grid>
 
+        <VisualStateManager.VisualStateGroups>
+            <VisualStateGroup>
+                <VisualState x:Name="Desktop" >
+                    <VisualState.StateTriggers>
+                        <AdaptiveTrigger MinWindowWidth="640"/>
+                    </VisualState.StateTriggers>
+                    <VisualState.Setters>
+                        <Setter Target="PlaylistsText.FontSize" Value="38"/>
+                        <Setter Target="MusicText.FontSize" Value="38"/>
+                        <Setter Target="PlaylistsGrid.Margin" Value="50 100 50 20"/>
+                        <Setter Target="BlockPlaylists.RadiusX" Value="10"/>
+                        <Setter Target="BlockPlaylists.RadiusY" Value="10"/>
+                        <Setter Target="MusicText.Margin" Value="70 10 0 0"/>
+
+                    </VisualState.Setters>
+                </VisualState>
+
+                <VisualState x:Name="Mobile" >
+                    <VisualState.StateTriggers>
+                        <AdaptiveTrigger MinWindowWidth="0"/>
+                    </VisualState.StateTriggers>
+                    <VisualState.Setters>
+                        <Setter Target="PlaylistsText.FontSize" Value="32"/>
+                        <Setter Target="MusicText.FontSize" Value="32"/>
+                        <Setter Target="PlaylistsGrid.Margin" Value="0 70 0 20"/>
+                        <Setter Target="BlockPlaylists.RadiusX" Value="0"/>
+                        <Setter Target="BlockPlaylists.RadiusY" Value="0"/>
+                        <Setter Target="MusicText.Margin" Value="20 10 0 0"/>
+
+                    </VisualState.Setters>
+                </VisualState>
+
+            </VisualStateGroup>
+        </VisualStateManager.VisualStateGroups>
+
         <ScrollViewer>
             <Grid>
                 <Grid.RowDefinitions>
@@ -23,16 +58,16 @@
 
                 </StackPanel>
 
-                <Grid Grid.Row="0" Margin="50 100 50 20" VerticalAlignment="Top" Height="300">
+                <Grid x:Name="PlaylistsGrid" Grid.Row="0" Margin="50 100 50 20" VerticalAlignment="Top" Height="300">
                     <Grid.RowDefinitions>
                         <RowDefinition Height="auto"/>
                         <RowDefinition/>
                     </Grid.RowDefinitions>
                     
-                    <controls:DropShadowPanel Grid.RowSpan="2" BlurRadius="40"
-                                  ShadowOpacity="0.5"
+                    <controls:DropShadowPanel Grid.RowSpan="2" BlurRadius="50"
+                                  ShadowOpacity="0.6"
                                   OffsetX="0"
-                                  OffsetY="0"
+                                  OffsetY="10"
                                   Color="Black"
                                               CornerRadius="10"
                                               VerticalAlignment="Stretch"
@@ -43,7 +78,7 @@
                     </controls:DropShadowPanel>
                     <Rectangle Grid.RowSpan="2"  x:Name="BlockPlaylists" SizeChanged="BlockPlaylists_SizeChanged" RadiusX="10" RadiusY="10" Fill="{ThemeResource BlockBackground}"/>
 
-                    <TextBlock Grid.Row="0" Margin="20 10 0 0" FontWeight="ExtraBold" FontFamily="Calibri" FontSize="38" Text="Ваши плейлисты"/>
+                    <TextBlock x:Name="PlaylistsText" Grid.Row="0" Margin="20 10 0 0" FontWeight="ExtraBold" FontFamily="Calibri" FontSize="38" Text="Ваши плейлисты"/>
                     <Button Grid.Row="0" CornerRadius="3" BorderThickness="0" Background="Transparent" HorizontalAlignment="Right" Margin="0 10 20 0">
                         <Button.Content>
                             <StackPanel Orientation="Horizontal">
@@ -55,7 +90,7 @@
                 </Grid>
 
                 <Grid Grid.Row="1">
-                    <TextBlock Grid.Row="0" Margin="70 10 0 0" FontWeight="ExtraBold" FontFamily="Calibri" FontSize="38" Text="Ваша музыка"/>
+                    <TextBlock x:Name="MusicText" Grid.Row="0" Margin="70 10 0 0" FontWeight="ExtraBold" FontFamily="Calibri" FontSize="38" Text="Ваша музыка"/>
 
                 </Grid>
             </Grid>

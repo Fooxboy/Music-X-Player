@@ -39,5 +39,11 @@ namespace Fooxboy.MusicX.Uwp.Views
             navigationService.Go(typeof(HomeView));
             
         }
+
+        private void RectangleBackground_SizeChanged(object sender, SizeChangedEventArgs e)
+        {
+            BorderRectangleBackground.Width = e.NewSize.Width;
+            BorderRectangleBackground.Height = e.NewSize.Height;
+        }
     }
 }
