@@ -30,12 +30,14 @@ namespace Fooxboy.MusicX.Uwp.Views
         public RootWindow()
         {
             this.InitializeComponent();
+            var navigationService = new NavigationService();
+            Container.Get.RegisterInstance<NavigationService>(navigationService);
 
             PlayerViewModel = new PlayerViewModel();
-
-            var navigationService = new NavigationService();
+            NavigationViewModel = new NavigationRootViewModel();
             navigationService.RootFrame = this.Root;
-            Container.Get.RegisterInstance<NavigationService>(navigationService);
+            navigationService.Go(typeof(HomeView));
+            
         }
     }
 }

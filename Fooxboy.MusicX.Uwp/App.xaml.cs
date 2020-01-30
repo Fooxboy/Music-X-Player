@@ -30,36 +30,36 @@ namespace Fooxboy.MusicX.Uwp
         /// </summary>
         public App()
         {
-            //var settings = ApplicationData.Current.LocalSettings;
+            var settings = ApplicationData.Current.LocalSettings;
 
-            //try
-            //{
-            //    var composite = (ApplicationDataCompositeValue)settings.Values["themeApp"];
+            try
+            {
+                var composite = (ApplicationDataCompositeValue)settings.Values["themeApp"];
 
-            //    if (composite == null)
-            //    {
-            //        this.RequestedTheme = ApplicationTheme.Light;
-            //    }
-            //    else
-            //    {
-            //        var theme = (int)settings.Values["themeApp"];
-            //        if (theme == 0)
-            //        {
-            //            this.RequestedTheme = ApplicationTheme.Light;
+                if (composite == null)
+                {
+                    this.RequestedTheme = ApplicationTheme.Light;
+                }
+                else
+                {
+                    var theme = (int)settings.Values["themeApp"];
+                    if (theme == 0)
+                    {
+                        this.RequestedTheme = ApplicationTheme.Light;
 
-            //        }
-            //        else
-            //        {
-            //            this.RequestedTheme = ApplicationTheme.Dark;
-            //        }
-            //    }
-            //}
-            //catch
-            //{
-            //    var theme = (int)settings.Values["themeApp"];
-            //    if (theme == 0) this.RequestedTheme = ApplicationTheme.Light;
-            //    else this.RequestedTheme = ApplicationTheme.Dark;
-            //}
+                    }
+                    else
+                    {
+                        this.RequestedTheme = ApplicationTheme.Dark;
+                    }
+                }
+            }
+            catch
+            {
+                var theme = (int)settings.Values["themeApp"];
+                if (theme == 0) this.RequestedTheme = ApplicationTheme.Light;
+                else this.RequestedTheme = ApplicationTheme.Dark;
+            }
             this.InitializeComponent();
             this.Suspending += OnSuspending;
             
@@ -94,32 +94,33 @@ namespace Fooxboy.MusicX.Uwp
                 var appView = ApplicationView.GetForCurrentView();
                 appView.TitleBar.ButtonBackgroundColor = Colors.Transparent;
                 appView.TitleBar.ButtonInactiveBackgroundColor = Colors.Transparent;
-                //var settings = ApplicationData.Current.LocalSettings;
+                var settings = ApplicationData.Current.LocalSettings;
 
-                //try
-                //{
-                //    var composite = (ApplicationDataCompositeValue)settings.Values["themeApp"];
+                try
+                {
+                    var composite = (ApplicationDataCompositeValue)settings.Values["themeApp"];
 
-                //    if (composite == null) appView.TitleBar.ButtonForegroundColor = Colors.Black;
-                //    else
-                //    {
-                //        var theme = (int)settings.Values["themeApp"];
-                //        if (theme == 0)
-                //        {
-                //            appView.TitleBar.ButtonForegroundColor = Colors.Black;
+                    if (composite == null) appView.TitleBar.ButtonForegroundColor = Colors.Black;
+                    else
+                    {
+                        var theme = (int)settings.Values["themeApp"];
+                        if (theme == 0)
+                        {
+                            appView.TitleBar.ButtonForegroundColor = Colors.Black;
 
-                //        }
-                //        else
-                //        {
-                //            appView.TitleBar.ButtonForegroundColor = Colors.White;
-                //        }
-                //    }
-                //}catch
-                //{
-                //    var theme = (int)settings.Values["themeApp"];
-                //    if (theme == 0) appView.TitleBar.ButtonForegroundColor = Colors.Black;
-                //    else appView.TitleBar.ButtonForegroundColor = Colors.White;
-                //}
+                        }
+                        else
+                        {
+                            appView.TitleBar.ButtonForegroundColor = Colors.White;
+                        }
+                    }
+                }
+                catch
+                {
+                    var theme = (int)settings.Values["themeApp"];
+                    if (theme == 0) appView.TitleBar.ButtonForegroundColor = Colors.Black;
+                    else appView.TitleBar.ButtonForegroundColor = Colors.White;
+                }
 
                 Window.Current.Content = rootFrame;
             }

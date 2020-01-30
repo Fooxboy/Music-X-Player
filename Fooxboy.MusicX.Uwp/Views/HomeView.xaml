@@ -9,6 +9,6 @@
     Background="{ThemeResource BackgroundApp}">
 
     <Grid>
-
+        <TextBlock Text="Ебать ты лох" HorizontalAlignment="Center" VerticalAlignment="Center"/>
     </Grid>
 </Page>

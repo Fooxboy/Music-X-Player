@@ -10,6 +10,46 @@
     Background="{ThemeResource BackgroundApp}">
 
     <Grid>
+
+        <VisualStateManager.VisualStateGroups>
+            <VisualStateGroup>
+                <VisualState x:Name="Desktop" >
+                    <VisualState.StateTriggers>
+                        <AdaptiveTrigger MinWindowWidth="800"/>
+                    </VisualState.StateTriggers>
+                    <VisualState.Setters>
+                        <Setter Target="GridButtom.Margin" Value="100,0,100,20"/>
+                        <Setter Target="RectangleBackground.RadiusX" Value="15"/>
+                        <Setter Target="RectangleBackground.RadiusY" Value="15"/>
+                        <Setter Target="text1.Visibility" Value="Visible"/>
+                        <Setter Target="text2.Visibility" Value="Visible"/>
+                        <Setter Target="text3.Visibility" Value="Visible"/>
+                        <Setter Target="text4.Visibility" Value="Visible"/>
+                        <Setter Target="SliderTrack.Visibility" Value="Visible"/>
+                        <Setter Target="GridButtons.Grid.ColumnSpan" Value="1"/>
+                    </VisualState.Setters>
+                </VisualState>
+
+                <VisualState x:Name="Mobile" >
+                    <VisualState.StateTriggers>
+                        <AdaptiveTrigger MinWindowWidth="0"/>
+                    </VisualState.StateTriggers>
+                    <VisualState.Setters>
+                        <Setter Target="GridButtom.Margin" Value="0,0,0,0"/>
+                        <Setter Target="RectangleBackground.RadiusX" Value="0"/>
+                        <Setter Target="RectangleBackground.RadiusY" Value="0"/>
+                        <Setter Target="text1.Visibility" Value="Collapsed"/>
+                        <Setter Target="text2.Visibility" Value="Collapsed"/>
+                        <Setter Target="text3.Visibility" Value="Collapsed"/>
+                        <Setter Target="text4.Visibility" Value="Collapsed"/>
+                        <Setter Target="SliderTrack.Visibility" Value="Collapsed"/>
+                        <Setter Target="GridButtons.Grid.ColumnSpan" Value="2"/>
+                    </VisualState.Setters>
+                </VisualState>
+
+            </VisualStateGroup>
+        </VisualStateManager.VisualStateGroups>
+
         <Frame x:Name="Root" VerticalAlignment="Stretch" HorizontalAlignment="Stretch"/>
         <Rectangle Height="70" VerticalAlignment="Top" Fill="{ThemeResource HeaderAcrylicBrush}"/>
         <Grid Height="70" VerticalAlignment="Top" HorizontalAlignment="Stretch">
@@ -29,7 +69,7 @@
                     <Button Style="{StaticResource MenuButton}" >
                         <StackPanel Orientation="Horizontal">
                             <FontIcon FontSize="17" FontFamily="Segoe MDL2 Assets" Glyph="&#xE80F;" />
-                            <TextBlock FontSize="17" Margin="10 0 0 0" Foreground="{ThemeResource MainTextColor}" Text="Главная"/>
+                            <TextBlock  x:Name="text1" FontSize="17" Margin="10 0 0 0" Foreground="{ThemeResource MainTextColor}" Text="Главная"/>
                         </StackPanel>
                     </Button>
                     <Rectangle Margin="0 0 0 0" Visibility="Visible" Height="5" Fill="{ThemeResource SystemAccentColor}"/>
@@ -39,7 +79,7 @@
                     <Button Style="{StaticResource MenuButton}" >
                         <StackPanel Orientation="Horizontal">
                             <FontIcon FontSize="17" FontFamily="Segoe MDL2 Assets" Glyph="&#xEC4F;" />
-                            <TextBlock FontSize="17" Margin="10 0 0 0" Foreground="{ThemeResource MainTextColor}" Text="Рекомендации"/>
+                            <TextBlock x:Name="text2" FontSize="17" Margin="10 0 0 0" Foreground="{ThemeResource MainTextColor}" Text="Рекомендации"/>
                         </StackPanel>
                     </Button>
                     <Rectangle Margin="0 0 0 0" Visibility="Collapsed" Height="5" Fill="{ThemeResource SystemAccentColor}"/>
@@ -49,7 +89,7 @@
                     <Button Style="{StaticResource MenuButton}" >
                         <StackPanel Orientation="Horizontal">
                             <FontIcon FontSize="17" FontFamily="Segoe MDL2 Assets" Glyph="&#xE734;" />
-                            <TextBlock FontSize="17" Margin="10 0 0 0" Foreground="{ThemeResource MainTextColor}" Text="Любимые исполнители"/>
+                            <TextBlock x:Name="text3" FontSize="17" Margin="10 0 0 0" Foreground="{ThemeResource MainTextColor}" Text="Любимые исполнители"/>
                         </StackPanel>
                     </Button>
                     <Rectangle Margin="0 0 0 0" Visibility="Collapsed" Height="5" Fill="{ThemeResource SystemAccentColor}"/>
@@ -59,7 +99,7 @@
                     <Button Style="{StaticResource MenuButton}" >
                         <StackPanel Orientation="Horizontal">
                             <FontIcon FontSize="17" FontFamily="Segoe MDL2 Assets" Glyph="&#xE896;" />
-                            <TextBlock FontSize="17" Margin="10 0 0 0" Foreground="{ThemeResource MainTextColor}" Text="Загрузки"/>
+                            <TextBlock x:Name="text4" FontSize="17" Margin="10 0 0 0" Foreground="{ThemeResource MainTextColor}" Text="Загрузки"/>
                         </StackPanel>
                     </Button>
                     <Rectangle Margin="0 0 0 0" Visibility="Collapsed" Height="5" Fill="{ThemeResource SystemAccentColor}"/>
@@ -74,15 +114,19 @@
         </Grid>
 
         
-        <Grid Height="55" Grid.Row="1" Margin="100 0 100 20" HorizontalAlignment="Stretch" VerticalAlignment="Bottom">
+        <Grid x:Name="GridButtom" Height="55" Grid.Row="1" Margin="100 0 100 20" HorizontalAlignment="Stretch" VerticalAlignment="Bottom">
+
             <Grid.ColumnDefinitions>
                 <ColumnDefinition/>
                 <ColumnDefinition Width="auto"/>
-                <ColumnDefinition/>
-                <ColumnDefinition/>
+                <ColumnDefinition />
+                <ColumnDefinition Width="auto"/>
             </Grid.ColumnDefinitions>
-            <Rectangle Grid.ColumnSpan="4" RadiusX="15" RadiusY="15" Fill ="{ThemeResource HeaderAcrylicBrush}"/>
+            
+            <Rectangle x:Name="RectangleBackground" Grid.ColumnSpan="4" RadiusX="15" RadiusY="15" Fill ="{ThemeResource HeaderAcrylicBrush}"/>
 
+            
+            
             <StackPanel Grid.Column="0" Orientation="Horizontal">
                 <toolkit:ImageEx Height="40" Width="40" 
                                 HorizontalAlignment="Left"
@@ -121,7 +165,7 @@
                            Text="{x:Bind PlayerViewModel.Artist}"/>
             </Grid>
 
-            <Grid Grid.Column="1">
+            <Grid Grid.Column="1" x:Name="GridButtons">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="*"/>
                     <ColumnDefinition Width="50"/>
@@ -155,8 +199,8 @@
                         Content="&#xE892;" />
 
                 <Grid Grid.Column="3" >
-                    <Button Grid.Column="1" BorderThickness="0" Visibility="{x:Bind PlayerViewModel.IsPlay}" Command="{x:Bind PlayerViewModel.PlayCommand}" Background="Transparent" CornerRadius="99" FontSize="20" Height="43" Width="43" FontFamily="Segoe MDL2 Assets" Content="&#xE768;" />
-                    <Button Grid.Column="0" BorderThickness="0" Visibility="{x:Bind PlayerViewModel.VisibilityPause}" Command="{x:Bind PlayerViewModel.PauseCommand}" Background="Transparent" CornerRadius="99" FontSize="20" Height="43" Width="43" FontFamily="Segoe MDL2 Assets" Content="&#xE769;" />
+                    <Button Grid.Column="1" BorderThickness="0" Visibility="{x:Bind PlayerViewModel.VisibilityPause}" Command="{x:Bind PlayerViewModel.PauseCommand}" Background="Transparent" CornerRadius="99" FontSize="20" Height="43" Width="43" FontFamily="Segoe MDL2 Assets" Content="&#xE768;" />
+                    <Button Grid.Column="0" BorderThickness="0" Visibility= "{x:Bind PlayerViewModel.IsPlay}" Command="{x:Bind PlayerViewModel.PlayCommand}" Background="Transparent" CornerRadius="99" FontSize="20" Height="43" Width="43" FontFamily="Segoe MDL2 Assets" Content="&#xE769;" />
                 </Grid>
 
                 <Button Grid.Column="4"
@@ -189,7 +233,7 @@
                 </Grid.ColumnDefinitions>
 
                 <TextBlock Grid.Column="0" Text="{x:Bind PlayerViewModel.Time, Mode=TwoWay}" VerticalAlignment="Center"/>
-                <Slider Margin="5 0 5 0" Style="{StaticResource SliderPlayerStyle}"
+                <Slider x:Name="SliderTrack" Margin="5 0 5 0" Style="{StaticResource SliderPlayerStyle}"
                     VerticalAlignment="Center"
                     HorizontalAlignment="Stretch"
                     Maximum="{x:Bind PlayerViewModel.SecondsAll, Mode=TwoWay}"
