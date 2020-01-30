@@ -78,22 +78,28 @@ namespace Fooxboy.MusicX.Uwp.Resources.Controls
         private async void Grid_PointerEntered(object sender, PointerRoutedEventArgs e)
         {
 
-            await CoverPlaylist.Scale(centerX: 50.0f,
-                        centerY: 50.0f,
-                        scaleX: 1.1f,
-                        scaleY: 1.1f,
-                        duration: 200, delay: 0).StartAsync();
+        //    await CoverPlaylist.Scale(centerX: 50.0f,
+        //                centerY: 50.0f,
+        //                scaleX: 1.1f,
+        //                scaleY: 1.1f,
+        //                duration: 200, delay: 0).StartAsync();
         }
 
         private async void Grid_PointerExited(object sender, PointerRoutedEventArgs e)
         {
-            await CoverPlaylist.Scale(centerX: 50.0f,
-                        centerY: 50.0f,
-                        scaleX: 1.0f,
-                        scaleY: 1.0f,
-                        duration: 200, delay: 0).StartAsync();
+            //await CoverPlaylist.Scale(centerX: 50.0f,
+            //            centerY: 50.0f,
+            //            scaleX: 1.0f,
+            //            scaleY: 1.0f,
+            //            duration: 200, delay: 0).StartAsync();
 
             
+        }
+
+        private void ImageEx_SizeChanged(object sender, SizeChangedEventArgs e)
+        {
+            BorderShadow.Height = e.NewSize.Height;
+            BorderShadow.Width = e.NewSize.Width;
         }
     }
 }

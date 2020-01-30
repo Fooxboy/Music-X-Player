@@ -5,6 +5,7 @@
     xmlns:local="using:Fooxboy.MusicX.Uwp.Views"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:controls="using:Microsoft.Toolkit.Uwp.UI.Controls"
+    xmlns:myControls="using:Fooxboy.MusicX.Uwp.Resources.Controls"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d"
     Background="{ThemeResource BackgroundApp}">
@@ -87,6 +88,8 @@
                             </StackPanel>
                         </Button.Content>
                     </Button>
+
+                    <myControls:PlaylistControl Grid.Row="1" HorizontalAlignment="Left" Height="200" Width="200"/>
                 </Grid>
 
                 <Grid Grid.Row="1">
