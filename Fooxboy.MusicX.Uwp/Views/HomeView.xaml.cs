@@ -26,5 +26,10 @@ namespace Fooxboy.MusicX.Uwp.Views
         {
             this.InitializeComponent();
         }
+
+        private void BlockPlaylists_SizeChanged(object sender, SizeChangedEventArgs e)
+        {
+           BorderShadow.Width = e.NewSize.Width;
+        }
     }
 }
