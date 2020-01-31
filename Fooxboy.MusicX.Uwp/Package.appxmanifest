@@ -37,7 +37,7 @@
         Square150x150Logo="Assets\Square150x150Logo.png"
         Square44x44Logo="Assets\Square44x44Logo.png"
         Description="Music X - Музыкальный плеер с поддержкой музыки ВКонтакте."
-        BackgroundColor="transparent">
+        BackgroundColor="white">
         <uap:DefaultTile Wide310x150Logo="Assets\Wide310x150Logo.png" Square71x71Logo="Assets\SmallTile.png" Square310x310Logo="Assets\LargeTile.png" ShortName="Music X">
           <uap:ShowNameOnTiles>
             <uap:ShowOn Tile="square310x310Logo"/>
@@ -45,7 +45,7 @@
             <uap:ShowOn Tile="square150x150Logo"/>
           </uap:ShowNameOnTiles>
         </uap:DefaultTile >
-        <uap:SplashScreen Image="Assets\SplashScreen.png" />
+        <uap:SplashScreen Image="Assets\SplashScreen.png"  BackgroundColor="white"/>
         <uap:InitialRotationPreference>
           <uap:Rotation Preference="landscape"/></uap:InitialRotationPreference>
         <uap:LockScreen BadgeLogo="Assets\BadgeLogo.png" Notification="badge"/>
@@ -62,18 +62,11 @@
             <uap:Logo>file.png</uap:Logo>
           </uap:FileTypeAssociation>
         </uap:Extension>
-        <uap:Extension Category="windows.protocol">
-          <uap:Protocol Name="musicx">
-            <uap:Logo>Assets\Images\logo-clear.png</uap:Logo>
-            <uap:DisplayName>Music X</uap:DisplayName>
-          </uap:Protocol>
-        </uap:Extension>
       </Extensions>
     </Application>
   </Applications>
 
   <Capabilities>
-    <uap:Capability Name="musicLibrary"/>
     <uap3:Capability Name="backgroundMediaPlayback"/>
     <Capability Name="internetClient"/>
   </Capabilities>
