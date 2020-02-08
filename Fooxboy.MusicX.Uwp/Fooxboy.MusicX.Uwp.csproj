@@ -138,6 +138,9 @@
     <Compile Include="DataTemplates\PlaylistDataTemplate.xaml.cs">
       <DependentUpon>PlaylistDataTemplate.xaml</DependentUpon>
     </Compile>
+    <Compile Include="DataTemplates\TrackDataTemplate.xaml.cs">
+      <DependentUpon>TrackDataTemplate.xaml</DependentUpon>
+    </Compile>
     <Compile Include="LoadingCollection.cs" />
     <Compile Include="Models\Album.cs" />
     <Compile Include="Models\ArtistParameter.cs" />
@@ -316,6 +319,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="DataTemplates\PlaylistDataTemplate.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="DataTemplates\TrackDataTemplate.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

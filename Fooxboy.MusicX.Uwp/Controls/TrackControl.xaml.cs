@@ -74,10 +74,17 @@ namespace Fooxboy.MusicX.Uwp.Resources.Controls
 
         }
 
+
+        public string Artists { get; set; }
+
         public Track Track
         {
             get { return (Track)GetValue(TrackProperty); }
-            set { SetValue(TrackProperty, value); }
+            set
+            {
+                foreach (var artist in value.Artists) Artists += artist.Name + ", ";
+                SetValue(TrackProperty, value);
+            }
         }
 
       

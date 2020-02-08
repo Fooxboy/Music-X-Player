@@ -6,11 +6,12 @@ using System.Threading.Tasks;
 
 namespace Fooxboy.MusicX.Uwp.DataTemplates
 {
-    public sealed partial class PlaylistDataTemplateCode
+    public partial class TrackDataTemplateCode
     {
-        public PlaylistDataTemplateCode()
+        public TrackDataTemplateCode()
         {
             InitializeComponent();
+
         }
     }
 }
