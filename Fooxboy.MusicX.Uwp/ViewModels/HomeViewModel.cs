@@ -10,6 +10,7 @@ namespace Fooxboy.MusicX.Uwp.ViewModels
     public class HomeViewModel:BaseViewModel
     {
         public ObservableCollection<Album> Albums { get; set; }
+        public ObservableCollection<Track> Tracks { get; set; }
 
         public async Task StartLoadingAlbums()
         {

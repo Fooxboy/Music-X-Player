@@ -271,6 +271,18 @@
                 
             </Grid>
 
+            <StackPanel
+                        Grid.Column="3" Orientation="Horizontal">
+                <Button Background="Transparent" 
+                        CornerRadius="99"
+                        Height="37"
+                        Width="37"
+                        BorderThickness="0">
+                    <Button.Content>
+                        <FontIcon FontFamily="Segoe MDL2 Assets" Glyph="&#xE767;" />
+                    </Button.Content>
+                </Button>
+            </StackPanel>
 
         </Grid>
     </Grid>
