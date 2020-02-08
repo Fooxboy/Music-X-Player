@@ -13,6 +13,7 @@
                 <ResourceDictionary Source="Styles/AcrylicStyle.xaml" />
                 <ResourceDictionary Source="Styles/ListViewStyle.xaml" />
                 <ResourceDictionary Source="Styles/SliderStyle.xaml" />
+                <ResourceDictionary Source="DataTemplates/PlaylistDataTemplate.xaml"/>
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
     </Application.Resources>

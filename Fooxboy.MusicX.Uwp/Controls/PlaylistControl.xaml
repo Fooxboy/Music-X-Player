@@ -63,8 +63,8 @@
 
         <Rectangle  Margin="20 0 20 20" RadiusX="4" RadiusY="4" Grid.Row="1"  Fill="{ThemeResource BottomAcrylicBrush}"/>
         <StackPanel Margin="25 0 25 25" Grid.Row="1">
-            <TextBlock Foreground="{ThemeResource MainTextColor}" FontWeight="Bold" TextTrimming="CharacterEllipsis" Text="Название альбома"/>
-            <TextBlock Foreground="{ThemeResource ColorArtistText}" TextTrimming="CharacterEllipsis" Text="Исполнитель"/>
+            <TextBlock Foreground="{ThemeResource MainTextColor}" FontWeight="Bold" TextTrimming="CharacterEllipsis" Text="{x:Bind Album.Title}"/>
+            <TextBlock Foreground="{ThemeResource ColorArtistText}" TextTrimming="CharacterEllipsis" Text="{x:Bind Artists}"/>
         </StackPanel>
     </Grid>
 </UserControl>

@@ -48,6 +48,9 @@ namespace Fooxboy.MusicX.Uwp.Resources.Controls
                 Type = 0
             }));
 
+
+        public string Artists { get; set; }
+
         public PlaylistControl()
         {
             this.InitializeComponent();
@@ -68,6 +71,7 @@ namespace Fooxboy.MusicX.Uwp.Resources.Controls
             get => (Album)GetValue(PlaylistProperty);
             set
             {
+                foreach(var artist in value.Artists) Artists += artist.Name + ", ";
                 SetValue(PlaylistProperty, value);
             }
         }

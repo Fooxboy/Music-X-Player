@@ -7,6 +7,7 @@
     xmlns:controls="using:Microsoft.Toolkit.Uwp.UI.Controls"
     xmlns:myControls="using:Fooxboy.MusicX.Uwp.Resources.Controls"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:models="using:Fooxboy.MusicX.Uwp.Models" 
     mc:Ignorable="d"
     Background="{ThemeResource BackgroundApp}">
 
@@ -65,8 +66,8 @@
                         <RowDefinition/>
                     </Grid.RowDefinitions>
                     
-                    <controls:DropShadowPanel Grid.RowSpan="2" BlurRadius="50"
-                                  ShadowOpacity="0.6"
+                    <controls:DropShadowPanel Grid.RowSpan="2" BlurRadius="30"
+                                  ShadowOpacity="0.4"
                                   OffsetX="0"
                                   OffsetY="10"
                                   Color="Black"
@@ -89,7 +90,36 @@
                         </Button.Content>
                     </Button>
 
-                    <myControls:PlaylistControl Grid.Row="1" HorizontalAlignment="Left" Height="200" Width="200"/>
+                    <GridView SelectionMode="None"
+                              ScrollViewer.HorizontalScrollMode="Enabled"
+                              Grid.Row="1"
+                              ItemTemplate="{ThemeResource PlaylistDataTemplate}"
+                              ItemsSource="{x:Bind ViewModel.Albums}">
+                        <GridView.ItemsPanel>
+                            <ItemsPanelTemplate>
+                                <StackPanel Orientation="Horizontal"/>
+                            </ItemsPanelTemplate>
+                        </GridView.ItemsPanel>
+
+                        <GridView.Items>
+                            <models:Album Title="Hello1"/>
+                            <models:Album Title="Hello1"/>
+                            <models:Album Title="Hello1"/>
+                            <models:Album Title="Hello1"/>
+                            <models:Album Title="Hello1"/>
+                            <models:Album Title="Hello1"/>
+                            <models:Album Title="Hello1"/>
+                            <models:Album Title="Hello1"/>
+                            <models:Album Title="Hello1"/>
+                            <models:Album Title="Hello1"/>
+                            <models:Album Title="Hello1"/>
+                            <models:Album Title="Hello1"/>
+                            <models:Album Title="Hello1"/>
+                            <models:Album Title="Hello1"/>
+                            <models:Album Title="Hello1"/>
+                        </GridView.Items>
+                    </GridView>
+                    <myControls:PlaylistControl Visibility="Collapsed" Grid.Row="1" HorizontalAlignment="Left" Height="200" Width="200"/>
                 </Grid>
 
                 <Grid Grid.Row="1">

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Fooxboy.MusicX.Uwp.ViewModels;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -24,8 +25,11 @@ namespace Fooxboy.MusicX.Uwp.Views
     {
         public HomeView()
         {
+            ViewModel = new HomeViewModel();
+
             this.InitializeComponent();
         }
+        public HomeViewModel ViewModel { get; set; }
 
         private void BlockPlaylists_SizeChanged(object sender, SizeChangedEventArgs e)
         {

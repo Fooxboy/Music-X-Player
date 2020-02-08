@@ -135,6 +135,9 @@
     <Compile Include="Container.cs" />
     <Compile Include="Converters\AudioTimeConverter.cs" />
     <Compile Include="Converters\TrackConverter.cs" />
+    <Compile Include="DataTemplates\PlaylistDataTemplate.xaml.cs">
+      <DependentUpon>PlaylistDataTemplate.xaml</DependentUpon>
+    </Compile>
     <Compile Include="LoadingCollection.cs" />
     <Compile Include="Models\Album.cs" />
     <Compile Include="Models\ArtistParameter.cs" />
@@ -172,6 +175,7 @@
     <Compile Include="Services\VKontakte\LikedArtistsService.cs" />
     <Compile Include="Services\TokenService.cs" />
     <Compile Include="ViewModels\BaseViewModel.cs" />
+    <Compile Include="ViewModels\HomeViewModel.cs" />
     <Compile Include="ViewModels\LoginViewModel.cs" />
     <Compile Include="ViewModels\NavigationRootViewModel.cs" />
     <Compile Include="ViewModels\PlayerViewModel.cs" />
@@ -311,6 +315,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="DataTemplates\PlaylistDataTemplate.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Styles\AcrylicStyle.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -412,7 +420,6 @@
     <Folder Include="Enums\" />
     <Folder Include="Extensions\" />
     <Folder Include="Interfaces\" />
-    <Folder Include="Resources\" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Fooxboy.MusicX.Uwp_TemporaryKey.pfx" />
