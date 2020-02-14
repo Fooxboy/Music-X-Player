@@ -1,12 +1,15 @@
 ﻿using DryIoc;
 using Fooxboy.MusicX.Uwp.Resources.ContentDialogs;
 using Fooxboy.MusicX.Uwp.Services;
+using Fooxboy.MusicX.Uwp.Views;
 using Microsoft.Toolkit.Uwp.Helpers;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Windows.UI.Xaml;
+using Windows.UI.Xaml.Controls;
 
 namespace Fooxboy.MusicX.Uwp.ViewModels
 {
@@ -15,18 +18,21 @@ namespace Fooxboy.MusicX.Uwp.ViewModels
         public LoginViewModel()
         {
             AuthCommand = new RelayCommand(Auth);
+            VisibilityLogoImage = true;
+            VisibilityTextBox = true;
+            
         }
-        public string Login { get; set; }
-        public string Password { get; set; }
+        public string Login { get; set; } = "";
+        public string Password { get; set; } = "";
         public bool IsMusicXAccount { get; set; }
         public bool IsLoading { get; set; }
-        public string Image { get; set; }
+        public string Image { get; set; } = "ms-appx:///Assets/Images/now.png";
         public bool VisibilityPersonImage { get; set; }
         public bool VisibilityTextBox { get; set; }
         public bool VisibilityLogoImage { get; set; }
 
 
-        public RelayCommand AuthCommand { get; set; }
+        public RelayCommand AuthCommand { get; }
 
         public async void Auth()
         {
@@ -48,16 +54,11 @@ namespace Fooxboy.MusicX.Uwp.ViewModels
                 Changed("VisibilityLogoImage");
                 Changed("VisibilityPersonImage");
                 Changed("Image");
+
+                var currentFrame = Window.Current.Content as Frame;
+                currentFrame.Navigate(typeof(RootWindow));
             }
-            catch(VkNet.Exception.VkApiAuthorizationException)
-            {
-                IsLoading = false;
-                VisibilityTextBox = true;
-                Changed("IsLoading");
-                Changed("VisibilityTextBox");
-                //Неверный логин или пароль.
-            }
-            catch(VkNet.Exception.VkAuthorizationException)
+            catch(VkNet.AudioBypassService.Exceptions.VkAuthException)
             {
                 IsLoading = false;
                 VisibilityTextBox = true;

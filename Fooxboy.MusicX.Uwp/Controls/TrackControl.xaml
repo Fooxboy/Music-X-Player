@@ -136,6 +136,6 @@
             Grid.Column="2"
             HorizontalAlignment="Right"
             VerticalAlignment="Center"
-            Text="{x:Bind Track.Duration, Mode=TwoWay}" />
+            Text="{x:Bind Track.DurationString, Mode=TwoWay}" />
     </Grid>
 </UserControl>

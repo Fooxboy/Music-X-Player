@@ -23,5 +23,6 @@ namespace Fooxboy.MusicX.Uwp.Models
         public string Title { get; set; }
         public string Artist { get; set; }
         public string Subtitle { get; set; }
+        public string DurationString { get; set; }
     }
 }

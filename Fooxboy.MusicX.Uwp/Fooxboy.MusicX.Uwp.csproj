@@ -134,6 +134,7 @@
     </Compile>
     <Compile Include="Container.cs" />
     <Compile Include="Converters\AudioTimeConverter.cs" />
+    <Compile Include="Converters\BoolToVisibilityConverter.cs" />
     <Compile Include="Converters\TrackConverter.cs" />
     <Compile Include="DataTemplates\PlaylistDataTemplate.xaml.cs">
       <DependentUpon>PlaylistDataTemplate.xaml</DependentUpon>
@@ -423,11 +424,7 @@
       <Name>Fooxboy.MusicX.Core</Name>
     </ProjectReference>
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Enums\" />
-    <Folder Include="Extensions\" />
-    <Folder Include="Interfaces\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <None Include="Fooxboy.MusicX.Uwp_TemporaryKey.pfx" />
   </ItemGroup>

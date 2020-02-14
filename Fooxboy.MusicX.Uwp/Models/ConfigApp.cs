@@ -14,5 +14,6 @@ namespace Fooxboy.MusicX.Uwp.Models
         public bool SaveTracksToCache { get; set; }
         public bool IsRateMe { get; set; }
         public string AccessTokenVkontakte { get; set; }
+        public long UserId { get; set; }
     }
 }

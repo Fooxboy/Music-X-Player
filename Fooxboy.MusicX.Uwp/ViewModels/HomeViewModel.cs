@@ -14,6 +14,7 @@ namespace Fooxboy.MusicX.Uwp.ViewModels
 
         public async Task StartLoadingAlbums()
         {
+            
             //TODO: старт загрузки треков.
         }
     }

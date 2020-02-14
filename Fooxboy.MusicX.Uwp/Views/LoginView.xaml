@@ -3,15 +3,20 @@
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:local="using:Fooxboy.MusicX.Uwp.Views"
+    xmlns:converters="using:Fooxboy.MusicX.Uwp.Converters"
+    
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d"
     Background="{ThemeResource BackgroundApp}">
-   
 
+    <Page.Resources>
+        <converters:BoolToVisibilityConverter x:Key="ToVisibility"/>
+    </Page.Resources>
+    
     <Grid>
         
-        <Grid x:Name="loginGrid" Visibility="Visible">
+        <Grid x:Name="loginGrid" Visibility="Collapsed">
 
             <Grid.RowDefinitions>
                 <RowDefinition Height="*"/>
@@ -23,7 +28,7 @@
                 <RowDefinition Height="*"/>
             </Grid.RowDefinitions>
 
-            <Image Visibility="{x:Bind ViewModel.VisibilityLogoImage}" Grid.Row="1" Width="100" Height="100" Margin="0,0,0,30" HorizontalAlignment="Center">
+            <Image Visibility="{x:Bind ViewModel.VisibilityLogoImage, Converter={StaticResource ToVisibility}}" Grid.Row="1" Width="100" Height="100" Margin="0,0,0,30" HorizontalAlignment="Center">
                 <Image.Source>
                     <BitmapImage
                     DecodePixelHeight="100"
@@ -32,7 +37,7 @@
                 </Image.Source>
             </Image>
 
-            <PersonPicture Visibility="{x:Bind ViewModel.VisibilityPersonImage}"  Grid.Row="1" Width="100" Height="100" Margin="0,0,0,30" HorizontalAlignment="Center">
+            <PersonPicture Visibility="{x:Bind ViewModel.VisibilityPersonImage, Converter={StaticResource ToVisibility}}"  Grid.Row="1" Width="100" Height="100" Margin="0,0,0,30" HorizontalAlignment="Center">
                 <PersonPicture.ProfilePicture>
                     <BitmapImage
                     DecodePixelHeight="100"
@@ -46,7 +51,7 @@
                        HorizontalAlignment="Center" 
                        FontSize="20"
                        Margin="0 20 0 0"
-                       FontWeight="Bold"  Text="Войдите в аккаунт {NamePlatform}"/>
+                       FontWeight="Bold" Text="Войдите в аккаунт"/>
 
             <ProgressRing Grid.Row="2"
                           Grid.RowSpan="4"
@@ -54,15 +59,16 @@
                           VerticalAlignment="Center"
                           IsActive="{x:Bind ViewModel.IsLoading, Mode=TwoWay}"
                           Height="50" Width="50"/>
-            
-            
 
-            <TextBox Text="{x:Bind ViewModel.Login}" Visibility="{x:Bind ViewModel.VisibilityTextBox}" PlaceholderText="Номер телефона или адрес эл. почты" Margin="0 30 0 0" Width="300" Style="{StaticResource StandardTextBoxStyle}" Grid.Row="3" HorizontalAlignment="Center" />
-            <PasswordBox Password="{x:Bind ViewModel.Password}" Visibility="{x:Bind ViewModel.VisibilityTextBox}" Style="{StaticResource StandardPasswordBoxStyle}" Width="300" PlaceholderText="Пароль" Margin="0 20 0 0" Grid.Row="4" HorizontalAlignment="Center"/>
+
+
+            <TextBox Text="{x:Bind ViewModel.Login}" Visibility="{x:Bind ViewModel.VisibilityTextBox, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, Converter={StaticResource ToVisibility}}" PlaceholderText="Номер телефона или адрес эл. почты" Margin="0 30 0 0" Width="300" Style="{StaticResource StandardTextBoxStyle}" Grid.Row="3" HorizontalAlignment="Center" />
+            <PasswordBox Password="{x:Bind ViewModel.Password}" Visibility="{x:Bind ViewModel.VisibilityTextBox, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, Converter={StaticResource ToVisibility}}" Style="{StaticResource StandardPasswordBoxStyle}" Width="300" PlaceholderText="Пароль" Margin="0 20 0 0" Grid.Row="4" HorizontalAlignment="Center"/>
             <Button Margin="0 30 0 0" 
                     Width="120" 
                     Grid.Row="5" 
-                    Visibility="{x:Bind ViewModel.VisibilityTextBox}"
+                    Command="{x:Bind ViewModel.AuthCommand}"
+                    Visibility="{x:Bind ViewModel.VisibilityTextBox, Converter={StaticResource ToVisibility}}"
                     HorizontalAlignment="Center"
                     Style="{ThemeResource AcceptButtonStyle}">
                 <Button.Content>
@@ -75,7 +81,7 @@
 
         </Grid>
 
-        <Grid x:Name="buttonsGrid" Visibility="Collapsed">
+        <Grid x:Name="buttonsGrid" Visibility="Visible">
 
             <Grid.RowDefinitions>
                 <RowDefinition Height="*"/>

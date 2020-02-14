@@ -128,7 +128,18 @@ namespace Fooxboy.MusicX.Uwp
             {
                 if (rootFrame.Content == null)
                 {
-                    rootFrame.Navigate(typeof(Views.RootWindow), null);
+                    var configService = Container.Get.Resolve<ConfigService>();
+                    try
+                    {
+                        var config = await configService.GetConfig();
+                        if (config.AccessTokenVkontakte is null) rootFrame.Navigate(typeof(Views.LoginView), null);
+                        else rootFrame.Navigate(typeof(Views.RootWindow), null);
+                    }catch
+                    {
+                        rootFrame.Navigate(typeof(Views.WelcomeView), null);
+                    }
+                   
+
                 }
             }
             Window.Current.Activate();
@@ -136,11 +147,7 @@ namespace Fooxboy.MusicX.Uwp
             Push.CheckLaunchedFromNotification(e);
         }
 
-        /// <summary>
-        /// Вызывается в случае сбоя навигации на определенную страницу
-        /// </summary>
-        /// <param name="sender">Фрейм, для которого произошел сбой навигации</param>
-        /// <param name="e">Сведения о сбое навигации</param>
+      
         void OnNavigationFailed(object sender, NavigationFailedEventArgs e)
         {
             throw new Exception("Failed to load Page " + e.SourcePageType.FullName);
@@ -151,13 +158,7 @@ namespace Fooxboy.MusicX.Uwp
             //StaticContent.NavigationContentService.Back();
         }
 
-        /// <summary>
-        /// Вызывается при приостановке выполнения приложения.  Состояние приложения сохраняется
-        /// без учета информации о том, будет ли оно завершено или возобновлено с неизменным
-        /// содержимым памяти.
-        /// </summary>
-        /// <param name="sender">Источник запроса приостановки.</param>
-        /// <param name="e">Сведения о запросе приостановки.</param>
+        
         private async void OnSuspending(object sender, SuspendingEventArgs e)
         {
             var deferral = e.SuspendingOperation.GetDeferral();
