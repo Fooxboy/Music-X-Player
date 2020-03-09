@@ -106,10 +106,7 @@ namespace Fooxboy.MusicX.AndroidApp.Adapters
             var tracks = this.Blocks.First(b => b.Title == block.Title).Tracks;
             var tracksfiles = Converters.TracksConverter.ToTracksList(tracks);
             var playlist = new Album();
-            playlist.Artists[0] = new Artist()
-            {
-                Name = "Music X"
-            };
+            playlist.Artists = null;
             playlist.Cover = "playlist_placeholder";
             playlist.Genres = null;
             playlist.Id = 1000;

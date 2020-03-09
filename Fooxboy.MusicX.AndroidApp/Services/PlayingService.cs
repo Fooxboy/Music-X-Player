@@ -79,12 +79,19 @@ namespace Fooxboy.MusicX.AndroidApp.Services
                 {
                     Toast.MakeText(Application.Context, "[Отладка] Начинаем воспроизводить...", ToastLength.Long).Show();
                     Toast.MakeText(Application.Context, $"[Отладка] URI: {currentTrack.Url}", ToastLength.Long).Show();
-                    var media = await player.Play(currentTrack.Url);
+                    var item = await CrossMediaManager.Current.Extractor.CreateMediaItem(currentTrack.Url.AbsoluteUri);
+                    item.MediaType = MediaManager.Library.MediaType.Hls;
+                    item.Title = currentTrack.Title;
+                    item.Artist = currentTrack.Artist;
+                    item.AlbumArtist = currentTrack.Artist;
+                    if (currentTrack.Album?.Cover != "placeholder") item.ImageUri = currentTrack.Album?.Cover;
+                    await player.Play(item);
+                    /*var media = await player.Play(currentTrack.Url);
                     media.Title = currentTrack.Title;
                     //media.AlbumArtUri = ""; //Без этого треки с битыми ссылками будут выкидывать плеер в фатал
                     media.Artist = currentTrack.Artist;
                     media.AlbumArtist = currentTrack.Artist;
-                    if (currentTrack.Album?.Cover != "placeholder") media.ImageUri = currentTrack.Album?.Cover;
+                    if (currentTrack.Album?.Cover != "placeholder") media.ImageUri = currentTrack.Album?.Cover;*/
                     CrossMediaManager.Android.Notification.UpdateNotification();
                 });
 

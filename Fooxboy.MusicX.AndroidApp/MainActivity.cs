@@ -11,6 +11,7 @@ using Android.Widget;
 using Fooxboy.MusicX.AndroidApp.Adapters;
 using Fooxboy.MusicX.AndroidApp.Resources.fragments;
 using Fooxboy.MusicX.AndroidApp.Services;
+using ImageViews.Rounded;
 using MediaManager;
 using Microsoft.AppCenter;
 using Microsoft.AppCenter.Analytics;
@@ -51,6 +52,8 @@ namespace Fooxboy.MusicX.AndroidApp
                     Core.Api.GetApi().VKontakte.Auth.Auto(AuthService.GetToken(), null);
                     var user = Core.Api.GetApi().VKontakte.Users.Info.CurrentUser();
                     Services.StaticContentService.UserId = user.Id;
+                    var pfp = FindViewById<RoundedImageView>(Resource.Id.profilepicture_main);
+                    pfp.SetImageString(ImagesService.PhotoUser(user.PhotoUser), 50, 50);
                     //var f = new HomeFragment();
                     var f = new RecommendationsFragment();
                     FragmentManager.BeginTransaction().Replace(Resource.Id.content_frame, f).Commit();

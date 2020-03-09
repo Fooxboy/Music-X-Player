@@ -14,6 +14,7 @@ using Android.Widget;
 using Fooxboy.MusicX.AndroidApp.Converters;
 using Fooxboy.MusicX.AndroidApp.Interfaces;
 using Fooxboy.MusicX.AndroidApp.Models;
+using Fooxboy.MusicX.AndroidApp.Services;
 using Fooxboy.MusicX.AndroidApp.ViewHolders;
 using Java.Interop;
 using Java.IO;
@@ -59,7 +60,7 @@ namespace Fooxboy.MusicX.AndroidApp.Adapters
             holder.ItemView.SetOnLongClickListener(this);
             //holder.ItemView.SetOnLongClickListener(this);
 
-            if(tracks[position].Album is null)
+            if (tracks[position].Album is null)
             {
                 holder.Cover.SetImageResource(Resource.Drawable.placeholder);
             }else
@@ -70,7 +71,8 @@ namespace Fooxboy.MusicX.AndroidApp.Adapters
                 }
                 else
                 {
-                    var file = new File(tracks[position].Album.Cover);
+                    var resource = ImagesService.CoverTrack(tracks[position]);
+                    var file = new File(resource);
                     var opt = new BitmapFactory.Options();
                     opt.InJustDecodeBounds = true;
                     opt.InSampleSize = CalculateInSampleSize(opt, 50, 50);

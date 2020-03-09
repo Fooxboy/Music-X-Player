@@ -133,15 +133,21 @@ namespace Fooxboy.MusicX.AndroidApp.Resources.fragments
             {
                 case 0:
                     Toast.MakeText(Application.Context, $"Переходим к исполнителю {t.Artist}", ToastLength.Long).Show();
-                    var artist = new ArtistFragment();
-                    if (Convert.ToInt32(t.Artists[0].Id) != 0)
+                    try
                     {
-                        artist.ArtistID = Convert.ToInt32(t.Artists[0].Id);
-                        FragmentManager.BeginTransaction().Replace(Resource.Id.content_frame, artist).Commit();
-                    }
-                    else
+                        var artist = new ArtistFragment();
+                        if (Convert.ToInt64(t.Artists[0].Id) != 0)
+                        {
+                            artist.ArtistID = Convert.ToInt64(t.Artists[0].Id);
+                            FragmentManager.BeginTransaction().Replace(Resource.Id.content_frame, artist).Commit();
+                        }
+                        else
+                        {
+                            Toast.MakeText(Application.Context, "Ошибка: невозможно перейти к исполнителю.", ToastLength.Long).Show();
+                        }
+                    }catch(System.Exception e)
                     {
-                        Toast.MakeText(Application.Context, "Ошибка: невозможно перейти к исполнителю.", ToastLength.Long).Show();
+                        Toast.MakeText(Application.Context, $"Критический сбой: {e.Message}", ToastLength.Short).Show();
                     }
 
                     break;

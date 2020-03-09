@@ -14,27 +14,33 @@ namespace Fooxboy.MusicX.Core.VKontakte.Music.Converters
         public static ITrack ToITrack(this Audio audio)
         {
             ITrack track = new Track();
+            
             try
             {
                 track.AccessKey = audio.AccessKey;
                 track.Duration = TimeSpan.FromSeconds(audio.Duration);
-                track.GenreId = (int) audio.Genre;
+                track.GenreId = audio.Genre == null ? 0 : (int)audio.Genre;
                 track.Id = audio.Id.Value;
-                if (audio.Album != null)
+                /*if (audio.Album != null)
                 {
-                    try
-                    {
-                        IAlbum alb = new Models.Album();
-                        alb.AccessKey = audio.Album.AccessKey;
-                        alb.Id = audio.Album.Id;
-                        alb.OwnerId = audio.Album.OwnerId;
-                        alb.Title = audio.Album.Title ?? "";
-                        alb.Cover = audio.Album.Cover?.Photo300;
-                        track.Album = alb;
-                    }
-                    catch
-                    {
-                    }
+                    
+                        
+                   
+                }*/
+
+                try
+                {
+                    IAlbum alb = new Models.Album();
+                    alb.AccessKey = audio.Album.AccessKey;
+                    alb.Id = audio.Album.Id;
+                    alb.OwnerId = audio.Album.OwnerId;
+                    alb.Title = audio.Album.Title ?? "";
+                    alb.Cover = audio.Album.Cover.Photo600;
+                    track.Album = alb;
+                }
+                catch (Exception e)
+                {
+                    track.Album = null;
                 }
 
                 track.Artists = new List<IArtist>();
@@ -96,7 +102,7 @@ namespace Fooxboy.MusicX.Core.VKontakte.Music.Converters
                 track.IsLicensed = audio.IsLicensed ?? audio.IsLicensed.Value;
                 track.OwnerId = audio.OwnerId;
             }
-            catch
+            catch(Exception e)
             {
                 track.Title = audio.Title;
                 track.Artist = audio.Artist;

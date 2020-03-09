@@ -15,7 +15,7 @@ namespace Fooxboy.MusicX.Core.VKontakte
         private readonly VkApi _api;
         public Auth(VkApi api)
         {
-            api = _api;
+            _api = api;
         }
         public async Task<string> UserAsync(string login, string password, Func<string> twoFactorAuth, ICaptchaSolver captchaSolver)
         {
