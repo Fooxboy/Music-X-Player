@@ -73,6 +73,7 @@ namespace Fooxboy.MusicX.Uwp
             c.Register<ConfigService>();
             c.Register<TokenService>(made: Made.Of(() => new TokenService(Arg.Of<ConfigService>())));
             c.Register<PlayerService>();
+            c.Register<TrackLoaderService>();
             Container.SetContainer(c);
 
             Frame rootFrame = Window.Current.Content as Frame;
@@ -133,7 +134,11 @@ namespace Fooxboy.MusicX.Uwp
                     {
                         var config = await configService.GetConfig();
                         if (config.AccessTokenVkontakte is null) rootFrame.Navigate(typeof(Views.LoginView), null);
-                        else rootFrame.Navigate(typeof(Views.RootWindow), null);
+                        else
+                        {
+                            rootFrame.Navigate(typeof(Views.RootWindow), null);
+                            await c.Resolve<Api>().VKontakte.Auth.AutoAsync(config.AccessTokenVkontakte, null);
+                        }
                     }catch
                     {
                         rootFrame.Navigate(typeof(Views.WelcomeView), null);

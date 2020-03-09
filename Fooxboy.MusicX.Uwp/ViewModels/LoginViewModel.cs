@@ -7,6 +7,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
@@ -20,13 +21,17 @@ namespace Fooxboy.MusicX.Uwp.ViewModels
             AuthCommand = new RelayCommand(Auth);
             VisibilityLogoImage = true;
             VisibilityTextBox = true;
-            
+            Login = "";
+            Password = "";
+            Image = "ms-appx:///Assets/Images/now.png";
+
+
         }
-        public string Login { get; set; } = "";
-        public string Password { get; set; } = "";
+        public string Login { get; set; }
+        public string Password { get; set; }
         public bool IsMusicXAccount { get; set; }
         public bool IsLoading { get; set; }
-        public string Image { get; set; } = "ms-appx:///Assets/Images/now.png";
+        public string Image { get; set; }
         public bool VisibilityPersonImage { get; set; }
         public bool VisibilityTextBox { get; set; }
         public bool VisibilityLogoImage { get; set; }
@@ -51,10 +56,12 @@ namespace Fooxboy.MusicX.Uwp.ViewModels
                 Image = user.PhotoUser;
                 VisibilityLogoImage = false;
                 VisibilityPersonImage = true;
+                Image = user.PhotoUser;
                 Changed("VisibilityLogoImage");
                 Changed("VisibilityPersonImage");
                 Changed("Image");
 
+                Thread.Sleep(3000);
                 var currentFrame = Window.Current.Content as Frame;
                 currentFrame.Navigate(typeof(RootWindow));
             }

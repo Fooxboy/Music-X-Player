@@ -41,5 +41,28 @@ namespace Fooxboy.MusicX.Core.VKontakte.Music
             });
             return music.Select(track=> track.ToITrack()).ToList();
         }
+
+        public async Task<long> GetCountAsync()
+        {
+            long userId = 0;
+            if (_api.UserId.Value == 0)
+            {
+                var user = await _api.Users.GetAsync(new List<long>());
+                userId = user[0].Id;
+            }
+            else userId = _api.UserId.Value;
+            return await _api.Audio.GetCountAsync(userId);
+        }
+        public long GetCount()
+        {
+            long userId = 0;
+            if(_api.UserId.Value == 0)
+            {
+                var user =  _api.Users.Get(new List<long>());
+                userId = user[0].Id;
+            }else userId = _api.UserId.Value;
+            return  _api.Audio.GetCount(_api.UserId.Value);
+        }
+
     }
 }

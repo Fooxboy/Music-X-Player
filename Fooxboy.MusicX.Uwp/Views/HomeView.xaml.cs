@@ -1,4 +1,6 @@
-﻿using Fooxboy.MusicX.Uwp.ViewModels;
+﻿using DryIoc;
+using Fooxboy.MusicX.Core;
+using Fooxboy.MusicX.Uwp.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -34,6 +36,28 @@ namespace Fooxboy.MusicX.Uwp.Views
         private void BlockPlaylists_SizeChanged(object sender, SizeChangedEventArgs e)
         {
            BorderShadow.Width = e.NewSize.Width;
+        }
+
+        private async void scroll_ViewChanging(object sender, ScrollViewerViewChangingEventArgs e)
+        {
+            var current = scroll.VerticalOffset;
+            var max = scroll.ScrollableHeight;
+
+            text1.Text = $"current: {current} max: {max} isEnd = {max - current < 100}";
+
+
+            //if(max- current < 100)
+            //{
+            //    //Loading tracks...ъ
+            //    await ViewModel.StartLoadingTracks();
+
+            //}
+
+        }
+
+        private async void Page_Loaded(object sender, RoutedEventArgs e)
+        {
+            await ViewModel.GetMaxTracks();
         }
     }
 }

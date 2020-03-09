@@ -176,6 +176,7 @@
     <Compile Include="Services\NavigationService.cs" />
     <Compile Include="Services\PlayerService.cs" />
     <Compile Include="Services\StoreService.cs" />
+    <Compile Include="Services\TrackLoaderService.cs" />
     <Compile Include="Services\VKontakte\LikedArtistsService.cs" />
     <Compile Include="Services\TokenService.cs" />
     <Compile Include="ViewModels\BaseViewModel.cs" />

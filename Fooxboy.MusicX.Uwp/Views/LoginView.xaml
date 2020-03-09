@@ -28,6 +28,8 @@
                 <RowDefinition Height="*"/>
             </Grid.RowDefinitions>
 
+
+
             <Image Visibility="{x:Bind ViewModel.VisibilityLogoImage, Converter={StaticResource ToVisibility}}" Grid.Row="1" Width="100" Height="100" Margin="0,0,0,30" HorizontalAlignment="Center">
                 <Image.Source>
                     <BitmapImage
@@ -37,15 +39,14 @@
                 </Image.Source>
             </Image>
 
-            <PersonPicture Visibility="{x:Bind ViewModel.VisibilityPersonImage, Converter={StaticResource ToVisibility}}"  Grid.Row="1" Width="100" Height="100" Margin="0,0,0,30" HorizontalAlignment="Center">
+            <PersonPicture Visibility="{x:Bind ViewModel.VisibilityPersonImage, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, Converter={StaticResource ToVisibility}}"  Grid.Row="1" Width="100" Height="100" Margin="0,0,0,30" HorizontalAlignment="Center">
                 <PersonPicture.ProfilePicture>
                     <BitmapImage
                     DecodePixelHeight="100"
                     DecodePixelWidth="100"  
-                    UriSource="{x:Bind ViewModel.Image}" />
+                    UriSource="{x:Bind ViewModel.Image, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
                 </PersonPicture.ProfilePicture>
             </PersonPicture>
-
 
             <TextBlock Grid.Row="2"
                        HorizontalAlignment="Center" 
@@ -55,6 +56,7 @@
 
             <ProgressRing Grid.Row="2"
                           Grid.RowSpan="4"
+                          Margin="0 60 0 0"
                           HorizontalAlignment="Center"
                           VerticalAlignment="Center"
                           IsActive="{x:Bind ViewModel.IsLoading, Mode=TwoWay}"
@@ -62,13 +64,13 @@
 
 
 
-            <TextBox Text="{x:Bind ViewModel.Login}" Visibility="{x:Bind ViewModel.VisibilityTextBox, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, Converter={StaticResource ToVisibility}}" PlaceholderText="Номер телефона или адрес эл. почты" Margin="0 30 0 0" Width="300" Style="{StaticResource StandardTextBoxStyle}" Grid.Row="3" HorizontalAlignment="Center" />
-            <PasswordBox Password="{x:Bind ViewModel.Password}" Visibility="{x:Bind ViewModel.VisibilityTextBox, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, Converter={StaticResource ToVisibility}}" Style="{StaticResource StandardPasswordBoxStyle}" Width="300" PlaceholderText="Пароль" Margin="0 20 0 0" Grid.Row="4" HorizontalAlignment="Center"/>
+            <TextBox Text="{x:Bind ViewModel.Login, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Visibility="{x:Bind ViewModel.VisibilityTextBox, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, Converter={StaticResource ToVisibility}}" PlaceholderText="Номер телефона или адрес эл. почты" Margin="0 30 0 0" Width="300" Style="{StaticResource StandardTextBoxStyle}" Grid.Row="3" HorizontalAlignment="Center" />
+            <PasswordBox Password="{x:Bind ViewModel.Password, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Visibility="{x:Bind ViewModel.VisibilityTextBox, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, Converter={StaticResource ToVisibility}}" Style="{StaticResource StandardPasswordBoxStyle}" Width="300" PlaceholderText="Пароль" Margin="0 20 0 0" Grid.Row="4" HorizontalAlignment="Center"/>
             <Button Margin="0 30 0 0" 
                     Width="120" 
                     Grid.Row="5" 
                     Command="{x:Bind ViewModel.AuthCommand}"
-                    Visibility="{x:Bind ViewModel.VisibilityTextBox, Converter={StaticResource ToVisibility}}"
+                    Visibility="{x:Bind ViewModel.VisibilityTextBox, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, Converter={StaticResource ToVisibility}}"
                     HorizontalAlignment="Center"
                     Style="{ThemeResource AcceptButtonStyle}">
                 <Button.Content>

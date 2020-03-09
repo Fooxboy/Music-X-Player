@@ -9,6 +9,7 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:models="using:Fooxboy.MusicX.Uwp.Models" 
     mc:Ignorable="d"
+    Loaded="Page_Loaded"
     Background="{ThemeResource BackgroundApp}">
 
     <Grid>
@@ -54,7 +55,9 @@
             </VisualStateGroup>
         </VisualStateManager.VisualStateGroups>
 
-        <ScrollViewer>
+        <TextBlock x:Name="text1" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="50"/>
+
+        <ScrollViewer ViewChanging="scroll_ViewChanging"  x:Name="scroll">
             <Grid>
                 <Grid.RowDefinitions>
                     <RowDefinition Height="auto"/>
@@ -108,20 +111,20 @@
                         </GridView.ItemsPanel>
 
                         <controls:AdaptiveGridView.Items>
-                            <models:Album Title="Hello1"/>
-                            <models:Album Title="Hello1"/>
-                            <models:Album Title="Hello1"/>
-                            <models:Album Title="Hello1"/>
-                            <models:Album Title="Hello1"/>
-                            <models:Album Title="Hello1"/>
-                            <models:Album Title="Hello1"/>
-                            <models:Album Title="Hello1"/>
-                            <models:Album Title="Hello1"/>
-                            <models:Album Title="Hello1"/>
-                            <models:Album Title="Hello1"/>
-                            <models:Album Title="Hello1"/>
-                            <models:Album Title="Hello1"/>
-                            <models:Album Title="Hello1"/>
+                            <models:Album Title="Название альбома"/>
+                            <models:Album Title="Название альбома"/>
+                            <models:Album Title="Название альбома"/>
+                            <models:Album Title="Название альбома"/>
+                            <models:Album Title="Название альбома"/>
+                            <models:Album Title="Название альбома"/>
+                            <models:Album Title="Название альбома"/>
+                            <models:Album Title="Название альбома"/>
+                            <models:Album Title="Название альбома"/>
+                            <models:Album Title="Название альбома"/>
+                            <models:Album Title="Название альбома"/>
+                            <models:Album Title="Название альбома"/>
+                            <models:Album Title="Название альбома"/>
+                            <models:Album Title="Название альбома"/>
                             <models:Album Title="Hello1"/>
                         </controls:AdaptiveGridView.Items>
                     </controls:AdaptiveGridView>
@@ -130,58 +133,66 @@
 
                 <Grid Grid.Row="1">
                     <TextBlock x:Name="MusicText" Grid.Row="0" Margin="70 10 0 0" FontWeight="ExtraBold" FontFamily="Calibri" FontSize="38" Text="Ваша музыка"/>
-                    <ListView x:Name="TracksListView" ItemContainerStyle="{StaticResource ListViewItemContainerStyle}" Style="{ThemeResource ListViewStyle}" HorizontalAlignment="Stretch" Grid.Row="0" ItemTemplate="{ThemeResource TrackDataTemplate}">
+                    <ListView  x:Name="TracksListView" ItemContainerStyle="{StaticResource ListViewItemContainerStyle}" Style="{ThemeResource ListViewStyle}" HorizontalAlignment="Stretch" Grid.Row="0" ItemTemplate="{ThemeResource TrackDataTemplate}">
                         <ListView.Items>
-                            <models:Track Title="Название трека ебана" Artist="Имя исполнителя"/>
-                            <models:Track Title="Название трека ебана" Artist="Имя исполнителя"/>
-                            <models:Track Title="Название трека ебана" Artist="Имя исполнителя"/>
-                            <models:Track Title="Название трека ебана" Artist="Имя исполнителя"/>
-                            <models:Track Title="Название трека ебана" Artist="Имя исполнителя"/>
-                            <models:Track Title="Название трека ебана" Artist="Имя исполнителя"/>
-                            <models:Track Title="Название трека ебана" Artist="Имя исполнителя"/>
-                            <models:Track Title="Название трека ебана" Artist="Имя исполнителя"/>
-                            <models:Track Title="Название трека ебана" Artist="Имя исполнителя"/>
-                            <models:Track Title="Название трека ебана" Artist="Имя исполнителя"/>
-                            <models:Track Title="Название трека ебана" Artist="Имя исполнителя"/>
-                            <models:Track Title="Название трека ебана" Artist="Имя исполнителя"/>
-                            <models:Track Title="Название трека ебана" Artist="Имя исполнителя"/>
-                            <models:Track Title="Название трека ебана" Artist="Имя исполнителя"/>
-                            <models:Track Title="Название трека ебана" Artist="Имя исполнителя"/>
-                            <models:Track Title="Название трека ебана" Artist="Имя исполнителя"/>
-                            <models:Track Title="Название трека ебана" Artist="Имя исполнителя"/>
-                            <models:Track Title="Название трека ебана" Artist="Имя исполнителя"/>
-                            <models:Track Title="Название трека ебана" Artist="Имя исполнителя"/>
-                            <models:Track Title="Название трека ебана" Artist="Имя исполнителя"/>
-                            <models:Track Title="Название трека ебана" Artist="Имя исполнителя"/>
-                            <models:Track Title="Название трека ебана" Artist="Имя исполнителя"/>
-                            <models:Track Title="Название трека ебана" Artist="Имя исполнителя"/>
-                            <models:Track Title="Название трека ебана" Artist="Имя исполнителя"/>
-                            <models:Track Title="Название трека ебана" Artist="Имя исполнителя"/>
-                            <models:Track Title="Название трека ебана" Artist="Имя исполнителя"/>
-                            <models:Track Title="Название трека ебана" Artist="Имя исполнителя"/>
-                            <models:Track Title="Название трека ебана" Artist="Имя исполнителя"/>
-                            <models:Track Title="Название трека ебана" Artist="Имя исполнителя"/>
-                            <models:Track Title="Название трека ебана" Artist="Имя исполнителя"/>
-                            <models:Track Title="Название трека ебана" Artist="Имя исполнителя"/>
-                            <models:Track Title="Название трека ебана" Artist="Имя исполнителя"/>
-                            <models:Track Title="Название трека ебана" Artist="Имя исполнителя"/>
-                            <models:Track Title="Название трека ебана" Artist="Имя исполнителя"/>
-                            <models:Track Title="Название трека ебана" Artist="Имя исполнителя"/>
-                            <models:Track Title="Название трека ебана" Artist="Имя исполнителя"/>
-                            <models:Track Title="Название трека ебана" Artist="Имя исполнителя"/>
-                            <models:Track Title="Название трека ебана" Artist="Имя исполнителя"/>
-                            <models:Track Title="Название трека ебана" Artist="Имя исполнителя"/>
-                            <models:Track Title="Название трека ебана" Artist="Имя исполнителя"/>
-                            <models:Track Title="Название трека ебана" Artist="Имя исполнителя"/>
-                            <models:Track Title="Название трека ебана" Artist="Имя исполнителя"/>
-                            <models:Track Title="Название трека ебана" Artist="Имя исполнителя"/>
-                            <models:Track Title="Название трека ебана" Artist="Имя исполнителя"/>
-                            <models:Track Title="Название трека ебана" Artist="Имя исполнителя"/>
-                            <models:Track Title="Название трека ебана" Artist="Имя исполнителя"/>
-                            <models:Track Title="Название трека ебана" Artist="Имя исполнителя"/>
-                            <models:Track Title="Название трека ебана" Artist="Имя исполнителя"/>
-                            <models:Track Title="Название трека ебана" Artist="Имя исполнителя"/>
-                            <models:Track Title="Название трека ебана" Artist="Имя исполнителя"/>
+                            <models:Track Title="Название трека" Artist="Имя исполнителя"/>
+                            <models:Track Title="Название трека" Artist="Имя исполнителя"/>
+                            <models:Track Title="Название трека" Artist="Имя исполнителя"/>
+                            <models:Track Title="Название трека" Artist="Имя исполнителя"/>
+                            <models:Track Title="Название трека" Artist="Имя исполнителя"/>
+                            <models:Track Title="Название трека" Artist="Имя исполнителя"/>
+                            <models:Track Title="Название трека" Artist="Имя исполнителя"/>
+                            <models:Track Title="Название трека" Artist="Имя исполнителя"/>
+                            <models:Track Title="Название трека" Artist="Имя исполнителя"/>
+                            <models:Track Title="Название трека" Artist="Имя исполнителя"/>
+                            <models:Track Title="Название трека" Artist="Имя исполнителя"/>
+                            <models:Track Title="Название трека" Artist="Имя исполнителя"/>
+                            <models:Track Title="Название трека" Artist="Имя исполнителя"/>
+                            <models:Track Title="Название трека" Artist="Имя исполнителя"/>
+                            <models:Track Title="Название трека" Artist="Имя исполнителя"/>
+                            <models:Track Title="Название трека" Artist="Имя исполнителя"/>
+                            <models:Track Title="Название трека" Artist="Имя исполнителя"/>
+                            <models:Track Title="Название трека" Artist="Имя исполнителя"/>
+                            <models:Track Title="Название трека" Artist="Имя исполнителя"/>
+                            <models:Track Title="Название трека" Artist="Имя исполнителя"/>
+                            <models:Track Title="Название трека" Artist="Имя исполнителя"/>
+                            <models:Track Title="Название трека" Artist="Имя исполнителя"/>
+                            <models:Track Title="Название трека" Artist="Имя исполнителя"/>
+                            <models:Track Title="Название трека" Artist="Имя исполнителя"/>
+                            <models:Track Title="Название трека" Artist="Имя исполнителя"/>
+                            <models:Track Title="Название трека" Artist="Имя исполнителя"/>
+                            <models:Track Title="Название трека" Artist="Имя исполнителя"/>
+                            <models:Track Title="Название трека" Artist="Имя исполнителя"/>
+                            <models:Track Title="Название трека" Artist="Имя исполнителя"/>
+                            <models:Track Title="Название трека" Artist="Имя исполнителя"/>
+                            <models:Track Title="Название трека" Artist="Имя исполнителя"/>
+                            <models:Track Title="Название трека" Artist="Имя исполнителя"/>
+                            <models:Track Title="Название трека" Artist="Имя исполнителя"/>
+                            <models:Track Title="Название трека" Artist="Имя исполнителя"/>
+                            <models:Track Title="Название трека" Artist="Имя исполнителя"/>
+                            <models:Track Title="Название трека" Artist="Имя исполнителя"/>
+                            <models:Track Title="Название трека" Artist="Имя исполнителя"/>
+                            <models:Track Title="Название трека" Artist="Имя исполнителя"/>
+                            <models:Track Title="Название трека" Artist="Имя исполнителя"/>
+                            <models:Track Title="Название трека" Artist="Имя исполнителя"/>
+                            <models:Track Title="Название трека" Artist="Имя исполнителя"/>
+                            <models:Track Title="Название трека" Artist="Имя исполнителя"/>
+                            <models:Track Title="Название трека" Artist="Имя исполнителя"/>
+                            <models:Track Title="Название трека" Artist="Имя исполнителя"/>
+                            <models:Track Title="Название трека" Artist="Имя исполнителя"/>
+                            <models:Track Title="Название трека" Artist="Имя исполнителя"/>
+                            <models:Track Title="Название трека" Artist="Имя исполнителя"/>
+                            <models:Track Title="Название трека" Artist="Имя исполнителя"/>
+                            <models:Track Title="Название трека" Artist="Имя исполнителя"/>
+                            <models:Track Title="Название трека" Artist="Имя исполнителя"/>
+                            <models:Track Title="Название трека" Artist="Имя исполнителя"/>
+                            <models:Track Title="Название трека" Artist="Имя исполнителя"/>
+                            <models:Track Title="Название трека" Artist="Имя исполнителя"/>
+                            <models:Track Title="Название трека" Artist="Имя исполнителя"/>
+                            <models:Track Title="Название трека" Artist="Имя исполнителя"/>
+                            <models:Track Title="Название трека" Artist="Имя исполнителя"/>
+                            <models:Track Title="Название трека" Artist="Имя исполнителя"/>
+                            
                            
                         </ListView.Items>
 

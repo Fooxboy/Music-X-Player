@@ -26,6 +26,11 @@ namespace Fooxboy.MusicX.Core.VKontakte
                 Password = password,
                 TwoFactorAuthorization = twoFactorAuth
             });
+
+
+            var user = await _api.Users.GetAsync(new List<long>());
+            _api.UserId = user[0].Id;
+
             return _api.Token;
         }
 
@@ -37,6 +42,9 @@ namespace Fooxboy.MusicX.Core.VKontakte
             {
                 AccessToken = token
             });
+
+            var user= await _api.Users.GetAsync(new List<long>());
+            _api.UserId = user[0].Id;
         }
 
         public void Auto(string token, ICaptchaSolver captchaSolver)
@@ -46,6 +54,9 @@ namespace Fooxboy.MusicX.Core.VKontakte
             {
                 AccessToken = token
             });
+
+            var user = _api.Users.Get(new List<long>());
+            _api.UserId = user[0].Id;
         }
 
         public string User(string login, string password, Func<string> twoFactorAuth, ICaptchaSolver captchaSolver)
@@ -57,6 +68,10 @@ namespace Fooxboy.MusicX.Core.VKontakte
                 Password = password,
                 TwoFactorAuthorization = twoFactorAuth
             });
+
+            var user = _api.Users.Get(new List<long>());
+            _api.UserId = user[0].Id;
+
             return _api.Token;
         }
 
