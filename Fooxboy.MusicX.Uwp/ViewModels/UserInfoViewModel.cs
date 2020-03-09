@@ -12,6 +12,7 @@ namespace Fooxboy.MusicX.Uwp.ViewModels
     {
         public string UserPhotoUri { get; set; }
         public IUserInfo UserInfo { get; set; }
+        public string Name { get; set; }
 
         public UserInfoViewModel()
         {
@@ -22,7 +23,9 @@ namespace Fooxboy.MusicX.Uwp.ViewModels
             var api = Container.Get.Resolve<Core.Api>();
             var usr = await api.VKontakte.Users.Info.CurrentUserAsync();
             UserPhotoUri = usr.PhotoUser;
+            Name = usr.FirstName + " " + usr.LastName;
             Changed("UserPhotoUri");
+            Changed("Name");
             UserInfo = usr;
             Changed("UserInfo");
         }

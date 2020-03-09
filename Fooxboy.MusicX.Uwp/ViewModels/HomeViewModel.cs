@@ -25,6 +25,7 @@ namespace Fooxboy.MusicX.Uwp.ViewModels
         private int _count;
         private PlayerService _player;
         private Album _libraryAlbum;
+        private LoadingService _loadingService;
 
 
         public HomeViewModel()
@@ -40,6 +41,9 @@ namespace Fooxboy.MusicX.Uwp.ViewModels
                 IsAvailable = true,
                 Tracks = new System.Collections.Generic.List<Core.Interfaces.ITrack>()
             };
+
+            _loadingService = Container.Get.Resolve<LoadingService>();
+
             
         }
 
@@ -72,19 +76,26 @@ namespace Fooxboy.MusicX.Uwp.ViewModels
         {
             if (_isLoading) return;
             _isLoading = true;
+
+            _loadingService.Change(true);
             
             if (_maxTracks == _countTracks)
             {
-                if(Tracks[Tracks.Count - 1].AccessKey != "space") Tracks.Add(new Track() { AccessKey = "space" });
+                _loadingService.Change(false);
+                if (Tracks[Tracks.Count - 1].AccessKey != "space") Tracks.Add(new Track() { AccessKey = "space" });
                 _isLoading = false;
+               
                 return;
 
             }
             var tracks = await LoadTracks();
             if (tracks.Count == 0)
             {
+                _loadingService.Change(false);
+                if (Tracks[Tracks.Count - 1].AccessKey != "space") Tracks.Add(new Track() { AccessKey = "space" });
                 _maxTracks = _countTracks;
                 return;
+               
             }
 
             AddTracksToList(tracks);
@@ -98,6 +109,7 @@ namespace Fooxboy.MusicX.Uwp.ViewModels
 
             Changed("Tracks");
             _isLoading = false;
+            _loadingService.Change(false);
 
         }
 

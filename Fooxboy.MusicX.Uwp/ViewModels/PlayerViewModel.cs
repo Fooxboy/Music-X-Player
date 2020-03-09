@@ -22,6 +22,17 @@ namespace Fooxboy.MusicX.Uwp.ViewModels
         public string Title { get; set; }
         public string Artist { get; set; }
         public string Cover { get; set; }
+
+        public double Volume
+        {
+            get => PlayerSerivce.Volume *100;
+            set
+            {
+                if (PlayerSerivce.Volume == (value/100)) return;
+
+                PlayerSerivce.Volume = (value/100);
+            }
+        }
         public double Seconds
         {
             get => PlayerSerivce.Position.TotalSeconds;

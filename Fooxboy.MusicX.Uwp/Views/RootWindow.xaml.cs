@@ -29,6 +29,7 @@ namespace Fooxboy.MusicX.Uwp.Views
         public PlayerViewModel PlayerViewModel { get; set; }
         public NavigationRootViewModel NavigationViewModel { get; set; }
         public UserInfoViewModel UserInfoViewModel { get; set; }
+        public LoadingViewModel LoadingViewModel { get; set; }
         public RootWindow()
         {
             this.InitializeComponent();
@@ -41,6 +42,7 @@ namespace Fooxboy.MusicX.Uwp.Views
             navigationService.Go(typeof(HomeView));
 
             UserInfoViewModel = new UserInfoViewModel();
+            LoadingViewModel = new LoadingViewModel();
             
         }
 
@@ -49,12 +51,10 @@ namespace Fooxboy.MusicX.Uwp.Views
             await UserInfoViewModel.StartLoadingUserInfo();
         }
 
-        //private void RectangleBackground_SizeChanged(object sender, SizeChangedEventArgs e)
-        //{
-        //    BorderRectangleBackground.Width = e.NewSize.Width;
-        //    BorderRectangleBackground.Height = e.NewSize.Height;
-        //}
-
+        private void PersonPicture_Tapped(object sender, TappedRoutedEventArgs e)
+        {
+            FlyoutProfile.ShowAt((PersonPicture)sender);
+        }
 
     }
 }

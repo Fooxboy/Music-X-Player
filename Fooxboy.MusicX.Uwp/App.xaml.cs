@@ -75,6 +75,7 @@ namespace Fooxboy.MusicX.Uwp
             c.RegisterInstance<PlayerService>(new PlayerService());
             c.Register<TrackLoaderService>();
             c.Register<AlbumLoaderService>();
+            c.RegisterInstance<LoadingService>(new LoadingService());
             Container.SetContainer(c);
 
             Frame rootFrame = Window.Current.Content as Frame;

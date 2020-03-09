@@ -147,6 +147,7 @@
     <Compile Include="Models\Album.cs" />
     <Compile Include="Models\ArtistParameter.cs" />
     <Compile Include="Models\ConfigApp.cs" />
+    <Compile Include="Models\LoadingDelegate.cs" />
     <Compile Include="Models\Track.cs" />
     <Compile Include="Properties\Annotations.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -175,6 +176,7 @@
     <Compile Include="Services\AlbumLoaderService.cs" />
     <Compile Include="Services\ConfigService.cs" />
     <Compile Include="Services\InternetService.cs" />
+    <Compile Include="Services\LoadingService.cs" />
     <Compile Include="Services\NavigationService.cs" />
     <Compile Include="Services\PlayerService.cs" />
     <Compile Include="Services\StoreService.cs" />
@@ -183,6 +185,7 @@
     <Compile Include="Services\TokenService.cs" />
     <Compile Include="ViewModels\BaseViewModel.cs" />
     <Compile Include="ViewModels\HomeViewModel.cs" />
+    <Compile Include="ViewModels\LoadingViewModel.cs" />
     <Compile Include="ViewModels\LoginViewModel.cs" />
     <Compile Include="ViewModels\NavigationRootViewModel.cs" />
     <Compile Include="ViewModels\PlayerViewModel.cs" />
@@ -340,6 +343,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Styles\ListViewStyle.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Styles\ProfileImageStyles.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
