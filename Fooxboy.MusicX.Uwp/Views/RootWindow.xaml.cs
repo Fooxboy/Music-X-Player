@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices.WindowsRuntime;
+using VkNet.Model.GroupUpdate;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
 using Windows.UI.Xaml;
@@ -27,6 +28,7 @@ namespace Fooxboy.MusicX.Uwp.Views
     {
         public PlayerViewModel PlayerViewModel { get; set; }
         public NavigationRootViewModel NavigationViewModel { get; set; }
+        public UserInfoViewModel UserInfoViewModel { get; set; }
         public RootWindow()
         {
             this.InitializeComponent();
@@ -37,15 +39,22 @@ namespace Fooxboy.MusicX.Uwp.Views
             NavigationViewModel = new NavigationRootViewModel();
             navigationService.RootFrame = this.Root;
             navigationService.Go(typeof(HomeView));
+
+            UserInfoViewModel = new UserInfoViewModel();
             
         }
 
-        private void RectangleBackground_SizeChanged(object sender, SizeChangedEventArgs e)
+        private async void Page_Loaded(object sender, RoutedEventArgs e)
         {
-            BorderRectangleBackground.Width = e.NewSize.Width;
-            BorderRectangleBackground.Height = e.NewSize.Height;
+            await UserInfoViewModel.StartLoadingUserInfo();
         }
 
-     
+        //private void RectangleBackground_SizeChanged(object sender, SizeChangedEventArgs e)
+        //{
+        //    BorderRectangleBackground.Width = e.NewSize.Width;
+        //    BorderRectangleBackground.Height = e.NewSize.Height;
+        //}
+
+
     }
 }

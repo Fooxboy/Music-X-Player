@@ -8,6 +8,7 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:converters="using:Fooxboy.MusicX.Uwp.Converters" 
+    Loaded="Page_Loaded"
     
     mc:Ignorable="d"
     Background="{ThemeResource BackgroundApp}">
@@ -59,7 +60,7 @@
 
         <Frame x:Name="Root" VerticalAlignment="Stretch" HorizontalAlignment="Stretch"/>
         <Rectangle Height="70" VerticalAlignment="Top" Fill="{ThemeResource HeaderAcrylicBrush}"/>
-        <Grid Height="70" VerticalAlignment="Top" HorizontalAlignment="Stretch">
+        <Grid x:Name="BottomBar" Height="70" VerticalAlignment="Top" HorizontalAlignment="Stretch">
             <Grid.RowDefinitions>
                 <RowDefinition Height="32"/>
                 <RowDefinition Height="*"/>
@@ -67,11 +68,12 @@
 
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="250"/>
                 <ColumnDefinition Width="110"/>
             </Grid.ColumnDefinitions>
 
             <StackPanel Margin="15 0 0 0" Grid.Column="0" Orientation="Horizontal" Grid.Row="1">
-                
+
                 <StackPanel Orientation="Vertical">
                     <Button Style="{StaticResource MenuButton}" >
                         <StackPanel Orientation="Horizontal">
@@ -114,8 +116,13 @@
 
             </StackPanel>
 
-            <StackPanel Orientation="Horizontal" Grid.Row="1" Grid.Column="1">
-                <PersonPicture Margin="30 0 0 0" Height="25"  Width="25"/>
+            <StackPanel Height="38" Orientation="Horizontal" Grid.Column="1" Grid.Row="1">
+                <TextBox Height="33" Margin="0 0 0 5" Style="{ThemeResource StandardTextBoxStyle}" x:Name="SearchBox" Width="250" PlaceholderText="Найдите что нибудь..."/>
+                
+            </StackPanel>
+            
+            <StackPanel Orientation="Horizontal" Grid.Row="1" Grid.Column="2">
+                <PersonPicture  ProfilePicture="{x:Bind UserInfoViewModel.UserPhotoUri, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Margin="30 0 0 0" Height="25"  Width="25"/>
                 <Button FontSize="16" Margin="10 0 0 0" Background="Transparent" BorderThickness="0"  CornerRadius="1" Height="35" Width="35"  FontFamily="Segoe MDL2 Assets" Content="&#xE712;" />
             </StackPanel>
         </Grid>
@@ -130,9 +137,9 @@
                 <ColumnDefinition Width="auto"/>
             </Grid.ColumnDefinitions>
             
-            <Rectangle x:Name="RectangleBackground" SizeChanged="RectangleBackground_SizeChanged" Grid.ColumnSpan="4" RadiusX="10" RadiusY="10" Fill ="{ThemeResource BottomAcrylicBrush}"/>
+            <Rectangle x:Name="RectangleBackground"  Grid.ColumnSpan="4" RadiusX="10" RadiusY="10" Fill ="{ThemeResource BottomAcrylicBrush}"/>
             
-            <controls:DropShadowPanel  Grid.ColumnSpan="4" BlurRadius="30"
+            <!--<controls:DropShadowPanel  Grid.ColumnSpan="4" BlurRadius="30"
                                   ShadowOpacity="0.4"
                                   OffsetX="0"
                                   OffsetY="0"
@@ -143,7 +150,7 @@
                                   IsMasked="True">
                 <Border x:Name="BorderRectangleBackground" Opacity="0"  CornerRadius="10"/>
 
-            </controls:DropShadowPanel>
+            </controls:DropShadowPanel>-->
 
             <controls:DropShadowPanel Margin="15 0 20 0" Grid.Column="0" BlurRadius="20"
                                   ShadowOpacity="0.4"

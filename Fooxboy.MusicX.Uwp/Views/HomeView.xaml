@@ -99,36 +99,21 @@
                     </Button>
 
                     <controls:AdaptiveGridView SelectionMode="None"
+                                               
                                                ScrollViewer.HorizontalScrollBarVisibility="Auto"
                                                ScrollViewer.HorizontalScrollMode="Enabled"
                                                
                               Grid.Row="1"
                                                
                               ItemTemplate="{ThemeResource PlaylistDataTemplate}"
-                              ItemsSource="{x:Bind ViewModel.Albums}">
+                              ItemsSource="{x:Bind ViewModel.Albums, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
                         <GridView.ItemsPanel>
                             <ItemsPanelTemplate>
                                 <StackPanel Orientation="Horizontal"/>
                             </ItemsPanelTemplate>
                         </GridView.ItemsPanel>
 
-                        <controls:AdaptiveGridView.Items>
-                            <models:Album Title="Название альбома"/>
-                            <models:Album Title="Название альбома"/>
-                            <models:Album Title="Название альбома"/>
-                            <models:Album Title="Название альбома"/>
-                            <models:Album Title="Название альбома"/>
-                            <models:Album Title="Название альбома"/>
-                            <models:Album Title="Название альбома"/>
-                            <models:Album Title="Название альбома"/>
-                            <models:Album Title="Название альбома"/>
-                            <models:Album Title="Название альбома"/>
-                            <models:Album Title="Название альбома"/>
-                            <models:Album Title="Название альбома"/>
-                            <models:Album Title="Название альбома"/>
-                            <models:Album Title="Название альбома"/>
-                            <models:Album Title="Hello1"/>
-                        </controls:AdaptiveGridView.Items>
+                       
                     </controls:AdaptiveGridView>
                     <myControls:PlaylistControl Visibility="Collapsed" Grid.Row="1" HorizontalAlignment="Left" Height="200" Width="200"/>
                 </Grid>

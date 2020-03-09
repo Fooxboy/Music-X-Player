@@ -1,4 +1,5 @@
 ﻿using DryIoc;
+using Fooxboy.MusicX.Uwp.Converters;
 using Fooxboy.MusicX.Uwp.Services;
 using System;
 using System.Collections.Generic;
@@ -69,8 +70,8 @@ namespace Fooxboy.MusicX.Uwp.ViewModels
         {
             SecondsAll = PlayerSerivce.Duration.TotalSeconds;
             Seconds = PlayerSerivce.Position.TotalSeconds;
-            Time = Convert.ToInt64(Seconds).ToString();
-            AllTime = SecondsAll.ToString();
+            Time = Seconds.ConvertToTime();
+            AllTime = SecondsAll.ConvertToTime();
             Changed("SecondsAll");
             Changed("Seconds");
             Changed("Time");

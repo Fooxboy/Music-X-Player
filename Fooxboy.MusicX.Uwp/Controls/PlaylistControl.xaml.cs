@@ -71,7 +71,8 @@ namespace Fooxboy.MusicX.Uwp.Resources.Controls
             get => (Album)GetValue(PlaylistProperty);
             set
             {
-                foreach(var artist in value.Artists) Artists += artist.Name + ", ";
+                
+                
                 SetValue(PlaylistProperty, value);
             }
         }
@@ -104,6 +105,19 @@ namespace Fooxboy.MusicX.Uwp.Resources.Controls
         {
             BorderShadow.Height = e.NewSize.Height;
             BorderShadow.Width = e.NewSize.Width;
+        }
+
+        private void UserControl_Loaded(object sender, RoutedEventArgs e)
+        {
+            if (Album.Artists != null)
+            {
+                if(Album.Artists.Count > 0) ArtistsText.Text = Album.Artists[0].Name;
+
+            }
+            else
+            {
+                ArtistsText.Text = "Без исполнителя";
+            }
         }
     }
 }

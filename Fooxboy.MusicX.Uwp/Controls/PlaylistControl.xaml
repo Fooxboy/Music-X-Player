@@ -8,6 +8,7 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     d:DesignHeight="300"
     d:DesignWidth="400"
+    Loaded="UserControl_Loaded"
     mc:Ignorable="d">
 
     <Grid>
@@ -36,13 +37,13 @@
             Grid.RowSpan="2" 
             BlurRadius="40"                   
             ShadowOpacity="0.6"
-                                  OffsetX="0"
-                                  OffsetY="10"
-                                  Color="Black"
-                                              CornerRadius="4"
-                                              VerticalAlignment="Center"
-                                              HorizontalAlignment="Center"
-                                  IsMasked="True">
+            OffsetX="0"
+            OffsetY="10"
+            Color="Black"
+            CornerRadius="4"
+            VerticalAlignment="Center"
+            HorizontalAlignment="Center"
+            IsMasked="True">
             <Border  x:Name="BorderShadow" Background="Transparent" CornerRadius="4"/>
 
         </controls:DropShadowPanel>
@@ -64,7 +65,7 @@
         <Rectangle  Margin="20 0 20 20" RadiusX="4" RadiusY="4" Grid.Row="1"  Fill="{ThemeResource BottomAcrylicBrush}"/>
         <StackPanel Margin="25 0 25 25" Grid.Row="1">
             <TextBlock Foreground="{ThemeResource MainTextColor}" FontWeight="Bold" TextTrimming="CharacterEllipsis" Text="{x:Bind Album.Title}"/>
-            <TextBlock Foreground="{ThemeResource ColorArtistText}" TextTrimming="CharacterEllipsis" Text="{x:Bind Artists}"/>
+            <TextBlock x:Name="ArtistsText" Foreground="{ThemeResource ColorArtistText}" TextTrimming="CharacterEllipsis" Text="{x:Bind Artists}"/>
         </StackPanel>
     </Grid>
 </UserControl>

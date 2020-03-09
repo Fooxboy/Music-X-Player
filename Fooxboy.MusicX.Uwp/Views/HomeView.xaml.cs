@@ -55,6 +55,7 @@ namespace Fooxboy.MusicX.Uwp.Views
         private async void Page_Loaded(object sender, RoutedEventArgs e)
         {
             await ViewModel.GetMaxTracks();
+            await ViewModel.StartLoadingAlbums();
             await ViewModel.StartLoadingTracks();
         }
 

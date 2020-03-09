@@ -10,7 +10,7 @@ using VkNet.Enums.Filters;
 
 namespace Fooxboy.MusicX.Core.VKontakte.Users
 {
-    public  class Info
+    public class Info
     {
         private readonly VkApi _api;
         public Info(VkApi api)

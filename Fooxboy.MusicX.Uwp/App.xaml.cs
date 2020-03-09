@@ -74,6 +74,7 @@ namespace Fooxboy.MusicX.Uwp
             c.Register<TokenService>(made: Made.Of(() => new TokenService(Arg.Of<ConfigService>())));
             c.RegisterInstance<PlayerService>(new PlayerService());
             c.Register<TrackLoaderService>();
+            c.Register<AlbumLoaderService>();
             Container.SetContainer(c);
 
             Frame rootFrame = Window.Current.Content as Frame;

@@ -1,5 +1,6 @@
 ﻿using DryIoc;
 using Fooxboy.MusicX.Core;
+using Fooxboy.MusicX.Core.Interfaces;
 using Fooxboy.MusicX.Core.VKontakte.Music;
 using Fooxboy.MusicX.Uwp.Converters;
 using Fooxboy.MusicX.Uwp.Models;
@@ -17,7 +18,7 @@ namespace Fooxboy.MusicX.Uwp.ViewModels
     {
         public ObservableCollection<Album> Albums { get; set; }
         public ObservableCollection<Track> Tracks { get; set; }
-
+      
         private int _countTracks { get; set; }
         private long _maxTracks { get; set; }
         private bool _isLoading;
@@ -30,6 +31,7 @@ namespace Fooxboy.MusicX.Uwp.ViewModels
         {
             Tracks = new ObservableCollection<Track>();
             Albums = new ObservableCollection<Album>();
+            
             _count = 20;
             _player = Container.Get.Resolve<PlayerService>();
             _libraryAlbum = new Album()
@@ -38,13 +40,26 @@ namespace Fooxboy.MusicX.Uwp.ViewModels
                 IsAvailable = true,
                 Tracks = new System.Collections.Generic.List<Core.Interfaces.ITrack>()
             };
+            
         }
 
+      
 
         public async Task StartLoadingAlbums()
         {
-            
+
             //TODO: старт загрузки альбомов.
+
+            var albums = await LoadAlbums();
+            foreach (var a in albums) Albums.Add(a);
+            Changed("Albums");
+        }
+
+        private async Task<System.Collections.Generic.List<Album>> LoadAlbums()
+        {
+            var loader = Container.Get.Resolve<AlbumLoaderService>();
+            var albums = await loader.GetLibraryAlbums(0, 10);
+            return albums;
         }
 
         public async Task GetMaxTracks()
