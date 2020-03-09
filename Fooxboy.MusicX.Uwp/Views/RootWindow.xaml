@@ -7,8 +7,14 @@
     xmlns:controls="using:Microsoft.Toolkit.Uwp.UI.Controls"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:converters="using:Fooxboy.MusicX.Uwp.Converters" 
+    
     mc:Ignorable="d"
     Background="{ThemeResource BackgroundApp}">
+
+    <Page.Resources>
+        <converters:BoolToVisibilityConverter x:Key="ToVisibility"/>
+    </Page.Resources>
 
     <Grid>
 
@@ -115,7 +121,7 @@
         </Grid>
 
         
-        <Grid x:Name="GridButtom" Height="55" Grid.Row="1" Margin="100 0 100 20" HorizontalAlignment="Stretch" VerticalAlignment="Bottom">
+        <Grid x:Name="GridButtom" Height="60" Grid.Row="1" Margin="100 0 100 20" HorizontalAlignment="Stretch" VerticalAlignment="Bottom">
 
             <Grid.ColumnDefinitions>
                 <ColumnDefinition/>
@@ -123,9 +129,6 @@
                 <ColumnDefinition />
                 <ColumnDefinition Width="auto"/>
             </Grid.ColumnDefinitions>
-
-            
-
             
             <Rectangle x:Name="RectangleBackground" SizeChanged="RectangleBackground_SizeChanged" Grid.ColumnSpan="4" RadiusX="10" RadiusY="10" Fill ="{ThemeResource BottomAcrylicBrush}"/>
             
@@ -162,7 +165,7 @@
                                 DecodePixelHeight="40"
                                 DecodePixelWidth="40"
                                 CornerRadius="3"
-                                 Source="{x:Bind PlayerViewModel.Cover, Mode=TwoWay}"
+                                 Source="{x:Bind PlayerViewModel.Cover, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                                 Stretch="Fill"
                                 IsCacheEnabled="False"
                                 PlaceholderSource="ms-appx:///Assets/Images/placeholder-track.png" />
@@ -170,7 +173,7 @@
                 
             </StackPanel>
 
-            <Grid Grid.Column="0" Margin="84 0 0 0">
+            <Grid Grid.Column="0" Margin="70 0 0 0">
                 <Grid.RowDefinitions>
                     <RowDefinition/>
                     <RowDefinition/>
@@ -180,17 +183,17 @@
                            TextTrimming="CharacterEllipsis"
                            HorizontalAlignment="Stretch"
                            FontWeight="Medium"
-                           FontSize="22" 
+                           FontSize="17" 
                            Grid.Row="0" 
-                           Text="{x:Bind PlayerViewModel.Title}"/>
+                           Text="{x:Bind PlayerViewModel.Title, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
                 
                 <TextBlock Margin="0 0 0 0" 
                            TextTrimming="CharacterEllipsis" 
                            HorizontalAlignment="Stretch"
                            Foreground="{ThemeResource ColorArtistText}"
-                           FontSize="19"
+                           FontSize="13"
                            Grid.Row="1" 
-                           Text="{x:Bind PlayerViewModel.Artist}"/>
+                           Text="{x:Bind PlayerViewModel.Artist, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
             </Grid>
 
             <Grid Grid.Column="1" x:Name="GridButtons">
@@ -227,8 +230,8 @@
                         Content="&#xE892;" />
 
                 <Grid Grid.Column="3" >
-                    <Button Grid.Column="1" BorderThickness="0" Visibility="{x:Bind PlayerViewModel.VisibilityPause}" Command="{x:Bind PlayerViewModel.PauseCommand}" Background="Transparent" CornerRadius="99" FontSize="20" Height="43" Width="43" FontFamily="Segoe MDL2 Assets" Content="&#xE768;" />
-                    <Button Grid.Column="0" BorderThickness="0" Visibility= "{x:Bind PlayerViewModel.IsPlay}" Command="{x:Bind PlayerViewModel.PlayCommand}" Background="Transparent" CornerRadius="99" FontSize="20" Height="43" Width="43" FontFamily="Segoe MDL2 Assets" Content="&#xE769;" />
+                    <Button Grid.Column="1" BorderThickness="0" Visibility="{x:Bind PlayerViewModel.VisibilityPlay, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, Converter={StaticResource ToVisibility}}" Command="{x:Bind PlayerViewModel.PlayCommand}" Background="Transparent" CornerRadius="99" FontSize="20" Height="43" Width="43" FontFamily="Segoe MDL2 Assets" Content="&#xE768;" />
+                    <Button Grid.Column="0" BorderThickness="0" Visibility= "{x:Bind PlayerViewModel.IsPlay, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, Converter={StaticResource ToVisibility}}" Command="{x:Bind PlayerViewModel.PauseCommand}" Background="Transparent" CornerRadius="99" FontSize="20" Height="43" Width="43" FontFamily="Segoe MDL2 Assets" Content="&#xE769;" />
                 </Grid>
 
                 <Button Grid.Column="4"
@@ -260,14 +263,14 @@
                     <ColumnDefinition Width="auto"/>
                 </Grid.ColumnDefinitions>
 
-                <TextBlock Grid.Column="0" Text="{x:Bind PlayerViewModel.Time, Mode=TwoWay}" VerticalAlignment="Center"/>
+                <TextBlock Grid.Column="0" Text="{x:Bind PlayerViewModel.Time, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" VerticalAlignment="Center"/>
                 <Slider x:Name="SliderTrack" Margin="5 0 5 0" Style="{StaticResource SliderPlayerStyle}"
                     VerticalAlignment="Center"
                     HorizontalAlignment="Stretch"
                     Maximum="{x:Bind PlayerViewModel.SecondsAll, Mode=TwoWay}"
                         Grid.Column="1"
-                    Value="{x:Bind PlayerViewModel.Seconds}"/>
-                <TextBlock Grid.Column="2" VerticalAlignment="Center" Text="{x:Bind PlayerViewModel.AllTime, Mode=TwoWay}"/>
+                    Value="{x:Bind PlayerViewModel.Seconds, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+                <TextBlock Grid.Column="2" VerticalAlignment="Center" Text="{x:Bind PlayerViewModel.AllTime, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
                 
             </Grid>
 

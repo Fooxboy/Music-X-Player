@@ -1,4 +1,5 @@
 ﻿
+using Fooxboy.MusicX.Core.VKontakte.Music;
 using Fooxboy.MusicX.Uwp.Converters;
 using Fooxboy.MusicX.Uwp.Models;
 using Microsoft.Toolkit.Uwp.Helpers;
@@ -19,12 +20,15 @@ namespace Fooxboy.MusicX.Uwp.Services
         private List<Track> _tracks;
         private Track _currentTrack;
         private readonly int _repeatMode;
-        DispatcherTimer _positionTimer;
-        MediaPlayer _mediaPlayer;
+        private DispatcherTimer _positionTimer;
+        private MediaPlayer _mediaPlayer;
+        private Action<Task<List<Track>>> _loadMore;
 
         public event EventHandler PlayStateChangedEvent;
         public event EventHandler<TimeSpan> PositionTrackChangedEvent;
         public event EventHandler TrackChangedEvent;
+
+
 
         public PlayerService()
         {
@@ -86,6 +90,7 @@ namespace Fooxboy.MusicX.Uwp.Services
                 {
                     _mediaPlayer.Source = MediaSource.CreateFromUri(_currentTrack.Url);
                     _mediaPlayer.Play();
+                    TrackChangedEvent?.Invoke(this, EventArgs.Empty);
 
                 } else _mediaPlayer.Play();
             }
@@ -97,13 +102,18 @@ namespace Fooxboy.MusicX.Uwp.Services
 
         public void Play(Album album, int index)
         {
-            Pause();
+            Play(album, index, album.Tracks.ToListTrack());
+        }
 
+        public void Play(Album album, int index, List<Track> tracks)
+        {
+            Pause();
             _currentAlbum = album;
-            _tracks = album.Tracks.ToListTrack();
+            _tracks = tracks;
             _currentTrack = _tracks[index];
 
             Seek(TimeSpan.Zero);
+            _mediaPlayer.Source = null;
             Play();
         }
 
@@ -111,6 +121,12 @@ namespace Fooxboy.MusicX.Uwp.Services
         {
             var index = album.Tracks.ToListTrack().IndexOf(track);
             Play(album, index);
+        }
+
+        public void Play(Album album, Track track, List<Track> tracks)
+        {
+            var index = tracks.IndexOf(track);
+            Play(album, index, tracks);
         }
 
         public void Play(Track track)
@@ -135,6 +151,8 @@ namespace Fooxboy.MusicX.Uwp.Services
 
         public void NextTrack()
         {
+            Pause();
+            _mediaPlayer.Source = null;
             var index = _tracks.IndexOf(_currentTrack) + 1;
             if(index > _tracks.Count - 1)
             {
@@ -142,7 +160,6 @@ namespace Fooxboy.MusicX.Uwp.Services
                 else return;
             }
             Seek(TimeSpan.Zero);
-            Pause();
             _currentTrack = _tracks[index];
             TrackChangedEvent?.Invoke(this, EventArgs.Empty);
             Play();
@@ -153,16 +170,21 @@ namespace Fooxboy.MusicX.Uwp.Services
             if (Position.TotalSeconds < 4) Seek(TimeSpan.Zero);
             else
             {
+                Pause();
+                _mediaPlayer.Source = null;
                 var index = _tracks.IndexOf(_currentTrack) - 1;
                 if (index < 0) index = _tracks.Count - 1;
                 Seek(TimeSpan.Zero);
-                Pause();
                 _currentTrack = _tracks[index];
                 TrackChangedEvent?.Invoke(this, EventArgs.Empty);
                 Play();
             }
         }
 
+        public void SetLoadMore(Action<Task<List<Track>>> action)
+        {
+            _loadMore = action;
+        }
         public void Seek(TimeSpan position)
         {
             try
@@ -185,7 +207,7 @@ namespace Fooxboy.MusicX.Uwp.Services
                 else
                     _positionTimer.Stop();
 
-                TrackChangedEvent?.Invoke(this, EventArgs.Empty);
+                PlayStateChangedEvent?.Invoke(this, EventArgs.Empty);
             });
         }
 

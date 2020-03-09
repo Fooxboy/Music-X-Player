@@ -45,5 +45,7 @@ namespace Fooxboy.MusicX.Uwp.Views
             BorderRectangleBackground.Width = e.NewSize.Width;
             BorderRectangleBackground.Height = e.NewSize.Height;
         }
+
+     
     }
 }

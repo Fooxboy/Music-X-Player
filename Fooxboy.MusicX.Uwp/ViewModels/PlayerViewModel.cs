@@ -16,12 +16,22 @@ namespace Fooxboy.MusicX.Uwp.ViewModels
         public RelayCommand PauseCommand { get; set; }
         public RelayCommand NextCommand { get; set; }
         public RelayCommand PreviousCommand { get; set; }
-        public bool IsPlay => PlayerSerivce.IsPlaying;
-        public bool VisibilityPause => !IsPlay;
+        public bool IsPlay { get; set; }
+        public bool VisibilityPlay { get; set; }
         public string Title { get; set; }
         public string Artist { get; set; }
         public string Cover { get; set; }
-        public double Seconds { get; set; }
+        public double Seconds
+        {
+            get => PlayerSerivce.Position.TotalSeconds;
+            set
+            {
+                if (PlayerSerivce.Position.TotalSeconds == value)
+                    return;
+
+                PlayerSerivce.Seek(TimeSpan.FromSeconds(value));
+            }
+        }
         public double SecondsAll { get; set; }
         public string Time { get; set; }
         public string AllTime { get; set; }
@@ -37,12 +47,16 @@ namespace Fooxboy.MusicX.Uwp.ViewModels
             PlayerSerivce.PlayStateChangedEvent += PlayStateChanged;
             PlayerSerivce.PositionTrackChangedEvent += PositionTrackChanged;
             PlayerSerivce.TrackChangedEvent += TrackChanged;
+
+            VisibilityPlay = true;
+            IsPlay = false;
         }
 
         private void TrackChanged(object sender, EventArgs e)
         {
             Title = PlayerSerivce.CurrentTrack.Title;
-            foreach(var artist in PlayerSerivce.CurrentTrack.Artists) Artist += $", {artist.Name}";
+            //foreach(var artist in PlayerSerivce.CurrentTrack.Artists) Artist += $", {artist.Name}";
+            Artist = PlayerSerivce.CurrentTrack.Artist;
             Cover = PlayerSerivce.CurrentTrack.Album?.Cover;
             SecondsAll = PlayerSerivce.Duration.TotalSeconds;
             Changed("Title");
@@ -55,7 +69,7 @@ namespace Fooxboy.MusicX.Uwp.ViewModels
         {
             SecondsAll = PlayerSerivce.Duration.TotalSeconds;
             Seconds = PlayerSerivce.Position.TotalSeconds;
-            Time = Seconds.ToString();
+            Time = Convert.ToInt64(Seconds).ToString();
             AllTime = SecondsAll.ToString();
             Changed("SecondsAll");
             Changed("Seconds");
@@ -65,8 +79,15 @@ namespace Fooxboy.MusicX.Uwp.ViewModels
 
         private void PlayStateChanged(object sender, EventArgs e)
         {
+            IsPlay = PlayerSerivce.IsPlaying;
+            VisibilityPlay = !IsPlay;
             Changed("IsPlay");
-            Changed("VisibilityPause");
+            Changed("VisibilityPlay");
+        }
+
+        public void SeekToPosition(long position)
+        {
+            PlayerSerivce.Seek(TimeSpan.FromSeconds(position));
         }
     }
 }

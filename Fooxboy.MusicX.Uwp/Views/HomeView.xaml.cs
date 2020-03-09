@@ -1,5 +1,6 @@
 ﻿using DryIoc;
 using Fooxboy.MusicX.Core;
+using Fooxboy.MusicX.Uwp.Models;
 using Fooxboy.MusicX.Uwp.ViewModels;
 using System;
 using System.Collections.Generic;
@@ -44,7 +45,7 @@ namespace Fooxboy.MusicX.Uwp.Views
             var max = scroll.ScrollableHeight;
 
             //Долистали до конца, загружаем еще треков.
-            if(max - current < 30)
+            if(max - current < 80)
             {
                 await ViewModel.StartLoadingTracks();
             }
@@ -55,6 +56,12 @@ namespace Fooxboy.MusicX.Uwp.Views
         {
             await ViewModel.GetMaxTracks();
             await ViewModel.StartLoadingTracks();
+        }
+
+        private async void TracksListView_ItemClick(object sender, ItemClickEventArgs e)
+        {
+            var track = (Track)e.ClickedItem;
+            await ViewModel.PlayTrack(track);
         }
     }
 }

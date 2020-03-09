@@ -12,6 +12,8 @@
     Loaded="Page_Loaded"
     Background="{ThemeResource BackgroundApp}">
 
+   
+
     <Grid>
 
         <VisualStateManager.VisualStateGroups>
@@ -133,7 +135,7 @@
 
                 <Grid Grid.Row="1">
                     <TextBlock x:Name="MusicText" Grid.Row="0" Margin="70 10 0 0" FontWeight="ExtraBold" FontFamily="Calibri" FontSize="38" Text="Ваша музыка"/>
-                    <ListView  x:Name="TracksListView" ItemsSource="{x:Bind ViewModel.Tracks, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" ItemContainerStyle="{StaticResource ListViewItemContainerStyle}" Style="{ThemeResource ListViewStyle}" HorizontalAlignment="Stretch" Grid.Row="0" ItemTemplate="{ThemeResource TrackDataTemplate}">
+                    <ListView IsItemClickEnabled="True" ItemClick="TracksListView_ItemClick" x:Name="TracksListView" ItemsSource="{x:Bind ViewModel.Tracks, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" ItemContainerStyle="{StaticResource ListViewItemContainerStyle}" Style="{ThemeResource ListViewStyle}" HorizontalAlignment="Stretch" Grid.Row="0" ItemTemplate="{ThemeResource TrackDataTemplate}">
                         <ListView.ItemsPanel>
                             <ItemsPanelTemplate>
                                 <ItemsStackPanel HorizontalAlignment="Stretch" Orientation="Vertical" VerticalAlignment="Stretch" />

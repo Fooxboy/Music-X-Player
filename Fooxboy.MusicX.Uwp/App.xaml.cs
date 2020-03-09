@@ -72,7 +72,7 @@ namespace Fooxboy.MusicX.Uwp
             c.RegisterInstance<Api>(Core.Api.GetApi());
             c.Register<ConfigService>();
             c.Register<TokenService>(made: Made.Of(() => new TokenService(Arg.Of<ConfigService>())));
-            c.Register<PlayerService>();
+            c.RegisterInstance<PlayerService>(new PlayerService());
             c.Register<TrackLoaderService>();
             Container.SetContainer(c);
 

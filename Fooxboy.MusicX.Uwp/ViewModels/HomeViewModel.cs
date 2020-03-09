@@ -21,8 +21,9 @@ namespace Fooxboy.MusicX.Uwp.ViewModels
         private int _countTracks { get; set; }
         private long _maxTracks { get; set; }
         private bool _isLoading;
-
         private int _count;
+        private PlayerService _player;
+        private Album _libraryAlbum;
 
 
         public HomeViewModel()
@@ -30,6 +31,13 @@ namespace Fooxboy.MusicX.Uwp.ViewModels
             Tracks = new ObservableCollection<Track>();
             Albums = new ObservableCollection<Album>();
             _count = 20;
+            _player = Container.Get.Resolve<PlayerService>();
+            _libraryAlbum = new Album()
+            {
+                Title = "Ваша музыка",
+                IsAvailable = true,
+                Tracks = new System.Collections.Generic.List<Core.Interfaces.ITrack>()
+            };
         }
 
 
@@ -49,11 +57,6 @@ namespace Fooxboy.MusicX.Uwp.ViewModels
         {
             if (_isLoading) return;
             _isLoading = true;
-            //RemoveElements();
-
-            //Tracks.Add(new Track() { AccessKey = "loading" });
-            //Changed("Tracks");
-
             
             if (_maxTracks == _countTracks)
             {
@@ -72,23 +75,11 @@ namespace Fooxboy.MusicX.Uwp.ViewModels
             AddTracksToList(tracks);
         }
 
-        private void RemoveElements()
-        {
-            var elems = Tracks.Where(t => t.AccessKey == "loading" || t.AccessKey == "space").ToList();
-            foreach (var elem in elems)
-            {
-                Tracks.Remove(elem);
-            }
-            var i = 1 + 1;
-        }
-
+       
         private void AddTracksToList(System.Collections.Generic.List<Track> tracks)
         {
-            //RemoveElements();
             foreach (var track in tracks) Tracks.Add(track);     
             _countTracks += tracks.Count;
-
-            //Tracks.Add(new Track() { AccessKey = "space" });
 
             Changed("Tracks");
             _isLoading = false;
@@ -102,6 +93,11 @@ namespace Fooxboy.MusicX.Uwp.ViewModels
             var tracks = await loader.GetLibraryTracks(_countTracks, _count);
 
             return tracks;
+        }
+
+        public async Task PlayTrack(Track track)
+        {
+            _player.Play(_libraryAlbum, track, Tracks.ToList());
         }
     }
 }
