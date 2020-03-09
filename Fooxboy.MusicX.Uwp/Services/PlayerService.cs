@@ -216,6 +216,11 @@ namespace Fooxboy.MusicX.Uwp.Services
             NextTrack();
         }
 
+        public void SetRepeatMode(int i)
+        {
+            _repeatMode = i;
+        }
+
 
         private void MediaPlayerOnMediaFailed(MediaPlayer sender, MediaPlayerFailedEventArgs args)
         {

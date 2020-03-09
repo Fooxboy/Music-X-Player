@@ -34,6 +34,7 @@
                         <Setter Target="text4.Visibility" Value="Visible"/>
                         <Setter Target="SliderTrack.Visibility" Value="Visible"/>
                         <Setter Target="GridButtons.Grid.ColumnSpan" Value="1"/>
+                        <Setter Target="SearchBox.Width" Value="250"/>
                     </VisualState.Setters>
                 </VisualState>
 
@@ -51,6 +52,8 @@
                         <Setter Target="text4.Visibility" Value="Collapsed"/>
                         <Setter Target="SliderTrack.Visibility" Value="Collapsed"/>
                         <Setter Target="GridButtons.Grid.ColumnSpan" Value="2"/>
+                        <Setter Target="SearchBox.Width" Value="150"/>
+
                     </VisualState.Setters>
                 </VisualState>
 
@@ -59,7 +62,7 @@
         <Frame x:Name="Root" VerticalAlignment="Stretch" HorizontalAlignment="Stretch"/>
         <Rectangle Height="70" VerticalAlignment="Top" Fill="{ThemeResource HeaderAcrylicBrush}"/>
         <ProgressBar IsIndeterminate="True" ShowPaused="False" Visibility="{x:Bind LoadingViewModel.IsLoading, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, Converter={StaticResource ToVisibility}}"  ShowError="False" HorizontalAlignment="Stretch" VerticalAlignment="Top" Height="20"/>
-        <Grid x:Name="BottomBar" Height="70" VerticalAlignment="Top" HorizontalAlignment="Stretch">
+        <Grid x:Name="TopBar" Height="70" VerticalAlignment="Top" HorizontalAlignment="Stretch">
             <Grid.RowDefinitions>
                 <RowDefinition Height="32"/>
                 <RowDefinition Height="*"/>
@@ -67,7 +70,7 @@
 
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="*"/>
-                <ColumnDefinition Width="250"/>
+                <ColumnDefinition Width="auto"/>
                 <ColumnDefinition Width="110"/>
             </Grid.ColumnDefinitions>
 
@@ -115,7 +118,7 @@
 
             </StackPanel>
 
-            <StackPanel Height="38" Orientation="Horizontal" Grid.Column="1" Grid.Row="1">
+            <StackPanel HorizontalAlignment="Right" Height="38" Orientation="Horizontal" Grid.Column="1" Grid.Row="1">
                 <TextBox Height="33" Margin="0 0 0 5" Style="{ThemeResource StandardTextBoxStyle}" x:Name="SearchBox" Width="250" PlaceholderText="Найдите что нибудь..."/>
                 
             </StackPanel>
@@ -217,12 +220,14 @@
 
                 </Grid.ColumnDefinitions>
 
-                <Button Grid.Column="1"
+                <ToggleButton Grid.Column="1"
                         Background="Transparent" 
                         CornerRadius="99"
                         FontSize="17"
                         BorderThickness="0"
                         Height="37"
+                        IsChecked="{x:Bind PlayerViewModel.IsRepeat, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                              
                         Width="37" 
                         FontFamily="Segoe MDL2 Assets" 
                         Content="&#xE1CD;" />
@@ -254,7 +259,7 @@
                         FontFamily="Segoe MDL2 Assets"
                         Content="&#xE893;" />
 
-                <Button Grid.Column="5"
+                <ToggleButton Grid.Column="5"
                         Background="Transparent"
                         CornerRadius="99"
                         FontSize="17"
