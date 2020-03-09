@@ -43,21 +43,18 @@ namespace Fooxboy.MusicX.Uwp.Views
             var current = scroll.VerticalOffset;
             var max = scroll.ScrollableHeight;
 
-            text1.Text = $"current: {current} max: {max} isEnd = {max - current < 100}";
-
-
-            //if(max- current < 100)
-            //{
-            //    //Loading tracks...ъ
-            //    await ViewModel.StartLoadingTracks();
-
-            //}
+            //Долистали до конца, загружаем еще треков.
+            if(max - current < 30)
+            {
+                await ViewModel.StartLoadingTracks();
+            }
 
         }
 
         private async void Page_Loaded(object sender, RoutedEventArgs e)
         {
             await ViewModel.GetMaxTracks();
+            await ViewModel.StartLoadingTracks();
         }
     }
 }

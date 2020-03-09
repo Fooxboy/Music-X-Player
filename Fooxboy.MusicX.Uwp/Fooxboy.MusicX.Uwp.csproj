@@ -171,6 +171,7 @@
     <Compile Include="Controls\TrackControl.xaml.cs">
       <DependentUpon>TrackControl.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Services\AlbumLoaderService.cs" />
     <Compile Include="Services\ConfigService.cs" />
     <Compile Include="Services\InternetService.cs" />
     <Compile Include="Services\NavigationService.cs" />

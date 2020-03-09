@@ -18,17 +18,17 @@ namespace Fooxboy.MusicX.Core.VKontakte.Music.Converters
             {
                 track.AccessKey = audio.AccessKey;
                 track.Duration = TimeSpan.FromSeconds(audio.Duration);
-                track.GenreId = (int) audio.Genre;
+                track.GenreId = audio.Genre == null? 0: (int)audio.Genre;
                 track.Id = audio.Id.Value;
                 if (audio.Album != null)
                 {
                     try
                     {
                         IAlbum alb = new Models.Album();
-                        alb.AccessKey = audio.Album.AccessKey;
+                        alb.AccessKey = audio.Album?.AccessKey;
                         alb.Id = audio.Album.Id;
                         alb.OwnerId = audio.Album.OwnerId;
-                        alb.Title = audio.Album.Title ?? "";
+                        alb.Title = audio.Album?.Title ?? "";
                         alb.Cover = audio.Album.Cover?.Photo300;
                         track.Album = alb;
                     }

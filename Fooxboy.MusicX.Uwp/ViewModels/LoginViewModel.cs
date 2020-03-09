@@ -61,7 +61,8 @@ namespace Fooxboy.MusicX.Uwp.ViewModels
                 Changed("VisibilityPersonImage");
                 Changed("Image");
 
-                Thread.Sleep(3000);
+
+                await Task.Delay(3000);
                 var currentFrame = Window.Current.Content as Frame;
                 currentFrame.Navigate(typeof(RootWindow));
             }

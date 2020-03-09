@@ -126,5 +126,19 @@ namespace Fooxboy.MusicX.Uwp.Resources.Controls
                 }
             }
         }
+
+        private void UserControl_Loaded(object sender, RoutedEventArgs e)
+        {
+            if(Track.AccessKey == "loading")
+            {
+                LoadingGrid.Visibility = Visibility.Visible;
+                TrackGrid.Visibility = Visibility.Collapsed;
+            }else if(Track.AccessKey == "space")
+            {
+                LoadingGrid.Visibility = Visibility.Visible;
+                TrackGrid.Visibility = Visibility.Collapsed;
+                progressRing.Visibility = Visibility.Collapsed;
+            }
+        }
     }
 }
