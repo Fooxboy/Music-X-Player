@@ -19,7 +19,7 @@ namespace Fooxboy.MusicX.Uwp.Services
         private Album _currentAlbum;
         private List<Track> _tracks;
         private Track _currentTrack;
-        private readonly int _repeatMode;
+        private int _repeatMode;
         private DispatcherTimer _positionTimer;
         private MediaPlayer _mediaPlayer;
         private Action<Task<List<Track>>> _loadMore;
@@ -152,6 +152,8 @@ namespace Fooxboy.MusicX.Uwp.Services
         public void NextTrack()
         {
             Pause();
+            Seek(TimeSpan.Zero);
+            PositionTrackChangedEvent?.Invoke(this, TimeSpan.Zero);
             _mediaPlayer.Source = null;
             var index = _tracks.IndexOf(_currentTrack) + 1;
             if(index > _tracks.Count - 1)
@@ -159,7 +161,6 @@ namespace Fooxboy.MusicX.Uwp.Services
                 if (_repeatMode == 2) index = 0;
                 else return;
             }
-            Seek(TimeSpan.Zero);
             _currentTrack = _tracks[index];
             TrackChangedEvent?.Invoke(this, EventArgs.Empty);
             Play();
@@ -175,6 +176,7 @@ namespace Fooxboy.MusicX.Uwp.Services
                 var index = _tracks.IndexOf(_currentTrack) - 1;
                 if (index < 0) index = _tracks.Count - 1;
                 Seek(TimeSpan.Zero);
+                PositionTrackChangedEvent?.Invoke(this, TimeSpan.Zero);
                 _currentTrack = _tracks[index];
                 TrackChangedEvent?.Invoke(this, EventArgs.Empty);
                 Play();
@@ -185,11 +187,13 @@ namespace Fooxboy.MusicX.Uwp.Services
         {
             _loadMore = action;
         }
+
         public void Seek(TimeSpan position)
         {
             try
             {
                 _mediaPlayer.PlaybackSession.Position = position;
+
             }
             catch (Exception e)
             {
@@ -213,7 +217,13 @@ namespace Fooxboy.MusicX.Uwp.Services
 
         private void MediaPlayerOnMediaEnded(MediaPlayer sender, object args)
         {
-            NextTrack();
+            if(_repeatMode != 1) NextTrack();
+            else
+            {
+                Seek(TimeSpan.Zero);
+                PositionTrackChangedEvent?.Invoke(this, TimeSpan.Zero);
+            }
+
         }
 
         public void SetRepeatMode(int i)
