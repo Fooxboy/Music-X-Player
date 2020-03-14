@@ -56,5 +56,17 @@ namespace Fooxboy.MusicX.Uwp.Views
             FlyoutProfile.ShowAt((PersonPicture)sender);
         }
 
+        private void TextBlock_PointerEntered(object sender, PointerRoutedEventArgs e)
+        {
+            if (ArtistText.TextDecorations == Windows.UI.Text.TextDecorations.Underline) return;
+            ArtistText.TextDecorations = Windows.UI.Text.TextDecorations.Underline;
+        }
+
+        private void ArtistText_PointerExited(object sender, PointerRoutedEventArgs e)
+        {
+            if (ArtistText.TextDecorations == Windows.UI.Text.TextDecorations.None) return;
+            ArtistText.TextDecorations = Windows.UI.Text.TextDecorations.None;
+
+        }
     }
 }

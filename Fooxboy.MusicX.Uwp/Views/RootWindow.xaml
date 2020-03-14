@@ -35,6 +35,8 @@
                         <Setter Target="SliderTrack.Visibility" Value="Visible"/>
                         <Setter Target="GridButtons.Grid.ColumnSpan" Value="1"/>
                         <Setter Target="SearchBox.Width" Value="250"/>
+                        <Setter Target="textTime1.Visibility" Value="Visible"/>
+                        <Setter Target="textTime2.Visibility" Value="Visible"/>
                     </VisualState.Setters>
                 </VisualState>
 
@@ -53,7 +55,8 @@
                         <Setter Target="SliderTrack.Visibility" Value="Collapsed"/>
                         <Setter Target="GridButtons.Grid.ColumnSpan" Value="2"/>
                         <Setter Target="SearchBox.Width" Value="150"/>
-
+                        <Setter Target="textTime1.Visibility" Value="Collapsed"/>
+                        <Setter Target="textTime2.Visibility" Value="Collapsed"/>
                     </VisualState.Setters>
                 </VisualState>
 
@@ -155,7 +158,7 @@
                 <ColumnDefinition Width="auto"/>
             </Grid.ColumnDefinitions>
 
-            <Rectangle x:Name="RectangleBackground"  Grid.ColumnSpan="4" RadiusX="10" RadiusY="10" Fill ="{ThemeResource BottomAcrylicBrush}"/>
+            <Rectangle x:Name="RectangleBackground"  Grid.ColumnSpan="4" RadiusX="8" RadiusY="8" Fill ="{ThemeResource BottomAcrylicBrush}"/>
 
             <controls:DropShadowPanel Margin="15 0 20 0" Grid.Column="0" BlurRadius="20"
                                   ShadowOpacity="0.4"
@@ -166,12 +169,12 @@
                                               VerticalAlignment="Center"
                                               HorizontalAlignment="Left"
                                   IsMasked="True">
-                <Border Background="White" Height="40" Width="40" CornerRadius="3"/>
+                <Border Background="White" Height="42" Width="42" CornerRadius="3"/>
 
             </controls:DropShadowPanel>
 
             <StackPanel Grid.Column="0" Orientation="Horizontal">
-                <toolkit:ImageEx Height="40" Width="40" 
+                <toolkit:ImageEx Height="42" Width="42" 
                                 HorizontalAlignment="Left"
                                 Margin="15 0 0 0"
                                 DecodePixelHeight="40"
@@ -200,10 +203,13 @@
                            Text="{x:Bind PlayerViewModel.Title, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
                 
                 <TextBlock Margin="0 0 0 0" 
+                           x:Name="ArtistText"
                            TextTrimming="CharacterEllipsis" 
                            HorizontalAlignment="Stretch"
                            Foreground="{ThemeResource ColorArtistText}"
                            FontSize="13"
+                           PointerEntered="TextBlock_PointerEntered"
+                           PointerExited="ArtistText_PointerExited"
                            Grid.Row="1" 
                            Text="{x:Bind PlayerViewModel.Artist, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
             </Grid>
@@ -277,14 +283,14 @@
                     <ColumnDefinition Width="auto"/>
                 </Grid.ColumnDefinitions>
 
-                <TextBlock Grid.Column="0" Text="{x:Bind PlayerViewModel.Time, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" VerticalAlignment="Center"/>
+                <TextBlock x:Name="textTime1" Grid.Column="0" Text="{x:Bind PlayerViewModel.Time, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" VerticalAlignment="Center"/>
                 <Slider x:Name="SliderTrack" Margin="5 0 5 0" Style="{StaticResource SliderPlayerStyle}"
                     VerticalAlignment="Center"
                     HorizontalAlignment="Stretch"
                     Maximum="{x:Bind PlayerViewModel.SecondsAll, Mode=TwoWay}"
                         Grid.Column="1"
                     Value="{x:Bind PlayerViewModel.Seconds, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
-                <TextBlock Grid.Column="2" VerticalAlignment="Center" Text="{x:Bind PlayerViewModel.AllTime, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+                <TextBlock x:Name="textTime2" Grid.Column="2" VerticalAlignment="Center" Text="{x:Bind PlayerViewModel.AllTime, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
                 
             </Grid>
 
