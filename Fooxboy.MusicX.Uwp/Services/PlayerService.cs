@@ -19,10 +19,10 @@ namespace Fooxboy.MusicX.Uwp.Services
         private Album _currentAlbum;
         private List<Track> _tracks;
         private Track _currentTrack;
-        private int _repeatMode;
+        private int _repeatMode; //0- без повтора, 1 - повтор трека,  2 - повтор альбома
         private DispatcherTimer _positionTimer;
         private MediaPlayer _mediaPlayer;
-        private Action<Task<List<Track>>> _loadMore;
+        private Action<Task<List<Track>>, bool> _loadMore;
 
         public event EventHandler PlayStateChangedEvent;
         public event EventHandler<TimeSpan> PositionTrackChangedEvent;
@@ -183,7 +183,7 @@ namespace Fooxboy.MusicX.Uwp.Services
             }
         }
 
-        public void SetLoadMore(Action<Task<List<Track>>> action)
+        public void SetLoadMore(Action<Task<List<Track>>, bool> action)
         {
             _loadMore = action;
         }

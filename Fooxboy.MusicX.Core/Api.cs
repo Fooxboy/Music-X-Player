@@ -1,4 +1,5 @@
-﻿using Fooxboy.MusicX.Core.VKontakte;
+﻿using Fooxboy.MusicX.Core.Discord;
+using Fooxboy.MusicX.Core.VKontakte;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -10,6 +11,7 @@ namespace Fooxboy.MusicX.Core
         private Api()
         {
             VKontakte = new Vk();
+            Discord = new RichPresenceDiscord();
         }
         private static Api _api;
         public static Api GetApi()
@@ -20,5 +22,8 @@ namespace Fooxboy.MusicX.Core
         }
 
         public Vk VKontakte { get; set; }
+
+        public RichPresenceDiscord Discord { get; set; }
+
     }
 }

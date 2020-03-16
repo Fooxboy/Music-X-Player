@@ -71,6 +71,9 @@ namespace Fooxboy.MusicX.Uwp.ViewModels
 
             VisibilityPlay = true;
             IsPlay = false;
+
+            var discordService = Container.Get.Resolve<DiscordService>();
+            discordService.Init();
         }
 
         private void TrackChanged(object sender, EventArgs e)

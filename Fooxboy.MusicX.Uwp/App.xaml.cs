@@ -75,6 +75,7 @@ namespace Fooxboy.MusicX.Uwp
             c.RegisterInstance<PlayerService>(new PlayerService());
             c.Register<TrackLoaderService>();
             c.Register<AlbumLoaderService>();
+            c.RegisterInstance<DiscordService>(new DiscordService());
             c.RegisterInstance<LoadingService>(new LoadingService());
             Container.SetContainer(c);
 
@@ -140,6 +141,7 @@ namespace Fooxboy.MusicX.Uwp
                         {
                             rootFrame.Navigate(typeof(Views.RootWindow), null);
                             await c.Resolve<Api>().VKontakte.Auth.AutoAsync(config.AccessTokenVkontakte, null);
+                            await c.Resolve<Api>().Discord.InitAsync();
                         }
                     }catch
                     {
