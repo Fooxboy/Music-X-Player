@@ -1,6 +1,7 @@
 ﻿using DiscordRPC;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -10,9 +11,11 @@ namespace Fooxboy.MusicX.Core.Discord
     {
         private readonly DiscordRpcClient _client;
         private RichPresence _currentRichPresence;
+        private int _pipe = -1;
         public RichPresenceDiscord()
         {
-            _client = new DiscordRpcClient("652832654944894976");
+            _client = new DiscordRpcClient("652832654944894976", pipe: _pipe);
+            _client.OnReady += _client_OnReady;
             _currentRichPresence = new RichPresence();
             _currentRichPresence.Assets = new Assets();
             _currentRichPresence.Assets.LargeImageKey = "album";
@@ -24,8 +27,15 @@ namespace Fooxboy.MusicX.Core.Discord
             _currentRichPresence.Timestamps = new Timestamps();
         }
 
+        private void _client_OnReady(object sender, DiscordRPC.Message.ReadyMessage args)
+        {
+            Debug.WriteLine("ГОТОВ");
+        }
+
         public async Task InitAsync()
         {
+            //TODO: Discord не работает в приложениях uwp.
+            return;
             if (_client.IsInitialized) return;
            await Task.Run(() =>
            {
