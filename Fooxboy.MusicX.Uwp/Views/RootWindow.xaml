@@ -306,14 +306,12 @@
                             <Flyout.FlyoutPresenterStyle>
                                 <Style TargetType="FlyoutPresenter">
                                     <Setter Property="Padding" Value="0" />
-                                    <Setter Property="Width" Value="30"/>
-                                    <Setter Property="MaxWidth" Value="30"/>
                                     <Setter Property="CornerRadius" Value="4"/>
                                     <Setter Property="Margin" Value="0"/>
                                 </Style>
                             </Flyout.FlyoutPresenterStyle>
-                            <Grid Height="200" Width="30">
-                                <Slider x:Name="d" Width="30" Value="{x:Bind PlayerViewModel.Volume, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"  Margin="0 10 0 10" Orientation="Vertical" Maximum="100" Minimum="0"/>
+                            <Grid Height="50" >
+                                <Slider x:Name="d" VerticalAlignment="Center" Width="200" Value="{x:Bind PlayerViewModel.Volume, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"  Margin="15 0 15 0" Orientation="Horizontal" Maximum="100" Minimum="0"/>
                             </Grid>
                         </Flyout>
                     </Button.Flyout>
