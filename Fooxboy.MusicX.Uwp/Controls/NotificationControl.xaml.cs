@@ -31,8 +31,11 @@ namespace Fooxboy.MusicX.Uwp.Controls
         public static readonly DependencyProperty ButtonOneTextProperty = DependencyProperty.Register("ButtonOneText", typeof(string), typeof(NotificationControl), new PropertyMetadata("Ok"));
         public static readonly DependencyProperty ButtonTwoTextProperty = DependencyProperty.Register("ButtonTwoText", typeof(string), typeof(NotificationControl), new PropertyMetadata("Cancel"));
 
-        public static readonly DependencyProperty ButtonOneCommandProperty = DependencyProperty.Register("ButtonOneCommand", typeof(string), typeof(ICommand), new PropertyMetadata(new RelayCommand(()=> { })));
-        public static readonly DependencyProperty ButtonTwoCommandProperty = DependencyProperty.Register("ButtonTwoCommand", typeof(string), typeof(ICommand), new PropertyMetadata(new RelayCommand(() => { })));
+        public static readonly DependencyProperty ButtonOneCommandProperty = DependencyProperty.Register("ButtonOneCommand", typeof(ICommand), typeof(NotificationControl), new PropertyMetadata(new RelayCommand(()=> { })));
+        public static readonly DependencyProperty ButtonTwoCommandProperty = DependencyProperty.Register("ButtonTwoCommand", typeof(ICommand), typeof(NotificationControl), new PropertyMetadata(new RelayCommand(() => { })));
+
+        public static readonly DependencyProperty HasButtonsProperty = DependencyProperty.Register("HasButtons", typeof(bool), typeof(NotificationControl), new PropertyMetadata(false));
+
 
         public string Title
         {
@@ -67,6 +70,23 @@ namespace Fooxboy.MusicX.Uwp.Controls
         {
             get => (RelayCommand)GetValue(ButtonTwoCommandProperty);
             set => SetValue(ButtonOneCommandProperty, value);
+        }
+
+        public bool HasButtons
+        {
+            get => (bool)GetValue(HasButtonsProperty);
+            set => SetValue(HasButtonsProperty, value);
+        }
+
+        private void UserControl_Loaded(object sender, RoutedEventArgs e)
+        {
+            if(!HasButtons)
+            {
+                ButtonsPanel.Visibility = Visibility.Collapsed;
+            }else
+            {
+                ButtonsPanel.Visibility = Visibility.Visible;
+            }
         }
     }
 }
