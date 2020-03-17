@@ -84,7 +84,7 @@ namespace Fooxboy.MusicX.Uwp.Services
 
         public void SetShuffle(bool value)
         {
-            _isShufle = value;
+            _isShuffle = value;
         }
 
         public void Play()
@@ -162,12 +162,20 @@ namespace Fooxboy.MusicX.Uwp.Services
             Seek(TimeSpan.Zero);
             PositionTrackChangedEvent?.Invoke(this, TimeSpan.Zero);
             _mediaPlayer.Source = null;
-            var index = _tracks.IndexOf(_currentTrack) + 1;
-            if(index > _tracks.Count - 1)
+            int index;
+            if(!_isShuffle)
             {
-                if (_repeatMode == 2) index = 0;
-                else return;
+                index = _tracks.IndexOf(_currentTrack) + 1;
+                if (index > _tracks.Count - 1)
+                {
+                    if (_repeatMode == 2) index = 0;
+                    else return;
+                }
+            }else
+            {
+                index = new Random().Next(0, _tracks.Count);
             }
+            
             _currentTrack = _tracks[index];
             TrackChangedEvent?.Invoke(this, EventArgs.Empty);
             Play();
