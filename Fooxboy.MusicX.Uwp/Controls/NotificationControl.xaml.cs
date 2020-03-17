@@ -88,5 +88,11 @@ namespace Fooxboy.MusicX.Uwp.Controls
                 ButtonsPanel.Visibility = Visibility.Visible;
             }
         }
+
+        private void BackgroundNotification_SizeChanged(object sender, SizeChangedEventArgs e)
+        {
+            BorderShadow.Height = e.NewSize.Height;
+            BorderShadow.Width = e.NewSize.Width;
+        }
     }
 }

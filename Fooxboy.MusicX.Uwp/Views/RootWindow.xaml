@@ -149,7 +149,7 @@
         </Grid>
 
         <Grid HorizontalAlignment="Right" VerticalAlignment="Top" Margin="0 80 10 0" x:Name="NotificationGrid">
-            <my:NotificationControl/>
+            <my:NotificationControl Title="Мое уведомление" Description="Описание блять" HasButtons="True" ButtonTwoText="СОСМЫСЛОМ" ButtonOneText="Окей"/>
         </Grid>
         
         <Grid PointerEntered="GridButtom_PointerEntered" PointerExited="GridButtom_PointerExited" x:Name="GridButtom" Height="60" Grid.Row="1" Margin="100 0 100 20" HorizontalAlignment="Stretch" VerticalAlignment="Bottom">
