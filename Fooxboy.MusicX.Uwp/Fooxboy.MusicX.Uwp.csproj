@@ -133,6 +133,9 @@
       <DependentUpon>App.xaml</DependentUpon>
     </Compile>
     <Compile Include="Container.cs" />
+    <Compile Include="Controls\RepeatButton.xaml.cs">
+      <DependentUpon>RepeatButton.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Converters\AlbumConverter.cs" />
     <Compile Include="Converters\AudioTimeConverter.cs" />
     <Compile Include="Converters\BoolToVisibilityConverter.cs" />
@@ -320,6 +323,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Controls\PlaylistControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Controls\RepeatButton.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

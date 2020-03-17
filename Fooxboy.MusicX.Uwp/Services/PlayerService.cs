@@ -23,6 +23,7 @@ namespace Fooxboy.MusicX.Uwp.Services
         private DispatcherTimer _positionTimer;
         private MediaPlayer _mediaPlayer;
         private Action<Task<List<Track>>, bool> _loadMore;
+        private bool _isShuffle;
 
         public event EventHandler PlayStateChangedEvent;
         public event EventHandler<TimeSpan> PositionTrackChangedEvent;
@@ -67,6 +68,7 @@ namespace Fooxboy.MusicX.Uwp.Services
         public TimeSpan Position => _mediaPlayer.PlaybackSession.Position;
         public TimeSpan Duration => _currentTrack?.Duration ?? TimeSpan.Zero;
         public int RepeatMode => _repeatMode;
+        public bool IsShuffle => _isShuffle;
 
         public double Volume
         {
@@ -78,6 +80,11 @@ namespace Fooxboy.MusicX.Uwp.Services
 
                 _mediaPlayer.Volume = value;
             }
+        }
+
+        public void SetShuffle(bool value)
+        {
+            _isShufle = value;
         }
 
         public void Play()
@@ -222,6 +229,7 @@ namespace Fooxboy.MusicX.Uwp.Services
             {
                 Seek(TimeSpan.Zero);
                 PositionTrackChangedEvent?.Invoke(this, TimeSpan.Zero);
+                Play();
             }
 
         }

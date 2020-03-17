@@ -23,15 +23,18 @@ namespace Fooxboy.MusicX.Uwp.ViewModels
         public string Artist { get; set; }
         public string Cover { get; set; }
 
-        public bool IsRepeat
+        public bool IsShuffle
         {
-            get => PlayerSerivce.RepeatMode == 1;
-            set
-            {
-                PlayerSerivce.SetRepeatMode(value ? 1 : 0);
-            }
+            get => PlayerSerivce.IsShuffle;
+            set => PlayerSerivce.SetShuffle(value);
         }
 
+
+        public int RepeatMode
+        {
+            get => PlayerSerivce.RepeatMode;
+            set => PlayerSerivce.SetRepeatMode(value);
+        }
         public double Volume
         {
             get => PlayerSerivce.Volume *100;

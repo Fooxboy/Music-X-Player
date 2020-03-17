@@ -8,6 +8,7 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:converters="using:Fooxboy.MusicX.Uwp.Converters" 
+    xmlns:my="using:Fooxboy.MusicX.Uwp.Controls"
     Loaded="Page_Loaded"
     
     mc:Ignorable="d"
@@ -226,17 +227,7 @@
 
                 </Grid.ColumnDefinitions>
 
-                <ToggleButton Grid.Column="1"
-                        Background="Transparent" 
-                        CornerRadius="99"
-                        FontSize="17"
-                        BorderThickness="0"
-                        Height="37"
-                        IsChecked="{x:Bind PlayerViewModel.IsRepeat, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                              
-                        Width="37" 
-                        FontFamily="Segoe MDL2 Assets" 
-                        Content="&#xE1CD;" />
+                <my:RepeatButton Grid.Column="1" RepeatMode="{x:Bind PlayerViewModel.RepeatMode, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Height="37" Width="37"/>
 
                 <Button Grid.Column="2" 
                         Background="Transparent" 
@@ -271,6 +262,7 @@
                         FontSize="17"
                         Height="37"
                         Width="37"
+                              IsChecked="{x:Bind PlayerViewModel.IsShuffle, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                         BorderThickness="0"
                         FontFamily="Segoe MDL2 Assets"
                         Content="&#xE8B1;" />
