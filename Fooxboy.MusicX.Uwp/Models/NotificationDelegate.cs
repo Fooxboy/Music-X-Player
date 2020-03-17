@@ -6,6 +6,5 @@ using System.Threading.Tasks;
 
 namespace Fooxboy.MusicX.Uwp.Models
 {
-    public delegate void LoadingChanged(bool result);
-
+    public delegate void NewNotification();
 }

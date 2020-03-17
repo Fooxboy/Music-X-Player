@@ -154,6 +154,7 @@
     <Compile Include="Models\ArtistParameter.cs" />
     <Compile Include="Models\ConfigApp.cs" />
     <Compile Include="Models\LoadingDelegate.cs" />
+    <Compile Include="Models\NotificationDelegate.cs" />
     <Compile Include="Models\Track.cs" />
     <Compile Include="Properties\Annotations.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
