@@ -81,50 +81,49 @@
             <StackPanel Margin="15 0 0 0" Grid.Column="0" Orientation="Horizontal" Grid.Row="1">
 
                 <StackPanel Orientation="Vertical">
-                    <Button Style="{StaticResource MenuButton}" >
+                    <Button CornerRadius="2" Style="{StaticResource MenuButton}" >
                         <StackPanel Orientation="Horizontal">
                             <FontIcon FontSize="17" FontFamily="Segoe MDL2 Assets" Glyph="&#xE80F;" />
                             <TextBlock  x:Name="text1" FontSize="17" Margin="10 0 0 0" Foreground="{ThemeResource MainTextColor}" Text="Главная"/>
                         </StackPanel>
                     </Button>
-                    <Rectangle Margin="0 0 0 0" Visibility="Visible" Height="5" Fill="{ThemeResource SystemAccentColor}"/>
+                    <Rectangle Margin="0 0 0 0" RadiusX="2" RadiusY="2" Visibility="Visible" Height="5" Fill="{ThemeResource SystemAccentColor}"/>
                 </StackPanel>
 
                 <StackPanel Margin="15 0 0 0" Orientation="Vertical">
-                    <Button Style="{StaticResource MenuButton}" >
+                    <Button CornerRadius="2" Style="{StaticResource MenuButton}" >
                         <StackPanel Orientation="Horizontal">
                             <FontIcon FontSize="17" FontFamily="Segoe MDL2 Assets" Glyph="&#xEC4F;" />
                             <TextBlock x:Name="text2" FontSize="17" Margin="10 0 0 0" Foreground="{ThemeResource MainTextColor}" Text="Рекомендации"/>
                         </StackPanel>
                     </Button>
-                    <Rectangle Margin="0 0 0 0" Visibility="Collapsed" Height="5" Fill="{ThemeResource SystemAccentColor}"/>
+                    <Rectangle Margin="0 0 0 0" RadiusX="2" RadiusY="2" Visibility="Collapsed" Height="5" Fill="{ThemeResource SystemAccentColor}"/>
                 </StackPanel>
 
                 <StackPanel Margin="15 0 0 0" Orientation="Vertical">
-                    <Button Style="{StaticResource MenuButton}" >
+                    <Button CornerRadius="2" Style="{StaticResource MenuButton}" >
                         <StackPanel Orientation="Horizontal">
                             <FontIcon FontSize="17" FontFamily="Segoe MDL2 Assets" Glyph="&#xE734;" />
                             <TextBlock x:Name="text3" FontSize="17" Margin="10 0 0 0" Foreground="{ThemeResource MainTextColor}" Text="Любимые исполнители"/>
                         </StackPanel>
                     </Button>
-                    <Rectangle Margin="0 0 0 0" Visibility="Collapsed" Height="5" Fill="{ThemeResource SystemAccentColor}"/>
+                    <Rectangle Margin="0 0 0 0" RadiusX="2" RadiusY="2" Visibility="Collapsed" Height="5" Fill="{ThemeResource SystemAccentColor}"/>
                 </StackPanel>
 
                 <StackPanel Margin="15 0 0 0" Orientation="Vertical">
-                    <Button Style="{StaticResource MenuButton}" >
+                    <Button CornerRadius="2" Style="{StaticResource MenuButton}" >
                         <StackPanel Orientation="Horizontal">
                             <FontIcon FontSize="17" FontFamily="Segoe MDL2 Assets" Glyph="&#xE896;" />
                             <TextBlock x:Name="text4" FontSize="17" Margin="10 0 0 0" Foreground="{ThemeResource MainTextColor}" Text="Загрузки"/>
                         </StackPanel>
                     </Button>
-                    <Rectangle Margin="0 0 0 0" Visibility="Collapsed" Height="5" Fill="{ThemeResource SystemAccentColor}"/>
+                    <Rectangle Margin="0 0 0 0" RadiusX="2" RadiusY="2" Visibility="Collapsed" Height="5" Fill="{ThemeResource SystemAccentColor}"/>
                 </StackPanel>
 
             </StackPanel>
 
             <StackPanel HorizontalAlignment="Right" Height="38" Orientation="Horizontal" Grid.Column="1" Grid.Row="1">
-                <TextBox Height="33" Margin="0 0 0 5" Style="{ThemeResource StandardTextBoxStyle}" x:Name="SearchBox" Width="250" PlaceholderText="Найдите что нибудь..."/>
-                
+                <TextBox Height="33" Margin="0 0 0 5" Style="{ThemeResource SearchTextBoxStyle}" x:Name="SearchBox" Width="250" PlaceholderText="Найдите что нибудь..."/>
             </StackPanel>
             
             <StackPanel Orientation="Horizontal" Grid.Row="1" Grid.Column="2">
@@ -149,8 +148,11 @@
             </StackPanel>
         </Grid>
 
+        <Grid HorizontalAlignment="Right" VerticalAlignment="Top" Margin="0 80 10 0" x:Name="NotificationGrid">
+            <my:NotificationControl/>
+        </Grid>
         
-        <Grid x:Name="GridButtom" Height="60" Grid.Row="1" Margin="100 0 100 20" HorizontalAlignment="Stretch" VerticalAlignment="Bottom">
+        <Grid PointerEntered="GridButtom_PointerEntered" PointerExited="GridButtom_PointerExited" x:Name="GridButtom" Height="60" Grid.Row="1" Margin="100 0 100 20" HorizontalAlignment="Stretch" VerticalAlignment="Bottom">
 
             <Grid.ColumnDefinitions>
                 <ColumnDefinition/>
@@ -174,7 +176,7 @@
 
             </controls:DropShadowPanel>
 
-            <StackPanel Grid.Column="0" Orientation="Horizontal">
+            <Grid Grid.Column="0">
                 <toolkit:ImageEx Height="42" Width="42" 
                                 HorizontalAlignment="Left"
                                 Margin="15 0 0 0"
@@ -185,9 +187,18 @@
                                 Stretch="Fill"
                                 IsCacheEnabled="False"
                                 PlaceholderSource="ms-appx:///Assets/Images/placeholder-track.png" />
-
                 
-            </StackPanel>
+                <Grid Visibility="Collapsed" x:Name="IconBackground">
+                    <Rectangle Fill="Black" HorizontalAlignment="Left"
+                                Margin="15 0 0 0" RadiusX="3" RadiusY="3" Height="42" Width="42" Opacity="0.6"/>
+
+                    <FontIcon Foreground="White" HorizontalAlignment="Left" Margin="25 0 0 0" FontFamily="Segoe MDL2 Assets" Glyph="&#xE010;" />
+                </Grid>
+
+               
+
+
+            </Grid>
 
             <Grid Grid.Column="0" Margin="70 0 0 0">
                 <Grid.RowDefinitions>

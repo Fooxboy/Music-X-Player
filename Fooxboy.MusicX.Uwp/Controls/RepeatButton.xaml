@@ -12,14 +12,13 @@
     <Grid>
         <ToggleButton  Background="Transparent" 
                         CornerRadius="99"
-                        
                         Height="37"
                         Width="37"
                         BorderThickness="0" x:Name="Button" Click="ToggleButton_Click">
             <ToggleButton.Content>
                 <Grid>
                     <FontIcon FontSize="17" x:Name="Repeat" FontFamily="Segoe MDL2 Assets" Glyph="&#xE1CD;" />
-                    <FontIcon FontSize="17" x:Name="RepeatOne" FontFamily="Segoe MDL2 Assets" Glyph="&#xE1CC;" />
+                    <FontIcon Visibility="Collapsed" FontSize="17" x:Name="RepeatOne" FontFamily="Segoe MDL2 Assets" Glyph="&#xE1CC;" />
                 </Grid>
             </ToggleButton.Content>
         </ToggleButton>

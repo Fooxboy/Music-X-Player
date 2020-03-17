@@ -68,5 +68,15 @@ namespace Fooxboy.MusicX.Uwp.Views
             ArtistText.TextDecorations = Windows.UI.Text.TextDecorations.None;
 
         }
+
+        private void GridButtom_PointerEntered(object sender, PointerRoutedEventArgs e)
+        {
+            IconBackground.Visibility = Visibility.Visible;
+        }
+
+        private void GridButtom_PointerExited(object sender, PointerRoutedEventArgs e)
+        {
+            IconBackground.Visibility = Visibility.Collapsed;
+        }
     }
 }

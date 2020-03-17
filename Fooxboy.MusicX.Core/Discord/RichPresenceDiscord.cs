@@ -35,7 +35,6 @@ namespace Fooxboy.MusicX.Core.Discord
         public async Task InitAsync()
         {
             //TODO: Discord не работает в приложениях uwp.
-            return;
             if (_client.IsInitialized) return;
            await Task.Run(() =>
            {
@@ -45,17 +44,31 @@ namespace Fooxboy.MusicX.Core.Discord
 
         private async Task SetAsync()
         {
-            await Task.Run(() =>
+            try
             {
-                _client.SetPresence(_currentRichPresence);
-                _client.Invoke();
-            });
+                await Task.Run(() =>
+                {
+                    _client.SetPresence(_currentRichPresence);
+                    _client.Invoke();
+                });
+            }catch
+            {
+
+            }
+           
         }
 
         public async Task SetTrack(string title, string artist)
         {
-            _currentRichPresence.State = $"{artist} - {title}";
-            await SetAsync();
+            try
+            {
+                _currentRichPresence.State = $"{artist} - {title}";
+                await SetAsync();
+            }catch(Exception e)
+            {
+
+            }
+            
         }
 
         public async Task SetPlayPause(bool state)

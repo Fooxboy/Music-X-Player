@@ -15,4 +15,10 @@
                         TintOpacity="0.2" 
                         TintColor="Thistle" 
                         FallbackColor="{ThemeResource SystemColorBackgroundColor}" />
+
+    <media:AcrylicBrush x:Key="NotificationAcrylicBrush"
+                        BackgroundSource="Backdrop"
+                        TintOpacity="0.2" 
+                        TintColor="Thistle" 
+                        FallbackColor="{ThemeResource SystemColorBackgroundColor}" />
 </ResourceDictionary>
