@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using Android.App;
 using Android.Content;
+using Android.Content.Res;
 using Android.OS;
 using Android.Runtime;
 using Android.Support.Design.Widget;
@@ -21,7 +22,7 @@ using Xamarin.Essentials;
 namespace Fooxboy.MusicX.AndroidApp
 {
     [Activity(Label = "@string/app_name", Theme = "@style/CustomTheme")]
-    public class MainActivity : AppCompatActivity, BottomNavigationView.IOnNavigationItemSelectedListener
+    public class MainActivity : AppCompatActivity, BottomNavigationView.IOnNavigationItemSelectedListener, Android.Views.View.IOnClickListener
     {
         protected override void OnCreate(Bundle savedInstanceState)
         {
@@ -38,6 +39,10 @@ namespace Fooxboy.MusicX.AndroidApp
             BottomNavigationView navigation = FindViewById<BottomNavigationView>(Resource.Id.navigation);
             navigation.SetOnNavigationItemSelectedListener(this);
 
+            var themeFlags = Application.Context.Resources.Configuration.UiMode & UiMode.NightMask;
+            if (themeFlags == UiMode.NightYes) Window.DecorView.SystemUiVisibility = 0;
+            else Window.DecorView.SystemUiVisibility = (StatusBarVisibility)SystemUiFlags.LightStatusBar;
+
 
             if (Connectivity.NetworkAccess != NetworkAccess.Internet) { 
                 Intent intent = new Intent(this.ApplicationContext, typeof(Activities.OfflineActivity));
@@ -52,8 +57,10 @@ namespace Fooxboy.MusicX.AndroidApp
                     Core.Api.GetApi().VKontakte.Auth.Auto(AuthService.GetToken(), null);
                     var user = Core.Api.GetApi().VKontakte.Users.Info.CurrentUser();
                     Services.StaticContentService.UserId = user.Id;
+                    StaticContentService.UserName = $"{user.FirstName} {user.LastName}";
                     var pfp = FindViewById<RoundedImageView>(Resource.Id.profilepicture_main);
                     pfp.SetImageString(ImagesService.PhotoUser(user.PhotoUser), 50, 50);
+                    pfp.SetOnClickListener(this);
                     //var f = new HomeFragment();
                     var f = new RecommendationsFragment();
                     FragmentManager.BeginTransaction().Replace(Resource.Id.content_frame, f).Commit();
@@ -86,6 +93,8 @@ namespace Fooxboy.MusicX.AndroidApp
         {
             Fragment f;
             var title = FindViewById<TextView>(Resource.Id.titlebar_title);
+            var exitBtn = FindViewById<Button>(Resource.Id.ExitButton);
+            exitBtn.Visibility = ViewStates.Gone;
             switch (item.ItemId)
             {
                 case Resource.Id.navigation_home:
@@ -111,12 +120,24 @@ namespace Fooxboy.MusicX.AndroidApp
                     return true;
                 case Resource.Id.navigation_downloads:
                     //TODO: загрузОчки
-                    f = new SettingsFragment();
-                    FragmentManager.BeginTransaction().Replace(Resource.Id.content_frame, f).Commit();
+                    
                     title.Text = "Загрузки";
                     return true;
             }
             return false;
+        }
+
+        public void OnClick(View v)
+        {
+            if(v.Id == Resource.Id.profilepicture_main)
+            {
+                var title = FindViewById<TextView>(Resource.Id.titlebar_title);
+                var exitBtn = FindViewById<Button>(Resource.Id.ExitButton);
+                exitBtn.Visibility = ViewStates.Visible;
+                Fragment f = new SettingsFragment();
+                FragmentManager.BeginTransaction().Replace(Resource.Id.content_frame, f).Commit();
+                title.Text = StaticContentService.UserName;
+            }
         }
     }
 }

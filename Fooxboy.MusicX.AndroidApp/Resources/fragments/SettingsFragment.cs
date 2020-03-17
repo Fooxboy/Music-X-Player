@@ -28,10 +28,10 @@ namespace Fooxboy.MusicX.AndroidApp.Resources.fragments
         public override View OnCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
         {
             var view = inflater.Inflate(Resource.Layout.activity_settings, container, false);
-            var exitBtn = view.FindViewById<Button>(Resource.Id.exit_btn);
-            var displayname = view.FindViewById<TextView>(Resource.Id.vkname);
-            var vkPfp = view.FindViewById<RoundedImageView>(Resource.Id.vk_pfp);
-            var fooxboy = view.FindViewById<Button>(Resource.Id.fooxboy_button);
+            //var exitBtn = view.FindViewById<Button>(Resource.Id.exit_btn);
+            //var displayname = view.FindViewById<TextView>(Resource.Id.vkname);
+            //var vkPfp = view.FindViewById<RoundedImageView>(Resource.Id.vk_pfp);
+            //var fooxboy = view.FindViewById<Button>(Resource.Id.fooxboy_button);
             var ver = view.FindViewById<TextView>(Resource.Id.settings_version);
             var checkbox = view.FindViewById<CheckBox>(Resource.Id.streamtovk_checkbox);
 
@@ -40,17 +40,17 @@ namespace Fooxboy.MusicX.AndroidApp.Resources.fragments
             checkbox.SetOnCheckedChangeListener(this);
 
             ver.Text = $"Версия приложения {Application.Context.ApplicationContext.PackageManager.GetPackageInfo(Application.Context.ApplicationContext.PackageName, 0).VersionName}";
-            fooxboy.Click += (sender, e) =>
-            {
-                var intent = new Intent(Intent.ActionView, Android.Net.Uri.Parse("https://t.me/fooxboy")) ;
-                StartActivity(intent);
-            };
-            var dumbcat = view.FindViewById<Button>(Resource.Id.dumbcat_button);
-            dumbcat.Click += (sender, e) =>
-            {
-                var intent = new Intent(Intent.ActionView, Android.Net.Uri.Parse("https://t.me/Luckyca7"));
-                StartActivity(intent);
-            };
+            //fooxboy.Click += (sender, e) =>
+            //{
+            //    var intent = new Intent(Intent.ActionView, Android.Net.Uri.Parse("https://t.me/fooxboy")) ;
+            //    StartActivity(intent);
+            //};
+            //var dumbcat = view.FindViewById<Button>(Resource.Id.dumbcat_button);
+            //dumbcat.Click += (sender, e) =>
+            //{
+            //    var intent = new Intent(Intent.ActionView, Android.Net.Uri.Parse("https://t.me/Luckyca7"));
+            //    StartActivity(intent);
+            //};
             Task.Run(() =>
                 {
                     //TODO получение юзердаты
@@ -66,7 +66,7 @@ namespace Fooxboy.MusicX.AndroidApp.Resources.fragments
                     }));*/
                 }
                 );
-            exitBtn.SetOnClickListener(this);
+            //exitBtn.SetOnClickListener(this);
             return view;
         }
 

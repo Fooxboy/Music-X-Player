@@ -34,6 +34,9 @@ namespace Fooxboy.MusicX.AndroidApp.Resources.fragments
             var view = inflater.Inflate(Resource.Layout.activity_tracks, container, false);
             adapter = new TrackAdapter(tracks, new Block()); //TODO: тут передавался Фолс а не налл ну тип да
             var tracksView = view.FindViewById<RecyclerView>(Resource.Id.list_tracks);
+            //Вот эта штука кароче заставляет исчезнуть кусок с плейлистами просто чтобы не забыть 
+            view.FindViewById<RelativeLayout>(Resource.Id.TracksFragmentPlaylists).Visibility = ViewStates.Gone;
+            
             var progressBar = view.FindViewById<ProgressBar>(Resource.Id.progressBar_tracks);
             progressBar.Visibility = ViewStates.Gone;
             adapter.ItemClick += AdapterOnItemClick;

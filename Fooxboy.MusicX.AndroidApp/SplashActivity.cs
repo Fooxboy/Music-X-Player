@@ -19,7 +19,7 @@ namespace Fooxboy.MusicX.AndroidApp
         protected override void OnCreate(Bundle savedInstanceState)
         {
             base.OnCreate(savedInstanceState);
-
+            SetContentView(Resource.Layout.activity_splash);
             // Create your application here
         }
 
@@ -33,7 +33,7 @@ namespace Fooxboy.MusicX.AndroidApp
         // Simulates background work that happens behind the splash screen
         void SimulateStartup()
         {
-            //await Task.Delay(5000); // Simulate a bit of startup work.
+            Task.Delay(1000); // Simulate a bit of startup work.
             StartActivity(new Intent(Application.Context, typeof(MainActivity)));
         }
     }

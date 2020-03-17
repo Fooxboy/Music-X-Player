@@ -59,7 +59,7 @@ namespace Fooxboy.MusicX.AndroidApp.Adapters
             holder.Duration.Text = tracks[position].Duration.ToDuration();
             holder.ItemView.SetOnLongClickListener(this);
             //holder.ItemView.SetOnLongClickListener(this);
-
+            Task[] tasks = new Task[1];
             if (tracks[position].Album is null)
             {
                 holder.Cover.SetImageResource(Resource.Drawable.placeholder);
@@ -71,18 +71,24 @@ namespace Fooxboy.MusicX.AndroidApp.Adapters
                 }
                 else
                 {
-                    var resource = ImagesService.CoverTrack(tracks[position]);
-                    var file = new File(resource);
-                    var opt = new BitmapFactory.Options();
-                    opt.InJustDecodeBounds = true;
-                    opt.InSampleSize = CalculateInSampleSize(opt, 50, 50);
-                    opt.InJustDecodeBounds = false;
-                    Bitmap myBitmap = BitmapFactory.DecodeFile(file.Path, opt);
-                    holder.Cover.SetImageBitmap(myBitmap);
+                    tasks[0] = Task.Factory.StartNew( () =>
+                    {
+
+                        var resource = ImagesService.CoverTrack(tracks[position]);
+                        var file = new File(resource);
+                        var opt = new BitmapFactory.Options();
+                        opt.InJustDecodeBounds = true;
+                        opt.InSampleSize = CalculateInSampleSize(opt, 50, 50);
+                        opt.InJustDecodeBounds = false;
+                        Bitmap myBitmap = BitmapFactory.DecodeFile(file.Path, opt);
+                        holder.Cover.SetImageBitmap(myBitmap);
+
+                    });
                 }
             }
-            
+
             //holder.Cover.SetImageResource(Resource.Drawable.placeholder);
+            Task.WaitAll(tasks);
             holders.Add(holder);
         }
 

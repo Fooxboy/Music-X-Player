@@ -22,6 +22,21 @@
                 android:textSize="35dp"
                 android:id="@+id/titlebar_title"
             />
+        <Button
+            android:visibility="gone"
+            android:id="@+id/ExitButton"
+            android:layout_width="60dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="30dp"
+            android:padding="7dp"
+            android:text="Выйти"
+            android:textSize="10dp"
+            android:minHeight="0dp"
+            android:minWidth="0dp"
+            android:layout_marginRight="70dp"
+            android:textColor="@color/colorAccent"
+            android:background="@android:color/transparent"
+            android:layout_alignParentRight="true"/>
         <com.makeramen.roundedimageview.RoundedImageView
             android:layout_width="50dp"
             android:layout_height="50dp"
