@@ -200,6 +200,9 @@
     <Compile Include="ViewModels\NotificationViewModel.cs" />
     <Compile Include="ViewModels\PlayerViewModel.cs" />
     <Compile Include="ViewModels\UserInfoViewModel.cs" />
+    <Compile Include="Views\DeveloperView.xaml.cs">
+      <DependentUpon>DeveloperView.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\HomeView.xaml.cs">
       <DependentUpon>HomeView.xaml</DependentUpon>
     </Compile>
@@ -366,6 +369,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Themes\Light.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\DeveloperView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

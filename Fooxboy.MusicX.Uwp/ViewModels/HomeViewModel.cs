@@ -26,6 +26,7 @@ namespace Fooxboy.MusicX.Uwp.ViewModels
         private PlayerService _player;
         private Album _libraryAlbum;
         private LoadingService _loadingService;
+        private NotificationService _notificationService;
 
 
         public HomeViewModel()
@@ -44,7 +45,7 @@ namespace Fooxboy.MusicX.Uwp.ViewModels
 
             _loadingService = Container.Get.Resolve<LoadingService>();
 
-            
+            _notificationService = Container.Get.Resolve<NotificationService>();
         }
 
       
@@ -122,9 +123,10 @@ namespace Fooxboy.MusicX.Uwp.ViewModels
             return tracks;
         }
 
-        public async Task PlayTrack(Track track)
+        public void PlayTrack(Track track)
         {
             _player.Play(_libraryAlbum, track, Tracks.ToList());
+            _notificationService.CreateNotification("Воспроизведение", $"{track.Title}");
         }
     }
 }

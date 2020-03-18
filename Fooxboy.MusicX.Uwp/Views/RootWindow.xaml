@@ -149,7 +149,14 @@
         </Grid>
 
         <Grid HorizontalAlignment="Right" VerticalAlignment="Top" Margin="0 80 10 0" x:Name="NotificationGrid">
-            <my:NotificationControl Title="Мое уведомление" Description="Описание блять" HasButtons="True" ButtonTwoText="СОСМЫСЛОМ" ButtonOneText="Окей"/>
+            <ListView HorizontalAlignment="Stretch" Background="Transparent" ItemsSource="{x:Bind NotificationViewModel.Notifications, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
+                <ListView.ItemsPanel>
+                    <ItemsPanelTemplate>
+                        <ItemsStackPanel HorizontalAlignment="Stretch" VerticalAlignment="Stretch" />
+                    </ItemsPanelTemplate>
+                </ListView.ItemsPanel>
+            </ListView>
+           <!--<my:NotificationControl Title="Мое уведомление" Description="Описание блять" HasButtons="True" ButtonTwoText="СОСМЫСЛОМ" ButtonOneText="Окей"/>-->
         </Grid>
         
         <Grid PointerEntered="GridButtom_PointerEntered" PointerExited="GridButtom_PointerExited" x:Name="GridButtom" Height="60" Grid.Row="1" Margin="100 0 100 20" HorizontalAlignment="Stretch" VerticalAlignment="Bottom">

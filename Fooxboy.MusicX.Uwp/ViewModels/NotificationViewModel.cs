@@ -21,6 +21,8 @@ namespace Fooxboy.MusicX.Uwp.ViewModels
             _notificationService = Container.Get.Resolve<NotificationService>();
             _notificationService.NewNotificationEvent += NewNotification;
             _notificationService.CloseNotificationEvent += CloseNotification;
+
+
         }
 
         private void CloseNotification(Notification notification)

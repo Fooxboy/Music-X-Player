@@ -62,7 +62,7 @@ namespace Fooxboy.MusicX.Uwp.Views
         private async void TracksListView_ItemClick(object sender, ItemClickEventArgs e)
         {
             var track = (Track)e.ClickedItem;
-            await ViewModel.PlayTrack(track);
+             ViewModel.PlayTrack(track);
         }
     }
 }

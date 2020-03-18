@@ -9,10 +9,12 @@ using System.Runtime.InteropServices.WindowsRuntime;
 using VkNet.Model.GroupUpdate;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
+using Windows.UI.WindowManagement;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Controls.Primitives;
 using Windows.UI.Xaml.Data;
+using Windows.UI.Xaml.Hosting;
 using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Navigation;
@@ -30,6 +32,7 @@ namespace Fooxboy.MusicX.Uwp.Views
         public NavigationRootViewModel NavigationViewModel { get; set; }
         public UserInfoViewModel UserInfoViewModel { get; set; }
         public LoadingViewModel LoadingViewModel { get; set; }
+        public NotificationViewModel NotificationViewModel { get; set; }
         public RootWindow()
         {
             this.InitializeComponent();
@@ -43,12 +46,18 @@ namespace Fooxboy.MusicX.Uwp.Views
 
             UserInfoViewModel = new UserInfoViewModel();
             LoadingViewModel = new LoadingViewModel();
+            NotificationViewModel = new NotificationViewModel();
             
         }
 
         private async void Page_Loaded(object sender, RoutedEventArgs e)
         {
             await UserInfoViewModel.StartLoadingUserInfo();
+            //AppWindow appWindow = await AppWindow.TryCreateAsync();
+            //Frame appWindowContentFrame = new Frame();
+            //appWindowContentFrame.Navigate(typeof(DeveloperView));
+            //ElementCompositionPreview.SetAppWindowContent(appWindow, appWindowContentFrame);
+            //await appWindow.TryShowAsync();
         }
 
         private void PersonPicture_Tapped(object sender, TappedRoutedEventArgs e)
