@@ -7,6 +7,6 @@ using System.Threading.Tasks;
 
 namespace Fooxboy.MusicX.Uwp.Models
 {
-    public delegate void NewNotification(NotificationControl notification);
-    public delegate void CloseNotification(NotificationControl notification);
+    public delegate void NewNotification(Notification notification);
+    public delegate void CloseNotification(Notification notification);
 }

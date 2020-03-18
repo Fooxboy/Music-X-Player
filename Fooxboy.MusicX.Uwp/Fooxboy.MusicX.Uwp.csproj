@@ -154,6 +154,7 @@
     <Compile Include="Models\ArtistParameter.cs" />
     <Compile Include="Models\ConfigApp.cs" />
     <Compile Include="Models\LoadingDelegate.cs" />
+    <Compile Include="Models\Notification.cs" />
     <Compile Include="Models\NotificationDelegate.cs" />
     <Compile Include="Models\Track.cs" />
     <Compile Include="Properties\Annotations.cs" />
@@ -196,23 +197,9 @@
     <Compile Include="ViewModels\LoadingViewModel.cs" />
     <Compile Include="ViewModels\LoginViewModel.cs" />
     <Compile Include="ViewModels\NavigationRootViewModel.cs" />
+    <Compile Include="ViewModels\NotificationViewModel.cs" />
     <Compile Include="ViewModels\PlayerViewModel.cs" />
     <Compile Include="ViewModels\UserInfoViewModel.cs" />
-    <Compile Include="ViewModels\VKontakte\AccountViewModel.cs" />
-    <Compile Include="ViewModels\VKontakte\AllPlaylistsViewModel.cs" />
-    <Compile Include="ViewModels\VKontakte\ArtistViewModel.cs" />
-    <Compile Include="ViewModels\VKontakte\Artist\ArtistAllAlbumsViewModel.cs" />
-    <Compile Include="ViewModels\VKontakte\Artist\ArtistAllPopularTracksViewModel.cs" />
-    <Compile Include="ViewModels\VKontakte\AuthViewModel.cs" />
-    <Compile Include="ViewModels\VKontakte\Blocks\AllPlaylistsViewModel.cs" />
-    <Compile Include="ViewModels\VKontakte\Blocks\AllTracksViewModel.cs" />
-    <Compile Include="ViewModels\VKontakte\DownloadsViewModel.cs" />
-    <Compile Include="ViewModels\VKontakte\HomeViewModel.cs" />
-    <Compile Include="ViewModels\VKontakte\LikedArtistsViewModel.cs" />
-    <Compile Include="ViewModels\VKontakte\NewRecommendationsViewModel.cs" />
-    <Compile Include="ViewModels\VKontakte\PopularViewModel.cs" />
-    <Compile Include="ViewModels\VKontakte\RecommendationsViewModel.cs" />
-    <Compile Include="ViewModels\VKontakte\SearchViewModel.cs" />
     <Compile Include="Views\HomeView.xaml.cs">
       <DependentUpon>HomeView.xaml</DependentUpon>
     </Compile>
@@ -452,9 +439,6 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup />
-  <ItemGroup>
-    <None Include="Fooxboy.MusicX.Uwp_TemporaryKey.pfx" />
-  </ItemGroup>
   <PropertyGroup Condition=" '$(VisualStudioVersion)' == '' or '$(VisualStudioVersion)' &lt; '14.0' ">
     <VisualStudioVersion>14.0</VisualStudioVersion>
   </PropertyGroup>
