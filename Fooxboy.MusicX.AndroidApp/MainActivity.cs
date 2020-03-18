@@ -57,7 +57,7 @@ namespace Fooxboy.MusicX.AndroidApp
                     Core.Api.GetApi().VKontakte.Auth.Auto(AuthService.GetToken(), null);
                     var user = Core.Api.GetApi().VKontakte.Users.Info.CurrentUser();
                     Services.StaticContentService.UserId = user.Id;
-                    StaticContentService.UserName = $"{user.FirstName} {user.LastName}";
+                    StaticContentService.UserName = user.FirstName;
                     var pfp = FindViewById<RoundedImageView>(Resource.Id.profilepicture_main);
                     pfp.SetImageString(ImagesService.PhotoUser(user.PhotoUser), 50, 50);
                     pfp.SetOnClickListener(this);
