@@ -57,20 +57,20 @@
             android:layout_centerInParent="true"
             android:orientation="horizontal">
 
-            <Button
+            <ImageView
                 android:id="@+id/miniPlayer_Playbtn"
                 android:layout_width="25dp"
                 android:layout_height="25dp"
                 android:layout_marginRight="5dp"
                 android:layout_alignParentEnd="true"
-                android:background="@drawable/play_ic" />
+                android:src="@drawable/play_ic" />
 
-            <Button
+            <ImageView
                 android:id="@+id/miniPlayer_NextBtn"
                 android:layout_width="25dp"
                 android:layout_height="25dp"
                 android:layout_alignParentEnd="true"
-                android:background="@drawable/next_ic" />
+                android:src="@drawable/next_ic" />
 
         </LinearLayout>
     </RelativeLayout>

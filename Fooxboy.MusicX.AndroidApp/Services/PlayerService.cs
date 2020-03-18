@@ -60,8 +60,8 @@ namespace Fooxboy.MusicX.AndroidApp.Services
                 var title = view.FindViewById<TextView>(Resource.Id.player_min_trackName);
                 var artist = view.FindViewById<TextView>(Resource.Id.player_min_artist);
                 var cover = view.FindViewById<RoundedImageView>(Resource.Id.player_min_cover);
-                var playbtn = view.FindViewById<Button>(Resource.Id.miniPlayer_Playbtn);
-                playbtn.SetBackgroundResource(Resource.Drawable.outline_pause_black_24dp);
+                var playbtn = view.FindViewById<ImageView>(Resource.Id.miniPlayer_Playbtn);
+                playbtn.SetImageResource(Resource.Drawable.outline_pause_black_24dp);
                 title.Text = Title;
                 artist.Text = Artist;
                 if (Cover != null) cover.SetImageString(Cover, 50, 50);

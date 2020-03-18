@@ -10,11 +10,18 @@
         android:layout_height="wrap_content"
         android:background="@android:color/white"
         android:paddingBottom="16dp">
-        <TextView
+        <ImageView
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+        android:src="@drawable/back"
+        android:layout_marginTop="20dp"
+        android:id="@+id/backbuttonMain"/>
+            
+            <TextView
                 android:layout_width="250dp"
                 android:layout_height="50dp"
-                android:text="Music X"
-                android:layout_marginLeft="16dp"
+                android:text="Нахуй туда"
+                android:layout_marginLeft="56dp"
                 android:layout_marginTop="20dp"
                 android:textAppearance="?android:attr/textAppearanceLarge"
                 android:textStyle="bold"

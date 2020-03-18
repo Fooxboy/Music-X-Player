@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 using Android.Content;
 using Android.Graphics;
 using Android.Support.V7.Widget;
@@ -7,6 +8,7 @@ using Android.Views;
 using Android.Widget;
 using Fooxboy.MusicX.AndroidApp.Interfaces;
 using Fooxboy.MusicX.AndroidApp.Models;
+using Fooxboy.MusicX.AndroidApp.Services;
 using Fooxboy.MusicX.AndroidApp.ViewHolders;
 using Fooxboy.MusicX.Core.VKontakte.Music;
 using Java.IO;
@@ -31,20 +33,26 @@ namespace Fooxboy.MusicX.AndroidApp.Adapters
             PlaylistViewHolder v = holder as PlaylistViewHolder;
             v.Title.Text = this.albums[position].Title;
             v.SetItemClickListener(this);
+            Task[] tasks = new Task[1];
             if (this.albums[position].Cover == "playlist_placeholder")
             {
                 v.Cover.SetImageResource(Resource.Drawable.playlist_placeholder);
             }else
             {
-                var file = new File(this.albums[position].Cover);
-                var opt = new BitmapFactory.Options();
-                opt.InJustDecodeBounds = true;
-                BitmapFactory.DecodeFile(file.AbsolutePath, opt);
-                opt.InSampleSize = CalculateInSampleSize(opt, 100, 100);
-                opt.InJustDecodeBounds = false;
-                Bitmap myBitmap = BitmapFactory.DecodeFile(file.AbsolutePath, opt);
-                v.Cover.SetImageBitmap(myBitmap);
+                tasks[0] = Task.Factory.StartNew(() =>
+                {
+                    var resource = ImagesService.CoverPlaylist(albums[position]);
+                    var file = new File(resource);
+                    var opt = new BitmapFactory.Options();
+                    opt.InJustDecodeBounds = true;
+                    BitmapFactory.DecodeFile(file.AbsolutePath, opt);
+                    opt.InSampleSize = CalculateInSampleSize(opt, 100, 100);
+                    opt.InJustDecodeBounds = false;
+                    Bitmap myBitmap = BitmapFactory.DecodeFile(file.AbsolutePath, opt);
+                    v.Cover.SetImageBitmap(myBitmap);
+                });
             }
+            Task.WaitAll(tasks);
         }
 
         public static int CalculateInSampleSize(BitmapFactory.Options options, int reqWidth, int reqHeight)

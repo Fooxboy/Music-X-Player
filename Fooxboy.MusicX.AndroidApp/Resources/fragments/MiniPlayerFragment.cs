@@ -16,8 +16,8 @@ namespace Fooxboy.MusicX.AndroidApp.Resources.fragments
         public override View OnCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
         {
             var view = inflater.Inflate(Resource.Layout.player_min, container, false);
-            var playbtn = view.FindViewById<Button>(Resource.Id.miniPlayer_Playbtn);
-            var nextbtn = view.FindViewById<Button>(Resource.Id.miniPlayer_NextBtn);
+            var playbtn = view.FindViewById<ImageView>(Resource.Id.miniPlayer_Playbtn);
+            var nextbtn = view.FindViewById<ImageView>(Resource.Id.miniPlayer_NextBtn);
             nextbtn.SetOnClickListener(this);
             playbtn.SetOnClickListener(this);
             player = PlayerService.Instanse;
@@ -37,14 +37,14 @@ namespace Fooxboy.MusicX.AndroidApp.Resources.fragments
                 case Resource.Id.miniPlayer_Playbtn:
                     if (player.MainService.IsPlay)
                     {
-                        var btn = v.FindViewById<Button>(Resource.Id.miniPlayer_Playbtn);
-                        btn.SetBackgroundResource(Resource.Drawable.play_ic);
+                        var btn = v.FindViewById<ImageView>(Resource.Id.miniPlayer_Playbtn);
+                        btn.SetImageResource(Resource.Drawable.play_ic);
                         player.Pause();
                     }
                     else
                     {
-                        var btn = v.FindViewById<Button>(Resource.Id.miniPlayer_Playbtn);
-                        btn.SetBackgroundResource(Resource.Drawable.outline_pause_black_24dp);
+                        var btn = v.FindViewById<ImageView>(Resource.Id.miniPlayer_Playbtn);
+                        btn.SetImageResource(Resource.Drawable.outline_pause_black_24dp);
                         player.Play();
                     }
                 break;

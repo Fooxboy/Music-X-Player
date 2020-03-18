@@ -17,7 +17,7 @@
 
   <style name="Splash" parent="Theme.AppCompat.Light.NoActionBar">
     <item name="android:windowNoTitle">true</item>
-    
+    <item name="android:forceDarkAllowed">true</item>
   </style>
 
   

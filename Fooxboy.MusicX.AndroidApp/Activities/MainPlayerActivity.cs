@@ -1,6 +1,8 @@
 using System;
 using Android.App;
+using Android.Content.Res;
 using Android.OS;
+using Android.Views;
 using Android.Widget;
 using Fooxboy.MusicX.AndroidApp.Models;
 using Fooxboy.MusicX.AndroidApp.Services;
@@ -48,6 +50,11 @@ namespace Fooxboy.MusicX.AndroidApp.Activities
             nextButton.Click += NextButtonOnClick;
             seekBar.SetOnSeekBarChangeListener(this);
             UpdateDataPlayer();
+
+            var themeFlags = Application.Context.Resources.Configuration.UiMode & UiMode.NightMask;
+            if (themeFlags == UiMode.NightYes) Window.DecorView.SystemUiVisibility = 0;
+            else Window.DecorView.SystemUiVisibility = (StatusBarVisibility)SystemUiFlags.LightStatusBar;
+
         }
 
         private void CloseButtonOnClick(object sender, EventArgs e)
