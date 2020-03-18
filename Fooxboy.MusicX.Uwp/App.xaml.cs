@@ -77,6 +77,7 @@ namespace Fooxboy.MusicX.Uwp
             c.Register<AlbumLoaderService>();
             c.RegisterInstance<DiscordService>(new DiscordService());
             c.RegisterInstance<LoadingService>(new LoadingService());
+            c.RegisterInstance<NotificationService>(new NotificationService());
             Container.SetContainer(c);
 
             Frame rootFrame = Window.Current.Content as Frame;
