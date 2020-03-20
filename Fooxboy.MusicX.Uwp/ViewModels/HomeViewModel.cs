@@ -126,7 +126,7 @@ namespace Fooxboy.MusicX.Uwp.ViewModels
         public void PlayTrack(Track track)
         {
             _player.Play(_libraryAlbum, track, Tracks.ToList());
-            _notificationService.CreateNotification("Воспроизведение", $"{track.Title}");
+            //_notificationService.CreateNotification("Воспроизведение", $"{track.Title}");
         }
     }
 }

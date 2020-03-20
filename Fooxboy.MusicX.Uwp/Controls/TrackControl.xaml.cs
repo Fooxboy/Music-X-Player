@@ -20,6 +20,7 @@ using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Navigation;
 using Windows.Networking.Sockets;
+using Windows.UI;
 
 // Документацию по шаблону элемента "Пользовательский элемент управления" см. по адресу https://go.microsoft.com/fwlink/?LinkId=234236
 
@@ -138,6 +139,13 @@ namespace Fooxboy.MusicX.Uwp.Resources.Controls
                 LoadingGrid.Visibility = Visibility.Visible;
                 TrackGrid.Visibility = Visibility.Collapsed;
                 progressRing.Visibility = Visibility.Collapsed;
+            }
+
+            if(!Track.IsAvailable)
+            {
+                TitleText.Foreground = new SolidColorBrush(Colors.Gray);
+                ArtistText.Foreground = new SolidColorBrush(Colors.Gray);
+
             }
         }
     }

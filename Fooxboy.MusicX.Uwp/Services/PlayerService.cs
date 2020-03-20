@@ -1,4 +1,5 @@
 ﻿
+using DryIoc;
 using Fooxboy.MusicX.Core.VKontakte.Music;
 using Fooxboy.MusicX.Uwp.Converters;
 using Fooxboy.MusicX.Uwp.Models;
@@ -29,6 +30,8 @@ namespace Fooxboy.MusicX.Uwp.Services
         public event EventHandler<TimeSpan> PositionTrackChangedEvent;
         public event EventHandler TrackChangedEvent;
 
+        private NotificationService _notificationService;
+
 
 
         public PlayerService()
@@ -56,6 +59,12 @@ namespace Fooxboy.MusicX.Uwp.Services
             _positionTimer.Interval = TimeSpan.FromMilliseconds(500);
             _positionTimer.Tick += PositionTimerOnTick;
 
+
+        }
+
+        public void Init()
+        {
+            _notificationService = Container.Get.Resolve<NotificationService>();
         }
 
         public bool IsPlaying => _mediaPlayer.PlaybackSession.PlaybackState == MediaPlaybackState.Playing
@@ -89,6 +98,12 @@ namespace Fooxboy.MusicX.Uwp.Services
 
         public void Play()
         {
+            if(!_currentTrack.IsAvailable)
+            {
+                _notificationService.CreateNotification("Аудиозапись недоступна", "Она была изъята из публичного доступа");
+                return;
+            }
+
             try
             {
                 if (_currentTrack is null) return;
@@ -103,7 +118,7 @@ namespace Fooxboy.MusicX.Uwp.Services
             }
             catch (Exception e)
             {
-               //Выводим ошибку.
+                _notificationService.CreateNotification("Произошла ошибка при воспроизведении", e.ToString());
             }
         }
 
@@ -212,7 +227,7 @@ namespace Fooxboy.MusicX.Uwp.Services
             }
             catch (Exception e)
             {
-               //ошибка при перемотке
+                _notificationService.CreateNotification("Произошла ошибка при перемотке", e.ToString());
             }
         }
 
@@ -250,6 +265,8 @@ namespace Fooxboy.MusicX.Uwp.Services
 
         private void MediaPlayerOnMediaFailed(MediaPlayer sender, MediaPlayerFailedEventArgs args)
         {
+
+            _notificationService.CreateNotification("Произошла ошибка при загрузке", $"{args.Error}");
 
             //Ошибка при загрузке
 

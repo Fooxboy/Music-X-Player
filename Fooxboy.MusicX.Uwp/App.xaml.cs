@@ -71,13 +71,13 @@ namespace Fooxboy.MusicX.Uwp
             var c = new DryIoc.Container();
             c.RegisterInstance<Api>(Core.Api.GetApi());
             c.Register<ConfigService>();
+            c.RegisterInstance<NotificationService>(new NotificationService());
             c.Register<TokenService>(made: Made.Of(() => new TokenService(Arg.Of<ConfigService>())));
-            c.RegisterInstance<PlayerService>(new PlayerService());
             c.Register<TrackLoaderService>();
             c.Register<AlbumLoaderService>();
             c.RegisterInstance<DiscordService>(new DiscordService());
             c.RegisterInstance<LoadingService>(new LoadingService());
-            c.RegisterInstance<NotificationService>(new NotificationService());
+            c.RegisterInstance<PlayerService>(new PlayerService());
             Container.SetContainer(c);
 
             Frame rootFrame = Window.Current.Content as Frame;
@@ -143,6 +143,7 @@ namespace Fooxboy.MusicX.Uwp
                             rootFrame.Navigate(typeof(Views.RootWindow), null);
                             await c.Resolve<Api>().VKontakte.Auth.AutoAsync(config.AccessTokenVkontakte, null);
                             await c.Resolve<Api>().Discord.InitAsync();
+                            
                         }
                     }catch
                     {

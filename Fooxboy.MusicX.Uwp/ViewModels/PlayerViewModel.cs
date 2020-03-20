@@ -63,6 +63,7 @@ namespace Fooxboy.MusicX.Uwp.ViewModels
         public PlayerViewModel()
         {
             PlayerSerivce = Container.Get.Resolve<PlayerService>();
+            PlayerSerivce.Init();
             PlayCommand = new RelayCommand(() => PlayerSerivce.Play());
             PauseCommand = new RelayCommand(() => PlayerSerivce.Pause());
             NextCommand = new RelayCommand(() => PlayerSerivce.NextTrack());
