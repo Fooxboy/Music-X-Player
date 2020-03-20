@@ -1,4 +1,5 @@
 ﻿using Fooxboy.MusicX.Uwp.Models;
+using Microsoft.Toolkit.Uwp.Helpers;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -23,6 +24,7 @@ namespace Fooxboy.MusicX.Uwp.Services
             notification.Title = title;
             notification.Description = description;
             notification.ButtonOneText = buttonOneText;
+            notification.IsClickButton = false;
             notification.ButtonTwoText = buttonTwoText;
             notification.ButtonOneCommand = buttonOneCommand;
             notification.ButtonTwoCommand = buttonTwoCommand;
@@ -33,6 +35,14 @@ namespace Fooxboy.MusicX.Uwp.Services
         public void CreateNotification(Notification notification)
         {
             NewNotificationEvent?.Invoke(notification);
+            Task.Run(async () =>
+            {
+                await Task.Delay(3000);
+                await DispatcherHelper.ExecuteOnUIThreadAsync(() =>
+                {
+                    ClosedNotification(notification);
+                });
+            });
         }
 
         public void ClosedNotification(Notification notification)

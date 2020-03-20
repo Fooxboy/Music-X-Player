@@ -9,6 +9,7 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:converters="using:Fooxboy.MusicX.Uwp.Converters" 
     xmlns:my="using:Fooxboy.MusicX.Uwp.Controls"
+    xmlns:models="using:Fooxboy.MusicX.Uwp.Models"
     Loaded="Page_Loaded"
     
     mc:Ignorable="d"
@@ -148,13 +149,24 @@
             </StackPanel>
         </Grid>
 
-        <Grid HorizontalAlignment="Right" VerticalAlignment="Top" Margin="0 80 10 0" x:Name="NotificationGrid">
-            <ListView HorizontalAlignment="Stretch" Background="Transparent" ItemsSource="{x:Bind NotificationViewModel.Notifications, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
+        <Grid Width="370" HorizontalAlignment="Right" VerticalAlignment="Top" Margin="0 80 10 0" x:Name="NotificationGrid">
+            <ListView SelectionMode="None"  ScrollViewer.VerticalScrollBarVisibility="Disabled" Width="370" Foreground="Transparent" HorizontalAlignment="Right" Background="Transparent" ItemsSource="{x:Bind NotificationViewModel.Notifications, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
                 <ListView.ItemsPanel>
                     <ItemsPanelTemplate>
-                        <ItemsStackPanel HorizontalAlignment="Stretch" VerticalAlignment="Stretch" />
+                        <ItemsStackPanel  Background="Transparent" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" />
                     </ItemsPanelTemplate>
                 </ListView.ItemsPanel>
+                <ListView.ItemTemplate>
+                    <DataTemplate x:DataType="models:Notification"  x:DefaultBindMode="TwoWay" x:Name="NotificationsDataTemplate">
+                        <my:NotificationControl Title="{Binding Title}" 
+                                                Description="{Binding Description, Mode=TwoWay}"
+                                                HasButtons="{Binding HasButtons, Mode=TwoWay}"
+                                                ButtonOneCommand="{Binding ButtonOneCommand, Mode=TwoWay}" 
+                                                ButtonOneText="{Binding ButtonOneText, Mode=TwoWay}" 
+                                                ButtonTwoCommand="{Binding ButtonTwoCommand, Mode=TwoWay}"
+                                                ButtonTwoText="{Binding ButtonTwoText, Mode=TwoWay}"/>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
             </ListView>
            <!--<my:NotificationControl Title="Мое уведомление" Description="Описание блять" HasButtons="True" ButtonTwoText="СОСМЫСЛОМ" ButtonOneText="Окей"/>-->
         </Grid>

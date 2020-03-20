@@ -5,6 +5,7 @@ using System.Linq;
 using System.Runtime.InteropServices.WindowsRuntime;
 using System.Windows.Input;
 using Windows.Foundation;
+using Microsoft.Toolkit.Uwp.UI.Animations;
 using Windows.Foundation.Collections;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
@@ -13,6 +14,8 @@ using Windows.UI.Xaml.Data;
 using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Navigation;
+using DryIoc;
+using Fooxboy.MusicX.Uwp.Services;
 
 // Документацию по шаблону элемента "Пользовательский элемент управления" см. по адресу https://go.microsoft.com/fwlink/?LinkId=234236
 
@@ -80,19 +83,29 @@ namespace Fooxboy.MusicX.Uwp.Controls
 
         private void UserControl_Loaded(object sender, RoutedEventArgs e)
         {
-            if(!HasButtons)
+            if (!HasButtons)
             {
                 ButtonsPanel.Visibility = Visibility.Collapsed;
             }else
             {
                 ButtonsPanel.Visibility = Visibility.Visible;
             }
+
+            BorderShadow.Height = BackgroundNotification.Height;
+            BorderShadow.Width = BackgroundNotification.Width;
+
         }
 
         private void BackgroundNotification_SizeChanged(object sender, SizeChangedEventArgs e)
         {
             BorderShadow.Height = e.NewSize.Height;
             BorderShadow.Width = e.NewSize.Width;
+        }
+
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+            var service = Container.Get.Resolve<NotificationService>();
+            service.ClosedNotification(new Models.Notification() {Title = Title, Description = Description, IsClickButton = true });
         }
     }
 }

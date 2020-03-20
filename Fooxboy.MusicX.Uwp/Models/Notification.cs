@@ -16,5 +16,6 @@ namespace Fooxboy.MusicX.Uwp.Models
         public string ButtonTwoText { get; set; }
         public ICommand ButtonOneCommand { get; set; }
         public ICommand ButtonTwoCommand { get; set; }
+        public bool IsClickButton { get; set; }
     }
 }

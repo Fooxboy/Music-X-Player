@@ -48,8 +48,15 @@ namespace Fooxboy.MusicX.Core.Discord
             {
                 await Task.Run(() =>
                 {
-                    _client.SetPresence(_currentRichPresence);
-                    _client.Invoke();
+                    try
+                    {
+                        _client.SetPresence(_currentRichPresence);
+                        _client.Invoke();
+                    }catch
+                    {
+
+                    }
+                   
                 });
             }catch
             {

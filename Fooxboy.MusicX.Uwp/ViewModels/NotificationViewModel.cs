@@ -27,7 +27,30 @@ namespace Fooxboy.MusicX.Uwp.ViewModels
 
         private void CloseNotification(Notification notification)
         {
-            Notifications.Remove(notification);
+            Notification not;
+            if (notification.IsClickButton)
+            {
+                try
+                {
+                    not = Notifications.Single(n => n.Title == notification.Title && n.Description == notification.Description);
+                }
+                catch
+                {
+                    not = null;
+                }
+            }
+            else not = notification;
+            
+
+            try
+            {
+                Notifications.Remove(not);
+            }
+            catch
+            {
+
+            }
+            
             Changed("Notifications");
         }
 
