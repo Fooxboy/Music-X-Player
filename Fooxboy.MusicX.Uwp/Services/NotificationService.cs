@@ -34,7 +34,12 @@ namespace Fooxboy.MusicX.Uwp.Services
 
         public void CreateNotification(Notification notification)
         {
-            NewNotificationEvent?.Invoke(notification);
+            DispatcherHelper.ExecuteOnUIThreadAsync(() =>
+            {
+                NewNotificationEvent?.Invoke(notification);
+
+            });
+
             Task.Run(async () =>
             {
                 await Task.Delay(3000);
@@ -47,7 +52,10 @@ namespace Fooxboy.MusicX.Uwp.Services
 
         public void ClosedNotification(Notification notification)
         {
-            CloseNotificationEvent?.Invoke(notification);
+            DispatcherHelper.ExecuteOnUIThreadAsync(() =>
+            {
+                CloseNotificationEvent?.Invoke(notification);
+            });
         }
 
         public void CreateNotification(string title, string description)

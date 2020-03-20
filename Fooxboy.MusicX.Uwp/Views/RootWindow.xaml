@@ -204,8 +204,9 @@
                                 CornerRadius="3"
                                  Source="{x:Bind PlayerViewModel.Cover, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                                 Stretch="Fill"
+                                 PlaceholderStretch="Fill"
                                 IsCacheEnabled="False"
-                                PlaceholderSource="ms-appx:///Assets/Images/placeholder-track.png" />
+                                PlaceholderSource="ms-appx:///Assets/Images/placeholder-track.jpg" />
                 
                 <Grid Visibility="Collapsed" x:Name="IconBackground">
                     <Rectangle Fill="Black" HorizontalAlignment="Left"

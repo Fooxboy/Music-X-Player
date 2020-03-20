@@ -92,6 +92,7 @@
             PlaceholderSource="../../Assets/Images/placeholder-track.jpg"
             Height="40"
             DecodePixelHeight="40"
+                PlaceholderStretch="Fill"
             DecodePixelWidth="40"
             Source="{x:Bind Track.Album.Cover, Mode=TwoWay}"
             CornerRadius="2"
