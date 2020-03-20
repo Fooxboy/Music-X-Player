@@ -9,6 +9,8 @@
     Background="Transparent">
 
     <Grid>
-        
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition/>
+        </Grid.ColumnDefinitions>
     </Grid>
 </Page>
