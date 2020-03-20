@@ -24,11 +24,6 @@
             <Grid.ContextFlyout>
                 <MenuFlyout x:Name="MenuTrack">
                     <MenuFlyout.Items>
-                        <MenuFlyoutItem Command="{x:Bind PlayCommand}" Text="Воспроизвести">
-                            <MenuFlyoutItem.Icon>
-                                <FontIcon FontFamily="Segoe MDL2 Assets" Glyph="&#xE768;" />
-                            </MenuFlyoutItem.Icon>
-                        </MenuFlyoutItem>
                         <MenuFlyoutItem
                         IsEnabled="False"
                         x:Name="AddOnLibrary"

@@ -17,6 +17,13 @@
 
     <Page.Resources>
         <converters:BoolToVisibilityConverter x:Key="ToVisibility"/>
+        <Storyboard x:Name="Animations">
+            <DoubleAnimation EnableDependentAnimation="True" Storyboard.TargetName="RectangleBackground" Storyboard.TargetProperty="Height" From="60"  To="560" Duration="0:0:0.5">
+                <DoubleAnimation.EasingFunction>
+                    <CircleEase />
+                </DoubleAnimation.EasingFunction>
+            </DoubleAnimation>
+        </Storyboard>
     </Page.Resources>
 
     <Grid>
@@ -180,23 +187,26 @@
                 <ColumnDefinition Width="auto"/>
             </Grid.ColumnDefinitions>
 
-            <Rectangle x:Name="RectangleBackground"  Grid.ColumnSpan="4" RadiusX="8" RadiusY="8" Fill ="{ThemeResource BottomAcrylicBrush}"/>
+            
+
+            <Rectangle x:Name="RectangleBackground" VerticalAlignment="Bottom" Height="60"  Grid.ColumnSpan="4" RadiusX="8" RadiusY="8" Fill ="{ThemeResource BottomAcrylicBrush}"/>
 
             <controls:DropShadowPanel Margin="15 0 20 0" Grid.Column="0" BlurRadius="20"
                                   ShadowOpacity="0.4"
                                   OffsetX="0"
                                   OffsetY="0"
                                   Color="Black"
+                                      x:Name="Shadoww"
                                               CornerRadius="15"
                                               VerticalAlignment="Center"
                                               HorizontalAlignment="Left"
                                   IsMasked="True">
-                <Border Background="White" Height="42" Width="42" CornerRadius="3"/>
+                <Border x:Name="ShadowCover" Background="White" Height="42" Width="42" CornerRadius="3"/>
 
             </controls:DropShadowPanel>
 
-            <Grid Grid.Column="0">
-                <toolkit:ImageEx Height="42" Width="42" 
+            <Grid Tapped="Grid_Tapped" x:Name="GridImage" Grid.Column="0">
+                <toolkit:ImageEx x:Name="CoverImage" Height="42" Width="42" 
                                 HorizontalAlignment="Left"
                                 Margin="15 0 0 0"
                                 DecodePixelHeight="40"
@@ -207,7 +217,7 @@
                                  PlaceholderStretch="Fill"
                                 IsCacheEnabled="False"
                                 PlaceholderSource="ms-appx:///Assets/Images/placeholder-track.jpg" />
-                
+
                 <Grid Visibility="Collapsed" x:Name="IconBackground">
                     <Rectangle Fill="Black" HorizontalAlignment="Left"
                                 Margin="15 0 0 0" RadiusX="3" RadiusY="3" Height="42" Width="42" Opacity="0.6"/>
@@ -215,12 +225,9 @@
                     <FontIcon Foreground="White" HorizontalAlignment="Left" Margin="25 0 0 0" FontFamily="Segoe MDL2 Assets" Glyph="&#xE010;" />
                 </Grid>
 
-               
-
-
             </Grid>
 
-            <Grid Grid.Column="0" Margin="70 0 0 0">
+            <Grid Grid.Column="0" x:Name="TextGrid" Margin="70 0 0 0">
                 <Grid.RowDefinitions>
                     <RowDefinition/>
                     <RowDefinition/>
@@ -299,7 +306,7 @@
                         Content="&#xE8B1;" />
             </Grid>
 
-            <Grid Grid.Column="2">
+            <Grid Grid.Column="2" x:Name="GridTimer">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="auto"/>
                     <ColumnDefinition/>
@@ -317,7 +324,7 @@
                 
             </Grid>
 
-            <StackPanel
+            <StackPanel x:Name="StackButtons"
                         Grid.Column="3" Orientation="Horizontal">
                 <Button Background="Transparent" 
                         CornerRadius="99"
@@ -342,10 +349,17 @@
                         <FontIcon FontFamily="Segoe MDL2 Assets" Glyph="&#xE767;" />
                     </Button.Content>
 
-                    
+
                 </Button>
             </StackPanel>
 
+            <Frame Background="Transparent" Grid.ColumnSpan="4" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" x:Name="BigPlayerFrame" Visibility="Collapsed">
+                <Frame.ContentTransitions>
+                    <TransitionCollection>
+                        <NavigationThemeTransition />
+                    </TransitionCollection>
+                </Frame.ContentTransitions>
+            </Frame>
         </Grid>
     </Grid>
 </Page>

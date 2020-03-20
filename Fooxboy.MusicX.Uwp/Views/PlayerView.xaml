@@ -1,5 +1,5 @@
 ﻿<Page
-    x:Class="Fooxboy.MusicX.Uwp.Views.DeveloperView"
+    x:Class="Fooxboy.MusicX.Uwp.Views.PlayerView"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:local="using:Fooxboy.MusicX.Uwp.Views"
@@ -9,14 +9,6 @@
     Background="Transparent">
 
     <Grid>
-        <StackPanel>
-            <TextBlock Text="Создать уведомление"/>
-            <TextBox x:Name="Title"/>
-            <TextBox x:Name="Description"/>
-            <TextBox x:Name="Buttontext1"/>
-            <TextBox x:Name="Buttontext2"/>
-
-            <Button Content="Создать"/>
-        </StackPanel>
+        
     </Grid>
 </Page>

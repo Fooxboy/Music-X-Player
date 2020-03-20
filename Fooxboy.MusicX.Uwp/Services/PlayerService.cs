@@ -98,15 +98,17 @@ namespace Fooxboy.MusicX.Uwp.Services
 
         public void Play()
         {
-            if(!_currentTrack.IsAvailable)
-            {
-                _notificationService.CreateNotification("Аудиозапись недоступна", "Она была изъята из публичного доступа");
-                return;
-            }
+            
 
             try
             {
                 if (_currentTrack is null) return;
+
+                if (!_currentTrack.IsAvailable)
+                {
+                    _notificationService.CreateNotification("Аудиозапись недоступна", "Она была изъята из публичного доступа");
+                    return;
+                }
 
                 if (_mediaPlayer.PlaybackSession.PlaybackState == MediaPlaybackState.None || _mediaPlayer.Source == null)
                 {

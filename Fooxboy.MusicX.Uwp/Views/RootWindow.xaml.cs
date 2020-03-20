@@ -16,8 +16,12 @@ using Windows.UI.Xaml.Controls.Primitives;
 using Windows.UI.Xaml.Data;
 using Windows.UI.Xaml.Hosting;
 using Windows.UI.Xaml.Input;
+
 using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Navigation;
+using Microsoft.Toolkit.Uwp.UI.Animations;
+using Windows.UI.Xaml.Media.Animation;
+
 
 // Документацию по шаблону элемента "Пустая страница" см. по адресу https://go.microsoft.com/fwlink/?LinkId=234238
 
@@ -33,6 +37,8 @@ namespace Fooxboy.MusicX.Uwp.Views
         public UserInfoViewModel UserInfoViewModel { get; set; }
         public LoadingViewModel LoadingViewModel { get; set; }
         public NotificationViewModel NotificationViewModel { get; set; }
+
+        private bool _isPlayerOpen;
         public RootWindow()
         {
             this.InitializeComponent();
@@ -86,6 +92,23 @@ namespace Fooxboy.MusicX.Uwp.Views
         private void GridButtom_PointerExited(object sender, PointerRoutedEventArgs e)
         {
             IconBackground.Visibility = Visibility.Collapsed;
+        }
+
+        private async void Grid_Tapped(object sender, TappedRoutedEventArgs e)
+        {
+            _isPlayerOpen = true;
+            GridButtom.Height = 560;
+            ShadowCover.Visibility = Visibility.Collapsed;
+            GridImage.Visibility = Visibility.Collapsed;
+            TextGrid.Visibility = Visibility.Collapsed;
+            GridButtons.Visibility = Visibility.Collapsed;
+            GridTimer.Visibility = Visibility.Collapsed;
+            StackButtons.Visibility = Visibility.Collapsed;
+            Shadoww.Visibility = Visibility.Collapsed;
+            await Animations.BeginAsync();
+            //RectangleBackground.Height = +500;
+            BigPlayerFrame.Visibility = Visibility;
+            BigPlayerFrame.Navigate(typeof(PlayerView), null, new DrillInNavigationTransitionInfo());
         }
     }
 }
