@@ -56,7 +56,7 @@
             DecodePixelWidth="150"
             Margin="20 20 20 20"
             IsCacheEnabled="False"
-            PlaceholderSource="../../Assets/Images/placeholder-album.png"
+            PlaceholderSource="../../Assets/Images/placeholder-album.jpg"
             Source="{x:Bind Album.Cover, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
             CornerRadius="4"
             Stretch="Fill">

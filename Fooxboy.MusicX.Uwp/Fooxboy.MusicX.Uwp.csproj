@@ -227,14 +227,11 @@
     <Content Include="Assets\BadgeLogo.scale-150.png" />
     <Content Include="Assets\BadgeLogo.scale-200.png" />
     <Content Include="Assets\BadgeLogo.scale-400.png" />
-    <Content Include="Assets\Images\favorites.png" />
-    <Content Include="Assets\Images\latest.png" />
     <Content Include="Assets\Images\logo-white.png" />
     <Content Include="Assets\Images\logo-black.png" />
-    <Content Include="Assets\Images\now.png" />
+    <Content Include="Assets\Images\placeholder-album.jpg" />
     <Content Include="Assets\Images\placeholder-artist.jpg" />
-    <Content Include="Assets\Images\placeholder-track.png" />
-    <Content Include="Assets\Images\placeholder-album.png" />
+    <Content Include="Assets\Images\placeholder-track.jpg" />
     <Content Include="Assets\Images\vk-logo.png" />
     <Content Include="Assets\Images\welcome-background1.jpg" />
     <Content Include="Assets\LargeTile.scale-100.png" />
