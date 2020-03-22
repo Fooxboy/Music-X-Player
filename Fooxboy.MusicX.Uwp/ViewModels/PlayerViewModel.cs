@@ -101,6 +101,7 @@ namespace Fooxboy.MusicX.Uwp.ViewModels
             Changed("Artist");
             Changed("Cover");
             Changed("SecondsAll");
+            Changed("CurrentNowPlaing");
         }
 
         private void PositionTrackChanged(object sender, TimeSpan e)
