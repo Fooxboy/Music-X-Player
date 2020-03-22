@@ -1,8 +1,10 @@
 ﻿using DryIoc;
 using Fooxboy.MusicX.Uwp.Converters;
+using Fooxboy.MusicX.Uwp.Models;
 using Fooxboy.MusicX.Uwp.Services;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -22,6 +24,10 @@ namespace Fooxboy.MusicX.Uwp.ViewModels
         public string Title { get; set; }
         public string Artist { get; set; }
         public string Cover { get; set; }
+
+        public Action CloseBigPlayer { get; set; }
+
+        public ObservableCollection<Track> CurrentNowPlaing { get; set; }
 
         public bool IsShuffle
         {
@@ -62,6 +68,7 @@ namespace Fooxboy.MusicX.Uwp.ViewModels
 
         public PlayerViewModel()
         {
+            CurrentNowPlaing = new ObservableCollection<Track>();
             PlayerSerivce = Container.Get.Resolve<PlayerService>();
             PlayerSerivce.Init();
             PlayCommand = new RelayCommand(() => PlayerSerivce.Play());
@@ -76,12 +83,15 @@ namespace Fooxboy.MusicX.Uwp.ViewModels
             VisibilityPlay = true;
             IsPlay = false;
 
+            foreach (var track in PlayerSerivce.Tracks) CurrentNowPlaing.Add(track);
             var discordService = Container.Get.Resolve<DiscordService>();
             discordService.Init();
         }
 
         private void TrackChanged(object sender, EventArgs e)
         {
+            CurrentNowPlaing.Clear();
+            foreach (var track in PlayerSerivce.Tracks) CurrentNowPlaing.Add(track);
             Title = PlayerSerivce.CurrentTrack.Title;
             //foreach(var artist in PlayerSerivce.CurrentTrack.Artists) Artist += $", {artist.Name}";
             Artist = PlayerSerivce.CurrentTrack.Artist;

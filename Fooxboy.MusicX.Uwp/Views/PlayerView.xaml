@@ -5,12 +5,189 @@
     xmlns:local="using:Fooxboy.MusicX.Uwp.Views"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:controls="using:Microsoft.Toolkit.Uwp.UI.Controls"
+    xmlns:converters="using:Fooxboy.MusicX.Uwp.Converters" 
+    xmlns:my="using:Fooxboy.MusicX.Uwp.Controls"
     mc:Ignorable="d"
     Background="Transparent">
 
+    <Page.Resources>
+        <converters:BoolToVisibilityConverter x:Key="ToVisibility"/>
+    </Page.Resources>
+
     <Grid>
         <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="auto"/>
             <ColumnDefinition/>
         </Grid.ColumnDefinitions>
+
+        <Grid.RowDefinitions>
+            <RowDefinition Height="30"/>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
+
+        <Button Grid.Row="0" Click="Button_Click" Content="Close"/>
+
+        <Grid Grid.Row="1" Grid.Column="0"   x:Name="GridPlayerActions">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="auto"/>
+                <RowDefinition Height="auto"/>
+                <RowDefinition Height="auto"/>
+                <RowDefinition Height="auto"/>
+                <RowDefinition Height="auto"/>
+            </Grid.RowDefinitions>
+
+            <Grid x:Name="CoverGrid" PointerEntered="GridPlayerActions_PointerEntered" PointerExited="GridPlayerActions_PointerExited" Tapped="CoverGrid_Tapped" Grid.Row="0">
+                <controls:DropShadowPanel Grid.Column="0"
+                                          BlurRadius="50" 
+                                          ShadowOpacity="1"
+                                          OffsetX="0" 
+                                          OffsetY="0" 
+                                          Margin="30 0 30 0" Color="Black"
+                                      x:Name="Shadoww"
+                                              CornerRadius="15"
+                                              VerticalAlignment="Center"
+                                              HorizontalAlignment="Center"
+                                  IsMasked="True">
+                    <Border x:Name="ShadowCover" Background="White" Height="300" Width="300" CornerRadius="3"/>
+
+                </controls:DropShadowPanel>
+
+                <controls:ImageEx x:Name="CoverImage" Height="300" Width="300" 
+                                HorizontalAlignment="Center"
+                                DecodePixelHeight="300"
+                                   Margin="30 0 30 0 "
+                                DecodePixelWidth="300"
+                                CornerRadius="3"
+                                 Source="{x:Bind PlayerViewModel.Cover, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                Stretch="Fill"
+                                 PlaceholderStretch="Fill"
+                                IsCacheEnabled="False"
+                                PlaceholderSource="ms-appx:///Assets/Images/placeholder-track.jpg" />
+
+                <Grid Height="300" Width="300" x:Name="ClosePlayerGrid">
+                    <Rectangle RadiusX="3" RadiusY="3" Opacity="0.6" Fill="Black"/>
+                    <FontIcon HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="50" Foreground="White" FontFamily="Segoe MDL2 Assets" Glyph="&#xE015;" />
+                </Grid>
+            </Grid>
+
+            <StackPanel Margin="0 20 0 0" Grid.Row="1"  Orientation="Vertical">
+                <TextBlock HorizontalAlignment="Center"
+                           FontSize="22"
+                           x:Name="Title"
+                           FontWeight="Bold"
+                           Text="{x:Bind PlayerViewModel.Title, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+
+                <TextBlock HorizontalAlignment="Center"
+                           Foreground="{ThemeResource ColorArtistText}"
+                           x:Name="Artist" 
+                           Text="{x:Bind PlayerViewModel.Artist, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+
+            </StackPanel>
+
+            <Grid Grid.Row="2" Margin="30 10 30 0" x:Name="GridTimer">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="auto"/>
+                    <ColumnDefinition/>
+                    <ColumnDefinition Width="auto"/>
+                </Grid.ColumnDefinitions>
+
+                <TextBlock x:Name="textTime1" Grid.Column="0" Text="{x:Bind PlayerViewModel.Time, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" VerticalAlignment="Center"/>
+                <Slider x:Name="SliderTrack" Margin="5 0 5 0" Style="{StaticResource SliderPlayerStyle}"
+                    VerticalAlignment="Center"
+                    HorizontalAlignment="Stretch"
+                    Maximum="{x:Bind PlayerViewModel.SecondsAll, Mode=TwoWay}"
+                        Grid.Column="1"
+                    Value="{x:Bind PlayerViewModel.Seconds, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+                <TextBlock x:Name="textTime2" Grid.Column="2" VerticalAlignment="Center" Text="{x:Bind PlayerViewModel.AllTime, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+
+            </Grid>
+
+            <Grid Grid.Row="3" Margin="0 10 0 0" x:Name="ButtonsGrid">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="50"/>
+                    <ColumnDefinition Width="50"/>
+                    <ColumnDefinition Width="50"/>
+                    <ColumnDefinition Width="50"/>
+                    <ColumnDefinition Width="50"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+
+                <my:RepeatButton Grid.Column="1" RepeatMode="{x:Bind PlayerViewModel.RepeatMode, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Height="37" Width="37"/>
+
+                <Button Grid.Column="2" 
+                        Background="Transparent" 
+                        CornerRadius="99"
+                        BorderThickness="0"
+                        FontSize="17" 
+                        Command="{x:Bind PlayerViewModel.PreviousCommand}"
+                        Height="37"
+                        Width="37"
+                        FontFamily="Segoe MDL2 Assets"
+                        Content="&#xE892;" />
+
+                <Grid Grid.Column="3" >
+                    <Button Grid.Column="1" BorderThickness="0" Visibility="{x:Bind PlayerViewModel.VisibilityPlay, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, Converter={StaticResource ToVisibility}}" Command="{x:Bind PlayerViewModel.PlayCommand}" Background="Transparent" CornerRadius="99" FontSize="20" Height="43" Width="43" FontFamily="Segoe MDL2 Assets" Content="&#xE768;" />
+                    <Button Grid.Column="0" BorderThickness="0" Visibility= "{x:Bind PlayerViewModel.IsPlay, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, Converter={StaticResource ToVisibility}}" Command="{x:Bind PlayerViewModel.PauseCommand}" Background="Transparent" CornerRadius="99" FontSize="20" Height="43" Width="43" FontFamily="Segoe MDL2 Assets" Content="&#xE769;" />
+                </Grid>
+
+                <Button Grid.Column="4"
+                        Background="Transparent" 
+                        CornerRadius="99"
+                        FontSize="17"
+                        Command="{x:Bind PlayerViewModel.NextCommand}"
+                        Height="37"
+                        Width="37"
+                        BorderThickness="0"
+                        FontFamily="Segoe MDL2 Assets"
+                        Content="&#xE893;" />
+
+                <ToggleButton Grid.Column="5"
+                        Background="Transparent"
+                        CornerRadius="99"
+                        FontSize="17"
+                        Height="37"
+                        Width="37"
+                              IsChecked="{x:Bind PlayerViewModel.IsShuffle, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                        BorderThickness="0"
+                        FontFamily="Segoe MDL2 Assets"
+                        Content="&#xE8B1;" />
+            </Grid>
+
+            <Grid Grid.Row="4" Margin="30 10 30 0" x:Name="VolumeGrid" Height="50" >
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="auto"/>
+                    <ColumnDefinition/>
+                </Grid.ColumnDefinitions>
+                <FontIcon Grid.Column="0" FontSize="20" FontFamily="Segoe MDL2 Assets" Glyph="&#xE15D;" />
+                <Slider Grid.Column="1" x:Name="d" VerticalAlignment="Center" Value="{x:Bind PlayerViewModel.Volume, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"  Margin="15 0 15 0" Orientation="Horizontal" Maximum="100" Minimum="0"/>
+            </Grid>
+
+        </Grid>
+
+        <Grid  Grid.Row="1" Grid.Column="1" x:Name="NowPlaying">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition/>
+            </Grid.RowDefinitions>
+
+            <TextBlock Grid.Row="0" Margin="30 0 0 0" FontWeight="ExtraBlack" FontSize="24" Text="Очередь воспроизведения"/>
+            <ListView Grid.Row="1" 
+                      SelectionMode="Single"
+                       ItemContainerStyle="{StaticResource ListViewItemContainerStyle}" Style="{ThemeResource ListViewStyle}"
+                      IsItemClickEnabled="True"
+                      CanReorderItems="True"
+                      AllowDrop="True"
+                       ItemTemplate="{ThemeResource TrackDataTemplate}"
+                      ItemsSource="{x:Bind PlayerViewModel.CurrentNowPlaing, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" 
+                      CanDragItems="True">
+                <ListView.ItemsPanel>
+                    <ItemsPanelTemplate>
+                        <ItemsStackPanel HorizontalAlignment="Stretch" Orientation="Vertical" VerticalAlignment="Stretch" />
+                    </ItemsPanelTemplate>
+                </ListView.ItemsPanel>
+            </ListView>
+        </Grid>
     </Grid>
 </Page>

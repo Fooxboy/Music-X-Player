@@ -21,6 +21,8 @@ using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Navigation;
 using Microsoft.Toolkit.Uwp.UI.Animations;
 using Windows.UI.Xaml.Media.Animation;
+using Microsoft.Toolkit.Uwp.Helpers;
+using Windows.ApplicationModel.Core;
 
 
 // Документацию по шаблону элемента "Пустая страница" см. по адресу https://go.microsoft.com/fwlink/?LinkId=234238
@@ -39,13 +41,16 @@ namespace Fooxboy.MusicX.Uwp.Views
         public NotificationViewModel NotificationViewModel { get; set; }
 
         private bool _isPlayerOpen;
+        private bool _hasOpenPlayer;
         public RootWindow()
         {
+            _hasOpenPlayer = false;
             this.InitializeComponent();
             var navigationService = new NavigationService();
             Container.Get.RegisterInstance<NavigationService>(navigationService);
 
             PlayerViewModel = new PlayerViewModel();
+            PlayerViewModel.CloseBigPlayer = new Action(CloseBigPlayer);
             NavigationViewModel = new NavigationRootViewModel();
             navigationService.RootFrame = this.Root;
             navigationService.Go(typeof(HomeView));
@@ -97,7 +102,7 @@ namespace Fooxboy.MusicX.Uwp.Views
         private async void Grid_Tapped(object sender, TappedRoutedEventArgs e)
         {
             _isPlayerOpen = true;
-            GridButtom.Height = 560;
+            GridButtom.Height = 660;
             ShadowCover.Visibility = Visibility.Collapsed;
             GridImage.Visibility = Visibility.Collapsed;
             TextGrid.Visibility = Visibility.Collapsed;
@@ -107,8 +112,30 @@ namespace Fooxboy.MusicX.Uwp.Views
             Shadoww.Visibility = Visibility.Collapsed;
             await Animations.BeginAsync();
             //RectangleBackground.Height = +500;
-            BigPlayerFrame.Visibility = Visibility;
-            BigPlayerFrame.Navigate(typeof(PlayerView), null, new DrillInNavigationTransitionInfo());
+            BigPlayerFrame.Visibility = Visibility.Visible;
+            BigPlayerFrame.Navigate(typeof(PlayerView), PlayerViewModel, new DrillInNavigationTransitionInfo());
+
+        }
+
+        private async void CloseBigPlayer()
+        {
+
+            await DispatcherHelper.ExecuteOnUIThreadAsync(() =>
+            {
+                BigPlayerFrame.Visibility = Visibility.Collapsed;
+                _isPlayerOpen = false;
+                GridButtom.Height = 60;
+                ShadowCover.Visibility = Visibility.Visible;
+                GridImage.Visibility = Visibility.Visible;
+                TextGrid.Visibility = Visibility.Visible;
+                GridButtons.Visibility = Visibility.Visible;
+                GridTimer.Visibility = Visibility.Visible;
+                StackButtons.Visibility = Visibility.Visible;
+                Shadoww.Visibility = Visibility.Visible;
+                AnimationsClose.Begin();
+            });
+            
+           
         }
     }
 }

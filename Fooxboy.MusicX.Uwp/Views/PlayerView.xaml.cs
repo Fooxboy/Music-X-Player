@@ -1,4 +1,6 @@
-﻿using System;
+﻿using DryIoc;
+using Fooxboy.MusicX.Uwp.ViewModels;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -22,9 +24,39 @@ namespace Fooxboy.MusicX.Uwp.Views
     /// </summary>
     public sealed partial class PlayerView : Page
     {
+        public PlayerViewModel PlayerViewModel { get; set; }
         public PlayerView()
         {
             this.InitializeComponent();
+            
+        }
+
+        protected override void OnNavigatedTo(NavigationEventArgs e)
+        {
+            var param = (PlayerViewModel)e.Parameter;
+            PlayerViewModel = param;
+            base.OnNavigatedTo(e);
+        }
+
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+            PlayerViewModel.CloseBigPlayer?.Invoke();
+        }
+
+        private void GridPlayerActions_PointerEntered(object sender, PointerRoutedEventArgs e)
+        {
+            ClosePlayerGrid.Visibility = Visibility.Visible;
+        }
+
+        private void GridPlayerActions_PointerExited(object sender, PointerRoutedEventArgs e)
+        {
+            ClosePlayerGrid.Visibility = Visibility.Collapsed;
+
+        }
+
+        private void CoverGrid_Tapped(object sender, TappedRoutedEventArgs e)
+        {
+            PlayerViewModel.CloseBigPlayer?.Invoke();
         }
     }
 }

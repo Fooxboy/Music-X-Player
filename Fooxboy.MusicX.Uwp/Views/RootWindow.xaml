@@ -18,12 +18,21 @@
     <Page.Resources>
         <converters:BoolToVisibilityConverter x:Key="ToVisibility"/>
         <Storyboard x:Name="Animations">
-            <DoubleAnimation EnableDependentAnimation="True" Storyboard.TargetName="RectangleBackground" Storyboard.TargetProperty="Height" From="60"  To="560" Duration="0:0:0.5">
+            <DoubleAnimation EnableDependentAnimation="True" Storyboard.TargetName="RectangleBackground" Storyboard.TargetProperty="Height" From="60"  To="660" Duration="0:0:0.5">
                 <DoubleAnimation.EasingFunction>
                     <CircleEase />
                 </DoubleAnimation.EasingFunction>
             </DoubleAnimation>
         </Storyboard>
+
+        <Storyboard x:Name="AnimationsClose">
+            <DoubleAnimation EnableDependentAnimation="True" Storyboard.TargetName="RectangleBackground" Storyboard.TargetProperty="Height" From="660" To="60" Duration="0:0:0.5">
+                <DoubleAnimation.EasingFunction>
+                    <CircleEase />
+                </DoubleAnimation.EasingFunction>
+            </DoubleAnimation>
+        </Storyboard>
+
     </Page.Resources>
 
     <Grid>
