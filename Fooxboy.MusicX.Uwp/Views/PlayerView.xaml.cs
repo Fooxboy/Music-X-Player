@@ -1,4 +1,5 @@
 ﻿using DryIoc;
+using Fooxboy.MusicX.Uwp.Models;
 using Fooxboy.MusicX.Uwp.ViewModels;
 using System;
 using System.Collections.Generic;
@@ -36,6 +37,19 @@ namespace Fooxboy.MusicX.Uwp.Views
             var param = (PlayerViewModel)e.Parameter;
             PlayerViewModel = param;
             base.OnNavigatedTo(e);
+            param.CurrentNowPlaing.CollectionChanged += CurrentNowPlaing_CollectionChanged;
+
+            if (param.PlayerSerivce.CurrentTrack is null)
+            {
+                NotPlayGrid.Visibility = Visibility.Visible;
+                PlayerGrid.Visibility = Visibility.Collapsed;
+            }
+        }
+
+        private void CurrentNowPlaing_CollectionChanged(object sender, System.Collections.Specialized.NotifyCollectionChangedEventArgs e)
+        {
+            if (PlayerViewModel.CurrentNowPlaing.Count == 0) return;
+            PlayerViewModel.PlayerSerivce.SetTracks(PlayerViewModel.CurrentNowPlaing.ToList());
         }
 
         private void Button_Click(object sender, RoutedEventArgs e)
@@ -57,6 +71,13 @@ namespace Fooxboy.MusicX.Uwp.Views
         private void CoverGrid_Tapped(object sender, TappedRoutedEventArgs e)
         {
             PlayerViewModel.CloseBigPlayer?.Invoke();
+        }
+
+        private void ListView_ItemClick(object sender, ItemClickEventArgs e)
+        {
+            var track = (Track)e.ClickedItem;
+            PlayerViewModel.PlayerSerivce.Play(new Album() { Title="Сейчас играет" }, track, PlayerViewModel.CurrentNowPlaing.ToList());
+
         }
     }
 }

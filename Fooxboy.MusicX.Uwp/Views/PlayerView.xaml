@@ -16,51 +16,67 @@
     </Page.Resources>
 
     <Grid>
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="auto"/>
-            <ColumnDefinition/>
-        </Grid.ColumnDefinitions>
+        <Grid x:Name="NotPlayGrid" Visibility="Collapsed">
+            <FontIcon HorizontalAlignment="Center"
+                       VerticalAlignment="Center"
+                      FontSize="60"
+                      Margin="0 0 0 120"
+                      FontFamily="Segoe MDL2 Assets" Glyph="&#xE189;" />
+            
+            <TextBlock HorizontalAlignment="Center"
+                       VerticalAlignment="Center"
+                       FontSize="20"
+                       FontWeight="ExtraBold" 
+                       Text="Сейчас ничего не воспроизводится."/>
+            <Button Content="Закрыть" HorizontalAlignment="Center"
+                       VerticalAlignment="Center" BorderThickness="0" CornerRadius="4" Margin="0 100 0 0" Click="Button_Click"/>
+        </Grid>
+        <Grid x:Name="PlayerGrid">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="auto"/>
+                <ColumnDefinition/>
+            </Grid.ColumnDefinitions>
 
-        <Grid.RowDefinitions>
-            <RowDefinition Height="35"/>
-            <RowDefinition/>
-        </Grid.RowDefinitions>
-
-        <Button Height="30" Width="30" Background="Transparent" BorderThickness="0" CornerRadius="99" Margin="0 5 5 0" Grid.Row="0" Click="Button_Click" HorizontalAlignment="Right" Grid.Column="1">
-            <Button.Content>
-                <FontIcon FontSize="16" FontFamily="Segoe MDL2 Assets" Glyph="&#xE10A;" />
-            </Button.Content>
-        </Button>
-
-        <Grid Grid.Row="1" Grid.Column="0"   x:Name="GridPlayerActions">
             <Grid.RowDefinitions>
-                <RowDefinition Height="auto"/>
-                <RowDefinition Height="auto"/>
-                <RowDefinition Height="auto"/>
-                <RowDefinition Height="auto"/>
-                <RowDefinition Height="auto"/>
+                <RowDefinition Height="35"/>
+                <RowDefinition/>
             </Grid.RowDefinitions>
 
-            <Grid x:Name="CoverGrid" PointerEntered="GridPlayerActions_PointerEntered" PointerExited="GridPlayerActions_PointerExited" Tapped="CoverGrid_Tapped" Grid.Row="0">
-                <controls:DropShadowPanel Grid.Column="0"
+            <Button Height="30" Width="30" Background="Transparent" BorderThickness="0" CornerRadius="99" Margin="0 5 5 0" Grid.Row="0" Click="Button_Click" HorizontalAlignment="Right" Grid.Column="1">
+                <Button.Content>
+                    <FontIcon FontSize="16" FontFamily="Segoe MDL2 Assets" Glyph="&#xE10A;" />
+                </Button.Content>
+            </Button>
+
+            <Grid Grid.Row="1" Grid.Column="0"  x:Name="GridPlayerActions">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="auto"/>
+                    <RowDefinition Height="auto"/>
+                    <RowDefinition Height="auto"/>
+                    <RowDefinition Height="auto"/>
+                    <RowDefinition Height="auto"/>
+                </Grid.RowDefinitions>
+
+                <Grid x:Name="CoverGrid" PointerEntered="GridPlayerActions_PointerEntered" PointerExited="GridPlayerActions_PointerExited" Tapped="CoverGrid_Tapped" Grid.Row="0">
+                    <controls:DropShadowPanel Grid.Column="0"
                                           BlurRadius="50" 
                                           ShadowOpacity="1"
                                           OffsetX="0" 
                                           OffsetY="0" 
-                                          Margin="30 0 30 0" Color="Black"
+                                          Margin="35 0 30 0" Color="Black"
                                       x:Name="Shadoww"
                                               CornerRadius="15"
                                               VerticalAlignment="Center"
                                               HorizontalAlignment="Center"
                                   IsMasked="True">
-                    <Border x:Name="ShadowCover" Background="White" Height="300" Width="300" CornerRadius="3"/>
+                        <Border x:Name="ShadowCover" Background="White" Height="300" Width="300" CornerRadius="3"/>
 
-                </controls:DropShadowPanel>
+                    </controls:DropShadowPanel>
 
-                <controls:ImageEx x:Name="CoverImage" Height="300" Width="300" 
+                    <controls:ImageEx x:Name="CoverImage" Height="300" Width="300" 
                                 HorizontalAlignment="Center"
                                 DecodePixelHeight="300"
-                                   Margin="30 0 30 0 "
+                                   Margin="35 0 30 0 "
                                 DecodePixelWidth="300"
                                 CornerRadius="3"
                                  Source="{x:Bind PlayerViewModel.Cover, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
@@ -69,58 +85,62 @@
                                 IsCacheEnabled="False"
                                 PlaceholderSource="ms-appx:///Assets/Images/placeholder-track.jpg" />
 
-                <Grid Visibility="Collapsed" Height="300" Width="300" x:Name="ClosePlayerGrid">
-                    <Rectangle RadiusX="3" RadiusY="3" Opacity="0.6" Fill="Black"/>
-                    <FontIcon HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="50" Foreground="White" FontFamily="Segoe MDL2 Assets" Glyph="&#xE015;" />
+                    <Grid Visibility="Collapsed" Height="300" Width="300" x:Name="ClosePlayerGrid">
+                        <Rectangle RadiusX="3" RadiusY="3" Opacity="0.6" Fill="Black"/>
+                        <FontIcon HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="50" Foreground="White" FontFamily="Segoe MDL2 Assets" Glyph="&#xE015;" />
+                    </Grid>
                 </Grid>
-            </Grid>
 
-            <StackPanel Margin="0 10 0 0" Grid.Row="1"  Orientation="Vertical">
-                <TextBlock HorizontalAlignment="Center"
+                <StackPanel Margin="35 10 35 0" Grid.Row="1"  Orientation="Vertical">
+                    <TextBlock HorizontalAlignment="Center"
                            FontSize="22"
                            x:Name="Title"
                            FontWeight="Bold"
+                               MaxWidth="300"
+                               TextTrimming="CharacterEllipsis"
                            Text="{x:Bind PlayerViewModel.Title, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
 
-                <TextBlock HorizontalAlignment="Center"
+                    <TextBlock HorizontalAlignment="Center"
                            Foreground="{ThemeResource ColorArtistText}"
-                           x:Name="Artist" 
+                           x:Name="Artist"
+                               MaxWidth="300"
+                               TextTrimming="CharacterEllipsis"
                            Text="{x:Bind PlayerViewModel.Artist, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
 
-            </StackPanel>
+                </StackPanel>
 
-            <Grid Grid.Row="2" Margin="30 5 30 0" x:Name="GridTimer">
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="auto"/>
-                    <RowDefinition Height="auto"/>
-                </Grid.RowDefinitions>
+                <Grid Grid.Row="2" Margin="35 5 35 0" x:Name="GridTimer">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="auto"/>
+                        <RowDefinition Height="auto"/>
+                    </Grid.RowDefinitions>
 
-                <TextBlock x:Name="textTime1" HorizontalAlignment="Left" Grid.Row="1" Text="{x:Bind PlayerViewModel.Time, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" VerticalAlignment="Center"/>
-                <Slider x:Name="SliderTrack" Margin="5 0 5 0" Style="{StaticResource SliderPlayerStyle}"
+                    <TextBlock x:Name="textTime1" HorizontalAlignment="Left" Grid.Row="1" Text="{x:Bind PlayerViewModel.Time, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" VerticalAlignment="Center"/>
+                    <Slider x:Name="SliderTrack" Margin="5 0 5 0" Style="{StaticResource SliderPlayerStyle}"
                     VerticalAlignment="Center"
                         Height="23"
                     HorizontalAlignment="Stretch"
                     Maximum="{x:Bind PlayerViewModel.SecondsAll, Mode=TwoWay}"
                         Grid.Row="0"
                     Value="{x:Bind PlayerViewModel.Seconds, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
-                <TextBlock x:Name="textTime2" HorizontalAlignment="Right" Grid.Row="1" VerticalAlignment="Center" Text="{x:Bind PlayerViewModel.AllTime, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+                    <TextBlock x:Name="textTime2" HorizontalAlignment="Right" Grid.Row="1" VerticalAlignment="Center" Text="{x:Bind PlayerViewModel.AllTime, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
 
-            </Grid>
+                </Grid>
 
-            <Grid Grid.Row="3" Margin="0 5 0 0" x:Name="ButtonsGrid">
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="*"/>
-                    <ColumnDefinition Width="50"/>
-                    <ColumnDefinition Width="50"/>
-                    <ColumnDefinition Width="50"/>
-                    <ColumnDefinition Width="50"/>
-                    <ColumnDefinition Width="50"/>
-                    <ColumnDefinition Width="*"/>
-                </Grid.ColumnDefinitions>
+                <Grid Grid.Row="3" Margin="35 5 35 0" x:Name="ButtonsGrid">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="45"/>
+                        <ColumnDefinition Width="45"/>
+                        <ColumnDefinition Width="45"/>
+                        <ColumnDefinition Width="45"/>
+                        <ColumnDefinition Width="45"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
 
-                <my:RepeatButton Grid.Column="1" RepeatMode="{x:Bind PlayerViewModel.RepeatMode, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Height="37" Width="37"/>
+                    <my:RepeatButton Grid.Column="1" RepeatMode="{x:Bind PlayerViewModel.RepeatMode, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Height="37" Width="37"/>
 
-                <Button Grid.Column="2" 
+                    <Button Grid.Column="2" 
                         Background="Transparent" 
                         CornerRadius="99"
                         BorderThickness="0"
@@ -131,12 +151,12 @@
                         FontFamily="Segoe MDL2 Assets"
                         Content="&#xE892;" />
 
-                <Grid Grid.Column="3" >
-                    <Button Grid.Column="1" BorderThickness="0" Visibility="{x:Bind PlayerViewModel.VisibilityPlay, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, Converter={StaticResource ToVisibility}}" Command="{x:Bind PlayerViewModel.PlayCommand}" Background="Transparent" CornerRadius="99" FontSize="20" Height="43" Width="43" FontFamily="Segoe MDL2 Assets" Content="&#xE768;" />
-                    <Button Grid.Column="0" BorderThickness="0" Visibility= "{x:Bind PlayerViewModel.IsPlay, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, Converter={StaticResource ToVisibility}}" Command="{x:Bind PlayerViewModel.PauseCommand}" Background="Transparent" CornerRadius="99" FontSize="20" Height="43" Width="43" FontFamily="Segoe MDL2 Assets" Content="&#xE769;" />
-                </Grid>
+                    <Grid Grid.Column="3" >
+                        <Button Grid.Column="1" BorderThickness="0" Visibility="{x:Bind PlayerViewModel.VisibilityPlay, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, Converter={StaticResource ToVisibility}}" Command="{x:Bind PlayerViewModel.PlayCommand}" Background="Transparent" CornerRadius="99" FontSize="20" Height="43" Width="43" FontFamily="Segoe MDL2 Assets" Content="&#xE768;" />
+                        <Button Grid.Column="0" BorderThickness="0" Visibility= "{x:Bind PlayerViewModel.IsPlay, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, Converter={StaticResource ToVisibility}}" Command="{x:Bind PlayerViewModel.PauseCommand}" Background="Transparent" CornerRadius="99" FontSize="20" Height="43" Width="43" FontFamily="Segoe MDL2 Assets" Content="&#xE769;" />
+                    </Grid>
 
-                <Button Grid.Column="4"
+                    <Button Grid.Column="4"
                         Background="Transparent" 
                         CornerRadius="99"
                         FontSize="17"
@@ -147,7 +167,7 @@
                         FontFamily="Segoe MDL2 Assets"
                         Content="&#xE893;" />
 
-                <ToggleButton Grid.Column="5"
+                    <ToggleButton Grid.Column="5"
                         Background="Transparent"
                         CornerRadius="99"
                         FontSize="17"
@@ -157,28 +177,30 @@
                         BorderThickness="0"
                         FontFamily="Segoe MDL2 Assets"
                         Content="&#xE8B1;" />
+                </Grid>
+
+                <Grid Grid.Row="4" Margin="35 5 35 0" x:Name="VolumeGrid" Height="50" >
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="auto"/>
+                        <ColumnDefinition/>
+                    </Grid.ColumnDefinitions>
+                    <FontIcon Grid.Column="0" FontSize="20" FontFamily="Segoe MDL2 Assets" Glyph="&#xE15D;" />
+                    <Slider Grid.Column="1" x:Name="d" VerticalAlignment="Center" Value="{x:Bind PlayerViewModel.Volume, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"  Margin="15 0 15 0" Orientation="Horizontal" Maximum="100" Minimum="0"/>
+                </Grid>
+
             </Grid>
 
-            <Grid Grid.Row="4" Margin="30 5 30 0" x:Name="VolumeGrid" Height="50" >
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="auto"/>
-                    <ColumnDefinition/>
-                </Grid.ColumnDefinitions>
-                <FontIcon Grid.Column="0" FontSize="20" FontFamily="Segoe MDL2 Assets" Glyph="&#xE15D;" />
-                <Slider Grid.Column="1" x:Name="d" VerticalAlignment="Center" Value="{x:Bind PlayerViewModel.Volume, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"  Margin="15 0 15 0" Orientation="Horizontal" Maximum="100" Minimum="0"/>
-            </Grid>
+            <Grid  Grid.Row="1" Grid.Column="1" x:Name="NowPlaying">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition/>
+                </Grid.RowDefinitions>
 
-        </Grid>
-
-        <Grid  Grid.Row="1" Grid.Column="1" x:Name="NowPlaying">
-            <Grid.RowDefinitions>
-                <RowDefinition Height="Auto"/>
-                <RowDefinition/>
-            </Grid.RowDefinitions>
-
-            <TextBlock Grid.Row="0" Margin="30 0 0 0" FontWeight="ExtraBlack" FontSize="24" Text="Очередь воспроизведения"/>
-            <ListView Grid.Row="1" 
+                <TextBlock Grid.Row="0" Margin="30 0 0 0" FontWeight="ExtraBlack" FontSize="24" Text="Очередь воспроизведения"/>
+                <ListView Grid.Row="1" 
                       SelectionMode="None"
+                          ReorderMode="Enabled"
+                          ItemClick="ListView_ItemClick"
                        ItemContainerStyle="{StaticResource ListViewItemContainerStyle}"
                       Style="{ThemeResource ListViewStyle}"
                       ListViewBase.ShowsScrollingPlaceholders="False"
@@ -188,12 +210,13 @@
                        ItemTemplate="{ThemeResource TrackDataTemplate}"
                       ItemsSource="{x:Bind PlayerViewModel.CurrentNowPlaing, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" 
                       CanDragItems="True">
-                <ListView.ItemsPanel>
-                    <ItemsPanelTemplate>
-                        <ItemsStackPanel HorizontalAlignment="Stretch" Orientation="Vertical" VerticalAlignment="Stretch" />
-                    </ItemsPanelTemplate>
-                </ListView.ItemsPanel>
-            </ListView>
+                    <ListView.ItemsPanel>
+                        <ItemsPanelTemplate>
+                            <ItemsStackPanel HorizontalAlignment="Stretch" Orientation="Vertical" VerticalAlignment="Stretch" />
+                        </ItemsPanelTemplate>
+                    </ListView.ItemsPanel>
+                </ListView>
+            </Grid>
         </Grid>
     </Grid>
 </Page>

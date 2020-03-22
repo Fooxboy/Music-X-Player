@@ -243,6 +243,7 @@
                 </Grid.RowDefinitions>
 
                 <TextBlock Margin="0 3 0 0"
+                           x:Name="TitleTrack"
                            TextTrimming="CharacterEllipsis"
                            HorizontalAlignment="Stretch"
                            FontWeight="Medium"

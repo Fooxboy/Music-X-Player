@@ -64,6 +64,7 @@ namespace Fooxboy.MusicX.Uwp.Views
         private async void Page_Loaded(object sender, RoutedEventArgs e)
         {
             await UserInfoViewModel.StartLoadingUserInfo();
+            TitleTrack.Text = "Сейчас ничего не воспроизводится";
             //AppWindow appWindow = await AppWindow.TryCreateAsync();
             //Frame appWindowContentFrame = new Frame();
             //appWindowContentFrame.Navigate(typeof(DeveloperView));

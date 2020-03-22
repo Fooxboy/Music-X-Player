@@ -96,6 +96,11 @@ namespace Fooxboy.MusicX.Uwp.Services
             _isShuffle = value;
         }
 
+        public void SetTracks(List<Track> tracks)
+        {
+            _tracks = tracks;
+        }
+
         public void Play()
         {
             
