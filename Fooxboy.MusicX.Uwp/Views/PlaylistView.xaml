@@ -15,7 +15,7 @@
         <ScrollViewer>
             <Grid>
                 <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="400"/>
+                    <ColumnDefinition Width="auto"/>
                     <ColumnDefinition/>
                 </Grid.ColumnDefinitions>
 
@@ -34,7 +34,7 @@
                 <Rectangle Grid.ColumnSpan="2" SizeChanged="Rectangle_SizeChanged" VerticalAlignment="Top" Margin="50" RadiusX="10" RadiusY="10" Height="400" Fill="{ThemeResource BlockBackground}"/>
 
 
-                <Grid Margin="70 70 0 0 " VerticalAlignment="Top" HorizontalAlignment="Left" x:Name="CoverGrid">
+                <Grid Grid.Column="0" Margin="70 70 0 0 " VerticalAlignment="Top" HorizontalAlignment="Left" x:Name="CoverGrid">
                     <controls:DropShadowPanel Grid.Column="0"
                                           BlurRadius="30" 
                                           ShadowOpacity="0.7"
@@ -59,6 +59,18 @@
                                  PlaceholderStretch="Fill"
                                 IsCacheEnabled="False"
                                 PlaceholderSource="ms-appx:///Assets/Images/placeholder-album.jpg" />
+                </Grid>
+
+                <Grid Margin="20 70" x:Name="InfoPlaylistGrid" Grid.Column="1" >
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="auto"/>
+                        <RowDefinition Height="auto"/>
+                        <RowDefinition/>
+                        <RowDefinition/>
+                    </Grid.RowDefinitions>
+
+                    <TextBlock FontSize="30" FontWeight="ExtraBlack" Text="Title Album" Grid.Row="0"/>
+                    <TextBlock FontSize="23" Foreground="{ThemeResource ColorArtistText}" Text="Artist Album" Grid.Row="1"/>
                 </Grid>
 
             </Grid>
