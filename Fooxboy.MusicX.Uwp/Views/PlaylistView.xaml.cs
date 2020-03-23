@@ -26,5 +26,10 @@ namespace Fooxboy.MusicX.Uwp.Views
         {
             this.InitializeComponent();
         }
+
+        private void Rectangle_SizeChanged(object sender, SizeChangedEventArgs e)
+        {
+            ShadowRectangle.Width = e.NewSize.Width;
+        }
     }
 }

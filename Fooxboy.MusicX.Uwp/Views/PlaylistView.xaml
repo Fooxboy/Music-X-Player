@@ -15,22 +15,37 @@
         <ScrollViewer>
             <Grid>
                 <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="300"/>
+                    <ColumnDefinition Width="400"/>
                     <ColumnDefinition/>
                 </Grid.ColumnDefinitions>
 
-                <Grid Margin="30 30 0 0 " VerticalAlignment="Top" x:Name="CoverGrid">
-                    <controls:DropShadowPanel Grid.Column="0"
+                <controls:DropShadowPanel Grid.ColumnSpan="2" VerticalAlignment="Top" Grid.Column="0"
                                           BlurRadius="50" 
                                           ShadowOpacity="1"
+                                           Margin="50"
+                                          OffsetX="0" 
+                                          OffsetY="0" 
+                                              CornerRadius="10"
+                                  IsMasked="True">
+                    <Border x:Name="ShadowRectangle" Background="White" Height="400" CornerRadius="10"/>
+
+                </controls:DropShadowPanel>
+
+                <Rectangle Grid.ColumnSpan="2" SizeChanged="Rectangle_SizeChanged" VerticalAlignment="Top" Margin="50" RadiusX="10" RadiusY="10" Height="400" Fill="{ThemeResource BlockBackground}"/>
+
+
+                <Grid Margin="70 70 0 0 " VerticalAlignment="Top" HorizontalAlignment="Left" x:Name="CoverGrid">
+                    <controls:DropShadowPanel Grid.Column="0"
+                                          BlurRadius="30" 
+                                          ShadowOpacity="0.7"
                                           OffsetX="0" 
                                           OffsetY="0" 
                                       x:Name="Shadoww"
-                                              CornerRadius="15"
+                                              CornerRadius="8"
                                               VerticalAlignment="Center"
                                               HorizontalAlignment="Center"
                                   IsMasked="True">
-                        <Border x:Name="ShadowCover" Background="White" Height="250" Width="250" CornerRadius="3"/>
+                        <Border x:Name="ShadowCover" Background="White" Height="250" Width="250" CornerRadius="8"/>
 
                     </controls:DropShadowPanel>
 
@@ -38,12 +53,12 @@
                                 HorizontalAlignment="Center"
                                 DecodePixelHeight="250"
                                 DecodePixelWidth="250"
-                                CornerRadius="3"
+                                CornerRadius="8"
                                  Source="{x:Bind PlayerViewModel.Cover, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                                 Stretch="Fill"
                                  PlaceholderStretch="Fill"
                                 IsCacheEnabled="False"
-                                PlaceholderSource="ms-appx:///Assets/Images/placeholder-track.jpg" />
+                                PlaceholderSource="ms-appx:///Assets/Images/placeholder-album.jpg" />
                 </Grid>
 
             </Grid>
