@@ -199,6 +199,7 @@
     <Compile Include="ViewModels\NavigationRootViewModel.cs" />
     <Compile Include="ViewModels\NotificationViewModel.cs" />
     <Compile Include="ViewModels\PlayerViewModel.cs" />
+    <Compile Include="ViewModels\PlaylistViewModel.cs" />
     <Compile Include="ViewModels\UserInfoViewModel.cs" />
     <Compile Include="Views\DeveloperView.xaml.cs">
       <DependentUpon>DeveloperView.xaml</DependentUpon>
@@ -211,6 +212,9 @@
     </Compile>
     <Compile Include="Views\PlayerView.xaml.cs">
       <DependentUpon>PlayerView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\PlaylistView.xaml.cs">
+      <DependentUpon>PlaylistView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\RootWindow.xaml.cs">
       <DependentUpon>RootWindow.xaml</DependentUpon>
@@ -385,6 +389,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\PlayerView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\PlaylistView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
