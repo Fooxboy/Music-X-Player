@@ -13,7 +13,7 @@
 
     <Grid>
         <ScrollViewer>
-            <Grid>
+            <Grid Margin="0 60 0 0">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="auto"/>
                     <ColumnDefinition/>
@@ -21,17 +21,17 @@
 
                 <controls:DropShadowPanel Grid.ColumnSpan="2" VerticalAlignment="Top" Grid.Column="0"
                                           BlurRadius="50" 
-                                          ShadowOpacity="1"
+                                          ShadowOpacity="0.4"
                                            Margin="50"
                                           OffsetX="0" 
                                           OffsetY="0" 
                                               CornerRadius="10"
                                   IsMasked="True">
-                    <Border x:Name="ShadowRectangle" Background="White" Height="400" CornerRadius="10"/>
+                    <Border x:Name="ShadowRectangle" Background="White" Height="250" CornerRadius="10"/>
 
                 </controls:DropShadowPanel>
 
-                <Rectangle Grid.ColumnSpan="2" SizeChanged="Rectangle_SizeChanged" VerticalAlignment="Top" Margin="50" RadiusX="10" RadiusY="10" Height="400" Fill="{ThemeResource BlockBackground}"/>
+                <Rectangle Grid.ColumnSpan="2" SizeChanged="Rectangle_SizeChanged" VerticalAlignment="Top" Margin="50" RadiusX="10" RadiusY="10" Height="250" Fill="{ThemeResource BlockBackground}"/>
 
 
                 <Grid Grid.Column="0" Margin="70 70 0 0 " VerticalAlignment="Top" HorizontalAlignment="Left" x:Name="CoverGrid">
@@ -45,16 +45,15 @@
                                               VerticalAlignment="Center"
                                               HorizontalAlignment="Center"
                                   IsMasked="True">
-                        <Border x:Name="ShadowCover" Background="White" Height="250" Width="250" CornerRadius="8"/>
+                        <Border x:Name="ShadowCover" Background="White" Height="200" Width="200" CornerRadius="8"/>
 
                     </controls:DropShadowPanel>
 
-                    <controls:ImageEx x:Name="CoverImage" Height="250" Width="250" 
+                    <controls:ImageEx x:Name="CoverImage" Height="200" Width="200" 
                                 HorizontalAlignment="Center"
-                                DecodePixelHeight="250"
-                                DecodePixelWidth="250"
+                                DecodePixelHeight="200"
+                                DecodePixelWidth="200"
                                 CornerRadius="8"
-                                 Source="{x:Bind PlayerViewModel.Cover, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                                 Stretch="Fill"
                                  PlaceholderStretch="Fill"
                                 IsCacheEnabled="False"
@@ -65,12 +64,53 @@
                     <Grid.RowDefinitions>
                         <RowDefinition Height="auto"/>
                         <RowDefinition Height="auto"/>
-                        <RowDefinition/>
+                        <RowDefinition Height="auto"/>
                         <RowDefinition/>
                     </Grid.RowDefinitions>
 
-                    <TextBlock FontSize="30" FontWeight="ExtraBlack" Text="Title Album" Grid.Row="0"/>
-                    <TextBlock FontSize="23" Foreground="{ThemeResource ColorArtistText}" Text="Artist Album" Grid.Row="1"/>
+                    <TextBlock FontSize="39" FontFamily="Calibri" FontWeight="ExtraBlack" Text="Title Album" Grid.Row="0"/>
+                    <StackPanel Grid.Row="1" Orientation="Horizontal">
+                        <TextBlock FontWeight="Bold"  Foreground="{ThemeResource ColorArtistText}" Text="Artist Album" Grid.Row="1"/>
+                        <TextBlock Margin="3 0 0 0" Text="•"/>
+                        <TextBlock Margin="3 0 0 0" Text="Genre"/>
+                        <TextBlock Margin="3 0 0 0" Text="•"/>
+                        <TextBlock Margin="3 0 0 0" Text="2020"/>
+                        <TextBlock Margin="3 0 0 0" Text="•"/>
+                        <TextBlock Margin="3 0 0 0" Text="50К"/>
+                        <TextBlock Margin="3 0 0 0" Text="plays"/>
+                        <TextBlock/>
+                    </StackPanel>
+                    <StackPanel Margin="0 20 0 0" Orientation="Horizontal" Grid.Row="2">
+                        <Button CornerRadius="3" Height="35" BorderThickness="0">
+                            <Button.Content>
+                                <StackPanel Orientation="Horizontal">
+                                    <FontIcon FontFamily="Segoe MDL2 Assets" Glyph="&#xE102;" />
+                                    <TextBlock Margin="5 0 0 0" Text="Слушать все"/>
+                                </StackPanel>
+                            </Button.Content>
+                        </Button>
+
+                        <Button Margin="10 0 0 0" Height="35" CornerRadius="3" BorderThickness="0">
+                            <Button.Content>
+                                <StackPanel Orientation="Horizontal">
+                                    <FontIcon FontFamily="Segoe MDL2 Assets" Glyph="&#xE14B;" />
+                                    <TextBlock Margin="5 0 0 0" Text="Смешать"/>
+                                </StackPanel>
+                            </Button.Content>
+                        </Button>
+
+                        <Button Margin="10 0 0 0" Height="35" CornerRadius="3" BorderThickness="0">
+                            <Button.Content>
+                                <StackPanel Orientation="Horizontal">
+                                    <FontIcon FontFamily="Segoe MDL2 Assets" Glyph="&#xE109;" />
+                                    <TextBlock Margin="5 0 0 0" Text="Добавить"/>
+                                </StackPanel>
+                            </Button.Content>
+                        </Button>
+                        
+                    </StackPanel>
+
+
                 </Grid>
 
             </Grid>

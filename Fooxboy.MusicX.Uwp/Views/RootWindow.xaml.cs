@@ -138,5 +138,11 @@ namespace Fooxboy.MusicX.Uwp.Views
             
            
         }
+
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+            var navigationService = Container.Get.Resolve<NavigationService>();
+            navigationService.Go(typeof(PlaylistView));
+        }
     }
 }

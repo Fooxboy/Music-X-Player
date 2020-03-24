@@ -361,6 +361,8 @@
 
 
                 </Button>
+
+                <Button Content="Тык" Click="Button_Click"/>
             </StackPanel>
 
             <Frame Background="Transparent" Grid.ColumnSpan="4" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" x:Name="BigPlayerFrame" Visibility="Collapsed">
