@@ -14,7 +14,8 @@
     <Grid
         x:Name="PlaylistControlGrid"
         PointerEntered="Grid_PointerEntered"
-        PointerExited="Grid_PointerExited">
+        PointerExited="Grid_PointerExited"
+        Tapped="PlaylistControlGrid_OnTapped">
         <Grid.RowDefinitions>
             <RowDefinition />
             <RowDefinition Height="auto" />

@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 using Windows.UI.Core;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Media;
+using Windows.UI.Xaml.Media.Animation;
 
 namespace Fooxboy.MusicX.Uwp.Services
 {
@@ -29,7 +30,7 @@ namespace Fooxboy.MusicX.Uwp.Services
         /// </summary>
         /// <param name="page">Страница</param>
         /// <param name="data">Данные</param>
-        public void Go(Type page, object data = null)
+        public void Go(Type page, object data = null, int animation = 0)
         {
             try
             {
@@ -40,7 +41,11 @@ namespace Fooxboy.MusicX.Uwp.Services
                 this.Pages.Push(page);
                 this.UpdateButtonBack();
                 this.RootFrame.CacheSize = 3;
-                this.RootFrame.Navigate(page, data);
+                NavigationTransitionInfo animationFile = null;
+                if (animation == 0) animationFile = new EntranceNavigationTransitionInfo();
+                else if (animation == 1) animationFile = new DrillInNavigationTransitionInfo();
+                else animationFile = new EntranceNavigationTransitionInfo();
+                this.RootFrame.Navigate(page, data, animationFile);
             }catch(Exception e)
             {
                 //ContentDialogService.Show(new ExceptionDialog("Невозможно перейти на страницу", "Попробуйте перезапустить приложение", e), 1);

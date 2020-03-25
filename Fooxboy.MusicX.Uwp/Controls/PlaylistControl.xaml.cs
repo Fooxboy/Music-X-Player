@@ -19,6 +19,8 @@ using Windows.UI.Popups;
 using Fooxboy.MusicX.Core.Interfaces;
 using Fooxboy.MusicX.Uwp.Resources.ContentDialogs;
 using Windows.Storage;
+using DryIoc;
+using Fooxboy.MusicX.Uwp.Views;
 
 // Документацию по шаблону элемента "Пользовательский элемент управления" см. по адресу https://go.microsoft.com/fwlink/?LinkId=234236
 
@@ -118,6 +120,12 @@ namespace Fooxboy.MusicX.Uwp.Resources.Controls
             {
                 ArtistsText.Text = "Без исполнителя";
             }
+        }
+
+        private void PlaylistControlGrid_OnTapped(object sender, TappedRoutedEventArgs e)
+        {
+            var navigateService = Container.Get.Resolve<NavigationService>();
+            navigateService.Go(typeof(PlaylistView), this.Album, 1);
         }
     }
 }

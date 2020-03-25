@@ -86,6 +86,7 @@
                         IsCacheEnabled="False"
                         PlaceholderSource="ms-appx:///Assets/Images/placeholder-album.jpg"
                         PlaceholderStretch="Fill"
+                        Source="{x:Bind ViewModel.Album.Cover, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                         Stretch="Fill" />
                 </Grid>
 
@@ -105,20 +106,20 @@
                         FontFamily="Calibri"
                         FontSize="39"
                         FontWeight="ExtraBlack"
-                        Text="Title Album" />
+                        Text="{x:Bind ViewModel.Album.Title, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
                     <StackPanel Grid.Row="1" Orientation="Horizontal">
                         <TextBlock
                             Grid.Row="1"
                             FontWeight="Bold"
                             Foreground="{ThemeResource ColorArtistText}"
-                            Text="Artist Album" />
+                            Text="{x:Bind ViewModel.Album.Artists[0], Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
                         <TextBlock Margin="3,0,0,0" Text="•" />
-                        <TextBlock Margin="3,0,0,0" Text="Genre" />
+                        <TextBlock Margin="3,0,0,0" Text="{x:Bind ViewModel.Album.Genres[0], Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
                         <TextBlock Margin="3,0,0,0" Text="•" />
-                        <TextBlock Margin="3,0,0,0" Text="2020" />
+                        <TextBlock Margin="3,0,0,0" Text="{x:Bind ViewModel.Album.Year, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
                         <TextBlock Margin="3,0,0,0" Text="•" />
-                        <TextBlock Margin="3,0,0,0" Text="50К" />
-                        <TextBlock Margin="3,0,0,0" Text="plays" />
+                        <TextBlock Margin="3,0,0,0" Text="{x:Bind ViewModel.Album.Plays, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                        <TextBlock Margin="3,0,0,0" Text="прослушиваний" />
                         <TextBlock />
                     </StackPanel>
                     <StackPanel
@@ -128,6 +129,7 @@
                         <Button
                             Height="35"
                             BorderThickness="0"
+                            Command="{x:Bind ViewModel.PlayCommmand}"
                             CornerRadius="3">
                             <Button.Content>
                                 <StackPanel Orientation="Horizontal">
@@ -141,6 +143,7 @@
                             Height="35"
                             Margin="10,0,0,0"
                             BorderThickness="0"
+                            Command="{x:Bind ViewModel.ShuffleCommand}"
                             CornerRadius="3">
                             <Button.Content>
                                 <StackPanel Orientation="Horizontal">
@@ -154,6 +157,7 @@
                             Height="35"
                             Margin="10,0,0,0"
                             BorderThickness="0"
+                            Command="{x:Bind ViewModel.AddToLibraryCommand}"
                             CornerRadius="3">
                             <Button.Content>
                                 <StackPanel Orientation="Horizontal">
