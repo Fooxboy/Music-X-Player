@@ -45,6 +45,8 @@ namespace Fooxboy.MusicX.Uwp.ViewModels
             loadingService.Change(true);
             var tracks = (await api.VKontakte.Music.Tracks.GetAsync(200, 0, album.AccessKey, album.Id, album.OwnerId)).ToListTrack();
             foreach (var track in tracks) Tracks.Add(track);
+
+            Tracks.Add(new Track(){AccessKey = "space" });
             Changed("Tracks");
             loadingService.Change(false);
 
@@ -63,6 +65,12 @@ namespace Fooxboy.MusicX.Uwp.ViewModels
         public async void AddToLibrary()
         {
 
+        }
+
+        public void PlayTrack(Track track)
+        {
+            var playService = Container.Get.Resolve<PlayerService>();
+            playService.Play(this.Album, track, this.Tracks.ToList());
         }
     }
 }

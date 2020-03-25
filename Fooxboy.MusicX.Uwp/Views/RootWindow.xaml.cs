@@ -65,6 +65,8 @@ namespace Fooxboy.MusicX.Uwp.Views
         {
             await UserInfoViewModel.StartLoadingUserInfo();
             TitleTrack.Text = "Сейчас ничего не воспроизводится";
+            NavigationViewModel.VisibilitySelectorHome = true;
+            NavigationViewModel.Changed();
             //AppWindow appWindow = await AppWindow.TryCreateAsync();
             //Frame appWindowContentFrame = new Frame();
             //appWindowContentFrame.Navigate(typeof(DeveloperView));

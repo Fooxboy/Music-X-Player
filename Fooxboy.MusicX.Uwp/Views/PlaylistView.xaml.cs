@@ -43,5 +43,11 @@ namespace Fooxboy.MusicX.Uwp.Views
         {
             ShadowRectangle.Width = e.NewSize.Width;
         }
+
+        private void TracksListView_OnItemClick(object sender, ItemClickEventArgs e)
+        {
+            var track = (Track) e.ClickedItem;
+            ViewModel.PlayTrack(track);
+        }
     }
 }

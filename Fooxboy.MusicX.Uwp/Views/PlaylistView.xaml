@@ -13,166 +13,257 @@
 
     <Grid>
         <ScrollViewer>
-            <Grid Margin="0,60,0,0">
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="auto" />
-                    <ColumnDefinition />
-                </Grid.ColumnDefinitions>
-
-                <controls:DropShadowPanel
-                    Grid.Column="0"
-                    Grid.ColumnSpan="2"
-                    Margin="50"
-                    VerticalAlignment="Top"
-                    BlurRadius="50"
-                    CornerRadius="10"
-                    IsMasked="True"
-                    OffsetX="0"
-                    OffsetY="0"
-                    ShadowOpacity="0.4">
-                    <Border
-                        x:Name="ShadowRectangle"
-                        Height="250"
-                        Background="White"
-                        CornerRadius="10" />
-
-                </controls:DropShadowPanel>
-
-                <Rectangle
-                    Grid.ColumnSpan="2"
-                    Height="250"
-                    Margin="50"
-                    VerticalAlignment="Top"
-                    Fill="{ThemeResource BlockBackground}"
-                    RadiusX="10"
-                    RadiusY="10"
-                    SizeChanged="Rectangle_SizeChanged" />
-
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition />
+                </Grid.RowDefinitions>
 
                 <Grid
-                    x:Name="CoverGrid"
-                    Grid.Column="0"
-                    Margin="70,70,0,0"
-                    HorizontalAlignment="Left"
-                    VerticalAlignment="Top">
+                    x:Name="MainGrid"
+                    Grid.Row="0"
+                    Margin="0,60,0,0">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="auto" />
+                        <ColumnDefinition />
+                    </Grid.ColumnDefinitions>
+
                     <controls:DropShadowPanel
-                        x:Name="Shadoww"
+                        x:Name="ShadowPanel"
                         Grid.Column="0"
-                        HorizontalAlignment="Center"
-                        VerticalAlignment="Center"
-                        BlurRadius="30"
-                        CornerRadius="8"
+                        Grid.ColumnSpan="2"
+                        Margin="50"
+                        VerticalAlignment="Top"
+                        BlurRadius="50"
+                        CornerRadius="10"
                         IsMasked="True"
                         OffsetX="0"
                         OffsetY="0"
-                        ShadowOpacity="0.7">
+                        ShadowOpacity="0.4">
                         <Border
-                            x:Name="ShadowCover"
-                            Width="200"
-                            Height="200"
+                            x:Name="ShadowRectangle"
+                            Height="250"
                             Background="White"
-                            CornerRadius="8" />
+                            CornerRadius="10" />
 
                     </controls:DropShadowPanel>
 
-                    <controls:ImageEx
-                        x:Name="CoverImage"
-                        Width="200"
-                        Height="200"
-                        HorizontalAlignment="Center"
-                        CornerRadius="8"
-                        DecodePixelHeight="200"
-                        DecodePixelWidth="200"
-                        IsCacheEnabled="False"
-                        PlaceholderSource="ms-appx:///Assets/Images/placeholder-album.jpg"
-                        PlaceholderStretch="Fill"
-                        Source="{x:Bind ViewModel.Album.Cover, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                        Stretch="Fill" />
-                </Grid>
+                    <Rectangle
+                        x:Name="RectangleBackground"
+                        Grid.ColumnSpan="2"
+                        Height="250"
+                        Margin="50"
+                        VerticalAlignment="Top"
+                        Fill="{ThemeResource BlockBackground}"
+                        RadiusX="10"
+                        RadiusY="10"
+                        SizeChanged="Rectangle_SizeChanged" />
 
-                <Grid
-                    x:Name="InfoPlaylistGrid"
-                    Grid.Column="1"
-                    Margin="20,70">
-                    <Grid.RowDefinitions>
-                        <RowDefinition Height="auto" />
-                        <RowDefinition Height="auto" />
-                        <RowDefinition Height="auto" />
-                        <RowDefinition />
-                    </Grid.RowDefinitions>
 
-                    <TextBlock
-                        Grid.Row="0"
-                        FontFamily="Calibri"
-                        FontSize="39"
-                        FontWeight="ExtraBlack"
-                        Text="{x:Bind ViewModel.Album.Title, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
-                    <StackPanel Grid.Row="1" Orientation="Horizontal">
+                    <Grid
+                        x:Name="CoverGrid"
+                        Grid.Column="0"
+                        Margin="70,70,0,0"
+                        HorizontalAlignment="Left"
+                        VerticalAlignment="Top">
+                        <controls:DropShadowPanel
+                            x:Name="ShadowImage"
+                            Grid.Column="0"
+                            HorizontalAlignment="Center"
+                            VerticalAlignment="Center"
+                            BlurRadius="30"
+                            CornerRadius="8"
+                            IsMasked="True"
+                            OffsetX="0"
+                            OffsetY="0"
+                            ShadowOpacity="0.7">
+                            <Border
+                                x:Name="ShadowCover"
+                                Width="200"
+                                Height="200"
+                                Background="White"
+                                CornerRadius="8" />
+
+                        </controls:DropShadowPanel>
+
+                        <controls:ImageEx
+                            x:Name="CoverImage"
+                            Width="200"
+                            Height="200"
+                            HorizontalAlignment="Center"
+                            CornerRadius="8"
+                            DecodePixelHeight="200"
+                            DecodePixelWidth="200"
+                            IsCacheEnabled="False"
+                            PlaceholderSource="ms-appx:///Assets/Images/placeholder-album.jpg"
+                            PlaceholderStretch="Fill"
+                            Source="{x:Bind ViewModel.Album.Cover, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                            Stretch="Fill" />
+                    </Grid>
+
+                    <Grid
+                        x:Name="InfoPlaylistGrid"
+                        Grid.Column="1"
+                        Margin="20,70">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="auto" />
+                            <RowDefinition Height="auto" />
+                            <RowDefinition Height="auto" />
+                            <RowDefinition />
+                        </Grid.RowDefinitions>
+
                         <TextBlock
-                            Grid.Row="1"
-                            FontWeight="Bold"
-                            Foreground="{ThemeResource ColorArtistText}"
-                            Text="{x:Bind ViewModel.Album.Artists[0], Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
-                        <TextBlock Margin="3,0,0,0" Text="•" />
-                        <TextBlock Margin="3,0,0,0" Text="{x:Bind ViewModel.Album.Genres[0], Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
-                        <TextBlock Margin="3,0,0,0" Text="•" />
-                        <TextBlock Margin="3,0,0,0" Text="{x:Bind ViewModel.Album.Year, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
-                        <TextBlock Margin="3,0,0,0" Text="•" />
-                        <TextBlock Margin="3,0,0,0" Text="{x:Bind ViewModel.Album.Plays, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
-                        <TextBlock Margin="3,0,0,0" Text="прослушиваний" />
-                        <TextBlock />
-                    </StackPanel>
-                    <StackPanel
-                        Grid.Row="2"
-                        Margin="0,20,0,0"
-                        Orientation="Horizontal">
-                        <Button
-                            Height="35"
-                            BorderThickness="0"
-                            Command="{x:Bind ViewModel.PlayCommmand}"
-                            CornerRadius="3">
-                            <Button.Content>
-                                <StackPanel Orientation="Horizontal">
-                                    <FontIcon FontFamily="Segoe MDL2 Assets" Glyph="&#xE102;" />
-                                    <TextBlock Margin="5,0,0,0" Text="Слушать все" />
-                                </StackPanel>
-                            </Button.Content>
-                        </Button>
+                            Grid.Row="0"
+                            FontFamily="Calibri"
+                            FontSize="39"
+                            FontWeight="ExtraBlack"
+                            Text="{x:Bind ViewModel.Album.Title, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                        <StackPanel Grid.Row="1" Orientation="Horizontal">
+                            <TextBlock
+                                Grid.Row="1"
+                                FontWeight="Bold"
+                                Foreground="{ThemeResource ColorArtistText}"
+                                Text="{x:Bind ViewModel.Album.Artists[0].Name, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                            <TextBlock
+                                x:Name="Dot1"
+                                Margin="3,0,0,0"
+                                Text="•" />
+                            <TextBlock
+                                x:Name="Genres"
+                                Margin="3,0,0,0"
+                                Text="{x:Bind ViewModel.Album.Genres[0], Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                            <TextBlock
+                                x:Name="Dot2"
+                                Margin="3,0,0,0"
+                                Text="•" />
+                            <TextBlock
+                                x:Name="Year"
+                                Margin="3,0,0,0"
+                                Text="{x:Bind ViewModel.Album.Year, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                            <TextBlock
+                                x:Name="Dot3"
+                                Margin="3,0,0,0"
+                                Text="•" />
+                            <TextBlock
+                                x:Name="Plays"
+                                Margin="3,0,0,0"
+                                Text="{x:Bind ViewModel.Album.Plays, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                            <TextBlock
+                                x:Name="PlaysText"
+                                Margin="3,0,0,0"
+                                Text="прослушиваний" />
+                            <TextBlock />
+                        </StackPanel>
+                        <StackPanel
+                            Grid.Row="2"
+                            Margin="0,20,0,0"
+                            Orientation="Horizontal">
+                            <Button
+                                Height="35"
+                                BorderThickness="0"
+                                Command="{x:Bind ViewModel.PlayCommmand}"
+                                CornerRadius="3">
+                                <Button.Content>
+                                    <StackPanel Orientation="Horizontal">
+                                        <FontIcon FontFamily="Segoe MDL2 Assets" Glyph="&#xE102;" />
+                                        <TextBlock Margin="5,0,0,0" Text="Слушать все" />
+                                    </StackPanel>
+                                </Button.Content>
+                            </Button>
 
-                        <Button
-                            Height="35"
-                            Margin="10,0,0,0"
-                            BorderThickness="0"
-                            Command="{x:Bind ViewModel.ShuffleCommand}"
-                            CornerRadius="3">
-                            <Button.Content>
-                                <StackPanel Orientation="Horizontal">
-                                    <FontIcon FontFamily="Segoe MDL2 Assets" Glyph="&#xE14B;" />
-                                    <TextBlock Margin="5,0,0,0" Text="Смешать" />
-                                </StackPanel>
-                            </Button.Content>
-                        </Button>
+                            <Button
+                                Height="35"
+                                Margin="10,0,0,0"
+                                BorderThickness="0"
+                                Command="{x:Bind ViewModel.ShuffleCommand}"
+                                CornerRadius="3">
+                                <Button.Content>
+                                    <StackPanel Orientation="Horizontal">
+                                        <FontIcon FontFamily="Segoe MDL2 Assets" Glyph="&#xE14B;" />
+                                        <TextBlock Margin="5,0,0,0" Text="Смешать" />
+                                    </StackPanel>
+                                </Button.Content>
+                            </Button>
 
-                        <Button
-                            Height="35"
-                            Margin="10,0,0,0"
-                            BorderThickness="0"
-                            Command="{x:Bind ViewModel.AddToLibraryCommand}"
-                            CornerRadius="3">
-                            <Button.Content>
-                                <StackPanel Orientation="Horizontal">
-                                    <FontIcon FontFamily="Segoe MDL2 Assets" Glyph="&#xE109;" />
-                                    <TextBlock Margin="5,0,0,0" Text="Добавить" />
-                                </StackPanel>
-                            </Button.Content>
-                        </Button>
+                            <Button
+                                Height="35"
+                                Margin="10,0,0,0"
+                                BorderThickness="0"
+                                Command="{x:Bind ViewModel.AddToLibraryCommand}"
+                                CornerRadius="3">
+                                <Button.Content>
+                                    <StackPanel Orientation="Horizontal">
+                                        <FontIcon FontFamily="Segoe MDL2 Assets" Glyph="&#xE109;" />
+                                        <TextBlock Margin="5,0,0,0" Text="Добавить" />
+                                    </StackPanel>
+                                </Button.Content>
+                            </Button>
 
-                    </StackPanel>
+                        </StackPanel>
 
 
+                    </Grid>
+
+                    <VisualStateManager.VisualStateGroups>
+                        <VisualStateGroup>
+                            <VisualState x:Name="Desktop">
+                                <VisualState.StateTriggers>
+                                    <AdaptiveTrigger MinWindowWidth="800" />
+                                </VisualState.StateTriggers>
+                                <VisualState.Setters>
+                                    <Setter Target="RectangleBackground.Margin" Value="50,50,50,50" />
+                                    <Setter Target="Dot1.Visibility" Value="Visible" />
+                                    <Setter Target="Dot2.Visibility" Value="Visible" />
+                                    <Setter Target="Dot3.Visibility" Value="Visible" />
+                                    <Setter Target="Genres.Visibility" Value="Visible" />
+                                    <Setter Target="Year.Visibility" Value="Visible" />
+                                    <Setter Target="Plays.Visibility" Value="Visible" />
+                                    <Setter Target="PlaysText.Visibility" Value="Visible" />
+
+                                </VisualState.Setters>
+                            </VisualState>
+
+                            <VisualState x:Name="Mobile">
+                                <VisualState.StateTriggers>
+                                    <AdaptiveTrigger MinWindowWidth="0" />
+                                </VisualState.StateTriggers>
+                                <VisualState.Setters>
+                                    <Setter Target="RectangleBackground.Margin" Value="0,0,0,0" />
+                                    <Setter Target="Dot1.Visibility" Value="Collapsed" />
+                                    <Setter Target="Dot2.Visibility" Value="Collapsed" />
+                                    <Setter Target="Dot3.Visibility" Value="Collapsed" />
+                                    <Setter Target="Genres.Visibility" Value="Collapsed" />
+                                    <Setter Target="Year.Visibility" Value="Collapsed" />
+                                    <Setter Target="Plays.Visibility" Value="Collapsed" />
+                                    <Setter Target="PlaysText.Visibility" Value="Collapsed" />
+                                </VisualState.Setters>
+                            </VisualState>
+
+                        </VisualStateGroup>
+                    </VisualStateManager.VisualStateGroups>
                 </Grid>
-
+                <ListView
+                    x:Name="TracksListView"
+                    Grid.Row="1"
+                    Margin="20,-30,0,0"
+                    HorizontalAlignment="Stretch"
+                    IsItemClickEnabled="True"
+                    ItemClick="TracksListView_OnItemClick"
+                    ItemContainerStyle="{StaticResource ListViewItemContainerStyle}"
+                    ItemTemplate="{ThemeResource TrackDataTemplate}"
+                    ItemsSource="{x:Bind ViewModel.Tracks, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                    Style="{ThemeResource ListViewStyle}">
+                    <ListView.ItemsPanel>
+                        <ItemsPanelTemplate>
+                            <ItemsStackPanel
+                                HorizontalAlignment="Stretch"
+                                VerticalAlignment="Stretch"
+                                Orientation="Vertical" />
+                        </ItemsPanelTemplate>
+                    </ListView.ItemsPanel>
+                </ListView>
             </Grid>
+
         </ScrollViewer>
     </Grid>
 </Page>

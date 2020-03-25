@@ -86,7 +86,10 @@
                 Orientation="Horizontal">
 
                 <StackPanel Orientation="Vertical">
-                    <Button CornerRadius="2" Style="{StaticResource MenuButton}">
+                    <Button
+                        Command="{x:Bind NavigationViewModel.GoToHome}"
+                        CornerRadius="2"
+                        Style="{StaticResource MenuButton}">
                         <StackPanel Orientation="Horizontal">
                             <FontIcon
                                 FontFamily="Segoe MDL2 Assets"
@@ -106,11 +109,14 @@
                         Fill="{ThemeResource SystemAccentColor}"
                         RadiusX="2"
                         RadiusY="2"
-                        Visibility="Visible" />
+                        Visibility="{x:Bind NavigationViewModel.VisibilitySelectorHome, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, Converter={StaticResource ToVisibility}}" />
                 </StackPanel>
 
                 <StackPanel Margin="15,0,0,0" Orientation="Vertical">
-                    <Button CornerRadius="2" Style="{StaticResource MenuButton}">
+                    <Button
+                        Command="{x:Bind NavigationViewModel.GoToRecommendations}"
+                        CornerRadius="2"
+                        Style="{StaticResource MenuButton}">
                         <StackPanel Orientation="Horizontal">
                             <FontIcon
                                 FontFamily="Segoe MDL2 Assets"
@@ -130,11 +136,14 @@
                         Fill="{ThemeResource SystemAccentColor}"
                         RadiusX="2"
                         RadiusY="2"
-                        Visibility="Collapsed" />
+                        Visibility="{x:Bind NavigationViewModel.VisibilitySelectorRecommendations, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, Converter={StaticResource ToVisibility}}" />
                 </StackPanel>
 
                 <StackPanel Margin="15,0,0,0" Orientation="Vertical">
-                    <Button CornerRadius="2" Style="{StaticResource MenuButton}">
+                    <Button
+                        Command="{x:Bind NavigationViewModel.GoToFavoriteArtists}"
+                        CornerRadius="2"
+                        Style="{StaticResource MenuButton}">
                         <StackPanel Orientation="Horizontal">
                             <FontIcon
                                 FontFamily="Segoe MDL2 Assets"
@@ -154,11 +163,14 @@
                         Fill="{ThemeResource SystemAccentColor}"
                         RadiusX="2"
                         RadiusY="2"
-                        Visibility="Collapsed" />
+                        Visibility="{x:Bind NavigationViewModel.VisibilitySelectorFavoriteArtists, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, Converter={StaticResource ToVisibility}}" />
                 </StackPanel>
 
                 <StackPanel Margin="15,0,0,0" Orientation="Vertical">
-                    <Button CornerRadius="2" Style="{StaticResource MenuButton}">
+                    <Button
+                        Command="{x:Bind NavigationViewModel.GoToDownloads}"
+                        CornerRadius="2"
+                        Style="{StaticResource MenuButton}">
                         <StackPanel Orientation="Horizontal">
                             <FontIcon
                                 FontFamily="Segoe MDL2 Assets"
@@ -178,7 +190,7 @@
                         Fill="{ThemeResource SystemAccentColor}"
                         RadiusX="2"
                         RadiusY="2"
-                        Visibility="Collapsed" />
+                        Visibility="{x:Bind NavigationViewModel.VisibilitySelectorDownloads, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, Converter={StaticResource ToVisibility}}" />
                 </StackPanel>
 
             </StackPanel>
