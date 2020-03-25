@@ -1,14 +1,15 @@
 ﻿<ResourceDictionary
-    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" 
-    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-    xmlns:models="using:Fooxboy.MusicX.Uwp.Models"
-    xmlns:controls="using:Fooxboy.MusicX.Uwp.Resources.Controls"
     x:Class="Fooxboy.MusicX.Uwp.DataTemplates.TrackDataTemplateCode"
-    xmlns:local="using:Fooxboy.MusicX.Uwp.DataTemplates">
-    <DataTemplate x:Name="TrackDataTemplate"
-                  x:DataType="models:Track"
-                  x:DefaultBindMode="TwoWay">
-        <controls:TrackControl HorizontalAlignment="Stretch" Track="{Binding}"/>
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:controls="using:Fooxboy.MusicX.Uwp.Resources.Controls"
+    xmlns:local="using:Fooxboy.MusicX.Uwp.DataTemplates"
+    xmlns:models="using:Fooxboy.MusicX.Uwp.Models">
+    <DataTemplate
+        x:Name="TrackDataTemplate"
+        x:DataType="models:Track"
+        x:DefaultBindMode="TwoWay">
+        <controls:TrackControl HorizontalAlignment="Stretch" Track="{Binding}" />
     </DataTemplate>
-    
+
 </ResourceDictionary>

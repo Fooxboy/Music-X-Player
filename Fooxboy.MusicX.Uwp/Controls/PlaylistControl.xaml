@@ -11,16 +11,19 @@
     Loaded="UserControl_Loaded"
     mc:Ignorable="d">
 
-    <Grid PointerEntered="Grid_PointerEntered" PointerExited="Grid_PointerExited" x:Name="PlaylistControlGrid">
+    <Grid
+        x:Name="PlaylistControlGrid"
+        PointerEntered="Grid_PointerEntered"
+        PointerExited="Grid_PointerExited">
         <Grid.RowDefinitions>
-            <RowDefinition/>
-            <RowDefinition Height="auto"/>
+            <RowDefinition />
+            <RowDefinition Height="auto" />
         </Grid.RowDefinitions>
         <Grid.ContextFlyout>
             <MenuFlyout>
                 <MenuFlyout.MenuFlyoutPresenterStyle>
                     <Style TargetType="MenuFlyoutPresenter">
-                        <Setter Property="CornerRadius" Value="5"/>
+                        <Setter Property="CornerRadius" Value="5" />
                     </Style>
                 </MenuFlyout.MenuFlyoutPresenterStyle>
 
@@ -39,40 +42,56 @@
             </MenuFlyout>
         </Grid.ContextFlyout>
 
-        <controls:DropShadowPanel 
-            Grid.RowSpan="2" 
-            BlurRadius="40"                   
-            ShadowOpacity="0.6"
+        <controls:DropShadowPanel
+            Grid.RowSpan="2"
+            HorizontalAlignment="Center"
+            VerticalAlignment="Center"
+            BlurRadius="40"
+            CornerRadius="4"
+            IsMasked="True"
             OffsetX="0"
             OffsetY="10"
-            Color="Black"
-            CornerRadius="4"
-            VerticalAlignment="Center"
-            HorizontalAlignment="Center"
-            IsMasked="True">
-            <Border  x:Name="BorderShadow" Background="Transparent" CornerRadius="4"/>
+            ShadowOpacity="0.6"
+            Color="Black">
+            <Border
+                x:Name="BorderShadow"
+                Background="Transparent"
+                CornerRadius="4" />
 
         </controls:DropShadowPanel>
 
-        <controls:ImageEx Grid.RowSpan="2"
+        <controls:ImageEx
+            Grid.RowSpan="2"
+            Margin="20,20,20,20"
             HorizontalAlignment="Stretch"
             VerticalAlignment="Stretch"
-            SizeChanged="ImageEx_SizeChanged"
+            CornerRadius="4"
             DecodePixelHeight="150"
             DecodePixelWidth="150"
-            Margin="20 20 20 20"
             IsCacheEnabled="False"
-                          PlaceholderStretch="Fill"
             PlaceholderSource="../../Assets/Images/placeholder-album.jpg"
+            PlaceholderStretch="Fill"
+            SizeChanged="ImageEx_SizeChanged"
             Source="{x:Bind Album.Cover, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-            CornerRadius="4"
-            Stretch="Fill">
-        </controls:ImageEx>
+            Stretch="Fill" />
 
-        <Rectangle  Margin="20 0 20 20" RadiusX="4" RadiusY="4" Grid.Row="1"  Fill="{ThemeResource BottomAcrylicBrush}"/>
-        <StackPanel Margin="25 0 25 25" Grid.Row="1">
-            <TextBlock Foreground="{ThemeResource MainTextColor}" FontWeight="Bold" TextTrimming="CharacterEllipsis" Text="{x:Bind Album.Title}"/>
-            <TextBlock x:Name="ArtistsText" Foreground="{ThemeResource ColorArtistText}" TextTrimming="CharacterEllipsis" Text="{x:Bind Artists}"/>
+        <Rectangle
+            Grid.Row="1"
+            Margin="20,0,20,20"
+            Fill="{ThemeResource BottomAcrylicBrush}"
+            RadiusX="4"
+            RadiusY="4" />
+        <StackPanel Grid.Row="1" Margin="25,0,25,25">
+            <TextBlock
+                FontWeight="Bold"
+                Foreground="{ThemeResource MainTextColor}"
+                Text="{x:Bind Album.Title}"
+                TextTrimming="CharacterEllipsis" />
+            <TextBlock
+                x:Name="ArtistsText"
+                Foreground="{ThemeResource ColorArtistText}"
+                Text="{x:Bind Artists}"
+                TextTrimming="CharacterEllipsis" />
         </StackPanel>
     </Grid>
 </UserControl>

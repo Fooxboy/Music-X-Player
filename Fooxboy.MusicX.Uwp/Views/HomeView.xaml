@@ -2,137 +2,193 @@
     x:Class="Fooxboy.MusicX.Uwp.Views.HomeView"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-    xmlns:local="using:Fooxboy.MusicX.Uwp.Views"
-    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:controls="using:Microsoft.Toolkit.Uwp.UI.Controls"
-    xmlns:myControls="using:Fooxboy.MusicX.Uwp.Resources.Controls"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:local="using:Fooxboy.MusicX.Uwp.Views"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    xmlns:models="using:Fooxboy.MusicX.Uwp.Models" 
-    mc:Ignorable="d"
+    xmlns:models="using:Fooxboy.MusicX.Uwp.Models"
+    xmlns:myControls="using:Fooxboy.MusicX.Uwp.Resources.Controls"
+    Background="{ThemeResource BackgroundApp}"
     Loaded="Page_Loaded"
-    Background="{ThemeResource BackgroundApp}">
+    mc:Ignorable="d">
 
-   
+
 
     <Grid>
+        <TextBlock
+            x:Name="text1"
+            HorizontalAlignment="Center"
+            VerticalAlignment="Center"
+            FontSize="50" />
+
+        <ScrollViewer x:Name="scroll" ViewChanging="scroll_ViewChanging">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="auto" />
+                    <RowDefinition />
+                </Grid.RowDefinitions>
+
+
+
+                <Grid
+                    x:Name="PlaylistsGrid"
+                    Grid.Row="0"
+                    Height="300"
+                    Margin="50,100,50,20"
+                    VerticalAlignment="Top">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="auto" />
+                        <RowDefinition />
+                    </Grid.RowDefinitions>
+
+                    <controls:DropShadowPanel
+                        Grid.RowSpan="2"
+                        HorizontalAlignment="Stretch"
+                        VerticalAlignment="Stretch"
+                        BlurRadius="30"
+                        CornerRadius="10"
+                        IsMasked="True"
+                        OffsetX="0"
+                        OffsetY="10"
+                        ShadowOpacity="0.4"
+                        Color="Black">
+                        <Border
+                            x:Name="BorderShadow"
+                            Height="300"
+                            Background="Transparent"
+                            CornerRadius="10" />
+
+                    </controls:DropShadowPanel>
+                    <Rectangle
+                        x:Name="BlockPlaylists"
+                        Grid.RowSpan="2"
+                        Fill="{ThemeResource BlockBackground}"
+                        RadiusX="10"
+                        RadiusY="10"
+                        SizeChanged="BlockPlaylists_SizeChanged" />
+
+                    <TextBlock
+                        x:Name="PlaylistsText"
+                        Grid.Row="0"
+                        FontFamily="Calibri"
+                        FontSize="38"
+                        FontWeight="ExtraBold"
+                        Text="Ваши плейлисты" />
+                    <Button
+                        x:Name="ShowAllPlaylistButton"
+                        Grid.Row="0"
+                        HorizontalAlignment="Right"
+                        Background="Transparent"
+                        BorderThickness="0"
+                        CornerRadius="3">
+                        <Button.Content>
+                            <StackPanel Orientation="Horizontal">
+                                <TextBlock HorizontalAlignment="Center" Text="Показать все" />
+                                <FontIcon
+                                    Margin="5,2,0,0"
+                                    FontFamily="Segoe MDL2 Assets"
+                                    FontSize="13"
+                                    Glyph="&#xF745;" />
+                            </StackPanel>
+                        </Button.Content>
+                    </Button>
+
+                    <controls:AdaptiveGridView
+                        Grid.Row="1"
+                        ItemTemplate="{ThemeResource PlaylistDataTemplate}"
+                        ItemsSource="{x:Bind ViewModel.Albums, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                        ScrollViewer.HorizontalScrollBarVisibility="Auto"
+                        ScrollViewer.HorizontalScrollMode="Enabled"
+                        SelectionMode="None">
+                        <GridView.ItemsPanel>
+                            <ItemsPanelTemplate>
+                                <StackPanel Orientation="Horizontal" />
+                            </ItemsPanelTemplate>
+                        </GridView.ItemsPanel>
+
+
+                    </controls:AdaptiveGridView>
+                    <myControls:PlaylistControl
+                        Grid.Row="1"
+                        Width="200"
+                        Height="200"
+                        HorizontalAlignment="Left"
+                        Visibility="Collapsed" />
+                </Grid>
+
+                <Grid Grid.Row="1">
+                    <TextBlock
+                        x:Name="MusicText"
+                        Grid.Row="0"
+                        Margin="70,10,0,0"
+                        FontFamily="Calibri"
+                        FontSize="38"
+                        FontWeight="ExtraBold"
+                        Text="Ваша музыка" />
+                    <ListView
+                        x:Name="TracksListView"
+                        Grid.Row="0"
+                        HorizontalAlignment="Stretch"
+                        IsItemClickEnabled="True"
+                        ItemClick="TracksListView_ItemClick"
+                        ItemContainerStyle="{StaticResource ListViewItemContainerStyle}"
+                        ItemTemplate="{ThemeResource TrackDataTemplate}"
+                        ItemsSource="{x:Bind ViewModel.Tracks, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                        Style="{ThemeResource ListViewStyle}">
+                        <ListView.ItemsPanel>
+                            <ItemsPanelTemplate>
+                                <ItemsStackPanel
+                                    HorizontalAlignment="Stretch"
+                                    VerticalAlignment="Stretch"
+                                    Orientation="Vertical" />
+                            </ItemsPanelTemplate>
+                        </ListView.ItemsPanel>
+                    </ListView>
+                </Grid>
+            </Grid>
+
+
+        </ScrollViewer>
 
         <VisualStateManager.VisualStateGroups>
             <VisualStateGroup>
-                <VisualState x:Name="Desktop" >
+                <VisualState x:Name="Desktop">
                     <VisualState.StateTriggers>
-                        <AdaptiveTrigger MinWindowWidth="640"/>
+                        <AdaptiveTrigger MinWindowWidth="640" />
                     </VisualState.StateTriggers>
                     <VisualState.Setters>
-                        <Setter Target="PlaylistsText.FontSize" Value="38"/>
-                        <Setter Target="MusicText.FontSize" Value="38"/>
-                        <Setter Target="PlaylistsGrid.Margin" Value="50 100 50 20"/>
-                        <Setter Target="BlockPlaylists.RadiusX" Value="10"/>
-                        <Setter Target="BlockPlaylists.RadiusY" Value="10"/>
-                        <Setter Target="MusicText.Margin" Value="70 10 0 0"/>
-                        <Setter Target="TracksListView.Margin" Value="40 60 0 0"/>
-                        <Setter Target="ShowAllPlaylistButton.Margin" Value="0 10 20 0"/>
-                        <Setter Target="PlaylistsText.Margin" Value="20 10 0 0"/>
+                        <Setter Target="PlaylistsText.FontSize" Value="38" />
+                        <Setter Target="MusicText.FontSize" Value="38" />
+                        <Setter Target="PlaylistsGrid.Margin" Value="50 100 50 20" />
+                        <Setter Target="BlockPlaylists.RadiusX" Value="10" />
+                        <Setter Target="BlockPlaylists.RadiusY" Value="10" />
+                        <Setter Target="MusicText.Margin" Value="70 10 0 0" />
+                        <Setter Target="TracksListView.Margin" Value="40 60 0 0" />
+                        <Setter Target="ShowAllPlaylistButton.Margin" Value="0 10 20 0" />
+                        <Setter Target="PlaylistsText.Margin" Value="20 10 0 0" />
 
                     </VisualState.Setters>
                 </VisualState>
 
-                <VisualState x:Name="Mobile" >
+                <VisualState x:Name="Mobile">
                     <VisualState.StateTriggers>
-                        <AdaptiveTrigger MinWindowWidth="0"/>
+                        <AdaptiveTrigger MinWindowWidth="0" />
                     </VisualState.StateTriggers>
                     <VisualState.Setters>
-                        <Setter Target="PlaylistsText.FontSize" Value="32"/>
-                        <Setter Target="MusicText.FontSize" Value="32"/>
-                        <Setter Target="PlaylistsGrid.Margin" Value="0 70 0 20"/>
-                        <Setter Target="BlockPlaylists.RadiusX" Value="0"/>
-                        <Setter Target="BlockPlaylists.RadiusY" Value="0"/>
-                        <Setter Target="MusicText.Margin" Value="20 10 0 0"/>
-                        <Setter Target="TracksListView.Margin" Value="-10 60 0 0"/>
-                        <Setter Target="ShowAllPlaylistButton.Margin" Value="0 10 8 0"/>
-                        <Setter Target="PlaylistsText.Margin" Value="15 10 0 0"/>
+                        <Setter Target="PlaylistsText.FontSize" Value="32" />
+                        <Setter Target="MusicText.FontSize" Value="32" />
+                        <Setter Target="PlaylistsGrid.Margin" Value="0 70 0 20" />
+                        <Setter Target="BlockPlaylists.RadiusX" Value="0" />
+                        <Setter Target="BlockPlaylists.RadiusY" Value="0" />
+                        <Setter Target="MusicText.Margin" Value="20 10 0 0" />
+                        <Setter Target="TracksListView.Margin" Value="-10 60 0 0" />
+                        <Setter Target="ShowAllPlaylistButton.Margin" Value="0 10 8 0" />
+                        <Setter Target="PlaylistsText.Margin" Value="15 10 0 0" />
 
                     </VisualState.Setters>
                 </VisualState>
 
             </VisualStateGroup>
         </VisualStateManager.VisualStateGroups>
-
-        <TextBlock x:Name="text1" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="50"/>
-
-        <ScrollViewer ViewChanging="scroll_ViewChanging"  x:Name="scroll">
-            <Grid>
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="auto"/>
-                    <RowDefinition/>
-                </Grid.RowDefinitions>
-                
-               
-
-                <Grid x:Name="PlaylistsGrid" Grid.Row="0" Margin="50 100 50 20" VerticalAlignment="Top" Height="300">
-                    <Grid.RowDefinitions>
-                        <RowDefinition Height="auto"/>
-                        <RowDefinition/>
-                    </Grid.RowDefinitions>
-                    
-                    <controls:DropShadowPanel Grid.RowSpan="2" BlurRadius="30"
-                                  ShadowOpacity="0.4"
-                                  OffsetX="0"
-                                  OffsetY="10"
-                                  Color="Black"
-                                              CornerRadius="10"
-                                              VerticalAlignment="Stretch"
-                                              HorizontalAlignment="Stretch"
-                                  IsMasked="True">
-                        <Border  x:Name="BorderShadow" Height="300" Background="Transparent" CornerRadius="10"/>
-                        
-                    </controls:DropShadowPanel>
-                    <Rectangle Grid.RowSpan="2"  x:Name="BlockPlaylists" SizeChanged="BlockPlaylists_SizeChanged" RadiusX="10" RadiusY="10" Fill="{ThemeResource BlockBackground}"/>
-
-                    <TextBlock x:Name="PlaylistsText" Grid.Row="0" FontWeight="ExtraBold" FontFamily="Calibri" FontSize="38" Text="Ваши плейлисты"/>
-                    <Button x:Name="ShowAllPlaylistButton" Grid.Row="0" CornerRadius="3" BorderThickness="0" Background="Transparent" HorizontalAlignment="Right" >
-                        <Button.Content>
-                            <StackPanel Orientation="Horizontal">
-                                <TextBlock  HorizontalAlignment="Center" Text="Показать все"/>
-                                <FontIcon Margin="5 2 0 0" FontSize="13" FontFamily="Segoe MDL2 Assets" Glyph="&#xF745;" />
-                            </StackPanel>
-                        </Button.Content>
-                    </Button>
-
-                    <controls:AdaptiveGridView SelectionMode="None"
-                                               
-                                               ScrollViewer.HorizontalScrollBarVisibility="Auto"
-                                               ScrollViewer.HorizontalScrollMode="Enabled"
-                                               
-                              Grid.Row="1"
-                                               
-                              ItemTemplate="{ThemeResource PlaylistDataTemplate}"
-                              ItemsSource="{x:Bind ViewModel.Albums, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
-                        <GridView.ItemsPanel>
-                            <ItemsPanelTemplate>
-                                <StackPanel Orientation="Horizontal"/>
-                            </ItemsPanelTemplate>
-                        </GridView.ItemsPanel>
-
-                       
-                    </controls:AdaptiveGridView>
-                    <myControls:PlaylistControl Visibility="Collapsed" Grid.Row="1" HorizontalAlignment="Left" Height="200" Width="200"/>
-                </Grid>
-
-                <Grid Grid.Row="1">
-                    <TextBlock x:Name="MusicText" Grid.Row="0" Margin="70 10 0 0" FontWeight="ExtraBold" FontFamily="Calibri" FontSize="38" Text="Ваша музыка"/>
-                    <ListView IsItemClickEnabled="True" ItemClick="TracksListView_ItemClick" x:Name="TracksListView" ItemsSource="{x:Bind ViewModel.Tracks, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" ItemContainerStyle="{StaticResource ListViewItemContainerStyle}" Style="{ThemeResource ListViewStyle}" HorizontalAlignment="Stretch" Grid.Row="0" ItemTemplate="{ThemeResource TrackDataTemplate}">
-                        <ListView.ItemsPanel>
-                            <ItemsPanelTemplate>
-                                <ItemsStackPanel HorizontalAlignment="Stretch" Orientation="Vertical" VerticalAlignment="Stretch" />
-                            </ItemsPanelTemplate>
-                        </ListView.ItemsPanel>
-                    </ListView>
-                </Grid>
-            </Grid>
-            
-            
-        </ScrollViewer>
-        
-        
     </Grid>
 </Page>

@@ -2,56 +2,118 @@
     x:Class="Fooxboy.MusicX.Uwp.Controls.NotificationControl"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-    xmlns:local="using:Fooxboy.MusicX.Uwp.Controls"
+    xmlns:animations="using:Microsoft.Toolkit.Uwp.UI.Animations"
     xmlns:controls="using:Microsoft.Toolkit.Uwp.UI.Controls"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:extensions="using:Microsoft.Toolkit.Uwp.UI.Extensions"
-    xmlns:animations="using:Microsoft.Toolkit.Uwp.UI.Animations"
-    mc:Ignorable="d"
-    Loaded="UserControl_Loaded"
+    xmlns:local="using:Fooxboy.MusicX.Uwp.Controls"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     d:DesignHeight="300"
-    d:DesignWidth="400">
+    d:DesignWidth="400"
+    Loaded="UserControl_Loaded"
+    mc:Ignorable="d">
 
-    <Grid  x:Name="NotificationGrid">
+    <Grid x:Name="NotificationGrid">
         <Grid.RowDefinitions>
-            <RowDefinition Height="32"/>
-            <RowDefinition/>
-            <RowDefinition Height="auto"/>
+            <RowDefinition Height="32" />
+            <RowDefinition />
+            <RowDefinition Height="auto" />
         </Grid.RowDefinitions>
 
-        <controls:DropShadowPanel 
-            Grid.RowSpan="3" 
-            BlurRadius="40"                   
-            ShadowOpacity="0.3"
+        <controls:DropShadowPanel
+            Grid.RowSpan="3"
+            Width="350"
+            Margin="0,0,0,-10"
+            HorizontalAlignment="Center"
+            VerticalAlignment="Center"
+            BlurRadius="40"
+            CornerRadius="10"
+            IsMasked="False"
             OffsetX="0"
             OffsetY="0"
-            Margin="0 0 0 -10"
-            Color="Black"
-            CornerRadius="10"
-             Width="350"
-            VerticalAlignment="Center"
-            HorizontalAlignment="Center"
-            IsMasked="False">
-            <Border x:Name="BorderShadow"  Width="350" Background="Transparent" CornerRadius="10"/>
+            ShadowOpacity="0.3"
+            Color="Black">
+            <Border
+                x:Name="BorderShadow"
+                Width="350"
+                Background="Transparent"
+                CornerRadius="10" />
 
         </controls:DropShadowPanel>
-        <Rectangle SizeChanged="BackgroundNotification_SizeChanged" x:Name="BackgroundNotification" Grid.RowSpan="3" Margin="0 0 0 -10" RadiusX="10" RadiusY="10" Fill="{ThemeResource NotificationAcrylicBrush}"  Width="350"/>
-        <TextBlock Grid.Row="0" FontSize="19" Margin="10 5 0 0" Text="{x:Bind Title, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" FontWeight="Bold"/>
-        <TextBlock Foreground="{ThemeResource SubText}" Grid.Row="1" Text="{x:Bind Description, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Margin="11 5 0 0"/>
-        <Button Click="Button_Click" ToolTipService.ToolTip="Закрыть уведомление" BorderThickness="0" Height="26" Width="26" Background="Transparent" CornerRadius="99" HorizontalAlignment="Right" VerticalAlignment="Top" Margin="0 5 5 0" Grid.Row="0">
+        <Rectangle
+            x:Name="BackgroundNotification"
+            Grid.RowSpan="3"
+            Width="350"
+            Margin="0,0,0,-10"
+            Fill="{ThemeResource NotificationAcrylicBrush}"
+            RadiusX="10"
+            RadiusY="10"
+            SizeChanged="BackgroundNotification_SizeChanged" />
+        <TextBlock
+            Grid.Row="0"
+            Margin="10,5,0,0"
+            FontSize="19"
+            FontWeight="Bold"
+            Text="{x:Bind Title, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+        <TextBlock
+            Grid.Row="1"
+            Margin="11,5,0,0"
+            Foreground="{ThemeResource SubText}"
+            Text="{x:Bind Description, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+        <Button
+            Grid.Row="0"
+            Width="26"
+            Height="26"
+            Margin="0,5,5,0"
+            HorizontalAlignment="Right"
+            VerticalAlignment="Top"
+            Background="Transparent"
+            BorderThickness="0"
+            Click="Button_Click"
+            CornerRadius="99"
+            ToolTipService.ToolTip="Закрыть уведомление">
             <Button.Content>
-                <FontIcon FontSize="10" FontFamily="Segoe MDL2 Assets" Glyph="&#xE8BB;" />
+                <FontIcon
+                    FontFamily="Segoe MDL2 Assets"
+                    FontSize="10"
+                    Glyph="&#xE8BB;" />
             </Button.Content>
         </Button>
-        <StackPanel x:Name="ButtonsPanel" Visibility="Collapsed" Margin="11 20 0 0" Orientation="Horizontal" Grid.Row="2">
-            <Button Content="{x:Bind ButtonOneText, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Command="{x:Bind ButtonOneCommand}" CornerRadius="3" BorderThickness="0"/>
-            <Button Margin="10 0 0 0" Content="{x:Bind ButtonTwoText, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Command="{x:Bind ButtonTwoCommand}" CornerRadius="3" BorderThickness="0"/>
+        <StackPanel
+            x:Name="ButtonsPanel"
+            Grid.Row="2"
+            Margin="11,20,0,0"
+            Orientation="Horizontal"
+            Visibility="Collapsed">
+            <Button
+                BorderThickness="0"
+                Command="{x:Bind ButtonOneCommand}"
+                Content="{x:Bind ButtonOneText, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                CornerRadius="3" />
+            <Button
+                Margin="10,0,0,0"
+                BorderThickness="0"
+                Command="{x:Bind ButtonTwoCommand}"
+                Content="{x:Bind ButtonTwoText, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                CornerRadius="3" />
         </StackPanel>
 
-        <Button ToolTipService.ToolTip="Показать полностью" Grid.Row="2" Background="Transparent" HorizontalAlignment="Right" Margin="0 0 5 0" VerticalAlignment="Bottom" Width="30" Height="30" CornerRadius="99" BorderThickness="0">
+        <Button
+            Grid.Row="2"
+            Width="30"
+            Height="30"
+            Margin="0,0,5,0"
+            HorizontalAlignment="Right"
+            VerticalAlignment="Bottom"
+            Background="Transparent"
+            BorderThickness="0"
+            CornerRadius="99"
+            ToolTipService.ToolTip="Показать полностью">
             <Button.Content>
-                <FontIcon FontSize="10" FontFamily="Segoe MDL2 Assets" Glyph="&#xE09D;" />
+                <FontIcon
+                    FontFamily="Segoe MDL2 Assets"
+                    FontSize="10"
+                    Glyph="&#xE09D;" />
             </Button.Content>
         </Button>
     </Grid>

@@ -1,19 +1,23 @@
 ﻿<ResourceDictionary
     x:Class="Fooxboy.MusicX.Uwp.DataTemplates.PlaylistDataTemplateCode"
-    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" 
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-    xmlns:models="using:Fooxboy.MusicX.Uwp.Models"
     xmlns:controls="using:Fooxboy.MusicX.Uwp.Resources.Controls"
-    xmlns:local="using:Fooxboy.MusicX.Uwp.DataTemplates">
+    xmlns:local="using:Fooxboy.MusicX.Uwp.DataTemplates"
+    xmlns:models="using:Fooxboy.MusicX.Uwp.Models">
 
-    <DataTemplate x:Name="PlaylistDataTemplate" 
-                  x:DataType="models:Album"
-                  x:DefaultBindMode="TwoWay">
+    <DataTemplate
+        x:Name="PlaylistDataTemplate"
+        x:DataType="models:Album"
+        x:DefaultBindMode="TwoWay">
 
         <Grid>
-            <controls:PlaylistControl Height="200" Width="200" Album="{Binding}"/>
+            <controls:PlaylistControl
+                Width="200"
+                Height="200"
+                Album="{Binding}" />
         </Grid>
 
     </DataTemplate>
-    
+
 </ResourceDictionary>

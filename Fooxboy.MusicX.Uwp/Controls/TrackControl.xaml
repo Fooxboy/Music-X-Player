@@ -12,36 +12,46 @@
     mc:Ignorable="d">
 
     <Grid>
-        <Grid Visibility="Collapsed" Height="50" x:Name="LoadingGrid">
-            <ProgressRing x:Name="progressRing" IsActive="True" HorizontalAlignment="Center" VerticalAlignment="Center" Height="50" Width="50"/>
+        <Grid
+            x:Name="LoadingGrid"
+            Height="50"
+            Visibility="Collapsed">
+            <ProgressRing
+                x:Name="progressRing"
+                Width="50"
+                Height="50"
+                HorizontalAlignment="Center"
+                VerticalAlignment="Center"
+                IsActive="True" />
         </Grid>
-        
-        <Grid x:Name="TrackGrid"
-        Margin="32,0,30,0"
-        PointerEntered="Grid_PointerEntered"
-        PointerExited="Grid_PointerExited"
-        RightTapped="Grid_RightTapped">
+
+        <Grid
+            x:Name="TrackGrid"
+            Margin="32,0,30,0"
+            PointerEntered="Grid_PointerEntered"
+            PointerExited="Grid_PointerExited"
+            RightTapped="Grid_RightTapped">
             <Grid.ContextFlyout>
-                <MenuFlyout  x:Name="MenuTrack">
+                <MenuFlyout x:Name="MenuTrack">
                     <MenuFlyout.MenuFlyoutPresenterStyle>
                         <Style TargetType="MenuFlyoutPresenter">
-                            <Setter Property="CornerRadius" Value="5"/>
+                            <Setter Property="CornerRadius" Value="5" />
                         </Style>
                     </MenuFlyout.MenuFlyoutPresenterStyle>
                     <MenuFlyout.Items>
                         <MenuFlyoutItem
-                        IsEnabled="False"
-                        x:Name="AddOnLibrary"
-                        Command="{x:Bind AddOnLibraryCommand}"
-                        Text="Добавить в мою музыку">
+                            x:Name="AddOnLibrary"
+                            Command="{x:Bind AddOnLibraryCommand}"
+                            IsEnabled="False"
+                            Text="Добавить в мою музыку">
                             <MenuFlyoutItem.Icon>
                                 <FontIcon FontFamily="Segoe MDL2 Assets" Glyph="&#xE109;" />
                             </MenuFlyoutItem.Icon>
                         </MenuFlyoutItem>
                         <MenuFlyoutItem
-                        x:Name="GoToArtist"
-                        Command="{x:Bind GoToArtistCommand}"
-                        Text="Перейти к артисту">
+                            x:Name="GoToArtist"
+                            Command="{x:Bind GoToArtistCommand}"
+                            Text="Перейти к артисту">
                             <MenuFlyoutItem.Icon>
                                 <FontIcon FontFamily="Segoe MDL2 Assets" Glyph="&#xE2AF;" />
                             </MenuFlyoutItem.Icon>
@@ -65,90 +75,88 @@
                 <RowDefinition />
             </Grid.RowDefinitions>
             <controls:DropShadowPanel
-            x:Name="TrackCoverShadow"
-            Grid.RowSpan="2"
-            Grid.Column="0"
-            Width="40"
-            Height="40"
-            VerticalAlignment="Center"
-            BlurRadius="10"
-            OffsetY="0"
-            Opacity="0.5"
-            ShadowOpacity="1">
-
-                <Border
+                x:Name="TrackCoverShadow"
+                Grid.RowSpan="2"
+                Grid.Column="0"
                 Width="40"
                 Height="40"
-                Background="Transparent" />
+                VerticalAlignment="Center"
+                BlurRadius="10"
+                OffsetY="0"
+                Opacity="0.5"
+                ShadowOpacity="1">
+
+                <Border
+                    Width="40"
+                    Height="40"
+                    Background="Transparent" />
 
             </controls:DropShadowPanel>
 
 
             <controls:ImageEx
-            Grid.RowSpan="2"
-            Grid.Column="0"
-            Width="40"
-            IsCacheEnabled="False"
-            PlaceholderSource="../../Assets/Images/placeholder-track.jpg"
-            Height="40"
-            DecodePixelHeight="40"
+                Grid.RowSpan="2"
+                Grid.Column="0"
+                Width="40"
+                Height="40"
+                CornerRadius="2"
+                DecodePixelHeight="40"
+                DecodePixelWidth="40"
+                IsCacheEnabled="False"
+                PlaceholderSource="../../Assets/Images/placeholder-track.jpg"
                 PlaceholderStretch="Fill"
-            DecodePixelWidth="40"
-            Source="{x:Bind Track.Album.Cover, Mode=TwoWay}"
-            CornerRadius="2"
-            Stretch="Fill">
-
-            </controls:ImageEx>
+                Source="{x:Bind Track.Album.Cover, Mode=TwoWay}"
+                Stretch="Fill" />
 
             <Rectangle
-            x:Name="RectanglePlay"
-            Grid.RowSpan="2"
-            Grid.Column="0"
-            Width="40"
-            Height="40"
-            Fill="Black"
-            Opacity="0.6 "
-            RadiusX="2"
-            RadiusY="2"
-            Stretch="Fill"
-            Visibility="Collapsed" />
+                x:Name="RectanglePlay"
+                Grid.RowSpan="2"
+                Grid.Column="0"
+                Width="40"
+                Height="40"
+                Fill="Black"
+                Opacity="0.6 "
+                RadiusX="2"
+                RadiusY="2"
+                Stretch="Fill"
+                Visibility="Collapsed" />
             <FontIcon
-            x:Name="IconPlay"
-            Grid.RowSpan="2"
-            Grid.Column="0"
-            Width="40"
-            Height="40"
-            FontFamily="Segoe MDL2 Assets"
-            Foreground="White"
-            Glyph="&#xE768;"
-            Visibility="Collapsed" />
+                x:Name="IconPlay"
+                Grid.RowSpan="2"
+                Grid.Column="0"
+                Width="40"
+                Height="40"
+                FontFamily="Segoe MDL2 Assets"
+                Foreground="White"
+                Glyph="&#xE768;"
+                Visibility="Collapsed" />
 
             <TextBlock
-            x:Name="TitleText"
-            Grid.Row="0"
-            Grid.Column="1"
-            Margin="10,0,0,0"
-            Text="{x:Bind Track.Title, Mode=TwoWay}"
-            TextTrimming="WordEllipsis" />
-            
+                x:Name="TitleText"
+                Grid.Row="0"
+                Grid.Column="1"
+                Margin="10,0,0,0"
+                Text="{x:Bind Track.Title, Mode=TwoWay}"
+                TextTrimming="WordEllipsis" />
+
             <TextBlock
-            Grid.Row="1"
-            Grid.Column="1"
                 x:Name="ArtistText"
-            Margin="10,0,0,0"
-            Foreground="{ThemeResource ColorArtistText}"
-            Text="{x:Bind Track.Artist, Mode=TwoWay}"
-            TextTrimming="WordEllipsis" />
+                Grid.Row="1"
+                Grid.Column="1"
+                Margin="10,0,0,0"
+                Foreground="{ThemeResource ColorArtistText}"
+                Text="{x:Bind Track.Artist, Mode=TwoWay}"
+                TextTrimming="WordEllipsis" />
 
             <TextBlock
-            Grid.RowSpan="2"
-            Grid.Column="2"
-            HorizontalAlignment="Right"
-            VerticalAlignment="Center"
-            Text="{x:Bind Track.DurationString, Mode=TwoWay}" />
+                Grid.RowSpan="2"
+                Grid.Column="2"
+                HorizontalAlignment="Right"
+                VerticalAlignment="Center"
+                Text="{x:Bind Track.DurationString, Mode=TwoWay}" />
         </Grid>
 
     </Grid>
 
-    
+
 </UserControl>

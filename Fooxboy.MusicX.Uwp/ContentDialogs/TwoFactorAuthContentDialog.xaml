@@ -2,20 +2,27 @@
     x:Class="Fooxboy.MusicX.Uwp.Resources.ContentDialogs.TwoFactorAuthContentDialog"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-    xmlns:local="using:Fooxboy.MusicX.Uwp.Resources.ContentDialogs"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:local="using:Fooxboy.MusicX.Uwp.Resources.ContentDialogs"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    mc:Ignorable="d"
     Title="Двойная аунтификация"
     CornerRadius="5"
     PrimaryButtonClick="ContentDialog_PrimaryButtonClick"
-    PrimaryButtonText="Подтвердить">
+    PrimaryButtonText="Подтвердить"
+    mc:Ignorable="d">
     <Grid>
         <StackPanel>
-            <TextBlock TextWrapping="Wrap" Text="Код подтверждения отправлен."/>
-            <TextBlock TextWrapping="Wrap" Foreground="{ThemeResource SubText}" Text="Вам должен прийти код подтверждения в личные сообщения ВКонтакте или на номер мобильного телефона."/>
-            <TextBox x:Name="TextBox" Width="300" Margin="0 30 0 0" Style="{ThemeResource StandardTextBoxStyle}"
-                     PlaceholderText="Введите код подтверждения"/>
+            <TextBlock Text="Код подтверждения отправлен." TextWrapping="Wrap" />
+            <TextBlock
+                Foreground="{ThemeResource SubText}"
+                Text="Вам должен прийти код подтверждения в личные сообщения ВКонтакте или на номер мобильного телефона."
+                TextWrapping="Wrap" />
+            <TextBox
+                x:Name="TextBox"
+                Width="300"
+                Margin="0,30,0,0"
+                PlaceholderText="Введите код подтверждения"
+                Style="{ThemeResource StandardTextBoxStyle}" />
         </StackPanel>
     </Grid>
 </ContentDialog>

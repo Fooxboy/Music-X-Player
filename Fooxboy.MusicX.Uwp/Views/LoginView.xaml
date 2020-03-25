@@ -2,81 +2,117 @@
     x:Class="Fooxboy.MusicX.Uwp.Views.LoginView"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-    xmlns:local="using:Fooxboy.MusicX.Uwp.Views"
     xmlns:converters="using:Fooxboy.MusicX.Uwp.Converters"
-    
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:local="using:Fooxboy.MusicX.Uwp.Views"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    mc:Ignorable="d"
-    Background="{ThemeResource BackgroundApp}">
+    Background="{ThemeResource BackgroundApp}"
+    mc:Ignorable="d">
 
     <Page.Resources>
-        <converters:BoolToVisibilityConverter x:Key="ToVisibility"/>
+        <converters:BoolToVisibilityConverter x:Key="ToVisibility" />
     </Page.Resources>
-    
+
     <Grid>
-        
+
         <Grid x:Name="loginGrid" Visibility="Collapsed">
 
             <Grid.RowDefinitions>
-                <RowDefinition Height="*"/>
-                <RowDefinition Height="auto"/>
-                <RowDefinition Height="auto"/>
-                <RowDefinition Height="auto"/>
-                <RowDefinition Height="auto"/>
-                <RowDefinition Height="auto"/>
-                <RowDefinition Height="*"/>
+                <RowDefinition Height="*" />
+                <RowDefinition Height="auto" />
+                <RowDefinition Height="auto" />
+                <RowDefinition Height="auto" />
+                <RowDefinition Height="auto" />
+                <RowDefinition Height="auto" />
+                <RowDefinition Height="*" />
             </Grid.RowDefinitions>
 
 
 
-            <Image Visibility="{x:Bind ViewModel.VisibilityLogoImage, Converter={StaticResource ToVisibility}}" Grid.Row="1" Width="100" Height="100" Margin="0,0,0,30" HorizontalAlignment="Center">
+            <Image
+                Grid.Row="1"
+                Width="100"
+                Height="100"
+                Margin="0,0,0,30"
+                HorizontalAlignment="Center"
+                Visibility="{x:Bind ViewModel.VisibilityLogoImage, Converter={StaticResource ToVisibility}}">
                 <Image.Source>
                     <BitmapImage
-                    DecodePixelHeight="100"
-                    DecodePixelWidth="100"  
-                    UriSource="ms-appx:///Assets/Images/logo-black.png" />
+                        DecodePixelHeight="100"
+                        DecodePixelWidth="100"
+                        UriSource="ms-appx:///Assets/Images/logo-black.png" />
                 </Image.Source>
             </Image>
 
-            <PersonPicture Visibility="{x:Bind ViewModel.VisibilityPersonImage, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, Converter={StaticResource ToVisibility}}"  Grid.Row="1" Width="100" Height="100" Margin="0,0,0,30" HorizontalAlignment="Center">
+            <PersonPicture
+                Grid.Row="1"
+                Width="100"
+                Height="100"
+                Margin="0,0,0,30"
+                HorizontalAlignment="Center"
+                Visibility="{x:Bind ViewModel.VisibilityPersonImage, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, Converter={StaticResource ToVisibility}}">
                 <PersonPicture.ProfilePicture>
                     <BitmapImage
-                    DecodePixelHeight="100"
-                    DecodePixelWidth="100"  
-                    UriSource="{x:Bind ViewModel.Image, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                        DecodePixelHeight="100"
+                        DecodePixelWidth="100"
+                        UriSource="{x:Bind ViewModel.Image, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
                 </PersonPicture.ProfilePicture>
             </PersonPicture>
 
-            <TextBlock Grid.Row="2"
-                       HorizontalAlignment="Center" 
-                       FontSize="20"
-                       Margin="0 20 0 0"
-                       FontWeight="Bold" Text="Войдите в аккаунт"/>
+            <TextBlock
+                Grid.Row="2"
+                Margin="0,20,0,0"
+                HorizontalAlignment="Center"
+                FontSize="20"
+                FontWeight="Bold"
+                Text="Войдите в аккаунт" />
 
-            <ProgressRing Grid.Row="2"
-                          Grid.RowSpan="4"
-                          Margin="0 60 0 0"
-                          HorizontalAlignment="Center"
-                          VerticalAlignment="Center"
-                          IsActive="{x:Bind ViewModel.IsLoading, Mode=TwoWay}"
-                          Height="50" Width="50"/>
+            <ProgressRing
+                Grid.Row="2"
+                Grid.RowSpan="4"
+                Width="50"
+                Height="50"
+                Margin="0,60,0,0"
+                HorizontalAlignment="Center"
+                VerticalAlignment="Center"
+                IsActive="{x:Bind ViewModel.IsLoading, Mode=TwoWay}" />
 
 
 
-            <TextBox Text="{x:Bind ViewModel.Login, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Visibility="{x:Bind ViewModel.VisibilityTextBox, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, Converter={StaticResource ToVisibility}}" PlaceholderText="Номер телефона или адрес эл. почты" Margin="0 30 0 0" Width="300" Style="{StaticResource StandardTextBoxStyle}" Grid.Row="3" HorizontalAlignment="Center" />
-            <PasswordBox Password="{x:Bind ViewModel.Password, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Visibility="{x:Bind ViewModel.VisibilityTextBox, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, Converter={StaticResource ToVisibility}}" Style="{StaticResource StandardPasswordBoxStyle}" Width="300" PlaceholderText="Пароль" Margin="0 20 0 0" Grid.Row="4" HorizontalAlignment="Center"/>
-            <Button Margin="0 30 0 0" 
-                    Width="120" 
-                    Grid.Row="5" 
-                    Command="{x:Bind ViewModel.AuthCommand}"
-                    Visibility="{x:Bind ViewModel.VisibilityTextBox, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, Converter={StaticResource ToVisibility}}"
-                    HorizontalAlignment="Center"
-                    Style="{ThemeResource AcceptButtonStyle}">
+            <TextBox
+                Grid.Row="3"
+                Width="300"
+                Margin="0,30,0,0"
+                HorizontalAlignment="Center"
+                PlaceholderText="Номер телефона или адрес эл. почты"
+                Style="{StaticResource StandardTextBoxStyle}"
+                Text="{x:Bind ViewModel.Login, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                Visibility="{x:Bind ViewModel.VisibilityTextBox, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, Converter={StaticResource ToVisibility}}" />
+            <PasswordBox
+                Grid.Row="4"
+                Width="300"
+                Margin="0,20,0,0"
+                HorizontalAlignment="Center"
+                Password="{x:Bind ViewModel.Password, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                PlaceholderText="Пароль"
+                Style="{StaticResource StandardPasswordBoxStyle}"
+                Visibility="{x:Bind ViewModel.VisibilityTextBox, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, Converter={StaticResource ToVisibility}}" />
+            <Button
+                Grid.Row="5"
+                Width="120"
+                Margin="0,30,0,0"
+                HorizontalAlignment="Center"
+                Command="{x:Bind ViewModel.AuthCommand}"
+                Style="{ThemeResource AcceptButtonStyle}"
+                Visibility="{x:Bind ViewModel.VisibilityTextBox, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, Converter={StaticResource ToVisibility}}">
                 <Button.Content>
                     <StackPanel Orientation="Horizontal">
-                        <TextBlock Margin="0 0 0 3" Text="Продолжить"/>
-                        <FontIcon Margin="7 0 0 0" FontSize="12" FontFamily="Segoe MDL2 Assets" Glyph="&#xE09B;" />
+                        <TextBlock Margin="0,0,0,3" Text="Продолжить" />
+                        <FontIcon
+                            Margin="7,0,0,0"
+                            FontFamily="Segoe MDL2 Assets"
+                            FontSize="12"
+                            Glyph="&#xE09B;" />
                     </StackPanel>
                 </Button.Content>
             </Button>
@@ -86,45 +122,67 @@
         <Grid x:Name="buttonsGrid" Visibility="Visible">
 
             <Grid.RowDefinitions>
-                <RowDefinition Height="*"/>
-                <RowDefinition Height="auto"/>
-                <RowDefinition Height="auto"/>
-                <RowDefinition Height="auto"/>
-                <RowDefinition Height="auto"/>
-                <RowDefinition Height="*"/>
-                <RowDefinition Height="auto"/>
+                <RowDefinition Height="*" />
+                <RowDefinition Height="auto" />
+                <RowDefinition Height="auto" />
+                <RowDefinition Height="auto" />
+                <RowDefinition Height="auto" />
+                <RowDefinition Height="*" />
+                <RowDefinition Height="auto" />
             </Grid.RowDefinitions>
 
             <Image
-            Grid.Row="1"
-            Width="100"
-            Height="100"
-            Margin="0,0,0,30"
-            HorizontalAlignment="Center">
+                Grid.Row="1"
+                Width="100"
+                Height="100"
+                Margin="0,0,0,30"
+                HorizontalAlignment="Center">
                 <Image.Source>
                     <BitmapImage
-                    DecodePixelHeight="100"
-                    DecodePixelWidth="100"
-                    UriSource="ms-appx:///Assets/Images/logo-black.png" />
+                        DecodePixelHeight="100"
+                        DecodePixelWidth="100"
+                        UriSource="ms-appx:///Assets/Images/logo-black.png" />
                 </Image.Source>
             </Image>
 
-            <TextBlock HorizontalAlignment="Center" 
-                   FontSize="20"
-                   Margin="0 20 0 0 "
-                   FontWeight="Bold" 
-                   Text="Войдите в свой аккаунт, чтобы продолжить"
-                   Grid.Row="2"/>
+            <TextBlock
+                Grid.Row="2"
+                Margin="0,20,0,0"
+                HorizontalAlignment="Center"
+                FontSize="20"
+                FontWeight="Bold"
+                Text="Войдите в свой аккаунт, чтобы продолжить" />
 
-            <StackPanel Margin="0 30 0 30 " HorizontalAlignment="Center" Grid.Row="3" Orientation="Horizontal">
-                <Button Style="{ThemeResource AcceptButtonStyle}" IsEnabled="False" Click="Button_Click" Content="Войти в аккаунт Music X"/>
-                <Button Margin="10 0 0 0" Style="{StaticResource StandardButtonStyle}" Click="Button_Click" Content="Войти в аккаунт ВКонтакте"/>
+            <StackPanel
+                Grid.Row="3"
+                Margin="0,30,0,30"
+                HorizontalAlignment="Center"
+                Orientation="Horizontal">
+                <Button
+                    Click="Button_Click"
+                    Content="Войти в аккаунт Music X"
+                    IsEnabled="False"
+                    Style="{ThemeResource AcceptButtonStyle}" />
+                <Button
+                    Margin="10,0,0,0"
+                    Click="Button_Click"
+                    Content="Войти в аккаунт ВКонтакте"
+                    Style="{StaticResource StandardButtonStyle}" />
             </StackPanel>
 
-            <Button Grid.Row="4" IsEnabled="False" HorizontalAlignment="Center" Style="{ThemeResource StandardButtonStyle}" Content="Создать аккаунт Music X"/>
-            <TextBlock Grid.Row="7" HorizontalAlignment="Center" Foreground="{ThemeResource SubHeaderText}" Text="Fooxboy 2020"/>
+            <Button
+                Grid.Row="4"
+                HorizontalAlignment="Center"
+                Content="Создать аккаунт Music X"
+                IsEnabled="False"
+                Style="{ThemeResource StandardButtonStyle}" />
+            <TextBlock
+                Grid.Row="7"
+                HorizontalAlignment="Center"
+                Foreground="{ThemeResource SubHeaderText}"
+                Text="Fooxboy 2020" />
         </Grid>
 
-        
+
     </Grid>
 </Page>

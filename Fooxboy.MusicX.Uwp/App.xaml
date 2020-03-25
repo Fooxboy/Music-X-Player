@@ -4,7 +4,7 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:local="using:Fooxboy.MusicX.Uwp">
     <Application.Resources>
-        
+
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
                 <ResourceDictionary Source="Themes/Light.xaml" />
@@ -15,8 +15,8 @@
                 <ResourceDictionary Source="Styles/ListViewStyle.xaml" />
                 <ResourceDictionary Source="Styles/SliderStyle.xaml" />
                 <ResourceDictionary Source="Styles/ProfileImageStyles.xaml" />
-                <ResourceDictionary Source="DataTemplates/PlaylistDataTemplate.xaml"/>
-                <ResourceDictionary Source="DataTemplates/TrackDataTemplate.xaml"/>
+                <ResourceDictionary Source="DataTemplates/PlaylistDataTemplate.xaml" />
+                <ResourceDictionary Source="DataTemplates/TrackDataTemplate.xaml" />
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
     </Application.Resources>
