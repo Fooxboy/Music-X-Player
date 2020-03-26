@@ -54,17 +54,21 @@ namespace Fooxboy.MusicX.Uwp.ViewModels
 
         public void Play()
         {
-
+            if (this.Tracks.Count > 0) this.PlayTrack(this.Tracks[0]);
         }
 
         public void Shuffle()
         {
-
+            var playService = Container.Get.Resolve<PlayerService>();
+            playService.SetShuffle(true);
+            int index = new Random().Next(0, Tracks.Count());
+            this.PlayTrack(this.Tracks[index]);
         }
 
         public async void AddToLibrary()
         {
-
+            var notificationService = Container.Get.Resolve<NotificationService>();
+            notificationService.CreateNotification("Невозможно добавить плейлист", "Данная функция пока что недоступна.");
         }
 
         public void PlayTrack(Track track)

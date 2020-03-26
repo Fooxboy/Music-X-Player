@@ -201,46 +201,46 @@
 
                         </StackPanel>
 
+                        <VisualStateManager.VisualStateGroups>
+                            <VisualStateGroup>
+                                <VisualState x:Name="Desktop">
+                                    <VisualState.StateTriggers>
+                                        <AdaptiveTrigger MinWindowWidth="800" />
+                                    </VisualState.StateTriggers>
+                                    <VisualState.Setters>
+                                        <Setter Target="RectangleBackground.Margin" Value="50,50,50,50" />
+                                        <Setter Target="Dot1.Visibility" Value="Visible" />
+                                        <Setter Target="Dot2.Visibility" Value="Visible" />
+                                        <Setter Target="Dot3.Visibility" Value="Visible" />
+                                        <Setter Target="Genres.Visibility" Value="Visible" />
+                                        <Setter Target="Year.Visibility" Value="Visible" />
+                                        <Setter Target="Plays.Visibility" Value="Visible" />
+                                        <Setter Target="PlaysText.Visibility" Value="Visible" />
 
+                                    </VisualState.Setters>
+                                </VisualState>
+
+                                <VisualState x:Name="Mobile">
+                                    <VisualState.StateTriggers>
+                                        <AdaptiveTrigger MinWindowWidth="0" />
+                                    </VisualState.StateTriggers>
+                                    <VisualState.Setters>
+                                        <Setter Target="RectangleBackground.Margin" Value="0,0,0,0" />
+                                        <Setter Target="Dot1.Visibility" Value="Collapsed" />
+                                        <Setter Target="Dot2.Visibility" Value="Collapsed" />
+                                        <Setter Target="Dot3.Visibility" Value="Collapsed" />
+                                        <Setter Target="Genres.Visibility" Value="Collapsed" />
+                                        <Setter Target="Year.Visibility" Value="Collapsed" />
+                                        <Setter Target="Plays.Visibility" Value="Collapsed" />
+                                        <Setter Target="PlaysText.Visibility" Value="Collapsed" />
+                                    </VisualState.Setters>
+                                </VisualState>
+
+                            </VisualStateGroup>
+                        </VisualStateManager.VisualStateGroups>
                     </Grid>
 
-                    <VisualStateManager.VisualStateGroups>
-                        <VisualStateGroup>
-                            <VisualState x:Name="Desktop">
-                                <VisualState.StateTriggers>
-                                    <AdaptiveTrigger MinWindowWidth="800" />
-                                </VisualState.StateTriggers>
-                                <VisualState.Setters>
-                                    <Setter Target="RectangleBackground.Margin" Value="50,50,50,50" />
-                                    <Setter Target="Dot1.Visibility" Value="Visible" />
-                                    <Setter Target="Dot2.Visibility" Value="Visible" />
-                                    <Setter Target="Dot3.Visibility" Value="Visible" />
-                                    <Setter Target="Genres.Visibility" Value="Visible" />
-                                    <Setter Target="Year.Visibility" Value="Visible" />
-                                    <Setter Target="Plays.Visibility" Value="Visible" />
-                                    <Setter Target="PlaysText.Visibility" Value="Visible" />
 
-                                </VisualState.Setters>
-                            </VisualState>
-
-                            <VisualState x:Name="Mobile">
-                                <VisualState.StateTriggers>
-                                    <AdaptiveTrigger MinWindowWidth="0" />
-                                </VisualState.StateTriggers>
-                                <VisualState.Setters>
-                                    <Setter Target="RectangleBackground.Margin" Value="0,0,0,0" />
-                                    <Setter Target="Dot1.Visibility" Value="Collapsed" />
-                                    <Setter Target="Dot2.Visibility" Value="Collapsed" />
-                                    <Setter Target="Dot3.Visibility" Value="Collapsed" />
-                                    <Setter Target="Genres.Visibility" Value="Collapsed" />
-                                    <Setter Target="Year.Visibility" Value="Collapsed" />
-                                    <Setter Target="Plays.Visibility" Value="Collapsed" />
-                                    <Setter Target="PlaysText.Visibility" Value="Collapsed" />
-                                </VisualState.Setters>
-                            </VisualState>
-
-                        </VisualStateGroup>
-                    </VisualStateManager.VisualStateGroups>
                 </Grid>
                 <ListView
                     x:Name="TracksListView"
