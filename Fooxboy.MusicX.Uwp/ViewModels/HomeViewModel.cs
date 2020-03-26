@@ -11,6 +11,7 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Fooxboy.MusicX.Uwp.Views;
 
 namespace Fooxboy.MusicX.Uwp.ViewModels
 {
@@ -27,6 +28,8 @@ namespace Fooxboy.MusicX.Uwp.ViewModels
         private Album _libraryAlbum;
         private LoadingService _loadingService;
         private NotificationService _notificationService;
+
+        public RelayCommand OpelAllPlaylistsCommand { get; set; }
 
 
         public HomeViewModel()
@@ -46,6 +49,19 @@ namespace Fooxboy.MusicX.Uwp.ViewModels
             _loadingService = Container.Get.Resolve<LoadingService>();
 
             _notificationService = Container.Get.Resolve<NotificationService>();
+
+            OpelAllPlaylistsCommand = new RelayCommand(OpenAllPlaylists);
+        }
+
+
+        public void OpenAllPlaylists()
+        {
+            var model = new AllPlaylistsModel();
+            model.TypeViewPlaylist = AllPlaylistsModel.TypeView.UserAlbum;
+            model.TitlePage = "Ваши плейлисты";
+            var navigationService = Container.Get.Resolve<NavigationService>();
+
+            navigationService.Go(typeof(AllPlaylistsView), model, 1);
         }
 
       

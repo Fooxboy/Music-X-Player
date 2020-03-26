@@ -111,6 +111,10 @@ namespace Fooxboy.MusicX.Uwp.Resources.Controls
 
         private void UserControl_Loaded(object sender, RoutedEventArgs e)
         {
+
+            this.coverPlaylist.Source = Album.Cover;
+            this.TitilePlaylist.Text = Album.Title;
+
             if (Album.Artists != null)
             {
                 if(Album.Artists.Count > 0) ArtistsText.Text = Album.Artists[0].Name;
@@ -124,6 +128,9 @@ namespace Fooxboy.MusicX.Uwp.Resources.Controls
 
         private void PlaylistControlGrid_OnTapped(object sender, TappedRoutedEventArgs e)
         {
+            var a = this;
+            
+
             var navigateService = Container.Get.Resolve<NavigationService>();
             navigateService.Go(typeof(PlaylistView), this.Album, 1);
         }

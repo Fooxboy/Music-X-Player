@@ -80,6 +80,7 @@
                         HorizontalAlignment="Right"
                         Background="Transparent"
                         BorderThickness="0"
+                        Command="{x:Bind ViewModel.OpelAllPlaylistsCommand}"
                         CornerRadius="3">
                         <Button.Content>
                             <StackPanel Orientation="Horizontal">
@@ -108,12 +109,6 @@
 
 
                     </controls:AdaptiveGridView>
-                    <myControls:PlaylistControl
-                        Grid.Row="1"
-                        Width="200"
-                        Height="200"
-                        HorizontalAlignment="Left"
-                        Visibility="Collapsed" />
                 </Grid>
 
                 <Grid Grid.Row="1">

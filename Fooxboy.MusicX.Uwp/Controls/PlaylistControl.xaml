@@ -62,6 +62,7 @@
         </controls:DropShadowPanel>
 
         <controls:ImageEx
+            x:Name="coverPlaylist"
             Grid.RowSpan="2"
             Margin="20,20,20,20"
             HorizontalAlignment="Stretch"
@@ -84,9 +85,10 @@
             RadiusY="4" />
         <StackPanel Grid.Row="1" Margin="25,0,25,25">
             <TextBlock
+                x:Name="TitilePlaylist"
                 FontWeight="Bold"
                 Foreground="{ThemeResource MainTextColor}"
-                Text="{x:Bind Album.Title}"
+                Text="{x:Bind Album.Title, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                 TextTrimming="CharacterEllipsis" />
             <TextBlock
                 x:Name="ArtistsText"

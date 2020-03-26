@@ -1,0 +1,52 @@
+﻿<Page
+    x:Class="Fooxboy.MusicX.Uwp.Views.AllPlaylistsView"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:controls="using:Fooxboy.MusicX.Uwp.Resources.Controls"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:local="using:Fooxboy.MusicX.Uwp.Views"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:models="using:Fooxboy.MusicX.Uwp.Models"
+    xmlns:toolkit="using:Microsoft.Toolkit.Uwp.UI.Controls"
+    Background="{ThemeResource BackgroundApp}"
+    Loaded="AllPlaylistsView_OnLoaded"
+    mc:Ignorable="d">
+
+    <Grid>
+        <ScrollViewer>
+            <Grid Margin="0,80,0,0">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition />
+                </Grid.RowDefinitions>
+                <TextBlock
+                    Grid.Row="0"
+                    Margin="30,0,0,0"
+                    FontFamily="Calibri"
+                    FontSize="42"
+                    FontWeight="ExtraBlack"
+                    Text="{x:Bind ViewModel.TitlePage, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+
+                <toolkit:AdaptiveGridView
+                    Grid.Row="1"
+                    Margin="15,20,0,0"
+                    ItemHeight="200"
+                    ItemsSource="{x:Bind ViewModel.Albums, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                    OneRowModeEnabled="False"
+                    SelectionMode="None">
+
+                    <GridView.ItemTemplate>
+                        <DataTemplate x:Name="PlaylistDataTemplate" x:DataType="models:Album">
+                            <controls:PlaylistControl
+                                Width="200"
+                                Height="200"
+                                Album="{Binding}" />
+                        </DataTemplate>
+                    </GridView.ItemTemplate>
+                </toolkit:AdaptiveGridView>
+
+            </Grid>
+        </ScrollViewer>
+
+    </Grid>
+</Page>

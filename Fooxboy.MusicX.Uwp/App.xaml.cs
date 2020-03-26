@@ -166,7 +166,8 @@ namespace Fooxboy.MusicX.Uwp
 
         private void OnBackRequested(object sender, BackRequestedEventArgs e)
         {
-            //StaticContent.NavigationContentService.Back();
+            var navigationService = Container.Get.Resolve<NavigationService>();
+            navigationService.Back();
         }
 
         
@@ -185,6 +186,8 @@ namespace Fooxboy.MusicX.Uwp
                 // The received URI is eventArgs.Uri.AbsoluteUri
             }
         }
+
+
         protected async override void OnFileActivated(FileActivatedEventArgs args)
         {
 
