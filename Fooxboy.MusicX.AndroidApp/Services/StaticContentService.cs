@@ -21,5 +21,6 @@ namespace Fooxboy.MusicX.AndroidApp.Services
         public static bool RepeatPlaylist { get; set; }
         public static bool RepeatTrack { get; set; }
         public static List<Track> NowPlay { get; set; } 
+        public static NavigationService NavigationService { get; set; }
     }
 }

@@ -93,6 +93,7 @@
     <Compile Include="Models\AudioPlaylist.cs" />
     <Compile Include="Models\Album.cs" />
     <Compile Include="Models\Block.cs" />
+    <Compile Include="Models\NavigationModel.cs" />
     <Compile Include="Models\Track.cs" />
     <Compile Include="Resources\fragments\ArtistFragment.cs" />
     <Compile Include="Resources\fragments\HomeFragment.cs" />
@@ -110,6 +111,7 @@
     <Compile Include="Services\ImagesService.cs" />
     <Compile Include="Services\MiniPlayerService.cs" />
     <Compile Include="Services\MusicService.cs" />
+    <Compile Include="Services\NavigationService.cs" />
     <Compile Include="Services\PlayerService.cs" />
     <Compile Include="Services\PlayingService.cs" />
     <Compile Include="Services\PlaylistsService.cs" />
@@ -427,6 +429,9 @@
   </ItemGroup>
   <ItemGroup>
     <AndroidResource Include="Resources\drawable\play_ic.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\layout\activity_main.xml" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\Android\Xamarin.Android.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it.

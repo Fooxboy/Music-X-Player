@@ -43,6 +43,12 @@ namespace Fooxboy.MusicX.AndroidApp
             if (themeFlags == UiMode.NightYes) Window.DecorView.SystemUiVisibility = 0;
             else Window.DecorView.SystemUiVisibility = (StatusBarVisibility)SystemUiFlags.LightStatusBar;
 
+            var BackButton = FindViewById<ImageView>(Resource.Id.backbuttonMain);
+            BackButton.Visibility = ViewStates.Gone;
+            StaticContentService.NavigationService = new NavigationService(BackButton);
+            BackButton.SetOnClickListener(this);
+            var title = FindViewById<TextView>(Resource.Id.titlebar_title);
+
 
             if (Connectivity.NetworkAccess != NetworkAccess.Internet) { 
                 Intent intent = new Intent(this.ApplicationContext, typeof(Activities.OfflineActivity));
@@ -63,9 +69,9 @@ namespace Fooxboy.MusicX.AndroidApp
                     pfp.SetOnClickListener(this);
                     //var f = new HomeFragment();
                     var f = new RecommendationsFragment();
+                    StaticContentService.NavigationService.SetCurrent(f, "Рекомендации");
                     FragmentManager.BeginTransaction().Replace(Resource.Id.content_frame, f).Commit();
                     SetTitle(Resource.String.title_home);
-                    var title = FindViewById<TextView>(Resource.Id.titlebar_title);
                     title.Text = "Рекомендации";
                 }
                 else
@@ -100,21 +106,25 @@ namespace Fooxboy.MusicX.AndroidApp
                 case Resource.Id.navigation_home:
                     // textMessage.SetText(Resource.String.title_home);
                     f = new RecommendationsFragment();
+                    StaticContentService.NavigationService.SetCurrent(f, "Рекомендации");
                     FragmentManager.BeginTransaction().Replace(Resource.Id.content_frame, f).Commit();
                     title.Text = "Рекомендации";
                     return true;
                 case Resource.Id.navigation_tracks:
                     f = new TracksFragment();
+                    StaticContentService.NavigationService.SetCurrent(f, "Ваша Музыка");
                     FragmentManager.BeginTransaction().Replace(Resource.Id.content_frame, f).Commit();
                     title.Text = "Ваша музыка";
                     return true;
                 case Resource.Id.navigation_popular:
                     f = new ToDoFragment();
+                    StaticContentService.NavigationService.SetCurrent(f, "Популярное");
                     FragmentManager.BeginTransaction().Replace(Resource.Id.content_frame, f).Commit();
                     title.Text = "Популярное";
                     return true;
                 case Resource.Id.navigation_search:
                     f = new SearchFragment();
+                    StaticContentService.NavigationService.SetCurrent(f, "Поиск");
                     FragmentManager.BeginTransaction().Replace(Resource.Id.content_frame, f).Commit();
                     title.Text = "Поиск";
                     return true;
@@ -137,6 +147,13 @@ namespace Fooxboy.MusicX.AndroidApp
                 Fragment f = new SettingsFragment();
                 FragmentManager.BeginTransaction().Replace(Resource.Id.content_frame, f).Commit();
                 title.Text = StaticContentService.UserName;
+            }else if(v.Id == Resource.Id.backbuttonMain)
+            {
+                var f = StaticContentService.NavigationService.GoBack();
+                FragmentManager.BeginTransaction().Replace(Resource.Id.content_frame, f.Fragment).Commit();
+                var title = FindViewById<TextView>(Resource.Id.titlebar_title);
+                title.Text = f.Title;
+
             }
         }
     }
