@@ -23,34 +23,60 @@ namespace Fooxboy.MusicX.Uwp.ViewModels
 
         public string TitlePage { get; set; }
 
+        private int _maxAlbums;
+        private uint _currentCountAlbums;
+        private bool _hasLoadMore;
+        private bool _isLoading;
+
+        private AllPlaylistsModel _model;
+        private LoadingService loadingService;
+
         public async Task StartLoading(AllPlaylistsModel model)
         {
+            _isLoading = false;
+            _hasLoadMore = true;
+            _model = model;
             TitlePage = model.TitlePage;
             Changed("TitlePage");
-            var loadingService = Container.Get.Resolve<LoadingService>();
+            loadingService = Container.Get.Resolve<LoadingService>();
             loadingService.Change(true);
             var api = Container.Get.Resolve<Api>();
-            if (model.TypeViewPlaylist == AllPlaylistsModel.TypeView.UserAlbum)
+
+            await Load();
+            Changed("Albums");
+        }
+
+        private async Task Load()
+        {
+            _isLoading = true;
+            if (_model.TypeViewPlaylist == AllPlaylistsModel.TypeView.UserAlbum)
             {
                 var loader = Container.Get.Resolve<AlbumLoaderService>();
-                var albums = await loader.GetLibraryAlbums(0, 20);
+                var albums = await loader.GetLibraryAlbums(_currentCountAlbums, 20);
+                if (albums.Count == 0)
+                {
+                    _hasLoadMore = false;
+                    return;
+                }
                 foreach (var album in albums)
                 {
                     Albums.Add(album);
                 }
+                _currentCountAlbums += Convert.ToUInt32(albums.Count);
 
                 loadingService.Change(false);
-            }else if (model.TypeViewPlaylist == AllPlaylistsModel.TypeView.ArtistAlbum)
+            }
+            else if (_model.TypeViewPlaylist == AllPlaylistsModel.TypeView.ArtistAlbum)
             {
                 //todo: доделать.
             }
 
-            Changed("Albums");
+            _isLoading = false;
         }
 
         public async Task LoadMore()
         {
-
+            if (_hasLoadMore && !_isLoading) await Load();
         }
     }
 }

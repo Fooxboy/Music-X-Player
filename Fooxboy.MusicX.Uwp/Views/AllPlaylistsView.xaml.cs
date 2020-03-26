@@ -46,5 +46,17 @@ namespace Fooxboy.MusicX.Uwp.Views
 
             base.OnNavigatedTo(e);
         }
+
+        private async void ScrollViewer_OnViewChanging(object sender, ScrollViewerViewChangingEventArgs e)
+        {
+            var current = scroll.VerticalOffset;
+            var max = scroll.ScrollableHeight;
+
+            //Долистали до конца, загружаем еще плейлистов.
+            if (max - current < 80)
+            {
+                await ViewModel.LoadMore();
+            }
+        }
     }
 }

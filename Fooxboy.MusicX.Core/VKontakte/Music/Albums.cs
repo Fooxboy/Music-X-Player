@@ -18,7 +18,7 @@ namespace Fooxboy.MusicX.Core.VKontakte.Music
         public async Task<List<IAlbum>> GetAsync(long id, uint count=10, uint offset = 0)
         {
             var playlistsVk = await _api.Audio.GetPlaylistsAsync(id, count, offset);
-            return playlistsVk.Select(playlist=> playlist.ToIAlbum()).ToList();
+            return playlistsVk.Select(playlist => playlist.ToIAlbum()).ToList();
         }
         
         public List<IAlbum> Get(long id, uint count=10, uint offset = 0)

@@ -13,7 +13,7 @@
     mc:Ignorable="d">
 
     <Grid>
-        <ScrollViewer>
+        <ScrollViewer x:Name="scroll" ViewChanging="ScrollViewer_OnViewChanging">
             <Grid Margin="0,80,0,0">
                 <Grid.RowDefinitions>
                     <RowDefinition Height="Auto" />
