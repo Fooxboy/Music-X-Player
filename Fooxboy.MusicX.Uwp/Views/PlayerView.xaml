@@ -129,6 +129,7 @@
                         x:Name="ClosePlayerGrid"
                         Width="300"
                         Height="300"
+                        Margin="35,0,30,0"
                         Visibility="Collapsed">
                         <Rectangle
                             Fill="Black"

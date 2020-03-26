@@ -23,6 +23,7 @@ using Microsoft.Toolkit.Uwp.UI.Animations;
 using Windows.UI.Xaml.Media.Animation;
 using Microsoft.Toolkit.Uwp.Helpers;
 using Windows.ApplicationModel.Core;
+using Windows.System;
 
 
 // Документацию по шаблону элемента "Пустая страница" см. по адресу https://go.microsoft.com/fwlink/?LinkId=234238
@@ -145,6 +146,25 @@ namespace Fooxboy.MusicX.Uwp.Views
         {
             var navigationService = Container.Get.Resolve<NavigationService>();
             navigationService.Go(typeof(PlaylistView));
+        }
+
+        private void SearchBox_OnKeyUp(object sender, KeyRoutedEventArgs e)
+        {
+            if (e.OriginalKey == VirtualKey.Enter)
+            {
+                //Search
+            }
+        }
+
+        private void SearchBox_OnGotFocus(object sender, RoutedEventArgs e)
+        {
+            this.SearchBox.PlaceholderText = "Нажмите enter для поиска";
+        }
+
+        private void SearchBox_OnLostFocus(object sender, RoutedEventArgs e)
+        {
+            this.SearchBox.PlaceholderText = "Найдите что нибудь...";
+
         }
     }
 }

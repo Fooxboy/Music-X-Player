@@ -133,6 +133,9 @@
       <DependentUpon>App.xaml</DependentUpon>
     </Compile>
     <Compile Include="Container.cs" />
+    <Compile Include="ContentDialogs\AboutContentDialog.xaml.cs">
+      <DependentUpon>AboutContentDialog.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Controls\NotificationControl.xaml.cs">
       <DependentUpon>NotificationControl.xaml</DependentUpon>
     </Compile>
@@ -162,9 +165,6 @@
     <Compile Include="RelayCommand.cs" />
     <Compile Include="ContentDialogs\ErrorConnectContentDialog.xaml.cs">
       <DependentUpon>ErrorConnectContentDialog.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="ContentDialogs\ExceptionDialog.xaml.cs">
-      <DependentUpon>ExceptionDialog.xaml</DependentUpon>
     </Compile>
     <Compile Include="ContentDialogs\IncorrectLoginOrPasswordContentDialog.xaml.cs">
       <DependentUpon>IncorrectLoginOrPasswordContentDialog.xaml</DependentUpon>
@@ -300,11 +300,11 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Page Include="ContentDialogs\ErrorConnectContentDialog.xaml">
+    <Page Include="ContentDialogs\AboutContentDialog.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="ContentDialogs\ExceptionDialog.xaml">
+    <Page Include="ContentDialogs\ErrorConnectContentDialog.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

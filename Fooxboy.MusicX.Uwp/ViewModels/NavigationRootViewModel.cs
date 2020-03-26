@@ -7,6 +7,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Windows.UI.Xaml;
+using Fooxboy.MusicX.Uwp.ContentDialogs;
+using Microsoft.Toolkit.Uwp.Helpers;
 
 namespace Fooxboy.MusicX.Uwp.ViewModels
 {
@@ -22,6 +24,9 @@ namespace Fooxboy.MusicX.Uwp.ViewModels
         public RelayCommand GoToDownloads { get; set; }
         private NavigationService _navigationService;
 
+
+        public RelayCommand OpenAboutCommand { get; set; }
+
         public NavigationRootViewModel()
         {
             GoToHome = new RelayCommand(ToHome);
@@ -29,6 +34,16 @@ namespace Fooxboy.MusicX.Uwp.ViewModels
             GoToFavoriteArtists = new RelayCommand(ToFavoriteArtists);
             GoToDownloads = new RelayCommand(ToDownloads);
             _navigationService = Container.Get.Resolve<NavigationService>();
+            OpenAboutCommand = new RelayCommand(OpenAbout);
+        }
+
+        public void OpenAbout()
+        {
+            DispatcherHelper.ExecuteOnUIThreadAsync(async() =>
+            {
+                var about = new AboutContentDialog();
+                await about.ShowAsync();
+            });
         }
 
         public void Changed()
