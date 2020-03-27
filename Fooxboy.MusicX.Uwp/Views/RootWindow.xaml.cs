@@ -41,25 +41,34 @@ namespace Fooxboy.MusicX.Uwp.Views
         public LoadingViewModel LoadingViewModel { get; set; }
         public NotificationViewModel NotificationViewModel { get; set; }
 
+
         private bool _isPlayerOpen;
         private bool _hasOpenPlayer;
+        private IContainer _container;
         public RootWindow()
         {
             _hasOpenPlayer = false;
-            this.InitializeComponent();
-            var navigationService = new NavigationService();
-            Container.Get.RegisterInstance<NavigationService>(navigationService);
-
-            PlayerViewModel = new PlayerViewModel();
             PlayerViewModel.CloseBigPlayer = new Action(CloseBigPlayer);
-            NavigationViewModel = new NavigationRootViewModel();
-            navigationService.RootFrame = this.Root;
-            navigationService.Go(typeof(HomeView));
+            this.InitializeComponent();
+        }
 
-            UserInfoViewModel = new UserInfoViewModel();
-            LoadingViewModel = new LoadingViewModel();
-            NotificationViewModel = new NotificationViewModel();
-            
+        protected override void OnNavigatedTo(NavigationEventArgs e)
+        {
+            _container = (IContainer) e.Parameter;
+
+            var navigationService = new NavigationService();
+            _container.RegisterInstance<NavigationService>(navigationService);
+
+            PlayerViewModel = new PlayerViewModel(_container);
+            NavigationViewModel = new NavigationRootViewModel(_container);
+            navigationService.RootFrame = this.Root;
+            navigationService.Go(typeof(HomeView), _container);
+
+            UserInfoViewModel = new UserInfoViewModel(_container);
+            LoadingViewModel = new LoadingViewModel(_container);
+            NotificationViewModel = new NotificationViewModel(_container);
+
+            base.OnNavigatedTo(e);
         }
 
         private async void Page_Loaded(object sender, RoutedEventArgs e)
@@ -142,11 +151,6 @@ namespace Fooxboy.MusicX.Uwp.Views
            
         }
 
-        private void Button_Click(object sender, RoutedEventArgs e)
-        {
-            var navigationService = Container.Get.Resolve<NavigationService>();
-            navigationService.Go(typeof(PlaylistView));
-        }
 
         private void SearchBox_OnKeyUp(object sender, KeyRoutedEventArgs e)
         {

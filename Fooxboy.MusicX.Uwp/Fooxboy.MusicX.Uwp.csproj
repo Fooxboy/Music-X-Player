@@ -25,7 +25,7 @@
     <AppInstallerUpdateFrequency>0</AppInstallerUpdateFrequency>
     <AppInstallerCheckForUpdateFrequency>OnApplicationRun</AppInstallerCheckForUpdateFrequency>
     <AppxSymbolPackageEnabled>False</AppxSymbolPackageEnabled>
-    <AppxPackageDir>D:\Documents\Music X Player Builds\2.0.34</AppxPackageDir>
+    <AppxPackageDir>D:\Documents\Music X Player Builds\2.0.35 beta1</AppxPackageDir>
     <AppxPackageSigningEnabled>True</AppxPackageSigningEnabled>
     <GenerateTestArtifacts>True</GenerateTestArtifacts>
     <HoursBetweenUpdateChecks>0</HoursBetweenUpdateChecks>
@@ -160,6 +160,7 @@
     <Compile Include="Models\LoadingDelegate.cs" />
     <Compile Include="Models\Notification.cs" />
     <Compile Include="Models\NotificationDelegate.cs" />
+    <Compile Include="Models\PlaylistViewNavigationData.cs" />
     <Compile Include="Models\Track.cs" />
     <Compile Include="Properties\Annotations.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

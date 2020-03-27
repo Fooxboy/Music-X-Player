@@ -14,8 +14,9 @@ namespace Fooxboy.MusicX.Uwp.ViewModels
     public class AllPlaylistsViewModel:BaseViewModel
     {
 
-        public AllPlaylistsViewModel()
+        public AllPlaylistsViewModel(IContainer container)
         {
+            _container = container;
             Albums = new ObservableCollection<Album>();
             
         }
@@ -28,6 +29,7 @@ namespace Fooxboy.MusicX.Uwp.ViewModels
         private uint _currentCountAlbums;
         private bool _hasLoadMore;
         private bool _isLoading;
+        private IContainer _container;
 
         private AllPlaylistsModel _model;
         private LoadingService loadingService;
@@ -42,9 +44,9 @@ namespace Fooxboy.MusicX.Uwp.ViewModels
             _model = model;
             TitlePage = model.TitlePage;
             Changed("TitlePage");
-            loadingService = Container.Get.Resolve<LoadingService>();
+            loadingService = _container.Resolve<LoadingService>();
             loadingService.Change(true);
-            var api = Container.Get.Resolve<Api>();
+            var api = _container.Resolve<Api>();
 
             await Load();
             Changed("Albums");

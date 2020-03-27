@@ -16,8 +16,11 @@ namespace Fooxboy.MusicX.Uwp.ViewModels
 {
     public class LoginViewModel :BaseViewModel
     {
-        public LoginViewModel()
+        private IContainer _container;
+
+        public LoginViewModel(IContainer container)
         {
+            _container = container;
             AuthCommand = new RelayCommand(Auth);
             VisibilityLogoImage = true;
             VisibilityTextBox = true;
@@ -48,9 +51,9 @@ namespace Fooxboy.MusicX.Uwp.ViewModels
 
             try
             {
-                var api = Container.Get.Resolve<Core.Api>();
+                var api = _container.Resolve<Core.Api>();
                 var token = await api.VKontakte.Auth.UserAsync(Login, Password, TwoFactorAuth, null);
-                var tokenService = Container.Get.Resolve<TokenService>();
+                var tokenService = _container.Resolve<TokenService>();
                 await tokenService.Save(token);
                 var user = await api.VKontakte.Users.Info.CurrentUserAsync();
                 Image = user.PhotoUser;
@@ -64,7 +67,7 @@ namespace Fooxboy.MusicX.Uwp.ViewModels
 
                 await Task.Delay(3000);
                 var currentFrame = Window.Current.Content as Frame;
-                currentFrame.Navigate(typeof(RootWindow));
+                currentFrame?.Navigate(typeof(RootWindow));
             }
             catch(VkNet.AudioBypassService.Exceptions.VkAuthException)
             {

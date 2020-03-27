@@ -12,10 +12,16 @@ namespace Fooxboy.MusicX.Uwp.Services
     {
         private PlayerService _playerService;
         private Api _api;
+
+        public DiscordService(Api api, PlayerService playerService)
+        {
+            _api = api;
+            _playerService = playerService;
+        }
+
         public void Init()
         {
-            _api = Container.Get.Resolve<Api>();
-            _playerService = Container.Get.Resolve<PlayerService>();
+           
             _playerService.PlayStateChangedEvent += PlayerServicePlayStateChanged;
             _playerService.TrackChangedEvent += PlayerServiceTrackChanged;
         }

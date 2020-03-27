@@ -27,15 +27,16 @@ namespace Fooxboy.MusicX.Uwp.Views
         public PlaylistView()
         {
             this.InitializeComponent();
-            ViewModel = new PlaylistViewModel();
         }
 
         public PlaylistViewModel ViewModel { get; set; }
 
         protected override async void OnNavigatedTo(NavigationEventArgs e)
         {
-            var album = (Album) e.Parameter;
-            await ViewModel.StartLoading(album);
+            var data = (PlaylistViewNavigationData) e.Parameter;
+            ViewModel = new PlaylistViewModel(data?.Container);
+
+            await ViewModel.StartLoading(data?.Album);
             base.OnNavigatedTo(e);
         }
 

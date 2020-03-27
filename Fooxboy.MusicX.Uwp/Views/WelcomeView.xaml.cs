@@ -15,6 +15,7 @@ using Windows.UI.Xaml.Data;
 using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Navigation;
+using DryIoc;
 using Fooxboy.MusicX.Uwp.Services;
 using Fooxboy.MusicX.Core.Interfaces;
 // The Blank Page item template is documented at https://go.microsoft.com/fwlink/?LinkId=234238
@@ -29,6 +30,14 @@ namespace Fooxboy.MusicX.Uwp.Views
         public WelcomeView()
         {
             this.InitializeComponent();
+        }
+
+        private IContainer _container;
+
+        protected override void OnNavigatedTo(NavigationEventArgs e)
+        {
+            _container = (IContainer) e.Parameter;
+            base.OnNavigatedTo(e);
         }
 
         private async void StartButtonClick(object sender, RoutedEventArgs e)
@@ -52,7 +61,7 @@ namespace Fooxboy.MusicX.Uwp.Views
 
 
              var currentFrame = Window.Current.Content as Frame;
-            currentFrame.Navigate(typeof(LoginView));
+            currentFrame?.Navigate(typeof(LoginView), _container);
         }
     }
 }

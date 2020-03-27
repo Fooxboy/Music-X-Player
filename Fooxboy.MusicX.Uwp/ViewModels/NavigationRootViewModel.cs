@@ -25,25 +25,27 @@ namespace Fooxboy.MusicX.Uwp.ViewModels
         public RelayCommand GoToFavoriteArtists { get; set; }
         public RelayCommand GoToDownloads { get; set; }
         private NavigationService _navigationService;
+        private IContainer _container;
 
         public RelayCommand LogOutCommand { get; set; }
 
         public RelayCommand OpenAboutCommand { get; set; }
 
-        public NavigationRootViewModel()
+        public NavigationRootViewModel(IContainer container)
         {
+            this._container = container;
             GoToHome = new RelayCommand(ToHome);
             GoToRecommendations = new RelayCommand(ToRecommendations);
             GoToFavoriteArtists = new RelayCommand(ToFavoriteArtists);
             GoToDownloads = new RelayCommand(ToDownloads);
-            _navigationService = Container.Get.Resolve<NavigationService>();
+            _navigationService = _container.Resolve<NavigationService>();
             OpenAboutCommand = new RelayCommand(OpenAbout);
             LogOutCommand = new RelayCommand(LogOut);
         }
 
         public async void LogOut()
         {
-            var tokenSerice = Container.Get.Resolve<TokenService>();
+            var tokenSerice = _container.Resolve<TokenService>();
             await tokenSerice.Delete();
 
             await DispatcherHelper.ExecuteOnUIThreadAsync(() =>

@@ -15,10 +15,12 @@ namespace Fooxboy.MusicX.Uwp.ViewModels
         public ObservableCollection<Notification> Notifications { get; set; }
 
         private NotificationService _notificationService;
-        public NotificationViewModel()
+        private IContainer _container;
+        public NotificationViewModel(IContainer container)
         {
+            this._container = container;
             Notifications = new ObservableCollection<Notification>();
-            _notificationService = Container.Get.Resolve<NotificationService>();
+            _notificationService = _container.Resolve<NotificationService>();
             _notificationService.NewNotificationEvent += NewNotification;
             _notificationService.CloseNotificationEvent += CloseNotification;
 

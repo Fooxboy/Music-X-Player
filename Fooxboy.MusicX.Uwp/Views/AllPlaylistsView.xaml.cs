@@ -12,6 +12,7 @@ using Windows.UI.Xaml.Data;
 using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Navigation;
+using DryIoc;
 using Fooxboy.MusicX.Uwp.Models;
 using Fooxboy.MusicX.Uwp.ViewModels;
 
@@ -26,11 +27,12 @@ namespace Fooxboy.MusicX.Uwp.Views
     {
 
         public AllPlaylistsViewModel ViewModel { get; set; }
+        private IContainer _container;
 
         public AllPlaylistsView()
         {
             this.InitializeComponent();
-            ViewModel = new AllPlaylistsViewModel();
+            
         }
 
         private void AllPlaylistsView_OnLoaded(object sender, RoutedEventArgs e)
@@ -42,6 +44,9 @@ namespace Fooxboy.MusicX.Uwp.Views
         {
             var param = (AllPlaylistsModel) e.Parameter;
 
+            _container = param.Container;
+
+            ViewModel = new AllPlaylistsViewModel(_container);
             await ViewModel.StartLoading(param);
 
             base.OnNavigatedTo(e);

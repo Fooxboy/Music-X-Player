@@ -11,9 +11,11 @@ namespace Fooxboy.MusicX.Uwp.Services
 {
     public class AlbumLoaderService
     {
-        public AlbumLoaderService()
+        private IContainer _container;
+
+        public AlbumLoaderService(Core.Api api)
         {
-            _api = Container.Get.Resolve<Core.Api>();
+            _api = api;
 
         }
 

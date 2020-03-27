@@ -28,11 +28,11 @@ namespace Fooxboy.MusicX.Uwp.Views
     {
         public HomeView()
         {
-            ViewModel = new HomeViewModel();
 
             this.InitializeComponent();
         }
         public HomeViewModel ViewModel { get; set; }
+        private IContainer _container;
 
         private void BlockPlaylists_SizeChanged(object sender, SizeChangedEventArgs e)
         {
@@ -50,6 +50,15 @@ namespace Fooxboy.MusicX.Uwp.Views
                 await ViewModel.StartLoadingTracks();
             }
 
+        }
+
+        protected override void OnNavigatedTo(NavigationEventArgs e)
+        {
+            _container = (IContainer) e.Parameter;
+            ViewModel = new HomeViewModel(_container);
+
+
+            base.OnNavigatedTo(e);
         }
 
         private async void Page_Loaded(object sender, RoutedEventArgs e)

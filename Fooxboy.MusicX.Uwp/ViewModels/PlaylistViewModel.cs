@@ -23,8 +23,11 @@ namespace Fooxboy.MusicX.Uwp.ViewModels
         public RelayCommand ShuffleCommand { get; }
         public RelayCommand AddToLibraryCommand { get; }
 
-        public PlaylistViewModel()
+        private IContainer _container;
+
+        public PlaylistViewModel(IContainer container)
         {
+            _container = container;
             Tracks = new ObservableCollection<Track>();
 
             PlayCommmand = new RelayCommand(Play);
@@ -40,8 +43,8 @@ namespace Fooxboy.MusicX.Uwp.ViewModels
             this.Album = album;
             Changed("Album");
             
-            var api = Container.Get.Resolve<Api>();
-            var loadingService = Container.Get.Resolve<LoadingService>();
+            var api = _container.Resolve<Api>();
+            var loadingService = _container.Resolve<LoadingService>();
             loadingService.Change(true);
             var tracks = (await api.VKontakte.Music.Tracks.GetAsync(200, 0, album.AccessKey, album.Id, album.OwnerId)).ToListTrack();
             foreach (var track in tracks) Tracks.Add(track);
@@ -59,7 +62,7 @@ namespace Fooxboy.MusicX.Uwp.ViewModels
 
         public void Shuffle()
         {
-            var playService = Container.Get.Resolve<PlayerService>();
+            var playService = _container.Resolve<PlayerService>();
             playService.SetShuffle(true);
             int index = new Random().Next(0, Tracks.Count());
             this.PlayTrack(this.Tracks[index]);
@@ -67,13 +70,13 @@ namespace Fooxboy.MusicX.Uwp.ViewModels
 
         public async void AddToLibrary()
         {
-            var notificationService = Container.Get.Resolve<NotificationService>();
+            var notificationService = _container.Resolve<NotificationService>();
             notificationService.CreateNotification("Невозможно добавить плейлист", "Данная функция пока что недоступна.");
         }
 
         public void PlayTrack(Track track)
         {
-            var playService = Container.Get.Resolve<PlayerService>();
+            var playService = _container.Resolve<PlayerService>();
             playService.Play(this.Album, track, this.Tracks.ToList());
         }
     }

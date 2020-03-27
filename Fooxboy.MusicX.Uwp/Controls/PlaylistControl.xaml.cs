@@ -53,6 +53,8 @@ namespace Fooxboy.MusicX.Uwp.Resources.Controls
 
         public string Artists { get; set; }
 
+        private IContainer _container;
+
         public PlaylistControl()
         {
             this.InitializeComponent();
@@ -131,8 +133,8 @@ namespace Fooxboy.MusicX.Uwp.Resources.Controls
             var a = this;
             
 
-            var navigateService = Container.Get.Resolve<NavigationService>();
-            navigateService.Go(typeof(PlaylistView), this.Album, 1);
+            var navigateService = _container.Resolve<NavigationService>();
+            navigateService.Go(typeof(PlaylistView), new PlaylistViewNavigationData() {Album= this.Album, Container = _container}, 1);
         }
     }
 }

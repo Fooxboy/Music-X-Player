@@ -66,11 +66,13 @@ namespace Fooxboy.MusicX.Uwp.ViewModels
         public string Time { get; set; }
         public string AllTime { get; set; }
 
-        public PlayerViewModel()
+        private IContainer _container;
+
+        public PlayerViewModel(IContainer container)
         {
+            this._container = container;
             CurrentNowPlaing = new ObservableCollection<Track>();
-            PlayerSerivce = Container.Get.Resolve<PlayerService>();
-            PlayerSerivce.Init();
+            PlayerSerivce = _container.Resolve<PlayerService>();
             PlayCommand = new RelayCommand(() => PlayerSerivce.Play());
             PauseCommand = new RelayCommand(() => PlayerSerivce.Pause());
             NextCommand = new RelayCommand(() => PlayerSerivce.NextTrack());
@@ -84,7 +86,7 @@ namespace Fooxboy.MusicX.Uwp.ViewModels
             IsPlay = false;
 
             foreach (var track in PlayerSerivce.Tracks) CurrentNowPlaing.Add(track);
-            var discordService = Container.Get.Resolve<DiscordService>();
+            var discordService = _container.Resolve<DiscordService>();
             discordService.Init();
         }
 

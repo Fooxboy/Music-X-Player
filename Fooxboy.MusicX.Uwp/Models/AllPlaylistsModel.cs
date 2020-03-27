@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using DryIoc;
 using Fooxboy.MusicX.Uwp.Services;
 
 namespace Fooxboy.MusicX.Uwp.Models
@@ -14,6 +15,7 @@ namespace Fooxboy.MusicX.Uwp.Models
         public TypeView TypeViewPlaylist { get; set; }
         public AlbumLoaderService AlbumLoader { get; set; }
 
+        public IContainer Container { get; set; }
         public enum TypeView { UserAlbum, ArtistAlbum }
     }
 }

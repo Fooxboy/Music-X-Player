@@ -34,8 +34,9 @@ namespace Fooxboy.MusicX.Uwp.Services
 
 
 
-        public PlayerService()
+        public PlayerService(NotificationService notificationService)
         {
+            _notificationService = notificationService;
             _mediaPlayer = new MediaPlayer();
             _tracks = new List<Track>();
             _repeatMode = 1;
@@ -62,10 +63,6 @@ namespace Fooxboy.MusicX.Uwp.Services
 
         }
 
-        public void Init()
-        {
-            _notificationService = Container.Get.Resolve<NotificationService>();
-        }
 
         public bool IsPlaying => _mediaPlayer.PlaybackSession.PlaybackState == MediaPlaybackState.Playing
             || _mediaPlayer.PlaybackSession.PlaybackState == MediaPlaybackState.Opening

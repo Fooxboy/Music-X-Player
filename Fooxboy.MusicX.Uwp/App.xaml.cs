@@ -40,6 +40,8 @@ namespace Fooxboy.MusicX.Uwp
             
         }
 
+        private IContainer _container;
+
         protected async override void OnLaunched(LaunchActivatedEventArgs e)
         {
             //инициализация контейера
@@ -48,13 +50,14 @@ namespace Fooxboy.MusicX.Uwp
             c.Register<ConfigService>(Reuse.Singleton);
             c.Register<NotificationService>(Reuse.Singleton);
             c.Register<TokenService>(Reuse.Singleton);
-            Container.SetContainer(c);
             c.Register<TrackLoaderService>(Reuse.Singleton);
             c.Register<AlbumLoaderService>(Reuse.Singleton);
             c.Register<DiscordService>(Reuse.Singleton);
             c.Register<LoadingService>(Reuse.Singleton);
             c.Register<PlayerService>(Reuse.Singleton);
-            Container.SetContainer(c);
+
+            this._container = c;
+
 
             Frame rootFrame = Window.Current.Content as Frame;
             if (rootFrame == null)
@@ -89,21 +92,21 @@ namespace Fooxboy.MusicX.Uwp
             {
                 if (rootFrame.Content == null)
                 {
-                    var configService = Container.Get.Resolve<ConfigService>();
+                    var configService = _container.Resolve<ConfigService>();
                     try
                     {
                         var config = await configService.GetConfig();
-                        if (config.AccessTokenVkontakte is null) rootFrame.Navigate(typeof(Views.LoginView), null);
+                        if (config.AccessTokenVkontakte is null) rootFrame.Navigate(typeof(Views.LoginView), _container);
                         else
                         {
-                            rootFrame.Navigate(typeof(Views.RootWindow), null);
-                            await c.Resolve<Api>().VKontakte.Auth.AutoAsync(config.AccessTokenVkontakte, null);
-                            await c.Resolve<Api>().Discord.InitAsync();
+                            rootFrame.Navigate(typeof(Views.RootWindow), this._container);
+                            await _container.Resolve<Api>().VKontakte.Auth.AutoAsync(config.AccessTokenVkontakte, null);
+                            await _container.Resolve<Api>().Discord.InitAsync();
                             
                         }
                     }catch
                     {
-                        rootFrame.Navigate(typeof(Views.WelcomeView), null);
+                        rootFrame.Navigate(typeof(Views.WelcomeView), _container);
                     }
                 }
             }
@@ -120,7 +123,7 @@ namespace Fooxboy.MusicX.Uwp
 
         private void OnBackRequested(object sender, BackRequestedEventArgs e)
         {
-            var navigationService = Container.Get.Resolve<NavigationService>();
+            var navigationService = _container.Resolve<NavigationService>();
             navigationService.Back();
         }
 

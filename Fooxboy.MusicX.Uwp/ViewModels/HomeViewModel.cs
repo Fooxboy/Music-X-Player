@@ -30,18 +30,20 @@ namespace Fooxboy.MusicX.Uwp.ViewModels
         private NotificationService _notificationService;
         private TrackLoaderService loader;
         private AlbumLoaderService albumLoader;
+        private IContainer _container;
 
 
         public RelayCommand OpelAllPlaylistsCommand { get; set; }
 
 
-        public HomeViewModel()
+        public HomeViewModel(IContainer container)
         {
+            _container = container;
             Tracks = new ObservableCollection<Track>();
             Albums = new ObservableCollection<Album>();
             
             _count = 20;
-            _player = Container.Get.Resolve<PlayerService>();
+            _player = _container.Resolve<PlayerService>();
             _libraryAlbum = new Album()
             {
                 Title = "Ваша музыка",
@@ -49,13 +51,13 @@ namespace Fooxboy.MusicX.Uwp.ViewModels
                 Tracks = new System.Collections.Generic.List<Core.Interfaces.ITrack>()
             };
 
-            _loadingService = Container.Get.Resolve<LoadingService>();
+            _loadingService = _container.Resolve<LoadingService>();
 
-            _notificationService = Container.Get.Resolve<NotificationService>();
+            _notificationService = _container.Resolve<NotificationService>();
 
             OpelAllPlaylistsCommand = new RelayCommand(OpenAllPlaylists);
 
-            loader = Container.Get.Resolve<TrackLoaderService>();
+            loader = _container.Resolve<TrackLoaderService>();
         }
 
 
@@ -65,7 +67,8 @@ namespace Fooxboy.MusicX.Uwp.ViewModels
             model.TypeViewPlaylist = AllPlaylistsModel.TypeView.UserAlbum;
             model.TitlePage = "Ваши альбомы";
             model.AlbumLoader = albumLoader;
-            var navigationService = Container.Get.Resolve<NavigationService>();
+            model.Container = _container;
+            var navigationService = _container.Resolve<NavigationService>();
 
             navigationService.Go(typeof(AllPlaylistsView), model, 1);
         }
@@ -84,14 +87,14 @@ namespace Fooxboy.MusicX.Uwp.ViewModels
 
         private async Task<System.Collections.Generic.List<Album>> LoadAlbums()
         {
-            albumLoader = Container.Get.Resolve<AlbumLoaderService>();
+            albumLoader = _container.Resolve<AlbumLoaderService>();
             var albums = await albumLoader.GetLibraryAlbums(0, 10);
             return albums;
         }
 
         public async Task GetMaxTracks()
         {
-            var api = Container.Get.Resolve<Api>();
+            var api = _container.Resolve<Api>();
             _maxTracks = await api.VKontakte.Music.Tracks.GetCountAsync();
         }
 

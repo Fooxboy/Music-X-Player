@@ -6,17 +6,23 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Fooxboy.MusicX.Core;
 
 namespace Fooxboy.MusicX.Uwp.Services
 {
     public class TrackLoaderService
     {
 
+        private Api _api;
+
+        public TrackLoaderService(Api api)
+        {
+            _api = api;
+        }
+
         private async Task<List<Track>> Get(int offset = 0, int count = 20, string accessKey = null, long? albumId = null, long? ownerId = null)
         {
-            var api = Container.Get.Resolve<Core.Api>();
-
-            var tracks = await api.VKontakte.Music.Tracks.GetAsync(count, offset, accessKey, albumId, ownerId);
+            var tracks = await _api.VKontakte.Music.Tracks.GetAsync(count, offset, accessKey, albumId, ownerId);
 
             return tracks.ToListTrack();
         }
