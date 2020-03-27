@@ -104,8 +104,6 @@ namespace Fooxboy.MusicX.Uwp
                     {
                         rootFrame.Navigate(typeof(Views.WelcomeView), null);
                     }
-                   
-
                 }
             }
             Window.Current.Activate();

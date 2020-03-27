@@ -24,8 +24,8 @@
     <PackageCertificateThumbprint>E5513A0F79154E43F22653676B5AC51A1307B89D</PackageCertificateThumbprint>
     <AppInstallerUpdateFrequency>0</AppInstallerUpdateFrequency>
     <AppInstallerCheckForUpdateFrequency>OnApplicationRun</AppInstallerCheckForUpdateFrequency>
-    <AppxSymbolPackageEnabled>True</AppxSymbolPackageEnabled>
-    <AppxPackageDir>C:\Users\Fooxboy\source\repos\Fooxboy.MusicX\Fooxboy.MusicX.Uwp\Packs\1.5.31 store</AppxPackageDir>
+    <AppxSymbolPackageEnabled>False</AppxSymbolPackageEnabled>
+    <AppxPackageDir>D:\Documents\Music X Player Builds\2.0.34</AppxPackageDir>
     <AppxPackageSigningEnabled>True</AppxPackageSigningEnabled>
     <GenerateTestArtifacts>True</GenerateTestArtifacts>
     <HoursBetweenUpdateChecks>0</HoursBetweenUpdateChecks>
@@ -207,6 +207,12 @@
     <Compile Include="Views\DeveloperView.xaml.cs">
       <DependentUpon>DeveloperView.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Views\DownloadsView.xaml.cs">
+      <DependentUpon>DownloadsView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\FavoriteArtistsView.xaml.cs">
+      <DependentUpon>FavoriteArtistsView.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\HomeView.xaml.cs">
       <DependentUpon>HomeView.xaml</DependentUpon>
     </Compile>
@@ -218,6 +224,9 @@
     </Compile>
     <Compile Include="Views\PlaylistView.xaml.cs">
       <DependentUpon>PlaylistView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\RecommendationsView.xaml.cs">
+      <DependentUpon>RecommendationsView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\RootWindow.xaml.cs">
       <DependentUpon>RootWindow.xaml</DependentUpon>
@@ -383,6 +392,14 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Views\DownloadsView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\FavoriteArtistsView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Views\HomeView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -396,6 +413,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\PlaylistView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\RecommendationsView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -447,9 +468,6 @@
     </PackageReference>
   </ItemGroup>
   <ItemGroup>
-    <SDKReference Include="Microsoft.Advertising.Xaml, Version=10.0">
-      <Name>Microsoft Advertising SDK for XAML</Name>
-    </SDKReference>
     <SDKReference Include="Microsoft.VCLibs, Version=14.0">
       <Name>Visual C++ 2015 Runtime for Universal Windows Platform Apps</Name>
     </SDKReference>

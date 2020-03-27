@@ -1,0 +1,24 @@
+﻿<Page
+    x:Class="Fooxboy.MusicX.Uwp.Views.RecommendationsView"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:local="using:Fooxboy.MusicX.Uwp.Views"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    Background="{ThemeResource ApplicationPageBackgroundThemeBrush}"
+    mc:Ignorable="d">
+
+    <Grid>
+        <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center">
+            <FontIcon
+                FontFamily="Segoe MDL2 Assets"
+                FontSize="80"
+                Glyph="&#xE15E;" />
+            <TextBlock
+                Margin="0,20,0,0"
+                FontSize="32"
+                FontWeight="ExtraBlack"
+                Text="Рекомендации еще в разработке." />
+        </StackPanel>
+    </Grid>
+</Page>

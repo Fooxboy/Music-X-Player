@@ -89,6 +89,8 @@ namespace Fooxboy.MusicX.Uwp.ViewModels
             if (VisibilitySelectorRecommendations == true) return;
             VisibilitySelectorRecommendations = true;
             Changed();
+            _navigationService.Go(typeof(RecommendationsView), null, 1);
+
         }
 
         public void ToFavoriteArtists()
@@ -96,6 +98,8 @@ namespace Fooxboy.MusicX.Uwp.ViewModels
             if (VisibilitySelectorFavoriteArtists == true) return;
             VisibilitySelectorFavoriteArtists = true;
             Changed();
+            _navigationService.Go(typeof(FavoriteArtistsView), null, 1);
+
         }
 
         public void ToDownloads()
@@ -103,6 +107,8 @@ namespace Fooxboy.MusicX.Uwp.ViewModels
             if (VisibilitySelectorDownloads == true) return;
             VisibilitySelectorDownloads = true;
             Changed();
+            _navigationService.Go(typeof(DownloadsView), null, 1);
+
         }
     }
 }
