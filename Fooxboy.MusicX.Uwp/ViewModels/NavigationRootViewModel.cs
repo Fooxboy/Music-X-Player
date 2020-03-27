@@ -7,6 +7,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Windows.UI.Xaml;
+using Windows.UI.Xaml.Controls;
+using Windows.UI.Xaml.Media.Animation;
 using Fooxboy.MusicX.Uwp.ContentDialogs;
 using Microsoft.Toolkit.Uwp.Helpers;
 
@@ -24,6 +26,7 @@ namespace Fooxboy.MusicX.Uwp.ViewModels
         public RelayCommand GoToDownloads { get; set; }
         private NavigationService _navigationService;
 
+        public RelayCommand LogOutCommand { get; set; }
 
         public RelayCommand OpenAboutCommand { get; set; }
 
@@ -35,6 +38,20 @@ namespace Fooxboy.MusicX.Uwp.ViewModels
             GoToDownloads = new RelayCommand(ToDownloads);
             _navigationService = Container.Get.Resolve<NavigationService>();
             OpenAboutCommand = new RelayCommand(OpenAbout);
+            LogOutCommand = new RelayCommand(LogOut);
+        }
+
+        public async void LogOut()
+        {
+            var tokenSerice = Container.Get.Resolve<TokenService>();
+            await tokenSerice.Delete();
+
+            await DispatcherHelper.ExecuteOnUIThreadAsync(() =>
+            {
+                Frame rootFrame = Window.Current.Content as Frame;
+                rootFrame?.Navigate(typeof(LoginView), null, new DrillInNavigationTransitionInfo());
+            });
+
         }
 
         public void OpenAbout()

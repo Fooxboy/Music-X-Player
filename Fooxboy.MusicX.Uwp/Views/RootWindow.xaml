@@ -237,6 +237,7 @@
                                     Width="250"
                                     Height="30"
                                     Margin="0,50,0,0"
+                                    Command="{x:Bind NavigationViewModel.LogOutCommand}"
                                     Style="{ThemeResource AcceptButtonStyle}">
                                     <Button.Content>
                                         <StackPanel Orientation="Horizontal">

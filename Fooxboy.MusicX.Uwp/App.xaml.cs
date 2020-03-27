@@ -45,15 +45,15 @@ namespace Fooxboy.MusicX.Uwp
             //инициализация контейера
             var c = new DryIoc.Container();
             c.RegisterInstance<Api>(Core.Api.GetApi());
-            c.RegisterInstance<ConfigService>(new ConfigService());
-            c.RegisterInstance<NotificationService>(new NotificationService());
-            c.Register<TokenService>(made: Made.Of(() => new TokenService(Arg.Of<ConfigService>())));
+            c.Register<ConfigService>(Reuse.Singleton);
+            c.Register<NotificationService>(Reuse.Singleton);
+            c.Register<TokenService>(Reuse.Singleton);
             Container.SetContainer(c);
-            c.RegisterInstance<TrackLoaderService>(new TrackLoaderService());
-            c.RegisterInstance<AlbumLoaderService>(new AlbumLoaderService());
-            c.RegisterInstance<DiscordService>(new DiscordService());
-            c.RegisterInstance<LoadingService>(new LoadingService());
-            c.RegisterInstance<PlayerService>(new PlayerService());
+            c.Register<TrackLoaderService>(Reuse.Singleton);
+            c.Register<AlbumLoaderService>(Reuse.Singleton);
+            c.Register<DiscordService>(Reuse.Singleton);
+            c.Register<LoadingService>(Reuse.Singleton);
+            c.Register<PlayerService>(Reuse.Singleton);
             Container.SetContainer(c);
 
             Frame rootFrame = Window.Current.Content as Frame;
