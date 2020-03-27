@@ -72,6 +72,12 @@ namespace Fooxboy.MusicX.Uwp.ViewModels
                 VisibilityTextBox = true;
                 Changed("IsLoading");
                 Changed("VisibilityTextBox");
+
+                await DispatcherHelper.ExecuteOnUIThreadAsync(async () =>
+                {
+                    var dialog = new IncorrectLoginOrPasswordContentDialog();
+                    await dialog.ShowAsync();
+                });
                 //Неверный логин или пароль.
             }
             catch(Exception e)
@@ -80,6 +86,9 @@ namespace Fooxboy.MusicX.Uwp.ViewModels
                 VisibilityTextBox = true;
                 Changed("IsLoading");
                 Changed("VisibilityTextBox");
+
+                
+
                 //неизвестная ошибка при логине.
             }
         }
