@@ -12,6 +12,7 @@ namespace Fooxboy.MusicX.Uwp.Converters
     {
         public static Album ToAlbum(this IAlbum album)
         {
+
             var a = new Album();
             a.AccessKey = album.AccessKey;
             a.Artists = album.Artists;
