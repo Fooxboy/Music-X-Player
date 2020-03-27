@@ -5,6 +5,7 @@ using Microsoft.AppCenter.Push;
 using Windows.ApplicationModel;
 using Windows.ApplicationModel.Activation;
 using Windows.ApplicationModel.Core;
+using Windows.Services.Maps;
 using Windows.Storage;
 using Windows.UI;
 using Windows.UI.Core;
@@ -30,36 +31,10 @@ namespace Fooxboy.MusicX.Uwp
         /// </summary>
         public App()
         {
-            var settings = ApplicationData.Current.LocalSettings;
+            var settings =new AppPrivateSettingsService();
 
-            try
-            {
-                var composite = (ApplicationDataCompositeValue)settings.Values["themeApp"];
+            this.RequestedTheme = settings.GetTheme();
 
-                if (composite == null)
-                {
-                    this.RequestedTheme = ApplicationTheme.Light;
-                }
-                else
-                {
-                    var theme = (int)settings.Values["themeApp"];
-                    if (theme == 0)
-                    {
-                        this.RequestedTheme = ApplicationTheme.Light;
-
-                    }
-                    else
-                    {
-                        this.RequestedTheme = ApplicationTheme.Dark;
-                    }
-                }
-            }
-            catch
-            {
-                var theme = (int)settings.Values["themeApp"];
-                if (theme == 0) this.RequestedTheme = ApplicationTheme.Light;
-                else this.RequestedTheme = ApplicationTheme.Dark;
-            }
             this.InitializeComponent();
             this.Suspending += OnSuspending;
             
@@ -99,33 +74,13 @@ namespace Fooxboy.MusicX.Uwp
                 var appView = ApplicationView.GetForCurrentView();
                 appView.TitleBar.ButtonBackgroundColor = Colors.Transparent;
                 appView.TitleBar.ButtonInactiveBackgroundColor = Colors.Transparent;
-                var settings = ApplicationData.Current.LocalSettings;
 
-                try
-                {
-                    var composite = (ApplicationDataCompositeValue)settings.Values["themeApp"];
 
-                    if (composite == null) appView.TitleBar.ButtonForegroundColor = Colors.Black;
-                    else
-                    {
-                        var theme = (int)settings.Values["themeApp"];
-                        if (theme == 0)
-                        {
-                            appView.TitleBar.ButtonForegroundColor = Colors.Black;
+                var theme = new AppPrivateSettingsService().GetTheme();
 
-                        }
-                        else
-                        {
-                            appView.TitleBar.ButtonForegroundColor = Colors.White;
-                        }
-                    }
-                }
-                catch
-                {
-                    var theme = (int)settings.Values["themeApp"];
-                    if (theme == 0) appView.TitleBar.ButtonForegroundColor = Colors.Black;
-                    else appView.TitleBar.ButtonForegroundColor = Colors.White;
-                }
+                if(theme == ApplicationTheme.Light) appView.TitleBar.ButtonForegroundColor = Colors.Black;
+                else appView.TitleBar.ButtonForegroundColor = Colors.White;
+
 
                 Window.Current.Content = rootFrame;
             }
@@ -161,7 +116,7 @@ namespace Fooxboy.MusicX.Uwp
       
         void OnNavigationFailed(object sender, NavigationFailedEventArgs e)
         {
-            throw new Exception("Failed to load Page " + e.SourcePageType.FullName);
+            //throw new Exception("Failed to load Page " + e.SourcePageType.FullName);
         }
 
         private void OnBackRequested(object sender, BackRequestedEventArgs e)

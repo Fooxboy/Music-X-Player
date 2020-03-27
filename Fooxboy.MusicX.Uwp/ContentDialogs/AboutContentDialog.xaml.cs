@@ -34,7 +34,7 @@ namespace Fooxboy.MusicX.Uwp.ContentDialogs
 
         private async void Telegram_OnClick(object sender, RoutedEventArgs e)
         {
-            var uri = new Uri(@"https://t.me/MusicXPlayer");
+            var uri = new Uri(@"tg://resolve?domain=MusicXPlayer");
              await Windows.System.Launcher.LaunchUriAsync(uri);
         }
 
