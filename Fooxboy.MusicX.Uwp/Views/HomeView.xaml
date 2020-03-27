@@ -73,7 +73,7 @@
                         FontFamily="Calibri"
                         FontSize="38"
                         FontWeight="ExtraBold"
-                        Text="Ваши плейлисты" />
+                        Text="Ваши альбомы" />
                     <Button
                         x:Name="ShowAllPlaylistButton"
                         Grid.Row="0"

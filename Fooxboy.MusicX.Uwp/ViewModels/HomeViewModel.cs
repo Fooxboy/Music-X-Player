@@ -28,6 +28,9 @@ namespace Fooxboy.MusicX.Uwp.ViewModels
         private Album _libraryAlbum;
         private LoadingService _loadingService;
         private NotificationService _notificationService;
+        private TrackLoaderService loader;
+        private AlbumLoaderService albumLoader;
+
 
         public RelayCommand OpelAllPlaylistsCommand { get; set; }
 
@@ -51,6 +54,8 @@ namespace Fooxboy.MusicX.Uwp.ViewModels
             _notificationService = Container.Get.Resolve<NotificationService>();
 
             OpelAllPlaylistsCommand = new RelayCommand(OpenAllPlaylists);
+
+            loader = Container.Get.Resolve<TrackLoaderService>();
         }
 
 
@@ -58,7 +63,8 @@ namespace Fooxboy.MusicX.Uwp.ViewModels
         {
             var model = new AllPlaylistsModel();
             model.TypeViewPlaylist = AllPlaylistsModel.TypeView.UserAlbum;
-            model.TitlePage = "Ваши плейлисты";
+            model.TitlePage = "Ваши альбомы";
+            model.AlbumLoader = albumLoader;
             var navigationService = Container.Get.Resolve<NavigationService>();
 
             navigationService.Go(typeof(AllPlaylistsView), model, 1);
@@ -78,8 +84,8 @@ namespace Fooxboy.MusicX.Uwp.ViewModels
 
         private async Task<System.Collections.Generic.List<Album>> LoadAlbums()
         {
-            var loader = Container.Get.Resolve<AlbumLoaderService>();
-            var albums = await loader.GetLibraryAlbums(0, 10);
+            albumLoader = Container.Get.Resolve<AlbumLoaderService>();
+            var albums = await albumLoader.GetLibraryAlbums(0, 10);
             return albums;
         }
 
@@ -132,7 +138,6 @@ namespace Fooxboy.MusicX.Uwp.ViewModels
 
         private async Task<System.Collections.Generic.List<Track>> LoadTracks()
         {
-            var loader = Container.Get.Resolve<TrackLoaderService>();
 
             var tracks = await loader.GetLibraryTracks(_countTracks, _count);
 

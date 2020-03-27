@@ -17,6 +17,7 @@ namespace Fooxboy.MusicX.Uwp.ViewModels
         public AllPlaylistsViewModel()
         {
             Albums = new ObservableCollection<Album>();
+            
         }
 
         public ObservableCollection<Album> Albums { get; set; }
@@ -31,8 +32,11 @@ namespace Fooxboy.MusicX.Uwp.ViewModels
         private AllPlaylistsModel _model;
         private LoadingService loadingService;
 
+        private AlbumLoaderService loader;
+
         public async Task StartLoading(AllPlaylistsModel model)
         {
+            loader = model.AlbumLoader;
             _isLoading = false;
             _hasLoadMore = true;
             _model = model;
@@ -44,6 +48,7 @@ namespace Fooxboy.MusicX.Uwp.ViewModels
 
             await Load();
             Changed("Albums");
+
         }
 
         private async Task Load()
@@ -51,7 +56,7 @@ namespace Fooxboy.MusicX.Uwp.ViewModels
             _isLoading = true;
             if (_model.TypeViewPlaylist == AllPlaylistsModel.TypeView.UserAlbum)
             {
-                var loader = Container.Get.Resolve<AlbumLoaderService>();
+                
                 var albums = await loader.GetLibraryAlbums(_currentCountAlbums, 20);
                 if (albums.Count == 0)
                 {
