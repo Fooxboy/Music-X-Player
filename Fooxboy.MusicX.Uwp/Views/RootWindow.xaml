@@ -209,7 +209,7 @@
                     GotFocus="SearchBox_OnGotFocus"
                     KeyUp="SearchBox_OnKeyUp"
                     LostFocus="SearchBox_OnLostFocus"
-                    PlaceholderText="Найдите что нибудь..."
+                    PlaceholderText="Найдите что-нибудь..."
                     Style="{ThemeResource SearchTextBoxStyle}" />
             </StackPanel>
 
@@ -268,7 +268,7 @@
                                 </Style>
 
                             </MenuFlyout.MenuFlyoutPresenterStyle>
-                            <MenuFlyoutItem Text="Настройки">
+                            <MenuFlyoutItem Command="{x:Bind NavigationViewModel.OpenSettingsCommand}" Text="Настройки">
                                 <MenuFlyoutItem.Icon>
                                     <FontIcon FontFamily="Segoe MDL2 Assets" Glyph="&#xE713;" />
                                 </MenuFlyoutItem.Icon>

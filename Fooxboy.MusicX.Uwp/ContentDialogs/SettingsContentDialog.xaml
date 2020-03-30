@@ -1,0 +1,132 @@
+﻿<ContentDialog
+    x:Class="Fooxboy.MusicX.Uwp.ContentDialogs.SettingsContentDialog"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:controls="using:Microsoft.Toolkit.Uwp.UI.Controls"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:local="using:Fooxboy.MusicX.Uwp.ContentDialogs"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    Title="НАСТРОЙКИ"
+    CornerRadius="5"
+    PrimaryButtonClick="ContentDialog_PrimaryButtonClick"
+    PrimaryButtonText="Закрыть"
+    mc:Ignorable="d">
+
+    <Grid>
+        <ScrollViewer>
+            <Grid Margin="20">
+                <StackPanel HorizontalAlignment="Left">
+                    <Grid x:Name="ImagesBlock">
+                        <controls:DropShadowPanel
+                            HorizontalAlignment="Center"
+                            VerticalAlignment="Center"
+                            BlurRadius="30"
+                            CornerRadius="10"
+                            IsMasked="False"
+                            OffsetX="0"
+                            OffsetY="0"
+                            ShadowOpacity="0.3"
+                            Color="Black">
+                            <Border
+                                x:Name="BlockShadow"
+                                Width="450"
+                                Height="150"
+                                Background="Transparent"
+                                CornerRadius="10" />
+
+                        </controls:DropShadowPanel>
+
+                        <Rectangle
+                            Width="450"
+                            Height="150"
+                            Margin="0"
+                            Fill="{ThemeResource BlockBackground}"
+                            RadiusX="10"
+                            RadiusY="10" />
+
+                        <StackPanel Margin="15,10,10,10">
+                            <TextBlock
+                                FontSize="18"
+                                FontWeight="ExtraBlack"
+                                Text="Изображения" />
+                            <TextBlock
+                                MaxWidth="450"
+                                Margin="0,10,0,0"
+                                Text="Кэшировать обложки альбомов и треков на диск"
+                                TextWrapping="Wrap" />
+                            <ToggleSwitch OffContent="Отключено" OnContent="Включено" />
+                            <Grid HorizontalAlignment="Left">
+                                <FontIcon
+                                    HorizontalAlignment="Left"
+                                    FontFamily="Segoe MDL2 Assets"
+                                    Foreground="{ThemeResource SubText}"
+                                    Glyph="&#xE946;" />
+                                <TextBlock
+                                    MaxWidth="450"
+                                    Margin="28,0,0,0"
+                                    Foreground="{ThemeResource SubText}"
+                                    Text="Кэширование изображений поможет сэкономить трафик и ускорить загрузку страниц."
+                                    TextWrapping="Wrap" />
+                            </Grid>
+
+                        </StackPanel>
+                    </Grid>
+
+                    <Grid x:Name="ThemesBlock" Margin="0,30,0,0">
+                        <controls:DropShadowPanel
+                            HorizontalAlignment="Center"
+                            VerticalAlignment="Center"
+                            BlurRadius="30"
+                            CornerRadius="10"
+                            IsMasked="False"
+                            OffsetX="0"
+                            OffsetY="0"
+                            ShadowOpacity="0.3"
+                            Color="Black">
+                            <Border
+                                Width="450"
+                                Height="130"
+                                Background="Transparent"
+                                CornerRadius="10" />
+
+                        </controls:DropShadowPanel>
+
+                        <Rectangle
+                            Width="450"
+                            Height="130"
+                            Margin="0"
+                            Fill="{ThemeResource BlockBackground}"
+                            RadiusX="10"
+                            RadiusY="10" />
+
+                        <StackPanel Margin="15,10,10,10">
+                            <TextBlock
+                                FontSize="18"
+                                FontWeight="ExtraBlack"
+                                Text="Тема оформления" />
+
+                            <RadioButton Content="Светлая" GroupName="Theme" />
+                            <RadioButton Content="Темная" GroupName="Theme" />
+                            <Grid Margin="0,5,0,0" HorizontalAlignment="Left">
+                                <FontIcon
+                                    HorizontalAlignment="Left"
+                                    FontFamily="Segoe MDL2 Assets"
+                                    Foreground="{ThemeResource SubText}"
+                                    Glyph="&#xE946;" />
+                                <TextBlock
+                                    MaxWidth="450"
+                                    Margin="28,0,0,0"
+                                    Foreground="{ThemeResource SubText}"
+                                    Text="Выберите то, что Вам нравится больше."
+                                    TextWrapping="Wrap" />
+                            </Grid>
+
+                        </StackPanel>
+                    </Grid>
+
+                </StackPanel>
+            </Grid>
+        </ScrollViewer>
+
+    </Grid>
+</ContentDialog>

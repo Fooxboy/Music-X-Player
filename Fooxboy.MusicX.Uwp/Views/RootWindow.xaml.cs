@@ -48,7 +48,7 @@ namespace Fooxboy.MusicX.Uwp.Views
         public RootWindow()
         {
             _hasOpenPlayer = false;
-            PlayerViewModel.CloseBigPlayer = new Action(CloseBigPlayer);
+            
             this.InitializeComponent();
         }
 
@@ -60,6 +60,7 @@ namespace Fooxboy.MusicX.Uwp.Views
             _container.RegisterInstance<NavigationService>(navigationService);
 
             PlayerViewModel = new PlayerViewModel(_container);
+            PlayerViewModel.CloseBigPlayer = new Action(CloseBigPlayer);
             NavigationViewModel = new NavigationRootViewModel(_container);
             navigationService.RootFrame = this.Root;
             navigationService.Go(typeof(HomeView), _container);

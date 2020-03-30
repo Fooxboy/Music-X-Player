@@ -39,6 +39,7 @@ namespace Fooxboy.MusicX.Uwp.Controls
 
         public static readonly DependencyProperty HasButtonsProperty = DependencyProperty.Register("HasButtons", typeof(bool), typeof(NotificationControl), new PropertyMetadata(false));
 
+        private IContainer _container;
 
         public string Title
         {
@@ -104,7 +105,9 @@ namespace Fooxboy.MusicX.Uwp.Controls
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
-            var service = Container.Get.Resolve<NotificationService>();
+            _container = Container.Get;
+
+            var service = _container.Resolve<NotificationService>();
             service.ClosedNotification(new Models.Notification() {Title = Title, Description = Description, IsClickButton = true });
         }
     }

@@ -136,6 +136,9 @@
     <Compile Include="ContentDialogs\AboutContentDialog.xaml.cs">
       <DependentUpon>AboutContentDialog.xaml</DependentUpon>
     </Compile>
+    <Compile Include="ContentDialogs\SettingsContentDialog.xaml.cs">
+      <DependentUpon>SettingsContentDialog.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Controls\NotificationControl.xaml.cs">
       <DependentUpon>NotificationControl.xaml</DependentUpon>
     </Compile>
@@ -318,6 +321,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="ContentDialogs\IncorrectLoginOrPasswordContentDialog.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="ContentDialogs\SettingsContentDialog.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

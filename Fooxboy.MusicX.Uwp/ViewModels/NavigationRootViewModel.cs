@@ -30,6 +30,7 @@ namespace Fooxboy.MusicX.Uwp.ViewModels
         public RelayCommand LogOutCommand { get; set; }
 
         public RelayCommand OpenAboutCommand { get; set; }
+        public RelayCommand OpenSettingsCommand { get; set; }
 
         public NavigationRootViewModel(IContainer container)
         {
@@ -41,6 +42,7 @@ namespace Fooxboy.MusicX.Uwp.ViewModels
             _navigationService = _container.Resolve<NavigationService>();
             OpenAboutCommand = new RelayCommand(OpenAbout);
             LogOutCommand = new RelayCommand(LogOut);
+            OpenSettingsCommand = new RelayCommand(OpenSettings);
         }
 
         public async void LogOut()
@@ -54,6 +56,15 @@ namespace Fooxboy.MusicX.Uwp.ViewModels
                 rootFrame?.Navigate(typeof(LoginView), null, new DrillInNavigationTransitionInfo());
             });
 
+        }
+
+        public void OpenSettings()
+        {
+            DispatcherHelper.ExecuteOnUIThreadAsync(async () =>
+            {
+                var settings = new SettingsContentDialog();
+                await settings.ShowAsync();
+            });
         }
 
         public void OpenAbout()

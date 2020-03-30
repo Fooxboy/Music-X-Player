@@ -131,7 +131,8 @@ namespace Fooxboy.MusicX.Uwp.Resources.Controls
         private void PlaylistControlGrid_OnTapped(object sender, TappedRoutedEventArgs e)
         {
             var a = this;
-            
+
+            _container = Container.Get;
 
             var navigateService = _container.Resolve<NavigationService>();
             navigateService.Go(typeof(PlaylistView), new PlaylistViewNavigationData() {Album= this.Album, Container = _container}, 1);

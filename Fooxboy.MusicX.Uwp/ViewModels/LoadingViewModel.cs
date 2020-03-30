@@ -16,6 +16,7 @@ namespace Fooxboy.MusicX.Uwp.ViewModels
         private IContainer _container;
         public LoadingViewModel(IContainer container)
         {
+            _container = container;
             var service = _container.Resolve<LoadingService>();
             service.LoadingChangedEvent += Service_LoadingChangedEvent;
         }

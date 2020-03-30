@@ -58,6 +58,7 @@ namespace Fooxboy.MusicX.Uwp
 
             this._container = c;
 
+            Container.SetContainer(this._container);
 
             Frame rootFrame = Window.Current.Content as Frame;
             if (rootFrame == null)
