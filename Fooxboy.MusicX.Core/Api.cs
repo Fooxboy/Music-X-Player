@@ -3,6 +3,7 @@ using Fooxboy.MusicX.Core.VKontakte;
 using System;
 using System.Collections.Generic;
 using System.Text;
+using Fooxboy.MusicX.Core.LastFM;
 
 namespace Fooxboy.MusicX.Core
 {
@@ -12,6 +13,7 @@ namespace Fooxboy.MusicX.Core
         {
             VKontakte = new Vk();
             Discord = new RichPresenceDiscord();
+            LastFM = new LastFmScrobblerApi();
         }
         private static Api _api;
         public static Api GetApi()
@@ -24,6 +26,7 @@ namespace Fooxboy.MusicX.Core
         public Vk VKontakte { get; set; }
 
         public RichPresenceDiscord Discord { get; set; }
+        public LastFmScrobblerApi LastFM { get; set; }
 
     }
 }

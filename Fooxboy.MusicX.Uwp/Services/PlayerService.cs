@@ -12,6 +12,7 @@ using System.Threading.Tasks;
 using Windows.Media.Core;
 using Windows.Media.Playback;
 using Windows.UI.Xaml;
+using Fooxboy.MusicX.Core;
 
 namespace Fooxboy.MusicX.Uwp.Services
 {
@@ -41,7 +42,6 @@ namespace Fooxboy.MusicX.Uwp.Services
             _tracks = new List<Track>();
             _repeatMode = 1;
             _mediaPlayer.AudioCategory = MediaPlayerAudioCategory.Media;
-
 
             _mediaPlayer.PlaybackSession.PlaybackStateChanged += MediaPlayerOnCurrentStateChanged;
             _mediaPlayer.MediaEnded += MediaPlayerOnMediaEnded;
