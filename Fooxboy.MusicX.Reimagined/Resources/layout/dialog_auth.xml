@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="16dp">
+    
+    <TextView
+        android:layout_width="300dp"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:textColor="@android:color/black"
+        android:text="Войдите в аккаунт ВКонтакте"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:textStyle="bold"
+    android:textSize="27dp"/>
+
+    <EditText
+        android:layout_width="300dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="70dp"
+        android:background="@drawable/textbox"
+        android:layout_centerHorizontal="true"
+        android:hint="Email или телефон"/>
+
+    <EditText
+        android:layout_width="300dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="115dp"
+        android:background="@drawable/textbox"
+        android:layout_centerHorizontal="true"
+        android:hint="Пароль"
+        android:password="true"/>
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="34dp"
+        android:background="@drawable/button"
+        android:text="Войти"
+        android:textColor="@android:color/white"
+        android:layout_marginTop="160dp"/>
+
+</RelativeLayout>

@@ -11,6 +11,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Fooxboy.MusicX.AndroidApp",
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Fooxboy.MusicX.Server", "Fooxboy.MusicX.Server\Fooxboy.MusicX.Server.csproj", "{39BE1645-DB57-45A1-AB5D-AC89C2E56FFD}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Fooxboy.MusicX.Reimagined", "Fooxboy.MusicX.Reimagined\Fooxboy.MusicX.Reimagined.csproj", "{4428837D-FFC0-470D-B903-E4FB94D9DA86}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -123,6 +125,36 @@ Global
 		{39BE1645-DB57-45A1-AB5D-AC89C2E56FFD}.Release|x64.Build.0 = Release|Any CPU
 		{39BE1645-DB57-45A1-AB5D-AC89C2E56FFD}.Release|x86.ActiveCfg = Release|Any CPU
 		{39BE1645-DB57-45A1-AB5D-AC89C2E56FFD}.Release|x86.Build.0 = Release|Any CPU
+		{4428837D-FFC0-470D-B903-E4FB94D9DA86}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4428837D-FFC0-470D-B903-E4FB94D9DA86}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4428837D-FFC0-470D-B903-E4FB94D9DA86}.Debug|Any CPU.Deploy.0 = Debug|Any CPU
+		{4428837D-FFC0-470D-B903-E4FB94D9DA86}.Debug|ARM.ActiveCfg = Debug|Any CPU
+		{4428837D-FFC0-470D-B903-E4FB94D9DA86}.Debug|ARM.Build.0 = Debug|Any CPU
+		{4428837D-FFC0-470D-B903-E4FB94D9DA86}.Debug|ARM.Deploy.0 = Debug|Any CPU
+		{4428837D-FFC0-470D-B903-E4FB94D9DA86}.Debug|ARM64.ActiveCfg = Debug|Any CPU
+		{4428837D-FFC0-470D-B903-E4FB94D9DA86}.Debug|ARM64.Build.0 = Debug|Any CPU
+		{4428837D-FFC0-470D-B903-E4FB94D9DA86}.Debug|ARM64.Deploy.0 = Debug|Any CPU
+		{4428837D-FFC0-470D-B903-E4FB94D9DA86}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{4428837D-FFC0-470D-B903-E4FB94D9DA86}.Debug|x64.Build.0 = Debug|Any CPU
+		{4428837D-FFC0-470D-B903-E4FB94D9DA86}.Debug|x64.Deploy.0 = Debug|Any CPU
+		{4428837D-FFC0-470D-B903-E4FB94D9DA86}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{4428837D-FFC0-470D-B903-E4FB94D9DA86}.Debug|x86.Build.0 = Debug|Any CPU
+		{4428837D-FFC0-470D-B903-E4FB94D9DA86}.Debug|x86.Deploy.0 = Debug|Any CPU
+		{4428837D-FFC0-470D-B903-E4FB94D9DA86}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4428837D-FFC0-470D-B903-E4FB94D9DA86}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4428837D-FFC0-470D-B903-E4FB94D9DA86}.Release|Any CPU.Deploy.0 = Release|Any CPU
+		{4428837D-FFC0-470D-B903-E4FB94D9DA86}.Release|ARM.ActiveCfg = Release|Any CPU
+		{4428837D-FFC0-470D-B903-E4FB94D9DA86}.Release|ARM.Build.0 = Release|Any CPU
+		{4428837D-FFC0-470D-B903-E4FB94D9DA86}.Release|ARM.Deploy.0 = Release|Any CPU
+		{4428837D-FFC0-470D-B903-E4FB94D9DA86}.Release|ARM64.ActiveCfg = Release|Any CPU
+		{4428837D-FFC0-470D-B903-E4FB94D9DA86}.Release|ARM64.Build.0 = Release|Any CPU
+		{4428837D-FFC0-470D-B903-E4FB94D9DA86}.Release|ARM64.Deploy.0 = Release|Any CPU
+		{4428837D-FFC0-470D-B903-E4FB94D9DA86}.Release|x64.ActiveCfg = Release|Any CPU
+		{4428837D-FFC0-470D-B903-E4FB94D9DA86}.Release|x64.Build.0 = Release|Any CPU
+		{4428837D-FFC0-470D-B903-E4FB94D9DA86}.Release|x64.Deploy.0 = Release|Any CPU
+		{4428837D-FFC0-470D-B903-E4FB94D9DA86}.Release|x86.ActiveCfg = Release|Any CPU
+		{4428837D-FFC0-470D-B903-E4FB94D9DA86}.Release|x86.Build.0 = Release|Any CPU
+		{4428837D-FFC0-470D-B903-E4FB94D9DA86}.Release|x86.Deploy.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

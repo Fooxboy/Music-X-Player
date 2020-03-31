@@ -1,0 +1,29 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+  <item
+      android:id="@+id/navigation_home"
+      android:icon="@drawable/home_menu"
+      android:title="Главная" />
+
+  <item
+    android:id="@+id/navigation_tracks"
+    android:icon="@drawable/audio_menu"
+    android:title="Библиотека" />
+
+  <item
+      android:id="@+id/navigation_favourite"
+      android:icon="@drawable/star_menu"
+      android:title="Избранное" />
+
+  <item
+    android:id="@+id/navigation_search"
+    android:icon="@drawable/search_menu"
+    android:title="Поиск" />
+
+  <item
+    android:id="@+id/navigation_downloads"
+    android:icon="@drawable/downloads_menu"
+    android:title="Загрузки" />
+
+</menu>
