@@ -32,14 +32,13 @@ namespace Fooxboy.MusicX.Reimagined
             {
                 Api.GetApi().VKontakte.Auth.Auto(AuthService.GetToken(), null);
                 var user = Api.GetApi().VKontakte.Users.Info.CurrentUser();
+                StaticContentService.UserId = user.Id;
+                StaticContentService.UserName = user.FirstName;
             }
             else
             {
-                Dialog d = new Dialog(this);
-                d.Window.SetBackgroundDrawable(GetDrawable(Resource.Drawable.dialog));
-                d.SetCanceledOnTouchOutside(false);
-                d.SetContentView(Resource.Layout.dialog_auth);
-                d.Show();
+
+                AuthService.ShowLoginDialog(this);
             }
 
         }

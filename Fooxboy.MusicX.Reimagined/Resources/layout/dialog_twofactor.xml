@@ -10,7 +10,7 @@
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
         android:textColor="@android:color/black"
-        android:text="Войдите в аккаунт ВКонтакте"
+        android:text="Введите код двухфакторной аутентификации"
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:textStyle="bold"
     android:textSize="23dp"/>
@@ -18,31 +18,20 @@
     <EditText
         android:layout_width="300dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="70dp"
+        android:layout_marginTop="90dp"
         android:background="@drawable/textbox"
         android:layout_centerHorizontal="true"
-        android:hint="Email или телефон"
+        android:hint="123456"
         android:inputType="text"
-        android:id="@+id/loginEmailField"/>
-
-    <EditText
-        android:layout_width="300dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="115dp"
-        android:background="@drawable/textbox"
-        android:layout_centerHorizontal="true"
-        android:hint="Пароль"
-        android:password="true"
-        android:inputType="textPassword"
-        android:id="@+id/loginPasswordField"/>
+        android:id="@+id/tfCodeField"/>
 
     <Button
-        android:layout_width="wrap_content"
+        android:layout_width="140dp"
         android:layout_height="34dp"
         android:background="@drawable/button"
-        android:text="Войти"
+        android:text="Продолжить"
         android:textColor="@android:color/white"
-        android:layout_marginTop="160dp"
-        android:id="@+id/loginButton"/>
+        android:layout_marginTop="140dp"
+        android:id="@+id/tfButton"/>
 
 </RelativeLayout>
