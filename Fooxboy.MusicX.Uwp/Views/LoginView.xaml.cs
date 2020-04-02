@@ -1,51 +1,38 @@
-﻿using Fooxboy.MusicX.Uwp.ViewModels;
-using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Runtime.InteropServices.WindowsRuntime;
-using Windows.Foundation;
-using Windows.Foundation.Collections;
-using Windows.UI.Xaml;
-using Windows.UI.Xaml.Controls;
-using Windows.UI.Xaml.Controls.Primitives;
-using Windows.UI.Xaml.Data;
-using Windows.UI.Xaml.Input;
-using Windows.UI.Xaml.Media;
-using Windows.UI.Xaml.Navigation;
-using DryIoc;
-
-// Документацию по шаблону элемента "Пустая страница" см. по адресу https://go.microsoft.com/fwlink/?LinkId=234238
+﻿using System;
+using System.Reactive.Disposables;
+using Fooxboy.MusicX.Uwp.Resources.ContentDialogs;
+using Fooxboy.MusicX.Uwp.ViewModels;
+using Microsoft.Toolkit.Uwp.Helpers;
+using ReactiveUI;
 
 namespace Fooxboy.MusicX.Uwp.Views
 {
-    /// <summary>
-    /// Пустая страница, которую можно использовать саму по себе или для перехода внутри фрейма.
-    /// </summary>
-    public sealed partial class LoginView : Page
+    public class LoginViewBase : ReactiveUserControl<LoginViewModel>
     {
-        public LoginViewModel ViewModel { get; set; }
-        private IContainer _container;
+    }
 
+    public sealed partial class LoginView
+    {
         public LoginView()
         {
-            this.InitializeComponent();
-        }
+            InitializeComponent();
 
-        protected override void OnNavigatedTo(NavigationEventArgs e)
-        {
-            _container = (IContainer) e.Parameter;
+            this.WhenActivated(disposable =>
+            {
+                ViewModel.TwoFactorInteraction.RegisterHandler(async interaction =>
+                {
+                    var code = await DispatcherHelper.ExecuteOnUIThreadAsync(async () =>
+                    {
+                        var twoFactorAuthContentDialog = new TwoFactorAuthContentDialog();
 
-            ViewModel = new LoginViewModel(_container);
+                        await twoFactorAuthContentDialog.ShowAsync();
 
+                        return twoFactorAuthContentDialog.Result;
+                    });
 
-            base.OnNavigatedTo(e);
-        }
-
-        private void Button_Click(object sender, RoutedEventArgs e)
-        {
-            loginGrid.Visibility = Visibility.Visible;
-            buttonsGrid.Visibility = Visibility.Collapsed;
+                    interaction.SetOutput(code);
+                }).DisposeWith(disposable);
+            });
         }
     }
 }

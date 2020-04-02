@@ -1,5 +1,5 @@
-﻿<Page
-    x:Class="Fooxboy.MusicX.Uwp.Views.RootWindow"
+﻿<local:RootViewBase
+    x:Class="Fooxboy.MusicX.Uwp.Views.RootView"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:controls="using:Microsoft.Toolkit.Uwp.UI.Controls"
@@ -9,12 +9,12 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:models="using:Fooxboy.MusicX.Uwp.Models"
     xmlns:my="using:Fooxboy.MusicX.Uwp.Controls"
-    xmlns:toolkit="using:Microsoft.Toolkit.Uwp.UI.Controls"
+    xmlns:toolkit="using:Microsoft.Toolkit.Uwp.UI.Controls" xmlns:reactiveUi="using:ReactiveUI"
     Background="{ThemeResource BackgroundApp}"
     Loaded="Page_Loaded"
     mc:Ignorable="d">
 
-    <Page.Resources>
+    <local:RootViewBase.Resources>
         <converters:BoolToVisibilityConverter x:Key="ToVisibility" />
         <Storyboard x:Name="Animations">
             <DoubleAnimation
@@ -44,13 +44,14 @@
             </DoubleAnimation>
         </Storyboard>
 
-    </Page.Resources>
+    </local:RootViewBase.Resources>
 
     <Grid>
         <Frame
             x:Name="Root"
             HorizontalAlignment="Stretch"
             VerticalAlignment="Stretch" />
+        <reactiveUi:RoutedViewHost x:Name="RoutedViewHost" Router="{x:Bind ViewModel.Router, Mode=TwoWay}" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" />
         <Rectangle
             Height="70"
             VerticalAlignment="Top"
@@ -61,8 +62,7 @@
             VerticalAlignment="Top"
             IsIndeterminate="True"
             ShowError="False"
-            ShowPaused="False"
-            Visibility="{x:Bind LoadingViewModel.IsLoading, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, Converter={StaticResource ToVisibility}}" />
+            ShowPaused="False" />
         <Grid
             x:Name="TopBar"
             Height="70"
@@ -87,7 +87,7 @@
 
                 <StackPanel Orientation="Vertical">
                     <Button
-                        Command="{x:Bind NavigationViewModel.GoToHome}"
+                        Command="{x:Bind ViewModel.GoToHomeCommand}"
                         CornerRadius="2"
                         Style="{StaticResource MenuButton}">
                         <StackPanel Orientation="Horizontal">
@@ -109,12 +109,12 @@
                         Fill="{ThemeResource SystemAccentColor}"
                         RadiusX="2"
                         RadiusY="2"
-                        Visibility="{x:Bind NavigationViewModel.VisibilitySelectorHome, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, Converter={StaticResource ToVisibility}}" />
+                        Visibility="{x:Bind ViewModel, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, Converter={StaticResource ToVisibility}}" />
                 </StackPanel>
 
                 <StackPanel Margin="15,0,0,0" Orientation="Vertical">
                     <Button
-                        Command="{x:Bind NavigationViewModel.GoToRecommendations}"
+                        Command="{x:Bind ViewModel.GoToRecommendationsCommand}"
                         CornerRadius="2"
                         Style="{StaticResource MenuButton}">
                         <StackPanel Orientation="Horizontal">
@@ -136,12 +136,12 @@
                         Fill="{ThemeResource SystemAccentColor}"
                         RadiusX="2"
                         RadiusY="2"
-                        Visibility="{x:Bind NavigationViewModel.VisibilitySelectorRecommendations, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, Converter={StaticResource ToVisibility}}" />
+                        Visibility="{x:Bind ViewModel, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, Converter={StaticResource ToVisibility}}" />
                 </StackPanel>
 
                 <StackPanel Margin="15,0,0,0" Orientation="Vertical">
                     <Button
-                        Command="{x:Bind NavigationViewModel.GoToFavoriteArtists}"
+                        Command="{x:Bind ViewModel.GoToFavoriteArtistsCommand}"
                         CornerRadius="2"
                         Style="{StaticResource MenuButton}">
                         <StackPanel Orientation="Horizontal">
@@ -163,12 +163,12 @@
                         Fill="{ThemeResource SystemAccentColor}"
                         RadiusX="2"
                         RadiusY="2"
-                        Visibility="{x:Bind NavigationViewModel.VisibilitySelectorFavoriteArtists, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, Converter={StaticResource ToVisibility}}" />
+                        Visibility="{x:Bind ViewModel, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, Converter={StaticResource ToVisibility}}" />
                 </StackPanel>
 
                 <StackPanel Margin="15,0,0,0" Orientation="Vertical">
                     <Button
-                        Command="{x:Bind NavigationViewModel.GoToDownloads}"
+                        Command="{x:Bind ViewModel.GoToDownloadsCommand}"
                         CornerRadius="2"
                         Style="{StaticResource MenuButton}">
                         <StackPanel Orientation="Horizontal">
@@ -190,7 +190,7 @@
                         Fill="{ThemeResource SystemAccentColor}"
                         RadiusX="2"
                         RadiusY="2"
-                        Visibility="{x:Bind NavigationViewModel.VisibilitySelectorDownloads, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, Converter={StaticResource ToVisibility}}" />
+                        Visibility="{x:Bind ViewModel, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, Converter={StaticResource ToVisibility}}" />
                 </StackPanel>
 
             </StackPanel>
@@ -222,7 +222,7 @@
                     Width="25"
                     Height="25"
                     Margin="30,0,0,0"
-                    ProfilePicture="{x:Bind UserInfoViewModel.UserPhotoUri, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                    ProfilePicture="{x:Bind ViewModel.UserInfoViewModel.Photo, Mode=OneWay}"
                     Style="{StaticResource PersonPictureStyle}"
                     Tapped="PersonPicture_Tapped">
                     <FlyoutBase.AttachedFlyout>
@@ -232,12 +232,11 @@
                                     HorizontalAlignment="Center"
                                     FontSize="15"
                                     FontWeight="ExtraBlack"
-                                    Text="{x:Bind UserInfoViewModel.Name, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                                    Text="{x:Bind ViewModel.UserInfoViewModel.FullName, Mode=OneWay}" />
                                 <Button
                                     Width="250"
                                     Height="30"
                                     Margin="0,50,0,0"
-                                    Command="{x:Bind NavigationViewModel.LogOutCommand}"
                                     Style="{ThemeResource AcceptButtonStyle}">
                                     <Button.Content>
                                         <StackPanel Orientation="Horizontal">
@@ -273,7 +272,7 @@
                                     <FontIcon FontFamily="Segoe MDL2 Assets" Glyph="&#xE713;" />
                                 </MenuFlyoutItem.Icon>
                             </MenuFlyoutItem>
-                            <MenuFlyoutItem Command="{x:Bind NavigationViewModel.OpenAboutCommand}" Text="О Music X">
+                            <MenuFlyoutItem  Text="О Music X">
                                 <MenuFlyoutItem.Icon>
                                     <FontIcon FontFamily="Segoe MDL2 Assets" Glyph="&#xE946;" />
                                 </MenuFlyoutItem.Icon>
@@ -284,6 +283,7 @@
             </StackPanel>
         </Grid>
 
+        <!-- Notification -->
         <Grid
             x:Name="NotificationGrid"
             Width="370"
@@ -295,7 +295,7 @@
                 HorizontalAlignment="Right"
                 Background="Transparent"
                 Foreground="Transparent"
-                ItemsSource="{x:Bind NotificationViewModel.Notifications, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                ItemsSource="{x:Bind ViewModel.NotificationViewModel.Notifications, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                 ScrollViewer.VerticalScrollBarVisibility="Disabled"
                 SelectionMode="None">
                 <ListView.ItemsPanel>
@@ -325,6 +325,7 @@
             <!--<my:NotificationControl Title="Мое уведомление" Description="Описание блять" HasButtons="True" ButtonTwoText="СОСМЫСЛОМ" ButtonOneText="Окей"/>-->
         </Grid>
 
+        <!-- Mini Player -->
         <Grid
             x:Name="GridButtom"
             Grid.Row="1"
@@ -391,7 +392,7 @@
                     IsCacheEnabled="False"
                     PlaceholderSource="ms-appx:///Assets/Images/placeholder-track.jpg"
                     PlaceholderStretch="Fill"
-                    Source="{x:Bind PlayerViewModel.Cover, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                    Source="{x:Bind ViewModel.PlayerViewModel.Cover, Mode=OneWay}"
                     Stretch="Fill" />
 
                 <Grid x:Name="IconBackground" Visibility="Collapsed">
@@ -431,7 +432,7 @@
                     HorizontalAlignment="Stretch"
                     FontSize="17"
                     FontWeight="Medium"
-                    Text="{x:Bind PlayerViewModel.Title, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                    Text="{x:Bind ViewModel.PlayerViewModel.Title, Mode=OneWay}"
                     TextTrimming="CharacterEllipsis" />
 
                 <TextBlock
@@ -443,7 +444,7 @@
                     Foreground="{ThemeResource ColorArtistText}"
                     PointerEntered="TextBlock_PointerEntered"
                     PointerExited="ArtistText_PointerExited"
-                    Text="{x:Bind PlayerViewModel.Artist, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                    Text="{x:Bind ViewModel.PlayerViewModel.Artist, Mode=OneWay}"
                     TextTrimming="CharacterEllipsis" />
             </Grid>
 
@@ -463,7 +464,7 @@
                     Grid.Column="1"
                     Width="37"
                     Height="37"
-                    RepeatMode="{x:Bind PlayerViewModel.RepeatMode, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                    RepeatMode="{x:Bind ViewModel.PlayerViewModel.RepeatMode, Mode=OneWay}" />
 
                 <Button
                     Grid.Column="2"
@@ -471,7 +472,7 @@
                     Height="37"
                     Background="Transparent"
                     BorderThickness="0"
-                    Command="{x:Bind PlayerViewModel.PreviousCommand}"
+                    Command="{x:Bind ViewModel.PlayerViewModel.PreviousCommand}"
                     Content="&#xE892;"
                     CornerRadius="99"
                     FontFamily="Segoe MDL2 Assets"
@@ -484,24 +485,24 @@
                         Height="43"
                         Background="Transparent"
                         BorderThickness="0"
-                        Command="{x:Bind PlayerViewModel.PlayCommand}"
+                        Command="{x:Bind ViewModel.PlayerViewModel.PlayCommand}"
                         Content="&#xE768;"
                         CornerRadius="99"
                         FontFamily="Segoe MDL2 Assets"
                         FontSize="20"
-                        Visibility="{x:Bind PlayerViewModel.VisibilityPlay, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, Converter={StaticResource ToVisibility}}" />
+                        Visibility="{x:Bind ViewModel.PlayerViewModel.VisibilityPlay, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, Converter={StaticResource ToVisibility}}" />
                     <Button
                         Grid.Column="0"
                         Width="43"
                         Height="43"
                         Background="Transparent"
                         BorderThickness="0"
-                        Command="{x:Bind PlayerViewModel.PauseCommand}"
+                        Command="{x:Bind ViewModel.PlayerViewModel.PauseCommand}"
                         Content="&#xE769;"
                         CornerRadius="99"
                         FontFamily="Segoe MDL2 Assets"
                         FontSize="20"
-                        Visibility="{x:Bind PlayerViewModel.IsPlay, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, Converter={StaticResource ToVisibility}}" />
+                        Visibility="{x:Bind ViewModel.PlayerViewModel.IsPlay, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, Converter={StaticResource ToVisibility}}" />
                 </Grid>
 
                 <Button
@@ -510,7 +511,7 @@
                     Height="37"
                     Background="Transparent"
                     BorderThickness="0"
-                    Command="{x:Bind PlayerViewModel.NextCommand}"
+                    Command="{x:Bind ViewModel.PlayerViewModel.NextCommand}"
                     Content="&#xE893;"
                     CornerRadius="99"
                     FontFamily="Segoe MDL2 Assets"
@@ -526,7 +527,7 @@
                     CornerRadius="99"
                     FontFamily="Segoe MDL2 Assets"
                     FontSize="17"
-                    IsChecked="{x:Bind PlayerViewModel.IsShuffle, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                    IsChecked="{x:Bind ViewModel.PlayerViewModel.IsShuffle, Mode=OneWay}" />
             </Grid>
 
             <Grid x:Name="GridTimer" Grid.Column="2">
@@ -540,45 +541,43 @@
                     x:Name="textTime1"
                     Grid.Column="0"
                     VerticalAlignment="Center"
-                    Text="{x:Bind PlayerViewModel.Time, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                    Text="{x:Bind ViewModel.PlayerViewModel.Time, Mode=OneWay}" />
                 <Slider
                     x:Name="SliderTrack"
                     Grid.Column="1"
                     Margin="5,0,5,0"
                     HorizontalAlignment="Stretch"
                     VerticalAlignment="Center"
-                    Maximum="{x:Bind PlayerViewModel.SecondsAll, Mode=TwoWay}"
+                    Maximum="{x:Bind ViewModel.PlayerViewModel.SecondsAll, Mode=TwoWay}"
                     Style="{StaticResource SliderPlayerStyle}"
-                    Value="{x:Bind PlayerViewModel.Seconds, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                    Value="{x:Bind ViewModel.PlayerViewModel.Seconds, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
                 <TextBlock
                     x:Name="textTime2"
                     Grid.Column="2"
                     VerticalAlignment="Center"
-                    Text="{x:Bind PlayerViewModel.AllTime, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                    Text="{x:Bind ViewModel.PlayerViewModel.AllTime, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
 
             </Grid>
 
-            <StackPanel
-                x:Name="StackButtons"
-                Grid.Column="3"
-                Orientation="Horizontal">
-                <Button
+            <Button
+                    x:Name="StackButtons"
+                    Grid.Column="3"
                     Width="37"
                     Height="37"
                     Background="Transparent"
                     BorderThickness="0"
                     CornerRadius="99">
-                    <Button.Flyout>
-                        <Flyout>
-                            <Flyout.FlyoutPresenterStyle>
-                                <Style TargetType="FlyoutPresenter">
-                                    <Setter Property="Padding" Value="0" />
-                                    <Setter Property="CornerRadius" Value="4" />
-                                    <Setter Property="Margin" Value="0" />
-                                </Style>
-                            </Flyout.FlyoutPresenterStyle>
-                            <Grid Height="50">
-                                <Slider
+                <Button.Flyout>
+                    <Flyout>
+                        <Flyout.FlyoutPresenterStyle>
+                            <Style TargetType="FlyoutPresenter">
+                                <Setter Property="Padding" Value="0" />
+                                <Setter Property="CornerRadius" Value="4" />
+                                <Setter Property="Margin" Value="0" />
+                            </Style>
+                        </Flyout.FlyoutPresenterStyle>
+                        <Grid Height="50">
+                            <Slider
                                     x:Name="d"
                                     Width="200"
                                     Margin="15,0,15,0"
@@ -586,18 +585,16 @@
                                     Maximum="100"
                                     Minimum="0"
                                     Orientation="Horizontal"
-                                    Value="{x:Bind PlayerViewModel.Volume, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
-                            </Grid>
-                        </Flyout>
-                    </Button.Flyout>
-                    <Button.Content>
-                        <FontIcon FontFamily="Segoe MDL2 Assets" Glyph="&#xE767;" />
-                    </Button.Content>
+                                    Value="{x:Bind ViewModel.PlayerViewModel.Volume, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                        </Grid>
+                    </Flyout>
+                </Button.Flyout>
+                <Button.Content>
+                    <FontIcon FontFamily="Segoe MDL2 Assets" Glyph="&#xE767;" />
+                </Button.Content>
 
 
-                </Button>
-
-            </StackPanel>
+            </Button>
 
             <Frame
                 x:Name="BigPlayerFrame"
@@ -658,4 +655,4 @@
             </VisualStateGroup>
         </VisualStateManager.VisualStateGroups>
     </Grid>
-</Page>
+</local:RootViewBase>

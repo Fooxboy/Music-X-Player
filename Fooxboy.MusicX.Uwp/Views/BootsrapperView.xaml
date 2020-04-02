@@ -1,0 +1,12 @@
+﻿<local:BootsrapperViewBase
+    x:Class="Fooxboy.MusicX.Uwp.Views.BootsrapperView"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:Fooxboy.MusicX.Uwp.Views"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" xmlns:reactiveUi="using:ReactiveUI"
+    mc:Ignorable="d"
+    Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+
+    <reactiveUi:RoutedViewHost x:Name="RoutedViewHost" />
+</local:BootsrapperViewBase>

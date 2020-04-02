@@ -15,6 +15,8 @@ using Windows.UI.Xaml.Data;
 using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Navigation;
+using VkNet.Model.Attachments;
+using Page = Windows.UI.Xaml.Controls.Page;
 
 // Документацию по шаблону элемента "Пустая страница" см. по адресу https://go.microsoft.com/fwlink/?LinkId=234238
 
@@ -75,9 +77,8 @@ namespace Fooxboy.MusicX.Uwp.Views
 
         private void ListView_ItemClick(object sender, ItemClickEventArgs e)
         {
-            var track = (Track)e.ClickedItem;
-            PlayerViewModel.PlayerSerivce.Play(new Album() { Title="Сейчас играет" }, track, PlayerViewModel.CurrentNowPlaing.ToList());
-
+            var track = (Audio)e.ClickedItem;
+            PlayerViewModel.PlayerSerivce.Play(track);
         }
     }
 }

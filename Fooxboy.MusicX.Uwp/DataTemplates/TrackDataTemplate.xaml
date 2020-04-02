@@ -4,10 +4,11 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:controls="using:Fooxboy.MusicX.Uwp.Resources.Controls"
     xmlns:local="using:Fooxboy.MusicX.Uwp.DataTemplates"
-    xmlns:models="using:Fooxboy.MusicX.Uwp.Models">
+    xmlns:models="using:Fooxboy.MusicX.Uwp.Models"
+    xmlns:attachments="using:VkNet.Model.Attachments">
     <DataTemplate
         x:Name="TrackDataTemplate"
-        x:DataType="models:Track"
+        x:DataType="attachments:Audio"
         x:DefaultBindMode="TwoWay">
         <controls:TrackControl HorizontalAlignment="Stretch" Track="{Binding}" />
     </DataTemplate>

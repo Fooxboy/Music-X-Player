@@ -1,33 +1,41 @@
-﻿using DryIoc;
-using Fooxboy.MusicX.Uwp.Converters;
-using Fooxboy.MusicX.Uwp.Models;
+﻿using Fooxboy.MusicX.Uwp.Converters;
 using Fooxboy.MusicX.Uwp.Services;
+using ReactiveUI;
+using ReactiveUI.Fody.Helpers;
 using System;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using System.Reactive;
+using VkNet.Model.Attachments;
 
 namespace Fooxboy.MusicX.Uwp.ViewModels
 {
-    public class PlayerViewModel:BaseViewModel
+    public class PlayerViewModel : ReactiveObject
     {
         public PlayerService PlayerSerivce { get; set; }
 
-        public RelayCommand PlayCommand { get; set; }
-        public RelayCommand PauseCommand { get; set; }
-        public RelayCommand NextCommand { get; set; }
-        public RelayCommand PreviousCommand { get; set; }
+        public ReactiveCommand<Unit, Unit> PlayCommand { get; set; }
+        public ReactiveCommand<Unit, Unit> PauseCommand { get; set; }
+        public ReactiveCommand<Unit, Unit> NextCommand { get; set; }
+        public ReactiveCommand<Unit, Unit> PreviousCommand { get; set; }
+
+        [Reactive]
         public bool IsPlay { get; set; }
+
+        [Reactive]
         public bool VisibilityPlay { get; set; }
+
+        [Reactive]
         public string Title { get; set; }
+
+        [Reactive]
         public string Artist { get; set; }
+
+        [Reactive]
         public string Cover { get; set; }
 
         public Action CloseBigPlayer { get; set; }
 
-        public ObservableCollection<Track> CurrentNowPlaing { get; set; }
+        public ObservableCollection<Audio> CurrentNowPlaing { get; set; }
 
         public bool IsShuffle
         {
@@ -41,16 +49,18 @@ namespace Fooxboy.MusicX.Uwp.ViewModels
             get => PlayerSerivce.RepeatMode;
             set => PlayerSerivce.SetRepeatMode(value);
         }
+
         public double Volume
         {
-            get => PlayerSerivce.Volume *100;
+            get => PlayerSerivce.Volume * 100;
             set
             {
-                if (PlayerSerivce.Volume == (value/100)) return;
+                if (PlayerSerivce.Volume == (value / 100)) return;
 
-                PlayerSerivce.Volume = (value/100);
+                PlayerSerivce.Volume = (value / 100);
             }
         }
+
         public double Seconds
         {
             get => PlayerSerivce.Position.TotalSeconds;
@@ -62,21 +72,25 @@ namespace Fooxboy.MusicX.Uwp.ViewModels
                 PlayerSerivce.Seek(TimeSpan.FromSeconds(value));
             }
         }
+
+        [Reactive]
         public double SecondsAll { get; set; }
+
+        [Reactive]
         public string Time { get; set; }
+
+        [Reactive]
         public string AllTime { get; set; }
 
-        private IContainer _container;
 
-        public PlayerViewModel(IContainer container)
+        public PlayerViewModel(PlayerService playerService, DiscordService discordService)
         {
-            this._container = container;
-            CurrentNowPlaing = new ObservableCollection<Track>();
-            PlayerSerivce = _container.Resolve<PlayerService>();
-            PlayCommand = new RelayCommand(() => PlayerSerivce.Play());
-            PauseCommand = new RelayCommand(() => PlayerSerivce.Pause());
-            NextCommand = new RelayCommand(() => PlayerSerivce.NextTrack());
-            PreviousCommand = new RelayCommand(() => PlayerSerivce.PreviousTrack());
+            CurrentNowPlaing = new ObservableCollection<Audio>();
+            PlayerSerivce = playerService;
+            PlayCommand = ReactiveCommand.Create(() => PlayerSerivce.Play());
+            PauseCommand = ReactiveCommand.Create(() => PlayerSerivce.Pause());
+            NextCommand = ReactiveCommand.Create(() => PlayerSerivce.NextTrack());
+            PreviousCommand = ReactiveCommand.Create(() => PlayerSerivce.PreviousTrack());
 
             PlayerSerivce.PlayStateChangedEvent += PlayStateChanged;
             PlayerSerivce.PositionTrackChangedEvent += PositionTrackChanged;
@@ -86,8 +100,7 @@ namespace Fooxboy.MusicX.Uwp.ViewModels
             IsPlay = false;
 
             foreach (var track in PlayerSerivce.Tracks) CurrentNowPlaing.Add(track);
-            var discordService = _container.Resolve<DiscordService>();
-            discordService.Init();
+            //discordService.Init();
         }
 
         private void TrackChanged(object sender, EventArgs e)
@@ -97,33 +110,22 @@ namespace Fooxboy.MusicX.Uwp.ViewModels
             Title = PlayerSerivce.CurrentTrack.Title;
             //foreach(var artist in PlayerSerivce.CurrentTrack.Artists) Artist += $", {artist.Name}";
             Artist = PlayerSerivce.CurrentTrack.Artist;
-            Cover = PlayerSerivce.CurrentTrack.Album?.Cover;
-            SecondsAll = PlayerSerivce.Duration.TotalSeconds;
-            Changed("Title");
-            Changed("Artist");
-            Changed("Cover");
-            Changed("SecondsAll");
-            Changed("CurrentNowPlaing");
+            Cover = PlayerSerivce.CurrentTrack.Album?.Cover?.Photo600;
+            SecondsAll = PlayerSerivce.Duration;
         }
 
         private void PositionTrackChanged(object sender, TimeSpan e)
         {
-            SecondsAll = PlayerSerivce.Duration.TotalSeconds;
+            SecondsAll = PlayerSerivce.Duration;
             Seconds = PlayerSerivce.Position.TotalSeconds;
             Time = Seconds.ConvertToTime();
             AllTime = SecondsAll.ConvertToTime();
-            Changed("SecondsAll");
-            Changed("Seconds");
-            Changed("Time");
-            Changed("AllTime");
         }
 
         private void PlayStateChanged(object sender, EventArgs e)
         {
             IsPlay = PlayerSerivce.IsPlaying;
             VisibilityPlay = !IsPlay;
-            Changed("IsPlay");
-            Changed("VisibilityPlay");
         }
 
         public void SeekToPosition(long position)

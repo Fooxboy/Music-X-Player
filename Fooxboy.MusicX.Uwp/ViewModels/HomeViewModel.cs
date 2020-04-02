@@ -1,155 +1,83 @@
-﻿using DryIoc;
-using Fooxboy.MusicX.Core;
-using Fooxboy.MusicX.Core.Interfaces;
-using Fooxboy.MusicX.Core.VKontakte.Music;
-using Fooxboy.MusicX.Uwp.Converters;
-using Fooxboy.MusicX.Uwp.Models;
+﻿using Fooxboy.MusicX.Uwp.Models;
 using Fooxboy.MusicX.Uwp.Services;
-using Microsoft.Toolkit.Uwp.UI.Controls.TextToolbarSymbols;
 using System;
 using System.Collections.ObjectModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Fooxboy.MusicX.Uwp.Views;
+using ReactiveUI;
+using System.Reactive;
+using System.Reactive.Linq;
+using System.Reactive.Threading.Tasks;
+using DynamicData;
+using ReactiveUI.Fody.Helpers;
+using VkNet.Model.Attachments;
 
 namespace Fooxboy.MusicX.Uwp.ViewModels
 {
-    public class HomeViewModel:BaseViewModel
+    public class HomeViewModel : ReactiveObject, IRoutableViewModel
     {
-        public ObservableCollection<Album> Albums { get; set; }
-        public ObservableCollection<Track> Tracks { get; set; }
-      
-        private int _countTracks { get; set; }
-        private long _maxTracks { get; set; }
-        private bool _isLoading;
-        private int _count;
-        private PlayerService _player;
-        private Album _libraryAlbum;
-        private LoadingService _loadingService;
-        private NotificationService _notificationService;
-        private TrackLoaderService loader;
-        private AlbumLoaderService albumLoader;
-        private IContainer _container;
+        private readonly PlayerService _playerService;
+        private readonly TrackLoaderService _trackLoaderService;
+        private readonly AlbumLoaderService _albumLoader;
+        private readonly ReadOnlyObservableCollection<AudioPlaylist> _albums;
+        private readonly ReadOnlyObservableCollection<Audio> _tracks;
 
-
-        public RelayCommand OpelAllPlaylistsCommand { get; set; }
-
-
-        public HomeViewModel(IContainer container)
+        public HomeViewModel(PlayerService playerService, TrackLoaderService trackLoaderService,
+            AlbumLoaderService albumLoaderService)
         {
-            _container = container;
-            Tracks = new ObservableCollection<Track>();
-            Albums = new ObservableCollection<Album>();
-            
-            _count = 20;
-            _player = _container.Resolve<PlayerService>();
-            _libraryAlbum = new Album()
-            {
-                Title = "Ваша музыка",
-                IsAvailable = true,
-                Tracks = new System.Collections.Generic.List<Core.Interfaces.ITrack>()
-            };
+            _playerService = playerService;
+            _albumLoader = albumLoaderService;
+            _trackLoaderService = trackLoaderService;
 
-            _loadingService = _container.Resolve<LoadingService>();
+            OpelAllPlaylistsCommand = ReactiveCommand.Create(OpenAllPlaylists);
 
-            _notificationService = _container.Resolve<NotificationService>();
+            var canPlay = this.WhenAnyValue(model => model.SelectedTrack, selector: track => track != null);
+            PlayCommand = ReactiveCommand.Create<Audio>(PlayTrack, canPlay);
 
-            OpelAllPlaylistsCommand = new RelayCommand(OpenAllPlaylists);
+            LoadTracks().ObserveOn(RxApp.MainThreadScheduler).Bind(out _tracks).Subscribe();
+            LoadAlbums().ObserveOn(RxApp.MainThreadScheduler).Bind(out _albums).Subscribe();
 
-            loader = _container.Resolve<TrackLoaderService>();
+            this.WhenAnyValue(model => model.SelectedTrack).InvokeCommand(PlayCommand);
         }
 
+        public ReadOnlyObservableCollection<AudioPlaylist> Albums => _albums;
+
+        public ReadOnlyObservableCollection<Audio> Tracks => _tracks;
+
+        [Reactive]
+        public Audio SelectedTrack { get; set; }
+
+        public string UrlPathSegment => "home";
+
+        public IScreen HostScreen { get; }
+
+        public ReactiveCommand<Unit, Unit> OpelAllPlaylistsCommand { get; set; }
+
+        public ReactiveCommand<Audio, Unit> PlayCommand { get; set; }
 
         public void OpenAllPlaylists()
         {
-            var model = new AllPlaylistsModel();
-            model.TypeViewPlaylist = AllPlaylistsModel.TypeView.UserAlbum;
-            model.TitlePage = "Ваши альбомы";
-            model.AlbumLoader = albumLoader;
-            model.Container = _container;
-            var navigationService = _container.Resolve<NavigationService>();
-
-            navigationService.Go(typeof(AllPlaylistsView), model, 1);
-        }
-
-      
-
-        public async Task StartLoadingAlbums()
-        {
-
-            //TODO: старт загрузки альбомов.
-
-            var albums = await LoadAlbums();
-            foreach (var a in albums) Albums.Add(a);
-            Changed("Albums");
-        }
-
-        private async Task<System.Collections.Generic.List<Album>> LoadAlbums()
-        {
-            albumLoader = _container.Resolve<AlbumLoaderService>();
-            var albums = await albumLoader.GetLibraryAlbums(0, 10);
-            return albums;
-        }
-
-        public async Task GetMaxTracks()
-        {
-            var api = _container.Resolve<Api>();
-            _maxTracks = await api.VKontakte.Music.Tracks.GetCountAsync();
-        }
-
-        public async Task StartLoadingTracks()
-        {
-            if (_isLoading) return;
-            _isLoading = true;
-
-            _loadingService.Change(true);
-            
-            if (_maxTracks == _countTracks)
+            var model = new AllPlaylistsModel
             {
-                _loadingService.Change(false);
-                if (Tracks[Tracks.Count - 1].AccessKey != "space") Tracks.Add(new Track() { AccessKey = "space" });
-                _isLoading = false;
-               
-                return;
+                TypeViewPlaylist = AllPlaylistsModel.TypeView.UserAlbum,
+                TitlePage = "Ваши альбомы",
+                AlbumLoader = _albumLoader
+            };
 
-            }
-            var tracks = await LoadTracks();
-            if (tracks.Count == 0)
-            {
-                _loadingService.Change(false);
-                if (Tracks[Tracks.Count - 1].AccessKey != "space") Tracks.Add(new Track() { AccessKey = "space" });
-                _maxTracks = _countTracks;
-                return;
-               
-            }
-
-            AddTracksToList(tracks);
+            //_navigationService.Go(typeof(AllPlaylistsView), model, 1);
         }
 
-       
-        private void AddTracksToList(System.Collections.Generic.List<Track> tracks)
+        private IObservable<IChangeSet<AudioPlaylist, long?>> LoadAlbums()
         {
-            foreach (var track in tracks) Tracks.Add(track);     
-            _countTracks += tracks.Count;
-
-            Changed("Tracks");
-            _isLoading = false;
-            _loadingService.Change(false);
-
+            return _albumLoader.GetLibraryAlbums(0, 10).ToObservable().ToObservableChangeSet(x => x.Id);
         }
 
-        private async Task<System.Collections.Generic.List<Track>> LoadTracks()
+        private IObservable<IChangeSet<Audio, long?>> LoadTracks()
         {
-
-            var tracks = await loader.GetLibraryTracks(_countTracks, _count);
-
-            return tracks;
+            return _trackLoaderService.GetLibraryTracks().ToObservable().ToObservableChangeSet(x => x.Id);
         }
 
-        public void PlayTrack(Track track)
+        public void PlayTrack(Audio track)
         {
-            _player.Play(_libraryAlbum, track, Tracks.ToList());
+            _playerService.Play(track);
             //_notificationService.CreateNotification("Воспроизведение", $"{track.Title}");
         }
     }

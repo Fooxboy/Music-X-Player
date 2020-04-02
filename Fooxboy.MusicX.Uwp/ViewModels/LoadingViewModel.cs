@@ -9,15 +9,15 @@ using System.Threading.Tasks;
 
 namespace Fooxboy.MusicX.Uwp.ViewModels
 {
-    public class LoadingViewModel:BaseViewModel
+    public class LoadingViewModel : BaseViewModel
     {
         public bool IsLoading { get; set; }
 
         private IContainer _container;
         public LoadingViewModel(IContainer container)
         {
-            var service = _container.Resolve<LoadingService>();
-            service.LoadingChangedEvent += Service_LoadingChangedEvent;
+            //var service = _container.Resolve<LoadingService>();
+            //service.LoadingChangedEvent += Service_LoadingChangedEvent;
         }
 
         private void Service_LoadingChangedEvent(bool result)

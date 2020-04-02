@@ -10,11 +10,19 @@ namespace Fooxboy.MusicX.Uwp.Converters
 {
     public class BoolToVisibilityConverter : IValueConverter
     {
-        public object Convert(object value, Type targetType, object parameter, string language) => ((bool)value) ? Visibility.Visible : Visibility.Collapsed;
+        public object Convert(object value, Type targetType, object parameter, string language)
+        {
+            if (value is bool boolValue)
+            {
+                return boolValue ? Visibility.Visible : Visibility.Collapsed;
+            }
+
+            return Visibility.Visible;
+        }
 
         public object ConvertBack(object value, Type targetType, object parameter, string language)
         {
-            var val = (Visibility)value;
+            var val = (Visibility) value;
             return val == Visibility.Visible;
         }
     }

@@ -74,7 +74,7 @@
             PlaceholderSource="../../Assets/Images/placeholder-album.jpg"
             PlaceholderStretch="Fill"
             SizeChanged="ImageEx_SizeChanged"
-            Source="{x:Bind Album.Cover, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+            Source="{x:Bind Album.Cover.Photo600}"
             Stretch="Fill" />
 
         <Rectangle
@@ -88,12 +88,11 @@
                 x:Name="TitilePlaylist"
                 FontWeight="Bold"
                 Foreground="{ThemeResource MainTextColor}"
-                Text="{x:Bind Album.Title, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                Text="{x:Bind Album.Title}"
                 TextTrimming="CharacterEllipsis" />
             <TextBlock
                 x:Name="ArtistsText"
                 Foreground="{ThemeResource ColorArtistText}"
-                Text="{x:Bind Artists}"
                 TextTrimming="CharacterEllipsis" />
         </StackPanel>
     </Grid>

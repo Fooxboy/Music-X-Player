@@ -8,6 +8,7 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:models="using:Fooxboy.MusicX.Uwp.Models"
     xmlns:toolkit="using:Microsoft.Toolkit.Uwp.UI.Controls"
+    xmlns:attachments="using:VkNet.Model.Attachments"
     Background="{ThemeResource BackgroundApp}"
     Loaded="AllPlaylistsView_OnLoaded"
     mc:Ignorable="d">
@@ -36,7 +37,7 @@
                     SelectionMode="None">
 
                     <GridView.ItemTemplate>
-                        <DataTemplate x:Name="PlaylistDataTemplate" x:DataType="models:Album">
+                        <DataTemplate x:Name="PlaylistDataTemplate" x:DataType="attachments:AudioPlaylist">
                             <controls:PlaylistControl
                                 Width="200"
                                 Height="200"

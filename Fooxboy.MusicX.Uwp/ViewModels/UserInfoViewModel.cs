@@ -1,37 +1,39 @@
-﻿using DryIoc;
-using Fooxboy.MusicX.Core.Interfaces;
-using System;
-using System.Collections.Generic;
+﻿using System;
 using System.Linq;
-using System.Text;
+using System.Reactive.Linq;
+using System.Reactive.Threading.Tasks;
 using System.Threading.Tasks;
+using ReactiveUI;
+using ReactiveUI.Fody.Helpers;
+using VkNet.Abstractions;
+using VkNet.Enums.Filters;
+using VkNet.Model;
 
 namespace Fooxboy.MusicX.Uwp.ViewModels
 {
-    public class UserInfoViewModel:BaseViewModel
+    public class UserInfoViewModel : ReactiveObject
     {
-        public string UserPhotoUri { get; set; }
-        public IUserInfo UserInfo { get; set; }
-        public string Name { get; set; }
+        private readonly IVkApi _vkApi;
+        private readonly ObservableAsPropertyHelper<string> _photo;
+        private readonly ObservableAsPropertyHelper<string> _fullName;
 
-        private IContainer _container;
+        public UserInfoViewModel(IVkApi vkApi)
+        {
+            _vkApi = vkApi;
 
-        public UserInfoViewModel(IContainer container)
-        {
-            _container = container;
-           UserPhotoUri = "https://docs.microsoft.com/windows/uwp/contacts-and-calendar/images/shoulder-tap-static-payload.png";
-        }
-        public async Task StartLoadingUserInfo()
-        {
-            var api = _container.Resolve<Core.Api>();
-            var usr = await api.VKontakte.Users.Info.CurrentUserAsync();
-            UserPhotoUri = usr.PhotoUser;
-            Name = usr.FirstName + " " + usr.LastName;
-            Changed("UserPhotoUri");
-            Changed("Name");
-            UserInfo = usr;
-            Changed("UserInfo");
+            var userObservable = LoadUserAsync().ToObservable().Where(user => user != null);
+            _photo = userObservable.Select(user => user.Photo100.ToString()).ToProperty(this, nameof(Photo));
+            _fullName = userObservable.Select(user => $"{user.FirstName} {user.LastName}").ToProperty(this, nameof(FullName));
         }
 
+        public string Photo => _photo?.Value;
+
+        public string FullName => _fullName?.Value;
+
+        private async Task<User> LoadUserAsync()
+        {
+            var user = await _vkApi.Users.GetAsync(new long[] { }, ProfileFields.Photo100).ConfigureAwait(false);
+            return user.FirstOrDefault();
+        }
     }
 }

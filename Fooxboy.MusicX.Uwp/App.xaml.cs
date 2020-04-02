@@ -1,21 +1,11 @@
-﻿using System;
-using Microsoft.AppCenter;
+﻿using Microsoft.AppCenter;
 using Microsoft.AppCenter.Analytics;
 using Microsoft.AppCenter.Push;
-using Windows.ApplicationModel;
 using Windows.ApplicationModel.Activation;
 using Windows.ApplicationModel.Core;
-using Windows.Services.Maps;
-using Windows.Storage;
-using Windows.UI;
-using Windows.UI.Core;
-using Windows.UI.ViewManagement;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
-using DryIoc;
-using Windows.UI.Xaml.Navigation;
 using Microsoft.AppCenter.Crashes;
-using Fooxboy.MusicX.Core;
 using Fooxboy.MusicX.Uwp.Services;
 
 namespace Fooxboy.MusicX.Uwp
@@ -31,64 +21,50 @@ namespace Fooxboy.MusicX.Uwp
         /// </summary>
         public App()
         {
-            var settings =new AppPrivateSettingsService();
+            var settings = new AppPrivateSettingsService();
 
-            this.RequestedTheme = settings.GetTheme();
+            RequestedTheme = settings.GetTheme();
 
-            this.InitializeComponent();
-            this.Suspending += OnSuspending;
+            InitializeComponent();
+            //Suspending += OnSuspending;
             
         }
 
-        private IContainer _container;
+        //private IContainer _container;
 
-        protected async override void OnLaunched(LaunchActivatedEventArgs e)
+        protected override void OnLaunched(LaunchActivatedEventArgs e)
         {
-            //инициализация контейера
-            var c = new DryIoc.Container();
-            c.RegisterInstance<Api>(Core.Api.GetApi());
-            c.Register<ConfigService>(Reuse.Singleton);
-            c.Register<NotificationService>(Reuse.Singleton);
-            c.Register<TokenService>(Reuse.Singleton);
-            c.Register<TrackLoaderService>(Reuse.Singleton);
-            c.Register<AlbumLoaderService>(Reuse.Singleton);
-            c.Register<DiscordService>(Reuse.Singleton);
-            c.Register<LoadingService>(Reuse.Singleton);
-            c.Register<PlayerService>(Reuse.Singleton);
-
-            this._container = c;
-
-
-            Frame rootFrame = Window.Current.Content as Frame;
-            if (rootFrame == null)
+            if (!(Window.Current.Content is Frame rootFrame))
             {
                 rootFrame = new Frame();
-                rootFrame.NavigationFailed += OnNavigationFailed;
-                if(e != null)
-                {
-                    if (e.PreviousExecutionState == ApplicationExecutionState.Terminated)
-                    {
-                        //TODO: Загрузить состояние из ранее приостановленного приложения
-                    }
-                }
+
+
                 AppCenter.Start("96c77488-34ce-43d0-b0d3-c4b1ce326c7f", typeof(Analytics), typeof(Push), typeof(Crashes));
                 AppCenter.LogLevel = LogLevel.Verbose;
                 CoreApplication.GetCurrentView().TitleBar.ExtendViewIntoTitleBar = true;
-                
-                var appView = ApplicationView.GetForCurrentView();
+
+                /*var appView = ApplicationView.GetForCurrentView();
                 appView.TitleBar.ButtonBackgroundColor = Colors.Transparent;
                 appView.TitleBar.ButtonInactiveBackgroundColor = Colors.Transparent;
 
 
                 var theme = new AppPrivateSettingsService().GetTheme();
 
-                if(theme == ApplicationTheme.Light) appView.TitleBar.ButtonForegroundColor = Colors.Black;
-                else appView.TitleBar.ButtonForegroundColor = Colors.White;
+                if (theme == ApplicationTheme.Light) appView.TitleBar.ButtonForegroundColor = Colors.Black;
+                else appView.TitleBar.ButtonForegroundColor = Colors.White;*/
 
 
                 Window.Current.Content = rootFrame;
             }
+
             if (e.PrelaunchActivated == false)
+            {
+                if (rootFrame.Content == null)
+                    rootFrame.Navigate(typeof(Views.BootsrapperView));
+                Window.Current.Activate();
+            }
+        
+            /*if (e.PrelaunchActivated == false)
             {
                 if (rootFrame.Content == null)
                 {
@@ -99,7 +75,7 @@ namespace Fooxboy.MusicX.Uwp
                         if (config.AccessTokenVkontakte is null) rootFrame.Navigate(typeof(Views.LoginView), _container);
                         else
                         {
-                            rootFrame.Navigate(typeof(Views.RootWindow), this._container);
+                            rootFrame.Navigate(typeof(Views.RootView), this._container);
                             await _container.Resolve<Api>().VKontakte.Auth.AutoAsync(config.AccessTokenVkontakte, null);
                             await _container.Resolve<Api>().Discord.InitAsync();
                             
@@ -109,14 +85,12 @@ namespace Fooxboy.MusicX.Uwp
                         rootFrame.Navigate(typeof(Views.WelcomeView), _container);
                     }
                 }
-            }
-            Window.Current.Activate();
-            SystemNavigationManager.GetForCurrentView().BackRequested += OnBackRequested;
+            }*/
             Push.CheckLaunchedFromNotification(e);
         }
 
       
-        void OnNavigationFailed(object sender, NavigationFailedEventArgs e)
+       /* void OnNavigationFailed(object sender, NavigationFailedEventArgs e)
         {
             //throw new Exception("Failed to load Page " + e.SourcePageType.FullName);
         }
@@ -148,6 +122,6 @@ namespace Fooxboy.MusicX.Uwp
         protected async override void OnFileActivated(FileActivatedEventArgs args)
         {
 
-        }
+        }*/
     }
 }

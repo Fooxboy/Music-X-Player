@@ -8,6 +8,7 @@ using DryIoc;
 using Fooxboy.MusicX.Core;
 using Fooxboy.MusicX.Uwp.Models;
 using Fooxboy.MusicX.Uwp.Services;
+using VkNet.Model.Attachments;
 
 namespace Fooxboy.MusicX.Uwp.ViewModels
 {
@@ -17,11 +18,11 @@ namespace Fooxboy.MusicX.Uwp.ViewModels
         public AllPlaylistsViewModel(IContainer container)
         {
             _container = container;
-            Albums = new ObservableCollection<Album>();
+            Albums = new ObservableCollection<AudioPlaylist>();
             
         }
 
-        public ObservableCollection<Album> Albums { get; set; }
+        public ObservableCollection<AudioPlaylist> Albums { get; set; }
 
         public string TitlePage { get; set; }
 
@@ -46,7 +47,7 @@ namespace Fooxboy.MusicX.Uwp.ViewModels
             Changed("TitlePage");
             loadingService = _container.Resolve<LoadingService>();
             loadingService.Change(true);
-            var api = _container.Resolve<Api>();
+
 
             await Load();
             Changed("Albums");
@@ -59,8 +60,8 @@ namespace Fooxboy.MusicX.Uwp.ViewModels
             if (_model.TypeViewPlaylist == AllPlaylistsModel.TypeView.UserAlbum)
             {
                 
-                var albums = await loader.GetLibraryAlbums(_currentCountAlbums, 20);
-                if (albums.Count == 0)
+                var albums = (await loader.GetLibraryAlbums(_currentCountAlbums, 20)).ToList();
+                if (albums.Any())
                 {
                     _hasLoadMore = false;
                     return;

@@ -1,29 +1,23 @@
-﻿
-using DryIoc;
-using Fooxboy.MusicX.Core.VKontakte.Music;
-using Fooxboy.MusicX.Uwp.Converters;
-using Fooxboy.MusicX.Uwp.Models;
-using Microsoft.Toolkit.Uwp.Helpers;
+﻿using Microsoft.Toolkit.Uwp.Helpers;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 using Windows.Media.Core;
 using Windows.Media.Playback;
 using Windows.UI.Xaml;
+using VkNet.Model.Attachments;
 
 namespace Fooxboy.MusicX.Uwp.Services
 {
     public class PlayerService
     {
-        private Album _currentAlbum;
-        private List<Track> _tracks;
-        private Track _currentTrack;
+        private AudioPlaylist _currentAlbum;
+        private List<Audio> _tracks;
+        private Audio _currentTrack;
         private int _repeatMode; //0- без повтора, 1 - повтор трека,  2 - повтор альбома
         private DispatcherTimer _positionTimer;
         private MediaPlayer _mediaPlayer;
-        private Action<Task<List<Track>>, bool> _loadMore;
+        private Action<Task<IEnumerable<Audio>>, bool> _loadMore;
         private bool _isShuffle;
 
         public event EventHandler PlayStateChangedEvent;
@@ -33,12 +27,11 @@ namespace Fooxboy.MusicX.Uwp.Services
         private NotificationService _notificationService;
 
 
-
         public PlayerService(NotificationService notificationService)
         {
             _notificationService = notificationService;
             _mediaPlayer = new MediaPlayer();
-            _tracks = new List<Track>();
+            _tracks = new List<Audio>();
             _repeatMode = 1;
             _mediaPlayer.AudioCategory = MediaPlayerAudioCategory.Media;
 
@@ -50,29 +43,27 @@ namespace Fooxboy.MusicX.Uwp.Services
             _mediaPlayer.CommandManager.NextBehavior.EnablingRule = MediaCommandEnablingRule.Always;
             _mediaPlayer.CommandManager.PreviousBehavior.EnablingRule = MediaCommandEnablingRule.Always;
 
-            _mediaPlayer.CommandManager.NextReceived += (c, e) => NextTrack() ;
-            _mediaPlayer.CommandManager.PreviousReceived += (c, e)=> PreviousTrack();
-            _mediaPlayer.CommandManager.PlayReceived += (c, e)=> Play();
-            _mediaPlayer.CommandManager.PauseReceived += (c, e)=> Pause();
+            _mediaPlayer.CommandManager.NextReceived += (c, e) => NextTrack();
+            _mediaPlayer.CommandManager.PreviousReceived += (c, e) => PreviousTrack();
+            _mediaPlayer.CommandManager.PlayReceived += (c, e) => Play();
+            _mediaPlayer.CommandManager.PauseReceived += (c, e) => Pause();
 
 
             _positionTimer = new DispatcherTimer();
             _positionTimer.Interval = TimeSpan.FromMilliseconds(500);
             _positionTimer.Tick += PositionTimerOnTick;
-
-
         }
 
 
         public bool IsPlaying => _mediaPlayer.PlaybackSession.PlaybackState == MediaPlaybackState.Playing
-            || _mediaPlayer.PlaybackSession.PlaybackState == MediaPlaybackState.Opening
-            || _mediaPlayer.PlaybackSession.PlaybackState == MediaPlaybackState.Buffering;
+                                 || _mediaPlayer.PlaybackSession.PlaybackState == MediaPlaybackState.Opening
+                                 || _mediaPlayer.PlaybackSession.PlaybackState == MediaPlaybackState.Buffering;
 
-        public Album CurrentAlbum => _currentAlbum;
-        public List<Track> Tracks => _tracks;
-        public Track CurrentTrack => _currentTrack;
+        public AudioPlaylist CurrentAlbum => _currentAlbum;
+        public List<Audio> Tracks => _tracks;
+        public Audio CurrentTrack => _currentTrack;
         public TimeSpan Position => _mediaPlayer.PlaybackSession.Position;
-        public TimeSpan Duration => _currentTrack?.Duration ?? TimeSpan.Zero;
+        public int Duration => _currentTrack?.Duration ?? 0;
         public int RepeatMode => _repeatMode;
         public bool IsShuffle => _isShuffle;
 
@@ -93,32 +84,32 @@ namespace Fooxboy.MusicX.Uwp.Services
             _isShuffle = value;
         }
 
-        public void SetTracks(List<Track> tracks)
+        public void SetTracks(List<Audio> tracks)
         {
             _tracks = tracks;
         }
 
         public void Play()
         {
-            
-
             try
             {
                 if (_currentTrack is null) return;
 
-                if (!_currentTrack.IsAvailable)
+                if (_currentTrack.ContentRestricted.HasValue)
                 {
-                    _notificationService.CreateNotification("Аудиозапись недоступна", "Она была изъята из публичного доступа");
+                    _notificationService.CreateNotification("Аудиозапись недоступна",
+                        "Она была изъята из публичного доступа");
                     return;
                 }
 
-                if (_mediaPlayer.PlaybackSession.PlaybackState == MediaPlaybackState.None || _mediaPlayer.Source == null)
+                if (_mediaPlayer.PlaybackSession.PlaybackState == MediaPlaybackState.None ||
+                    _mediaPlayer.Source == null)
                 {
                     _mediaPlayer.Source = MediaSource.CreateFromUri(_currentTrack.Url);
                     _mediaPlayer.Play();
                     TrackChangedEvent?.Invoke(this, EventArgs.Empty);
-
-                } else _mediaPlayer.Play();
+                }
+                else _mediaPlayer.Play();
             }
             catch (Exception e)
             {
@@ -126,16 +117,10 @@ namespace Fooxboy.MusicX.Uwp.Services
             }
         }
 
-        public void Play(Album album, int index)
-        {
-            Play(album, index, album.Tracks.ToListTrack());
-        }
-
-        public void Play(Album album, int index, List<Track> tracks)
+        public void Play(AudioPlaylist album, int index)
         {
             Pause();
             _currentAlbum = album;
-            _tracks = tracks;
             _currentTrack = _tracks[index];
 
             Seek(TimeSpan.Zero);
@@ -143,19 +128,8 @@ namespace Fooxboy.MusicX.Uwp.Services
             Play();
         }
 
-        public void Play(Album album, Track track)
-        {
-            var index = album.Tracks.ToListTrack().IndexOf(track);
-            Play(album, index);
-        }
 
-        public void Play(Album album, Track track, List<Track> tracks)
-        {
-            var index = tracks.IndexOf(track);
-            Play(album, index, tracks);
-        }
-
-        public void Play(Track track)
+        public void Play(Audio track)
         {
             Pause();
 
@@ -166,7 +140,6 @@ namespace Fooxboy.MusicX.Uwp.Services
 
             Seek(TimeSpan.Zero);
             Play();
-
         }
 
 
@@ -182,7 +155,7 @@ namespace Fooxboy.MusicX.Uwp.Services
             PositionTrackChangedEvent?.Invoke(this, TimeSpan.Zero);
             _mediaPlayer.Source = null;
             int index;
-            if(!_isShuffle)
+            if (!_isShuffle)
             {
                 index = _tracks.IndexOf(_currentTrack) + 1;
                 if (index > _tracks.Count - 1)
@@ -190,11 +163,12 @@ namespace Fooxboy.MusicX.Uwp.Services
                     if (_repeatMode == 2) index = 0;
                     else return;
                 }
-            }else
+            }
+            else
             {
                 index = new Random().Next(0, _tracks.Count);
             }
-            
+
             _currentTrack = _tracks[index];
             TrackChangedEvent?.Invoke(this, EventArgs.Empty);
             Play();
@@ -217,7 +191,7 @@ namespace Fooxboy.MusicX.Uwp.Services
             }
         }
 
-        public void SetLoadMore(Action<Task<List<Track>>, bool> action)
+        public void SetLoadMore(Action<Task<IEnumerable<Audio>>, bool> action)
         {
             _loadMore = action;
         }
@@ -227,7 +201,6 @@ namespace Fooxboy.MusicX.Uwp.Services
             try
             {
                 _mediaPlayer.PlaybackSession.Position = position;
-
             }
             catch (Exception e)
             {
@@ -237,7 +210,6 @@ namespace Fooxboy.MusicX.Uwp.Services
 
         private void MediaPlayerOnCurrentStateChanged(MediaPlaybackSession sender, object args)
         {
-
             DispatcherHelper.ExecuteOnUIThreadAsync(() =>
             {
                 if (sender.PlaybackState == MediaPlaybackState.Playing)
@@ -251,14 +223,13 @@ namespace Fooxboy.MusicX.Uwp.Services
 
         private void MediaPlayerOnMediaEnded(MediaPlayer sender, object args)
         {
-            if(_repeatMode != 1) NextTrack();
+            if (_repeatMode != 1) NextTrack();
             else
             {
                 Seek(TimeSpan.Zero);
                 PositionTrackChangedEvent?.Invoke(this, TimeSpan.Zero);
                 Play();
             }
-
         }
 
         public void SetRepeatMode(int i)
@@ -269,7 +240,6 @@ namespace Fooxboy.MusicX.Uwp.Services
 
         private void MediaPlayerOnMediaFailed(MediaPlayer sender, MediaPlayerFailedEventArgs args)
         {
-
             _notificationService.CreateNotification("Произошла ошибка при загрузке", $"{args.Error}");
 
             //Ошибка при загрузке
@@ -296,11 +266,7 @@ namespace Fooxboy.MusicX.Uwp.Services
 
         private void PositionTimerOnTick(object sender, object o)
         {
-            DispatcherHelper.ExecuteOnUIThreadAsync((() =>
-            {
-                PositionTrackChangedEvent?.Invoke(this, Position);
-            }));
+            DispatcherHelper.ExecuteOnUIThreadAsync((() => { PositionTrackChangedEvent?.Invoke(this, Position); }));
         }
-
     }
 }

@@ -1,4 +1,4 @@
-﻿<Page
+﻿<local:LoginViewBase
     x:Class="Fooxboy.MusicX.Uwp.Views.LoginView"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
@@ -9,13 +9,13 @@
     Background="{ThemeResource BackgroundApp}"
     mc:Ignorable="d">
 
-    <Page.Resources>
+    <local:LoginViewBase.Resources>
         <converters:BoolToVisibilityConverter x:Key="ToVisibility" />
-    </Page.Resources>
+    </local:LoginViewBase.Resources>
 
     <Grid>
 
-        <Grid x:Name="loginGrid" Visibility="Collapsed">
+        <Grid x:Name="loginGrid" Visibility="Visible">
 
             <Grid.RowDefinitions>
                 <RowDefinition Height="*" />
@@ -34,8 +34,7 @@
                 Width="100"
                 Height="100"
                 Margin="0,0,0,30"
-                HorizontalAlignment="Center"
-                Visibility="{x:Bind ViewModel.VisibilityLogoImage, Converter={StaticResource ToVisibility}}">
+                HorizontalAlignment="Center">
                 <Image.Source>
                     <BitmapImage
                         DecodePixelHeight="100"
@@ -44,7 +43,7 @@
                 </Image.Source>
             </Image>
 
-            <PersonPicture
+            <!-- <PersonPicture
                 Grid.Row="1"
                 Width="100"
                 Height="100"
@@ -57,7 +56,7 @@
                         DecodePixelWidth="100"
                         UriSource="{x:Bind ViewModel.Image, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
                 </PersonPicture.ProfilePicture>
-            </PersonPicture>
+            </PersonPicture> -->
 
             <TextBlock
                 Grid.Row="2"
@@ -86,8 +85,7 @@
                 HorizontalAlignment="Center"
                 PlaceholderText="Номер телефона или адрес эл. почты"
                 Style="{StaticResource StandardTextBoxStyle}"
-                Text="{x:Bind ViewModel.Login, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                Visibility="{x:Bind ViewModel.VisibilityTextBox, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, Converter={StaticResource ToVisibility}}" />
+                Text="{x:Bind ViewModel.Login, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
             <PasswordBox
                 Grid.Row="4"
                 Width="300"
@@ -95,16 +93,15 @@
                 HorizontalAlignment="Center"
                 Password="{x:Bind ViewModel.Password, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                 PlaceholderText="Пароль"
-                Style="{StaticResource StandardPasswordBoxStyle}"
-                Visibility="{x:Bind ViewModel.VisibilityTextBox, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, Converter={StaticResource ToVisibility}}" />
+                Style="{StaticResource StandardPasswordBoxStyle}"/>
             <Button
+                x:Name="AuthVkButton"
                 Grid.Row="5"
                 Width="120"
                 Margin="0,30,0,0"
                 HorizontalAlignment="Center"
-                Command="{x:Bind ViewModel.AuthCommand}"
                 Style="{ThemeResource AcceptButtonStyle}"
-                Visibility="{x:Bind ViewModel.VisibilityTextBox, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, Converter={StaticResource ToVisibility}}">
+                Command="{x:Bind ViewModel.AuthCommand, Mode=OneWay}">
                 <Button.Content>
                     <StackPanel Orientation="Horizontal">
                         <TextBlock Margin="0,0,0,3" Text="Продолжить" />
@@ -119,7 +116,7 @@
 
         </Grid>
 
-        <Grid x:Name="buttonsGrid" Visibility="Visible">
+        <Grid x:Name="buttonsGrid" Visibility="Collapsed">
 
             <Grid.RowDefinitions>
                 <RowDefinition Height="*" />
@@ -159,13 +156,11 @@
                 HorizontalAlignment="Center"
                 Orientation="Horizontal">
                 <Button
-                    Click="Button_Click"
                     Content="Войти в аккаунт Music X"
                     IsEnabled="False"
                     Style="{ThemeResource AcceptButtonStyle}" />
                 <Button
                     Margin="10,0,0,0"
-                    Click="Button_Click"
                     Content="Войти в аккаунт ВКонтакте"
                     Style="{StaticResource StandardButtonStyle}" />
             </StackPanel>
@@ -186,4 +181,4 @@
 
 
     </Grid>
-</Page>
+</local:LoginViewBase>

@@ -4,11 +4,12 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:controls="using:Fooxboy.MusicX.Uwp.Resources.Controls"
     xmlns:local="using:Fooxboy.MusicX.Uwp.DataTemplates"
-    xmlns:models="using:Fooxboy.MusicX.Uwp.Models">
+    xmlns:models="using:Fooxboy.MusicX.Uwp.Models"
+    xmlns:attachments="using:VkNet.Model.Attachments">
 
     <DataTemplate
         x:Name="PlaylistDataTemplate"
-        x:DataType="models:Album"
+        x:DataType="attachments:AudioPlaylist"
         x:DefaultBindMode="TwoWay">
 
         <Grid>

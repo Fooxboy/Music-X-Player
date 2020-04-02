@@ -97,7 +97,7 @@
                             IsCacheEnabled="False"
                             PlaceholderSource="ms-appx:///Assets/Images/placeholder-album.jpg"
                             PlaceholderStretch="Fill"
-                            Source="{x:Bind ViewModel.Album.Cover, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                            Source="{x:Bind ViewModel.Album.Cover}"
                             Stretch="Fill" />
                     </Grid>
 
@@ -117,13 +117,13 @@
                             FontFamily="Calibri"
                             FontSize="39"
                             FontWeight="ExtraBlack"
-                            Text="{x:Bind ViewModel.Album.Title, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                            Text="{x:Bind ViewModel.Album.Title}" />
                         <StackPanel Grid.Row="1" Orientation="Horizontal">
                             <TextBlock
                                 Grid.Row="1"
                                 FontWeight="Bold"
                                 Foreground="{ThemeResource ColorArtistText}"
-                                Text="{x:Bind ViewModel.Album.Artists[0].Name, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                                Text="{x:Bind ViewModel.Album.MainArtists}" />
                             <TextBlock
                                 x:Name="Dot1"
                                 Margin="3,0,0,0"
@@ -131,7 +131,7 @@
                             <TextBlock
                                 x:Name="Genres"
                                 Margin="3,0,0,0"
-                                Text="{x:Bind ViewModel.Album.Genres[0], Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                                Text="{x:Bind ViewModel.Album.Genres}" />
                             <TextBlock
                                 x:Name="Dot2"
                                 Margin="3,0,0,0"
@@ -139,7 +139,7 @@
                             <TextBlock
                                 x:Name="Year"
                                 Margin="3,0,0,0"
-                                Text="{x:Bind ViewModel.Album.Year, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                                Text="{x:Bind ViewModel.Album.Year}" />
                             <TextBlock
                                 x:Name="Dot3"
                                 Margin="3,0,0,0"
@@ -147,7 +147,7 @@
                             <TextBlock
                                 x:Name="Plays"
                                 Margin="3,0,0,0"
-                                Text="{x:Bind ViewModel.Album.Plays, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                                Text="{x:Bind ViewModel.Album.Plays}" />
                             <TextBlock
                                 x:Name="PlaysText"
                                 Margin="3,0,0,0"
@@ -251,7 +251,7 @@
                     ItemClick="TracksListView_OnItemClick"
                     ItemContainerStyle="{StaticResource ListViewItemContainerStyle}"
                     ItemTemplate="{ThemeResource TrackDataTemplate}"
-                    ItemsSource="{x:Bind ViewModel.Tracks, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                    ItemsSource="{x:Bind ViewModel.Tracks}"
                     Style="{ThemeResource ListViewStyle}">
                     <ListView.ItemsPanel>
                         <ItemsPanelTemplate>

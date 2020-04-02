@@ -1,26 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Runtime.InteropServices.WindowsRuntime;
-using Fooxboy.MusicX.Core;
-using Fooxboy.MusicX.Core.Interfaces;
-using Fooxboy.MusicX.Uwp.Models;
-using Fooxboy.MusicX.Uwp.Resources.ContentDialogs;
-using Fooxboy.MusicX.Uwp.Services;
-using Windows.Foundation;
-using Windows.Foundation.Collections;
-using Windows.Storage;
-using Windows.UI.Popups;
-using Windows.UI.Xaml;
+﻿using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
-using Windows.UI.Xaml.Controls.Primitives;
-using Windows.UI.Xaml.Data;
 using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Media;
-using Windows.UI.Xaml.Navigation;
-using Windows.Networking.Sockets;
 using Windows.UI;
+using VkNet.Model.Attachments;
 
 // Документацию по шаблону элемента "Пользовательский элемент управления" см. по адресу https://go.microsoft.com/fwlink/?LinkId=234236
 
@@ -29,20 +12,7 @@ namespace Fooxboy.MusicX.Uwp.Resources.Controls
     public sealed partial class TrackControl : UserControl
     {
         public static readonly DependencyProperty TrackProperty = DependencyProperty.Register("Track",
-            typeof(Track), typeof(TrackControl), new PropertyMetadata(new Track()
-            {
-                Album = new Album(),
-                Artist = "Music X",
-                Artists = new List<IArtist>(),
-                Duration = TimeSpan.Zero,
-                GenreId = 0,
-                Id = 0,
-                IsAvailable = false,
-                IsLicensed = false,
-                OwnerId = -2,
-                Subtitle = "",
-                Title = ""
-            }));
+            typeof(Audio), typeof(TrackControl), new PropertyMetadata(null));
 
         public TrackControl()
         {
@@ -78,9 +48,9 @@ namespace Fooxboy.MusicX.Uwp.Resources.Controls
 
         public string Artists { get; set; }
 
-        public Track Track
+        public Audio Track
         {
-            get { return (Track)GetValue(TrackProperty); }
+            get { return (Audio)GetValue(TrackProperty); }
             set
             {
                 //foreach (var artist in value.Artists) Artists += artist.Name + ", ";
@@ -115,7 +85,7 @@ namespace Fooxboy.MusicX.Uwp.Resources.Controls
             GoToArtist.Visibility = Visibility.Collapsed;
             AddOnLibrary.Visibility = Visibility.Visible;
            
-            if (Track.IsLicensed)
+            if (Track.IsLicensed.GetValueOrDefault())
             {
                 if (Track.Artist != null)
                 {
@@ -141,7 +111,7 @@ namespace Fooxboy.MusicX.Uwp.Resources.Controls
                 progressRing.Visibility = Visibility.Collapsed;
             }
 
-            if(!Track.IsAvailable)
+            if(Track.ContentRestricted.HasValue)
             {
                 TitleText.Foreground = new SolidColorBrush(Colors.Gray);
                 ArtistText.Foreground = new SolidColorBrush(Colors.Gray);

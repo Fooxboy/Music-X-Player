@@ -105,7 +105,7 @@
                 IsCacheEnabled="False"
                 PlaceholderSource="../../Assets/Images/placeholder-track.jpg"
                 PlaceholderStretch="Fill"
-                Source="{x:Bind Track.Album.Cover, Mode=TwoWay}"
+                Source="{x:Bind Track.Album.Cover.Photo68, Mode=TwoWay}"
                 Stretch="Fill" />
 
             <Rectangle
@@ -153,7 +153,7 @@
                 Grid.Column="2"
                 HorizontalAlignment="Right"
                 VerticalAlignment="Center"
-                Text="{x:Bind Track.DurationString, Mode=TwoWay}" />
+                Text="{x:Bind Track.Duration, Mode=TwoWay}" />
         </Grid>
 
     </Grid>

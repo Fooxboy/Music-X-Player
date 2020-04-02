@@ -14,6 +14,8 @@ using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Navigation;
 using Fooxboy.MusicX.Uwp.Models;
 using Fooxboy.MusicX.Uwp.ViewModels;
+using VkNet.Model.Attachments;
+using Page = Windows.UI.Xaml.Controls.Page;
 
 // Документацию по шаблону элемента "Пустая страница" см. по адресу https://go.microsoft.com/fwlink/?LinkId=234238
 
@@ -33,11 +35,11 @@ namespace Fooxboy.MusicX.Uwp.Views
 
         protected override async void OnNavigatedTo(NavigationEventArgs e)
         {
-            var data = (PlaylistViewNavigationData) e.Parameter;
-            ViewModel = new PlaylistViewModel(data?.Container);
+            //var data = (PlaylistViewNavigationData) e.Parameter;
+            //ViewModel = new PlaylistViewModel();
 
-            await ViewModel.StartLoading(data?.Album);
-            base.OnNavigatedTo(e);
+            //await ViewModel.StartLoading(data?.Album);
+            //base.OnNavigatedTo(e);
         }
 
         private void Rectangle_SizeChanged(object sender, SizeChangedEventArgs e)
@@ -47,7 +49,7 @@ namespace Fooxboy.MusicX.Uwp.Views
 
         private void TracksListView_OnItemClick(object sender, ItemClickEventArgs e)
         {
-            var track = (Track) e.ClickedItem;
+            var track = (Audio) e.ClickedItem;
             ViewModel.PlayTrack(track);
         }
     }

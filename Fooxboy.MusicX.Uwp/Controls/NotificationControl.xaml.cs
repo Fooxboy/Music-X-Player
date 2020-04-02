@@ -104,8 +104,8 @@ namespace Fooxboy.MusicX.Uwp.Controls
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
-            var service = Container.Get.Resolve<NotificationService>();
-            service.ClosedNotification(new Models.Notification() {Title = Title, Description = Description, IsClickButton = true });
+           // var service = Container.Get.Resolve<NotificationService>();
+           // service.ClosedNotification(new Models.Notification() {Title = Title, Description = Description, IsClickButton = true });
         }
     }
 }
