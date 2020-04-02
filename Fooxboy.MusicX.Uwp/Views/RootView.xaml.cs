@@ -6,7 +6,6 @@ using Microsoft.Toolkit.Uwp.UI.Animations;
 using Windows.UI.Xaml.Media.Animation;
 using Windows.System;
 using ReactiveUI;
-using System.Reactive.Disposables;
 
 namespace Fooxboy.MusicX.Uwp.Views
 {
@@ -20,7 +19,7 @@ namespace Fooxboy.MusicX.Uwp.Views
 		{
 			//ViewModel.PlayerViewModel.CloseBigPlayer = new Action(CloseBigPlayer);
 			InitializeComponent();
-		}
+        }
 
 		/*protected override void OnNavigatedTo(NavigationEventArgs e)
 		{

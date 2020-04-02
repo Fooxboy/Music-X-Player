@@ -218,13 +218,14 @@
                 Grid.Column="2"
                 Orientation="Horizontal">
                 <PersonPicture
-                    x:Name="ProfilePic"
                     Width="25"
                     Height="25"
                     Margin="30,0,0,0"
-                    ProfilePicture="{x:Bind ViewModel.UserInfoViewModel.Photo, Mode=OneWay}"
                     Style="{StaticResource PersonPictureStyle}"
                     Tapped="PersonPicture_Tapped">
+                    <PersonPicture.ProfilePicture>
+                        <BitmapImage UriSource="{x:Bind ViewModel.UserInfoViewModel.Photo, Mode=OneWay}"/>
+                    </PersonPicture.ProfilePicture>
                     <FlyoutBase.AttachedFlyout>
                         <Flyout x:Name="FlyoutProfile">
                             <StackPanel Width="250">
