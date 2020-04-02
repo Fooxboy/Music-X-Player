@@ -17,11 +17,6 @@ namespace Fooxboy.MusicX.Uwp.Views
             InitializeComponent();
 
             ViewModel = new AppBootstrapper();
-
-            this.WhenActivated(disposable =>
-            {
-                this.Bind(ViewModel, model => model.Router, window => window.RoutedViewHost.Router).DisposeWith(disposable);
-            });
         }
     }
 }

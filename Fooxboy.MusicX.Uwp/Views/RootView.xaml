@@ -51,7 +51,7 @@
             x:Name="Root"
             HorizontalAlignment="Stretch"
             VerticalAlignment="Stretch" />
-        <reactiveUi:RoutedViewHost x:Name="RoutedViewHost" Router="{x:Bind ViewModel.Router, Mode=TwoWay}" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" />
+        <reactiveUi:RoutedViewHost x:Name="RoutedViewHost" Router="{x:Bind ViewModel.Router, Mode=OneWay}" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" />
         <Rectangle
             Height="70"
             VerticalAlignment="Top"

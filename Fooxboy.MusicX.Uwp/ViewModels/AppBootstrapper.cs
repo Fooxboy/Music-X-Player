@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Reactive.Linq;
 using System.Reactive.Threading.Tasks;
-using System.Threading.Tasks;
 using DryIoc;
 using Fooxboy.MusicX.Core.New.Models;
 using Fooxboy.MusicX.Core.New.Services;
@@ -39,7 +38,7 @@ namespace Fooxboy.MusicX.Uwp.ViewModels
 
             _authorizationService = Rx.IoCProvier.Resolve<AuthorizationService>();
 
-            NavigateToFirstViewModel().ObserveOn(RxApp.MainThreadScheduler).SubscribeOn(RxApp.MainThreadScheduler).Subscribe();
+            NavigateToFirstViewModel().Subscribe();
         }
 
         private void RegisterDependencies()
