@@ -1,4 +1,4 @@
-﻿<Page
+﻿<local:DownloadsViewBase
     x:Class="Fooxboy.MusicX.Uwp.Views.DownloadsView"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
@@ -21,4 +21,4 @@
                 Text="Ну и загрузки тоже еще в разработке." />
         </StackPanel>
     </Grid>
-</Page>
+</local:DownloadsViewBase>
