@@ -68,12 +68,14 @@ namespace Fooxboy.MusicX.Uwp.ViewModels
             Rx.IoCProvier.Register<LoadingViewModel>();
             Rx.IoCProvier.Register<NotificationViewModel>();
             Rx.IoCProvier.Register<HomeViewModel>();
+            Rx.IoCProvier.Register<RecommendationsViewModel>();
 
             Rx.IoCProvier.Register<IViewFor<AppBootstrapper>, BootsrapperView>();
             Rx.IoCProvier.Register<IViewFor<WelcomeViewModel>, WelcomeView>();
             Rx.IoCProvier.Register<IViewFor<LoginViewModel>, LoginView>();
             Rx.IoCProvier.Register<IViewFor<RootViewModel>, RootView>();
             Rx.IoCProvier.Register<IViewFor<HomeViewModel>, HomeView>();
+            Rx.IoCProvier.Register<IViewFor<RecommendationsViewModel>, RecommendationsView>();
         }
 
         private IObservable<IRoutableViewModel> NavigateToFirstViewModel()
