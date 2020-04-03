@@ -69,6 +69,7 @@ namespace Fooxboy.MusicX.Uwp.ViewModels
             Rx.IoCProvier.Register<NotificationViewModel>();
             Rx.IoCProvier.Register<HomeViewModel>();
             Rx.IoCProvier.Register<RecommendationsViewModel>();
+            Rx.IoCProvier.Register<FavoriteArtistsViewModel>();
 
             Rx.IoCProvier.Register<IViewFor<AppBootstrapper>, BootsrapperView>();
             Rx.IoCProvier.Register<IViewFor<WelcomeViewModel>, WelcomeView>();
@@ -76,6 +77,7 @@ namespace Fooxboy.MusicX.Uwp.ViewModels
             Rx.IoCProvier.Register<IViewFor<RootViewModel>, RootView>();
             Rx.IoCProvier.Register<IViewFor<HomeViewModel>, HomeView>();
             Rx.IoCProvier.Register<IViewFor<RecommendationsViewModel>, RecommendationsView>();
+            Rx.IoCProvier.Register<IViewFor<FavoriteArtistsViewModel>, FavoriteArtistsView>();
         }
 
         private IObservable<IRoutableViewModel> NavigateToFirstViewModel()

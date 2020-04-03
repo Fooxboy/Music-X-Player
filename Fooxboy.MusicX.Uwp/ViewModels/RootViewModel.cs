@@ -26,6 +26,8 @@ namespace Fooxboy.MusicX.Uwp.ViewModels
                 ReactiveCommand.CreateFromObservable(() => _navigationService.Navigate<HomeViewModel>(Router));
             GoToRecommendationsCommand =
 	            ReactiveCommand.CreateFromObservable(() => _navigationService.Navigate<RecommendationsViewModel>(Router));
+            GoToFavoriteArtistsCommand =
+	            ReactiveCommand.CreateFromObservable(() => _navigationService.Navigate<FavoriteArtistsViewModel>(Router));
 
             GoToHomeCommand.Execute();
         }
@@ -46,7 +48,7 @@ namespace Fooxboy.MusicX.Uwp.ViewModels
 
         public ReactiveCommand<Unit, IRoutableViewModel> GoToRecommendationsCommand { get; }
 
-        public ReactiveCommand<Unit, Unit> GoToFavoriteArtistsCommand { get; }
+        public ReactiveCommand<Unit, IRoutableViewModel> GoToFavoriteArtistsCommand { get; }
 
         public ReactiveCommand<Unit, Unit> GoToDownloadsCommand { get; }
     }
