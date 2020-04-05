@@ -3,6 +3,8 @@ using Microsoft.AppCenter.Analytics;
 using Microsoft.AppCenter.Push;
 using Windows.ApplicationModel.Activation;
 using Windows.ApplicationModel.Core;
+using Windows.UI;
+using Windows.UI.ViewManagement;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Microsoft.AppCenter.Crashes;
@@ -43,16 +45,13 @@ namespace Fooxboy.MusicX.Uwp
                 AppCenter.LogLevel = LogLevel.Verbose;
                 CoreApplication.GetCurrentView().TitleBar.ExtendViewIntoTitleBar = true;
 
-                /*var appView = ApplicationView.GetForCurrentView();
+                var appView = ApplicationView.GetForCurrentView();
                 appView.TitleBar.ButtonBackgroundColor = Colors.Transparent;
                 appView.TitleBar.ButtonInactiveBackgroundColor = Colors.Transparent;
 
-
                 var theme = new AppPrivateSettingsService().GetTheme();
 
-                if (theme == ApplicationTheme.Light) appView.TitleBar.ButtonForegroundColor = Colors.Black;
-                else appView.TitleBar.ButtonForegroundColor = Colors.White;*/
-
+                appView.TitleBar.ButtonForegroundColor = theme == ApplicationTheme.Light ? Colors.Black : Colors.White;
 
                 Window.Current.Content = rootFrame;
             }
