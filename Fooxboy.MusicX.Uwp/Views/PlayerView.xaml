@@ -13,6 +13,8 @@
 
     <Page.Resources>
         <converters:BoolToVisibilityConverter x:Key="ToVisibility" />
+        <converters:BoolToVisibilityInvertedConverter x:Key="ToVisibilityInverted" />
+        <converters:NumberToTimeStringConverter x:Key="ToTimeString" />
     </Page.Resources>
 
     <Grid>
@@ -183,7 +185,7 @@
                         Grid.Row="1"
                         HorizontalAlignment="Left"
                         VerticalAlignment="Center"
-                        Text="{x:Bind PlayerViewModel.Time, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                        Text="{x:Bind PlayerViewModel.Position, Mode=OneWay, Converter={StaticResource ToTimeString}}" />
                     <Slider
                         x:Name="SliderTrack"
                         Grid.Row="0"
@@ -191,15 +193,15 @@
                         Margin="5,0,5,0"
                         HorizontalAlignment="Stretch"
                         VerticalAlignment="Center"
-                        Maximum="{x:Bind PlayerViewModel.SecondsAll, Mode=TwoWay}"
+                        Maximum="{x:Bind PlayerViewModel.Duration, Mode=TwoWay}"
                         Style="{StaticResource SliderPlayerStyle}"
-                        Value="{x:Bind PlayerViewModel.Seconds, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                        Value="{x:Bind PlayerViewModel.Position, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
                     <TextBlock
                         x:Name="textTime2"
                         Grid.Row="1"
                         HorizontalAlignment="Right"
                         VerticalAlignment="Center"
-                        Text="{x:Bind PlayerViewModel.AllTime, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                        Text="{x:Bind PlayerViewModel.Duration, Mode=OneWay, Converter={StaticResource ToTimeString}}" />
 
                 </Grid>
 
@@ -237,7 +239,6 @@
 
                     <Grid Grid.Column="3">
                         <Button
-                            Grid.Column="1"
                             Width="43"
                             Height="43"
                             Background="Transparent"
@@ -247,7 +248,7 @@
                             CornerRadius="99"
                             FontFamily="Segoe MDL2 Assets"
                             FontSize="20"
-                            Visibility="{x:Bind PlayerViewModel.VisibilityPlay, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, Converter={StaticResource ToVisibility}}" />
+                            Visibility="{x:Bind PlayerViewModel.IsPlay, Mode=OneWay, Converter={StaticResource ToVisibilityInverted}}" />
                         <Button
                             Grid.Column="0"
                             Width="43"
@@ -259,7 +260,7 @@
                             CornerRadius="99"
                             FontFamily="Segoe MDL2 Assets"
                             FontSize="20"
-                            Visibility="{x:Bind PlayerViewModel.IsPlay, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, Converter={StaticResource ToVisibility}}" />
+                            Visibility="{x:Bind PlayerViewModel.IsPlay, Mode=OneWay, Converter={StaticResource ToVisibility}}" />
                     </Grid>
 
                     <Button
@@ -338,7 +339,7 @@
                     ItemClick="ListView_ItemClick"
                     ItemContainerStyle="{StaticResource ListViewItemContainerStyle}"
                     ItemTemplate="{ThemeResource TrackDataTemplate}"
-                    ItemsSource="{x:Bind PlayerViewModel.CurrentNowPlaing, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                    ItemsSource="{x:Bind PlayerViewModel.Tracks, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                     ListViewBase.ShowsScrollingPlaceholders="False"
                     ReorderMode="Enabled"
                     SelectionMode="None"

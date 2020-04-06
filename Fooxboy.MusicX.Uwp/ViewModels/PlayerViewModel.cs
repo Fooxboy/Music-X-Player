@@ -1,28 +1,26 @@
-﻿using Fooxboy.MusicX.Uwp.Converters;
-using Fooxboy.MusicX.Uwp.Services;
+﻿using Fooxboy.MusicX.Uwp.Services;
 using ReactiveUI;
 using ReactiveUI.Fody.Helpers;
 using System;
 using System.Collections.ObjectModel;
 using System.Reactive;
+using DynamicData;
+using DynamicData.Binding;
 using VkNet.Model.Attachments;
 
 namespace Fooxboy.MusicX.Uwp.ViewModels
 {
     public class PlayerViewModel : ReactiveObject
     {
-        public PlayerService PlayerSerivce { get; set; }
+	    private readonly PlayerService _playerService;
 
-        public ReactiveCommand<Unit, Unit> PlayCommand { get; set; }
+        public ReactiveCommand<Audio, Unit> PlayCommand { get; set; }
         public ReactiveCommand<Unit, Unit> PauseCommand { get; set; }
         public ReactiveCommand<Unit, Unit> NextCommand { get; set; }
         public ReactiveCommand<Unit, Unit> PreviousCommand { get; set; }
 
         [Reactive]
         public bool IsPlay { get; set; }
-
-        [Reactive]
-        public bool VisibilityPlay { get; set; }
 
         [Reactive]
         public string Title { get; set; }
@@ -33,104 +31,63 @@ namespace Fooxboy.MusicX.Uwp.ViewModels
         [Reactive]
         public string Cover { get; set; }
 
-        public Action CloseBigPlayer { get; set; }
-
-        public ObservableCollection<Audio> CurrentNowPlaing { get; set; }
-
-        public bool IsShuffle
-        {
-            get => PlayerSerivce.IsShuffle;
-            set => PlayerSerivce.SetShuffle(value);
-        }
-
-
-        public int RepeatMode
-        {
-            get => PlayerSerivce.RepeatMode;
-            set => PlayerSerivce.SetRepeatMode(value);
-        }
-
-        public double Volume
-        {
-            get => PlayerSerivce.Volume * 100;
-            set
-            {
-                if (PlayerSerivce.Volume == (value / 100)) return;
-
-                PlayerSerivce.Volume = (value / 100);
-            }
-        }
-
-        public double Seconds
-        {
-            get => PlayerSerivce.Position.TotalSeconds;
-            set
-            {
-                if (PlayerSerivce.Position.TotalSeconds == value)
-                    return;
-
-                PlayerSerivce.Seek(TimeSpan.FromSeconds(value));
-            }
-        }
+        public ObservableCollection<Audio> Tracks { get; set; }
 
         [Reactive]
-        public double SecondsAll { get; set; }
+        public bool IsShuffle { get; set; }
 
         [Reactive]
-        public string Time { get; set; }
+        public int RepeatMode { get; set; }
 
         [Reactive]
-        public string AllTime { get; set; }
+        public double Volume { get; set; }
 
+        [Reactive]
+        public double Position { get; set; }
+
+        [Reactive]
+        public double Duration { get; set; }
 
         public PlayerViewModel(PlayerService playerService, DiscordService discordService)
         {
-            CurrentNowPlaing = new ObservableCollection<Audio>();
-            PlayerSerivce = playerService;
-            PlayCommand = ReactiveCommand.Create(() => PlayerSerivce.Play());
-            PauseCommand = ReactiveCommand.Create(() => PlayerSerivce.Pause());
-            NextCommand = ReactiveCommand.Create(() => PlayerSerivce.NextTrack());
-            PreviousCommand = ReactiveCommand.Create(() => PlayerSerivce.PreviousTrack());
+            _playerService = playerService;
 
-            PlayerSerivce.PlayStateChangedEvent += PlayStateChanged;
-            PlayerSerivce.PositionTrackChangedEvent += PositionTrackChanged;
-            PlayerSerivce.TrackChangedEvent += TrackChanged;
+            Tracks = new ObservableCollection<Audio>();
+            Volume = 100;
 
-            VisibilityPlay = true;
-            IsPlay = false;
+            PlayCommand = ReactiveCommand.Create<Audio>(audio => _playerService.Play(audio));
+            PauseCommand = ReactiveCommand.Create(() => _playerService.Pause());
+            NextCommand = ReactiveCommand.Create(() => _playerService.NextTrack());
+            PreviousCommand = ReactiveCommand.Create(() => _playerService.PreviousTrack());
 
-            foreach (var track in PlayerSerivce.Tracks) CurrentNowPlaing.Add(track);
+            _playerService.PlayStateChangedEvent += PlayStateChanged;
+            _playerService.PositionTrackChangedEvent += PositionTrackChanged;
+            _playerService.TrackChangedEvent += TrackChanged;
+
+            this.WhenAnyValue(model => model.Volume).Subscribe(volume => _playerService.Volume = volume / 100);
+            this.WhenAnyValue(model => model.IsShuffle).Subscribe(shuffle => _playerService.IsShuffle = shuffle);
+            this.WhenAnyValue(model => model.RepeatMode).Subscribe(mode => _playerService.RepeatMode = mode);
+
+            foreach (var track in _playerService.Tracks) Tracks.Add(track);
             //discordService.Init();
         }
 
         private void TrackChanged(object sender, EventArgs e)
         {
-            CurrentNowPlaing.Clear();
-            foreach (var track in PlayerSerivce.Tracks) CurrentNowPlaing.Add(track);
-            Title = PlayerSerivce.CurrentTrack.Title;
-            //foreach(var artist in PlayerSerivce.CurrentTrack.Artists) Artist += $", {artist.Name}";
-            Artist = PlayerSerivce.CurrentTrack.Artist;
-            Cover = PlayerSerivce.CurrentTrack.Album?.Cover?.Photo600;
-            SecondsAll = PlayerSerivce.Duration;
+	        Title = _playerService.CurrentTrack.Title;
+            Artist = _playerService.CurrentTrack.Artist;
+            Cover = _playerService.CurrentTrack.Album?.Cover?.Photo600;
+            Duration = _playerService.CurrentTrack.Duration;
         }
 
         private void PositionTrackChanged(object sender, TimeSpan e)
         {
-            SecondsAll = PlayerSerivce.Duration;
-            Seconds = PlayerSerivce.Position.TotalSeconds;
-            Time = Seconds.ConvertToTime();
-            AllTime = SecondsAll.ConvertToTime();
+	        Position = _playerService.Position.TotalSeconds;
         }
 
         private void PlayStateChanged(object sender, EventArgs e)
         {
-            IsPlay = PlayerSerivce.IsPlaying;
-            VisibilityPlay = !IsPlay;
-        }
-
-        public void SeekToPosition(long position)
-        {
-            PlayerSerivce.Seek(TimeSpan.FromSeconds(position));
+            IsPlay = _playerService.IsPlaying;
         }
     }
 }

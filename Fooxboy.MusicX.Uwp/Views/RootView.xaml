@@ -16,6 +16,8 @@
 
     <local:RootViewBase.Resources>
         <converters:BoolToVisibilityConverter x:Key="ToVisibility" />
+        <converters:BoolToVisibilityInvertedConverter x:Key="ToVisibilityInverted" />
+        <converters:NumberToTimeStringConverter x:Key="ToTimeString" />
         <Storyboard x:Name="Animations">
             <DoubleAnimation
                 EnableDependentAnimation="True"
@@ -465,7 +467,7 @@
                     Grid.Column="1"
                     Width="37"
                     Height="37"
-                    RepeatMode="{x:Bind ViewModel.PlayerViewModel.RepeatMode, Mode=OneWay}" />
+                    RepeatMode="{x:Bind ViewModel.PlayerViewModel.RepeatMode, Mode=TwoWay}" />
 
                 <Button
                     Grid.Column="2"
@@ -491,7 +493,7 @@
                         CornerRadius="99"
                         FontFamily="Segoe MDL2 Assets"
                         FontSize="20"
-                        Visibility="{x:Bind ViewModel.PlayerViewModel.VisibilityPlay, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, Converter={StaticResource ToVisibility}}" />
+                        Visibility="{x:Bind ViewModel.PlayerViewModel.IsPlay, Mode=OneWay, Converter={StaticResource ToVisibilityInverted}}" />
                     <Button
                         Grid.Column="0"
                         Width="43"
@@ -503,7 +505,7 @@
                         CornerRadius="99"
                         FontFamily="Segoe MDL2 Assets"
                         FontSize="20"
-                        Visibility="{x:Bind ViewModel.PlayerViewModel.IsPlay, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, Converter={StaticResource ToVisibility}}" />
+                        Visibility="{x:Bind ViewModel.PlayerViewModel.IsPlay, Mode=OneWay, Converter={StaticResource ToVisibility}}" />
                 </Grid>
 
                 <Button
@@ -542,21 +544,21 @@
                     x:Name="textTime1"
                     Grid.Column="0"
                     VerticalAlignment="Center"
-                    Text="{x:Bind ViewModel.PlayerViewModel.Time, Mode=OneWay}" />
+                    Text="{x:Bind ViewModel.PlayerViewModel.Position, Mode=OneWay, Converter={StaticResource ToTimeString}}" />
                 <Slider
                     x:Name="SliderTrack"
                     Grid.Column="1"
                     Margin="5,0,5,0"
                     HorizontalAlignment="Stretch"
                     VerticalAlignment="Center"
-                    Maximum="{x:Bind ViewModel.PlayerViewModel.SecondsAll, Mode=TwoWay}"
+                    Maximum="{x:Bind ViewModel.PlayerViewModel.Duration, Mode=TwoWay}"
                     Style="{StaticResource SliderPlayerStyle}"
-                    Value="{x:Bind ViewModel.PlayerViewModel.Seconds, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                    Value="{x:Bind ViewModel.PlayerViewModel.Position, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
                 <TextBlock
                     x:Name="textTime2"
                     Grid.Column="2"
                     VerticalAlignment="Center"
-                    Text="{x:Bind ViewModel.PlayerViewModel.AllTime, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                    Text="{x:Bind ViewModel.PlayerViewModel.Duration, Mode=OneWay, Converter={StaticResource ToTimeString}}" />
 
             </Grid>
 

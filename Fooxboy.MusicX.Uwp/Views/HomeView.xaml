@@ -8,7 +8,7 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:models="using:Fooxboy.MusicX.Uwp.Models"
     xmlns:myControls="using:Fooxboy.MusicX.Uwp.Resources.Controls"
-    xmlns:interactivity="using:Microsoft.Xaml.Interactivity"
+    xmlns:interactivity="using:Microsoft.Xaml.Interactivity" 
     xmlns:core="using:Microsoft.Xaml.Interactions.Core"
     Background="{ThemeResource BackgroundApp}"
     
@@ -127,10 +127,14 @@
                         HorizontalAlignment="Stretch"
                         IsItemClickEnabled="True"
                         ItemsSource="{x:Bind ViewModel.Tracks, Mode=OneWay}"
-                        SelectedItem="{x:Bind ViewModel.SelectedTrack, Mode=TwoWay}"
                         ItemContainerStyle="{StaticResource ListViewItemContainerStyle}"
                         ItemTemplate="{ThemeResource TrackDataTemplate}"
                         Style="{ThemeResource ListViewStyle}">
+                        <interactivity:Interaction.Behaviors>
+                            <core:EventTriggerBehavior EventName="SelectionChanged">
+                                <core:InvokeCommandAction Command="{x:Bind ViewModel.PlayerViewModel.PlayCommand}" CommandParameter="{Binding SelectedItem, ElementName=TracksListView}" />
+                            </core:EventTriggerBehavior>
+                        </interactivity:Interaction.Behaviors>
                         <ListView.ItemsPanel>
                             <ItemsPanelTemplate>
                                 <ItemsStackPanel

@@ -57,7 +57,7 @@ namespace Fooxboy.MusicX.Uwp.ViewModels
 
         public void Shuffle()
         {
-            _playerService.SetShuffle(true);
+	        _playerService.IsShuffle = true;
             int index = new Random().Next(0, Tracks.Count());
             PlayTrack(Tracks[index]);
         }

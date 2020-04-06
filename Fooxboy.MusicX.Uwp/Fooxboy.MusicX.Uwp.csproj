@@ -132,6 +132,8 @@
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Converters\BoolToVisibilityInvertedConverter.cs" />
+    <Compile Include="Converters\NumberToTimeStringConverter.cs" />
     <Compile Include="Services\SessionManager.cs" />
     <Compile Include="Services\SettingsManager.cs" />
     <Compile Include="Services\SettingsManagerBase.cs" />

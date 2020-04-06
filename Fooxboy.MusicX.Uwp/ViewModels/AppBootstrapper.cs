@@ -53,7 +53,7 @@ namespace Fooxboy.MusicX.Uwp.ViewModels
             Rx.IoCProvier.Register<AlbumLoaderService>();
             Rx.IoCProvier.Register<DiscordService>();
             Rx.IoCProvier.Register<LoadingService>();
-            Rx.IoCProvier.Register<PlayerService>();
+            Rx.IoCProvier.Register<PlayerService>(Reuse.Singleton);
             Rx.IoCProvier.Register<IRxNavigationService, RxNavigationService>();
             Rx.IoCProvier.Register<ISettingsManager<Session>, SessionManager>();
             Rx.IoCProvier.Register<ISettingsManager<AppSettings>, SettingsManager>();
@@ -63,7 +63,7 @@ namespace Fooxboy.MusicX.Uwp.ViewModels
             Rx.IoCProvier.Register<WelcomeViewModel>();
             Rx.IoCProvier.Register<LoginViewModel>();
             Rx.IoCProvier.Register<RootViewModel>();
-            Rx.IoCProvier.Register<PlayerViewModel>();
+            Rx.IoCProvier.Register<PlayerViewModel>(Reuse.Singleton);
             Rx.IoCProvier.Register<UserInfoViewModel>();
             Rx.IoCProvier.Register<LoadingViewModel>();
             Rx.IoCProvier.Register<NotificationViewModel>();

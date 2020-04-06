@@ -6,10 +6,15 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:local="using:Fooxboy.MusicX.Uwp.Resources.Controls"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:converters="using:Fooxboy.MusicX.Uwp.Converters"
     d:DesignHeight="50"
     d:DesignWidth="400"
     Loaded="UserControl_Loaded"
     mc:Ignorable="d">
+
+    <UserControl.Resources>
+        <converters:NumberToTimeStringConverter x:Key="ToTimeStringConverter" />
+    </UserControl.Resources>
 
     <Grid>
         <Grid
@@ -105,7 +110,7 @@
                 IsCacheEnabled="False"
                 PlaceholderSource="../../Assets/Images/placeholder-track.jpg"
                 PlaceholderStretch="Fill"
-                Source="{x:Bind Track.Album.Cover.Photo68, Mode=TwoWay}"
+                Source="{x:Bind Track.Album.Cover.Photo68, Mode=OneWay}"
                 Stretch="Fill" />
 
             <Rectangle
@@ -136,7 +141,7 @@
                 Grid.Row="0"
                 Grid.Column="1"
                 Margin="10,0,0,0"
-                Text="{x:Bind Track.Title, Mode=TwoWay}"
+                Text="{x:Bind Track.Title, Mode=OneWay}"
                 TextTrimming="WordEllipsis" />
 
             <TextBlock
@@ -145,7 +150,7 @@
                 Grid.Column="1"
                 Margin="10,0,0,0"
                 Foreground="{ThemeResource ColorArtistText}"
-                Text="{x:Bind Track.Artist, Mode=TwoWay}"
+                Text="{x:Bind Track.Artist, Mode=OneWay}"
                 TextTrimming="WordEllipsis" />
 
             <TextBlock
@@ -153,7 +158,7 @@
                 Grid.Column="2"
                 HorizontalAlignment="Right"
                 VerticalAlignment="Center"
-                Text="{x:Bind Track.Duration, Mode=TwoWay}" />
+                Text="{x:Bind Track.Duration, Mode=OneWay, Converter={StaticResource ToTimeStringConverter}}" />
         </Grid>
 
     </Grid>
