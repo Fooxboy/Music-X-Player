@@ -8,11 +8,12 @@ using DryIoc;
 using Fooxboy.MusicX.Core;
 using Fooxboy.MusicX.Uwp.Models;
 using Fooxboy.MusicX.Uwp.Services;
+using ReactiveUI;
 using VkNet.Model.Attachments;
 
 namespace Fooxboy.MusicX.Uwp.ViewModels
 {
-    public class AllPlaylistsViewModel:BaseViewModel
+    public class AllPlaylistsViewModel: ReactiveObject, IRoutableViewModel
     {
 
         public AllPlaylistsViewModel(IContainer container)
@@ -44,14 +45,9 @@ namespace Fooxboy.MusicX.Uwp.ViewModels
             _hasLoadMore = true;
             _model = model;
             TitlePage = model.TitlePage;
-            Changed("TitlePage");
             loadingService = _container.Resolve<LoadingService>();
             loadingService.Change(true);
-
-
             await Load();
-            Changed("Albums");
-
         }
 
         private async Task Load()
@@ -86,5 +82,8 @@ namespace Fooxboy.MusicX.Uwp.ViewModels
         {
             if (_hasLoadMore && !_isLoading) await Load();
         }
+
+        public string UrlPathSegment => "allplaylists";
+        public IScreen HostScreen { get; }
     }
 }

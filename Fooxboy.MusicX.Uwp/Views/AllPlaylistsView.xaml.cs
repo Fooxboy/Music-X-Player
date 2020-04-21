@@ -15,15 +15,21 @@ using Windows.UI.Xaml.Navigation;
 using DryIoc;
 using Fooxboy.MusicX.Uwp.Models;
 using Fooxboy.MusicX.Uwp.ViewModels;
+using ReactiveUI;
 
 // Документацию по шаблону элемента "Пустая страница" см. по адресу https://go.microsoft.com/fwlink/?LinkId=234238
 
 namespace Fooxboy.MusicX.Uwp.Views
 {
+
+    public class AllPlaylistsBase : ReactiveUserControl<AllPlaylistsViewModel>
+    {
+    }
+
     /// <summary>
     /// Пустая страница, которую можно использовать саму по себе или для перехода внутри фрейма.
     /// </summary>
-    public sealed partial class AllPlaylistsView : Page
+    public sealed partial class AllPlaylistsView 
     {
 
         public AllPlaylistsViewModel ViewModel { get; set; }
@@ -40,17 +46,17 @@ namespace Fooxboy.MusicX.Uwp.Views
             
         }
 
-        protected override async void OnNavigatedTo(NavigationEventArgs e)
-        {
-            var param = (AllPlaylistsModel) e.Parameter;
+        //protected override async void OnNavigatedTo(NavigationEventArgs e)
+        //{
+        //    var param = (AllPlaylistsModel) e.Parameter;
 
-            _container = param.Container;
+        //    _container = param.Container;
 
-            ViewModel = new AllPlaylistsViewModel(_container);
-            await ViewModel.StartLoading(param);
+        //    ViewModel = new AllPlaylistsViewModel(_container);
+        //    await ViewModel.StartLoading(param);
 
-            base.OnNavigatedTo(e);
-        }
+        //    base.OnNavigatedTo(e);
+        //}
 
         private async void ScrollViewer_OnViewChanging(object sender, ScrollViewerViewChangingEventArgs e)
         {

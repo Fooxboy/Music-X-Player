@@ -16,7 +16,7 @@
             <TextBlock
                 Margin="0,5,0,0"
                 Foreground="{ThemeResource SubText}"
-                Text="Вам должен прийти код подтверждения в личные сообщения ВКонтакте или на номер мобильного телефона."
+                Text="Вам должен прийти код подтверждения на номер мобильного телефона."
                 TextWrapping="Wrap" />
             <TextBox
                 x:Name="TextBox"
