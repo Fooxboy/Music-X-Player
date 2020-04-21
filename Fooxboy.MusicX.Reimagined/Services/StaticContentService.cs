@@ -20,6 +20,8 @@ namespace Fooxboy.MusicX.Reimagined.Services
         public static string Token { get; set; }
         public static bool RepeatPlaylist { get; set; }
         public static bool RepeatTrack { get; set; }
+        public static string ErrorCaption { get; set; }
+        public static string ErrorDescription { get; set; }
         //public static List<Track> NowPlay { get; set; }
         //public static NavigationService NavigationService { get; set; }
     }

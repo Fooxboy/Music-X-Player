@@ -1,6 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<manifest xmlns:android="http://schemas.android.com/apk/res/android" android:versionCode="5" android:versionName="0.6.5 Beta" package="com.Fooxboy.MusicX.AndroidApp" android:installLocation="preferExternal">
-	<uses-sdk android:minSdkVersion="24" android:targetSdkVersion="29" />
+<manifest xmlns:android="http://schemas.android.com/apk/res/android" android:versionCode="0" android:versionName="0.0.0 DEPRECATED" package="com.Fooxboy.MusicX.AndroidApp" android:installLocation="preferExternal">
+	<uses-sdk android:minSdkVersion="25" android:targetSdkVersion="29" />
 	<application android:allowBackup="true" android:icon="@drawable/ic_launcher_round" android:label="Music X" android:roundIcon="@drawable/androicon_round" android:supportsRtl="true" android:theme="@style/CustomTheme">
 		<!--
     <meta-data

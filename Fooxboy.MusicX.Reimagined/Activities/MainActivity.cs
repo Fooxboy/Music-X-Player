@@ -9,6 +9,7 @@ using Android.Widget;
 using Fooxboy.MusicX.Reimagined.Services;
 using Fooxboy.MusicX.Core;
 using Android.Graphics.Drawables;
+using Android.Content;
 
 namespace Fooxboy.MusicX.Reimagined
 {
@@ -38,7 +39,7 @@ namespace Fooxboy.MusicX.Reimagined
             else
             {
 
-                AuthService.ShowLoginDialog(this);
+                AuthService.InitiateLogin();
             }
 
         }
@@ -68,6 +69,9 @@ namespace Fooxboy.MusicX.Reimagined
                     title.Text = "Поиск";
                     return true;
                 case Resource.Id.navigation_downloads:
+                    Intent intent = new Intent(Application.Context, typeof(Activities.ErrorActivity));
+                    intent.SetFlags(ActivityFlags.NewTask);
+                    Application.Context.StartActivity(intent);
                     title.Text = "Загрузки";
                     return true;
             }
