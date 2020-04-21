@@ -360,7 +360,7 @@
                             BorderThickness="0"
                             Command="{x:Bind PlayerMenuViewModel.NavigateToPopular}"
                             FontSize="16"
-                            Visibility="Collapsed">
+                            Visibility="Visible">
                             <Button.Background>
                                 <SolidColorBrush Opacity="0" />
                             </Button.Background>
@@ -375,8 +375,8 @@
                                         Grid.Column="0"
                                         Width="5"
                                         Height="30"
-                                        Fill="#0078d7"
-                                        Visibility="{x:Bind PlayerMenuViewModel.PopularSelector, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" />
+                                        Fill="DarkOrange"
+                                        Visibility="Visible" />
                                     <TextBlock
                                         Grid.Column="1"
                                         Width="30"
@@ -384,11 +384,11 @@
                                         Padding="5"
                                         FontFamily="Segoe MDL2 Assets"
                                         FontSize="20"
-                                        Text="&#xE208;" />
+                                        Text="&#xE19F;" />
                                     <TextBlock
                                         Grid.Column="2"
                                         Padding="5"
-                                        Text="Популярное" />
+                                        Text="Попробуйте Music X 2.0" />
                                 </Grid>
                             </Button.Content>
                         </Button>
@@ -415,8 +415,8 @@
                                         Grid.Column="0"
                                         Width="5"
                                         Height="30"
-                                        Visibility="{x:Bind PlayerMenuViewModel.LikedArtistsSelector, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
-                                        Fill="#0078d7"/>
+                                        Fill="#0078d7"
+                                        Visibility="{x:Bind PlayerMenuViewModel.LikedArtistsSelector, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" />
                                     <TextBlock
                                         Grid.Column="1"
                                         Width="30"

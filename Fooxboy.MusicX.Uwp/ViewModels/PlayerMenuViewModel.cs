@@ -7,6 +7,7 @@ using Fooxboy.MusicX.Uwp.Services;
 using Fooxboy.MusicX.Uwp.Services.VKontakte;
 using Fooxboy.MusicX.Uwp.Views;
 using Windows.UI.Xaml;
+using Fooxboy.MusicX.Uwp.Resources.ContentDialogs;
 
 namespace Fooxboy.MusicX.Uwp.ViewModels
 {
@@ -262,35 +263,7 @@ namespace Fooxboy.MusicX.Uwp.ViewModels
                 
             });
 
-            NavigateToPopular = new RelayCommand(() =>
-            {
-                SettingsSelector = Visibility.Collapsed;
-                MainSelector = Visibility.Collapsed;
-                SearchSelector = Visibility.Collapsed;
-                AccountSelector = Visibility.Collapsed;
-                ProSelector = Visibility.Collapsed;
-                HomeVkontakteSelector = Visibility.Collapsed;
-                RecommendationsSelector = Visibility.Collapsed;
-                PopularSelector = Visibility.Visible;
-                LikedArtistsSelector = Visibility.Collapsed;
-
-                DownloadsSelector = Visibility.Collapsed;
-
-                Changed("LikedArtistsSelector");
-
-                Changed("SettingsSelector");
-                Changed("MainSelector");
-                Changed("SearchSelector");
-                Changed("AccountSelector");
-                Changed("ProSelector");
-                Changed("HomeVkontakteSelector");
-                Changed("RecommendationsSelector");
-                Changed("PopularSelector");
-                Changed("DownloadsSelector");
-
-
-                StaticContent.NavigationContentService.Go(typeof(Views.VKontakte.PopularView));
-            });
+            NavigateToPopular = new RelayCommand(async () => { await ContentDialogService.Show(new BetaContentDialog()); });
 
             NavigateToHomeVkontakte = new RelayCommand(() =>
             {
