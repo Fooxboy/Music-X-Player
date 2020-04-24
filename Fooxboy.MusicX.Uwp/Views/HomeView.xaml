@@ -96,6 +96,7 @@
 
                     <controls:AdaptiveGridView
                         Grid.Row="1"
+                        CanBeScrollAnchor="True"
                         ItemTemplate="{ThemeResource PlaylistDataTemplate}"
                         ItemsSource="{x:Bind ViewModel.Albums, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                         ScrollViewer.HorizontalScrollBarVisibility="Auto"

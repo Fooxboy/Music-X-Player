@@ -9,6 +9,7 @@ using System.Threading.Tasks;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Media.Animation;
+using Fooxboy.MusicX.Core;
 using Fooxboy.MusicX.Uwp.ContentDialogs;
 using Microsoft.Toolkit.Uwp.Helpers;
 
@@ -76,7 +77,7 @@ namespace Fooxboy.MusicX.Uwp.ViewModels
             });
         }
 
-        public void Changed()
+        public void ChangedSelector()
         {
             if (VisibilitySelectorHome == true)
             {
@@ -110,7 +111,7 @@ namespace Fooxboy.MusicX.Uwp.ViewModels
         {
             //if (VisibilitySelectorHome == true) return;
             VisibilitySelectorHome = true;
-            Changed();
+            ChangedSelector();
             _navigationService.Go(typeof(HomeView), null, 1);
         }
 
@@ -118,8 +119,11 @@ namespace Fooxboy.MusicX.Uwp.ViewModels
         {
             if (VisibilitySelectorRecommendations == true) return;
             VisibilitySelectorRecommendations = true;
-            Changed();
-            _navigationService.Go(typeof(RecommendationsView), null, 1);
+            VisibilitySelectorHome = false;
+            this.ChangedSelector();
+            var api = _container.Resolve<Api>();
+            var player = _container.Resolve<PlayerService>();
+            _navigationService.Go(typeof(RecommendationsView), new  object[]{api, player}, 1);
 
         }
 
@@ -127,7 +131,7 @@ namespace Fooxboy.MusicX.Uwp.ViewModels
         {
             if (VisibilitySelectorFavoriteArtists == true) return;
             VisibilitySelectorFavoriteArtists = true;
-            Changed();
+            ChangedSelector();
             _navigationService.Go(typeof(FavoriteArtistsView), null, 1);
 
         }
@@ -136,7 +140,7 @@ namespace Fooxboy.MusicX.Uwp.ViewModels
         {
             if (VisibilitySelectorDownloads == true) return;
             VisibilitySelectorDownloads = true;
-            Changed();
+            ChangedSelector();
             _navigationService.Go(typeof(DownloadsView), null, 1);
 
         }

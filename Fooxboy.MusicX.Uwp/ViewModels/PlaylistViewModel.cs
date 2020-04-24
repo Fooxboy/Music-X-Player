@@ -38,20 +38,31 @@ namespace Fooxboy.MusicX.Uwp.ViewModels
 
         public async Task StartLoading(Album album)
         {
-            if(album.Id == this.Album?.Id) return;
-            
-            this.Album = album;
-            Changed("Album");
-            
-            var api = _container.Resolve<Api>();
-            var loadingService = _container.Resolve<LoadingService>();
-            loadingService.Change(true);
-            var tracks = (await api.VKontakte.Music.Tracks.GetAsync(200, 0, album.AccessKey, album.Id, album.OwnerId)).ToListTrack();
-            foreach (var track in tracks) Tracks.Add(track);
+            try
+            {
+                if (album.Id == this.Album?.Id) return;
 
-            Tracks.Add(new Track(){AccessKey = "space" });
-            Changed("Tracks");
-            loadingService.Change(false);
+                this.Album = album;
+                Changed("Album");
+
+                var api = _container.Resolve<Api>();
+                var loadingService = _container.Resolve<LoadingService>();
+                loadingService.Change(true);
+                var tracks =
+                    (await api.VKontakte.Music.Tracks.GetAsync(200, 0, album.AccessKey, album.Id, album.OwnerId))
+                    .ToListTrack();
+                foreach (var track in tracks) Tracks.Add(track);
+
+                Tracks.Add(new Track() {AccessKey = "space"});
+                Changed("Tracks");
+                loadingService.Change(false);
+            }
+            catch (Exception e)
+            {
+                var notificationService = _container.Resolve<NotificationService>();
+                notificationService.CreateNotification("Ошибка при загрузке плейлиста", e.Message);
+            }
+            
 
         }
 

@@ -41,5 +41,11 @@ namespace Fooxboy.MusicX.Uwp.Services
             var albums = await Get(userId, offset, count);
             return albums;
         }
+
+        public async Task<List<Album>> GetRecomsAlbums(string blockId)
+        {
+            var blockFull = await _api.VKontakte.Music.Blocks.GetAsync(blockId);
+            return blockFull.Albums.ToAlbumsList();
+        }
     }
 }

@@ -13,12 +13,12 @@ namespace Fooxboy.MusicX.Uwp.ViewModels
 {
     public class AllPlaylistsViewModel:BaseViewModel
     {
-
+        private NotificationService _notify;
         public AllPlaylistsViewModel(IContainer container)
         {
             _container = container;
             Albums = new ObservableCollection<Album>();
-            
+            _notify = _container.Resolve<NotificationService>();
         }
 
         public ObservableCollection<Album> Albums { get; set; }
@@ -55,34 +55,56 @@ namespace Fooxboy.MusicX.Uwp.ViewModels
 
         private async Task Load()
         {
-            _isLoading = true;
-            if (_model.TypeViewPlaylist == AllPlaylistsModel.TypeView.UserAlbum)
+            try
             {
-                
-                var albums = await loader.GetLibraryAlbums(_currentCountAlbums, 20);
-                if (albums.Count == 0)
+                _isLoading = true;
+                if (_model.TypeViewPlaylist == AllPlaylistsModel.TypeView.UserAlbum)
                 {
-                    _hasLoadMore = false;
-                    return;
-                }
-                foreach (var album in albums)
-                {
-                    Albums.Add(album);
-                }
-                _currentCountAlbums += Convert.ToUInt32(albums.Count);
 
-                loadingService.Change(false);
+                    var albums = await loader.GetLibraryAlbums(_currentCountAlbums, 20);
+                    if (albums.Count == 0)
+                    {
+                        _hasLoadMore = false;
+                        return;
+                    }
+
+                    foreach (var album in albums)
+                    {
+                        Albums.Add(album);
+                    }
+
+                    _currentCountAlbums += Convert.ToUInt32(albums.Count);
+
+                    loadingService.Change(false);
+                }
+                else if (_model.TypeViewPlaylist == AllPlaylistsModel.TypeView.ArtistAlbum)
+                {
+                    //todo: доделать.
+                }
+                else if (_model.TypeViewPlaylist == AllPlaylistsModel.TypeView.RecomsAlbums)
+                {
+                    var albums = await loader.GetRecomsAlbums(_model.BlockId);
+                    foreach (var album in albums)
+                    {
+                        Albums.Add(album);
+                    }
+
+                    loadingService.Change(false);
+                }
             }
-            else if (_model.TypeViewPlaylist == AllPlaylistsModel.TypeView.ArtistAlbum)
+            catch (Exception e)
             {
-                //todo: доделать.
+                _notify.CreateNotification("Ошибка при загрузке плейлистов", e.Message);
             }
+            
 
             _isLoading = false;
         }
 
         public async Task LoadMore()
         {
+            if(_model.TypeViewPlaylist == AllPlaylistsModel.TypeView.RecomsAlbums) return;
+            
             if (_hasLoadMore && !_isLoading) await Load();
         }
     }

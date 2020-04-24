@@ -15,7 +15,8 @@ namespace Fooxboy.MusicX.Uwp.Models
         public TypeView TypeViewPlaylist { get; set; }
         public AlbumLoaderService AlbumLoader { get; set; }
 
+        public string BlockId { get; set; }
         public IContainer Container { get; set; }
-        public enum TypeView { UserAlbum, ArtistAlbum }
+        public enum TypeView { UserAlbum, ArtistAlbum, RecomsAlbums }
     }
 }

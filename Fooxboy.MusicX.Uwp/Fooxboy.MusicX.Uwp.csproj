@@ -139,6 +139,9 @@
     <Compile Include="ContentDialogs\SettingsContentDialog.xaml.cs">
       <DependentUpon>SettingsContentDialog.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Controls\BlockControl.xaml.cs">
+      <DependentUpon>BlockControl.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Controls\NotificationControl.xaml.cs">
       <DependentUpon>NotificationControl.xaml</DependentUpon>
     </Compile>
@@ -204,9 +207,13 @@
     <Compile Include="ViewModels\NotificationViewModel.cs" />
     <Compile Include="ViewModels\PlayerViewModel.cs" />
     <Compile Include="ViewModels\PlaylistViewModel.cs" />
+    <Compile Include="ViewModels\RecommendationsViewModel.cs" />
     <Compile Include="ViewModels\UserInfoViewModel.cs" />
     <Compile Include="Views\AllPlaylistsView.xaml.cs">
       <DependentUpon>AllPlaylistsView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\AllTracksView.xaml.cs">
+      <DependentUpon>AllTracksView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\DeveloperView.xaml.cs">
       <DependentUpon>DeveloperView.xaml</DependentUpon>
@@ -336,6 +343,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Controls\BlockControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Controls\NotificationControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -393,6 +404,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\AllPlaylistsView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\AllTracksView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

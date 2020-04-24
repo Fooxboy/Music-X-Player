@@ -2,23 +2,120 @@
     x:Class="Fooxboy.MusicX.Uwp.Views.RecommendationsView"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:controls="using:Microsoft.Toolkit.Uwp.UI.Controls"
+    xmlns:controls1="using:Fooxboy.MusicX.Uwp.Controls"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:local="using:Fooxboy.MusicX.Uwp.Views"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:models="using:Fooxboy.MusicX.Core.Models"
     Background="{ThemeResource ApplicationPageBackgroundThemeBrush}"
+    Loaded="RecommendationsView_OnLoaded"
+    SizeChanged="RecommendationsView_OnSizeChanged"
     mc:Ignorable="d">
 
     <Grid>
-        <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center">
-            <FontIcon
-                FontFamily="Segoe MDL2 Assets"
-                FontSize="80"
-                Glyph="&#xE15E;" />
-            <TextBlock
-                Margin="0,20,0,0"
-                FontSize="32"
-                FontWeight="ExtraBlack"
-                Text="Рекомендации еще в разработке." />
-        </StackPanel>
+        <ScrollViewer>
+            <StackPanel HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
+
+                <Grid
+                    Height="350"
+                    HorizontalAlignment="Stretch"
+                    VerticalAlignment="Top">
+
+
+                    <controls:DropShadowPanel
+                        HorizontalAlignment="Center"
+                        VerticalAlignment="Center"
+                        BlurRadius="80"
+                        CornerRadius="10"
+                        IsMasked="True"
+                        OffsetX="0"
+                        OffsetY="10"
+                        ShadowOpacity="0.8"
+                        Color="Black">
+                        <Border
+                            x:Name="BorderShadow"
+                            Width="0"
+                            Height="350"
+                            Background="Transparent"
+                            CornerRadius="0" />
+
+                    </controls:DropShadowPanel>
+
+                    <controls:ImageEx
+                        Height="350"
+                        HorizontalAlignment="Stretch"
+                        VerticalAlignment="Stretch"
+                        PlaceholderSource="../Assets/Images/welcome-background1.jpg"
+                        Source="{x:Bind ViewModel.PatchImage, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                        Stretch="Fill" />
+                    <Rectangle Fill="{ThemeResource BottomAcrylicBrush}" />
+
+                    <TextBlock
+                        HorizontalAlignment="Center"
+                        VerticalAlignment="Center"
+                        FontFamily="Calibri"
+                        FontSize="50"
+                        FontWeight="ExtraBlack"
+                        Text="Специально для Вас" />
+                    <TextBlock
+                        Margin="0,80,0,0"
+                        HorizontalAlignment="Center"
+                        VerticalAlignment="Center"
+                        Foreground="{ThemeResource SubText}"
+                        Text="{x:Bind ViewModel.ForYouString, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+
+                    <StackPanel
+                        Margin="0,170,0,0"
+                        HorizontalAlignment="Center"
+                        VerticalAlignment="Center"
+                        Orientation="Horizontal">
+                        <Button
+                            Width="152"
+                            Height="35"
+                            Command="{x:Bind ViewModel.PlayAllCommand}"
+                            Style="{ThemeResource StandardButtonStyle}">
+                            <Button.Content>
+                                <StackPanel Orientation="Horizontal">
+                                    <FontIcon FontFamily="Segoe MDL2 Assets" Glyph="&#xE102;" />
+                                    <TextBlock Margin="5,0,0,0" Text="Слушать все" />
+
+                                </StackPanel>
+                            </Button.Content>
+                        </Button>
+                        <Button
+                            Width="152"
+                            Height="35"
+                            Margin="10,0,0,0"
+                            Command="{x:Bind ViewModel.PlayShuffleCommand}"
+                            Style="{ThemeResource StandardButtonStyle}">
+                            <Button.Content>
+                                <StackPanel Orientation="Horizontal">
+                                    <FontIcon FontFamily="Segoe MDL2 Assets" Glyph="&#xE14B;" />
+                                    <TextBlock Margin="5,0,0,0" Text="Перемешать все" />
+                                </StackPanel>
+                            </Button.Content>
+                        </Button>
+                    </StackPanel>
+                </Grid>
+
+                <Grid Margin="10,50,10,0">
+                    <ListView
+                        Background="Transparent"
+                        ItemContainerStyle="{ThemeResource ListViewItemContainerStyle}"
+                        ItemsSource="{x:Bind ViewModel.Blocks, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                        SelectionMode="None">
+                        <ListView.ItemTemplate>
+                            <DataTemplate>
+                                <Grid>
+                                    <controls1:BlockControl Block="{Binding}" />
+                                </Grid>
+                            </DataTemplate>
+                        </ListView.ItemTemplate>
+                    </ListView>
+                </Grid>
+            </StackPanel>
+        </ScrollViewer>
+
     </Grid>
 </Page>

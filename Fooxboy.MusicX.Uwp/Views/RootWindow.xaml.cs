@@ -55,9 +55,11 @@ namespace Fooxboy.MusicX.Uwp.Views
         protected override void OnNavigatedTo(NavigationEventArgs e)
         {
             _container = (IContainer) e.Parameter;
+            Container.SetContainer(this._container);
 
-            var navigationService = new NavigationService();
-            _container.RegisterInstance<NavigationService>(navigationService);
+            _container.Register<NavigationService>(Reuse.Singleton);
+            var navigationService = _container.Resolve<NavigationService>();
+
 
             PlayerViewModel = new PlayerViewModel(_container);
             PlayerViewModel.CloseBigPlayer = new Action(CloseBigPlayer);

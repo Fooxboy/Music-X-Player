@@ -35,5 +35,16 @@ namespace Fooxboy.MusicX.Uwp.Converters
             return a;
         }
 
+        public static List<Album> ToAlbumsList(this List<IAlbum> albums)
+        {
+            var l = new List<Album>();
+            foreach (var album in albums)
+            {
+                l.Add(album.ToAlbum());
+            }
+
+            return l;
+        }
+
     }
 }
