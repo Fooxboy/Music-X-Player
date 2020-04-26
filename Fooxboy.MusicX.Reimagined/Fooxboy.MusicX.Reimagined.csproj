@@ -68,9 +68,12 @@
     <Compile Include="Activities\ErrorActivity.cs" />
     <Compile Include="Activities\MainActivity.cs" />
     <Compile Include="Activities\TFActivity.cs" />
+    <Compile Include="Converters\BlocksConverter.cs" />
+    <Compile Include="Fragments\RecommendationsFragment.cs" />
     <Compile Include="Resources\Resource.designer.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Services\AuthService.cs" />
+    <Compile Include="Services\RecommendationsService.cs" />
     <Compile Include="Services\StaticContentService.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -111,7 +114,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Adapters\" />
-    <Folder Include="Fragments\" />
     <Folder Include="ViewHolders\" />
   </ItemGroup>
   <ItemGroup>
@@ -227,6 +229,16 @@
   </ItemGroup>
   <ItemGroup>
     <AndroidResource Include="Resources\layout\activity_error.xml">
+      <SubType>Designer</SubType>
+    </AndroidResource>
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\layout\dialog_beta.xml">
+      <SubType>Designer</SubType>
+    </AndroidResource>
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\layout\frag_recommendations.xml">
       <SubType>Designer</SubType>
     </AndroidResource>
   </ItemGroup>

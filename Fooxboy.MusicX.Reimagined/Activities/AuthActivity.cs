@@ -35,6 +35,13 @@ namespace Fooxboy.MusicX.Reimagined.Activities
             var loginBtn = FindViewById<Button>(Resource.Id.loginButton);
             var emailField = FindViewById<EditText>(Resource.Id.loginEmailField);
             var passwordField = FindViewById<EditText>(Resource.Id.loginPasswordField);
+
+            var loginQ = FindViewById<TextView>(Resource.Id.loginNiceQuestion);
+
+            loginQ.Click += (sender, e) => {
+
+            };
+
             loginBtn.Click += async (sender, e) =>
             {
                 if (emailField.Text == "" || passwordField.Text == "")

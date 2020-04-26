@@ -9,6 +9,7 @@ using Android.OS;
 using Android.Runtime;
 using Android.Views;
 using Android.Widget;
+using Fooxboy.MusicX.Core.Models;
 
 namespace Fooxboy.MusicX.Reimagined.Services
 {
@@ -22,6 +23,7 @@ namespace Fooxboy.MusicX.Reimagined.Services
         public static bool RepeatTrack { get; set; }
         public static string ErrorCaption { get; set; }
         public static string ErrorDescription { get; set; }
+        public static List<Block> Recommendations { get; set; }
         //public static List<Track> NowPlay { get; set; }
         //public static NavigationService NavigationService { get; set; }
     }

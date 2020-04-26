@@ -35,6 +35,9 @@ namespace Fooxboy.MusicX.Reimagined
                 var user = Api.GetApi().VKontakte.Users.Info.CurrentUser();
                 StaticContentService.UserId = user.Id;
                 StaticContentService.UserName = user.FirstName;
+
+                
+
             }
             else
             {
@@ -69,9 +72,6 @@ namespace Fooxboy.MusicX.Reimagined
                     title.Text = "Поиск";
                     return true;
                 case Resource.Id.navigation_downloads:
-                    Intent intent = new Intent(Application.Context, typeof(Activities.ErrorActivity));
-                    intent.SetFlags(ActivityFlags.NewTask);
-                    Application.Context.StartActivity(intent);
                     title.Text = "Загрузки";
                     return true;
             }
