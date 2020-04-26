@@ -123,7 +123,7 @@
                                 Grid.Row="1"
                                 FontWeight="Bold"
                                 Foreground="{ThemeResource ColorArtistText}"
-                                Text="{x:Bind ViewModel.Album.Artists[0].Name, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                                Text="{x:Bind ViewModel.ArtistText, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
                             <TextBlock
                                 x:Name="Dot1"
                                 Margin="3,0,0,0"
@@ -131,7 +131,7 @@
                             <TextBlock
                                 x:Name="Genres"
                                 Margin="3,0,0,0"
-                                Text="{x:Bind ViewModel.Album.Genres[0], Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                                Text="{x:Bind ViewModel.Genres, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
                             <TextBlock
                                 x:Name="Dot2"
                                 Margin="3,0,0,0"

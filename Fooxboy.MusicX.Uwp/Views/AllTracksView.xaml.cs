@@ -12,6 +12,10 @@ using Windows.UI.Xaml.Data;
 using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Navigation;
+using Fooxboy.MusicX.Core;
+using Fooxboy.MusicX.Uwp.Models;
+using Fooxboy.MusicX.Uwp.Services;
+using Fooxboy.MusicX.Uwp.ViewModels;
 
 // Документацию по шаблону элемента "Пустая страница" см. по адресу https://go.microsoft.com/fwlink/?LinkId=234238
 
@@ -22,9 +26,37 @@ namespace Fooxboy.MusicX.Uwp.Views
     /// </summary>
     public sealed partial class AllTracksView : Page
     {
+        public AllTracksViewModel ViewModel { get; set; }
+
         public AllTracksView()
         {
             this.InitializeComponent();
+            
+        }
+
+        protected override async void OnNavigatedTo(NavigationEventArgs e)
+        {
+            var array = (object[]) e.Parameter;
+            var player = (PlayerService) array[0];
+            var api = (Api) array[1];
+            ViewModel = new AllTracksViewModel(player, api);
+
+
+            var type = (string) array[2];
+            if (type == "block")
+            {
+                var blockId = (string) array[3];
+                await ViewModel.StartLoading(new object[] { type, blockId });
+            }
+
+
+
+            base.OnNavigatedTo(e);
+        }
+
+        private void ListViewBase_OnItemClick(object sender, ItemClickEventArgs e)
+        {
+            ViewModel.PlayTrack((Track)e.ClickedItem);
         }
     }
 }

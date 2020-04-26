@@ -36,6 +36,8 @@
                     Height="300"
                     Margin="50,100,50,20"
                     VerticalAlignment="Top">
+
+
                     <Grid.RowDefinitions>
                         <RowDefinition Height="auto" />
                         <RowDefinition />

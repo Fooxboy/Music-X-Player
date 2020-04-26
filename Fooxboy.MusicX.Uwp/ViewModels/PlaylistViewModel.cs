@@ -16,6 +16,8 @@ namespace Fooxboy.MusicX.Uwp.ViewModels
     {
 
         public Album Album { get; set; }
+        public string ArtistText { get; set; }
+        public string Genres { get; set; }
 
         public  ObservableCollection<Track> Tracks { get; set; }
 
@@ -29,7 +31,8 @@ namespace Fooxboy.MusicX.Uwp.ViewModels
         {
             _container = container;
             Tracks = new ObservableCollection<Track>();
-
+            ArtistText = "Нет музыканта";
+            Genres = "Без жанра";
             PlayCommmand = new RelayCommand(Play);
             ShuffleCommand = new RelayCommand(Shuffle);
             AddToLibraryCommand = new RelayCommand(AddToLibrary);
@@ -43,7 +46,10 @@ namespace Fooxboy.MusicX.Uwp.ViewModels
                 if (album.Id == this.Album?.Id) return;
 
                 this.Album = album;
+                if(album.Artists.Count > 0) this.ArtistText = album.Artists[0].Name;
+                if (album.Genres.Count > 0) this.Genres = album.Genres[0];
                 Changed("Album");
+                Changed("ArtistText");
 
                 var api = _container.Resolve<Api>();
                 var loadingService = _container.Resolve<LoadingService>();

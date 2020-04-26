@@ -112,7 +112,7 @@ namespace Fooxboy.MusicX.Uwp.ViewModels
             //if (VisibilitySelectorHome == true) return;
             VisibilitySelectorHome = true;
             ChangedSelector();
-            _navigationService.Go(typeof(HomeView), null, 1);
+            _navigationService.Go(typeof(HomeView), _container, 1);
         }
 
         public void ToRecommendations()

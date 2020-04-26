@@ -13,6 +13,7 @@
     SizeChanged="BlockControl_OnSizeChanged"
     mc:Ignorable="d">
 
+
     <Grid Margin="20">
         <controls:DropShadowPanel
             HorizontalAlignment="Center"

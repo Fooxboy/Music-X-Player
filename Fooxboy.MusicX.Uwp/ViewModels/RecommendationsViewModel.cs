@@ -24,12 +24,17 @@ namespace Fooxboy.MusicX.Uwp.ViewModels
             this.Blocks = new ObservableCollection<IBlock>();
             PlayAllCommand = new RelayCommand(PlayAll);
             PlayShuffleCommand = new RelayCommand(PlayShuffle);
+            VisibileContent = false;
+            VisibleLoading = true;
         }
 
         public ObservableCollection<IBlock> Blocks { get; set; }
 
         public string ForYouString { get; set; }
         public string PatchImage { get; set; }
+
+        public bool VisibleLoading { get; set; }
+        public bool VisibileContent { get; set; }
 
         public RelayCommand PlayAllCommand { get; set; }
         public RelayCommand PlayShuffleCommand { get; set; }
@@ -58,6 +63,12 @@ namespace Fooxboy.MusicX.Uwp.ViewModels
             PatchImage = blockForYou.Tracks[new Random().Next(0, blockForYou.Tracks.Count)].Album?.Cover;
             Changed("ForYouString");
             Changed("PatchImage");
+
+            VisibileContent = true;
+            VisibleLoading = false;
+            Changed("VisibileContent");
+            Changed("VisibleLoading");
+
             blocks.Remove(blockForYou);
             foreach (var block in blocks)
             {

@@ -14,6 +14,7 @@ using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Navigation;
 using DryIoc;
+using Fooxboy.MusicX.Core;
 using Fooxboy.MusicX.Core.Models;
 using Fooxboy.MusicX.Core.VKontakte.Music;
 using Fooxboy.MusicX.Uwp.Converters;
@@ -92,16 +93,20 @@ namespace Fooxboy.MusicX.Uwp.Controls
 
         private void ButtonBase_OnClick(object sender, RoutedEventArgs e)
         {
+
+            var c = Container.Get;
+
             if (Block.Albums != null)
             {
                 _navigation.Go(typeof(AllPlaylistsView), new AllPlaylistsModel()
                 {
                     AlbumLoader = Container.Get.Resolve<AlbumLoaderService>(), Container = Container.Get, Id = 0, BlockId = Block.Id, TitlePage = Block.Title, TypeViewPlaylist = AllPlaylistsModel.TypeView.RecomsAlbums
-                });
+                }, 1);
             }
             else
             {
-                //TODO: открываем страницу со всеми треками.
+
+                _navigation.Go(typeof(AllTracksView), new object[] {_player, c.Resolve<Api>(), "block", Block.Id}, 1);
             }
         }
     }

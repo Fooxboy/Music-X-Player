@@ -4,8 +4,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Fooxboy.MusicX.Core.Interfaces;
+using Fooxboy.MusicX.Core.Models.Music;
 using Fooxboy.MusicX.Core.VKontakte.Music.Converters;
+using Newtonsoft.Json;
 using VkNet;
+using VkNet.Utils;
 
 namespace Fooxboy.MusicX.Core.VKontakte.Music
 {
@@ -49,6 +52,41 @@ namespace Fooxboy.MusicX.Core.VKontakte.Music
                 Sort = VkNet.Enums.AudioSort.Popularity
             });
             return music.Select(track => track.ToITrack()).ToList();
+        }
+
+
+        public async Task<List<IBlock>> GetResultsAsync(string text)
+        {
+            var parameters = new VkParameters
+            {
+                {"v", "5.103"},
+                {"lang", "ru"},
+                {"extended", "1"},
+                {"access_token", _api.Token},
+                {"query", text}
+            };
+
+            var json = await _api.InvokeAsync("audio.getCatalog", parameters);
+            var model = JsonConvert.DeserializeObject<Response<ResponseItem>>(json);
+            return model.response.Items.Select(block => block.ConvertToIBlock()).ToList();
+
+        }
+
+        public List<IBlock> GetResults(string text)
+        {
+            var parameters = new VkParameters
+            {
+                {"v", "5.103"},
+                {"lang", "ru"},
+                {"extended", "1"},
+                {"access_token", _api.Token},
+                {"query", text}
+            };
+
+            var json = _api.Invoke("audio.getCatalog", parameters);
+            var model = JsonConvert.DeserializeObject<Response<ResponseItem>>(json);
+            return model.response.Items.Select(block => block.ConvertToIBlock()).ToList();
+
         }
     }
 }

@@ -54,6 +54,8 @@ namespace Fooxboy.MusicX.Uwp.Views
 
         protected override void OnNavigatedTo(NavigationEventArgs e)
         {
+
+            if (ViewModel != null) return;
             _container = (IContainer) e.Parameter;
             ViewModel = new HomeViewModel(_container);
 

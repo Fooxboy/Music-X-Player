@@ -4,6 +4,7 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:controls="using:Microsoft.Toolkit.Uwp.UI.Controls"
     xmlns:controls1="using:Fooxboy.MusicX.Uwp.Controls"
+    xmlns:converters="using:Fooxboy.MusicX.Uwp.Converters"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:local="using:Fooxboy.MusicX.Uwp.Views"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
@@ -13,8 +14,26 @@
     SizeChanged="RecommendationsView_OnSizeChanged"
     mc:Ignorable="d">
 
+    <Page.Resources>
+        <converters:BoolToVisibilityConverter x:Key="ToVisibility" />
+    </Page.Resources>
     <Grid>
-        <ScrollViewer>
+
+        <Grid Visibility="{x:Bind ViewModel.VisibleLoading, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, Converter={StaticResource ToVisibility}}">
+            <ProgressRing
+                Width="50"
+                Height="50"
+                HorizontalAlignment="Center"
+                VerticalAlignment="Center"
+                IsActive="True" />
+            <TextBlock
+                Margin="0,80,0,0"
+                HorizontalAlignment="Center"
+                VerticalAlignment="Center"
+                Text="Ваши рекомендации загружаются..." />
+        </Grid>
+
+        <ScrollViewer Visibility="{x:Bind ViewModel.VisibileContent, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, Converter={StaticResource ToVisibility}}">
             <StackPanel HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
 
                 <Grid
@@ -105,6 +124,13 @@
                         ItemContainerStyle="{ThemeResource ListViewItemContainerStyle}"
                         ItemsSource="{x:Bind ViewModel.Blocks, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                         SelectionMode="None">
+
+                        <ListView.ItemContainerTransitions>
+                            <TransitionCollection>
+                                <EntranceThemeTransition IsStaggeringEnabled="False" />
+                            </TransitionCollection>
+                        </ListView.ItemContainerTransitions>
+
                         <ListView.ItemTemplate>
                             <DataTemplate>
                                 <Grid>

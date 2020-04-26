@@ -35,6 +35,13 @@
                     OneRowModeEnabled="False"
                     SelectionMode="None">
 
+                    <GridView.ItemContainerTransitions>
+                        <TransitionCollection>
+                            <EntranceThemeTransition />
+                            <RepositionThemeTransition />
+                        </TransitionCollection>
+                    </GridView.ItemContainerTransitions>
+
                     <GridView.ItemTemplate>
                         <DataTemplate x:Name="PlaylistDataTemplate" x:DataType="models:Album">
                             <controls:PlaylistControl
