@@ -24,6 +24,7 @@ using Windows.UI.Xaml.Media.Animation;
 using Microsoft.Toolkit.Uwp.Helpers;
 using Windows.ApplicationModel.Core;
 using Windows.System;
+using Fooxboy.MusicX.Core;
 
 
 // Документацию по шаблону элемента "Пустая страница" см. по адресу https://go.microsoft.com/fwlink/?LinkId=234238
@@ -47,10 +48,10 @@ namespace Fooxboy.MusicX.Uwp.Views
         private IContainer _container;
         public RootWindow()
         {
-            _hasOpenPlayer = false;
-            
+
             this.InitializeComponent();
         }
+
 
         protected override void OnNavigatedTo(NavigationEventArgs e)
         {
@@ -159,6 +160,9 @@ namespace Fooxboy.MusicX.Uwp.Views
         {
             if (e.OriginalKey == VirtualKey.Enter)
             {
+                var n = _container.Resolve<NavigationService>();
+                var api = _container.Resolve<Api>();
+                n.Go(typeof(SearchView), new object[]{SearchBox.Text, api}, 1);
                 //Search
             }
         }
@@ -173,5 +177,7 @@ namespace Fooxboy.MusicX.Uwp.Views
             this.SearchBox.PlaceholderText = "Найдите что нибудь...";
 
         }
+
+       
     }
 }

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 using Fooxboy.MusicX.Core.Interfaces;
+using Fooxboy.MusicX.Core.Models.Music.BlockInfo;
 
 namespace Fooxboy.MusicX.Core.Models
 {
@@ -15,5 +16,6 @@ namespace Fooxboy.MusicX.Core.Models
         public string Id { get; set; }
         public List<ITrack> Tracks { get; set; }
         public List<IAlbum> Albums { get; set; }
+        public List<SearchArtistBlockInfo> Artists { get; set; }
     }
 }

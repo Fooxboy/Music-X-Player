@@ -65,19 +65,42 @@ namespace Fooxboy.MusicX.Uwp.Controls
 
         private void BlockControl_OnLoaded(object sender, RoutedEventArgs e)
         {
-            if (Block.Albums != null)
+
+            if (Block.Type == "playlists")
             {
                 this.ListAlbums.ItemsSource = Block.Albums.ToAlbumsList();
                 this.TracksGrid.Visibility = Visibility.Collapsed;
                 this.PlaylistsGrid.Visibility = Visibility.Visible;
+                this.ArtistsGrid.Visibility = Visibility.Collapsed;
             }
 
-            if (Block.Tracks != null)
+            if (Block.Type == "audios_list" || Block.Type == "audios" || Block.Type == "top_audios")
             {
                 this.ListTracks.ItemsSource = Block.Tracks.ToListTrack();
                 this.TracksGrid.Visibility = Visibility.Visible;
                 this.PlaylistsGrid.Visibility = Visibility.Collapsed;
-            } 
+                this.ArtistsGrid.Visibility = Visibility.Collapsed;
+
+            }
+
+            if (Block.Type == "custom_image_small")
+            {
+                this.ArtistsList.ItemsSource = Block.Artists.ToList();
+                ArtistsGrid.Visibility = Visibility.Visible;
+                this.TracksGrid.Visibility = Visibility.Collapsed;
+                this.PlaylistsGrid.Visibility = Visibility.Collapsed;
+                ShowAllButton.Visibility = Visibility.Collapsed;
+            }
+
+            if (Block.Type == "videos")
+            {
+                ArtistsGrid.Visibility = Visibility.Collapsed;
+                this.TracksGrid.Visibility = Visibility.Collapsed;
+                this.PlaylistsGrid.Visibility = Visibility.Collapsed;
+                VideosGrid.Visibility = Visibility.Visible;
+                ShowAllButton.Visibility = Visibility.Collapsed;
+            }
+
         }
 
         private void ListTracks_OnItemClick(object sender, ItemClickEventArgs e)
@@ -96,17 +119,22 @@ namespace Fooxboy.MusicX.Uwp.Controls
 
             var c = Container.Get;
 
-            if (Block.Albums != null)
+
+            if (Block.Type == "audios_list" || Block.Type == "audios" || Block.Type == "top_audios")
+            {
+                _navigation.Go(typeof(AllTracksView), new object[] { _player, c.Resolve<Api>(), "block", Block.Id }, 1);
+            }
+            if (Block.Type == "playlists")
             {
                 _navigation.Go(typeof(AllPlaylistsView), new AllPlaylistsModel()
                 {
-                    AlbumLoader = Container.Get.Resolve<AlbumLoaderService>(), Container = Container.Get, Id = 0, BlockId = Block.Id, TitlePage = Block.Title, TypeViewPlaylist = AllPlaylistsModel.TypeView.RecomsAlbums
+                    AlbumLoader = Container.Get.Resolve<AlbumLoaderService>(),
+                    Container = Container.Get,
+                    Id = 0,
+                    BlockId = Block.Id,
+                    TitlePage = Block.Title,
+                    TypeViewPlaylist = AllPlaylistsModel.TypeView.RecomsAlbums
                 }, 1);
-            }
-            else
-            {
-
-                _navigation.Go(typeof(AllTracksView), new object[] {_player, c.Resolve<Api>(), "block", Block.Id}, 1);
             }
         }
     }

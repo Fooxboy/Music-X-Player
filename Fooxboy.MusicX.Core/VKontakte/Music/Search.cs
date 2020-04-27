@@ -80,6 +80,7 @@ namespace Fooxboy.MusicX.Core.VKontakte.Music
                 {"lang", "ru"},
                 {"extended", "1"},
                 {"access_token", _api.Token},
+                {"count", "10" },
                 {"query", text}
             };
 

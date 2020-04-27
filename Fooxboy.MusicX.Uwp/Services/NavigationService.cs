@@ -8,6 +8,7 @@ using Windows.UI.Core;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Media.Animation;
+using Fooxboy.MusicX.Uwp.Views;
 
 namespace Fooxboy.MusicX.Uwp.Services
 {
@@ -36,7 +37,7 @@ namespace Fooxboy.MusicX.Uwp.Services
             {
                 if (this.Pages.Count > 0)
                 {
-                    if (this.Pages.Peek() == page) return;
+                    if (this.Pages.Peek() == page && page != typeof(SearchView) ) return;
                 }
                 this.Pages.Push(page);
                 this.UpdateButtonBack();

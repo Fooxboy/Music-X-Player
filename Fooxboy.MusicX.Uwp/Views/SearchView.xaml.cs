@@ -12,6 +12,8 @@ using Windows.UI.Xaml.Data;
 using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Navigation;
+using Fooxboy.MusicX.Core;
+using Fooxboy.MusicX.Uwp.ViewModels;
 
 // Документацию по шаблону элемента "Пустая страница" см. по адресу https://go.microsoft.com/fwlink/?LinkId=234238
 
@@ -22,9 +24,22 @@ namespace Fooxboy.MusicX.Uwp.Views
     /// </summary>
     public sealed partial class SearchView : Page
     {
+        public SearchViewModel ViewModel { get; set; }
+
         public SearchView()
         {
             this.InitializeComponent();
+        }
+
+        protected override async void OnNavigatedTo(NavigationEventArgs e)
+        {
+            var data = (object[])e.Parameter;
+            var query = (string) data[0];
+            var api = (Api) data[1];
+            ViewModel = new SearchViewModel(api);
+
+            await ViewModel.StartLoading(query);
+            base.OnNavigatedTo(e);
         }
     }
 }

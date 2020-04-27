@@ -1,8 +1,11 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using Fooxboy.MusicX.Core.Interfaces;
-using Fooxboy.MusicX.Core.Models;
 using Fooxboy.MusicX.Core.Models.Music;
+using Fooxboy.MusicX.Core.Models.Music.ArtistInfo;
+using Fooxboy.MusicX.Core.Models.Music.BlockInfo;
+using Block = Fooxboy.MusicX.Core.Models.Block;
 
 namespace Fooxboy.MusicX.Core.VKontakte.Music.Converters
 {
@@ -22,6 +25,30 @@ namespace Fooxboy.MusicX.Core.VKontakte.Music.Converters
                 block.Type = bl.Type;
                 block.Tracks = bl.Audios?.Select(track => track.ToITrack()).ToList();
                 block.Albums = bl.Playlists?.Select(playlist => playlist.ToIAlbum()).ToList();
+
+                if (bl.Items != null)
+                {
+                    block.Artists = new List<SearchArtistBlockInfo>();
+                    foreach (var item in bl.Items)
+                    {
+                        if (item.Images != null)
+                        {
+                            if (item.Images.Count > 0)
+                            {
+                                PhotoArtistModel bigImage = new PhotoArtistModel() {Height = 0};
+                                foreach (var image in item.Images)
+                                {
+                                    if (image.Height > bigImage.Height) bigImage = image;
+                                }
+
+                                item.Image = bigImage.Url;
+                            }
+                        }
+
+                        block.Artists.Add(item);
+                    }
+                }
+               
             }
             catch
             {
@@ -46,6 +73,30 @@ namespace Fooxboy.MusicX.Core.VKontakte.Music.Converters
                 block.Type = bl.Type;
                 block.Tracks = bl.Audios?.Select(track => track.ToITrack()).ToList();
                 block.Albums = bl.Playlists?.Select(playlist => playlist.ToIAlbum()).ToList();
+
+                if (bl.Items != null)
+                {
+                    block.Artists = new List<SearchArtistBlockInfo>();
+                    foreach (var item in bl.Items)
+                    {
+                        if (item.Images != null)
+                        {
+                            if (item.Images.Count > 0)
+                            {
+                                PhotoArtistModel bigImage = new PhotoArtistModel() { Height = 0 };
+                                foreach (var image in item.Images)
+                                {
+                                    if (image.Height > bigImage.Height) bigImage = image;
+                                }
+
+                                item.Image = bigImage.Url;
+                            }
+                        }
+
+                        block.Artists.Add(item);
+                    }
+                }
+
             }
             catch
             {
