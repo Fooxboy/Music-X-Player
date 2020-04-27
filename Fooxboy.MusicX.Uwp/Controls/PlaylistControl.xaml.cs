@@ -61,22 +61,23 @@ namespace Fooxboy.MusicX.Uwp.Resources.Controls
         private Api _api;
         private PlayerService _player;
         private NotificationService _notification;
+        private CurrentUserService _currentUserService;
 
         public PlaylistControl()
         {
             _container = Container.Get;
+            IsDeleted = false;
 
             _api = _container.Resolve<Api>();
             _player = _container.Resolve<PlayerService>();
             _notification = _container.Resolve<NotificationService>();
+            _currentUserService = _container.Resolve<CurrentUserService>();
 
             this.InitializeComponent();
             PlayCommand = new RelayCommand( async () => { await PlayAlbum(); });
 
-            DeleteCommand = new RelayCommand(async () =>
-            {
-               
-            }); 
+            DeleteCommand = new RelayCommand(async () => { await DeleteAlbum(); });
+            AddToLibCommand = new RelayCommand(async () => { await AddToLibAlbum(); });
         }
 
 
@@ -93,7 +94,29 @@ namespace Fooxboy.MusicX.Uwp.Resources.Controls
 
         public RelayCommand PlayCommand { get; set; }
         public RelayCommand DeleteCommand { get; set; }
+        public RelayCommand AddToLibCommand { get; set; }
+        private bool IsDeleted;
 
+        public async Task AddToLibAlbum()
+        {
+            _notification.CreateNotification("Невозможно добавить альбом", $"Эта возможность пока что недоступна.");
+
+        }
+
+        public async Task DeleteAlbum()
+        {
+            try
+            {
+                await _api.VKontakte.Music.Albums.Delete(Album.Id, Album.OwnerId);
+                _notification.CreateNotification("Альбом удален", $"{Album.Title} был удален из Вашей библиотеки.");
+                DeletedAlbum.Visibility = Visibility.Visible;
+                IsDeleted = true;
+            }
+            catch (Exception e)
+            {
+                _notification.CreateNotification("Не удалось удалить альбом", $"Ошибка: {e.Message}");
+            }
+        }
         public async Task PlayAlbum()
         {
             try
@@ -141,6 +164,18 @@ namespace Fooxboy.MusicX.Uwp.Resources.Controls
 
         private async void UserControl_Loaded(object sender, RoutedEventArgs e)
         {
+
+            if (Album.OwnerId == _currentUserService.UserId)
+            {
+                AddToLib.IsEnabled = false;
+                Delete.IsEnabled = true;
+            }
+            else
+            {
+                AddToLib.IsEnabled = true;
+                Delete.IsEnabled = false;
+            }
+
             if (Album.Artists.Count > 0)
             {
                 string s = string.Empty;
@@ -170,6 +205,11 @@ namespace Fooxboy.MusicX.Uwp.Resources.Controls
 
         private void PlaylistControlGrid_OnTapped(object sender, TappedRoutedEventArgs e)
         {
+            if (IsDeleted)
+            {
+                _notification.CreateNotification("Невозможно открыть альбом", "Альбом был удален.");
+                return;
+            }
             var a = this;
 
             _container = Container.Get;

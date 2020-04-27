@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using Fooxboy.MusicX.Core.Interfaces;
 using Fooxboy.MusicX.Core.VKontakte.Music.Converters;
 using VkNet;
+using VkNet.Utils;
 
 namespace Fooxboy.MusicX.Core.VKontakte.Music
 {
@@ -25,6 +26,16 @@ namespace Fooxboy.MusicX.Core.VKontakte.Music
         {
             var playlistsVk = _api.Audio.GetPlaylists(id, count, offset);
             return playlistsVk.Select(playlist => playlist.ToIAlbum()).ToList();
+        }
+
+        public async Task Add()
+        {
+
+        }
+
+        public async Task Delete(long playlistId, long ownerId)
+        {
+            var result = await _api.Audio.DeletePlaylistAsync(ownerId, playlistId);
         }
     }
 }
