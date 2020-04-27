@@ -69,5 +69,11 @@ namespace Fooxboy.MusicX.Core.VKontakte.Music
             var result =await _api.Audio.AddAsync(id, ownerId, null, albumId);
         }
 
+        public async Task DeleteTrackAsync(long id, long ownerId)
+        {
+            var result = await _api.Audio.DeleteAsync(id, ownerId);
+            
+        }
+
     }
 }

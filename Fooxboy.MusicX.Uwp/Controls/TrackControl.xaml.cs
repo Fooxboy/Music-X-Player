@@ -58,10 +58,7 @@ namespace Fooxboy.MusicX.Uwp.Resources.Controls
 
             this.InitializeComponent();
 
-            DeleteCommand = new RelayCommand(async () =>
-            {
-                
-            });
+            DeleteCommand = new RelayCommand(async () => { await DeleteTrack(); });
 
             AddOnLibraryCommand = new RelayCommand(async () => { await AddToLibrary(); });
 
@@ -83,6 +80,27 @@ namespace Fooxboy.MusicX.Uwp.Resources.Controls
                 //foreach (var artist in value.Artists) Artists += artist.Name + ", ";
                 SetValue(TrackProperty, value);
             }
+        }
+
+        private async Task DeleteTrack()
+        {
+            try
+            {
+                await _api.VKontakte.Music.Tracks.DeleteTrackAsync(Track.Id, Track.OwnerId.Value);
+                _notificationService.CreateNotification("Аудиозапись удалена",
+                    $"{Track.Artist} - {Track.Title} удален из Вашей музыки.");
+
+                TitleText.Foreground = new SolidColorBrush(Colors.Gray);
+                ArtistText.Foreground = new SolidColorBrush(Colors.Gray);
+                Track.IsAvailable = false;
+            }
+            catch (Exception e)
+            {
+                _notificationService.CreateNotification("Невозможно удалить аудиозапись", $"Ошибка: {e.Message}");
+
+            }
+
+
         }
 
         private async Task AddToLibrary()

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices.WindowsRuntime;
+using System.Threading.Tasks;
 using Fooxboy.MusicX.Uwp.Models;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
@@ -21,6 +22,7 @@ using Fooxboy.MusicX.Uwp.Resources.ContentDialogs;
 using Windows.Storage;
 using DryIoc;
 using Fooxboy.MusicX.Core;
+using Fooxboy.MusicX.Uwp.Converters;
 using Fooxboy.MusicX.Uwp.Views;
 
 // Документацию по шаблону элемента "Пользовательский элемент управления" см. по адресу https://go.microsoft.com/fwlink/?LinkId=234236
@@ -56,15 +58,20 @@ namespace Fooxboy.MusicX.Uwp.Resources.Controls
 
         private IContainer _container;
 
+        private Api _api;
+        private PlayerService _player;
+        private NotificationService _notification;
+
         public PlaylistControl()
         {
             _container = Container.Get;
 
+            _api = _container.Resolve<Api>();
+            _player = _container.Resolve<PlayerService>();
+            _notification = _container.Resolve<NotificationService>();
+
             this.InitializeComponent();
-            PlayCommand = new RelayCommand( async () =>
-            {
-               
-            });
+            PlayCommand = new RelayCommand( async () => { await PlayAlbum(); });
 
             DeleteCommand = new RelayCommand(async () =>
             {
@@ -86,6 +93,24 @@ namespace Fooxboy.MusicX.Uwp.Resources.Controls
 
         public RelayCommand PlayCommand { get; set; }
         public RelayCommand DeleteCommand { get; set; }
+
+        public async Task PlayAlbum()
+        {
+            try
+            {
+                _notification.CreateNotification("Воспроизведение альбома",
+                    "Подождите, получаем информацию о списке треков.");
+                var tracks =
+                    await _api.VKontakte.Music.Tracks.GetAsync(100, 0, Album.AccessKey, Album.Id, Album.OwnerId);
+                var tracksNew = tracks.ToListTrack();
+                _player.Play(Album, 0, tracksNew);
+            }
+            catch (Exception e)
+            {
+                _notification.CreateNotification("Невозможно воспроизвести альбом", $"Ошибка: {e.Message}");
+            }
+            
+        }
 
         private async void Grid_PointerEntered(object sender, PointerRoutedEventArgs e)
         {
