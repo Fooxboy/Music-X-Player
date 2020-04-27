@@ -67,7 +67,7 @@
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="auto" />
                 <ColumnDefinition Width="*" />
-                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="Auto" />
             </Grid.ColumnDefinitions>
 
             <Grid.RowDefinitions>
@@ -145,7 +145,7 @@
                 Grid.Column="1"
                 Margin="10,0,0,0"
                 Foreground="{ThemeResource ColorArtistText}"
-                Text="{x:Bind Track.Artist, Mode=TwoWay}"
+                Text="{x:Bind Artists, Mode=TwoWay}"
                 TextTrimming="WordEllipsis" />
 
             <TextBlock

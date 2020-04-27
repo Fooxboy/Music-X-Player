@@ -18,7 +18,7 @@ namespace Fooxboy.MusicX.Uwp.ViewModels
         public Album Album { get; set; }
         public string ArtistText { get; set; }
         public string Genres { get; set; }
-
+        private  Api _api { get; set; }
         public  ObservableCollection<Track> Tracks { get; set; }
 
         public RelayCommand PlayCommmand { get; }
@@ -30,6 +30,7 @@ namespace Fooxboy.MusicX.Uwp.ViewModels
         public PlaylistViewModel(IContainer container)
         {
             _container = container;
+            _api = container.Resolve<Api>();
             Tracks = new ObservableCollection<Track>();
             ArtistText = "Нет музыканта";
             Genres = "Без жанра";
@@ -46,10 +47,29 @@ namespace Fooxboy.MusicX.Uwp.ViewModels
                 if (album.Id == this.Album?.Id) return;
 
                 this.Album = album;
-                if(album.Artists.Count > 0) this.ArtistText = album.Artists[0].Name;
+                if (album.Artists.Count > 0)
+                {
+
+                    string s = string.Empty;
+                    foreach (var trackArtist in album.Artists)
+                    {
+                        s += trackArtist.Name + ", ";
+                    }
+
+                    var artists = s.Remove(s.Length - 2);
+
+                    this.ArtistText = artists;
+                }
+                else
+                {
+                    var owner = await _api.VKontakte.Users.Info.OwnerAsync(album.OwnerId);
+                    this.ArtistText = owner.FirstName + " " + owner.LastName;
+                }
                 if (album.Genres.Count > 0) this.Genres = album.Genres[0];
                 Changed("Album");
                 Changed("ArtistText");
+
+
 
                 var api = _container.Resolve<Api>();
                 var loadingService = _container.Resolve<LoadingService>();

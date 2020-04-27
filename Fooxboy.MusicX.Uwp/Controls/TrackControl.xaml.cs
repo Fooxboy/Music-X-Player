@@ -130,7 +130,28 @@ namespace Fooxboy.MusicX.Uwp.Resources.Controls
 
         private void UserControl_Loaded(object sender, RoutedEventArgs e)
         {
-            if(Track.AccessKey == "loading")
+            if (Track.AccessKey != "space" && Track.AccessKey != "loading")
+            {
+                if (Track.Artists?.Count > 0)
+                {
+                    string s = string.Empty;
+                    foreach (var trackArtist in Track.Artists)
+                    {
+                        s += trackArtist.Name + ", ";
+                    }
+
+                    var artists = s.Remove(s.Length - 2);
+
+                    ArtistText.Text = artists;
+                }
+                else
+                {
+                    ArtistText.Text = Track.Artist;
+                }
+            }
+
+
+            if (Track.AccessKey == "loading")
             {
                 LoadingGrid.Visibility = Visibility.Visible;
                 TrackGrid.Visibility = Visibility.Collapsed;

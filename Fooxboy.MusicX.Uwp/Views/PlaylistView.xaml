@@ -122,6 +122,7 @@
                             <TextBlock
                                 Grid.Row="1"
                                 FontWeight="Bold"
+                                x:Name="ArtistInfoName"
                                 Foreground="{ThemeResource ColorArtistText}"
                                 Text="{x:Bind ViewModel.ArtistText, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
                             <TextBlock

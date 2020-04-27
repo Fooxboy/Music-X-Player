@@ -36,6 +36,20 @@ namespace Fooxboy.MusicX.Uwp.Views
             var data = (PlaylistViewNavigationData) e.Parameter;
             ViewModel = new PlaylistViewModel(data?.Container);
 
+
+            if (data?.Album.Genres.Count == 0)
+            {
+                Genres.Visibility = Visibility.Collapsed;
+                Dot2.Visibility = Visibility.Collapsed;
+                Dot1.Visibility = Visibility.Collapsed;
+            }
+
+            if (data?.Album.Year == 0)
+            {
+                Year.Visibility = Visibility.Collapsed;
+
+            }
+
             await ViewModel.StartLoading(data?.Album);
             base.OnNavigatedTo(e);
         }

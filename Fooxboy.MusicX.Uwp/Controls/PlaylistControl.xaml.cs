@@ -20,6 +20,7 @@ using Fooxboy.MusicX.Core.Interfaces;
 using Fooxboy.MusicX.Uwp.Resources.ContentDialogs;
 using Windows.Storage;
 using DryIoc;
+using Fooxboy.MusicX.Core;
 using Fooxboy.MusicX.Uwp.Views;
 
 // Документацию по шаблону элемента "Пользовательский элемент управления" см. по адресу https://go.microsoft.com/fwlink/?LinkId=234236
@@ -57,6 +58,8 @@ namespace Fooxboy.MusicX.Uwp.Resources.Controls
 
         public PlaylistControl()
         {
+            _container = Container.Get;
+
             this.InitializeComponent();
             PlayCommand = new RelayCommand( async () =>
             {
@@ -111,21 +114,33 @@ namespace Fooxboy.MusicX.Uwp.Resources.Controls
             BorderShadow.Width = e.NewSize.Width;
         }
 
-        private void UserControl_Loaded(object sender, RoutedEventArgs e)
+        private async void UserControl_Loaded(object sender, RoutedEventArgs e)
         {
+            if (Album.Artists.Count > 0)
+            {
+                string s = string.Empty;
+                foreach (var trackArtist in Album.Artists)
+                {
+                    s += trackArtist.Name + ", ";
+                }
+
+                var artists = s.Remove(s.Length - 2);
+
+                ArtistsText.Text = artists;
+            }
+            else
+            {
+                if (Album.OwnerId > 0)
+                {
+                    var owner = await _container.Resolve<Api>().VKontakte.Users.Info.OwnerAsync(Album.OwnerId);
+                    this.ArtistsText.Text = owner.FirstName + " " + owner.LastName;
+                }
+                
+            }
 
             this.coverPlaylist.Source = Album.Cover;
             this.TitilePlaylist.Text = Album.Title;
 
-            if (Album.Artists != null)
-            {
-                if(Album.Artists.Count > 0) ArtistsText.Text = Album.Artists[0].Name;
-
-            }
-            else
-            {
-                ArtistsText.Text = "Без исполнителя";
-            }
         }
 
         private void PlaylistControlGrid_OnTapped(object sender, TappedRoutedEventArgs e)
