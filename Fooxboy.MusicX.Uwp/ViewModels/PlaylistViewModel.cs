@@ -18,25 +18,36 @@ namespace Fooxboy.MusicX.Uwp.ViewModels
         public Album Album { get; set; }
         public string ArtistText { get; set; }
         public string Genres { get; set; }
+        public bool AddButtonIsActive { get; set; }
+        public bool DeleteButtonIsActive { get; set; }
         private  Api _api { get; set; }
-        public  ObservableCollection<Track> Tracks { get; set; }
+        private NotificationService _notificationService;
+        private CurrentUserService _currentUser;
+        
+
+        public ObservableCollection<Track> Tracks { get; set; }
 
         public RelayCommand PlayCommmand { get; }
         public RelayCommand ShuffleCommand { get; }
         public RelayCommand AddToLibraryCommand { get; }
+        public RelayCommand DeleteCommand { get; }
 
         private IContainer _container;
 
         public PlaylistViewModel(IContainer container)
         {
             _container = container;
+            _notificationService = _container.Resolve<NotificationService>();
+            
             _api = container.Resolve<Api>();
+            _currentUser = container.Resolve<CurrentUserService>();
             Tracks = new ObservableCollection<Track>();
             ArtistText = "Нет музыканта";
             Genres = "Без жанра";
             PlayCommmand = new RelayCommand(Play);
             ShuffleCommand = new RelayCommand(Shuffle);
             AddToLibraryCommand = new RelayCommand(AddToLibrary);
+            DeleteCommand = new RelayCommand(async () => { await Delete(); });
             
         }
 
@@ -44,6 +55,20 @@ namespace Fooxboy.MusicX.Uwp.ViewModels
         {
             try
             {
+                if (album.OwnerId == _currentUser.UserId)
+                {
+                    DeleteButtonIsActive = true;
+                    AddButtonIsActive = false;
+                }
+                else
+                {
+                    DeleteButtonIsActive = false;
+                    AddButtonIsActive = true;
+                }
+                Changed("DeleteButtonIsActive");
+                Changed("AddButtonIsActive");
+
+
                 if (album.Id == this.Album?.Id) return;
 
                 this.Album = album;
@@ -91,6 +116,21 @@ namespace Fooxboy.MusicX.Uwp.ViewModels
 
         }
 
+        public async Task Delete()
+        {
+            try
+            {
+                await _api.VKontakte.Music.Albums.Delete(Album.Id, Album.OwnerId);
+                _notificationService.CreateNotification("Альбом удален", $"{Album.Title} удален из Вашей библиотеки.");
+                DeleteButtonIsActive = false;
+                Changed("DeleteButtonIsActive");
+            }
+            catch (Exception e)
+            {
+                _notificationService.CreateNotification("Невозможно удалить альбом", $"Ошибка: {e.Message}");
+            }
+        }
+
         public void Play()
         {
             if (this.Tracks.Count > 0) this.PlayTrack(this.Tracks[0]);
@@ -106,8 +146,21 @@ namespace Fooxboy.MusicX.Uwp.ViewModels
 
         public async void AddToLibrary()
         {
-            var notificationService = _container.Resolve<NotificationService>();
-            notificationService.CreateNotification("Невозможно добавить плейлист", "Данная функция пока что недоступна.");
+            try
+            {
+                await _api.VKontakte.Music.Albums.AddAsync(Album.Id, Album.OwnerId, Album.AccessKey);
+                _notificationService.CreateNotification("Альбом добавлен",
+                    $"{Album.Title} был добавлен в Вашу библиотеку.");
+
+                AddButtonIsActive = false;
+                Changed("AddButtonIsActive");
+            }
+            catch (Exception e)
+            {
+                _notificationService.CreateNotification("Невозможно добавить альбом", $"Ошибка: {e.Message}");
+            }
+
+            
         }
 
         public void PlayTrack(Track track)

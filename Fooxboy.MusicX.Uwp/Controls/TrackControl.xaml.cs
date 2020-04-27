@@ -93,6 +93,8 @@ namespace Fooxboy.MusicX.Uwp.Resources.Controls
                 TitleText.Foreground = new SolidColorBrush(Colors.Gray);
                 ArtistText.Foreground = new SolidColorBrush(Colors.Gray);
                 Track.IsAvailable = false;
+
+                Delete.IsEnabled = false;
             }
             catch (Exception e)
             {
@@ -110,7 +112,7 @@ namespace Fooxboy.MusicX.Uwp.Resources.Controls
                 await _api.VKontakte.Music.Tracks.AddTrackAsync(Track.Id, Track.OwnerId.Value);
                 _notificationService.CreateNotification("Аудиозапись добавлена", $"{Track.Artist} - {Track.Title} добавлена к Вам в бибилотеку.");
 
-
+                AddOnLibrary.IsEnabled = false;
             }
             catch (Exception e)
             {

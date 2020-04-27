@@ -99,7 +99,17 @@ namespace Fooxboy.MusicX.Uwp.Resources.Controls
 
         public async Task AddToLibAlbum()
         {
-            _notification.CreateNotification("Невозможно добавить альбом", $"Эта возможность пока что недоступна.");
+            try
+            {
+                await _api.VKontakte.Music.Albums.AddAsync(Album.Id, Album.OwnerId, Album.AccessKey);
+                _notification.CreateNotification("Альбом добавлен", $"{Album.Title} был добавлен в Вашу библиотеку.");
+                AddToLib.IsEnabled = false;
+            }
+            catch (Exception e)
+            {
+                _notification.CreateNotification("Невозможно добавить альбом", $"Ошибка: {e.Message}");
+
+            }
 
         }
 
@@ -111,6 +121,7 @@ namespace Fooxboy.MusicX.Uwp.Resources.Controls
                 _notification.CreateNotification("Альбом удален", $"{Album.Title} был удален из Вашей библиотеки.");
                 DeletedAlbum.Visibility = Visibility.Visible;
                 IsDeleted = true;
+                Delete.IsEnabled = false;
             }
             catch (Exception e)
             {

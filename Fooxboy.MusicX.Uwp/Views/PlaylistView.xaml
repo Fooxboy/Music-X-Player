@@ -120,9 +120,9 @@
                             Text="{x:Bind ViewModel.Album.Title, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
                         <StackPanel Grid.Row="1" Orientation="Horizontal">
                             <TextBlock
+                                x:Name="ArtistInfoName"
                                 Grid.Row="1"
                                 FontWeight="Bold"
-                                x:Name="ArtistInfoName"
                                 Foreground="{ThemeResource ColorArtistText}"
                                 Text="{x:Bind ViewModel.ArtistText, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
                             <TextBlock
@@ -191,11 +191,27 @@
                                 Margin="10,0,0,0"
                                 BorderThickness="0"
                                 Command="{x:Bind ViewModel.AddToLibraryCommand}"
-                                CornerRadius="3">
+                                CornerRadius="3"
+                                IsEnabled="{x:Bind ViewModel.AddButtonIsActive, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
                                 <Button.Content>
                                     <StackPanel Orientation="Horizontal">
                                         <FontIcon FontFamily="Segoe MDL2 Assets" Glyph="&#xE109;" />
                                         <TextBlock Margin="5,0,0,0" Text="Добавить" />
+                                    </StackPanel>
+                                </Button.Content>
+                            </Button>
+
+                            <Button
+                                Height="35"
+                                Margin="10,0,0,0"
+                                BorderThickness="0"
+                                Command="{x:Bind ViewModel.DeleteCommand}"
+                                CornerRadius="3"
+                                IsEnabled="{x:Bind ViewModel.DeleteButtonIsActive, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
+                                <Button.Content>
+                                    <StackPanel Orientation="Horizontal">
+                                        <FontIcon FontFamily="Segoe MDL2 Assets" Glyph="&#xE107;" />
+                                        <TextBlock Margin="5,0,0,0" Text="Удалить" />
                                     </StackPanel>
                                 </Button.Content>
                             </Button>
