@@ -50,6 +50,7 @@
             RadiusY="10"
             SizeChanged="BackgroundNotification_SizeChanged" />
         <TextBlock
+            x:Name="TitleBlock"
             Grid.Row="0"
             Margin="10,5,0,0"
             FontSize="19"
@@ -57,9 +58,12 @@
             Text="{x:Bind Title, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
         <TextBlock
             Grid.Row="1"
+            x:Name="DesktBlock"
             Margin="11,5,0,0"
+            MaxWidth="320"
             Foreground="{ThemeResource SubText}"
-            Text="{x:Bind Description, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+            Text="{x:Bind Description, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+            TextWrapping="WrapWholeWords" />
         <Button
             Grid.Row="0"
             Width="26"

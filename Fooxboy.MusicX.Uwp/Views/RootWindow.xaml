@@ -311,7 +311,7 @@
                         x:DataType="models:Notification"
                         x:DefaultBindMode="TwoWay">
                         <my:NotificationControl
-                            Title="{Binding Title}"
+                            Title="{Binding Title, Mode=TwoWay}"
                             ButtonOneCommand="{Binding ButtonOneCommand, Mode=TwoWay}"
                             ButtonOneText="{Binding ButtonOneText, Mode=TwoWay}"
                             ButtonTwoCommand="{Binding ButtonTwoCommand, Mode=TwoWay}"

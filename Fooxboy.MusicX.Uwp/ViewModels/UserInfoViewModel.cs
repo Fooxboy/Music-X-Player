@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Fooxboy.MusicX.Uwp.Services;
 
 namespace Fooxboy.MusicX.Uwp.ViewModels
 {
@@ -23,6 +24,9 @@ namespace Fooxboy.MusicX.Uwp.ViewModels
         }
         public async Task StartLoadingUserInfo()
         {
+            var userInfo = _container.Resolve<CurrentUserService>();
+            await userInfo.Init();
+
             var api = _container.Resolve<Core.Api>();
             var usr = await api.VKontakte.Users.Info.CurrentUserAsync();
             UserPhotoUri = usr.PhotoUser;

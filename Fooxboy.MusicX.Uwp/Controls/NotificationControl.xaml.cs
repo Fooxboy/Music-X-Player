@@ -84,6 +84,8 @@ namespace Fooxboy.MusicX.Uwp.Controls
 
         private void UserControl_Loaded(object sender, RoutedEventArgs e)
         {
+            TitleBlock.Text = Title;
+            DesktBlock.Text = Description;
             if (!HasButtons)
             {
                 ButtonsPanel.Visibility = Visibility.Collapsed;

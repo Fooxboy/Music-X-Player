@@ -64,5 +64,10 @@ namespace Fooxboy.MusicX.Core.VKontakte.Music
             return  _api.Audio.GetCount(_api.UserId.Value);
         }
 
+        public async Task AddTrackAsync(long id, long ownerId, long? albumId = null)
+        {
+            var result =await _api.Audio.AddAsync(id, ownerId, null, albumId);
+        }
+
     }
 }

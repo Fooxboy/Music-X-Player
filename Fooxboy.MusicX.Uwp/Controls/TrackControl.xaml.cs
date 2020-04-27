@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices.WindowsRuntime;
+using System.Threading.Tasks;
 using Fooxboy.MusicX.Core;
 using Fooxboy.MusicX.Core.Interfaces;
 using Fooxboy.MusicX.Uwp.Models;
@@ -21,6 +22,7 @@ using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Navigation;
 using Windows.Networking.Sockets;
 using Windows.UI;
+using DryIoc;
 
 // Документацию по шаблону элемента "Пользовательский элемент управления" см. по адресу https://go.microsoft.com/fwlink/?LinkId=234236
 
@@ -44,30 +46,25 @@ namespace Fooxboy.MusicX.Uwp.Resources.Controls
                 Title = ""
             }));
 
+
+        private CurrentUserService currentUserService;
+        private Api _api;
+        private NotificationService _notificationService;
         public TrackControl()
         {
+            _api = Container.Get.Resolve<Api>();
+            _notificationService = Container.Get.Resolve<NotificationService>();
+            currentUserService = Container.Get.Resolve<CurrentUserService>();
+
             this.InitializeComponent();
-
-            PlayCommand = new RelayCommand( async () =>
-            {
-               
-            });
-
-            
 
             DeleteCommand = new RelayCommand(async () =>
             {
                 
             });
 
-           
-            
-            AddOnLibraryCommand = new RelayCommand(async () =>
-            {
-                
-            });
+            AddOnLibraryCommand = new RelayCommand(async () => { await AddToLibrary(); });
 
-            
             GoToArtistCommand = new RelayCommand(() =>
             {
                
@@ -88,8 +85,23 @@ namespace Fooxboy.MusicX.Uwp.Resources.Controls
             }
         }
 
-      
-        private RelayCommand PlayCommand { get; set; }
+        private async Task AddToLibrary()
+        {
+            try
+            {
+                await _api.VKontakte.Music.Tracks.AddTrackAsync(Track.Id, Track.OwnerId.Value);
+                _notificationService.CreateNotification("Аудиозапись добавлена", $"{Track.Artist} - {Track.Title} добавлена к Вам в бибилотеку.");
+
+
+            }
+            catch (Exception e)
+            {
+                _notificationService.CreateNotification("Невозможно добавить аудиозапись", $"Ошибка: {e.Message}");
+            }
+
+        }
+
+        
         private RelayCommand DeleteCommand { get; set; }
         public RelayCommand AddOnLibraryCommand { get; set; }
         public RelayCommand GoToArtistCommand { get; set; }
@@ -130,6 +142,13 @@ namespace Fooxboy.MusicX.Uwp.Resources.Controls
 
         private void UserControl_Loaded(object sender, RoutedEventArgs e)
         {
+
+            if (Track.OwnerId == currentUserService.UserId) AddOnLibrary.IsEnabled = false;
+            else
+            {
+                Delete.IsEnabled = false;
+            }
+
             if (Track.AccessKey != "space" && Track.AccessKey != "loading")
             {
                 if (Track.Artists?.Count > 0)

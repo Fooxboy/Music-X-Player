@@ -61,7 +61,6 @@ namespace Fooxboy.MusicX.Uwp.Views
             _container.Register<NavigationService>(Reuse.Singleton);
             var navigationService = _container.Resolve<NavigationService>();
 
-
             PlayerViewModel = new PlayerViewModel(_container);
             PlayerViewModel.CloseBigPlayer = new Action(CloseBigPlayer);
             NavigationViewModel = new NavigationRootViewModel(_container);

@@ -55,6 +55,7 @@ namespace Fooxboy.MusicX.Uwp
             c.Register<DiscordService>(Reuse.Singleton);
             c.Register<LoadingService>(Reuse.Singleton);
             c.Register<PlayerService>(Reuse.Singleton);
+            c.Register<CurrentUserService>(Reuse.Singleton);
 
             this._container = c;
 

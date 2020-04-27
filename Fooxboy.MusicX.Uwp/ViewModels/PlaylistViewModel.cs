@@ -57,7 +57,6 @@ namespace Fooxboy.MusicX.Uwp.ViewModels
                     }
 
                     var artists = s.Remove(s.Length - 2);
-
                     this.ArtistText = artists;
                 }
                 else
