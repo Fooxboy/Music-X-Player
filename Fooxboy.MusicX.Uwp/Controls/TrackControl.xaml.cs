@@ -23,6 +23,7 @@ using Windows.UI.Xaml.Navigation;
 using Windows.Networking.Sockets;
 using Windows.UI;
 using DryIoc;
+using Fooxboy.MusicX.Uwp.Views;
 
 // Документацию по шаблону элемента "Пользовательский элемент управления" см. по адресу https://go.microsoft.com/fwlink/?LinkId=234236
 
@@ -55,6 +56,7 @@ namespace Fooxboy.MusicX.Uwp.Resources.Controls
             _api = Container.Get.Resolve<Api>();
             _notificationService = Container.Get.Resolve<NotificationService>();
             currentUserService = Container.Get.Resolve<CurrentUserService>();
+            var navigation = Container.Get.Resolve<NavigationService>();
 
             this.InitializeComponent();
 
@@ -64,7 +66,7 @@ namespace Fooxboy.MusicX.Uwp.Resources.Controls
 
             GoToArtistCommand = new RelayCommand(() =>
             {
-               
+                navigation.Go(typeof(ArtistView), new object[] {_api, _notificationService, Track.Artists[0].Id});
             });
 
         }
@@ -162,6 +164,15 @@ namespace Fooxboy.MusicX.Uwp.Resources.Controls
 
         private void UserControl_Loaded(object sender, RoutedEventArgs e)
         {
+
+            if (Track.Artists?.Count > 0)
+            {
+                GoToArtist.IsEnabled = true;
+            }
+            else
+            {
+                GoToArtist.IsEnabled = false;
+            }
 
             if (Track.OwnerId == currentUserService.UserId) AddOnLibrary.IsEnabled = false;
             else

@@ -201,6 +201,7 @@
     <Compile Include="Services\TokenService.cs" />
     <Compile Include="ViewModels\AllPlaylistsViewModel.cs" />
     <Compile Include="ViewModels\AllTracksViewModel.cs" />
+    <Compile Include="ViewModels\ArtistViewModel.cs" />
     <Compile Include="ViewModels\BaseViewModel.cs" />
     <Compile Include="ViewModels\HomeViewModel.cs" />
     <Compile Include="ViewModels\LoadingViewModel.cs" />
@@ -217,6 +218,9 @@
     </Compile>
     <Compile Include="Views\AllTracksView.xaml.cs">
       <DependentUpon>AllTracksView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\ArtistView.xaml.cs">
+      <DependentUpon>ArtistView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\DeveloperView.xaml.cs">
       <DependentUpon>DeveloperView.xaml</DependentUpon>
@@ -414,6 +418,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\AllTracksView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\ArtistView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

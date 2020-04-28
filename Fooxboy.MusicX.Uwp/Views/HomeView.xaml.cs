@@ -59,7 +59,7 @@ namespace Fooxboy.MusicX.Uwp.Views
             _container = (IContainer) e.Parameter;
             ViewModel = new HomeViewModel(_container);
 
-
+            
             base.OnNavigatedTo(e);
         }
 
