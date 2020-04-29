@@ -68,11 +68,15 @@
     <Compile Include="Activities\ErrorActivity.cs" />
     <Compile Include="Activities\MainActivity.cs" />
     <Compile Include="Activities\TFActivity.cs" />
+    <Compile Include="Adapters\HomeAdapter.cs" />
+    <Compile Include="Adapters\SmallBlockAdapter.cs" />
     <Compile Include="Converters\BlocksConverter.cs" />
-    <Compile Include="Fragments\RecommendationsFragment.cs" />
+    <Compile Include="Fragments\MainFragment.cs" />
+    <Compile Include="Models\MainBlock.cs" />
     <Compile Include="Resources\Resource.designer.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Services\AuthService.cs" />
+    <Compile Include="Services\ImagesService.cs" />
     <Compile Include="Services\RecommendationsService.cs" />
     <Compile Include="Services\StaticContentService.cs" />
   </ItemGroup>
@@ -113,7 +117,6 @@
     <AndroidResource Include="Resources\mipmap-xxxhdpi\ic_launcher_round.png" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Adapters\" />
     <Folder Include="ViewHolders\" />
   </ItemGroup>
   <ItemGroup>
@@ -238,7 +241,17 @@
     </AndroidResource>
   </ItemGroup>
   <ItemGroup>
-    <AndroidResource Include="Resources\layout\frag_recommendations.xml">
+    <AndroidResource Include="Resources\layout\frag_unified_blocks.xml">
+      <SubType>Designer</SubType>
+    </AndroidResource>
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\layout\model_block.xml">
+      <SubType>Designer</SubType>
+    </AndroidResource>
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\layout\model_block_small.xml">
       <SubType>Designer</SubType>
     </AndroidResource>
   </ItemGroup>

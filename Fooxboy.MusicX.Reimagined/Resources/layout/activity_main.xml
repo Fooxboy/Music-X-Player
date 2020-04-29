@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+
 <RelativeLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
@@ -12,7 +12,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@android:color/white"
-        android:paddingBottom="16dp"
+        android:paddingBottom="8dp"
         android:paddingLeft="16dp"
         android:id="@+id/NavigationLayout">
 
@@ -21,10 +21,10 @@
             android:layout_height="wrap_content">
 
             <ImageView
-                android:layout_width="50dp"
-                android:layout_height="50dp"
+                android:layout_width="42dp"
+                android:layout_height="35dp"
                 android:src="@drawable/back"
-                android:layout_marginTop="20dp"
+                android:layout_marginTop="18dp"
                 android:layout_marginLeft="-16dp"
                 android:id="@+id/backbuttonMain"/>
 
@@ -32,19 +32,28 @@
                 android:layout_width="250dp"
                 android:layout_height="50dp"
                 android:text="uwu"
-                android:layout_marginTop="20dp"
+                android:layout_marginTop="12dp"
                 android:textAppearance="?android:attr/textAppearanceLarge"
                 android:textStyle="bold"
                 android:textColor="#000000"
-                android:textSize="35dp"
+                android:textSize="30dp"
                 android:id="@+id/titlebar_title"
             />
 
         </LinearLayout>
 
+        <ImageView
+                android:layout_width="35dp"
+                android:layout_height="28dp"
+                android:src="@drawable/search_menu"
+                android:layout_marginTop="22dp"
+                android:layout_marginRight="55dp"
+                android:layout_alignParentRight="true"
+                android:id="@+id/titlebar_SearchButton"/>
+
         <com.makeramen.roundedimageview.RoundedImageView
-            android:layout_width="50dp"
-            android:layout_height="50dp"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
             app:riv_corner_radius="999dp"
             android:src="@drawable/placeholder"
             android:layout_alignParentRight="true"
@@ -57,14 +66,14 @@
             android:layout_width="match_parent"
             android:layout_height="5dp" 
             android:background="@drawable/downshadow"
-            android:layout_marginTop="85dp"/>
+            android:layout_marginTop="65dp"/>
 
         <FrameLayout
             android:id="@+id/content_frame"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_above="@+id/miniplayer_frame"
-            android:layout_marginTop="85dp"/>
+            android:layout_marginTop="65dp"/>
     
         <FrameLayout android:id="@+id/miniplayer_frame"
             android:layout_height="wrap_content"

@@ -14,14 +14,14 @@
             android:layout_height="wrap_content"
             android:layout_centerHorizontal="true"
             android:layout_centerVertical="true"
-            android:id="@+id/recommendations_loading"/>
+            android:id="@+id/unifrag_loading"/>
 
         <android.support.v7.widget.RecyclerView
             android:layout_width="fill_parent"
             android:layout_height="fill_parent"
             android:requiresFadingEdge="vertical"
             android:fadingEdge="vertical"
-            android:id="@+id/recommendations_blocks"/>
+            android:id="@+id/unifrag_blocks"/>
 
     </RelativeLayout>
 

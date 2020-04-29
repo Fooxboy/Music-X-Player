@@ -10,6 +10,10 @@ using Fooxboy.MusicX.Reimagined.Services;
 using Fooxboy.MusicX.Core;
 using Android.Graphics.Drawables;
 using Android.Content;
+using Fooxboy.MusicX.Reimagined.Fragments;
+using Fooxboy.MusicX.Core.Models;
+using System.Collections.Generic;
+using ImageViews.Rounded;
 
 namespace Fooxboy.MusicX.Reimagined
 {
@@ -23,6 +27,7 @@ namespace Fooxboy.MusicX.Reimagined
             base.OnCreate(savedInstanceState);
             Xamarin.Essentials.Platform.Init(this, savedInstanceState);
             SetContentView(Resource.Layout.activity_main);
+            StaticContentService.Recommendations = new List<Block>();
 
             //--------set up navig
             BottomNavigationView navigation = FindViewById<BottomNavigationView>(Resource.Id.navigation);
@@ -35,9 +40,15 @@ namespace Fooxboy.MusicX.Reimagined
                 var user = Api.GetApi().VKontakte.Users.Info.CurrentUser();
                 StaticContentService.UserId = user.Id;
                 StaticContentService.UserName = user.FirstName;
+                FindViewById<RoundedImageView>(Resource.Id.profilepicture_main).SetImageString(ImagesService.PhotoUser(user.PhotoUser), 30, 30);
 
-                
 
+                var navBackButton = FindViewById<ImageView>(Resource.Id.backbuttonMain);
+                navBackButton.Visibility = ViewStates.Gone;
+                var Title = FindViewById<TextView>(Resource.Id.titlebar_title);
+                Title.Text = "Music X";
+                var MF = new MainFragment();
+                SupportFragmentManager.BeginTransaction().Replace(Resource.Id.content_frame, MF).Commit();
             }
             else
             {
@@ -65,12 +76,12 @@ namespace Fooxboy.MusicX.Reimagined
                 case Resource.Id.navigation_tracks:
                     title.Text = "Ваша музыка";
                     return true;
-                case Resource.Id.navigation_favourite:
+                /*case Resource.Id.navigation_favourite:
                     title.Text = "Избранное";
                     return true;
                 case Resource.Id.navigation_search:
                     title.Text = "Поиск";
-                    return true;
+                    return true;*/
                 case Resource.Id.navigation_downloads:
                     title.Text = "Загрузки";
                     return true;
