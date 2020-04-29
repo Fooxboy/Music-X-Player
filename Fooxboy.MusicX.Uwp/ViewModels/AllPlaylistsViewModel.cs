@@ -5,6 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using DryIoc;
+using Flurl.Http;
 using Fooxboy.MusicX.Core;
 using Fooxboy.MusicX.Uwp.Models;
 using Fooxboy.MusicX.Uwp.Services;
@@ -91,6 +92,12 @@ namespace Fooxboy.MusicX.Uwp.ViewModels
 
                     loadingService.Change(false);
                 }
+            }
+            catch (FlurlHttpException)
+            {
+                _isLoading = false;
+                _notify.CreateNotification("Ошибка сети", "Произошла ошибка подключения к сети.", "Попробовать ещё раз", "Закрыть", new RelayCommand(
+                    async () => { await this.Load(); }), new RelayCommand(() => { }));
             }
             catch (Exception e)
             {

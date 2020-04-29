@@ -81,7 +81,6 @@ namespace Fooxboy.MusicX.Uwp.ViewModels
                     var dialog = new IncorrectLoginOrPasswordContentDialog();
                     await dialog.ShowAsync();
                 });
-                //Неверный логин или пароль.
             }
             catch(Exception e)
             {

@@ -4,6 +4,7 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Flurl.Http;
 using Fooxboy.MusicX.Core;
 using Fooxboy.MusicX.Core.Interfaces;
 using Fooxboy.MusicX.Core.Models;
@@ -38,24 +39,38 @@ namespace Fooxboy.MusicX.Uwp.ViewModels
 
         public async Task StartLoading(long artistId)
         {
-            var artist = await _api.VKontakte.Music.Artists.GetAsync(artistId);
-            PhotoUrl = artist.Banner;
-            Name = artist.Name;
-            var blockF = artist.Blocks.SingleOrDefault(b => b.Source == "artist_info");
-            artist.Blocks.Remove(blockF);
-           
-            foreach (var block in artist.Blocks)
+            try
             {
-                Blocks.Add(block);
-            }
+                var artist = await _api.VKontakte.Music.Artists.GetAsync(artistId);
+                PhotoUrl = artist.Banner;
+                Name = artist.Name;
+                var blockF = artist.Blocks.SingleOrDefault(b => b.Source == "artist_info");
+                artist.Blocks.Remove(blockF);
 
-            Changed("PhotoUrl");
-            Changed("Name");
-            Changed("Blocks");
-            VisibleLoading = false;
-            VisibleContent = true;
-            Changed("VisibleLoading");
-            Changed("VisibleContent");
+                foreach (var block in artist.Blocks)
+                {
+                    Blocks.Add(block);
+                }
+
+                Changed("PhotoUrl");
+                Changed("Name");
+                Changed("Blocks");
+                VisibleLoading = false;
+                VisibleContent = true;
+                Changed("VisibleLoading");
+                Changed("VisibleContent");
+            }
+            catch (FlurlHttpException)
+            {
+                _notificationService.CreateNotification("Ошибка сети", "Произошла ошибка подключения к сети.",
+                    "Попробовать ещё раз", "Закрыть", new RelayCommand(
+                        async () => { await this.StartLoading(artistId); }), new RelayCommand(() => { }));
+            }
+            catch (Exception e)
+            {
+                _notificationService.CreateNotification("Ошибка при загрузке карточки музыканта", $"Ошибка: {e.Message}");
+            }
+            
         }
     }
 }

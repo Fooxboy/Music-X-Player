@@ -4,6 +4,7 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Flurl.Http;
 using Fooxboy.MusicX.Core;
 using Fooxboy.MusicX.Uwp.Converters;
 using Fooxboy.MusicX.Uwp.Models;
@@ -15,10 +16,12 @@ namespace Fooxboy.MusicX.Uwp.ViewModels
     {
         private PlayerService _player;
         private Api _api;
-        public AllTracksViewModel(PlayerService player, Api api)
+        private NotificationService _notify;
+        public AllTracksViewModel(PlayerService player, Api api, NotificationService notify)
         {
             _player = player;
             _api = api;
+            _notify = notify;
             Tracks = new ObservableCollection<Track>();
             VisibleLoading = true;
             VisibleContent = false;
@@ -33,30 +36,40 @@ namespace Fooxboy.MusicX.Uwp.ViewModels
 
         public async Task StartLoading(object[] data)
         {
-            var type = (string) data[0];
-            if (type == "block")
+            try
             {
-                var blockId = (string) data[1];
-
-                var fullBlock = await _api.VKontakte.Music.Blocks.GetAsync(blockId);
-
-                TitlePage = fullBlock.Title;
-                Changed("TitlePage");
-
-                VisibleLoading = false;
-                VisibleContent = true;
-
-                Changed("VisibleLoading");
-                Changed("VisibleContent");
-
-                foreach (var track in fullBlock.Tracks)
+                var type = (string) data[0];
+                if (type == "block")
                 {
-                    Tracks.Add(track.ToTrack());
+                    var blockId = (string) data[1];
+
+                    var fullBlock = await _api.VKontakte.Music.Blocks.GetAsync(blockId);
+
+                    TitlePage = fullBlock.Title;
+                    Changed("TitlePage");
+
+                    VisibleLoading = false;
+                    VisibleContent = true;
+
+                    Changed("VisibleLoading");
+                    Changed("VisibleContent");
+
+                    foreach (var track in fullBlock.Tracks)
+                    {
+                        Tracks.Add(track.ToTrack());
+                    }
                 }
-
             }
-
-            
+            catch (FlurlHttpException)
+            {
+                _notify.CreateNotification("Ошибка сети", "Произошла ошибка подключения к сети.", "Попробовать ещё раз",
+                    "Закрыть", new RelayCommand(
+                        async () => { await this.StartLoading(data); }), new RelayCommand(() => { }));
+            }
+            catch (Exception e)
+            {
+                _notify.CreateNotification("Ошибка при загрузке списка треков", $"Ошибка: {e.Message}");
+            }
         }
 
         public void PlayTrack(Track track)

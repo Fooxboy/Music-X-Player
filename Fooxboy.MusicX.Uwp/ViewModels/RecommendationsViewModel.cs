@@ -4,6 +4,7 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Flurl.Http;
 using Fooxboy.MusicX.Core;
 using Fooxboy.MusicX.Core.Interfaces;
 using Fooxboy.MusicX.Uwp.Converters;
@@ -17,10 +18,12 @@ namespace Fooxboy.MusicX.Uwp.ViewModels
         private readonly Api _api;
         private readonly PlayerService _player;
         private List<Track> _tracksForYou;
-        public RecommendationsViewModel(Api api, PlayerService player)
+        private readonly NotificationService _notificationService;
+        public RecommendationsViewModel(Api api, PlayerService player, NotificationService notificationService)
         {
             _api = api;
             _player = player;
+            _notificationService = notificationService;
             this.Blocks = new ObservableCollection<IBlock>();
             PlayAllCommand = new RelayCommand(PlayAll);
             PlayShuffleCommand = new RelayCommand(PlayShuffle);
@@ -56,26 +59,41 @@ namespace Fooxboy.MusicX.Uwp.ViewModels
 
         public async Task StartLoading()
         {
-            var blocks = await _api.VKontakte.Music.Recommendations.GetAsync();
-            var blockForYou = blocks.Single(b => b.Source == "recoms_recoms");
-            ForYouString = blockForYou.Subtitle;
-            _tracksForYou = blockForYou.Tracks.ToListTrack();
-            PatchImage = blockForYou.Tracks[new Random().Next(0, blockForYou.Tracks.Count)].Album?.Cover;
-            Changed("ForYouString");
-            Changed("PatchImage");
-
-            VisibileContent = true;
-            VisibleLoading = false;
-            Changed("VisibileContent");
-            Changed("VisibleLoading");
-
-            blocks.Remove(blockForYou);
-            foreach (var block in blocks)
+            try
             {
-                this.Blocks.Add(block);
+                var blocks = await _api.VKontakte.Music.Recommendations.GetAsync();
+                var blockForYou = blocks.Single(b => b.Source == "recoms_recoms");
+                ForYouString = blockForYou.Subtitle;
+                _tracksForYou = blockForYou.Tracks.ToListTrack();
+                PatchImage = blockForYou.Tracks[new Random().Next(0, blockForYou.Tracks.Count)].Album?.Cover;
+                Changed("ForYouString");
+                Changed("PatchImage");
+
+                VisibileContent = true;
+                VisibleLoading = false;
+                Changed("VisibileContent");
+                Changed("VisibleLoading");
+
+                blocks.Remove(blockForYou);
+                foreach (var block in blocks)
+                {
+                    this.Blocks.Add(block);
+                }
+
+                Changed("Blocks");
+            }
+            catch (FlurlHttpException)
+            {
+                _notificationService.CreateNotification("Ошибка сети", "Произошла ошибка подключения к сети.",
+                    "Попробовать ещё раз", "Закрыть", new RelayCommand(
+                        async () => { await this.StartLoading(); }), new RelayCommand(() => { }));
+            }
+            catch (Exception e)
+            {
+                _notificationService.CreateNotification("Невозможно получить рекомендации.", $"Ошибка: {e.Message}");
+
             }
 
-            Changed("Blocks");
         }
     }
 }
