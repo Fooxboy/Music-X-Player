@@ -2,10 +2,14 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net.Sockets;
 using System.Text;
 using System.Threading.Tasks;
+using Fooxboy.MusicX.Core.Models.Music;
 using Fooxboy.MusicX.Core.VKontakte.Music.Converters;
+using Newtonsoft.Json;
 using VkNet;
+using VkNet.Utils;
 
 namespace Fooxboy.MusicX.Core.VKontakte.Music
 {
@@ -27,6 +31,32 @@ namespace Fooxboy.MusicX.Core.VKontakte.Music
                 OwnerId = ownerId
             });
             return music.Select(track=> track.ToITrack()).ToList();
+        }
+
+        public async Task<List<ITrack>> GetTracksAlbum(int count, long albumId, string accessKey, long ownerId, int offset = 0, string refType = "recoms_mood_playlists", int needOwner=1)
+        {
+            var parameters = new VkParameters
+            {
+                {"v", "5.115"},
+                {"https", 1 },
+                {"lang", "ru"},
+                {"audio_count", count },
+                {"ref", refType},
+                {"need_playlist", 1 },
+                {"owner_id", ownerId},
+                {"access_key", accessKey},
+                {"func_v", 5 },
+                {"id", albumId},
+                {"audio_offset", offset },
+                {"access_token", _api.Token},
+                {"count", "10"},
+                {"need_owner", needOwner }
+            };
+
+            var json = await _api.InvokeAsync("execute.getPlaylist", parameters);
+            var model = JsonConvert.DeserializeObject<Response<GetPlaylistModel>>(json);
+
+            return model.response.Audios.Select(track => track.ToITrack()).ToList();
         }
         
         public List<ITrack> Get(int count = 10, int offset =0, string accessKey = null, long? playlistId =null, long? ownerId = null)

@@ -52,7 +52,9 @@ namespace Fooxboy.MusicX.Uwp.ViewModels
             
         }
 
-        public async Task StartLoading(Album album)
+
+
+        public async Task StartLoading(Album album, bool isRecommendation = false)
         {
             try
             {
@@ -71,7 +73,7 @@ namespace Fooxboy.MusicX.Uwp.ViewModels
                 Changed("AddButtonIsActive");
 
 
-                if (album.Id == this.Album?.Id) return;
+                //if (album.Id == this.Album?.Id) return;
 
                 this.Album = album;
                 if (album.Artists.Count > 0)
@@ -101,9 +103,21 @@ namespace Fooxboy.MusicX.Uwp.ViewModels
                 var api = _container.Resolve<Api>();
                 var loadingService = _container.Resolve<LoadingService>();
                 loadingService.Change(true);
-                var tracks =
-                    (await api.VKontakte.Music.Tracks.GetAsync(200, 0, album.AccessKey, album.Id, album.OwnerId))
-                    .ToListTrack();
+
+
+                var tracks = new List<Track>();
+
+                if (isRecommendation)
+                {
+                    tracks = (await api.VKontakte.Music.Tracks.GetTracksAlbum(100, Album.Id, Album.AccessKey,
+                        Album.OwnerId)).ToListTrack();
+                }
+                else
+                {
+                    tracks = (await api.VKontakte.Music.Tracks.GetAsync(200, 0, album.AccessKey, album.Id, album.OwnerId))
+                        .ToListTrack();
+                }
+                    
                 foreach (var track in tracks) Tracks.Add(track);
 
                 Tracks.Add(new Track() {AccessKey = "space"});
@@ -116,11 +130,15 @@ namespace Fooxboy.MusicX.Uwp.ViewModels
                     "Попробовать ещё раз", "Закрыть", new RelayCommand(
                         async () => { await this.StartLoading(album); }), new RelayCommand(() => { }));
             }
+            catch (VkNet.Exception.CannotBlacklistYourselfException)
+            {
+                await StartLoading(album, true);
+            }
             catch (Exception e)
             {
                 _notificationService.CreateNotification("Ошибка при загрузке плейлиста", e.Message);
             }
-            
+
 
         }
 

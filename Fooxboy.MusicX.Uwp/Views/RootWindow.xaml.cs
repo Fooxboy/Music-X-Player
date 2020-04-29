@@ -24,6 +24,7 @@ using Windows.UI.Xaml.Media.Animation;
 using Microsoft.Toolkit.Uwp.Helpers;
 using Windows.ApplicationModel.Core;
 using Windows.System;
+using Flurl.Http;
 using Fooxboy.MusicX.Core;
 
 
@@ -173,10 +174,34 @@ namespace Fooxboy.MusicX.Uwp.Views
 
         private void SearchBox_OnLostFocus(object sender, RoutedEventArgs e)
         {
-            this.SearchBox.PlaceholderText = "Найдите что нибудь...";
+            this.SearchBox.PlaceholderText = "Найдите что-нибудь...";
 
         }
 
-       
+        private void ArtistText_OnTapped(object sender, TappedRoutedEventArgs e)
+        {
+            var api = _container.Resolve<Api>();
+            var notificationService = _container.Resolve<NotificationService>();
+            var navigation = _container.Resolve<NavigationService>();
+            if (PlayerViewModel.PlayerSerivce.CurrentTrack.Artists != null)
+            {
+                if (PlayerViewModel.PlayerSerivce.CurrentTrack.Artists.Count > 0)
+                {
+                    try
+                    {
+                        var artist = PlayerViewModel.PlayerSerivce.CurrentTrack.Artists[0];
+                        navigation.Go(typeof(ArtistView), new object[] {api, notificationService, artist.Id}, 1);
+                        return;
+                    }
+                    catch (Exception ee)
+                    {
+                        notificationService.CreateNotification("Ошибка при открытии карточки музыканта", $"Ошибка: {ee.Message}");
+                        return;
+                    }
+                }
+            }
+
+            navigation.Go(typeof(SearchView), new object[] { PlayerViewModel.Artist, api, notificationService }, 1);
+        }
     }
 }

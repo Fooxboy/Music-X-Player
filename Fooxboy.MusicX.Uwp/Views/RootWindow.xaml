@@ -442,6 +442,7 @@
                     Foreground="{ThemeResource ColorArtistText}"
                     PointerEntered="TextBlock_PointerEntered"
                     PointerExited="ArtistText_PointerExited"
+                    Tapped="ArtistText_OnTapped"
                     Text="{x:Bind PlayerViewModel.Artist, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                     TextTrimming="CharacterEllipsis" />
             </Grid>
