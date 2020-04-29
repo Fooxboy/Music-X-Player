@@ -16,6 +16,20 @@ namespace Fooxboy.MusicX.Core.Models.Music.BlockInfo
         [JsonProperty("image")]
         public List<PhotoArtistModel> Images { get; set; }
 
+        [JsonProperty("url")]
+        public string Url { get; set; }
+
         public Uri Image { get; set; }
+        [JsonProperty("meta")]
+        public MetaInfo Meta { get; set; }
+
+
+        public class MetaInfo
+        {
+            [JsonProperty("icon")]
+            public string Icon { get; set; }
+            [JsonProperty("content_type")]
+            public string ContentType { get; set; }
+        }
     }
 }

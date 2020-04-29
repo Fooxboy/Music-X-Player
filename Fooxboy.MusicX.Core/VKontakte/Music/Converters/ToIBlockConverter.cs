@@ -26,6 +26,11 @@ namespace Fooxboy.MusicX.Core.VKontakte.Music.Converters
                 block.Tracks = bl.Audios?.Select(track => track.ToITrack()).ToList();
                 block.Albums = bl.Playlists?.Select(playlist => playlist.ToIAlbum()).ToList();
 
+                if (bl.Playlist != null)
+                {
+                    block.Albums = new List<IAlbum>() { bl.Playlist.ToIAlbum() };
+                }
+
                 if (bl.Items != null)
                 {
                     block.Artists = new List<SearchArtistBlockInfo>();
@@ -73,6 +78,11 @@ namespace Fooxboy.MusicX.Core.VKontakte.Music.Converters
                 block.Type = bl.Type;
                 block.Tracks = bl.Audios?.Select(track => track.ToITrack()).ToList();
                 block.Albums = bl.Playlists?.Select(playlist => playlist.ToIAlbum()).ToList();
+
+                if (bl.Playlist != null)
+                {
+                    block.Albums = new List<IAlbum>() {bl.Playlist.ToIAlbum()};
+                }
 
                 if (bl.Items != null)
                 {

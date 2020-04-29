@@ -80,12 +80,76 @@
             </Button.Content>
         </Button>
 
+        <Grid x:Name="LastReleaseGrid" Visibility="Collapsed">
+
+            <TextBlock
+                x:Name="NoData"
+                HorizontalAlignment="Center"
+                VerticalAlignment="Center"
+                FontSize="20"
+                FontWeight="Bold"
+                Text="ВКонтакте не вернул данные о альбоме" />
+            <StackPanel
+                x:Name="Data"
+                Margin="30,40,20,20"
+                Orientation="Horizontal">
+                <controls:ImageEx
+                    x:Name="CoverLastRelease"
+                    Width="150"
+                    Height="150"
+                    CornerRadius="5"
+                    PlaceholderSource="../Assets/Images/placeholder-album.jpg"
+                    Source="{x:Bind LastRelease.Cover}" />
+                <StackPanel Margin="30,0,0,0" VerticalAlignment="Center">
+                    <TextBlock
+                        x:Name="TitleLastRelease"
+                        FontSize="25"
+                        FontWeight="ExtraBlack"
+                        Text="{x:Bind LastRelease.Title}" />
+                    <TextBlock
+                        x:Name="ArtistLastRelease"
+                        Margin="0,0,0,0"
+                        Foreground="{ThemeResource ColorArtistText}"
+                        Text="{x:Bind LastRelease.Artists}" />
+                    <StackPanel Margin="0,40,0,0" Orientation="Horizontal">
+                        <Button
+                            x:Name="PlayLastRelease"
+                            Height="32"
+                            Click="PlayLastRelease_OnClick"
+                            Style="{ThemeResource StandardButtonStyle}">
+                            <Button.Content>
+                                <StackPanel Orientation="Horizontal">
+                                    <FontIcon FontFamily="Segoe MDL2 Assets" Glyph="&#xE102;" />
+                                    <TextBlock Margin="5,0,0,0" Text="Слушать" />
+                                </StackPanel>
+
+                            </Button.Content>
+                        </Button>
+                        <Button
+                            x:Name="OpenPlaylistLastRelease"
+                            Height="32"
+                            Margin="10,0,0,0"
+                            Click="OpenPlaylistLastRelease_OnClick"
+                            Style="{ThemeResource StandardButtonStyle}">
+                            <Button.Content>
+                                <StackPanel Orientation="Horizontal">
+                                    <FontIcon FontFamily="Segoe MDL2 Assets" Glyph="&#xE93C;" />
+                                    <TextBlock Margin="5,0,0,0" Text="Открыть альбом" />
+                                </StackPanel>
+
+                            </Button.Content>
+                        </Button>
+                    </StackPanel>
+                </StackPanel>
+            </StackPanel>
+        </Grid>
+
         <Grid x:Name="VideosGrid" Visibility="Collapsed">
             <TextBlock
                 HorizontalAlignment="Center"
                 VerticalAlignment="Center"
-                FontWeight="Bold"
                 FontSize="23"
+                FontWeight="Bold"
                 Text="Тут должны быть видеоклипы" />
             <TextBlock
                 Margin="0,40,0,0"
@@ -102,6 +166,7 @@
                 BorderThickness="0"
                 CanBeScrollAnchor="False"
                 IsItemClickEnabled="True"
+                ItemClick="ArtistsList_OnItemClick"
                 SelectionMode="None">
 
                 <GridView.ItemsPanel>

@@ -6,6 +6,7 @@ using System.Linq;
 using System.Runtime.InteropServices.WindowsRuntime;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
+using Windows.System;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Controls.Primitives;
@@ -15,13 +16,14 @@ using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Navigation;
 using DryIoc;
 using Fooxboy.MusicX.Core;
-using Fooxboy.MusicX.Core.Models;
+using Fooxboy.MusicX.Core.Models.Music.BlockInfo;
 using Fooxboy.MusicX.Core.VKontakte.Music;
 using Fooxboy.MusicX.Uwp.Converters;
 using Fooxboy.MusicX.Uwp.Models;
 using Fooxboy.MusicX.Uwp.Services;
 using Fooxboy.MusicX.Uwp.Views;
 using Album = Fooxboy.MusicX.Uwp.Models.Album;
+using Block = Fooxboy.MusicX.Core.Models.Block;
 using Track = Fooxboy.MusicX.Uwp.Models.Track;
 
 // Документацию по шаблону элемента "Пользовательский элемент управления" см. по адресу https://go.microsoft.com/fwlink/?LinkId=234236
@@ -33,12 +35,16 @@ namespace Fooxboy.MusicX.Uwp.Controls
 
         private PlayerService _player;
         private NavigationService _navigation;
+        private Api _api;
+        private NotificationService _notification;
 
         public BlockControl()
         {
             this.InitializeComponent();
             _player = Container.Get.Resolve<PlayerService>();
             _navigation = Container.Get.Resolve<NavigationService>();
+            _api = Container.Get.Resolve<Api>();
+            _notification = Container.Get.Resolve<NotificationService>();
         }
 
         public static readonly DependencyProperty BlockProperty = DependencyProperty.Register("Block", typeof(Block),
@@ -61,6 +67,8 @@ namespace Fooxboy.MusicX.Uwp.Controls
             this.BackgroundRect.Width = e.NewSize.Width - 50;
 
         }
+
+        public Album LastRelease { get; set; }
       
 
         private void BlockControl_OnLoaded(object sender, RoutedEventArgs e)
@@ -92,12 +100,37 @@ namespace Fooxboy.MusicX.Uwp.Controls
                 ShowAllButton.Visibility = Visibility.Collapsed;
             }
 
-            if (Block.Type == "videos")
+            if (Block.Type == "videos" || Block.Type == "artist_videos")
             {
                 ArtistsGrid.Visibility = Visibility.Collapsed;
                 this.TracksGrid.Visibility = Visibility.Collapsed;
                 this.PlaylistsGrid.Visibility = Visibility.Collapsed;
                 VideosGrid.Visibility = Visibility.Visible;
+                ShowAllButton.Visibility = Visibility.Collapsed;
+            }
+
+            if (Block.Type == "single_playlist")
+            {
+                if (Block.Albums == null)
+                {
+                    NoData.Visibility = Visibility.Visible;
+                    Data.Visibility = Visibility.Collapsed;
+                }
+                else
+                {
+                    LastRelease = Block.Albums.FirstOrDefault().ToAlbum();
+                    CoverLastRelease.Source = LastRelease.Cover;
+                    TitleLastRelease.Text = LastRelease.Title;
+                    ArtistLastRelease.Text = LastRelease.Artists[0].Name;
+                    NoData.Visibility = Visibility.Collapsed;
+                    Data.Visibility = Visibility.Visible;
+                }
+
+                LastReleaseGrid.Visibility = Visibility.Visible;
+                ArtistsGrid.Visibility = Visibility.Collapsed;
+                this.TracksGrid.Visibility = Visibility.Collapsed;
+                this.PlaylistsGrid.Visibility = Visibility.Collapsed;
+                VideosGrid.Visibility = Visibility.Collapsed;
                 ShowAllButton.Visibility = Visibility.Collapsed;
             }
 
@@ -113,6 +146,7 @@ namespace Fooxboy.MusicX.Uwp.Controls
 
             _player.Play(new Album(),position, tracks);
         }
+
 
         private void ButtonBase_OnClick(object sender, RoutedEventArgs e)
         {
@@ -136,6 +170,42 @@ namespace Fooxboy.MusicX.Uwp.Controls
                     TypeViewPlaylist = AllPlaylistsModel.TypeView.RecomsAlbums
                 }, 1);
             }
+        }
+
+        private async void ArtistsList_OnItemClick(object sender, ItemClickEventArgs e)
+        {
+            var elem = (SearchArtistBlockInfo)e.ClickedItem;
+
+            if (elem.Meta.ContentType != "artist")
+            {
+                await Launcher.LaunchUriAsync(new Uri(elem.Url));
+            }
+            else
+            {
+                var tracks = await _api.VKontakte.Music.Search.TracksAsync(elem.Title, 1);
+                var track = tracks.FirstOrDefault();
+                if (track != null)
+                {
+                    var artist = track.Artists?.SingleOrDefault(a=> a.Name == elem.Title);
+                    if (artist != null)
+                    {
+                        _navigation.Go(typeof(ArtistView), new object[]{_api, _notification, artist.Id}, 1);
+                    }
+                }
+            }
+
+
+            //throw new NotImplementedException();
+        }
+
+        private void PlayLastRelease_OnClick(object sender, RoutedEventArgs e)
+        {
+            //throw new NotImplementedException();
+        }
+
+        private void OpenPlaylistLastRelease_OnClick(object sender, RoutedEventArgs e)
+        {
+            //throw new NotImplementedException();
         }
     }
 }

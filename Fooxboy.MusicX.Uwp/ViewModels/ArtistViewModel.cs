@@ -17,6 +17,11 @@ namespace Fooxboy.MusicX.Uwp.ViewModels
 
         public string Name { get; set; }
 
+        public bool VisibleLoading { get; set; }
+        public bool VisibleContent { get; set; }
+
+        public RelayCommand PlayArtist { get; set; }
+
         public ObservableCollection<IBlock> Blocks { get; set; }
 
         private Api _api;
@@ -24,6 +29,8 @@ namespace Fooxboy.MusicX.Uwp.ViewModels
 
         public ArtistViewModel(Api api, NotificationService notification)
         {
+            VisibleLoading = true;
+            VisibleContent = false;
             this._api = api;
             this._notificationService = notification;
             Blocks = new ObservableCollection<IBlock>();
@@ -45,6 +52,10 @@ namespace Fooxboy.MusicX.Uwp.ViewModels
             Changed("PhotoUrl");
             Changed("Name");
             Changed("Blocks");
+            VisibleLoading = false;
+            VisibleContent = true;
+            Changed("VisibleLoading");
+            Changed("VisibleContent");
         }
     }
 }

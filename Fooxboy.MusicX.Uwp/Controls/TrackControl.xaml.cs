@@ -66,7 +66,7 @@ namespace Fooxboy.MusicX.Uwp.Resources.Controls
 
             GoToArtistCommand = new RelayCommand(() =>
             {
-                navigation.Go(typeof(ArtistView), new object[] {_api, _notificationService, Track.Artists[0].Id});
+                navigation.Go(typeof(ArtistView), new object[] {_api, _notificationService, Track.Artists[0].Id}, 1);
             });
 
         }
