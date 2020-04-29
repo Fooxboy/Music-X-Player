@@ -13,6 +13,7 @@ using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Navigation;
 using Fooxboy.MusicX.Core;
+using Fooxboy.MusicX.Uwp.Services;
 using Fooxboy.MusicX.Uwp.ViewModels;
 
 // Документацию по шаблону элемента "Пустая страница" см. по адресу https://go.microsoft.com/fwlink/?LinkId=234238
@@ -36,7 +37,8 @@ namespace Fooxboy.MusicX.Uwp.Views
             var data = (object[])e.Parameter;
             var query = (string) data[0];
             var api = (Api) data[1];
-            ViewModel = new SearchViewModel(api);
+            var notification = (NotificationService) data[2];
+            ViewModel = new SearchViewModel(api, notification);
 
             await ViewModel.StartLoading(query);
             base.OnNavigatedTo(e);

@@ -123,7 +123,8 @@ namespace Fooxboy.MusicX.Uwp.ViewModels
             this.ChangedSelector();
             var api = _container.Resolve<Api>();
             var player = _container.Resolve<PlayerService>();
-            _navigationService.Go(typeof(RecommendationsView), new  object[]{api, player}, 1);
+            var notification = _container.Resolve<NotificationService>();
+            _navigationService.Go(typeof(RecommendationsView), new  object[]{api, player, notification }, 1);
 
         }
 

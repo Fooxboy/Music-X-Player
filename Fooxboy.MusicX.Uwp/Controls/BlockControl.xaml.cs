@@ -156,7 +156,7 @@ namespace Fooxboy.MusicX.Uwp.Controls
 
             if (Block.Type == "audios_list" || Block.Type == "audios" || Block.Type == "top_audios")
             {
-                _navigation.Go(typeof(AllTracksView), new object[] { _player, c.Resolve<Api>(), "block", Block.Id }, 1);
+                _navigation.Go(typeof(AllTracksView), new object[] { _player, c.Resolve<Api>(), "block", Block.Id, _notification }, 1);
             }
             if (Block.Type == "playlists")
             {

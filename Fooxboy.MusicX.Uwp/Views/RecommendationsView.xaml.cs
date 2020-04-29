@@ -40,7 +40,8 @@ namespace Fooxboy.MusicX.Uwp.Views
 
             var api = (Api)parameter[0];
             var player = (PlayerService) parameter[1];
-            ViewModel = new RecommendationsViewModel(api, player);
+            var notification = (NotificationService) parameter[2];
+            ViewModel = new RecommendationsViewModel(api, player, notification);
 
             base.OnNavigatedTo(e);
         }

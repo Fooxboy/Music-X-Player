@@ -39,7 +39,8 @@ namespace Fooxboy.MusicX.Uwp.Views
             var array = (object[]) e.Parameter;
             var player = (PlayerService) array[0];
             var api = (Api) array[1];
-            ViewModel = new AllTracksViewModel(player, api);
+            var notification = (NotificationService) array[3];
+            ViewModel = new AllTracksViewModel(player, api, notification);
 
 
             var type = (string) array[2];

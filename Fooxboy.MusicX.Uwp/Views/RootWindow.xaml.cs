@@ -161,8 +161,8 @@ namespace Fooxboy.MusicX.Uwp.Views
             {
                 var n = _container.Resolve<NavigationService>();
                 var api = _container.Resolve<Api>();
-                n.Go(typeof(SearchView), new object[]{SearchBox.Text, api}, 1);
-                //Search
+                var notification = _container.Resolve<NotificationService>();
+                n.Go(typeof(SearchView), new object[]{SearchBox.Text, api, notification}, 1);
             }
         }
 
