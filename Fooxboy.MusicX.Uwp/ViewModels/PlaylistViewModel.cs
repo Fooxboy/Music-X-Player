@@ -109,6 +109,7 @@ namespace Fooxboy.MusicX.Uwp.ViewModels
 
                 if (isRecommendation)
                 {
+
                     tracks = (await api.VKontakte.Music.Tracks.GetTracksAlbum(100, Album.Id, Album.AccessKey,
                         Album.OwnerId)).ToListTrack();
                 }
