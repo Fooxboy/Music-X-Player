@@ -36,6 +36,7 @@ namespace Fooxboy.MusicX.Uwp.ViewModels
         }
 
 
+        
         public int RepeatMode
         {
             get => PlayerSerivce.RepeatMode;

@@ -40,7 +40,7 @@ namespace Fooxboy.MusicX.Uwp.Services
             _notificationService = notificationService;
             _mediaPlayer = new MediaPlayer();
             _tracks = new List<Track>();
-            _repeatMode = 1;
+            _repeatMode = 0;
             _mediaPlayer.AudioCategory = MediaPlayerAudioCategory.Media;
 
             _mediaPlayer.PlaybackSession.PlaybackStateChanged += MediaPlayerOnCurrentStateChanged;
@@ -59,7 +59,6 @@ namespace Fooxboy.MusicX.Uwp.Services
             _positionTimer = new DispatcherTimer();
             _positionTimer.Interval = TimeSpan.FromMilliseconds(500);
             _positionTimer.Tick += PositionTimerOnTick;
-
 
         }
 

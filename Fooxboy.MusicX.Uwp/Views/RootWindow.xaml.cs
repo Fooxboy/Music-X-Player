@@ -203,5 +203,9 @@ namespace Fooxboy.MusicX.Uwp.Views
 
             navigation.Go(typeof(SearchView), new object[] { PlayerViewModel.Artist, api, notificationService }, 1);
         }
+
+        private void UIElement_OnTapped(object sender, TappedRoutedEventArgs e)
+        {
+        }
     }
 }

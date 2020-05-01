@@ -52,8 +52,6 @@ namespace Fooxboy.MusicX.Uwp.ViewModels
             
         }
 
-
-
         public async Task StartLoading(Album album, bool isRecommendation = false)
         {
             try

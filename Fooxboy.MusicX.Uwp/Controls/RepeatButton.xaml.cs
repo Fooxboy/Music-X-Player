@@ -30,29 +30,34 @@ namespace Fooxboy.MusicX.Uwp.Controls
 
         private void ToggleButton_Click(object sender, RoutedEventArgs e)
         {
-            var button = (ToggleButton)sender;
-            if (RepeatMode == 2) RepeatMode = 0;
-            else RepeatMode += 1;
+            var currentRepeatMode = RepeatMode +1;
+            if (currentRepeatMode > 2) currentRepeatMode = 0;
+           
 
-            if (RepeatMode == 0)
+            var button = (ToggleButton)sender;
+
+            if (currentRepeatMode == 0)
             {
                 button.IsChecked = false;
                 Repeat.Visibility = Visibility.Visible;
                 RepeatOne.Visibility = Visibility.Collapsed;
             }
-            else if (RepeatMode == 1)
+            else if (currentRepeatMode == 1)
             {
                 button.IsChecked = true;
                 Repeat.Visibility = Visibility.Collapsed;
                 RepeatOne.Visibility = Visibility.Visible;
 
             }
-            else if (RepeatMode == 2) 
+            else if (currentRepeatMode == 2) 
             {
                 button.IsChecked = true;
                 Repeat.Visibility = Visibility.Visible;
                 RepeatOne.Visibility = Visibility.Collapsed;
             }
+
+            if (RepeatMode == 2) RepeatMode = 0;
+            else RepeatMode += 1;
         }
 
         public int RepeatMode
@@ -61,6 +66,30 @@ namespace Fooxboy.MusicX.Uwp.Controls
             set
             {
                 SetValue(RepeatModeProperty, value);
+            }
+        }
+
+
+        private void RepeatButton_OnLoaded(object sender, RoutedEventArgs e)
+        {
+            if (RepeatMode == 0)
+            {
+                Button.IsChecked = false;
+                Repeat.Visibility = Visibility.Visible;
+                RepeatOne.Visibility = Visibility.Collapsed;
+            }
+            else if (RepeatMode == 1)
+            {
+                Button.IsChecked = true;
+                Repeat.Visibility = Visibility.Collapsed;
+                RepeatOne.Visibility = Visibility.Visible;
+
+            }
+            else if (RepeatMode == 2)
+            {
+                Button.IsChecked = true;
+                Repeat.Visibility = Visibility.Visible;
+                RepeatOne.Visibility = Visibility.Collapsed;
             }
         }
     }
