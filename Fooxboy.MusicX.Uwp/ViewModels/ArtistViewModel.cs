@@ -8,6 +8,8 @@ using Flurl.Http;
 using Fooxboy.MusicX.Core;
 using Fooxboy.MusicX.Core.Interfaces;
 using Fooxboy.MusicX.Core.Models;
+using Fooxboy.MusicX.Uwp.Converters;
+using Fooxboy.MusicX.Uwp.Models;
 using Fooxboy.MusicX.Uwp.Services;
 
 namespace Fooxboy.MusicX.Uwp.ViewModels
@@ -27,14 +29,30 @@ namespace Fooxboy.MusicX.Uwp.ViewModels
 
         private Api _api;
         private NotificationService _notificationService;
+        private PlayerService _player;
 
-        public ArtistViewModel(Api api, NotificationService notification)
+        public ArtistViewModel(Api api, NotificationService notification, PlayerService player)
         {
             VisibleLoading = true;
             VisibleContent = false;
             this._api = api;
             this._notificationService = notification;
+            this._player = player;
             Blocks = new ObservableCollection<IBlock>();
+            PlayArtist = new RelayCommand(PlayArtistMusic);
+
+        }
+
+        public void PlayArtistMusic()
+        {
+            var blockPopular = Blocks.SingleOrDefault(b => b.Source == "");
+
+            if (blockPopular != null)
+            {
+                var tracks = blockPopular.Tracks.ToListTrack();
+
+                _player.Play(new MusicX.Uwp.Models.Album(), 0, tracks);
+            }
         }
 
         public async Task StartLoading(long artistId)
