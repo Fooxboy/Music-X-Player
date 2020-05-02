@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Net;
 using Android.Graphics;
+using Fooxboy.MusicX.Core.Interfaces;
 using ImageViews.Rounded;
 using Java.IO;
 using Path = System.IO.Path;
@@ -11,10 +12,11 @@ namespace Fooxboy.MusicX.Reimagined.Services
     {
 
         static string path = Xamarin.Essentials.FileSystem.AppDataDirectory;
-        /*public static string CoverTrack(ITrack track)
+        public static string CoverTrack(ITrack track)
         {
             if (track.Album?.Id != 0)
             {
+                if (track.Album is null) return "placeholder";
                 return CoverPlaylistById(track.Album.Id, track.Album.Cover);
             }
             else
@@ -31,7 +33,7 @@ namespace Fooxboy.MusicX.Reimagined.Services
 
                 return filename;
             }
-        }*/
+        }
 
         public static string PhotoUser(string urlPhoto)
         {
@@ -84,10 +86,10 @@ namespace Fooxboy.MusicX.Reimagined.Services
             return inSampleSize;
         }
 
-        /*public static string CoverPlaylist(IAlbum playlist)
+        public static string CoverPlaylist(IAlbum playlist)
         {
             return CoverPlaylistById(playlist.Id, playlist.Cover);
-        }*/
+        }
 
         public static string CoverPlaylistById(long playlistId, string uriImage)
         {

@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-
+using Android.App;
 using Android.Content;
 using Android.OS;
 using Android.Runtime;
@@ -18,7 +18,7 @@ using Fooxboy.MusicX.Reimagined.Services;
 
 namespace Fooxboy.MusicX.Reimagined.Fragments
 {
-    public class MainFragment : Fragment
+    public class MainFragment : Android.Support.V4.App.Fragment
     {
 
         bool isLoading = true;
@@ -39,14 +39,19 @@ namespace Fooxboy.MusicX.Reimagined.Fragments
             List<MainBlock> Blocks = new List<MainBlock>();
             Blocks.Add(new MainBlock()
             {
-                Title = "Music X Beta",
-                Description = "Вы используете beta-версию Music X! Это значит, что приложение может быть нестабильным, а также не иметь части функциональности. Обновления Вы можете найти в нашем Телеграм-канале https://t.me/MusicXPlayer"
+                Title = "Music X " + Application.Context.ApplicationContext.PackageManager.GetPackageInfo(Application.Context.ApplicationContext.PackageName, 0).VersionName,
+                Description = "Вы используете раннюю версию Music X! Это значит, что приложение может быть нестабильным, а также не иметь части функциональности. Обновления Вы можете найти в нашем Телеграм-канале https://t.me/MusicXPlayer"
             });
             Blocks.Add(new MainBlock()
             {
                 Blocks = RecommendationsService.Get(),
                 Title = "Ваши Рекомендации"
-            }); ;
+            });
+            Blocks.Add(new MainBlock()
+            {
+                Title = "История",
+                Description = "Пока что здесь пусто. Но это изменится, как только Вы послушаете свой первый трек :)"
+            });
             //Blocks.AddRange(RecommendationsService.Get());
             Adapter = new HomeAdapter(Blocks);
             list_blocks.SetAdapter(Adapter);

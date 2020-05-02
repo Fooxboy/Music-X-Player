@@ -11,6 +11,8 @@ using Android.Support.V7.Widget;
 using Android.Views;
 using Android.Widget;
 using Fooxboy.MusicX.Core.Models;
+using Fooxboy.MusicX.Reimagined.Services;
+using ImageViews.Rounded;
 
 namespace Fooxboy.MusicX.Reimagined.Adapters
 {
@@ -29,6 +31,16 @@ namespace Fooxboy.MusicX.Reimagined.Adapters
         {
             SmallBlockAdapterViewHolder vh = holder as SmallBlockAdapterViewHolder;
             vh.Title.Text = Blocks[position].Title;
+            if(Blocks[position].Albums != null)
+            {
+                var imageString = ImagesService.CoverPlaylist(Blocks[position].Albums[new Random().Next(0, Blocks[position].Albums.Count - 1)]);
+                if (imageString != "placeholder") vh.Background.SetImageString(imageString, 150, 150);
+            }
+            else
+            {
+                var imageString = ImagesService.CoverTrack(Blocks[position].Tracks[new Random().Next(0, Blocks[position].Tracks.Count - 1)]);
+                if(imageString != "placeholder") vh.Background.SetImageString(imageString, 150, 150);
+            }
         }
 
         public override RecyclerView.ViewHolder OnCreateViewHolder(ViewGroup parent, int viewType)
@@ -44,10 +56,12 @@ namespace Fooxboy.MusicX.Reimagined.Adapters
     {
 
         public TextView Title { get; set; }
+        public RoundedImageView Background { get; set; }
 
         public SmallBlockAdapterViewHolder(View itemView) : base (itemView)
         {
             Title = itemView.FindViewById<TextView>(Resource.Id.smallBlock_title);
+            Background = itemView.FindViewById<RoundedImageView>(Resource.Id.smallBlock_Background);
         }
     }
 }

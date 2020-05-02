@@ -30,11 +30,11 @@
             android:textColor="@color/colorAccent"
             android:background="@android:color/transparent"
             android:layout_alignParentRight="true"
-            android:textSize="12dp"
+            android:textSize="10dp"
             android:minHeight="0dp"
             android:minWidth="0dp"
             android:layout_marginRight="0dp"
-            android:layout_marginTop="3dp"
+            android:layout_marginTop="7dp"
             android:id="@+id/block_ShowMoreButton"/>
 
         <TextView
