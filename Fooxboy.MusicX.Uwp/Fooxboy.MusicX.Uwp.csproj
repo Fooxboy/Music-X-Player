@@ -193,6 +193,7 @@
     <Compile Include="Services\DiscordService.cs" />
     <Compile Include="Services\InternetService.cs" />
     <Compile Include="Services\LoadingService.cs" />
+    <Compile Include="Services\LoggerService.cs" />
     <Compile Include="Services\NavigationService.cs" />
     <Compile Include="Services\NotificationService.cs" />
     <Compile Include="Services\PlayerService.cs" />
