@@ -9,7 +9,7 @@
     xmlns:local="using:Fooxboy.MusicX.Uwp.Views"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:models="using:Fooxboy.MusicX.Uwp.Models"
-    Background="{ThemeResource ApplicationPageBackgroundThemeBrush}"
+    Background="{ThemeResource BackgroundApp}"
     mc:Ignorable="d">
 
     <Page.Resources>

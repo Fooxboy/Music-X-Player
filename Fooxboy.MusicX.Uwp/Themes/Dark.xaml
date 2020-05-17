@@ -17,28 +17,28 @@
             <SolidColorBrush x:Key="ButtonMainColor" Color="#262626" />
             <SolidColorBrush x:Key="ButtonPointColor" Color="#FF292929" />
             <SolidColorBrush x:Key="ButtonClickColor" Color="#4A4A4A" />
-            <SolidColorBrush x:Key="BlockBackground" Color="#FF131313" />
+            <SolidColorBrush x:Key="BlockBackground" Color="#1F1F1F" />
             <SolidColorBrush x:Key="NotificationBackgroundColor" Color="#191919" />
             <SolidColorBrush x:Key="BackgroundTextBox" Color="#BFBFBF" />
             <media:AcrylicBrush
                 x:Key="HeaderAcrylicBrush"
                 BackgroundSource="Backdrop"
-                FallbackColor="White"
-                TintColor="Thistle"
+                FallbackColor="Black"
+                TintColor="Black"
                 TintOpacity="0.2" />
 
             <media:AcrylicBrush
                 x:Key="BottomAcrylicBrush"
                 BackgroundSource="Backdrop"
-                FallbackColor="White"
-                TintColor="Thistle"
+                FallbackColor="Black"
+                TintColor="Black"
                 TintOpacity="0.2" />
 
             <media:AcrylicBrush
                 x:Key="NotificationAcrylicBrush"
                 BackgroundSource="Backdrop"
-                FallbackColor="White"
-                TintColor="Thistle"
+                FallbackColor="Black"
+                TintColor="Black"
                 TintOpacity="0.2" />
         </ResourceDictionary>
     </ResourceDictionary.ThemeDictionaries>

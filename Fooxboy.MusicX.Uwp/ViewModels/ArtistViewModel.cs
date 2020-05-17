@@ -45,7 +45,7 @@ namespace Fooxboy.MusicX.Uwp.ViewModels
 
         public void PlayArtistMusic()
         {
-            var blockPopular = Blocks.SingleOrDefault(b => b.Source == "");
+            var blockPopular = Blocks.SingleOrDefault(b => b.Source == "artist_top_audios");
 
             if (blockPopular != null)
             {

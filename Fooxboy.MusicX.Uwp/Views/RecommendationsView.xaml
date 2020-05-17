@@ -9,7 +9,7 @@
     xmlns:local="using:Fooxboy.MusicX.Uwp.Views"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:models="using:Fooxboy.MusicX.Core.Models"
-    Background="{ThemeResource ApplicationPageBackgroundThemeBrush}"
+    Background="{ThemeResource BackgroundApp}"
     Loaded="RecommendationsView_OnLoaded"
     SizeChanged="RecommendationsView_OnSizeChanged"
     mc:Ignorable="d">

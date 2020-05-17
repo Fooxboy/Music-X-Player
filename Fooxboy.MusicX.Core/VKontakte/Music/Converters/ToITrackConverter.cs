@@ -96,7 +96,7 @@ namespace Fooxboy.MusicX.Core.VKontakte.Music.Converters
                 track.IsLicensed = audio.IsLicensed ?? audio.IsLicensed.Value;
                 track.OwnerId = audio.OwnerId;
             }
-            catch
+            catch(Exception e)
             {
                 track.Title = audio.Title;
                 track.Artist = audio.Artist;

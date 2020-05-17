@@ -8,7 +8,7 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:local="using:Fooxboy.MusicX.Uwp.Views"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    Background="{ThemeResource ApplicationPageBackgroundThemeBrush}"
+    Background="{ThemeResource BackgroundApp}"
     SizeChanged="ArtistView_OnSizeChanged"
     mc:Ignorable="d">
 
@@ -37,6 +37,8 @@
                 VerticalAlignment="Top"
                 HorizontalContentAlignment="Center"
                 VerticalContentAlignment="Center"
+                PlaceholderSource="../Assets/Images/placeholder-artist.jpg"
+                PlaceholderStretch="Uniform"
                 Source="{x:Bind ViewModel.PhotoUrl, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                 Stretch="Uniform" />
 

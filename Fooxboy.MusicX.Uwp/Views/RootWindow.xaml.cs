@@ -183,6 +183,7 @@ namespace Fooxboy.MusicX.Uwp.Views
             var api = _container.Resolve<Api>();
             var notificationService = _container.Resolve<NotificationService>();
             var navigation = _container.Resolve<NavigationService>();
+            var player = _container.Resolve<PlayerService>();
             if (PlayerViewModel.PlayerSerivce.CurrentTrack.Artists != null)
             {
                 if (PlayerViewModel.PlayerSerivce.CurrentTrack.Artists.Count > 0)
@@ -190,7 +191,7 @@ namespace Fooxboy.MusicX.Uwp.Views
                     try
                     {
                         var artist = PlayerViewModel.PlayerSerivce.CurrentTrack.Artists[0];
-                        navigation.Go(typeof(ArtistView), new object[] {api, notificationService, artist.Id}, 1);
+                        navigation.Go(typeof(ArtistView), new object[] {api, notificationService, artist.Id, player}, 1);
                         return;
                     }
                     catch (Exception ee)

@@ -35,12 +35,13 @@ namespace Fooxboy.MusicX.Uwp.Views
         {
             var data = (object[])e.Parameter;
             var api = (Api) data[0];
+            var player = (PlayerService) data[3];
             BackgroundImage.ImageExOpened += BackgroundImage_ImageExOpened;
 
             var notification = (NotificationService) data[1];
             var artistId = Int64.Parse( (string)data[2]);
 
-            ViewModel = new ArtistViewModel(api, notification);
+            ViewModel = new ArtistViewModel(api, notification, player);
             await ViewModel.StartLoading(artistId);
             base.OnNavigatedTo(e);
         }

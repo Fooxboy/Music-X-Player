@@ -50,7 +50,7 @@ namespace Fooxboy.MusicX.Uwp.Controls
         public static readonly DependencyProperty BlockProperty = DependencyProperty.Register("Block", typeof(Block),
             typeof(BlockControl), new PropertyMetadata(new Block()));
 
-
+        private List<Track> TracksLastRelease;
 
         public Block Block
         {
@@ -118,6 +118,9 @@ namespace Fooxboy.MusicX.Uwp.Controls
                 }
                 else
                 {
+                    var album = Block.Albums[0];
+                    var tracks = _api.VKontakte.Music.Tracks.Get(100, 0, album.AccessKey, album.Id, album.OwnerId);
+                    TracksLastRelease = tracks.ToListTrack();
                     LastRelease = Block.Albums.FirstOrDefault().ToAlbum();
                     CoverLastRelease.Source = LastRelease.Cover;
                     TitleLastRelease.Text = LastRelease.Title;
@@ -189,7 +192,7 @@ namespace Fooxboy.MusicX.Uwp.Controls
                     var artist = track.Artists?.SingleOrDefault(a=> a.Name == elem.Title);
                     if (artist != null)
                     {
-                        _navigation.Go(typeof(ArtistView), new object[]{_api, _notification, artist.Id}, 1);
+                        _navigation.Go(typeof(ArtistView), new object[]{_api, _notification, artist.Id, _player}, 1);
                     }
                 }
             }
@@ -200,12 +203,12 @@ namespace Fooxboy.MusicX.Uwp.Controls
 
         private void PlayLastRelease_OnClick(object sender, RoutedEventArgs e)
         {
-            //throw new NotImplementedException();
+            _player.Play(new Album(), 0, TracksLastRelease);
         }
 
         private void OpenPlaylistLastRelease_OnClick(object sender, RoutedEventArgs e)
         {
-            //throw new NotImplementedException();
+            _navigation.Go(typeof(PlaylistView), new PlaylistViewNavigationData() { Album = Block.Albums[0].ToAlbum(), Container = Container.Get }, 1);
         }
     }
 }
