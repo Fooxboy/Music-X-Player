@@ -13,6 +13,8 @@ namespace Fooxboy.MusicX.Core.VKontakte.Music.Converters
     {
         public static ITrack ToITrack(this Audio audio)
         {
+            Api.Logger.Trace("[CORE] Конвертация ToITrack...");
+
             ITrack track = new Track();
             try
             {
@@ -34,6 +36,8 @@ namespace Fooxboy.MusicX.Core.VKontakte.Music.Converters
                     }
                     catch
                     {
+                        Api.Logger.Trace("[CORE] Трек без альбома.");
+
                     }
                 }
 
@@ -42,12 +46,18 @@ namespace Fooxboy.MusicX.Core.VKontakte.Music.Converters
                 {
                     if (audio.IsLicensed.Value)
                     {
+                        Api.Logger.Trace("[CORE] Трек лицензируется.");
+
                         if (audio.MainArtists != null && audio.MainArtists?.Count() != 0)
                         {
+                            Api.Logger.Trace("[CORE] Трек имеет исполнителя.");
+
                             foreach (var artist in audio.MainArtists)
                             {
                                 try
                                 {
+                                    Api.Logger.Trace($"[CORE] Исполнитель: {artist.Name}");
+
                                     IArtist art = new Artist();
                                     art.Domain = artist.Domain;
                                     art.Id = artist.Id;
@@ -56,6 +66,8 @@ namespace Fooxboy.MusicX.Core.VKontakte.Music.Converters
                                 }
                                 catch
                                 {
+                                    Api.Logger.Trace("[CORE] Ошибка декодирования исполнителя.");
+
                                 }
 
                             }
@@ -63,12 +75,16 @@ namespace Fooxboy.MusicX.Core.VKontakte.Music.Converters
 
                         if (audio.FeaturedArtists != null && audio.FeaturedArtists?.Count() != 0)
                         {
+                            Api.Logger.Trace("[CORE] Трек имеет FeaturedArtists.");
+
                             foreach (var artist in audio.FeaturedArtists)
                             {
                                 if (!(track.Artists.Any(t => t.Id == artist.Id)))
                                 {
                                     try
                                     {
+                                        Api.Logger.Trace($"[CORE] Исполнитель: {artist.Name}");
+
                                         IArtist art = new Artist();
                                         art.Domain = artist.Domain;
                                         art.Id = artist.Id;
@@ -77,6 +93,8 @@ namespace Fooxboy.MusicX.Core.VKontakte.Music.Converters
                                     }
                                     catch
                                     {
+                                        Api.Logger.Trace("[CORE] Ошибка декодирования исполнителя.");
+
                                     }
 
                                 }
@@ -98,6 +116,8 @@ namespace Fooxboy.MusicX.Core.VKontakte.Music.Converters
             }
             catch(Exception e)
             {
+                Api.Logger.Error("[CORE] Ошибка конвертации трека", e);
+
                 track.Title = audio.Title;
                 track.Artist = audio.Artist;
                 track.IsAvailable = false;

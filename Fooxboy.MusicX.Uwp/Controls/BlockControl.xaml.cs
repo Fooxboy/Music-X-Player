@@ -159,7 +159,7 @@ namespace Fooxboy.MusicX.Uwp.Controls
 
             if (Block.Type == "audios_list" || Block.Type == "audios" || Block.Type == "top_audios")
             {
-                _navigation.Go(typeof(AllTracksView), new object[] { _player, c.Resolve<Api>(), "block", Block.Id, _notification }, 1);
+                _navigation.Go(typeof(AllTracksView), new object[] { _player, c.Resolve<Api>(), "block", Block.Id, _notification, c.Resolve<LoggerService>() }, 1);
             }
             if (Block.Type == "playlists")
             {
@@ -177,6 +177,8 @@ namespace Fooxboy.MusicX.Uwp.Controls
 
         private async void ArtistsList_OnItemClick(object sender, ItemClickEventArgs e)
         {
+            var c = Container.Get;
+
             var elem = (SearchArtistBlockInfo)e.ClickedItem;
 
             if (elem.Meta.ContentType != "artist")
@@ -192,7 +194,7 @@ namespace Fooxboy.MusicX.Uwp.Controls
                     var artist = track.Artists?.SingleOrDefault(a=> a.Name == elem.Title);
                     if (artist != null)
                     {
-                        _navigation.Go(typeof(ArtistView), new object[]{_api, _notification, artist.Id, _player}, 1);
+                        _navigation.Go(typeof(ArtistView), new object[]{_api, _notification, artist.Id, _player, c.Resolve<LoggerService>() }, 1);
                     }
                 }
             }

@@ -52,7 +52,9 @@ namespace Fooxboy.MusicX.Uwp
         {
             //инициализация контейера
             var c = new DryIoc.Container();
-            c.RegisterInstance<Api>(Core.Api.GetApi());
+            c.Register<LoggerService>(Reuse.Singleton);
+            var logger = c.Resolve<LoggerService>();
+            c.RegisterInstance<Api>(Core.Api.GetApi(logger));
             c.Register<ConfigService>(Reuse.Singleton);
             c.Register<NotificationService>(Reuse.Singleton);
             c.Register<TokenService>(Reuse.Singleton);
@@ -62,7 +64,7 @@ namespace Fooxboy.MusicX.Uwp
             c.Register<LoadingService>(Reuse.Singleton);
             c.Register<PlayerService>(Reuse.Singleton);
             c.Register<CurrentUserService>(Reuse.Singleton);
-            c.Register<LoggerService>(Reuse.Singleton);
+            c.Register<AppPrivateSettingsService>(Reuse.Singleton);
 
             this._container = c;
 

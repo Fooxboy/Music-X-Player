@@ -7,7 +7,9 @@
     xmlns:local="using:Fooxboy.MusicX.Uwp.ContentDialogs"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     Title="НАСТРОЙКИ"
+    Background="{ThemeResource BackgroundApp}"
     CornerRadius="5"
+    Loaded="SettingsContentDialog_OnLoaded"
     PrimaryButtonClick="ContentDialog_PrimaryButtonClick"
     PrimaryButtonText="Закрыть"
     mc:Ignorable="d">
@@ -105,8 +107,18 @@
                                 FontWeight="ExtraBlack"
                                 Text="Тема оформления" />
 
-                            <RadioButton Content="Светлая" GroupName="Theme" />
-                            <RadioButton Content="Темная" GroupName="Theme" />
+                            <RadioButton
+                                x:Name="ButtonLight"
+                                Click="LightTheme"
+                                Content="Светлая"
+                                GroupName="Theme"
+                                IsChecked="True" />
+                            <RadioButton
+                                x:Name="ButtonDark"
+                                Click="DarkTheme"
+                                Content="Темная"
+                                GroupName="Theme"
+                                IsChecked="True" />
                             <Grid Margin="0,5,0,0" HorizontalAlignment="Left">
                                 <FontIcon
                                     HorizontalAlignment="Left"

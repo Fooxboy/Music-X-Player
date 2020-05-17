@@ -38,7 +38,8 @@ namespace Fooxboy.MusicX.Uwp.Views
             var query = (string) data[0];
             var api = (Api) data[1];
             var notification = (NotificationService) data[2];
-            ViewModel = new SearchViewModel(api, notification);
+            var logger = (LoggerService) data[3];
+            ViewModel = new SearchViewModel(api, notification, logger);
 
             await ViewModel.StartLoading(query);
             base.OnNavigatedTo(e);

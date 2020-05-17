@@ -11,6 +11,7 @@ namespace Fooxboy.MusicX.Core.VKontakte.Music.Converters
         {
             try
             {
+                Api.Logger.Trace("[CORE] Decode Audio Url...");
                 var segments = audioUrl.Segments.ToList();
 
                 segments.RemoveAt((segments.Count - 1) / 2);
@@ -20,8 +21,9 @@ namespace Fooxboy.MusicX.Core.VKontakte.Music.Converters
 
                 return new Uri($"{audioUrl.Scheme}://{audioUrl.Host}{string.Join("", segments)}{audioUrl.Query}");
             }
-            catch
+            catch(Exception e)
             {
+                Api.Logger.Error("Невозможно декодировать url mp3", e);
                 return null;
             }
            

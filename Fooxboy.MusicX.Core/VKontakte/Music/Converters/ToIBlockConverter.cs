@@ -13,7 +13,9 @@ namespace Fooxboy.MusicX.Core.VKontakte.Music.Converters
     {
         public static IBlock ConvertToIBlock(this Response<Models.Music.BlockInfo.ResponseItem> b)
         {
-            IBlock  block = new Block();
+            Api.Logger.Trace("[CORE] Конвертация ToIBlock...");
+
+            IBlock block = new Block();
             try
             {
                 var bl = b.response.Block;
@@ -55,8 +57,10 @@ namespace Fooxboy.MusicX.Core.VKontakte.Music.Converters
                 }
                
             }
-            catch
+            catch(Exception e)
             {
+                Api.Logger.Error("[CORE] Ошибка при конвертации ToIBlock...", e);
+
                 block.Title = "Информация недоступна";
                 block.Tracks = new List<ITrack>();
                 block.Albums = new List<IAlbum>();

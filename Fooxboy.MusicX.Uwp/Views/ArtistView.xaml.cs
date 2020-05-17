@@ -40,8 +40,9 @@ namespace Fooxboy.MusicX.Uwp.Views
 
             var notification = (NotificationService) data[1];
             var artistId = Int64.Parse( (string)data[2]);
+            var logger = (LoggerService) data[4];
 
-            ViewModel = new ArtistViewModel(api, notification, player);
+            ViewModel = new ArtistViewModel(api, notification, player, logger);
             await ViewModel.StartLoading(artistId);
             base.OnNavigatedTo(e);
         }

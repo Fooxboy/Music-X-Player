@@ -16,6 +16,7 @@ namespace Fooxboy.MusicX.Core.VKontakte.Music.Converters
             IAlbum album = new Models.Album();
             try
             {
+                Api.Logger.Trace("[CORE] Конвертация ToIAlbum...");
                 album.Title = playlist.Title;
                 album.Id = playlist.Id.Value;
                 album.Description = playlist.Description;
@@ -59,8 +60,9 @@ namespace Fooxboy.MusicX.Core.VKontakte.Music.Converters
                 album.Tracks = new List<ITrack>();
                 album.IsAvailable = true;
             }
-            catch
+            catch(Exception exception)
             {
+                Api.Logger.Error("[CORE] Невозможно сконвертировать альбом", exception);
                 album.Title = playlist.Title?? "Альбом недоступен";
                 album.IsAvailable = false;
             }

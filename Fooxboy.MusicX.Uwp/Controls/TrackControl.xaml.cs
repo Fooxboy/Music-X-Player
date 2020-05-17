@@ -58,6 +58,7 @@ namespace Fooxboy.MusicX.Uwp.Resources.Controls
             _notificationService = Container.Get.Resolve<NotificationService>();
             currentUserService = Container.Get.Resolve<CurrentUserService>();
             _player = Container.Get.Resolve<PlayerService>();
+            var logger = Container.Get.Resolve<LoggerService>();
             var navigation = Container.Get.Resolve<NavigationService>();
 
             this.InitializeComponent();
@@ -68,7 +69,7 @@ namespace Fooxboy.MusicX.Uwp.Resources.Controls
 
             GoToArtistCommand = new RelayCommand(() =>
             {
-                navigation.Go(typeof(ArtistView), new object[] {_api, _notificationService, Track.Artists[0].Id, _player}, 1);
+                navigation.Go(typeof(ArtistView), new object[] {_api, _notificationService, Track.Artists[0].Id, _player, logger}, 1);
             });
 
         }

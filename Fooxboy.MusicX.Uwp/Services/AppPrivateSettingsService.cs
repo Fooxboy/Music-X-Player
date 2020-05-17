@@ -32,7 +32,6 @@ namespace Fooxboy.MusicX.Uwp.Services
 
         public ApplicationTheme GetTheme()
         {
-            return ApplicationTheme.Dark;
 
             var value = this.Get("ThemeApp");
             if (value != null)

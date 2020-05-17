@@ -26,6 +26,7 @@ using Windows.ApplicationModel.Core;
 using Windows.System;
 using Flurl.Http;
 using Fooxboy.MusicX.Core;
+using VkNet.AudioBypassService.Models;
 
 
 // Документацию по шаблону элемента "Пустая страница" см. по адресу https://go.microsoft.com/fwlink/?LinkId=234238
@@ -162,8 +163,9 @@ namespace Fooxboy.MusicX.Uwp.Views
             {
                 var n = _container.Resolve<NavigationService>();
                 var api = _container.Resolve<Api>();
+                var logger = _container.Resolve<LoggerService>();
                 var notification = _container.Resolve<NotificationService>();
-                n.Go(typeof(SearchView), new object[]{SearchBox.Text, api, notification}, 1);
+                n.Go(typeof(SearchView), new object[]{SearchBox.Text, api, notification, logger}, 1);
             }
         }
 
@@ -181,6 +183,7 @@ namespace Fooxboy.MusicX.Uwp.Views
         private void ArtistText_OnTapped(object sender, TappedRoutedEventArgs e)
         {
             var api = _container.Resolve<Api>();
+            var logger = _container.Resolve<LoggerService>();
             var notificationService = _container.Resolve<NotificationService>();
             var navigation = _container.Resolve<NavigationService>();
             var player = _container.Resolve<PlayerService>();
@@ -191,7 +194,7 @@ namespace Fooxboy.MusicX.Uwp.Views
                     try
                     {
                         var artist = PlayerViewModel.PlayerSerivce.CurrentTrack.Artists[0];
-                        navigation.Go(typeof(ArtistView), new object[] {api, notificationService, artist.Id, player}, 1);
+                        navigation.Go(typeof(ArtistView), new object[] {api, notificationService, artist.Id, player, logger}, 1);
                         return;
                     }
                     catch (Exception ee)
