@@ -30,12 +30,14 @@ namespace Fooxboy.MusicX.Uwp.ViewModels
         private Api _api;
         private NotificationService _notificationService;
         private PlayerService _player;
+        private ILoggerService _logger;
 
-        public ArtistViewModel(Api api, NotificationService notification, PlayerService player)
+        public ArtistViewModel(Api api, NotificationService notification, PlayerService player, ILoggerService logger)
         {
             VisibleLoading = true;
             VisibleContent = false;
             this._api = api;
+            this._logger = logger;
             this._notificationService = notification;
             this._player = player;
             Blocks = new ObservableCollection<IBlock>();
@@ -59,7 +61,9 @@ namespace Fooxboy.MusicX.Uwp.ViewModels
         {
             try
             {
+                _logger.Trace("Загрузка информации об артисте...");
                 var artist = await _api.VKontakte.Music.Artists.GetAsync(artistId);
+                _logger.Info($"Загружен артист {artist.Name} с {artist.Blocks.Count} блоками информации.");
                 PhotoUrl = artist.Banner;
                 Name = artist.Name;
                 var blockF = artist.Blocks.SingleOrDefault(b => b.Source == "artist_info");
@@ -78,14 +82,16 @@ namespace Fooxboy.MusicX.Uwp.ViewModels
                 Changed("VisibleLoading");
                 Changed("VisibleContent");
             }
-            catch (FlurlHttpException)
+            catch (FlurlHttpException e)
             {
+                _logger.Error("Ошибка сети", e);
                 _notificationService.CreateNotification("Ошибка сети", "Произошла ошибка подключения к сети.",
                     "Попробовать ещё раз", "Закрыть", new RelayCommand(
                         async () => { await this.StartLoading(artistId); }), new RelayCommand(() => { }));
             }
             catch (Exception e)
             {
+                _logger.Error("Неизвестная ошибка", e);
                 _notificationService.CreateNotification("Ошибка при загрузке карточки музыканта", $"Ошибка: {e.Message}");
             }
             

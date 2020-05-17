@@ -34,6 +34,7 @@ namespace Fooxboy.MusicX.Uwp.ViewModels
         public RelayCommand DeleteCommand { get; }
 
         private IContainer _container;
+        private ILoggerService _logger;
 
         public PlaylistViewModel(IContainer container)
         {
@@ -41,6 +42,7 @@ namespace Fooxboy.MusicX.Uwp.ViewModels
             _notificationService = _container.Resolve<NotificationService>();
             
             _api = container.Resolve<Api>();
+            _logger = container.Resolve<LoggerService>();
             _currentUser = container.Resolve<CurrentUserService>();
             Tracks = new ObservableCollection<Track>();
             ArtistText = "Нет музыканта";
@@ -56,6 +58,7 @@ namespace Fooxboy.MusicX.Uwp.ViewModels
         {
             try
             {
+                _logger.Trace($"Загрузка плейлиста: {album}");
                 if (album.OwnerId == _currentUser.UserId)
                 {
                     DeleteButtonIsActive = true;
@@ -116,6 +119,8 @@ namespace Fooxboy.MusicX.Uwp.ViewModels
                     tracks = (await api.VKontakte.Music.Tracks.GetAsync(200, 0, album.AccessKey, album.Id, album.OwnerId))
                         .ToListTrack();
                 }
+
+                _logger.Info($"Загружено {tracks.Count} треков в плейлисте.");
                     
                 foreach (var track in tracks) Tracks.Add(track);
 
@@ -123,21 +128,23 @@ namespace Fooxboy.MusicX.Uwp.ViewModels
                 Changed("Tracks");
                 loadingService.Change(false);
             }
-            catch (FlurlHttpException)
+            catch (FlurlHttpException e)
             {
+                _logger.Error("Ошибка сети", e);
                 _notificationService.CreateNotification("Ошибка сети", "Произошла ошибка подключения к сети.",
                     "Попробовать ещё раз", "Закрыть", new RelayCommand(
                         async () => { await this.StartLoading(album); }), new RelayCommand(() => { }));
             }
-            catch (VkNet.Exception.CannotBlacklistYourselfException)
+            catch (VkNet.Exception.CannotBlacklistYourselfException e)
             {
+                _logger.Error("Нет доступа к плейлисту", e);
                 await StartLoading(album, true);
             }
             catch (Exception e)
             {
+                _logger.Error("Неизвестная ошибка", e);
                 _notificationService.CreateNotification("Ошибка при загрузке плейлиста", e.Message);
             }
-
 
         }
 
@@ -145,19 +152,23 @@ namespace Fooxboy.MusicX.Uwp.ViewModels
         {
             try
             {
+                _logger.Trace("Удаление альбома...");
                 await _api.VKontakte.Music.Albums.Delete(Album.Id, Album.OwnerId);
                 _notificationService.CreateNotification("Альбом удален", $"{Album.Title} удален из Вашей библиотеки.");
                 DeleteButtonIsActive = false;
                 Changed("DeleteButtonIsActive");
+                _logger.Info("Альбом удален.");
             }
-            catch (FlurlHttpException)
+            catch (FlurlHttpException e)
             {
+                _logger.Error("Ошибка сети", e);
                 _notificationService.CreateNotification("Ошибка сети", "Произошла ошибка подключения к сети.",
                     "Попробовать ещё раз", "Закрыть", new RelayCommand(
                         async () => { await this.Delete(); }), new RelayCommand(() => { }));
             }
             catch (Exception e)
             {
+                _logger.Error("Неизвестная ошибка", e);
                 _notificationService.CreateNotification("Невозможно удалить альбом", $"Ошибка: {e.Message}");
             }
         }
@@ -179,25 +190,28 @@ namespace Fooxboy.MusicX.Uwp.ViewModels
         {
             try
             {
+                _logger.Trace("Добавление альбома в библиотеку...");
                 await _api.VKontakte.Music.Albums.AddAsync(Album.Id, Album.OwnerId, Album.AccessKey);
                 _notificationService.CreateNotification("Альбом добавлен",
                     $"{Album.Title} был добавлен в Вашу библиотеку.");
 
                 AddButtonIsActive = false;
                 Changed("AddButtonIsActive");
+                _logger.Info("Альбом добавлен.");
             }
-            catch (FlurlHttpException)
+            catch (FlurlHttpException e)
             {
+                _logger.Error("Ошибка сети", e);
                 _notificationService.CreateNotification("Ошибка сети", "Произошла ошибка подключения к сети.",
                     "Попробовать ещё раз", "Закрыть", new RelayCommand(
                         async () => { this.AddToLibrary(); }), new RelayCommand(() => { }));
             }
             catch (Exception e)
             {
+                _logger.Error("Неизвестная ошибка", e);
                 _notificationService.CreateNotification("Невозможно добавить альбом", $"Ошибка: {e.Message}");
             }
 
-            
         }
 
         public void PlayTrack(Track track)

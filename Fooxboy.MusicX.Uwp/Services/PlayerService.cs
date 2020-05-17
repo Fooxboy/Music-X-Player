@@ -271,6 +271,11 @@ namespace Fooxboy.MusicX.Uwp.Services
 
             _notificationService.CreateNotification("Произошла ошибка при загрузке", $"{args.Error}");
 
+            //if (args.Error == MediaPlayerError.SourceNotSupported)
+            //{
+
+            //}
+
             //Ошибка при загрузке
 
             //if (args.Error == MediaPlayerError.SourceNotSupported)

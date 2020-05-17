@@ -22,6 +22,7 @@ namespace Fooxboy.MusicX.Core.VKontakte.Music
         }
         public async Task<IArtist> GetAsync(long artistId)
         {
+            Api.Logger.Trace("[CORE] запрос audio.getCatalog (Artist)...");
             var parameters = new VkParameters
             {
                 {"artist_id", artistId}, {"extended", 1}, {"access_token", _api.Token}, {"v", "5.101"}
@@ -49,6 +50,7 @@ namespace Fooxboy.MusicX.Core.VKontakte.Music
                 }
                 artist.Blocks.Add(block.ConvertToIBlock());
             }
+            Api.Logger.Trace($"[CORE] Ответ получен: музыкант {artist.Name}");
 
             return artist;
         }

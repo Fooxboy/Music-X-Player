@@ -26,5 +26,11 @@ namespace Fooxboy.MusicX.Uwp.Models
         public long Followers { get; set; }
         public bool IsFollowing { get; set; }
         public long Type { get; set; }
+
+        public override string ToString()
+        {
+            var str = $"ID - {Id} | OwnerId - {OwnerId} | Title - {Title} | Artists - {Artists.Count} | AccessKey - {AccessKey} | TracksCount - {Tracks.Count} | GenresCount - {Genres.Count} | Plays - {Plays} | Year - {Year} | IsAvailable - {IsAvailable} | Description - {Description} | Followers - {Followers} | IsFollowing - {IsFollowing}";
+            return str;
+        }
     }
 }

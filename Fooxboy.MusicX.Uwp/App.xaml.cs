@@ -14,12 +14,14 @@ using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using DryIoc;
 using Windows.UI.Xaml.Navigation;
+using DiscordRPC.Logging;
 using Flurl.Http;
 using Microsoft.AppCenter.Crashes;
 using Fooxboy.MusicX.Core;
 using Fooxboy.MusicX.Uwp.Services;
 using Fooxboy.MusicX.Uwp.Views;
 using VkNet.Exception;
+using LogLevel = Microsoft.AppCenter.LogLevel;
 
 namespace Fooxboy.MusicX.Uwp
 {
@@ -44,6 +46,7 @@ namespace Fooxboy.MusicX.Uwp
         }
 
         private IContainer _container;
+        private ILoggerService _logger;
 
         protected async override void OnLaunched(LaunchActivatedEventArgs e)
         {
@@ -63,6 +66,8 @@ namespace Fooxboy.MusicX.Uwp
 
             this._container = c;
 
+            _logger = c.Resolve<LoggerService>();
+
             Container.SetContainer(this._container);
 
             Frame rootFrame = Window.Current.Content as Frame;
@@ -77,6 +82,7 @@ namespace Fooxboy.MusicX.Uwp
                         //TODO: Загрузить состояние из ранее приостановленного приложения
                     }
                 }
+                _logger.Trace("Инициализвция AppCenter..");
                 AppCenter.Start("96c77488-34ce-43d0-b0d3-c4b1ce326c7f", typeof(Analytics), typeof(Push), typeof(Crashes));
                 AppCenter.LogLevel = LogLevel.Verbose;
                 CoreApplication.GetCurrentView().TitleBar.ExtendViewIntoTitleBar = true;
@@ -109,24 +115,31 @@ namespace Fooxboy.MusicX.Uwp
                             rootFrame.Navigate(typeof(Views.RootWindow), this._container);
                             try
                             {
+                                _logger.Trace("Авторизация ВКонтакте...");
                                 await _container.Resolve<Api>().VKontakte.Auth
                                     .AutoAsync(config.AccessTokenVkontakte, null);
 
                             }
-                            catch (FlurlHttpException)
+                            catch (FlurlHttpException eee)
                             {
+                                _logger.Error("Ошибка сети", eee);
+
                                 rootFrame.Navigate(typeof(ErrorPage), "Нет доступа к интернету.");
                             }
-                            catch (VkApiException)
+                            catch (VkApiException eee)
                             {
+                                _logger.Error("Ошибка ВКонтакте", eee);
                                 var tokenService = _container.Resolve<TokenService>();
                                 await tokenService.Delete();
                                 rootFrame.Navigate(typeof(LoginView));
                             }
                             catch (Exception ee)
                             {
+                                _logger.Error("Неизвестная ошибка", ee);
                                 rootFrame.Navigate(typeof(ErrorPage), $"Ошибка: {ee.Message}");
                             }
+
+                            //Инициализация DRP
                             //await _container.Resolve<Api>().Discord.InitAsync();
 
                         }

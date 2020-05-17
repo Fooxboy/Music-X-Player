@@ -18,6 +18,8 @@ namespace Fooxboy.MusicX.Core.VKontakte.Music
         }
         public async Task<IBlock> GetAsync(string id, long count = 100, long offset = 0)
         {
+            Api.Logger.Trace("[CORE] Запрос к audio.getCatalogBlockById...");
+
             var parameters = new VkParameters
             {
                 {"count", count},
@@ -31,6 +33,8 @@ namespace Fooxboy.MusicX.Core.VKontakte.Music
             };
             var json = await _api.InvokeAsync("audio.getCatalogBlockById", parameters);
             var blockModel = JsonConvert.DeserializeObject<Response<Models.Music.BlockInfo.ResponseItem>>(json);
+            Api.Logger.Trace($"[CORE] Ответ получен: {blockModel.response.Block.Count} результатов.");
+
             return blockModel.ConvertToIBlock();
         }
         

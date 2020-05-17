@@ -19,10 +19,12 @@ namespace Fooxboy.MusicX.Uwp.ViewModels
         private readonly PlayerService _player;
         private List<Track> _tracksForYou;
         private readonly NotificationService _notificationService;
-        public RecommendationsViewModel(Api api, PlayerService player, NotificationService notificationService)
+        private readonly ILoggerService _logger;
+        public RecommendationsViewModel(Api api, PlayerService player, NotificationService notificationService, ILoggerService logger)
         {
             _api = api;
             _player = player;
+            _logger = logger;
             _notificationService = notificationService;
             this.Blocks = new ObservableCollection<IBlock>();
             PlayAllCommand = new RelayCommand(PlayAll);
@@ -61,7 +63,9 @@ namespace Fooxboy.MusicX.Uwp.ViewModels
         {
             try
             {
+                _logger.Trace("Загрузка рекомендаций..");
                 var blocks = await _api.VKontakte.Music.Recommendations.GetAsync();
+                _logger.Info($"Загружено {blocks.Count} блоков рекомендаций.");
                 var blockForYou = blocks.Single(b => b.Source == "recoms_recoms");
                 ForYouString = blockForYou.Subtitle;
                 _tracksForYou = blockForYou.Tracks.ToListTrack();
@@ -82,16 +86,17 @@ namespace Fooxboy.MusicX.Uwp.ViewModels
 
                 Changed("Blocks");
             }
-            catch (FlurlHttpException)
+            catch (FlurlHttpException e)
             {
+                _logger.Error("Ошибка сети", e);
                 _notificationService.CreateNotification("Ошибка сети", "Произошла ошибка подключения к сети.",
                     "Попробовать ещё раз", "Закрыть", new RelayCommand(
                         async () => { await this.StartLoading(); }), new RelayCommand(() => { }));
             }
             catch (Exception e)
             {
+                _logger.Error("Неизвестная ошибка", e);
                 _notificationService.CreateNotification("Невозможно получить рекомендации.", $"Ошибка: {e.Message}");
-
             }
 
         }

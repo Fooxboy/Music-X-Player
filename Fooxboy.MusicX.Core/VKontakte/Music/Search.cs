@@ -22,6 +22,8 @@ namespace Fooxboy.MusicX.Core.VKontakte.Music
         public async Task<List<ITrack>> TracksAsync(string text, long count=20, long offset=0, bool withLyrics= false,
             bool performerOnly = false, bool searchInLibrary = true)
         {
+            Api.Logger.Trace($"[CORE] Запрос к audio.search");
+
             var music = await _api.Audio.SearchAsync(new VkNet.Model.RequestParams.AudioSearchParams()
             {
                 Query = text,
@@ -33,6 +35,9 @@ namespace Fooxboy.MusicX.Core.VKontakte.Music
                 SearchOwn = searchInLibrary,
                 Sort = VkNet.Enums.AudioSort.Popularity
             });
+
+            Api.Logger.Trace($"[CORE] Ответ получен: {music.TotalCount} элементов.");
+
             return music.Select(track => track.ToITrack()).ToList();
 
         }
@@ -57,6 +62,8 @@ namespace Fooxboy.MusicX.Core.VKontakte.Music
 
         public async Task<List<IBlock>> GetResultsAsync(string text)
         {
+            Api.Logger.Trace($"[CORE] Запрос к audio.getCatalog...");
+
             var parameters = new VkParameters
             {
                 {"v", "5.103"},
@@ -68,6 +75,8 @@ namespace Fooxboy.MusicX.Core.VKontakte.Music
 
             var json = await _api.InvokeAsync("audio.getCatalog", parameters);
             var model = JsonConvert.DeserializeObject<Response<ResponseItem>>(json);
+            Api.Logger.Trace($"[CORE] Ответ получен: {model.response.Items.Count} элементов.");
+
             return model.response.Items.Select(block => block.ConvertToIBlock()).ToList();
 
         }

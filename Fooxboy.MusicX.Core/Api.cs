@@ -16,8 +16,10 @@ namespace Fooxboy.MusicX.Core
             LastFM = new LastFmScrobblerApi();
         }
         private static Api _api;
-        public static Api GetApi()
+        public static ILoggerService Logger;
+        public static Api GetApi(ILoggerService logger)
         {
+            Logger = logger;
             if(_api == null) _api = new Api();
 
             return _api;

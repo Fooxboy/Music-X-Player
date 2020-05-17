@@ -20,7 +20,9 @@ namespace Fooxboy.MusicX.Core.VKontakte.Music
         }
         public async Task<List<IAlbum>> GetAsync(long id, uint count=10, uint offset = 0)
         {
+            Api.Logger.Trace("[CORE] Запрос audio.getPlaylists...");
             var playlistsVk = await _api.Audio.GetPlaylistsAsync(id, count, offset);
+            Api.Logger.Trace($"[CORE] Ответ получен: {playlistsVk.TotalCount} элементов.");
             return playlistsVk.Select(playlist => playlist.ToIAlbum()).ToList();
         }
         
@@ -32,6 +34,8 @@ namespace Fooxboy.MusicX.Core.VKontakte.Music
 
         public async Task AddAsync(long albumId, long ownerId, string accessKey)
         {
+            Api.Logger.Trace("[CORE] Запрос audio.followPlaylist...");
+
             var parameters = new VkParameters
             {
                 {"v", "5.103"},
@@ -45,11 +49,17 @@ namespace Fooxboy.MusicX.Core.VKontakte.Music
             if(accessKey != null) parameters.Add("access_key", accessKey);
 
             var json = await _api.InvokeAsync("audio.followPlaylist", parameters);
+            Api.Logger.Trace($"[CORE] Ответ получен, результат: {json}");
+
         }
 
         public async Task Delete(long playlistId, long ownerId)
         {
+            Api.Logger.Trace("[CORE] Запрос audio.deletePlaylistAsync...");
+
             var result = await _api.Audio.DeletePlaylistAsync(ownerId, playlistId);
+            Api.Logger.Trace($"[CORE] Ответ получен, результат: {result}");
+
         }
     }
 }

@@ -23,6 +23,7 @@ namespace Fooxboy.MusicX.Core.VKontakte.Music
         }
         public async Task<List<IBlock>> GetAsync()
         {
+            Api.Logger.Trace("[CORE] Запрос к audio.getCatalog (Рекомендации)");
             var parameters = new VkParameters
             {
                 {"v", "5.103"},
@@ -35,6 +36,8 @@ namespace Fooxboy.MusicX.Core.VKontakte.Music
 
             var json = await _api.InvokeAsync("audio.getCatalog", parameters);
             var model = JsonConvert.DeserializeObject<Response<ResponseItem>>(json);
+            Api.Logger.Trace($"[CORE] Ответ получен: {model.response.Items.Count} элементов.");
+
             return model.response.Items.Select(block => block.ConvertToIBlock()).ToList();
         }
         

@@ -11,6 +11,7 @@ using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Media.Animation;
 using Fooxboy.MusicX.Core;
 using Fooxboy.MusicX.Uwp.ContentDialogs;
+using Microsoft.Extensions.Logging;
 using Microsoft.Toolkit.Uwp.Helpers;
 
 namespace Fooxboy.MusicX.Uwp.ViewModels
@@ -27,6 +28,7 @@ namespace Fooxboy.MusicX.Uwp.ViewModels
         public RelayCommand GoToDownloads { get; set; }
         private NavigationService _navigationService;
         private IContainer _container;
+        private ILoggerService _logger;
 
         public RelayCommand LogOutCommand { get; set; }
 
@@ -36,6 +38,7 @@ namespace Fooxboy.MusicX.Uwp.ViewModels
         public NavigationRootViewModel(IContainer container)
         {
             this._container = container;
+            _logger = _container.Resolve<LoggerService>();
             GoToHome = new RelayCommand(ToHome);
             GoToRecommendations = new RelayCommand(ToRecommendations);
             GoToFavoriteArtists = new RelayCommand(ToFavoriteArtists);
@@ -48,6 +51,7 @@ namespace Fooxboy.MusicX.Uwp.ViewModels
 
         public async void LogOut()
         {
+            _logger.Trace("Выход из аккаунта...");
             var tokenSerice = _container.Resolve<TokenService>();
             await tokenSerice.Delete();
 

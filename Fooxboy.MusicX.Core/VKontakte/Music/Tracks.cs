@@ -22,6 +22,7 @@ namespace Fooxboy.MusicX.Core.VKontakte.Music
         }
         public async Task<List<ITrack>> GetAsync(int count = 10, int offset =0, string accessKey = null, long? playlistId =null, long? ownerId = null)
         {
+            Api.Logger.Trace("[CORE] Запрос audio.get...");
             var music = await _api.Audio.GetAsync(new VkNet.Model.RequestParams.AudioGetParams()
             {
                 Count = count,
@@ -30,6 +31,7 @@ namespace Fooxboy.MusicX.Core.VKontakte.Music
                 PlaylistId = playlistId,
                 OwnerId = ownerId
             });
+            Api.Logger.Trace($"[CORE] Ответ получен: {music.Count} элементов.");
             return music.Select(track=> track.ToITrack()).ToList();
         }
 
@@ -52,9 +54,11 @@ namespace Fooxboy.MusicX.Core.VKontakte.Music
                 {"count", "10"},
                 {"need_owner", needOwner }
             };
+            Api.Logger.Trace("[CORE] Запрос execute.getPlaylist...");
 
             var json = await _api.InvokeAsync("execute.getPlaylist", parameters);
             var model = JsonConvert.DeserializeObject<Response<GetPlaylistModel>>(json);
+            Api.Logger.Trace($"[CORE] Ответ получен.");
 
             return model.response.Audios.Select(track => track.ToITrack()).ToList();
         }
@@ -74,6 +78,8 @@ namespace Fooxboy.MusicX.Core.VKontakte.Music
 
         public async Task<long> GetCountAsync()
         {
+            Api.Logger.Trace("[CORE] Запрос audio.coutTracks...");
+
             long userId = 0;
             if (_api.UserId.Value == 0)
             {
@@ -81,6 +87,8 @@ namespace Fooxboy.MusicX.Core.VKontakte.Music
                 userId = user[0].Id;
             }
             else userId = _api.UserId.Value;
+            Api.Logger.Trace($"[CORE] Ответ получен.");
+
             return await _api.Audio.GetCountAsync(userId);
         }
         public long GetCount()
@@ -96,13 +104,20 @@ namespace Fooxboy.MusicX.Core.VKontakte.Music
 
         public async Task AddTrackAsync(long id, long ownerId, long? albumId = null)
         {
+            Api.Logger.Trace("[CORE] Запрос audio.add...");
+
             var result =await _api.Audio.AddAsync(id, ownerId, null, albumId);
+            Api.Logger.Trace($"[CORE] Ответ получен: {result}");
+
         }
 
         public async Task DeleteTrackAsync(long id, long ownerId)
         {
+            Api.Logger.Trace("[CORE] Запрос audio.delete...");
+
             var result = await _api.Audio.DeleteAsync(id, ownerId);
-            
+            Api.Logger.Trace($"[CORE] Ответ получен: {result}");
+
         }
 
     }

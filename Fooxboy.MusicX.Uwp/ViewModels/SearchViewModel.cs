@@ -22,10 +22,12 @@ namespace Fooxboy.MusicX.Uwp.ViewModels
 
         private Api _api;
         private NotificationService _notificationService;
-        public SearchViewModel(Api api, NotificationService notification)
+        private ILoggerService _logger;
+        public SearchViewModel(Api api, NotificationService notification, ILoggerService logger)
         {
             _api = api;
             _notificationService = notification;
+            _logger = logger;
             Blocks = new ObservableCollection<IBlock>();
             VisibleLoading = true;
             VisibleContent = false;
@@ -35,7 +37,9 @@ namespace Fooxboy.MusicX.Uwp.ViewModels
         {
             try
             {
+                _logger.Trace("Загрузка результатов поиска...");
                 var results = await _api.VKontakte.Music.Search.GetResultsAsync(query);
+                _logger.Info($"Загружено {results.Count} блоков результата поиска.");
 
                 var emptyBlock = results.Single(b => b.Source == "search_suggestions");
 
@@ -51,14 +55,16 @@ namespace Fooxboy.MusicX.Uwp.ViewModels
                     Blocks.Add(result);
                 }
             }
-            catch (FlurlHttpException)
+            catch (FlurlHttpException e)
             {
+                _logger.Error("Ошибка сети", e);
                 _notificationService.CreateNotification("Ошибка сети", "Произошла ошибка подключения к сети.",
                     "Попробовать ещё раз", "Закрыть", new RelayCommand(
                         async () => { await this.StartLoading(query); }), new RelayCommand(() => { }));
             }
             catch (Exception e)
             {
+                _logger.Error("Неизвестная ошибка", e);
                 _notificationService.CreateNotification("Невозможно получить результаты поиска.", $"Ошибка: {e.Message}");
             }
 

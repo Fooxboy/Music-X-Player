@@ -15,11 +15,13 @@ namespace Fooxboy.MusicX.Uwp.ViewModels
     public class AllPlaylistsViewModel:BaseViewModel
     {
         private NotificationService _notify;
+        private ILoggerService _logger;
         public AllPlaylistsViewModel(IContainer container)
         {
             _container = container;
             Albums = new ObservableCollection<Album>();
             _notify = _container.Resolve<NotificationService>();
+            _logger = _container.Resolve<LoggerService>();
         }
 
         public ObservableCollection<Album> Albums { get; set; }
@@ -58,12 +60,15 @@ namespace Fooxboy.MusicX.Uwp.ViewModels
         {
             try
             {
+                _logger.Trace("Загрузка списка всех альбомов...");
+
                 _isLoading = true;
                 if (_model.TypeViewPlaylist == AllPlaylistsModel.TypeView.UserAlbum)
                 {
 
                     var albums = await loader.GetLibraryAlbums(_currentCountAlbums, 20);
-                    if (albums.Count == 0)
+                    _logger.Info($"Загружено {albums.Count} альбомов.");
+                    if (albums.Count == 0) 
                     {
                         _hasLoadMore = false;
                         return;
@@ -85,6 +90,7 @@ namespace Fooxboy.MusicX.Uwp.ViewModels
                 else if (_model.TypeViewPlaylist == AllPlaylistsModel.TypeView.RecomsAlbums)
                 {
                     var albums = await loader.GetRecomsAlbums(_model.BlockId);
+                    _logger.Info($"Загружено {albums.Count} альбомов.");
                     foreach (var album in albums)
                     {
                         Albums.Add(album);
@@ -93,14 +99,16 @@ namespace Fooxboy.MusicX.Uwp.ViewModels
                     loadingService.Change(false);
                 }
             }
-            catch (FlurlHttpException)
+            catch (FlurlHttpException e)
             {
+                _logger.Error("Ошибка сети", e);
                 _isLoading = false;
                 _notify.CreateNotification("Ошибка сети", "Произошла ошибка подключения к сети.", "Попробовать ещё раз", "Закрыть", new RelayCommand(
                     async () => { await this.Load(); }), new RelayCommand(() => { }));
             }
             catch (Exception e)
             {
+                _logger.Error("Неизвестная ошибка", e);
                 _notify.CreateNotification("Ошибка при загрузке плейлистов", e.Message);
             }
             

@@ -33,6 +33,7 @@ namespace Fooxboy.MusicX.Uwp.ViewModels
         private TrackLoaderService loader;
         private AlbumLoaderService albumLoader;
         private IContainer _container;
+        private ILoggerService _logger;
 
 
         public RelayCommand OpelAllPlaylistsCommand { get; set; }
@@ -41,6 +42,7 @@ namespace Fooxboy.MusicX.Uwp.ViewModels
         public HomeViewModel(IContainer container)
         {
             _container = container;
+            _logger = _container.Resolve<LoggerService>();
             Tracks = new ObservableCollection<Track>();
             Albums = new ObservableCollection<Album>();
             
@@ -65,6 +67,7 @@ namespace Fooxboy.MusicX.Uwp.ViewModels
 
         public void OpenAllPlaylists()
         {
+            _logger.Trace("Открытие всех плейлистов пользователя...");
             var model = new AllPlaylistsModel();
             model.TypeViewPlaylist = AllPlaylistsModel.TypeView.UserAlbum;
             model.TitlePage = "Ваши альбомы";
@@ -72,17 +75,16 @@ namespace Fooxboy.MusicX.Uwp.ViewModels
             model.Container = _container;
             var navigationService = _container.Resolve<NavigationService>();
 
+            _logger.Trace("Открытие страницы AllPlaylistsView...");
             navigationService.Go(typeof(AllPlaylistsView), model, 1);
         }
 
-      
-
         public async Task StartLoadingAlbums()
         {
+            _logger.Trace("Запуск загрузки альбомов...");
 
             try
             {
-
                 var albums = await LoadAlbums();
                 foreach (var a in albums) Albums.Add(a);
                 Changed("Albums");
@@ -105,12 +107,15 @@ namespace Fooxboy.MusicX.Uwp.ViewModels
         {
             try
             {
+                _logger.Trace("Получение Album Loader...");
                 albumLoader = _container.Resolve<AlbumLoaderService>();
                 var albums = await albumLoader.GetLibraryAlbums(0, 10);
+                _logger.Info($"Возвращено {albums.Count} альбомов.");
                 return albums;
             }
-            catch (FlurlHttpException)
+            catch (FlurlHttpException e)
             {
+                _logger.Error("Ошибка сети", e);
                 _notificationService.CreateNotification("Ошибка сети", "Произошла ошибка подключения к сети.",
                     "Попробовать ещё раз", "Закрыть", new RelayCommand(
                         async () => { await this.LoadAlbums(); }), new RelayCommand(() => { }));
@@ -118,27 +123,32 @@ namespace Fooxboy.MusicX.Uwp.ViewModels
             }
             catch (Exception e)
             {
+                _logger.Error("Неизвестная ошибка", e);
                 _notificationService.CreateNotification("Ошибка при загрузке Ваших альбомов", $"Ошибка: {e.Message}");
                 return new List<Album>();
             }
-
         }
 
         public async Task GetMaxTracks()
         {
             try
             {
+                _logger.Trace("Получение количества максимальных треков...");
                 var api = _container.Resolve<Api>();
                 _maxTracks = await api.VKontakte.Music.Tracks.GetCountAsync();
+
+                _logger.Info($"Максимальное количество треков: {_maxTracks}");
             }
-            catch (FlurlHttpException)
+            catch (FlurlHttpException e)
             {
+                _logger.Error("Ошибка сети", e);
                 _notificationService.CreateNotification("Ошибка сети", "Произошла ошибка подключения к сети.",
                     "Попробовать ещё раз", "Закрыть", new RelayCommand(
                         async () => { await this.GetMaxTracks(); }), new RelayCommand(() => { }));
             }
             catch (Exception e)
             {
+                _logger.Error("Неизвестная ошибка", e);
                 _notificationService.CreateNotification("Ошибка при загрузке Ваших треков", $"Ошибка: {e.Message}");
             }
 
@@ -148,6 +158,7 @@ namespace Fooxboy.MusicX.Uwp.ViewModels
         {
             try
             {
+                _logger.Info("Начало загруки списка треков...");
                 if (_isLoading) return;
                 _isLoading = true;
 
@@ -209,15 +220,16 @@ namespace Fooxboy.MusicX.Uwp.ViewModels
 
         private async Task<System.Collections.Generic.List<Track>> LoadTracks()
         {
-
             try
             {
+                _logger.Trace("Загрузка треков...");
                 var tracks = await loader.GetLibraryTracks(_countTracks, _count);
-
+                _logger.Info($"Загружено {tracks.Count} треков.");
                 return tracks;
             }
-            catch (FlurlHttpException)
+            catch (FlurlHttpException e)
             {
+                _logger.Error("Ошибка сети", e);
                 _notificationService.CreateNotification("Ошибка сети", "Произошла ошибка подключения к сети.",
                     "Попробовать ещё раз", "Закрыть", new RelayCommand(
                         async () => { await this.LoadTracks(); }), new RelayCommand(() => { }));
@@ -225,6 +237,7 @@ namespace Fooxboy.MusicX.Uwp.ViewModels
             }
             catch (Exception e)
             {
+                _logger.Error("Неизвестная ошибка", e);
                 _notificationService.CreateNotification("Ошибка при загрузке Ваших треков", $"Ошибка: {e.Message}");
                 return new List<Track>();
             }

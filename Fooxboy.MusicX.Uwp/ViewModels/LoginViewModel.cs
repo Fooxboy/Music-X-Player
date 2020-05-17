@@ -11,16 +11,19 @@ using System.Threading;
 using System.Threading.Tasks;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
+using Fooxboy.MusicX.Core;
 
 namespace Fooxboy.MusicX.Uwp.ViewModels
 {
     public class LoginViewModel :BaseViewModel
     {
         private IContainer _container;
+        private ILoggerService _logger;
 
         public LoginViewModel(IContainer container)
         {
             _container = container;
+            _logger = _container.Resolve<LoggerService>();
             AuthCommand = new RelayCommand(Auth);
             VisibilityLogoImage = true;
             VisibilityTextBox = true;
@@ -44,6 +47,7 @@ namespace Fooxboy.MusicX.Uwp.ViewModels
 
         public async void Auth()
         {
+            _logger.Trace("Авторизация...");
             IsLoading = true;
             VisibilityTextBox = false;
             Changed("IsLoading");
@@ -55,7 +59,10 @@ namespace Fooxboy.MusicX.Uwp.ViewModels
                 var token = await api.VKontakte.Auth.UserAsync(Login, Password, TwoFactorAuth, null);
                 var tokenService = _container.Resolve<TokenService>();
                 await tokenService.Save(token);
+                _logger.Info("Успешная авторизация.");
+                _logger.Trace("Попытка получить информацию о пользователе...");
                 var user = await api.VKontakte.Users.Info.CurrentUserAsync();
+                _logger.Info($"Информация о пользователе получена. Авторизован: {user.FirstName} {user.LastName}");
                 Image = user.PhotoUser;
                 VisibilityLogoImage = false;
                 VisibilityPersonImage = true;
@@ -69,8 +76,9 @@ namespace Fooxboy.MusicX.Uwp.ViewModels
                 var currentFrame = Window.Current.Content as Frame;
                 currentFrame?.Navigate(typeof(RootWindow));
             }
-            catch(VkNet.AudioBypassService.Exceptions.VkAuthException)
+            catch(VkNet.AudioBypassService.Exceptions.VkAuthException e)
             {
+                _logger.Error("Ошибка авторизации", e);
                 IsLoading = false;
                 VisibilityTextBox = true;
                 Changed("IsLoading");
@@ -84,6 +92,7 @@ namespace Fooxboy.MusicX.Uwp.ViewModels
             }
             catch(Exception e)
             {
+                _logger.Error("Неизвестная ошибка", e);
                 IsLoading = false;
                 VisibilityTextBox = true;
                 Changed("IsLoading");
@@ -95,8 +104,9 @@ namespace Fooxboy.MusicX.Uwp.ViewModels
             }
         }
 
-        public static string TwoFactorAuth()
+        public string TwoFactorAuth()
         {
+            _logger.Trace("Запуск двойной аунтификации...");
             TwoFactorAuthContentDialog dialog = null;
             DispatcherHelper.ExecuteOnUIThreadAsync(() =>
             {

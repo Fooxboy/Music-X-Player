@@ -17,11 +17,13 @@ namespace Fooxboy.MusicX.Uwp.ViewModels
         private PlayerService _player;
         private Api _api;
         private NotificationService _notify;
-        public AllTracksViewModel(PlayerService player, Api api, NotificationService notify)
+        private ILoggerService _logger;
+        public AllTracksViewModel(PlayerService player, Api api, NotificationService notify, ILoggerService logger)
         {
             _player = player;
             _api = api;
             _notify = notify;
+            _logger = logger;
             Tracks = new ObservableCollection<Track>();
             VisibleLoading = true;
             VisibleContent = false;
@@ -38,6 +40,7 @@ namespace Fooxboy.MusicX.Uwp.ViewModels
         {
             try
             {
+                _logger.Trace("Начало загрузки всех треков...");
                 var type = (string) data[0];
                 if (type == "block")
                 {
@@ -58,16 +61,20 @@ namespace Fooxboy.MusicX.Uwp.ViewModels
                     {
                         Tracks.Add(track.ToTrack());
                     }
+
+                    _logger.Info($"Загружено {fullBlock.Tracks.Count} треков.");
                 }
             }
-            catch (FlurlHttpException)
+            catch (FlurlHttpException e)
             {
+                _logger.Error("Ошибка сети", e);
                 _notify.CreateNotification("Ошибка сети", "Произошла ошибка подключения к сети.", "Попробовать ещё раз",
                     "Закрыть", new RelayCommand(
                         async () => { await this.StartLoading(data); }), new RelayCommand(() => { }));
             }
             catch (Exception e)
             {
+                _logger.Error("Неизвестная ошибка", e);
                 _notify.CreateNotification("Ошибка при загрузке списка треков", $"Ошибка: {e.Message}");
             }
         }

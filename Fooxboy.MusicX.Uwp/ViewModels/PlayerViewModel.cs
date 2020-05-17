@@ -8,6 +8,7 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Fooxboy.MusicX.Core;
 
 namespace Fooxboy.MusicX.Uwp.ViewModels
 {
@@ -68,10 +69,12 @@ namespace Fooxboy.MusicX.Uwp.ViewModels
         public string AllTime { get; set; }
 
         private IContainer _container;
+        private ILoggerService _logger;
 
         public PlayerViewModel(IContainer container)
         {
             this._container = container;
+            _logger = _container.Resolve<LoggerService>();
             CurrentNowPlaing = new ObservableCollection<Track>();
             PlayerSerivce = _container.Resolve<PlayerService>();
             PlayCommand = new RelayCommand(() => PlayerSerivce.Play());
@@ -93,6 +96,7 @@ namespace Fooxboy.MusicX.Uwp.ViewModels
 
         private void TrackChanged(object sender, EventArgs e)
         {
+            _logger.Trace("Трек изменен.");
             CurrentNowPlaing.Clear();
             foreach (var track in PlayerSerivce.Tracks) CurrentNowPlaing.Add(track);
             Title = PlayerSerivce.CurrentTrack.Title;
