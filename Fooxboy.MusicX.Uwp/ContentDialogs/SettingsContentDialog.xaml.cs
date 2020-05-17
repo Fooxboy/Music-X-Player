@@ -70,5 +70,13 @@ namespace Fooxboy.MusicX.Uwp.ContentDialogs
             }
             //throw new NotImplementedException();
         }
+
+        private async void ButtonBase_OnClick(object sender, RoutedEventArgs e)
+        {
+            var c = Container.Get;
+            var logs = c.Resolve<LoggerService>();
+
+            await logs.SaveLog();
+        }
     }
 }

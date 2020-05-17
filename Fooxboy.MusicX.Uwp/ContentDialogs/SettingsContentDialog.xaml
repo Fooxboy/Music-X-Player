@@ -136,6 +136,61 @@
                         </StackPanel>
                     </Grid>
 
+                    <Grid x:Name="LoggerBlock" Margin="0,30,0,0">
+                        <controls:DropShadowPanel
+                            HorizontalAlignment="Center"
+                            VerticalAlignment="Center"
+                            BlurRadius="30"
+                            CornerRadius="10"
+                            IsMasked="False"
+                            OffsetX="0"
+                            OffsetY="0"
+                            ShadowOpacity="0.3"
+                            Color="Black">
+                            <Border
+                                Width="450"
+                                Height="130"
+                                Background="Transparent"
+                                CornerRadius="10" />
+
+                        </controls:DropShadowPanel>
+
+                        <Rectangle
+                            Width="450"
+                            Height="130"
+                            Margin="0"
+                            Fill="{ThemeResource BlockBackground}"
+                            RadiusX="10"
+                            RadiusY="10" />
+
+                        <StackPanel Margin="15,10,10,10">
+                            <TextBlock
+                                FontSize="18"
+                                FontWeight="ExtraBlack"
+                                Text="Логи" />
+
+                            <Button
+                                Margin="0,10,0,0"
+                                Click="ButtonBase_OnClick"
+                                Content="Сохранить логи в файл"
+                                Style="{ThemeResource StandardButtonStyle}" />
+                            <Grid Margin="0,5,0,0" HorizontalAlignment="Left">
+                                <FontIcon
+                                    HorizontalAlignment="Left"
+                                    FontFamily="Segoe MDL2 Assets"
+                                    Foreground="{ThemeResource SubText}"
+                                    Glyph="&#xE946;" />
+                                <TextBlock
+                                    MaxWidth="450"
+                                    Margin="28,0,0,0"
+                                    Foreground="{ThemeResource SubText}"
+                                    Text="Логи помогут узнать подробнее об ошибке."
+                                    TextWrapping="Wrap" />
+                            </Grid>
+
+                        </StackPanel>
+                    </Grid>
+
                 </StackPanel>
             </Grid>
         </ScrollViewer>
