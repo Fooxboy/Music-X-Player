@@ -14,9 +14,12 @@ using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using DryIoc;
 using Windows.UI.Xaml.Navigation;
+using Flurl.Http;
 using Microsoft.AppCenter.Crashes;
 using Fooxboy.MusicX.Core;
 using Fooxboy.MusicX.Uwp.Services;
+using Fooxboy.MusicX.Uwp.Views;
+using VkNet.Exception;
 
 namespace Fooxboy.MusicX.Uwp
 {
@@ -56,6 +59,7 @@ namespace Fooxboy.MusicX.Uwp
             c.Register<LoadingService>(Reuse.Singleton);
             c.Register<PlayerService>(Reuse.Singleton);
             c.Register<CurrentUserService>(Reuse.Singleton);
+            c.Register<LoggerService>(Reuse.Singleton);
 
             this._container = c;
 
@@ -90,6 +94,7 @@ namespace Fooxboy.MusicX.Uwp
 
                 Window.Current.Content = rootFrame;
             }
+
             if (e.PrelaunchActivated == false)
             {
                 if (rootFrame.Content == null)
@@ -102,9 +107,28 @@ namespace Fooxboy.MusicX.Uwp
                         else
                         {
                             rootFrame.Navigate(typeof(Views.RootWindow), this._container);
-                            await _container.Resolve<Api>().VKontakte.Auth.AutoAsync(config.AccessTokenVkontakte, null);
-                            await _container.Resolve<Api>().Discord.InitAsync();
-                            
+                            try
+                            {
+                                await _container.Resolve<Api>().VKontakte.Auth
+                                    .AutoAsync(config.AccessTokenVkontakte, null);
+
+                            }
+                            catch (FlurlHttpException)
+                            {
+                                rootFrame.Navigate(typeof(ErrorPage), "Нет доступа к интернету.");
+                            }
+                            catch (VkApiException)
+                            {
+                                var tokenService = _container.Resolve<TokenService>();
+                                await tokenService.Delete();
+                                rootFrame.Navigate(typeof(LoginView));
+                            }
+                            catch (Exception ee)
+                            {
+                                rootFrame.Navigate(typeof(ErrorPage), $"Ошибка: {ee.Message}");
+                            }
+                            //await _container.Resolve<Api>().Discord.InitAsync();
+
                         }
                     }catch
                     {
