@@ -11,7 +11,7 @@ namespace Fooxboy.MusicX.Core.VKontakte.Music.Converters
         {
             try
             {
-                Api.Logger.Trace("[CORE] Decode Audio Url...");
+                //Api.Logger.Trace("[CORE] Decode Audio Url...");
                 var segments = audioUrl.Segments.ToList();
 
                 segments.RemoveAt((segments.Count - 1) / 2);

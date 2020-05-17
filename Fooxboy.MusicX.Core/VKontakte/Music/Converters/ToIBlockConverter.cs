@@ -13,7 +13,7 @@ namespace Fooxboy.MusicX.Core.VKontakte.Music.Converters
     {
         public static IBlock ConvertToIBlock(this Response<Models.Music.BlockInfo.ResponseItem> b)
         {
-            Api.Logger.Trace("[CORE] Конвертация ToIBlock...");
+            //Api.Logger.Trace("[CORE] Конвертация ToIBlock...");
 
             IBlock block = new Block();
             try

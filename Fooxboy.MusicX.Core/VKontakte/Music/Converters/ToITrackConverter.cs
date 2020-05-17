@@ -13,7 +13,7 @@ namespace Fooxboy.MusicX.Core.VKontakte.Music.Converters
     {
         public static ITrack ToITrack(this Audio audio)
         {
-            Api.Logger.Trace("[CORE] Конвертация ToITrack...");
+            //Api.Logger.Trace("[CORE] Конвертация ToITrack...");
 
             ITrack track = new Track();
             try
@@ -46,17 +46,17 @@ namespace Fooxboy.MusicX.Core.VKontakte.Music.Converters
                 {
                     if (audio.IsLicensed.Value)
                     {
-                        Api.Logger.Trace("[CORE] Трек лицензируется.");
+                        //Api.Logger.Trace("[CORE] Трек лицензируется.");
 
                         if (audio.MainArtists != null && audio.MainArtists?.Count() != 0)
                         {
-                            Api.Logger.Trace("[CORE] Трек имеет исполнителя.");
+                            //Api.Logger.Trace("[CORE] Трек имеет исполнителя.");
 
                             foreach (var artist in audio.MainArtists)
                             {
                                 try
                                 {
-                                    Api.Logger.Trace($"[CORE] Исполнитель: {artist.Name}");
+                                   // Api.Logger.Trace($"[CORE] Исполнитель: {artist.Name}");
 
                                     IArtist art = new Artist();
                                     art.Domain = artist.Domain;
@@ -75,7 +75,7 @@ namespace Fooxboy.MusicX.Core.VKontakte.Music.Converters
 
                         if (audio.FeaturedArtists != null && audio.FeaturedArtists?.Count() != 0)
                         {
-                            Api.Logger.Trace("[CORE] Трек имеет FeaturedArtists.");
+                            //Api.Logger.Trace("[CORE] Трек имеет FeaturedArtists.");
 
                             foreach (var artist in audio.FeaturedArtists)
                             {
@@ -83,7 +83,7 @@ namespace Fooxboy.MusicX.Core.VKontakte.Music.Converters
                                 {
                                     try
                                     {
-                                        Api.Logger.Trace($"[CORE] Исполнитель: {artist.Name}");
+                                        //Api.Logger.Trace($"[CORE] Исполнитель: {artist.Name}");
 
                                         IArtist art = new Artist();
                                         art.Domain = artist.Domain;

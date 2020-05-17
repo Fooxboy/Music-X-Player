@@ -16,7 +16,7 @@ namespace Fooxboy.MusicX.Core.VKontakte.Music.Converters
             IAlbum album = new Models.Album();
             try
             {
-                Api.Logger.Trace("[CORE] Конвертация ToIAlbum...");
+                //Api.Logger.Trace("[CORE] Конвертация ToIAlbum...");
                 album.Title = playlist.Title;
                 album.Id = playlist.Id.Value;
                 album.Description = playlist.Description;

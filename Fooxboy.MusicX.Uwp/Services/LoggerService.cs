@@ -4,6 +4,8 @@ using System.Diagnostics;
 using System.Linq;
 using System.Runtime.InteropServices;
 using System.Text;
+using System.Threading;
+using DryIoc;
 using System.Threading.Tasks;
 using Windows.Storage;
 using Windows.UI.Xaml;
@@ -48,38 +50,53 @@ namespace Fooxboy.MusicX.Uwp.Services
                 Windows.Storage.Pickers.PickerLocationId.DocumentsLibrary;
             savePicker.FileTypeChoices.Add("Music X Log", new List<string>() { ".log" });
             savePicker.SuggestedFileName = $"Log {DateTime.Now.Day}.{DateTime.Now.Month}.{DateTime.Now.Year}";
-
+            var c = Container.Get;
+            var notification = c.Resolve<NotificationService>();
             var file = await savePicker.PickSaveFileAsync();
             if (file != null)
             {
+               
                 Windows.Storage.CachedFileManager.DeferUpdates(file);
-                TimerTick(null, null);
+                IsNotSaved = true;
+
+                await Task.Run(() =>
+                {
+                     TimerTick(null, null);
+                });
 
                 var localpath = ApplicationData.Current.LocalFolder;
+
+
+                while (IsNotSaved)
+                {
+                   Thread.Sleep(100);
+                }
 
                 var fileLog =
                     await localpath.GetFileAsync(
                         $"Log {DateTime.Now.Day}.{DateTime.Now.Month}.{DateTime.Now.Year}.log");
                 var str = await FileIO.ReadTextAsync(fileLog);
-
                 await FileIO.WriteTextAsync(file, str);
              
                 var status =
                     await CachedFileManager.CompleteUpdatesAsync(file);
                 if (status == Windows.Storage.Provider.FileUpdateStatus.Complete)
                 {
-                  
+                  notification.CreateNotification("Лог сохранен", "Файл лога успешно сохранен.");
                 }
                 else
                 {
-                   
+                  notification.CreateNotification("Лог не сохранен", $"Статус сохранения: {status}.");
+
                 }
             }
             else
             {
-                
+                  notification.CreateNotification("Лог не сохранен", $"Лог не может быть сохранен.");
             }
         }
+
+        private bool IsNotSaved = true;
 
         private void Write(string msg)
         {
@@ -101,8 +118,13 @@ namespace Fooxboy.MusicX.Uwp.Services
             else
             { 
                 file = await localpath.GetFileAsync(filePath);
-                await FileIO.WriteLinesAsync(file, Messages);
+                var str = await FileIO.ReadLinesAsync(file);
+                List<string> array = new List<string>();
+                array.AddRange(str);
+                array.AddRange(Messages);
+                await FileIO.WriteLinesAsync(file, array);
                 Messages.Clear();
+                IsNotSaved = false;
             }
         }
     }
