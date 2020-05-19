@@ -597,6 +597,27 @@
 
                 </Button>
 
+                <Button
+                    Width="37"
+                    Height="37"
+                    Margin="5,0,5,0"
+                    Background="Transparent"
+                    BorderThickness="0"
+                    CornerRadius="99">
+                    <Button.Content>
+                        <Grid>
+                            <FontIcon
+                                FontFamily="Segoe MDL2 Assets"
+                                Glyph="&#xE006;"
+                                Visibility="{x:Bind PlayerViewModel.VisibleLike, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, Converter={StaticResource ToVisibility}}" />
+                            <FontIcon
+                                FontFamily="Segoe MDL2 Assets"
+                                Glyph="&#xE00B;"
+                                Visibility="{x:Bind PlayerViewModel.VisibleDislike, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, Converter={StaticResource ToVisibility}}" />
+                        </Grid>
+                    </Button.Content>
+                </Button>
+
             </StackPanel>
 
             <Frame

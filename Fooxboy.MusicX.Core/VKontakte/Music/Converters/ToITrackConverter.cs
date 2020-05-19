@@ -21,7 +21,7 @@ namespace Fooxboy.MusicX.Core.VKontakte.Music.Converters
                 track.AccessKey = audio.AccessKey;
                 track.Duration = TimeSpan.FromSeconds(audio.Duration);
                 track.GenreId = audio.Genre == null? 0: (int)audio.Genre;
-                track.Id = audio.Id.Value;
+                track.Id = audio.Id ?? 0;
                 if (audio.Album != null)
                 {
                     try
@@ -111,7 +111,7 @@ namespace Fooxboy.MusicX.Core.VKontakte.Music.Converters
                 track.Title = audio.Title;
                 track.Url = audio.Url;
                 track.UrlMp3 = audio.Url.DecodeAudioUrl();
-                track.IsLicensed = audio.IsLicensed ?? audio.IsLicensed.Value;
+                track.IsLicensed = audio.IsLicensed != null && audio.IsLicensed.Value;
                 track.OwnerId = audio.OwnerId;
             }
             catch(Exception e)

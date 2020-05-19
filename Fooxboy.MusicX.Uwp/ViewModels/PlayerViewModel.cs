@@ -8,6 +8,7 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Flurl.Http;
 using Fooxboy.MusicX.Core;
 
 namespace Fooxboy.MusicX.Uwp.ViewModels
@@ -20,12 +21,14 @@ namespace Fooxboy.MusicX.Uwp.ViewModels
         public RelayCommand PauseCommand { get; set; }
         public RelayCommand NextCommand { get; set; }
         public RelayCommand PreviousCommand { get; set; }
+        public RelayCommand LikeDislikeTrackCommand { get; set; }
         public bool IsPlay { get; set; }
         public bool VisibilityPlay { get; set; }
         public string Title { get; set; }
         public string Artist { get; set; }
         public string Cover { get; set; }
-
+        public bool VisibleLike { get; set; }
+        public bool VisibleDislike { get; set; }
         public Action CloseBigPlayer { get; set; }
 
         public ObservableCollection<Track> CurrentNowPlaing { get; set; }
@@ -36,8 +39,52 @@ namespace Fooxboy.MusicX.Uwp.ViewModels
             set => PlayerSerivce.SetShuffle(value);
         }
 
+        private async void LikeDislikeTrack()
+        {
+            var track = PlayerSerivce.CurrentTrack;
+            try
+            {
+                if (VisibleLike)
+                {
+                    _logger.Trace("Добавление трека в библиотеку...");
+                    await _api.VKontakte.Music.Tracks.AddTrackAsync(track.Id, track.OwnerId.Value);
+                    _notification.CreateNotification("Трек добавлен",
+                        $"Трек {track.Artist} - {track.Title} добавлен в Вашу библиотеку.");
 
-        
+                    VisibleLike = false;
+                    VisibleDislike = true;
+                    Changed("VisibleLike");
+                    Changed("VisibleDislike");
+                }
+                else if (VisibleDislike)
+                {
+                    _logger.Trace("Удаление трека из библиотеки...");
+
+                    await _api.VKontakte.Music.Tracks.DeleteTrackAsync(track.Id, track.OwnerId.Value);
+                    _notification.CreateNotification("Трек удален",
+                        $"Трек {track.Artist} - {track.Title} удален из Вашей библиотеки.");
+
+                    VisibleLike = true;
+                    VisibleDislike = false;
+                    Changed("VisibleLike");
+                    Changed("VisibleDislike");
+
+                }
+            }
+            catch (FlurlHttpException e)
+            {
+                _logger.Error("Ошибка сети", e);
+                _notification.CreateNotification("Произошла ошибка",
+                    "Ошибка сети, попробуйте ещё раз или проверте Ваш доступ в Интернет.");
+            }
+            catch (Exception e)
+            {
+                _logger.Error("Неизвестная ошибка", e);
+                _notification.CreateNotification("Ошибка", "Произошла неизвестная ошибка. Ошибка сохранена в логах.");
+            }
+           
+        }
+
         public int RepeatMode
         {
             get => PlayerSerivce.RepeatMode;
@@ -71,9 +118,15 @@ namespace Fooxboy.MusicX.Uwp.ViewModels
         private IContainer _container;
         private ILoggerService _logger;
 
+        private Api _api;
+        private NotificationService _notification;
         public PlayerViewModel(IContainer container)
         {
             this._container = container;
+            VisibleLike = false;
+            VisibleDislike = false;
+            _api = container.Resolve<Api>();
+            _notification = container.Resolve<NotificationService>();
             _logger = _container.Resolve<LoggerService>();
             CurrentNowPlaing = new ObservableCollection<Track>();
             PlayerSerivce = _container.Resolve<PlayerService>();
@@ -81,7 +134,7 @@ namespace Fooxboy.MusicX.Uwp.ViewModels
             PauseCommand = new RelayCommand(() => PlayerSerivce.Pause());
             NextCommand = new RelayCommand(() => PlayerSerivce.NextTrack());
             PreviousCommand = new RelayCommand(() => PlayerSerivce.PreviousTrack());
-
+            LikeDislikeTrackCommand = new RelayCommand(LikeDislikeTrack);
             PlayerSerivce.PlayStateChangedEvent += PlayStateChanged;
             PlayerSerivce.PositionTrackChangedEvent += PositionTrackChanged;
             PlayerSerivce.TrackChangedEvent += TrackChanged;
@@ -97,10 +150,20 @@ namespace Fooxboy.MusicX.Uwp.ViewModels
         private void TrackChanged(object sender, EventArgs e)
         {
             _logger.Trace("Трек изменен.");
+            long userId = 0;
+            if (PlayerSerivce.CurrentTrack.OwnerId == userId)
+            {
+                VisibleDislike = true;
+                VisibleLike = false;
+            }
+            else
+            {
+                VisibleDislike = false;
+                VisibleLike = true;
+            }
             CurrentNowPlaing.Clear();
             foreach (var track in PlayerSerivce.Tracks) CurrentNowPlaing.Add(track);
             Title = PlayerSerivce.CurrentTrack.Title;
-            //foreach(var artist in PlayerSerivce.CurrentTrack.Artists) Artist += $", {artist.Name}";
             Artist = PlayerSerivce.CurrentTrack.Artist;
             Cover = PlayerSerivce.CurrentTrack.Album?.Cover;
             SecondsAll = PlayerSerivce.Duration.TotalSeconds;
@@ -109,6 +172,8 @@ namespace Fooxboy.MusicX.Uwp.ViewModels
             Changed("Cover");
             Changed("SecondsAll");
             Changed("CurrentNowPlaing");
+            Changed("VisibleLike");
+            Changed("VisibleDislike");
         }
 
         private void PositionTrackChanged(object sender, TimeSpan e)
