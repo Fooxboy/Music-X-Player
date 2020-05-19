@@ -1,0 +1,42 @@
+﻿<Page
+    x:Class="Fooxboy.MusicX.Uwp.Views.NewVersionView"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:local="using:Fooxboy.MusicX.Uwp.Views"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    Background="{ThemeResource BackgroundApp}"
+    mc:Ignorable="d">
+
+    <Grid>
+        <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center">
+            <FontIcon
+                FontFamily="Segoe MDL2 Assets"
+                FontSize="80"
+                Glyph="&#xE783;" />
+            <TextBlock
+                FontSize="30"
+                FontWeight="ExtraBlack"
+                Text="Доступна новая версия Music X" />
+            <TextBlock
+                HorizontalAlignment="Center"
+                Foreground="{ThemeResource ColorArtistText}"
+                Text="Эта версия больше не поддерживается." />
+            <TextBlock
+                Margin="0,20,0,0"
+                HorizontalAlignment="Center"
+                Foreground="{ThemeResource ColorArtistText}"
+                Text="Скачать последнюю версию можно здесь:" />
+            <StackPanel
+                Margin="0,5,0,0"
+                HorizontalAlignment="Center"
+                Orientation="Horizontal">
+                <Button Content="Группа ВКонтакте" Style="{ThemeResource StandardButtonStyle}" />
+                <Button
+                    Margin="10,0,0,0"
+                    Content="Канал телеграм"
+                    Style="{ThemeResource StandardButtonStyle}" />
+            </StackPanel>
+        </StackPanel>
+    </Grid>
+</Page>
