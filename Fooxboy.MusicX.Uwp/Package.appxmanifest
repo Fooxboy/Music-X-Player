@@ -50,19 +50,6 @@
           <uap:Rotation Preference="landscape"/></uap:InitialRotationPreference>
         <uap:LockScreen BadgeLogo="Assets\BadgeLogo.png" Notification="badge"/>
       </uap:VisualElements>
-      <Extensions>
-        <uap:Extension Category="windows.fileTypeAssociation">
-          <uap:FileTypeAssociation Name="musicxaudiofiles">
-            <uap:SupportedFileTypes>
-              <uap:FileType>.mp3</uap:FileType>
-              <uap:FileType>.wav</uap:FileType>
-            </uap:SupportedFileTypes>
-            <uap:DisplayName>Music X Audio File</uap:DisplayName>
-            <uap:InfoTip>Открыть  с помощью Music X</uap:InfoTip>
-            <uap:Logo>file.png</uap:Logo>
-          </uap:FileTypeAssociation>
-        </uap:Extension>
-      </Extensions>
     </Application>
   </Applications>
 
