@@ -56,7 +56,7 @@
                                 Margin="0,10,0,0"
                                 Text="Кэшировать обложки альбомов и треков на диск"
                                 TextWrapping="Wrap" />
-                            <ToggleSwitch OffContent="Отключено" OnContent="Включено" />
+                            <ToggleSwitch x:Name="ToggleCache" Tapped="ToggleCache_Tapped" OffContent="Отключено" OnContent="Включено" />
                             <Grid HorizontalAlignment="Left">
                                 <FontIcon
                                     HorizontalAlignment="Left"

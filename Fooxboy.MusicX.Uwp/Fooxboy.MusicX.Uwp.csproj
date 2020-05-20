@@ -191,6 +191,7 @@
     <Compile Include="Services\ConfigService.cs" />
     <Compile Include="Services\CurrentUserService.cs" />
     <Compile Include="Services\DiscordService.cs" />
+    <Compile Include="Services\ImageCacheService.cs" />
     <Compile Include="Services\InternetService.cs" />
     <Compile Include="Services\LoadingService.cs" />
     <Compile Include="Services\LoggerService.cs" />

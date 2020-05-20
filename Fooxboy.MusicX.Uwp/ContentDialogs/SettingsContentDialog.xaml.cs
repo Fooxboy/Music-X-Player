@@ -53,10 +53,11 @@ namespace Fooxboy.MusicX.Uwp.ContentDialogs
             await d.ShowAsync();
         }
 
-        private void SettingsContentDialog_OnLoaded(object sender, RoutedEventArgs e)
+        private async void SettingsContentDialog_OnLoaded(object sender, RoutedEventArgs e)
         {
             var c = Container.Get;
             var settigns = c.Resolve<AppPrivateSettingsService>();
+            var configService = c.Resolve<ConfigService>();
             var theme = settigns.GetTheme();
             if (theme == ApplicationTheme.Light)
             {
@@ -68,6 +69,9 @@ namespace Fooxboy.MusicX.Uwp.ContentDialogs
                 ButtonDark.IsChecked = true;
                 ButtonLight.IsChecked = false;
             }
+
+            var config = await configService.GetConfig();
+            ToggleCache.IsOn = config.SaveImageToCache;
             //throw new NotImplementedException();
         }
 
@@ -77,6 +81,17 @@ namespace Fooxboy.MusicX.Uwp.ContentDialogs
             var logs = c.Resolve<LoggerService>();
 
             await logs.SaveLog();
+        }
+
+        private async void ToggleCache_Tapped(object sender, TappedRoutedEventArgs e)
+        {
+            var c = Container.Get;
+            var configService = c.Resolve<ConfigService>();
+            var config = await configService.GetConfig();
+            config.SaveImageToCache = ToggleCache.IsOn;
+            await configService.SetConfig(config);
+            var imageCacher = c.Resolve<ImageCacheService>();
+            imageCacher.IsActive = ToggleCache.IsOn;
         }
     }
 }

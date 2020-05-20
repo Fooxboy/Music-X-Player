@@ -99,8 +99,6 @@ namespace Fooxboy.MusicX.Uwp.Services
 
         public void Play()
         {
-            
-
             try
             {
                 if (_currentTrack is null) return;
@@ -108,6 +106,7 @@ namespace Fooxboy.MusicX.Uwp.Services
                 if (!_currentTrack.IsAvailable)
                 {
                     _notificationService.CreateNotification("Аудиозапись недоступна", "Она была изъята из публичного доступа");
+                    NextTrack();
                     return;
                 }
 
@@ -118,6 +117,9 @@ namespace Fooxboy.MusicX.Uwp.Services
                     TrackChangedEvent?.Invoke(this, EventArgs.Empty);
 
                 } else _mediaPlayer.Play();
+                PositionTrackChangedEvent?.Invoke(this, TimeSpan.Zero);
+                Seek(TimeSpan.Zero);
+
             }
             catch (Exception e)
             {
@@ -125,9 +127,9 @@ namespace Fooxboy.MusicX.Uwp.Services
             }
         }
 
-        public void Play(Album album, int index)
+        public async void Play(Album album, int index)
         {
-            Play(album, index, album.Tracks.ToListTrack());
+            Play(album, index, await album.Tracks.ToListTrack());
         }
 
         public void Play(Album album, int index, List<Track> tracks)
@@ -142,9 +144,9 @@ namespace Fooxboy.MusicX.Uwp.Services
             Play();
         }
 
-        public void Play(Album album, Track track)
+        public async void Play(Album album, Track track)
         {
-            var index = album.Tracks.ToListTrack().IndexOf(track);
+            var index = (await album.Tracks.ToListTrack()).IndexOf(track);
             Play(album, index);
         }
 
@@ -270,6 +272,7 @@ namespace Fooxboy.MusicX.Uwp.Services
         {
 
             _notificationService.CreateNotification("Произошла ошибка при загрузке", $"{args.Error}");
+           
 
             //if (args.Error == MediaPlayerError.SourceNotSupported)
             //{

@@ -45,13 +45,13 @@ namespace Fooxboy.MusicX.Uwp.ViewModels
 
         }
 
-        public void PlayArtistMusic()
+        public async void PlayArtistMusic()
         {
             var blockPopular = Blocks.SingleOrDefault(b => b.Source == "artist_top_audios");
 
             if (blockPopular != null)
             {
-                var tracks = blockPopular.Tracks.ToListTrack();
+                var tracks = await blockPopular.Tracks.ToListTrack();
 
                 _player.Play(new MusicX.Uwp.Models.Album(), 0, tracks);
             }

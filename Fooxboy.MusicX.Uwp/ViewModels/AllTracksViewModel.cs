@@ -59,7 +59,7 @@ namespace Fooxboy.MusicX.Uwp.ViewModels
 
                     foreach (var track in fullBlock.Tracks)
                     {
-                        Tracks.Add(track.ToTrack());
+                        Tracks.Add(await track.ToTrack());
                     }
 
                     _logger.Info($"Загружено {fullBlock.Tracks.Count} треков.");

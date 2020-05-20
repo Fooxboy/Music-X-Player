@@ -29,7 +29,7 @@ namespace Fooxboy.MusicX.Uwp.Services
             var albums = await _api.VKontakte.Music.Albums.GetAsync(id, count, offset);
             _logger.Info($"Получено {albums.Count} альбомов.");
             var l = new List<Album>();
-            foreach (var a in albums) l.Add(a.ToAlbum());
+            foreach (var a in albums) l.Add( await a.ToAlbum());
             return l;
         }
 
@@ -55,7 +55,7 @@ namespace Fooxboy.MusicX.Uwp.Services
             _logger.Trace($"Получение альбомов рекомендаций: BlockID = {blockId}");
             var blockFull = await _api.VKontakte.Music.Blocks.GetAsync(blockId);
             _logger.Info($"Получено {blockFull.Albums.Count} альбомов");
-            return blockFull.Albums.ToAlbumsList();
+            return await blockFull.Albums.ToAlbumsList();
         }
     }
 }

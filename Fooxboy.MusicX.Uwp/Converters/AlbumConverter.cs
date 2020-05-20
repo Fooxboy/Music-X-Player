@@ -4,19 +4,21 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using DryIoc;
 using System.Threading.Tasks;
+using Fooxboy.MusicX.Uwp.Services;
 
 namespace Fooxboy.MusicX.Uwp.Converters
 {
     public static class AlbumConverter
     {
-        public static Album ToAlbum(this IAlbum album)
+        public static async  Task<Album> ToAlbum(this IAlbum album)
         {
-
+            var cacher = Container.Get.Resolve<ImageCacheService>();
             var a = new Album();
             a.AccessKey = album.AccessKey;
             a.Artists = album.Artists;
-            a.Cover = album.Cover;
+            a.Cover = await cacher.GetImage(album.Cover);
             a.Description = album.Description;
             a.Followers = album.Followers;
             a.Genres = album.Genres;
@@ -35,12 +37,12 @@ namespace Fooxboy.MusicX.Uwp.Converters
             return a;
         }
 
-        public static List<Album> ToAlbumsList(this List<IAlbum> albums)
+        public static async  Task<List<Album>> ToAlbumsList(this List<IAlbum> albums)
         {
             var l = new List<Album>();
             foreach (var album in albums)
             {
-                l.Add(album.ToAlbum());
+                l.Add(await album.ToAlbum());
             }
 
             return l;

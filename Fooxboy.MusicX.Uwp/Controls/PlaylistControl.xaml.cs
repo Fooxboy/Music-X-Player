@@ -136,7 +136,7 @@ namespace Fooxboy.MusicX.Uwp.Resources.Controls
                     "Подождите, получаем информацию о списке треков.");
                 var tracks =
                     await _api.VKontakte.Music.Tracks.GetAsync(100, 0, Album.AccessKey, Album.Id, Album.OwnerId);
-                var tracksNew = tracks.ToListTrack();
+                var tracksNew = await tracks.ToListTrack();
                 _player.Play(Album, 0, tracksNew);
             }
             catch (Exception e)

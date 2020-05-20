@@ -68,7 +68,7 @@ namespace Fooxboy.MusicX.Uwp.ViewModels
                 _logger.Info($"Загружено {blocks.Count} блоков рекомендаций.");
                 var blockForYou = blocks.Single(b => b.Source == "recoms_recoms");
                 ForYouString = blockForYou.Subtitle;
-                _tracksForYou = blockForYou.Tracks.ToListTrack();
+                _tracksForYou = await blockForYou.Tracks.ToListTrack();
                 PatchImage = blockForYou.Tracks[new Random().Next(0, blockForYou.Tracks.Count)].Album?.Cover;
                 Changed("ForYouString");
                 Changed("PatchImage");

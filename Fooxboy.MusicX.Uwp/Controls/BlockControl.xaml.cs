@@ -71,12 +71,12 @@ namespace Fooxboy.MusicX.Uwp.Controls
         public Album LastRelease { get; set; }
       
 
-        private void BlockControl_OnLoaded(object sender, RoutedEventArgs e)
+        private async void BlockControl_OnLoaded(object sender, RoutedEventArgs e)
         {
 
             if (Block.Type == "playlists")
             {
-                this.ListAlbums.ItemsSource = Block.Albums.ToAlbumsList();
+                this.ListAlbums.ItemsSource = await Block.Albums.ToAlbumsList();
                 this.TracksGrid.Visibility = Visibility.Collapsed;
                 this.PlaylistsGrid.Visibility = Visibility.Visible;
                 this.ArtistsGrid.Visibility = Visibility.Collapsed;
@@ -84,7 +84,7 @@ namespace Fooxboy.MusicX.Uwp.Controls
 
             if (Block.Type == "audios_list" || Block.Type == "audios" || Block.Type == "top_audios")
             {
-                this.ListTracks.ItemsSource = Block.Tracks.ToListTrack();
+                this.ListTracks.ItemsSource = await Block.Tracks.ToListTrack();
                 this.TracksGrid.Visibility = Visibility.Visible;
                 this.PlaylistsGrid.Visibility = Visibility.Collapsed;
                 this.ArtistsGrid.Visibility = Visibility.Collapsed;
@@ -120,8 +120,8 @@ namespace Fooxboy.MusicX.Uwp.Controls
                 {
                     var album = Block.Albums[0];
                     var tracks = _api.VKontakte.Music.Tracks.Get(100, 0, album.AccessKey, album.Id, album.OwnerId);
-                    TracksLastRelease = tracks.ToListTrack();
-                    LastRelease = Block.Albums.FirstOrDefault().ToAlbum();
+                    TracksLastRelease = await tracks.ToListTrack();
+                    LastRelease = await Block.Albums.FirstOrDefault().ToAlbum();
                     CoverLastRelease.Source = LastRelease.Cover;
                     TitleLastRelease.Text = LastRelease.Title;
                     ArtistLastRelease.Text = LastRelease.Artists[0].Name;
@@ -139,9 +139,9 @@ namespace Fooxboy.MusicX.Uwp.Controls
 
         }
 
-        private void ListTracks_OnItemClick(object sender, ItemClickEventArgs e)
+        private async void ListTracks_OnItemClick(object sender, ItemClickEventArgs e)
         {
-            var tracks = Block.Tracks.ToListTrack();
+            var tracks = await Block.Tracks.ToListTrack();
 
             var track = (Track)e.ClickedItem;
 
@@ -208,9 +208,9 @@ namespace Fooxboy.MusicX.Uwp.Controls
             _player.Play(new Album(), 0, TracksLastRelease);
         }
 
-        private void OpenPlaylistLastRelease_OnClick(object sender, RoutedEventArgs e)
+        private async void OpenPlaylistLastRelease_OnClick(object sender, RoutedEventArgs e)
         {
-            _navigation.Go(typeof(PlaylistView), new PlaylistViewNavigationData() { Album = Block.Albums[0].ToAlbum(), Container = Container.Get }, 1);
+            _navigation.Go(typeof(PlaylistView), new PlaylistViewNavigationData() { Album =await Block.Albums[0].ToAlbum(), Container = Container.Get }, 1);
         }
     }
 }

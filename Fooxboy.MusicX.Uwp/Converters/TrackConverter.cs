@@ -7,13 +7,16 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Windows.UI.Xaml;
+using DryIoc;
+using Fooxboy.MusicX.Uwp.Services;
 
 namespace Fooxboy.MusicX.Uwp.Converters
 {
     public static class TrackConverter
     {
-        public static Track ToTrack(this ITrack track)
+        public static async Task<Track> ToTrack(this ITrack track)
         {
+            var cacher = Container.Get.Resolve<ImageCacheService>();
             var tr = new Track()
             {
                 AccessKey = track.AccessKey,
@@ -32,12 +35,21 @@ namespace Fooxboy.MusicX.Uwp.Converters
                 UrlMp3 = track.UrlMp3,
                 DurationString = track.Duration.TotalSeconds.ConvertToTime()
             };
+
+            if (tr.Album != null) tr.Album.Cover = await cacher.GetImage(tr.Album.Cover);
             return tr;
         }
 
-        public static List<Track> ToListTrack(this List<ITrack> tracks)
+        public static async Task<List<Track>> ToListTrack(this List<ITrack> tracks)
         {
-            return tracks.Select(t => t.ToTrack()).ToList();
+            var l = new List<Track>();
+
+            foreach(var tr in tracks)
+            {
+                l.Add(await tr.ToTrack());
+            }
+
+            return l;
         }
     }
 }

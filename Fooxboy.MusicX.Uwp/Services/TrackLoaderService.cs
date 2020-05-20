@@ -24,7 +24,7 @@ namespace Fooxboy.MusicX.Uwp.Services
         {
             var tracks = await _api.VKontakte.Music.Tracks.GetAsync(count, offset, accessKey, albumId, ownerId);
 
-            return tracks.ToListTrack();
+            return await tracks.ToListTrack();
         }
 
         public async Task<List<Track>> GetLibraryTracks(int offset = 0, int count = 20) => await Get(offset, count);

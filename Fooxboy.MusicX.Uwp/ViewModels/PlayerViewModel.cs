@@ -16,7 +16,6 @@ namespace Fooxboy.MusicX.Uwp.ViewModels
     public class PlayerViewModel:BaseViewModel
     {
         public PlayerService PlayerSerivce { get; set; }
-
         public RelayCommand PlayCommand { get; set; }
         public RelayCommand PauseCommand { get; set; }
         public RelayCommand NextCommand { get; set; }

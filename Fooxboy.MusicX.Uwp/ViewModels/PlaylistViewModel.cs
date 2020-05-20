@@ -111,12 +111,12 @@ namespace Fooxboy.MusicX.Uwp.ViewModels
                 if (isRecommendation)
                 {
 
-                    tracks = (await api.VKontakte.Music.Tracks.GetTracksAlbum(100, Album.Id, Album.AccessKey,
+                    tracks = await (await api.VKontakte.Music.Tracks.GetTracksAlbum(100, Album.Id, Album.AccessKey,
                         Album.OwnerId)).ToListTrack();
                 }
                 else
                 {
-                    tracks = (await api.VKontakte.Music.Tracks.GetAsync(200, 0, album.AccessKey, album.Id, album.OwnerId))
+                    tracks = await (await api.VKontakte.Music.Tracks.GetAsync(200, 0, album.AccessKey, album.Id, album.OwnerId))
                         .ToListTrack();
                 }
 

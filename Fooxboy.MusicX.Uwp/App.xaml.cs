@@ -65,9 +65,12 @@ namespace Fooxboy.MusicX.Uwp
             c.Register<PlayerService>(Reuse.Singleton);
             c.Register<CurrentUserService>(Reuse.Singleton);
             c.Register<AppPrivateSettingsService>(Reuse.Singleton);
+            c.Register<ImageCacheService>(Reuse.Singleton);
 
             this._container = c;
 
+            var cacher = c.Resolve<ImageCacheService>();
+            await cacher.InitService();
             _logger = c.Resolve<LoggerService>();
 
             Container.SetContainer(this._container);
