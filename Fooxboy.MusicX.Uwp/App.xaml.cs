@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Threading.Tasks;
 using Microsoft.AppCenter;
 using Microsoft.AppCenter.Analytics;
 using Microsoft.AppCenter.Push;
@@ -16,6 +17,7 @@ using DryIoc;
 using Windows.UI.Xaml.Navigation;
 using DiscordRPC.Logging;
 using Flurl.Http;
+using Microsoft.Gaming.XboxGameBar;
 using Microsoft.AppCenter.Crashes;
 using Fooxboy.MusicX.Core;
 using Fooxboy.MusicX.Uwp.Services;
@@ -47,49 +49,28 @@ namespace Fooxboy.MusicX.Uwp
 
         private IContainer _container;
         private ILoggerService _logger;
+        private XboxGameBarWidget _gameBarWidget;
+        private Frame _rootFrame;
 
         protected async override void OnLaunched(LaunchActivatedEventArgs e)
         {
             //инициализация контейера
-            var c = new DryIoc.Container();
-            c.Register<LoggerService>(Reuse.Singleton);
-            var logger = c.Resolve<LoggerService>();
-            c.RegisterInstance<Api>(Core.Api.GetApi(logger));
-            c.Register<ConfigService>(Reuse.Singleton);
-            c.Register<NotificationService>(Reuse.Singleton);
-            c.Register<TokenService>(Reuse.Singleton);
-            c.Register<TrackLoaderService>(Reuse.Singleton);
-            c.Register<AlbumLoaderService>(Reuse.Singleton);
-            c.Register<DiscordService>(Reuse.Singleton);
-            c.Register<LoadingService>(Reuse.Singleton);
-            c.Register<PlayerService>(Reuse.Singleton);
-            c.Register<CurrentUserService>(Reuse.Singleton);
-            c.Register<AppPrivateSettingsService>(Reuse.Singleton);
-            c.Register<ImageCacheService>(Reuse.Singleton);
+            await InitContainer();
+            var c = _container;
 
-            this._container = c;
-
-            var cacher = c.Resolve<ImageCacheService>();
-            await cacher.InitService();
-            _logger = c.Resolve<LoggerService>();
+           
 
             Container.SetContainer(this._container);
 
             Frame rootFrame = Window.Current.Content as Frame;
+            _rootFrame = rootFrame;
             if (rootFrame == null)
             {
                 rootFrame = new Frame();
                 rootFrame.NavigationFailed += OnNavigationFailed;
-                if(e != null)
-                {
-                    if (e.PreviousExecutionState == ApplicationExecutionState.Terminated)
-                    {
-                        //TODO: Загрузить состояние из ранее приостановленного приложения
-                    }
-                }
-                _logger.Trace("Инициализвция AppCenter..");
-                AppCenter.Start("96c77488-34ce-43d0-b0d3-c4b1ce326c7f", typeof(Analytics), typeof(Push), typeof(Crashes));
-                AppCenter.LogLevel = LogLevel.Verbose;
+                _logger.Trace("Инициализвция AppCenter.."); 
+                if(e != null) AppCenter.Start("96c77488-34ce-43d0-b0d3-c4b1ce326c7f", typeof(Analytics), typeof(Push), typeof(Crashes));
+                if (e != null) AppCenter.LogLevel = LogLevel.Verbose;
                 CoreApplication.GetCurrentView().TitleBar.ExtendViewIntoTitleBar = true;
                 
                 var appView = ApplicationView.GetForCurrentView();
@@ -106,7 +87,9 @@ namespace Fooxboy.MusicX.Uwp
                 Window.Current.Content = rootFrame;
             }
 
-            if (e.PrelaunchActivated == false)
+            //Поддержка Xbox widget..
+
+            if (e == null)
             {
                 if (rootFrame.Content == null)
                 {
@@ -148,15 +131,94 @@ namespace Fooxboy.MusicX.Uwp
                             //await _container.Resolve<Api>().Discord.InitAsync();
 
                         }
-                    }catch
+                    }
+                    catch
                     {
                         rootFrame.Navigate(typeof(Views.WelcomeView), _container);
                     }
                 }
             }
+            else
+            {
+                if (e.PrelaunchActivated == false)
+                {
+                    if (rootFrame.Content == null)
+                    {
+                        var configService = _container.Resolve<ConfigService>();
+                        try
+                        {
+                            var config = await configService.GetConfig();
+                            if (config.AccessTokenVkontakte is null) rootFrame.Navigate(typeof(Views.LoginView), _container);
+                            else
+                            {
+                                rootFrame.Navigate(typeof(Views.RootWindow), this._container);
+                                try
+                                {
+                                    _logger.Trace("Авторизация ВКонтакте...");
+                                    await _container.Resolve<Api>().VKontakte.Auth
+                                        .AutoAsync(config.AccessTokenVkontakte, null);
+
+                                }
+                                catch (FlurlHttpException eee)
+                                {
+                                    _logger.Error("Ошибка сети", eee);
+
+                                    rootFrame.Navigate(typeof(ErrorPage), "Нет доступа к интернету.");
+                                }
+                                catch (VkApiException eee)
+                                {
+                                    _logger.Error("Ошибка ВКонтакте", eee);
+                                    var tokenService = _container.Resolve<TokenService>();
+                                    await tokenService.Delete();
+                                    rootFrame.Navigate(typeof(LoginView));
+                                }
+                                catch (Exception ee)
+                                {
+                                    _logger.Error("Неизвестная ошибка", ee);
+                                    rootFrame.Navigate(typeof(ErrorPage), $"Ошибка: {ee.Message}");
+                                }
+
+                                //Инициализация DRP
+                                //await _container.Resolve<Api>().Discord.InitAsync();
+
+                            }
+                        }
+                        catch
+                        {
+                            rootFrame.Navigate(typeof(Views.WelcomeView), _container);
+                        }
+                    }
+                }
+            }
+           
             Window.Current.Activate();
             SystemNavigationManager.GetForCurrentView().BackRequested += OnBackRequested;
-            Push.CheckLaunchedFromNotification(e);
+            if(e != null) Push.CheckLaunchedFromNotification(e);
+        }
+
+        private async Task InitContainer()
+        {
+            var c = new DryIoc.Container();
+            c.Register<LoggerService>(Reuse.Singleton);
+            var logger = c.Resolve<LoggerService>();
+            c.RegisterInstance<Api>(Core.Api.GetApi(logger));
+            c.Register<ConfigService>(Reuse.Singleton);
+            c.Register<NotificationService>(Reuse.Singleton);
+            c.Register<TokenService>(Reuse.Singleton);
+            c.Register<TrackLoaderService>(Reuse.Singleton);
+            c.Register<AlbumLoaderService>(Reuse.Singleton);
+            c.Register<DiscordService>(Reuse.Singleton);
+            c.Register<LoadingService>(Reuse.Singleton);
+            c.Register<PlayerService>(Reuse.Singleton);
+            c.Register<CurrentUserService>(Reuse.Singleton);
+            c.Register<AppPrivateSettingsService>(Reuse.Singleton);
+            c.Register<ImageCacheService>(Reuse.Singleton);
+
+            var cacher = c.Resolve<ImageCacheService>();
+            await cacher.InitService();
+            _logger = c.Resolve<LoggerService>();
+
+            this._container = c;
         }
 
       
@@ -178,13 +240,83 @@ namespace Fooxboy.MusicX.Uwp
             deferral.Complete();
         }
 
-        protected override void OnActivated(IActivatedEventArgs args)
+        protected async override void OnActivated(IActivatedEventArgs args)
         {
             if (args.Kind == ActivationKind.Protocol)
             {
-                ProtocolActivatedEventArgs eventArgs = args as ProtocolActivatedEventArgs;
-                // TODO: Handle URI activation
-                // The received URI is eventArgs.Uri.AbsoluteUri
+                var ep = args as IProtocolActivatedEventArgs;
+                if (ep != null)
+                {
+                    if (ep.Uri.Scheme == "ms-gamebarwidget")
+                    {
+                        var argsWigget = args as XboxGameBarWidgetActivatedEventArgs;
+                        if (argsWigget != null)
+                        {
+                            if (argsWigget.IsLaunchActivation)
+                            {
+                                var rootFrame= new Frame();
+                                rootFrame.NavigationFailed += OnNavigationFailed;
+
+                                Window.Current.Content = rootFrame;
+                                //OnLaunched(null);
+                                _gameBarWidget = new XboxGameBarWidget(argsWigget, Window.Current.CoreWindow, rootFrame);
+
+                                await InitContainer();
+
+                                var configService = _container.Resolve<ConfigService>();
+                                try
+                                {
+                                    var config = await configService.GetConfig();
+                                    if (config.AccessTokenVkontakte is null) rootFrame.Navigate(typeof(Views.LoginView), _container);
+                                    else
+                                    {
+                                        rootFrame.Navigate(typeof(Views.RootWindow), this._container);
+                                        try
+                                        {
+                                            _logger.Trace("Авторизация ВКонтакте...");
+                                            await _container.Resolve<Api>().VKontakte.Auth
+                                                .AutoAsync(config.AccessTokenVkontakte, null);
+
+                                        }
+                                        catch (FlurlHttpException eee)
+                                        {
+                                            _logger.Error("Ошибка сети", eee);
+
+                                            rootFrame.Navigate(typeof(ErrorPage), "Нет доступа к интернету.");
+                                        }
+                                        catch (VkApiException eee)
+                                        {
+                                            _logger.Error("Ошибка ВКонтакте", eee);
+                                            var tokenService = _container.Resolve<TokenService>();
+                                            await tokenService.Delete();
+                                            rootFrame.Navigate(typeof(LoginView));
+                                        }
+                                        catch (Exception ee)
+                                        {
+                                            _logger.Error("Неизвестная ошибка", ee);
+                                            rootFrame.Navigate(typeof(ErrorPage), $"Ошибка: {ee.Message}");
+                                        }
+
+                                        //Инициализация DRP
+                                        //await _container.Resolve<Api>().Discord.InitAsync();
+
+                                    }
+                                }
+                                catch
+                                {
+                                    rootFrame.Navigate(typeof(Views.WelcomeView), _container);
+                                }
+
+                            }
+                        }
+                    }
+                    else
+                    {
+                        var i = 1 + 1;
+                    }
+                  
+                }
+
             }
         }
 

@@ -5,6 +5,7 @@
   xmlns:mp="http://schemas.microsoft.com/appx/2014/phone/manifest"
   xmlns:uap="http://schemas.microsoft.com/appx/manifest/uap/windows10"
   xmlns:uap3="http://schemas.microsoft.com/appx/manifest/uap/windows10/3"
+
   IgnorableNamespaces="uap mp uap3">
 
   <Identity
@@ -50,6 +51,56 @@
           <uap:Rotation Preference="landscape"/></uap:InitialRotationPreference>
         <uap:LockScreen BadgeLogo="Assets\BadgeLogo.png" Notification="badge"/>
       </uap:VisualElements>
+
+      <Extensions>
+        <uap3:Extension Category="windows.appExtension">
+          <uap3:AppExtension Name="microsoft.gameBarUIExtension"
+                             Id="MusicXXboxWidget"
+                             DisplayName="Music X Widget"
+                             Description="Music X - Музыкальный плеер ВКонтакте для Windows 10"
+                             PublicFolder="GameBar">
+
+            <uap3:Properties>
+              <GameBarWidget Type="Standard">
+                <HomeMenuVisible>true</HomeMenuVisible>
+                <PinningSupported>true</PinningSupported>
+                <SettingsSupported AppExtensionId="MusicXSettingsId" />
+                <ActivateAfterInstall>true</ActivateAfterInstall>
+                <Window>
+                  <Size>
+                    <Height>420</Height>
+                    <Width>720</Width>
+                    <MinHeight>400</MinHeight>
+                    <MinWidth>200</MinWidth>
+                    <MaxHeight>1080</MaxHeight>
+                    <MaxWidth>1920</MaxWidth>
+                  </Size>
+                  <ResizeSupported>
+                    <Horizontal>true</Horizontal>
+                    <Vertical>true</Vertical>
+                  </ResizeSupported>
+                </Window>
+              </GameBarWidget>
+            </uap3:Properties>
+
+          </uap3:AppExtension>
+        </uap3:Extension>
+
+        <Extension Category="windows.activatableClass.proxyStub">
+          <ProxyStub ClassId="00000355-0000-0000-C000-000000000046">
+            <Path>Microsoft.Gaming.XboxGameBar.winmd</Path>
+
+            <!-- include when using SDK version 5.1+-->
+            <Interface Name="Microsoft.Gaming.XboxGameBar.Private.IXboxGameBarWidgetAuthHost" InterfaceId="DC263529-B12F-469E-BB35-B94069F5B15A" />
+            <Interface Name="Microsoft.Gaming.XboxGameBar.Private.IXboxGameBarWidgetControlHost" InterfaceId="C309CAC7-8435-4082-8F37-784523747047" />
+            <Interface Name="Microsoft.Gaming.XboxGameBar.Private.IXboxGameBarNavigationKeyCombo" InterfaceId="5EEA3DBF-09BB-42A5-B491-CF561E33C172" />
+            <Interface Name="Microsoft.Gaming.XboxGameBar.Private.IXboxGameBarWidgetActivatedEventArgsPrivate" InterfaceId="782535A7-9407-4572-BFCB-316B4086F102" />
+            <Interface Name="Microsoft.Gaming.XboxGameBar.Private.IXboxGameBarWidgetHost" InterfaceId="5D12BC93-212B-4B9F-9091-76B73BF56525" />
+            <Interface Name="Microsoft.Gaming.XboxGameBar.Private.IXboxGameBarWidgetPrivate" InterfaceId="22ABA97F-FB0F-4439-9BDD-2C67B2D5AA8F" />
+          </ProxyStub>
+        </Extension>
+      </Extensions>
+
     </Application>
   </Applications>
 

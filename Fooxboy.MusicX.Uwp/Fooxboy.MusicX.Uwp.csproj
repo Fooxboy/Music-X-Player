@@ -263,6 +263,9 @@
     <Compile Include="Views\WelcomeView.xaml.cs">
       <DependentUpon>WelcomeView.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Views\XboxWidgetView.xaml.cs">
+      <DependentUpon>XboxWidgetView.xaml</DependentUpon>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <AppxManifest Include="Package.appxmanifest">
@@ -484,6 +487,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Views\XboxWidgetView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="DryIoc">
@@ -500,6 +507,9 @@
     </PackageReference>
     <PackageReference Include="Microsoft.AppCenter.Push">
       <Version>2.6.4</Version>
+    </PackageReference>
+    <PackageReference Include="Microsoft.Gaming.XboxGameBar">
+      <Version>5.1.200402003</Version>
     </PackageReference>
     <PackageReference Include="Microsoft.NETCore.UniversalWindowsPlatform">
       <Version>6.2.9</Version>

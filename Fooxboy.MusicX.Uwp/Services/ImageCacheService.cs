@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Windows.Networking.BackgroundTransfer;
 using Windows.Storage;
 
 namespace Fooxboy.MusicX.Uwp.Services
@@ -22,8 +23,17 @@ namespace Fooxboy.MusicX.Uwp.Services
 
         public async Task InitService()
         {
-            var info = await _config.GetConfig();
-            IsActive = info.SaveImageToCache;
+            try
+            {
+                var info = await _config.GetConfig();
+                IsActive = info.SaveImageToCache;
+            }
+            catch (Exception e)
+            {
+                IsActive = false;
+                _logger.Error("Ошибка инициализации Cacher Service", e);
+            }
+           
         }
 
         public async Task<string> GetImage(string url)
@@ -41,8 +51,12 @@ namespace Fooxboy.MusicX.Uwp.Services
 
                 if (item == null)
                 {
+                    var cover = await pathCache.CreateFileAsync(hash + ".jpg");
+                    BackgroundDownloader downloader = new BackgroundDownloader();
+                    DownloadOperation download = downloader.CreateDownload(new Uri(url), cover);
+                    await download.StartAsync();
+
                     return url;
-                    //TODO: скачиваем файл
                 }
                 else return item.Path;
             }catch(Exception e)
