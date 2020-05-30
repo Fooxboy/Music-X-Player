@@ -148,8 +148,8 @@ namespace Fooxboy.MusicX.Uwp.ViewModels
 
         private void TrackChanged(object sender, EventArgs e)
         {
-            _logger.Trace("Трек изменен.");
-            long userId = 0;
+            var currentUserService = Container.Get.Resolve<CurrentUserService>();
+            long userId = currentUserService.UserId;
             if (PlayerSerivce.CurrentTrack.OwnerId == userId)
             {
                 VisibleDislike = true;
