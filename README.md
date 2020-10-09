@@ -14,3 +14,5 @@
 [![gif2](https://raw.githubusercontent.com/Fooxboy/Fooxboy.github.io/master/img/2.gif "gif2")](https://raw.githubusercontent.com/Fooxboy/Fooxboy.github.io/master/img/2.gif "gif2")
 
 [![gif3](https://raw.githubusercontent.com/Fooxboy/Fooxboy.github.io/master/img/3_2.gif "gif3")](https://raw.githubusercontent.com/Fooxboy/Fooxboy.github.io/master/img/3_2.gif "gif3")
+
+Скачать beta версию можно в Telegram канале: https://t.me/MusicXPlayer
