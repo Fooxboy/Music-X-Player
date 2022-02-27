@@ -98,7 +98,14 @@ namespace Fooxboy.MusicX.Uwp.ViewModels
                 Changed("IsLoading");
                 Changed("VisibilityTextBox");
 
-                
+
+                await DispatcherHelper.ExecuteOnUIThreadAsync(async () =>
+                {
+                    var dialog = new ContentDialog();
+                    dialog.Title = "Произошла неизвестная ошибка";
+                    dialog.Content = e;
+                    await dialog.ShowAsync();
+                });
 
                 //неизвестная ошибка при логине.
             }

@@ -22,12 +22,12 @@
                         <controls:DropShadowPanel
                             HorizontalAlignment="Center"
                             VerticalAlignment="Center"
-                            BlurRadius="30"
+                            BlurRadius="10"
                             CornerRadius="10"
                             IsMasked="False"
                             OffsetX="0"
                             OffsetY="0"
-                            ShadowOpacity="0.3"
+                            ShadowOpacity="0.2"
                             Color="Black">
                             <Border
                                 x:Name="BlockShadow"

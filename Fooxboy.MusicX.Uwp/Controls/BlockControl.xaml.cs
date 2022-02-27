@@ -147,7 +147,7 @@ namespace Fooxboy.MusicX.Uwp.Controls
 
             var position = tracks.IndexOf(tracks.Single(t=> t.Id == track.Id && t.Url == track.Url));
 
-            _player.Play(new Album(),position, tracks);
+            await _player.Play(position, tracks);
         }
 
 
@@ -203,9 +203,9 @@ namespace Fooxboy.MusicX.Uwp.Controls
             //throw new NotImplementedException();
         }
 
-        private void PlayLastRelease_OnClick(object sender, RoutedEventArgs e)
+        private async void PlayLastRelease_OnClick(object sender, RoutedEventArgs e)
         {
-            _player.Play(new Album(), 0, TracksLastRelease);
+            await _player.Play(0, TracksLastRelease);
         }
 
         private async void OpenPlaylistLastRelease_OnClick(object sender, RoutedEventArgs e)

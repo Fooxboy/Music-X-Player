@@ -91,6 +91,7 @@
                         Orientation="Horizontal">
                         <Button
                             Width="152"
+                            
                             Height="35"
                             Command="{x:Bind ViewModel.PlayAllCommand}"
                             Style="{ThemeResource StandardButtonStyle}">

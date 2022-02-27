@@ -84,9 +84,9 @@
                 Width="40"
                 Height="40"
                 VerticalAlignment="Center"
-                BlurRadius="10"
+                BlurRadius="20"
                 OffsetY="0"
-                Opacity="0.5"
+                Opacity="0.3"
                 ShadowOpacity="1">
 
                 <Border

@@ -47,12 +47,12 @@
                         Grid.RowSpan="2"
                         HorizontalAlignment="Stretch"
                         VerticalAlignment="Stretch"
-                        BlurRadius="30"
+                        BlurRadius="20"
                         CornerRadius="10"
                         IsMasked="True"
                         OffsetX="0"
                         OffsetY="10"
-                        ShadowOpacity="0.4"
+                        ShadowOpacity="0.2"
                         Color="Black">
                         <Border
                             x:Name="BorderShadow"
@@ -80,8 +80,8 @@
                         x:Name="ShowAllPlaylistButton"
                         Grid.Row="0"
                         HorizontalAlignment="Right"
-                        Background="Transparent"
-                        BorderThickness="0"
+                        
+                        Style="{ThemeResource StandardButtonStyle}"
                         Command="{x:Bind ViewModel.OpelAllPlaylistsCommand}"
                         CornerRadius="3">
                         <Button.Content>

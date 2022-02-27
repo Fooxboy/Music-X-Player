@@ -29,7 +29,9 @@ namespace Fooxboy.MusicX.Core.VKontakte.Music
                 {"start_from", ""},
                 {"lang", "ru"},
                 {"access_token", _api.Token},
-                {"v", "5.103"}
+                {"v", "5.131"},
+
+                //{"v", "5.103"}
             };
             var json = await _api.InvokeAsync("audio.getCatalogBlockById", parameters);
             var blockModel = JsonConvert.DeserializeObject<Response<Models.Music.BlockInfo.ResponseItem>>(json);
@@ -49,7 +51,9 @@ namespace Fooxboy.MusicX.Core.VKontakte.Music
                 {"start_from", ""},
                 {"lang", "ru"},
                 {"access_token", _api.Token},
-                {"v", "5.103"}
+                {"v", "5.131"},
+
+                //{"v", "5.103"}
             };
             var json = _api.Invoke("audio.getCatalogBlockById", parameters);
             var blockModel = JsonConvert.DeserializeObject<Response<Models.Music.BlockInfo.ResponseItem>>(json);

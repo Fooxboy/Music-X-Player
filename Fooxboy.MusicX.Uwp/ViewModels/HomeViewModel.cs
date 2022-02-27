@@ -243,9 +243,12 @@ namespace Fooxboy.MusicX.Uwp.ViewModels
             }
         }
 
-        public void PlayTrack(Track track)
+        public async void PlayTrack(Track track)
         {
-            _player.Play(_libraryAlbum, track, Tracks.ToList());
+            var tracks = Tracks.ToList();
+            var position = tracks.IndexOf(track);
+
+            await _player.Play(position, Tracks.ToList());
             //_notificationService.CreateNotification("Воспроизведение", $"{track.Title}");
         }
     }

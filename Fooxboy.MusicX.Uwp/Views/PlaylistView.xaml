@@ -22,7 +22,7 @@
                 <Grid
                     x:Name="MainGrid"
                     Grid.Row="0"
-                    Margin="0,60,0,0">
+                    Margin="0,15,0,0">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="auto" />
                         <ColumnDefinition />
@@ -34,12 +34,12 @@
                         Grid.ColumnSpan="2"
                         Margin="50"
                         VerticalAlignment="Top"
-                        BlurRadius="50"
+                        BlurRadius="15"
                         CornerRadius="10"
                         IsMasked="True"
                         OffsetX="0"
-                        OffsetY="0"
-                        ShadowOpacity="0.4">
+                        OffsetY="10"
+                        ShadowOpacity="0.2">
                         <Border
                             x:Name="ShadowRectangle"
                             Height="250"
@@ -71,12 +71,12 @@
                             Grid.Column="0"
                             HorizontalAlignment="Center"
                             VerticalAlignment="Center"
-                            BlurRadius="30"
+                            BlurRadius="20"
                             CornerRadius="8"
                             IsMasked="True"
                             OffsetX="0"
                             OffsetY="0"
-                            ShadowOpacity="0.7">
+                            ShadowOpacity="0.4">
                             <Border
                                 x:Name="ShadowCover"
                                 Width="200"
@@ -161,7 +161,7 @@
                             Orientation="Horizontal">
                             <Button
                                 Height="35"
-                                BorderThickness="0"
+                                Style="{ThemeResource StandardButtonStyle}"
                                 Command="{x:Bind ViewModel.PlayCommmand}"
                                 CornerRadius="3">
                                 <Button.Content>
@@ -175,7 +175,7 @@
                             <Button
                                 Height="35"
                                 Margin="10,0,0,0"
-                                BorderThickness="0"
+                                Style="{ThemeResource StandardButtonStyle}"
                                 Command="{x:Bind ViewModel.ShuffleCommand}"
                                 CornerRadius="3">
                                 <Button.Content>
@@ -189,7 +189,7 @@
                             <Button
                                 Height="35"
                                 Margin="10,0,0,0"
-                                BorderThickness="0"
+                                Style="{ThemeResource StandardButtonStyle}"
                                 Command="{x:Bind ViewModel.AddToLibraryCommand}"
                                 CornerRadius="3"
                                 IsEnabled="{x:Bind ViewModel.AddButtonIsActive, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
@@ -204,7 +204,7 @@
                             <Button
                                 Height="35"
                                 Margin="10,0,0,0"
-                                BorderThickness="0"
+                                Style="{ThemeResource StandardButtonStyle}"
                                 Command="{x:Bind ViewModel.DeleteCommand}"
                                 CornerRadius="3"
                                 IsEnabled="{x:Bind ViewModel.DeleteButtonIsActive, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">

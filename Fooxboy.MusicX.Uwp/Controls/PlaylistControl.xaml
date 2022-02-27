@@ -61,12 +61,12 @@
             Grid.RowSpan="2"
             HorizontalAlignment="Center"
             VerticalAlignment="Center"
-            BlurRadius="40"
+            BlurRadius="20"
             CornerRadius="4"
             IsMasked="True"
             OffsetX="0"
             OffsetY="10"
-            ShadowOpacity="0.6"
+            ShadowOpacity="0.2"
             Color="Black">
             <Border
                 x:Name="BorderShadow"
@@ -100,12 +100,13 @@
         <StackPanel Grid.Row="1" Margin="25,0,25,25">
             <TextBlock
                 x:Name="TitilePlaylist"
-                FontWeight="Bold"
+                
                 Foreground="{ThemeResource MainTextColor}"
                 Text="{x:Bind Album.Title, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                 TextTrimming="CharacterEllipsis" />
             <TextBlock
                 x:Name="ArtistsText"
+                FontSize="11"
                 Foreground="{ThemeResource ColorArtistText}"
                 Text="{x:Bind Artists}"
                 TextTrimming="CharacterEllipsis" />

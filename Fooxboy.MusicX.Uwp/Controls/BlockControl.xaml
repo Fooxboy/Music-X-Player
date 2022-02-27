@@ -19,12 +19,12 @@
         <controls:DropShadowPanel
             HorizontalAlignment="Center"
             VerticalAlignment="Center"
-            BlurRadius="50"
+            BlurRadius="25"
             CornerRadius="10"
             IsMasked="True"
             OffsetX="0"
-            OffsetY="0"
-            ShadowOpacity="0.3"
+            OffsetY="10"
+            ShadowOpacity="0.2"
             Color="Black">
             <Border
                 x:Name="BorderShadow"
@@ -61,8 +61,7 @@
             Margin="0,10,15,0"
             HorizontalAlignment="Right"
             VerticalAlignment="Top"
-            Background="Transparent"
-            BorderThickness="0"
+            Style="{ThemeResource StandardButtonStyle}"
             Click="ButtonBase_OnClick"
             CornerRadius="4">
             <Button.Content>

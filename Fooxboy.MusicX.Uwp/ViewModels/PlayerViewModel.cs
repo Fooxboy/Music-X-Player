@@ -10,6 +10,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Flurl.Http;
 using Fooxboy.MusicX.Core;
+using Microsoft.Toolkit.Uwp.Helpers;
 
 namespace Fooxboy.MusicX.Uwp.ViewModels
 {
@@ -116,11 +117,14 @@ namespace Fooxboy.MusicX.Uwp.ViewModels
 
         private IContainer _container;
         private ILoggerService _logger;
+        private readonly CurrentUserService currentUserService;
 
         private Api _api;
         private NotificationService _notification;
         public PlayerViewModel(IContainer container)
         {
+            currentUserService = Container.Get.Resolve<CurrentUserService>();
+
             this._container = container;
             VisibleLike = false;
             VisibleDislike = false;
@@ -142,14 +146,15 @@ namespace Fooxboy.MusicX.Uwp.ViewModels
             IsPlay = false;
 
             foreach (var track in PlayerSerivce.Tracks) CurrentNowPlaing.Add(track);
-            var discordService = _container.Resolve<DiscordService>();
-            discordService.Init();
+           // var discordService = _container.Resolve<DiscordService>();
+           // discordService.Init();
         }
 
-        private void TrackChanged(object sender, EventArgs e)
+        private async void TrackChanged(object sender, EventArgs e)
         {
             _logger.Trace("Трек изменен.");
-            long userId = 0;
+
+            long userId = currentUserService.UserId;
             if (PlayerSerivce.CurrentTrack.OwnerId == userId)
             {
                 VisibleDislike = true;
@@ -160,19 +165,25 @@ namespace Fooxboy.MusicX.Uwp.ViewModels
                 VisibleDislike = false;
                 VisibleLike = true;
             }
-            CurrentNowPlaing.Clear();
-            foreach (var track in PlayerSerivce.Tracks) CurrentNowPlaing.Add(track);
-            Title = PlayerSerivce.CurrentTrack.Title;
-            Artist = PlayerSerivce.CurrentTrack.Artist;
-            Cover = PlayerSerivce.CurrentTrack.Album?.Cover;
-            SecondsAll = PlayerSerivce.Duration.TotalSeconds;
-            Changed("Title");
-            Changed("Artist");
-            Changed("Cover");
-            Changed("SecondsAll");
-            Changed("CurrentNowPlaing");
-            Changed("VisibleLike");
-            Changed("VisibleDislike");
+
+            await DispatcherHelper.ExecuteOnUIThreadAsync(async () =>
+            {
+                CurrentNowPlaing.Clear();
+                foreach (var track in PlayerSerivce.Tracks) CurrentNowPlaing.Add(track);
+                Title = PlayerSerivce.CurrentTrack.Title;
+                Artist = PlayerSerivce.CurrentTrack.Artist;
+                Cover = PlayerSerivce.CurrentTrack.Album?.Cover;
+                SecondsAll = PlayerSerivce.Duration.TotalSeconds;
+                Changed("Title");
+                Changed("Artist");
+                Changed("Cover");
+                Changed("SecondsAll");
+                Changed("CurrentNowPlaing");
+                Changed("VisibleLike");
+                Changed("VisibleDislike");
+            });
+
+            
         }
 
         private void PositionTrackChanged(object sender, TimeSpan e)

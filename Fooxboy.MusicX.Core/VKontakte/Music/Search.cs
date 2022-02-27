@@ -66,7 +66,9 @@ namespace Fooxboy.MusicX.Core.VKontakte.Music
 
             var parameters = new VkParameters
             {
-                {"v", "5.103"},
+                //{"v", "5.103"},
+                {"v", "5.131"},
+
                 {"lang", "ru"},
                 {"extended", "1"},
                 {"access_token", _api.Token},

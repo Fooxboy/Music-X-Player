@@ -73,6 +73,9 @@ namespace Fooxboy.MusicX.Uwp.Views
             LoadingViewModel = new LoadingViewModel(_container);
             NotificationViewModel = new NotificationViewModel(_container);
 
+            Window.Current.SetTitleBar(this.TitleBar);
+
+
             base.OnNavigatedTo(e);
         }
 

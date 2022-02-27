@@ -9,6 +9,9 @@ namespace Fooxboy.MusicX.Core.Models.Music.BlockInfo
 {
     public class Block
     {
+        [JsonProperty("data_type")]
+        public string DataType { get; set; }
+
         [JsonProperty("title")]
         public string Title { get; set; }
 
