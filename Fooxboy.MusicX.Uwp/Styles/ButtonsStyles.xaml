@@ -4,10 +4,10 @@
     xmlns:local="using:Fooxboy.MusicX.Uwp.Styles">
 
     <Style x:Key="StandardButtonStyle" TargetType="Button">
-        <Setter Property="Background" Value="White" />
+        <Setter Property="Background" Value="{ThemeResource BackgroundWinUI}" />
         <Setter Property="BackgroundSizing" Value="OuterBorderEdge" />
         <Setter Property="Foreground" Value="{ThemeResource ButtonForeground}" />
-        <Setter Property="BorderBrush" Value="#DFDFDF" />
+        <Setter Property="BorderBrush" Value="{ThemeResource BoriderWinUI}" />
         <Setter Property="BorderThickness" Value="1" />
         <Setter Property="Padding" Value="{StaticResource ButtonPadding}" />
         <Setter Property="HorizontalAlignment" Value="Left" />

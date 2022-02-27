@@ -166,7 +166,10 @@
                                 CornerRadius="3">
                                 <Button.Content>
                                     <StackPanel Orientation="Horizontal">
-                                        <FontIcon FontFamily="Segoe MDL2 Assets" Glyph="&#xE102;" />
+                                        <StackPanel Margin="0 2 0 0" >
+                                            <Image x:Name="playwhite" Height="16" Width="16" Source="ms-appx:///Assets/Icons/play_white.svg"/>
+                                            <Image Visibility="Collapsed" x:Name="playblack" Height="16" Width="16" Source="ms-appx:///Assets/Icons/play_black.svg"/>
+                                        </StackPanel>
                                         <TextBlock Margin="5,0,0,0" Text="Слушать все" />
                                     </StackPanel>
                                 </Button.Content>
@@ -262,6 +265,7 @@
                 <ListView
                     x:Name="TracksListView"
                     Grid.Row="1"
+                    
                     Margin="20,-30,0,0"
                     HorizontalAlignment="Stretch"
                     IsItemClickEnabled="True"

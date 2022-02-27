@@ -30,7 +30,7 @@ namespace Fooxboy.MusicX.Uwp.Services
         {
             try
             {
-                if (!IsActive) return url;
+                return url;
 
                 var pathCache = ApplicationData.Current.LocalCacheFolder;
                 var hash = url.GetHashCode();

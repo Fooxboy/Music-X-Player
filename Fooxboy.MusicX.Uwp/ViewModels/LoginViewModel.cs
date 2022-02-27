@@ -74,7 +74,7 @@ namespace Fooxboy.MusicX.Uwp.ViewModels
 
                 await Task.Delay(3000);
                 var currentFrame = Window.Current.Content as Frame;
-                currentFrame?.Navigate(typeof(RootWindow));
+                currentFrame?.Navigate(typeof(RootWindow), _container);
             }
             catch(VkNet.AudioBypassService.Exceptions.VkAuthException e)
             {

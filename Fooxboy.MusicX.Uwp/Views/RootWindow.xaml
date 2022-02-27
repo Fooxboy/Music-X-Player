@@ -99,10 +99,10 @@
                         CornerRadius="2"
                         Style="{StaticResource MenuButton}">
                         <StackPanel Orientation="Vertical">
-                            <FontIcon
-                                FontFamily="Segoe MDL2 Assets"
-                                FontSize="25"
-                                Glyph="&#xE80F;" />
+
+                            <Image x:Name="audiowhite" Height="25" Width="25" Source="ms-appx:///Assets/Icons/home_white.svg"/>
+                            <Image Visibility="Collapsed" x:Name="audioblack" Height="25" Width="25" Source="ms-appx:///Assets/Icons/home_black.svg"/>
+
 
                             <TextBlock FontSize="10" TextWrapping="Wrap" TextAlignment="Center" Text="Моя музыка"/>
 
@@ -216,18 +216,27 @@
             
         </StackPanel>
 
+        <Grid Grid.Row="0" Margin="0 0 0 0 " Grid.ColumnSpan="3">
 
-        <StackPanel Grid.Row="0" Margin="0 1 0 0" HorizontalAlignment="Center" Width="600" Grid.Column="1" Orientation="Horizontal">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition MinWidth="300" Width="*"/>
+                <ColumnDefinition  Width="*"/>
+            </Grid.ColumnDefinitions>
+            
             <TextBox
                     x:Name="SearchBox"
+                Grid.Column="1"
+                VerticalAlignment="Stretch"
                     Height="33"
-                     Width="600"
+               
                     GotFocus="SearchBox_OnGotFocus"
                     KeyUp="SearchBox_OnKeyUp"
                     LostFocus="SearchBox_OnLostFocus"
                     PlaceholderText="Найдите что-нибудь..."
                     Style="{ThemeResource SearchTextBoxStyle}" />
-        </StackPanel>
+        </Grid>
+       
 
         <Grid
             x:Name="NotificationGrid"
@@ -421,10 +430,16 @@
                     Background="Transparent"
                     BorderThickness="0"
                     Command="{x:Bind PlayerViewModel.PreviousCommand}"
-                    Content="&#xE892;"
                     CornerRadius="99"
                     FontFamily="Segoe MDL2 Assets"
-                    FontSize="17" />
+                    FontSize="17" >
+
+                    <StackPanel>
+                        <Image x:Name="prevwhite" Height="17" Width="17" Source="ms-appx:///Assets/Icons/prev_white.svg"/>
+                        <Image Visibility="Collapsed" x:Name="prevblack" Height="17" Width="17" Source="ms-appx:///Assets/Icons/prev_black.svg"/>
+                    </StackPanel>
+                    
+                </Button>
 
                 <Grid Grid.Column="3">
                     <Button
@@ -434,11 +449,15 @@
                         Background="Transparent"
                         BorderThickness="0"
                         Command="{x:Bind PlayerViewModel.PlayCommand}"
-                        Content="&#xE768;"
                         CornerRadius="99"
                         FontFamily="Segoe MDL2 Assets"
                         FontSize="20"
-                        Visibility="{x:Bind PlayerViewModel.VisibilityPlay, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, Converter={StaticResource ToVisibility}}" />
+                        Visibility="{x:Bind PlayerViewModel.VisibilityPlay, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, Converter={StaticResource ToVisibility}}" >
+                        <StackPanel>
+                            <Image x:Name="playwhite" Height="20" Width="20" Source="ms-appx:///Assets/Icons/play_white.svg"/>
+                            <Image Visibility="Collapsed" x:Name="playblack" Height="20" Width="20" Source="ms-appx:///Assets/Icons/play_black.svg"/>
+                        </StackPanel>
+                    </Button>
                     <Button
                         Grid.Column="0"
                         Width="43"
@@ -446,11 +465,16 @@
                         Background="Transparent"
                         BorderThickness="0"
                         Command="{x:Bind PlayerViewModel.PauseCommand}"
-                        Content="&#xE769;"
+
                         CornerRadius="99"
                         FontFamily="Segoe MDL2 Assets"
                         FontSize="20"
-                        Visibility="{x:Bind PlayerViewModel.IsPlay, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, Converter={StaticResource ToVisibility}}" />
+                        Visibility="{x:Bind PlayerViewModel.IsPlay, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, Converter={StaticResource ToVisibility}}" >
+                        <StackPanel>
+                            <Image x:Name="pausewhite" Height="20" Width="20" Source="ms-appx:///Assets/Icons/pause_white.svg"/>
+                            <Image Visibility="Collapsed" x:Name="pauseblack" Height="20" Width="20" Source="ms-appx:///Assets/Icons/pause_black.svg"/>
+                        </StackPanel>
+                    </Button>
                 </Grid>
 
                 <Button
@@ -460,10 +484,14 @@
                     Background="Transparent"
                     BorderThickness="0"
                     Command="{x:Bind PlayerViewModel.NextCommand}"
-                    Content="&#xE893;"
                     CornerRadius="99"
                     FontFamily="Segoe MDL2 Assets"
-                    FontSize="17" />
+                    FontSize="17" >
+                    <StackPanel>
+                        <Image x:Name="nextwhite" Height="17" Width="17" Source="ms-appx:///Assets/Icons/next_white.svg"/>
+                        <Image Visibility="Collapsed" x:Name="nextblack" Height="17" Width="17" Source="ms-appx:///Assets/Icons/next_black.svg"/>
+                    </StackPanel>
+                </Button>
 
                 <ToggleButton
                     Grid.Column="5"
@@ -510,6 +538,7 @@
             <StackPanel
                 x:Name="StackButtons"
                 Grid.Column="3"
+                Margin="5 0 0 0"
                 Orientation="Horizontal">
                 <Button
                     Width="37"

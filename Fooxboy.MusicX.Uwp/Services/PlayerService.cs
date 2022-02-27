@@ -92,15 +92,13 @@ namespace Fooxboy.MusicX.Uwp.Services
                 _mediaPlayer.SystemMediaTransportControls.DisplayUpdater.MusicProperties.Title = _currentTrack.Title;
                 _mediaPlayer.SystemMediaTransportControls.DisplayUpdater.MusicProperties.Artist = _currentTrack.Artist;
                 _mediaPlayer.SystemMediaTransportControls.DisplayUpdater.MusicProperties.TrackNumber = (uint)index;
-                _mediaPlayer.SystemMediaTransportControls.DisplayUpdater.Thumbnail = RandomAccessStreamReference.CreateFromUri(new Uri(_currentTrack.Album.Cover));
+                if(_currentTrack.Album != null)_mediaPlayer.SystemMediaTransportControls.DisplayUpdater.Thumbnail = RandomAccessStreamReference.CreateFromUri(new Uri(_currentTrack.Album.Cover));
                 _mediaPlayer.SystemMediaTransportControls.DisplayUpdater.AppMediaId = "Music X";
 
                 _mediaPlayer.SystemMediaTransportControls.DisplayUpdater.Update();
                 _mediaPlayer.Play();
 
                 PositionTrackChangedEvent?.Invoke(this, TimeSpan.Zero);
-
-
 
             }
             catch (Exception ex)

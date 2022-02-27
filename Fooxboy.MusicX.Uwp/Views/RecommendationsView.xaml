@@ -96,8 +96,11 @@
                             Command="{x:Bind ViewModel.PlayAllCommand}"
                             Style="{ThemeResource StandardButtonStyle}">
                             <Button.Content>
-                                <StackPanel Orientation="Horizontal">
-                                    <FontIcon FontFamily="Segoe MDL2 Assets" Glyph="&#xE102;" />
+                                <StackPanel Margin="0 2 0 0"  Orientation="Horizontal">
+                                    <StackPanel>
+                                        <Image x:Name="playwhite" Height="16" Width="16" Source="ms-appx:///Assets/Icons/play_white.svg"/>
+                                        <Image Visibility="Collapsed" x:Name="playblack" Height="16" Width="16" Source="ms-appx:///Assets/Icons/play_black.svg"/>
+                                    </StackPanel>
                                     <TextBlock Margin="5,0,0,0" Text="Слушать все" />
 
                                 </StackPanel>
@@ -122,6 +125,7 @@
                 <Grid Margin="10,50,10,0">
                     <ListView
                         Background="Transparent"
+                        Padding=" 0 0 0 100 "
                         ItemContainerStyle="{ThemeResource ListViewItemContainerStyle}"
                         ItemsSource="{x:Bind ViewModel.Blocks, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                         SelectionMode="None">

@@ -38,6 +38,19 @@ namespace Fooxboy.MusicX.Uwp.Views
             var player = (PlayerService) data[3];
             BackgroundImage.ImageExOpened += BackgroundImage_ImageExOpened;
 
+            var theme = Application.Current.RequestedTheme;
+
+            if (theme == ApplicationTheme.Light)
+            {
+                playblack.Visibility = Visibility.Visible;
+                playwhite.Visibility = Visibility.Collapsed;
+            }
+            else
+            {
+                playblack.Visibility = Visibility.Collapsed;
+                playwhite.Visibility = Visibility.Visible;
+            }
+
             var notification = (NotificationService) data[1];
             var artistId = Int64.Parse( (string)data[2]);
             var logger = (LoggerService) data[4];

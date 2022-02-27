@@ -8,10 +8,12 @@ using Fooxboy.MusicX.Uwp.Models;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
 using Windows.UI.Xaml;
+using Microsoft.Toolkit.Uwp.UI.Animations;
+
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Controls.Primitives;
 using Windows.UI.Xaml.Data;
-using Microsoft.Toolkit.Uwp.UI.Animations;
+
 using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Navigation;
@@ -149,20 +151,27 @@ namespace Fooxboy.MusicX.Uwp.Resources.Controls
         private async void Grid_PointerEntered(object sender, PointerRoutedEventArgs e)
         {
 
-            await PlaylistControlGrid.Scale(centerX: 50.0f,
-                        centerY: 50.0f,
-                        scaleX: 1.1f,
-                        scaleY: 1.1f,
-                        duration: 200, delay: 0, easingType: EasingType.Back).StartAsync();
+
+            await AnimationBuilder.Create().Scale(to: 1.07f, duration: TimeSpan.FromMilliseconds(200),
+                delay: TimeSpan.Zero, easingType: EasingType.Default).StartAsync(PlaylistControlGrid);
+
+            /*   await PlaylistControlGrid.Scale(centerX: 50.0f,
+                           centerY: 50.0f,
+                           scaleX: 1.1f,
+                           scaleY: 1.1f,
+                           duration: 200, delay: 0, easingType: EasingType.Back).StartAsync();*/
         }
 
         private async void Grid_PointerExited(object sender, PointerRoutedEventArgs e)
         {
-            await PlaylistControlGrid.Scale(centerX: 50.0f,
-                        centerY: 50.0f,
-                        scaleX: 1.0f,
-                        scaleY: 1.0f,
-                        duration: 200, delay: 0, easingType: EasingType.Back).StartAsync();
+
+            await AnimationBuilder.Create().Scale(to: 1.0f, duration: TimeSpan.FromMilliseconds(200),
+                delay: TimeSpan.Zero, easingType: EasingType.Default).StartAsync(PlaylistControlGrid);
+            /* await PlaylistControlGrid.Scale(centerX: 50.0f,
+                         centerY: 50.0f,
+                         scaleX: 1.0f,
+                         scaleY: 1.0f,
+                         duration: 200, delay: 0, easingType: EasingType.Back).StartAsync();*/
 
 
         }

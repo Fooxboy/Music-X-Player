@@ -54,7 +54,21 @@ namespace Fooxboy.MusicX.Uwp.Views
 
         private async void RecommendationsView_OnLoaded(object sender, RoutedEventArgs e)
         {
-            await ViewModel.StartLoading();
+            if(ViewModel.Blocks.Count == 0) await ViewModel.StartLoading();
+
+
+            var theme = Application.Current.RequestedTheme;
+
+            if (theme == ApplicationTheme.Light)
+            {
+                playblack.Visibility = Visibility.Visible;
+                playwhite.Visibility = Visibility.Collapsed;
+            }
+            else
+            {
+                playblack.Visibility = Visibility.Collapsed;
+                playwhite.Visibility = Visibility.Visible;
+            }
         }
     }
 }
