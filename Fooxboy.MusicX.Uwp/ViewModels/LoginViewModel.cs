@@ -74,7 +74,7 @@ namespace Fooxboy.MusicX.Uwp.ViewModels
 
                 await Task.Delay(3000);
                 var currentFrame = Window.Current.Content as Frame;
-                currentFrame?.Navigate(typeof(RootWindow));
+                currentFrame?.Navigate(typeof(RootWindow), _container);
             }
             catch(VkNet.AudioBypassService.Exceptions.VkAuthException e)
             {
@@ -98,7 +98,14 @@ namespace Fooxboy.MusicX.Uwp.ViewModels
                 Changed("IsLoading");
                 Changed("VisibilityTextBox");
 
-                
+
+                await DispatcherHelper.ExecuteOnUIThreadAsync(async () =>
+                {
+                    var dialog = new ContentDialog();
+                    dialog.Title = "Произошла неизвестная ошибка";
+                    dialog.Content = e;
+                    await dialog.ShowAsync();
+                });
 
                 //неизвестная ошибка при логине.
             }

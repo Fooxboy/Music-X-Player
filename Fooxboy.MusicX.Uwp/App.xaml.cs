@@ -66,6 +66,8 @@ namespace Fooxboy.MusicX.Uwp
             c.Register<CurrentUserService>(Reuse.Singleton);
             c.Register<AppPrivateSettingsService>(Reuse.Singleton);
             c.Register<ImageCacheService>(Reuse.Singleton);
+            c.Register<NavigationService>(Reuse.Singleton);
+
 
             this._container = c;
 
@@ -114,7 +116,7 @@ namespace Fooxboy.MusicX.Uwp
                     try
                     {
                         var config = await configService.GetConfig();
-                        if (config.AccessTokenVkontakte is null) rootFrame.Navigate(typeof(Views.LoginView), _container);
+                        if (config.AccessTokenVkontakte is null) rootFrame.Navigate(typeof(Views.WelcomeView), _container);
                         else
                         {
                             rootFrame.Navigate(typeof(Views.RootWindow), this._container);
@@ -156,7 +158,7 @@ namespace Fooxboy.MusicX.Uwp
             }
             Window.Current.Activate();
             SystemNavigationManager.GetForCurrentView().BackRequested += OnBackRequested;
-            Push.CheckLaunchedFromNotification(e);
+           // Push(e);
         }
 
       
@@ -193,5 +195,6 @@ namespace Fooxboy.MusicX.Uwp
         {
 
         }
+
     }
 }

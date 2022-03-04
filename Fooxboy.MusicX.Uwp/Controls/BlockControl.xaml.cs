@@ -82,6 +82,19 @@ namespace Fooxboy.MusicX.Uwp.Controls
                 this.ArtistsGrid.Visibility = Visibility.Collapsed;
             }
 
+            if(Block.Type == "alghoritm")
+            {
+                this.ListAlgAlbums.ItemsSource = await Block.Albums.ToAlbumsList();
+                this.TracksGrid.Visibility = Visibility.Collapsed;
+                this.PlaylistsGrid.Visibility = Visibility.Collapsed;
+                this.ArtistsGrid.Visibility = Visibility.Collapsed;
+                this.AlghoritmGrid.Visibility = Visibility.Visible;
+                ShowAllButton.Visibility = Visibility.Collapsed;
+                BackgroundRect.Height = 330;
+                BorderShadow.Height = 330;
+
+            }
+
             if (Block.Type == "audios_list" || Block.Type == "audios" || Block.Type == "top_audios")
             {
                 this.ListTracks.ItemsSource = await Block.Tracks.ToListTrack();
@@ -147,7 +160,7 @@ namespace Fooxboy.MusicX.Uwp.Controls
 
             var position = tracks.IndexOf(tracks.Single(t=> t.Id == track.Id && t.Url == track.Url));
 
-            _player.Play(new Album(),position, tracks);
+            await _player.Play(position, tracks);
         }
 
 
@@ -203,9 +216,9 @@ namespace Fooxboy.MusicX.Uwp.Controls
             //throw new NotImplementedException();
         }
 
-        private void PlayLastRelease_OnClick(object sender, RoutedEventArgs e)
+        private async void PlayLastRelease_OnClick(object sender, RoutedEventArgs e)
         {
-            _player.Play(new Album(), 0, TracksLastRelease);
+            await _player.Play(0, TracksLastRelease);
         }
 
         private async void OpenPlaylistLastRelease_OnClick(object sender, RoutedEventArgs e)

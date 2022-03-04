@@ -57,11 +57,9 @@ namespace Fooxboy.MusicX.Uwp.Views
 
         protected override void OnNavigatedTo(NavigationEventArgs e)
         {
-            _container = (IContainer) e.Parameter;
-            Container.SetContainer(this._container);
+            _container = (IContainer)e.Parameter;
+           var navigationService = _container.Resolve<NavigationService>();
 
-            _container.Register<NavigationService>(Reuse.Singleton);
-            var navigationService = _container.Resolve<NavigationService>();
 
             PlayerViewModel = new PlayerViewModel(_container);
             PlayerViewModel.CloseBigPlayer = new Action(CloseBigPlayer);
@@ -73,6 +71,9 @@ namespace Fooxboy.MusicX.Uwp.Views
             LoadingViewModel = new LoadingViewModel(_container);
             NotificationViewModel = new NotificationViewModel(_container);
 
+            Window.Current.SetTitleBar(this.TitleBar);
+
+
             base.OnNavigatedTo(e);
         }
 
@@ -82,11 +83,64 @@ namespace Fooxboy.MusicX.Uwp.Views
             TitleTrack.Text = "Сейчас ничего не воспроизводится";
             NavigationViewModel.VisibilitySelectorHome = true;
             NavigationViewModel.Changed();
+
+            
             //AppWindow appWindow = await AppWindow.TryCreateAsync();
             //Frame appWindowContentFrame = new Frame();
             //appWindowContentFrame.Navigate(typeof(DeveloperView));
             //ElementCompositionPreview.SetAppWindowContent(appWindow, appWindowContentFrame);
             //await appWindow.TryShowAsync();
+
+            var theme = Application.Current.RequestedTheme;
+
+            if(theme == ApplicationTheme.Light)
+            {
+                audioblack.Visibility = Visibility.Visible;
+                audiowhite.Visibility = Visibility.Collapsed;
+
+
+                nextblack.Visibility = Visibility.Visible;
+                nextwhite.Visibility = Visibility.Collapsed;
+
+                prevblack.Visibility = Visibility.Visible;
+                prevwhite.Visibility = Visibility.Collapsed;
+
+                playblack.Visibility = Visibility.Visible;
+                playwhite.Visibility = Visibility.Collapsed;
+
+                pauseblack.Visibility = Visibility.Visible;
+                pausewhite.Visibility = Visibility.Collapsed;
+
+            }
+            else
+            {
+                audioblack.Visibility = Visibility.Collapsed;
+                audiowhite.Visibility = Visibility.Visible;
+
+                nextblack.Visibility = Visibility.Collapsed;
+                nextwhite.Visibility = Visibility.Visible;
+
+                prevblack.Visibility = Visibility.Collapsed;
+                prevwhite.Visibility = Visibility.Visible;
+
+                playblack.Visibility = Visibility.Collapsed;
+                playwhite.Visibility = Visibility.Visible;
+
+                pauseblack.Visibility = Visibility.Collapsed;
+                pausewhite.Visibility = Visibility.Visible;
+            } 
+
+            var configService = _container.Resolve<ConfigService>();
+            var config = await configService.GetConfig().ConfigureAwait(false);
+
+            PlayerViewModel.Volume = config.Volume;
+
+            DispatcherHelper.ExecuteOnUIThreadAsync(() =>
+            {
+                d.Value = config.Volume;
+
+            });
+
         }
 
         private void PersonPicture_Tapped(object sender, TappedRoutedEventArgs e)
@@ -180,36 +234,69 @@ namespace Fooxboy.MusicX.Uwp.Views
 
         }
 
-        private void ArtistText_OnTapped(object sender, TappedRoutedEventArgs e)
+        private async void ArtistText_OnTapped(object sender, TappedRoutedEventArgs e)
         {
-            var api = _container.Resolve<Api>();
-            var logger = _container.Resolve<LoggerService>();
-            var notificationService = _container.Resolve<NotificationService>();
-            var navigation = _container.Resolve<NavigationService>();
-            var player = _container.Resolve<PlayerService>();
-            if (PlayerViewModel.PlayerSerivce.CurrentTrack.Artists != null)
+            try
             {
-                if (PlayerViewModel.PlayerSerivce.CurrentTrack.Artists.Count > 0)
+                var api = _container.Resolve<Api>();
+                var logger = _container.Resolve<LoggerService>();
+                var notificationService = _container.Resolve<NotificationService>();
+                var navigation = _container.Resolve<NavigationService>();
+                var player = _container.Resolve<PlayerService>();
+                if (PlayerViewModel.PlayerSerivce.CurrentTrack.Artists != null)
                 {
-                    try
+                    if (PlayerViewModel.PlayerSerivce.CurrentTrack.Artists.Count > 0)
                     {
-                        var artist = PlayerViewModel.PlayerSerivce.CurrentTrack.Artists[0];
-                        navigation.Go(typeof(ArtistView), new object[] {api, notificationService, artist.Id, player, logger}, 1);
-                        return;
-                    }
-                    catch (Exception ee)
-                    {
-                        notificationService.CreateNotification("Ошибка при открытии карточки музыканта", $"Ошибка: {ee.Message}");
-                        return;
+                        try
+                        {
+                            var artist = PlayerViewModel.PlayerSerivce.CurrentTrack.Artists[0];
+                            navigation.Go(typeof(ArtistView), new object[] { api, notificationService, artist.Id, player, logger }, 1);
+                            return;
+                        }
+                        catch (Exception ee)
+                        {
+                            notificationService.CreateNotification("Ошибка при открытии карточки музыканта", $"Ошибка: {ee.Message}");
+                            return;
+                        }
                     }
                 }
+
+                navigation.Go(typeof(SearchView), new object[] { PlayerViewModel.Artist, api, notificationService, logger }, 1);
+            }catch(Exception ex)
+            {
+
+                await DispatcherHelper.ExecuteOnUIThreadAsync(async () =>
+                {
+                    var dialog = new ContentDialog();
+                    dialog.Title = "Произошла неизвестная ошибка";
+                    dialog.Content = ex;
+                    await dialog.ShowAsync();
+                });
+
             }
 
-            navigation.Go(typeof(SearchView), new object[] { PlayerViewModel.Artist, api, notificationService }, 1);
         }
 
         private void UIElement_OnTapped(object sender, TappedRoutedEventArgs e)
         {
+        }
+
+        private void d_PointerReleased(object sender, PointerRoutedEventArgs e)
+        {
+
+
+        }
+
+        private async void Flyout_Closed(object sender, object e)
+        {
+            var configService = _container.Resolve<ConfigService>();
+            var config = await configService.GetConfig().ConfigureAwait(false);
+
+            if (config.Volume == PlayerViewModel.Volume) return;
+            config.Volume = PlayerViewModel.Volume;
+
+            await configService.SetConfig(config);
+
         }
     }
 }

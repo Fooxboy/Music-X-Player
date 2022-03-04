@@ -124,7 +124,6 @@ namespace Fooxboy.MusicX.Uwp.ViewModels
                     
                 foreach (var track in tracks) Tracks.Add(track);
 
-                Tracks.Add(new Track() {AccessKey = "space"});
                 Changed("Tracks");
                 loadingService.Change(false);
             }
@@ -173,17 +172,17 @@ namespace Fooxboy.MusicX.Uwp.ViewModels
             }
         }
 
-        public void Play()
+        public async void Play()
         {
-            if (this.Tracks.Count > 0) this.PlayTrack(this.Tracks[0]);
+            if (this.Tracks.Count > 0) await this.PlayTrack(this.Tracks[0]);
         }
 
-        public void Shuffle()
+        public async void Shuffle()
         {
             var playService = _container.Resolve<PlayerService>();
             playService.SetShuffle(true);
             int index = new Random().Next(0, Tracks.Count());
-            this.PlayTrack(this.Tracks[index]);
+            await this.PlayTrack(this.Tracks[index]);
         }
 
         public async void AddToLibrary()
@@ -214,10 +213,12 @@ namespace Fooxboy.MusicX.Uwp.ViewModels
 
         }
 
-        public void PlayTrack(Track track)
+        public async Task PlayTrack(Track track)
         {
             var playService = _container.Resolve<PlayerService>();
-            playService.Play(this.Album, track, this.Tracks.ToList());
+            var tracks = this.Tracks.ToList();
+            var position = tracks.IndexOf(track);
+            await playService.Play(position, tracks);
         }
     }
 }

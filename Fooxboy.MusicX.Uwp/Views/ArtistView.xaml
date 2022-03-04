@@ -30,6 +30,7 @@
                 Text="Страница музыканта загружается..." />
         </Grid>
 
+
         <Grid Visibility="{x:Bind ViewModel.VisibleContent, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, Converter={StaticResource ToVisibility}}">
             <controls:ImageEx
                 x:Name="BackgroundImage"
@@ -91,7 +92,10 @@
                                 Style="{ThemeResource StandardButtonStyle}">
                                 <Button.Content>
                                     <StackPanel Orientation="Horizontal">
-                                        <FontIcon FontFamily="Segoe MDL2 Assets" Glyph="&#xE102;" />
+                                        <StackPanel>
+                                            <Image x:Name="playwhite" Height="20" Width="20" Source="ms-appx:///Assets/Icons/play_white.svg"/>
+                                            <Image Visibility="Collapsed" x:Name="playblack" Height="20" Width="20" Source="ms-appx:///Assets/Icons/play_black.svg"/>
+                                        </StackPanel>
                                         <TextBlock Margin="5,0,0,0" Text="Вопроизвести все" />
                                     </StackPanel>
                                 </Button.Content>

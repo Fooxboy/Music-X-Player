@@ -73,10 +73,12 @@ namespace Fooxboy.MusicX.Uwp.Views
             PlayerViewModel.CloseBigPlayer?.Invoke();
         }
 
-        private void ListView_ItemClick(object sender, ItemClickEventArgs e)
+        private async void ListView_ItemClick(object sender, ItemClickEventArgs e)
         {
             var track = (Track)e.ClickedItem;
-            PlayerViewModel.PlayerSerivce.Play(new Album() { Title="Сейчас играет" }, track, PlayerViewModel.CurrentNowPlaing.ToList());
+            var tracks = PlayerViewModel.CurrentNowPlaing.ToList();
+            var position = tracks.IndexOf(track);
+            await PlayerViewModel.PlayerSerivce.Play(position, tracks);
 
         }
     }

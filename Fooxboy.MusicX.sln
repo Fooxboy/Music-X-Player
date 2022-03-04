@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio Version 16
-VisualStudioVersion = 16.0.28917.181
+# Visual Studio Version 17
+VisualStudioVersion = 17.0.31919.166
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Fooxboy.MusicX.Uwp", "Fooxboy.MusicX.Uwp\Fooxboy.MusicX.Uwp.csproj", "{B1E377A9-DFF4-487B-8CE0-E623ADD3576E}"
 EndProject
@@ -9,7 +9,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Fooxboy.MusicX.Core", "Foox
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Fooxboy.MusicX.AndroidApp", "Fooxboy.MusicX.AndroidApp\Fooxboy.MusicX.AndroidApp.csproj", "{B322FB97-3549-46E3-BF14-78FF04493F35}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Fooxboy.MusicX.Server", "Fooxboy.MusicX.Server\Fooxboy.MusicX.Server.csproj", "{39BE1645-DB57-45A1-AB5D-AC89C2E56FFD}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Fooxboy.MusicX.Server", "Fooxboy.MusicX.Server\Fooxboy.MusicX.Server.csproj", "{39BE1645-DB57-45A1-AB5D-AC89C2E56FFD}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Fooxboy.MethodsTest", "Fooxboy.MethodsTest\Fooxboy.MethodsTest.csproj", "{50039A5B-7FC8-49B7-8E4F-CFEA82E07346}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -123,6 +125,26 @@ Global
 		{39BE1645-DB57-45A1-AB5D-AC89C2E56FFD}.Release|x64.Build.0 = Release|Any CPU
 		{39BE1645-DB57-45A1-AB5D-AC89C2E56FFD}.Release|x86.ActiveCfg = Release|Any CPU
 		{39BE1645-DB57-45A1-AB5D-AC89C2E56FFD}.Release|x86.Build.0 = Release|Any CPU
+		{50039A5B-7FC8-49B7-8E4F-CFEA82E07346}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{50039A5B-7FC8-49B7-8E4F-CFEA82E07346}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{50039A5B-7FC8-49B7-8E4F-CFEA82E07346}.Debug|ARM.ActiveCfg = Debug|Any CPU
+		{50039A5B-7FC8-49B7-8E4F-CFEA82E07346}.Debug|ARM.Build.0 = Debug|Any CPU
+		{50039A5B-7FC8-49B7-8E4F-CFEA82E07346}.Debug|ARM64.ActiveCfg = Debug|Any CPU
+		{50039A5B-7FC8-49B7-8E4F-CFEA82E07346}.Debug|ARM64.Build.0 = Debug|Any CPU
+		{50039A5B-7FC8-49B7-8E4F-CFEA82E07346}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{50039A5B-7FC8-49B7-8E4F-CFEA82E07346}.Debug|x64.Build.0 = Debug|Any CPU
+		{50039A5B-7FC8-49B7-8E4F-CFEA82E07346}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{50039A5B-7FC8-49B7-8E4F-CFEA82E07346}.Debug|x86.Build.0 = Debug|Any CPU
+		{50039A5B-7FC8-49B7-8E4F-CFEA82E07346}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{50039A5B-7FC8-49B7-8E4F-CFEA82E07346}.Release|Any CPU.Build.0 = Release|Any CPU
+		{50039A5B-7FC8-49B7-8E4F-CFEA82E07346}.Release|ARM.ActiveCfg = Release|Any CPU
+		{50039A5B-7FC8-49B7-8E4F-CFEA82E07346}.Release|ARM.Build.0 = Release|Any CPU
+		{50039A5B-7FC8-49B7-8E4F-CFEA82E07346}.Release|ARM64.ActiveCfg = Release|Any CPU
+		{50039A5B-7FC8-49B7-8E4F-CFEA82E07346}.Release|ARM64.Build.0 = Release|Any CPU
+		{50039A5B-7FC8-49B7-8E4F-CFEA82E07346}.Release|x64.ActiveCfg = Release|Any CPU
+		{50039A5B-7FC8-49B7-8E4F-CFEA82E07346}.Release|x64.Build.0 = Release|Any CPU
+		{50039A5B-7FC8-49B7-8E4F-CFEA82E07346}.Release|x86.ActiveCfg = Release|Any CPU
+		{50039A5B-7FC8-49B7-8E4F-CFEA82E07346}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

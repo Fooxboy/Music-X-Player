@@ -25,7 +25,9 @@ namespace Fooxboy.MusicX.Core.VKontakte.Music
             Api.Logger.Trace("[CORE] запрос audio.getCatalog (Artist)...");
             var parameters = new VkParameters
             {
-                {"artist_id", artistId}, {"extended", 1}, {"access_token", _api.Token}, {"v", "5.101"}
+                {"v", "5.131"},
+
+                {"artist_id", artistId}, {"extended", 1}, {"access_token", _api.Token}, //{"v", "5.101"}
             };
             var json = await _api.InvokeAsync("audio.getCatalog", parameters);
             var r = JsonConvert.DeserializeObject<Response>(json);
@@ -59,7 +61,9 @@ namespace Fooxboy.MusicX.Core.VKontakte.Music
         {
             var parameters = new VkParameters
             {
-                {"artist_id", artistId}, {"extended", 1}, {"access_token", _api.Token}, {"v", "5.101"}
+                {"v", "5.131"},
+
+                {"artist_id", artistId}, {"extended", 1}, {"access_token", _api.Token}, //{"v", "5.101"}
             };
             var json =  _api.Invoke("audio.getCatalog", parameters);
             var r = JsonConvert.DeserializeObject<Response>(json);

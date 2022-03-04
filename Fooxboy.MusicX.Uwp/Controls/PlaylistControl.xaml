@@ -11,15 +11,8 @@
     Loaded="UserControl_Loaded"
     mc:Ignorable="d">
 
-    <Grid
-        x:Name="PlaylistControlGrid"
-        PointerEntered="Grid_PointerEntered"
-        PointerExited="Grid_PointerExited"
-        Tapped="PlaylistControlGrid_OnTapped">
-        <Grid.RowDefinitions>
-            <RowDefinition />
-            <RowDefinition Height="auto" />
-        </Grid.RowDefinitions>
+    <Grid x:Name="playlistC"  PointerEntered="playlistC_PointerEntered"  PointerExited="playlistC_PointerExited">
+
         <Grid.ContextFlyout>
             <MenuFlyout>
                 <MenuFlyout.MenuFlyoutPresenterStyle>
@@ -57,33 +50,41 @@
             </MenuFlyout>
         </Grid.ContextFlyout>
 
-        <controls:DropShadowPanel
+        <Grid
+        x:Name="PlaylistControlGrid">
+            <Grid.RowDefinitions>
+                <RowDefinition />
+                <RowDefinition Height="auto" />
+            </Grid.RowDefinitions>
+           
+
+            <controls:DropShadowPanel
             Grid.RowSpan="2"
             HorizontalAlignment="Center"
             VerticalAlignment="Center"
-            BlurRadius="40"
+            BlurRadius="20"
             CornerRadius="4"
             IsMasked="True"
             OffsetX="0"
             OffsetY="10"
-            ShadowOpacity="0.6"
+            ShadowOpacity="0.2"
             Color="Black">
-            <Border
+                <Border
                 x:Name="BorderShadow"
                 Background="Transparent"
                 CornerRadius="4" />
 
-        </controls:DropShadowPanel>
+            </controls:DropShadowPanel>
 
-        <controls:ImageEx
+            <controls:ImageEx
             x:Name="coverPlaylist"
             Grid.RowSpan="2"
             Margin="20,20,20,20"
             HorizontalAlignment="Stretch"
             VerticalAlignment="Stretch"
             CornerRadius="4"
-            DecodePixelHeight="150"
-            DecodePixelWidth="150"
+            DecodePixelHeight="120"
+            DecodePixelWidth="120"
             IsCacheEnabled="False"
             PlaceholderSource="../../Assets/Images/placeholder-album.jpg"
             PlaceholderStretch="Fill"
@@ -91,45 +92,59 @@
             Source="{x:Bind Album.Cover, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
             Stretch="Fill" />
 
-        <Rectangle
+            <Rectangle
             Grid.Row="1"
             Margin="20,0,20,20"
             Fill="{ThemeResource BottomAcrylicBrush}"
             RadiusX="4"
             RadiusY="4" />
-        <StackPanel Grid.Row="1" Margin="25,0,25,25">
-            <TextBlock
+            <StackPanel Grid.Row="1" Margin="25,0,25,25">
+                <TextBlock
                 x:Name="TitilePlaylist"
-                FontWeight="Bold"
+                
                 Foreground="{ThemeResource MainTextColor}"
                 Text="{x:Bind Album.Title, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                 TextTrimming="CharacterEllipsis" />
-            <TextBlock
+                <TextBlock
                 x:Name="ArtistsText"
+                FontSize="11"
                 Foreground="{ThemeResource ColorArtistText}"
                 Text="{x:Bind Artists}"
                 TextTrimming="CharacterEllipsis" />
-        </StackPanel>
+            </StackPanel>
 
 
-        <Grid
+            <Grid
             x:Name="DeletedAlbum"
             Grid.RowSpan="2"
             Visibility="Collapsed">
-            <Rectangle
+                <Rectangle
                 Margin="20"
                 Fill="Black"
                 Opacity="0.8"
                 RadiusX="5"
                 RadiusY="5" />
-            <FontIcon
+                <FontIcon
                 HorizontalAlignment="Center"
                 VerticalAlignment="Center"
                 FontFamily="Segoe MDL2 Assets"
                 FontSize="30"
                 Foreground="White"
                 Glyph="&#xE107;" />
+            </Grid>
+
         </Grid>
 
+        <Grid Padding="20" Tapped="PlaylistControlGrid_OnTapped" Visibility="Collapsed" x:Name="PlaylistPlay">
+            <Rectangle RadiusX="4" Opacity="0.4" RadiusY="4" Fill="Black"/>
+
+            <Button x:Name="PlayPlaylistButton" Click="PlayPlaylistButton_Click" HorizontalAlignment="Center" Height="50" Width="50" CornerRadius="100" Background="Transparent" BorderThickness="0" VerticalAlignment="Center">
+                <StackPanel Margin="2 0 0 0">
+                    <Image x:Name="playwhite" Height="23" Width="23" Source="ms-appx:///Assets/Icons/play_white.svg"/>
+                    <Image Visibility="Collapsed" x:Name="playblack" Height="23" Width="23" Source="ms-appx:///Assets/Icons/play_black.svg"/>
+                </StackPanel>
+            </Button>
+            
+        </Grid>
     </Grid>
 </UserControl>

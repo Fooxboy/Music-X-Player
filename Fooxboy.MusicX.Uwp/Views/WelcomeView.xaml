@@ -89,7 +89,7 @@
             HorizontalAlignment="Center"
             Click="StartButtonClick"
             Opacity="0.9"
-            Style="{StaticResource AcceptButtonStyle}">
+            Style="{StaticResource StandardButtonStyle}">
             <Button.Content>
                 <StackPanel Orientation="Horizontal">
                     <TextBlock Text="Продолжить" />

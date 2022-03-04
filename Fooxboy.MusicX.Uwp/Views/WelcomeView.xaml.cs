@@ -46,7 +46,7 @@ namespace Fooxboy.MusicX.Uwp.Views
             ProgressRing.IsActive = true;
 
             Start.Text = "Music X готовится к первому запуску. Это не займет много времени.";
-            var localpath = ApplicationData.Current.LocalFolder;
+            /*var localpath = ApplicationData.Current.LocalFolder;
             var file = await localpath.CreateFileAsync("config.app");
             var config = new ConfigApp();
             config.IsRateMe = false;
@@ -55,7 +55,7 @@ namespace Fooxboy.MusicX.Uwp.Views
             config.StreamMusic = false;
             config.ThemeApp = 0;
             var configString = JsonConvert.SerializeObject(config);
-            await FileIO.WriteTextAsync(file, configString);
+            await FileIO.WriteTextAsync(file, configString);*/
             var settings = ApplicationData.Current.LocalSettings;
             settings.Values["themeApp"] = 0;
 

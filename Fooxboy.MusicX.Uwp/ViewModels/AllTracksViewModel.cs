@@ -79,12 +79,12 @@ namespace Fooxboy.MusicX.Uwp.ViewModels
             }
         }
 
-        public void PlayTrack(Track track)
+        public async Task PlayTrack(Track track)
         {
             var tempTrack = Tracks.Single(t => t.Id == track.Id && t.Url == track.Url);
             var index = Tracks.IndexOf(tempTrack);
 
-            _player.Play(new Album(), index, Tracks.ToList());
+            await _player.Play(index, Tracks.ToList());
         }
     }
 }

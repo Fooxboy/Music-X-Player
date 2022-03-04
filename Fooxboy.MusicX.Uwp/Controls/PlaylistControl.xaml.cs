@@ -8,10 +8,12 @@ using Fooxboy.MusicX.Uwp.Models;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
 using Windows.UI.Xaml;
+using Microsoft.Toolkit.Uwp.UI.Animations;
+
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Controls.Primitives;
 using Windows.UI.Xaml.Data;
-using Microsoft.Toolkit.Uwp.UI.Animations;
+
 using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Navigation;
@@ -137,7 +139,7 @@ namespace Fooxboy.MusicX.Uwp.Resources.Controls
                 var tracks =
                     await _api.VKontakte.Music.Tracks.GetAsync(100, 0, Album.AccessKey, Album.Id, Album.OwnerId);
                 var tracksNew = await tracks.ToListTrack();
-                _player.Play(Album, 0, tracksNew);
+                await _player.Play(0, tracksNew);
             }
             catch (Exception e)
             {
@@ -149,20 +151,25 @@ namespace Fooxboy.MusicX.Uwp.Resources.Controls
         private async void Grid_PointerEntered(object sender, PointerRoutedEventArgs e)
         {
 
-            await PlaylistControlGrid.Scale(centerX: 50.0f,
-                        centerY: 50.0f,
-                        scaleX: 1.1f,
-                        scaleY: 1.1f,
-                        duration: 200, delay: 0, easingType: EasingType.Back).StartAsync();
+
+           
+
+            /*   await PlaylistControlGrid.Scale(centerX: 50.0f,
+                           centerY: 50.0f,
+                           scaleX: 1.1f,
+                           scaleY: 1.1f,
+                           duration: 200, delay: 0, easingType: EasingType.Back).StartAsync();*/
         }
 
         private async void Grid_PointerExited(object sender, PointerRoutedEventArgs e)
         {
-            await PlaylistControlGrid.Scale(centerX: 50.0f,
-                        centerY: 50.0f,
-                        scaleX: 1.0f,
-                        scaleY: 1.0f,
-                        duration: 200, delay: 0, easingType: EasingType.Back).StartAsync();
+
+           
+            /* await PlaylistControlGrid.Scale(centerX: 50.0f,
+                         centerY: 50.0f,
+                         scaleX: 1.0f,
+                         scaleY: 1.0f,
+                         duration: 200, delay: 0, easingType: EasingType.Back).StartAsync();*/
 
 
         }
@@ -212,6 +219,19 @@ namespace Fooxboy.MusicX.Uwp.Resources.Controls
             this.coverPlaylist.Source = Album.Cover;
             this.TitilePlaylist.Text = Album.Title;
 
+            var theme = Application.Current.RequestedTheme;
+
+            if (theme == ApplicationTheme.Light)
+            {
+                playblack.Visibility = Visibility.Visible;
+                playwhite.Visibility = Visibility.Collapsed;
+            }
+            else
+            {
+                playblack.Visibility = Visibility.Collapsed;
+                playwhite.Visibility = Visibility.Visible;
+            }
+
         }
 
         private void PlaylistControlGrid_OnTapped(object sender, TappedRoutedEventArgs e)
@@ -226,7 +246,33 @@ namespace Fooxboy.MusicX.Uwp.Resources.Controls
             _container = Container.Get;
 
             var navigateService = _container.Resolve<NavigationService>();
+
+            if (IsPlay) return;
             navigateService.Go(typeof(PlaylistView), new PlaylistViewNavigationData() {Album= this.Album, Container = _container}, 1);
+        }
+
+        private async void playlistC_PointerEntered(object sender, PointerRoutedEventArgs e)
+        {
+            PlaylistPlay.Visibility = Visibility.Visible;
+            await AnimationBuilder.Create().Scale(to: 1.07f, duration: TimeSpan.FromMilliseconds(200),
+               delay: TimeSpan.Zero, easingType: EasingType.Default).StartAsync(playlistC);
+        }
+
+        private async void playlistC_PointerExited(object sender, PointerRoutedEventArgs e)
+        {
+            PlaylistPlay.Visibility = Visibility.Collapsed;
+
+            await AnimationBuilder.Create().Scale(to: 1.0f, duration: TimeSpan.FromMilliseconds(200),
+               delay: TimeSpan.Zero, easingType: EasingType.Default).StartAsync(playlistC);
+        }
+
+        private bool IsPlay = false;
+
+        private async void PlayPlaylistButton_Click(object sender, RoutedEventArgs e)
+        {
+            IsPlay = true;
+            await PlayAlbum();
+
         }
     }
 }

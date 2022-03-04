@@ -39,7 +39,9 @@ namespace Fooxboy.MusicX.Core.VKontakte.Music
         {
             var parameters = new VkParameters
             {
-                {"v", "5.115"},
+                //{"v", "5.115"},
+                {"v", "5.131"},
+
                 {"https", 1 },
                 {"lang", "ru"},
                 {"audio_count", count },

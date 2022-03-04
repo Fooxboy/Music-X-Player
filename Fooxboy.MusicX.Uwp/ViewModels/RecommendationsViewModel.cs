@@ -45,17 +45,14 @@ namespace Fooxboy.MusicX.Uwp.ViewModels
         public RelayCommand PlayShuffleCommand { get; set; }
 
 
-        public void PlayAll()
+        public async void PlayAll()
         {
-            var albumTemp = new Album();
-            albumTemp.Tracks = new List<ITrack>();
-            
-            _player.Play(albumTemp, 0, _tracksForYou);
+            await _player.Play(0, _tracksForYou);
         }
 
-        public void PlayShuffle()
+        public async void PlayShuffle()
         {
-            _player.Play(new Album(), new Random().Next(0, _tracksForYou.Count), _tracksForYou);
+            await _player.Play(new Random().Next(0, _tracksForYou.Count), _tracksForYou);
             _player.SetShuffle(true);
         }
 
@@ -64,7 +61,12 @@ namespace Fooxboy.MusicX.Uwp.ViewModels
             try
             {
                 _logger.Trace("Загрузка рекомендаций..");
-                var blocks = await _api.VKontakte.Music.Recommendations.GetAsync();
+
+                var blocks = new List<IBlock>();
+                var blocksOne = await _api.VKontakte.Music.Recommendations.GetAsync();
+                var br = await _api.VKontakte.Music.Recommendations.GetAlghoritmsPlaylists();
+                blocks.Add(br);
+                blocks.AddRange(blocksOne);
                 _logger.Info($"Загружено {blocks.Count} блоков рекомендаций.");
                 var blockForYou = blocks.Single(b => b.Source == "recoms_recoms");
                 ForYouString = blockForYou.Subtitle;

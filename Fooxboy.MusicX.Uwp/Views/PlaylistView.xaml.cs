@@ -36,6 +36,19 @@ namespace Fooxboy.MusicX.Uwp.Views
             var data = (PlaylistViewNavigationData) e.Parameter;
             ViewModel = new PlaylistViewModel(data?.Container);
 
+            var theme = Application.Current.RequestedTheme;
+
+
+            if (theme == ApplicationTheme.Light)
+            {
+                playblack.Visibility = Visibility.Visible;
+                playwhite.Visibility = Visibility.Collapsed;
+            }
+            else
+            {
+                playblack.Visibility = Visibility.Collapsed;
+                playwhite.Visibility = Visibility.Visible;
+            }
 
             if (data?.Album.Genres.Count == 0)
             {
@@ -51,7 +64,11 @@ namespace Fooxboy.MusicX.Uwp.Views
             }
 
             await ViewModel.StartLoading(data?.Album);
+
+            
+
             base.OnNavigatedTo(e);
+
         }
 
         private void Rectangle_SizeChanged(object sender, SizeChangedEventArgs e)
@@ -59,10 +76,10 @@ namespace Fooxboy.MusicX.Uwp.Views
             ShadowRectangle.Width = e.NewSize.Width;
         }
 
-        private void TracksListView_OnItemClick(object sender, ItemClickEventArgs e)
+        private async void TracksListView_OnItemClick(object sender, ItemClickEventArgs e)
         {
             var track = (Track) e.ClickedItem;
-            ViewModel.PlayTrack(track);
+            await ViewModel.PlayTrack(track);
         }
     }
 }

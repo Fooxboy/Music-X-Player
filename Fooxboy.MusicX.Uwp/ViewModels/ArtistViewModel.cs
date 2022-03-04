@@ -53,7 +53,7 @@ namespace Fooxboy.MusicX.Uwp.ViewModels
             {
                 var tracks = await blockPopular.Tracks.ToListTrack();
 
-                _player.Play(new MusicX.Uwp.Models.Album(), 0, tracks);
+                await _player.Play(0, tracks);
             }
         }
 

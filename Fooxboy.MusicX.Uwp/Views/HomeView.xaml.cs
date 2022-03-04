@@ -68,6 +68,26 @@ namespace Fooxboy.MusicX.Uwp.Views
             await ViewModel.GetMaxTracks();
             await ViewModel.StartLoadingAlbums();
             await ViewModel.StartLoadingTracks();
+
+
+            if(ViewModel.Tracks.Count > 0)
+            {
+                NoTracksGrid.Visibility = Visibility.Collapsed;
+                scroll.Visibility = Visibility.Visible;
+            }else
+            {
+                if(ViewModel.Albums.Count == 0)
+                {
+                    NoTracksGrid.Visibility = Visibility.Visible;
+                    scroll.Visibility = Visibility.Collapsed;
+                }else
+                {
+                    NoTracksGrid.VerticalAlignment = VerticalAlignment.Top;
+                    NoTracksGrid.Margin = new Thickness(0, 500, 0, 0);
+                    NoTracksGrid.Visibility = Visibility.Visible;
+                }
+            }
+
         }
 
         private async void TracksListView_ItemClick(object sender, ItemClickEventArgs e)

@@ -56,9 +56,9 @@ namespace Fooxboy.MusicX.Uwp.Views
             base.OnNavigatedTo(e);
         }
 
-        private void ListViewBase_OnItemClick(object sender, ItemClickEventArgs e)
+        private async void ListViewBase_OnItemClick(object sender, ItemClickEventArgs e)
         {
-            ViewModel.PlayTrack((Track)e.ClickedItem);
+            await ViewModel.PlayTrack((Track)e.ClickedItem);
         }
     }
 }

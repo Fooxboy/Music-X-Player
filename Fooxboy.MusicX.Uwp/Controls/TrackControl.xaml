@@ -27,7 +27,7 @@
 
         <Grid
             x:Name="TrackGrid"
-            Margin="32,0,30,0"
+            Margin="10,0,30,0"
             PointerEntered="Grid_PointerEntered"
             PointerExited="Grid_PointerExited"
             RightTapped="Grid_RightTapped">
@@ -84,9 +84,9 @@
                 Width="40"
                 Height="40"
                 VerticalAlignment="Center"
-                BlurRadius="10"
+                BlurRadius="20"
                 OffsetY="0"
-                Opacity="0.5"
+                Opacity="0.3"
                 ShadowOpacity="1">
 
                 <Border

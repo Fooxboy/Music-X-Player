@@ -57,24 +57,12 @@
             <Button
                 x:Name="Telegram"
                 Height="32"
-                BorderThickness="0"
+                Style="{ThemeResource StandardButtonStyle}"
                 Click="Telegram_OnClick"
                 Content="Канал в телеграм"
                 CornerRadius="4" />
-            <Button
-                x:Name="Vk"
-                Height="32"
-                Margin="40,0,0,0"
-                BorderThickness="0"
-                Click="Vk_OnClick"
-                Content="Группа ВКонтакте"
-                CornerRadius="4" />
+            
         </StackPanel>
-        <TextBlock
-            Grid.Row="6"
-            Margin="0,20,0,0"
-            FontWeight="Black"
-            Text="ВНИМАНИЕ! Это beta версия, в которой нет большинства возможностей и не гарантируется стабильная работа."
-            TextWrapping="Wrap" />
+       
     </Grid>
 </ContentDialog>

@@ -11,6 +11,7 @@ namespace Fooxboy.MusicX.Core.VKontakte.Music.Converters
         {
             try
             {
+                if(audioUrl == null) return null;
                 //Api.Logger.Trace("[CORE] Decode Audio Url...");
                 var segments = audioUrl.Segments.ToList();
 

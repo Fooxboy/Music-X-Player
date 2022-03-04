@@ -34,8 +34,11 @@
             <Button
                 Margin="0,100,0,0"
                 HorizontalAlignment="Center"
+                Height="30"
+                Width="100"
                 VerticalAlignment="Center"
                 BorderThickness="0"
+                Style="{ThemeResource StandardButtonStyle}"
                 Click="Button_Click"
                 Content="Закрыть"
                 CornerRadius="4" />
@@ -325,9 +328,8 @@
 
                 <TextBlock
                     Grid.Row="0"
-                    Margin="30,0,0,0"
+                    Margin="30,0,0,20"
                     FontSize="24"
-                    FontWeight="ExtraBlack"
                     Text="Очередь воспроизведения" />
                 <ListView
                     Grid.Row="1"

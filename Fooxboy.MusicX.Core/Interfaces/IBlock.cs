@@ -16,5 +16,6 @@ namespace Fooxboy.MusicX.Core.Interfaces
         List<ITrack> Tracks { get; set; }
         List<IAlbum> Albums { get; set; }
         List<SearchArtistBlockInfo> Artists { get; set; }
+        
     }
 }

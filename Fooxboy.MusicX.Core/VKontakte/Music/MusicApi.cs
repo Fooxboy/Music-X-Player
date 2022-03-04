@@ -15,6 +15,7 @@ namespace Fooxboy.MusicX.Core.VKontakte.Music
             Recommendations = new Recommendations(api);
             Search = new Search(api);
             Tracks= new Tracks(api);
+            Catalog = new Catalog(api);
         }
 
         public Albums Albums { get; }
@@ -23,5 +24,7 @@ namespace Fooxboy.MusicX.Core.VKontakte.Music
         public Recommendations Recommendations { get; }
         public Search Search { get; }
         public Tracks Tracks { get; }
+
+        public Catalog Catalog { get; }
     }
 }
