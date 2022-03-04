@@ -56,8 +56,8 @@
             <ColumnDefinition Width="70"/>
             <ColumnDefinition Width="*" />
         </Grid.ColumnDefinitions>
-        
-        
+
+
         <Frame
             Grid.Column="1"
             Grid.RowSpan="2"
@@ -216,26 +216,6 @@
             
         </StackPanel>
 
-        <Grid Grid.Row="0" Margin="0 0 0 0 " Grid.ColumnSpan="3">
-
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="*"/>
-                <ColumnDefinition MinWidth="300" Width="*"/>
-                <ColumnDefinition  Width="*"/>
-            </Grid.ColumnDefinitions>
-            
-            <TextBox
-                    x:Name="SearchBox"
-                Grid.Column="1"
-                VerticalAlignment="Stretch"
-                    Height="33"
-               
-                    GotFocus="SearchBox_OnGotFocus"
-                    KeyUp="SearchBox_OnKeyUp"
-                    LostFocus="SearchBox_OnLostFocus"
-                    PlaceholderText="Найдите что-нибудь..."
-                    Style="{ThemeResource SearchTextBoxStyle}" />
-        </Grid>
        
 
         <Grid
@@ -547,7 +527,7 @@
                     BorderThickness="0"
                     CornerRadius="99">
                     <Button.Flyout>
-                        <Flyout>
+                        <Flyout Closed="Flyout_Closed">
                             <Flyout.FlyoutPresenterStyle>
                                 <Style TargetType="FlyoutPresenter">
                                     <Setter Property="Padding" Value="0" />
@@ -563,6 +543,7 @@
                                     VerticalAlignment="Center"
                                     Maximum="100"
                                     Minimum="0"
+                                    PointerReleased="d_PointerReleased"
                                     Orientation="Horizontal"
                                     Value="{x:Bind PlayerViewModel.Volume, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
                             </Grid>
@@ -613,6 +594,22 @@
                 </Frame.ContentTransitions>
             </Frame>
         </Grid>
+
+        <TextBox
+            Grid.RowSpan="4"
+            Grid.ColumnSpan="3"
+                    x:Name="SearchBox"
+                Width="500"
+                HorizontalAlignment="Center"
+                VerticalAlignment="Top"
+                    Height="33"
+            Margin="0 10 0 0"
+                    GotFocus="SearchBox_OnGotFocus"
+                    KeyUp="SearchBox_OnKeyUp"
+                    LostFocus="SearchBox_OnLostFocus"
+                    PlaceholderText="Найдите что-нибудь..."
+                    Style="{ThemeResource SearchTextBoxStyle}" />
+        
         <VisualStateManager.VisualStateGroups>
             <VisualStateGroup>
                 <VisualState x:Name="Desktop">
@@ -629,7 +626,6 @@
                         <Setter Target="text4.Visibility" Value="Visible" />
                         <Setter Target="SliderTrack.Visibility" Value="Visible" />
                         <Setter Target="GridButtons.Grid.ColumnSpan" Value="1" />
-                        <Setter Target="SearchBox.Width" Value="250" />
                         <Setter Target="textTime1.Visibility" Value="Visible" />
                         <Setter Target="textTime2.Visibility" Value="Visible" />
                     </VisualState.Setters>
@@ -649,7 +645,6 @@
                         <Setter Target="text4.Visibility" Value="Collapsed" />
                         <Setter Target="SliderTrack.Visibility" Value="Collapsed" />
                         <Setter Target="GridButtons.Grid.ColumnSpan" Value="2" />
-                        <Setter Target="SearchBox.Width" Value="150" />
                         <Setter Target="textTime1.Visibility" Value="Collapsed" />
                         <Setter Target="textTime2.Visibility" Value="Collapsed" />
                     </VisualState.Setters>
@@ -657,5 +652,7 @@
 
             </VisualStateGroup>
         </VisualStateManager.VisualStateGroups>
+        
+        
     </Grid>
 </Page>

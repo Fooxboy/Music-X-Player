@@ -20,7 +20,7 @@
             <SolidColorBrush x:Key="BlockBackground" Color="#1F1F1F" />
             <SolidColorBrush x:Key="NotificationBackgroundColor" Color="#191919" />
             <SolidColorBrush x:Key="BackgroundTextBox" Color="#BFBFBF" />
-            <SolidColorBrush x:Key="BackgroundWinUI" Color="Black" />
+            <SolidColorBrush x:Key="BackgroundWinUI" Color="#151515" />
             <SolidColorBrush x:Key="BoriderWinUI" Color="#232323" />
 
 

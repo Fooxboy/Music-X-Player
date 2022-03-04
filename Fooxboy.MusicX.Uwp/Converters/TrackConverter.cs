@@ -27,7 +27,7 @@ namespace Fooxboy.MusicX.Uwp.Converters
                 GenreId = track.GenreId,
                 Id = track.Id,
                 IsAvailable = track.IsAvailable,
-                IsLicensed = track.IsLicensed,
+                IsLicensed = true,
                 OwnerId = track.OwnerId,
                 Subtitle = track.Subtitle,
                 Title = track.Title,

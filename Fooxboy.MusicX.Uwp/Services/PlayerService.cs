@@ -33,8 +33,9 @@ namespace Fooxboy.MusicX.Uwp.Services
         public event EventHandler TrackChangedEvent;
 
         private NotificationService _notificationService;
+        private readonly ConfigService _configService;
 
-        public PlayerService(NotificationService notificationService)
+        public PlayerService(NotificationService notificationService, ConfigService configService)
         {
             _notificationService = notificationService;
             _mediaPlayer = new MediaPlayer();
@@ -58,6 +59,8 @@ namespace Fooxboy.MusicX.Uwp.Services
             _positionTimer = new DispatcherTimer();
             _positionTimer.Interval = TimeSpan.FromMilliseconds(500);
             _positionTimer.Tick += PositionTimerOnTick;
+
+            _configService = configService;
 
         }
 
@@ -99,6 +102,22 @@ namespace Fooxboy.MusicX.Uwp.Services
                 _mediaPlayer.Play();
 
                 PositionTrackChangedEvent?.Invoke(this, TimeSpan.Zero);
+
+                /* var config  = await _configService.GetConfig();
+
+                config.NowPlayTrack = new NowPlayTrack()
+                {
+                    Track = CurrentTrack,
+                    Album = (Album)CurrentTrack.Album,
+                   
+                    Index = index,
+                    Second = 0
+                };
+
+                if (CurrentTrack.Artists.Count > 0) config.NowPlayTrack.Artist = (Core.Models.Artist)CurrentTrack.Artists[0];
+               
+
+                await _configService.SetConfig(config);*/
 
             }
             catch (Exception ex)
@@ -190,9 +209,10 @@ namespace Fooxboy.MusicX.Uwp.Services
             _tracks = tracks;
         }
 
-        public void Pause()
+        public async void Pause()
         {
             _mediaPlayer.Pause();
+
         }
 
 

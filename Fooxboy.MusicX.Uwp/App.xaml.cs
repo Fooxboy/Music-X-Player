@@ -66,6 +66,8 @@ namespace Fooxboy.MusicX.Uwp
             c.Register<CurrentUserService>(Reuse.Singleton);
             c.Register<AppPrivateSettingsService>(Reuse.Singleton);
             c.Register<ImageCacheService>(Reuse.Singleton);
+            c.Register<NavigationService>(Reuse.Singleton);
+
 
             this._container = c;
 
@@ -193,5 +195,6 @@ namespace Fooxboy.MusicX.Uwp
         {
 
         }
+
     }
 }

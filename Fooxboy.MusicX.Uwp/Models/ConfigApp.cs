@@ -16,5 +16,9 @@ namespace Fooxboy.MusicX.Uwp.Models
         public string AccessTokenVkontakte { get; set; }
         public long UserId { get; set; }
 
+        public double Volume { get; set; }
+
+        //public NowPlayTrack NowPlayTrack { get; set; }
+
     }
 }

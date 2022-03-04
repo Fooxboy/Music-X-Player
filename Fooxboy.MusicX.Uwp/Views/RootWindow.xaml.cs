@@ -57,11 +57,9 @@ namespace Fooxboy.MusicX.Uwp.Views
 
         protected override void OnNavigatedTo(NavigationEventArgs e)
         {
-            _container = (IContainer) e.Parameter;
-            Container.SetContainer(this._container);
+            _container = (IContainer)e.Parameter;
+           var navigationService = _container.Resolve<NavigationService>();
 
-            _container.Register<NavigationService>(Reuse.Singleton);
-            var navigationService = _container.Resolve<NavigationService>();
 
             PlayerViewModel = new PlayerViewModel(_container);
             PlayerViewModel.CloseBigPlayer = new Action(CloseBigPlayer);
@@ -85,6 +83,8 @@ namespace Fooxboy.MusicX.Uwp.Views
             TitleTrack.Text = "Сейчас ничего не воспроизводится";
             NavigationViewModel.VisibilitySelectorHome = true;
             NavigationViewModel.Changed();
+
+            
             //AppWindow appWindow = await AppWindow.TryCreateAsync();
             //Frame appWindowContentFrame = new Frame();
             //appWindowContentFrame.Navigate(typeof(DeveloperView));
@@ -128,7 +128,19 @@ namespace Fooxboy.MusicX.Uwp.Views
 
                 pauseblack.Visibility = Visibility.Collapsed;
                 pausewhite.Visibility = Visibility.Visible;
-            }
+            } 
+
+            var configService = _container.Resolve<ConfigService>();
+            var config = await configService.GetConfig().ConfigureAwait(false);
+
+            PlayerViewModel.Volume = config.Volume;
+
+            DispatcherHelper.ExecuteOnUIThreadAsync(() =>
+            {
+                d.Value = config.Volume;
+
+            });
+
         }
 
         private void PersonPicture_Tapped(object sender, TappedRoutedEventArgs e)
@@ -267,6 +279,24 @@ namespace Fooxboy.MusicX.Uwp.Views
 
         private void UIElement_OnTapped(object sender, TappedRoutedEventArgs e)
         {
+        }
+
+        private void d_PointerReleased(object sender, PointerRoutedEventArgs e)
+        {
+
+
+        }
+
+        private async void Flyout_Closed(object sender, object e)
+        {
+            var configService = _container.Resolve<ConfigService>();
+            var config = await configService.GetConfig().ConfigureAwait(false);
+
+            if (config.Volume == PlayerViewModel.Volume) return;
+            config.Volume = PlayerViewModel.Volume;
+
+            await configService.SetConfig(config);
+
         }
     }
 }

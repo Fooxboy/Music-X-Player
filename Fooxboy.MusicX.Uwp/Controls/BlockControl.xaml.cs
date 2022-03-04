@@ -82,6 +82,19 @@ namespace Fooxboy.MusicX.Uwp.Controls
                 this.ArtistsGrid.Visibility = Visibility.Collapsed;
             }
 
+            if(Block.Type == "alghoritm")
+            {
+                this.ListAlgAlbums.ItemsSource = await Block.Albums.ToAlbumsList();
+                this.TracksGrid.Visibility = Visibility.Collapsed;
+                this.PlaylistsGrid.Visibility = Visibility.Collapsed;
+                this.ArtistsGrid.Visibility = Visibility.Collapsed;
+                this.AlghoritmGrid.Visibility = Visibility.Visible;
+                ShowAllButton.Visibility = Visibility.Collapsed;
+                BackgroundRect.Height = 330;
+                BorderShadow.Height = 330;
+
+            }
+
             if (Block.Type == "audios_list" || Block.Type == "audios" || Block.Type == "top_audios")
             {
                 this.ListTracks.ItemsSource = await Block.Tracks.ToListTrack();

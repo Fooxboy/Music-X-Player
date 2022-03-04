@@ -69,7 +69,18 @@ namespace Fooxboy.MusicX.Uwp.Resources.Controls
 
             GoToArtistCommand = new RelayCommand(() =>
             {
-                navigation.Go(typeof(ArtistView), new object[] {_api, _notificationService, Track.Artists[0].Id, _player, logger}, 1);
+                try
+                {
+                    var artistId = Track.Artists[0].Id;
+                    navigation.Go(typeof(ArtistView), new object[] { _api, _notificationService, artistId, _player, logger }, 1);
+
+                }catch (Exception ex)
+                {
+                    logger.Error(ex.Message, ex);
+
+                    _notificationService.CreateNotification("Невозможно перейти к артисту", $"Ошибка: {ex.Message}");
+
+                }
             });
 
         }
@@ -149,9 +160,10 @@ namespace Fooxboy.MusicX.Uwp.Resources.Controls
 
         private void Grid_RightTapped(object sender, RightTappedRoutedEventArgs e)
         {
-            GoToArtist.Visibility = Visibility.Collapsed;
+           // GoToArtist.Visibility = Visibility.Collapsed;
             AddOnLibrary.Visibility = Visibility.Visible;
-           
+
+            _notificationService.CreateNotification($"{Track.Artist} - {Track.Title}", $"Is Licensed = {Track.IsLicensed}, ArtstsCount = {Track.Artists.Count()}");
             if (Track.IsLicensed)
             {
                 if (Track.Artist != null)

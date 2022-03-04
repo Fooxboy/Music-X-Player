@@ -32,17 +32,17 @@
                         x:Name="ShadowPanel"
                         Grid.Column="0"
                         Grid.ColumnSpan="2"
-                        Margin="50"
+                        Margin="52 51 57 50"
                         VerticalAlignment="Top"
                         BlurRadius="15"
-                        CornerRadius="10"
+                        CornerRadius="20"
                         IsMasked="True"
                         OffsetX="0"
                         OffsetY="10"
                         ShadowOpacity="0.2">
                         <Border
                             x:Name="ShadowRectangle"
-                            Height="250"
+                            Height="245"
                             Background="White"
                             CornerRadius="10" />
 
@@ -72,15 +72,15 @@
                             HorizontalAlignment="Center"
                             VerticalAlignment="Center"
                             BlurRadius="20"
-                            CornerRadius="8"
+                            CornerRadius="10"
                             IsMasked="True"
                             OffsetX="0"
                             OffsetY="0"
                             ShadowOpacity="0.4">
                             <Border
                                 x:Name="ShadowCover"
-                                Width="200"
-                                Height="200"
+                                Width="190"
+                                Height="190"
                                 Background="White"
                                 CornerRadius="8" />
 
@@ -265,7 +265,7 @@
                 <ListView
                     x:Name="TracksListView"
                     Grid.Row="1"
-                    
+
                     Margin="20,-30,0,0"
                     HorizontalAlignment="Stretch"
                     IsItemClickEnabled="True"

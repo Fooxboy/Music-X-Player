@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Text.Json.Serialization;
 using System.Threading.Tasks;
 
 namespace Fooxboy.MusicX.Uwp.Models
@@ -12,9 +13,11 @@ namespace Fooxboy.MusicX.Uwp.Models
         public long Id { get; set; }
         public long OwnerId { get; set; }
         public string Title { get; set; }
+        [JsonIgnore]
         public List<IArtist> Artists { get; set; }
         public string Cover { get; set; }
         public string AccessKey { get; set; }
+        [JsonIgnore]
         public List<ITrack> Tracks { get; set; }
         public List<string> Genres { get; set; }
         public long Plays { get; set; }

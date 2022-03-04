@@ -166,6 +166,7 @@
     <Compile Include="Models\LoadingDelegate.cs" />
     <Compile Include="Models\Notification.cs" />
     <Compile Include="Models\NotificationDelegate.cs" />
+    <Compile Include="Models\NowPlayTrack.cs" />
     <Compile Include="Models\PlaylistViewNavigationData.cs" />
     <Compile Include="Models\Track.cs" />
     <Compile Include="Properties\Annotations.cs" />

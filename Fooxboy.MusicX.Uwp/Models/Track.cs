@@ -1,4 +1,5 @@
 ﻿using Fooxboy.MusicX.Core.Interfaces;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,9 +11,12 @@ namespace Fooxboy.MusicX.Uwp.Models
     public class Track : ITrack
     {
         public long Id { get; set; }
+        [JsonIgnore]
         public IAlbum Album { get; set; }
+
         public long? OwnerId { get; set; }
         public string AccessKey { get; set; }
+        [JsonIgnore]
         public List<IArtist> Artists { get; set; }
         public int GenreId { get; set; }
         public bool IsAvailable { get; set; }

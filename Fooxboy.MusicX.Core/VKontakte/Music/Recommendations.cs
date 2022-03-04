@@ -101,7 +101,7 @@ namespace Fooxboy.MusicX.Core.VKontakte.Music
             var blockModel = JsonConvert.DeserializeObject<Response<Models.Music.BlockInfo.ResponseItem>>(json);
 
             blockModel.response.Block.Playlists = blockModel.response.Playlists;
-            blockModel.response.Block.Type = "playlists";
+            blockModel.response.Block.Type = "alghoritm";
             blockModel.response.Block.Title = "СОБРАНО АЛГОРИТМАМИ";
 
             return blockModel.ConvertToIBlock();

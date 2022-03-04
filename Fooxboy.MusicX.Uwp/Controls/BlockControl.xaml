@@ -209,12 +209,26 @@
             <GridView
                 x:Name="ListTracks"
                 Height="210"
-                Margin="0,42,5,0"
+                Margin="10,42,5,0"
                 BorderThickness="0"
                 CanBeScrollAnchor="False"
                 IsItemClickEnabled="True"
                 ItemClick="ListTracks_OnItemClick"
                 SelectionMode="None">
+
+                <GridView.ItemContainerStyle>
+                    <Style TargetType="GridViewItem">
+                        <Setter Property="BorderThickness" Value="0" />
+                        <Setter Property="BorderBrush" Value="Transparent" />
+                        <Setter Property="FocusVisualPrimaryThickness"  Value="0" />
+                        <Setter Property="FocusVisualSecondaryThickness"  Value="0" />
+                        <Setter Property="BorderBrush"  Value="Red" />
+
+
+                        <Setter Property="Background" Value="Transparent" />
+
+                    </Style>
+                </GridView.ItemContainerStyle>
 
                 <GridView.ItemsPanel>
                     <ItemsPanelTemplate>
@@ -251,10 +265,51 @@
 
                 <GridView.ItemTemplate>
                     <DataTemplate>
-                        <Grid>
+                        <Grid >
                             <controls1:PlaylistControl
+                                
                                 Width="190"
                                 Height="190"
+                                Album="{Binding}" />
+                        </Grid>
+                    </DataTemplate>
+                </GridView.ItemTemplate>
+            </GridView>
+        </Grid>
+
+        <Grid x:Name="AlghoritmGrid" Visibility="Collapsed">
+            <GridView
+                x:Name="ListAlgAlbums"
+                Height="290"
+                Margin="10,40,5,0"
+                VerticalAlignment="Center"
+                BorderThickness="0"
+                CanBeScrollAnchor="True"
+                SelectionMode="None"
+               
+                ShowsScrollingPlaceholders="True">
+
+                <GridView.ItemContainerStyle>
+                    <Style TargetType="GridViewItem">
+                        <Setter Property="IsTabStop" Value="False" />
+                        <Setter Property="FocusVisualPrimaryBrush" Value="Red" />
+                        <Setter Property="FocusVisualSecondaryBrush" Value="Blue" />
+                    </Style>
+                </GridView.ItemContainerStyle>
+
+                <GridView.ItemsPanel>
+                    <ItemsPanelTemplate>
+                        <StackPanel Orientation="Horizontal" />
+                    </ItemsPanelTemplate>
+                </GridView.ItemsPanel>
+
+                <GridView.ItemTemplate>
+                    <DataTemplate>
+                        <Grid >
+                            <controls1:PlaylistControl
+                                
+                                Width="230"
+                                Height="250"
                                 Album="{Binding}" />
                         </Grid>
                     </DataTemplate>
