@@ -5,21 +5,15 @@ using System.Text;
 
 namespace Fooxboy.MusicX.Core.Models
 {
-    public class Album
+    public class Original
     {
-        [JsonProperty("id")]
-        public int Id { get; set; }
-
-        [JsonProperty("title")]
-        public string Title { get; set; }
+        [JsonProperty("playlist_id")]
+        public int PlaylistId { get; set; }
 
         [JsonProperty("owner_id")]
         public int OwnerId { get; set; }
 
         [JsonProperty("access_key")]
         public string AccessKey { get; set; }
-
-        [JsonProperty("thumb")]
-        public Thumb Thumb { get; set; }
     }
 }
