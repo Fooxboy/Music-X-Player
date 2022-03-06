@@ -4,11 +4,11 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:controls="using:Fooxboy.MusicX.Uwp.Resources.Controls"
     xmlns:local="using:Fooxboy.MusicX.Uwp.DataTemplates"
-    xmlns:models="using:Fooxboy.MusicX.Uwp.Models">
+    xmlns:models="using:Fooxboy.MusicX.Core.Models">
 
     <DataTemplate
         x:Name="PlaylistDataTemplate"
-        x:DataType="models:Album"
+        x:DataType="models:Playlist"
         x:DefaultBindMode="TwoWay">
 
         <Grid>

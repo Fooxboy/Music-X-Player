@@ -1,29 +1,18 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.IO;
 using System.Linq;
-using System.Runtime.InteropServices.WindowsRuntime;
 using System.Threading.Tasks;
-using Fooxboy.MusicX.Core;
-using Fooxboy.MusicX.Core.Interfaces;
-using Fooxboy.MusicX.Uwp.Models;
-using Fooxboy.MusicX.Uwp.Resources.ContentDialogs;
 using Fooxboy.MusicX.Uwp.Services;
-using Windows.Foundation;
-using Windows.Foundation.Collections;
-using Windows.Storage;
-using Windows.UI.Popups;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
-using Windows.UI.Xaml.Controls.Primitives;
-using Windows.UI.Xaml.Data;
 using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Media;
-using Windows.UI.Xaml.Navigation;
-using Windows.Networking.Sockets;
 using Windows.UI;
 using DryIoc;
 using Fooxboy.MusicX.Uwp.Views;
+using Fooxboy.MusicX.Core.Models;
+using Fooxboy.MusicX.Core.Services;
+using NLog;
 
 // Документацию по шаблону элемента "Пользовательский элемент управления" см. по адресу https://go.microsoft.com/fwlink/?LinkId=234236
 
@@ -32,33 +21,43 @@ namespace Fooxboy.MusicX.Uwp.Resources.Controls
     public sealed partial class TrackControl : UserControl
     {
         public static readonly DependencyProperty TrackProperty = DependencyProperty.Register("Track",
-            typeof(Track), typeof(TrackControl), new PropertyMetadata(new Track()
+            typeof(Audio), typeof(TrackControl), new PropertyMetadata(new Audio()
             {
+                IsFocusTrack = true,
+                AccessKey = "",
                 Album = new Album(),
-                Artist = "Music X",
-                Artists = new List<IArtist>(),
-                Duration = TimeSpan.Zero,
+                Artist = "Ошибка загрузки артиста",
+                Date = 0,
+                Duration = 100,
                 GenreId = 0,
                 Id = 0,
-                IsAvailable = false,
+                IsExplicit = true,
                 IsLicensed = false,
-                OwnerId = -2,
+                LyricsId = 0,
+                MainArtists = new List<MainArtist>(),
+                OwnerId = 0,
+                ShortVideosAllowed = false,
+                StoriesAllowed = false,
+                StoriesCoverAllowed = false,
                 Subtitle = "",
-                Title = ""
+                Title = "Неизвестный трек",
+                TrackCode = "",
+                IsAvailable = false,
+                Url = ""
             }));
 
 
         private CurrentUserService currentUserService;
-        private Api _api;
+        private VkService vkService;
         private NotificationService _notificationService;
         private PlayerService _player;
+        private Logger logger;
+
         public TrackControl()
         {
-            _api = Container.Get.Resolve<Api>();
             _notificationService = Container.Get.Resolve<NotificationService>();
             currentUserService = Container.Get.Resolve<CurrentUserService>();
             _player = Container.Get.Resolve<PlayerService>();
-            var logger = Container.Get.Resolve<LoggerService>();
             var navigation = Container.Get.Resolve<NavigationService>();
 
             this.InitializeComponent();
@@ -71,12 +70,12 @@ namespace Fooxboy.MusicX.Uwp.Resources.Controls
             {
                 try
                 {
-                    var artistId = Track.Artists[0].Id;
+                    var artistId = Track.MainArtists[0].Id;
                     navigation.Go(typeof(ArtistView), new object[] { _api, _notificationService, artistId, _player, logger }, 1);
 
                 }catch (Exception ex)
                 {
-                    logger.Error(ex.Message, ex);
+                    logger.Error(ex, ex.Message);
 
                     _notificationService.CreateNotification("Невозможно перейти к артисту", $"Ошибка: {ex.Message}");
 
@@ -88,9 +87,9 @@ namespace Fooxboy.MusicX.Uwp.Resources.Controls
 
         public string Artists { get; set; }
 
-        public Track Track
+        public Audio Track
         {
-            get { return (Track)GetValue(TrackProperty); }
+            get { return (Audio)GetValue(TrackProperty); }
             set
             {
                 //foreach (var artist in value.Artists) Artists += artist.Name + ", ";
@@ -102,7 +101,9 @@ namespace Fooxboy.MusicX.Uwp.Resources.Controls
         {
             try
             {
-                await _api.VKontakte.Music.Tracks.DeleteTrackAsync(Track.Id, Track.OwnerId.Value);
+
+                await vkService.AudioDeleteAsync(Track.Id, Track.OwnerId);
+                
                 _notificationService.CreateNotification("Аудиозапись удалена",
                     $"{Track.Artist} - {Track.Title} удален из Вашей музыки.");
 
@@ -125,7 +126,7 @@ namespace Fooxboy.MusicX.Uwp.Resources.Controls
         {
             try
             {
-                await _api.VKontakte.Music.Tracks.AddTrackAsync(Track.Id, Track.OwnerId.Value);
+                await vkService.AudioAddAsync(Track.Id, Track.OwnerId);
                 _notificationService.CreateNotification("Аудиозапись добавлена", $"{Track.Artist} - {Track.Title} добавлена к Вам в бибилотеку.");
 
                 AddOnLibrary.IsEnabled = false;
@@ -163,7 +164,7 @@ namespace Fooxboy.MusicX.Uwp.Resources.Controls
            // GoToArtist.Visibility = Visibility.Collapsed;
             AddOnLibrary.Visibility = Visibility.Visible;
 
-            _notificationService.CreateNotification($"{Track.Artist} - {Track.Title}", $"Is Licensed = {Track.IsLicensed}, ArtstsCount = {Track.Artists.Count()}");
+            _notificationService.CreateNotification($"{Track.Artist} - {Track.Title}", $"Is Licensed = {Track.IsLicensed}, ArtstsCount = {Track.MainArtists.Count()}");
             if (Track.IsLicensed)
             {
                 if (Track.Artist != null)
@@ -180,7 +181,7 @@ namespace Fooxboy.MusicX.Uwp.Resources.Controls
         private void UserControl_Loaded(object sender, RoutedEventArgs e)
         {
 
-            if (Track.Artists?.Count > 0)
+            if (Track.MainArtists?.Count > 0)
             {
                 GoToArtist.IsEnabled = true;
             }
@@ -197,10 +198,10 @@ namespace Fooxboy.MusicX.Uwp.Resources.Controls
 
             if (Track.AccessKey != "space" && Track.AccessKey != "loading")
             {
-                if (Track.Artists?.Count > 0)
+                if (Track.MainArtists?.Count > 0)
                 {
                     string s = string.Empty;
-                    foreach (var trackArtist in Track.Artists)
+                    foreach (var trackArtist in Track.MainArtists)
                     {
                         s += trackArtist.Name + ", ";
                     }

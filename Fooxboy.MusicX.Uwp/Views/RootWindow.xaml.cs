@@ -2,40 +2,17 @@
 using Fooxboy.MusicX.Uwp.Services;
 using Fooxboy.MusicX.Uwp.ViewModels;
 using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Runtime.InteropServices.WindowsRuntime;
-using VkNet.Model.GroupUpdate;
-using Windows.Foundation;
-using Windows.Foundation.Collections;
-using Windows.UI.WindowManagement;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
-using Windows.UI.Xaml.Controls.Primitives;
-using Windows.UI.Xaml.Data;
-using Windows.UI.Xaml.Hosting;
 using Windows.UI.Xaml.Input;
-
-using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Navigation;
 using Microsoft.Toolkit.Uwp.UI.Animations;
 using Windows.UI.Xaml.Media.Animation;
 using Microsoft.Toolkit.Uwp.Helpers;
-using Windows.ApplicationModel.Core;
 using Windows.System;
-using Flurl.Http;
-using Fooxboy.MusicX.Core;
-using VkNet.AudioBypassService.Models;
-
-
-// Документацию по шаблону элемента "Пустая страница" см. по адресу https://go.microsoft.com/fwlink/?LinkId=234238
 
 namespace Fooxboy.MusicX.Uwp.Views
 {
-    /// <summary>
-    /// Пустая страница, которую можно использовать саму по себе или для перехода внутри фрейма.
-    /// </summary>
     public sealed partial class RootWindow : Page
     {
         public PlayerViewModel PlayerViewModel { get; set; }
@@ -61,15 +38,15 @@ namespace Fooxboy.MusicX.Uwp.Views
            var navigationService = _container.Resolve<NavigationService>();
 
 
-            PlayerViewModel = new PlayerViewModel(_container);
+            PlayerViewModel = _container.Resolve<PlayerViewModel>();
             PlayerViewModel.CloseBigPlayer = new Action(CloseBigPlayer);
-            NavigationViewModel = new NavigationRootViewModel(_container);
+            NavigationViewModel = _container.Resolve<NavigationRootViewModel>();
             navigationService.RootFrame = this.Root;
             navigationService.Go(typeof(HomeView), _container);
 
-            UserInfoViewModel = new UserInfoViewModel(_container);
-            LoadingViewModel = new LoadingViewModel(_container);
-            NotificationViewModel = new NotificationViewModel(_container);
+            UserInfoViewModel = _container.Resolve<UserInfoViewModel>();
+            LoadingViewModel = _container.Resolve<LoadingViewModel>();
+            NotificationViewModel = _container.Resolve<NotificationViewModel>();
 
             Window.Current.SetTitleBar(this.TitleBar);
 

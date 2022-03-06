@@ -13,7 +13,7 @@ namespace Fooxboy.MethodsTest
         [Fact]
         public async Task GetAudioCatalogTest()
         {
-            var vkSevice = new VkService();
+            var vkSevice = new VkService(null);
 
             await vkSevice.SetTokenAsync("1ee1c5bdac35313373684b1f4b14e1f6c41040ffcc59d4640494ade97d7b8f4ce64483535225dd5de81f8", null);
 
@@ -25,11 +25,11 @@ namespace Fooxboy.MethodsTest
         [Fact]
         public async Task GetSectionTest()
         {
-            var vkSevice = new VkService();
+            var vkSevice = new VkService(null);
 
             await vkSevice.SetTokenAsync("1ee1c5bdac35313373684b1f4b14e1f6c41040ffcc59d4640494ade97d7b8f4ce64483535225dd5de81f8", null);
 
-            var catalog = await vkSevice.GetSectionAsync("PUldVA8FR0RzSVNUUEwbCikZDFQZFlJEfFpFVA0WUVV2U15AAQNTUDs");
+            var catalog = await vkSevice.GetSectionAsync("PUldVA8FW0pkXktMF2tfVmRHS08XDlpKZF1LTBcMWFNwXlhPBwNYUnJSW04EA19EOw");
 
             Assert.True(catalog.Audios.Count > 0);
         }
@@ -37,7 +37,7 @@ namespace Fooxboy.MethodsTest
         [Fact]
         public async Task GetPlaylistTest()
         {
-            var vkSevice = new VkService();
+            var vkSevice = new VkService(null);
 
             await vkSevice.SetTokenAsync("1ee1c5bdac35313373684b1f4b14e1f6c41040ffcc59d4640494ade97d7b8f4ce64483535225dd5de81f8", null);
 
@@ -50,11 +50,23 @@ namespace Fooxboy.MethodsTest
         [Fact]
         public async Task AddAudioTest()
         {
-            var vkSevice = new VkService();
+            var vkSevice = new VkService(null);
 
             await vkSevice.SetTokenAsync("1ee1c5bdac35313373684b1f4b14e1f6c41040ffcc59d4640494ade97d7b8f4ce64483535225dd5de81f8", null);
 
-            await vkSevice.AudioAdd(106983262, -2001983262);
+            await vkSevice.AudioAddAsync(106983262, -2001983262);
+
+            Assert.True(true);
+        }
+
+        [Fact]
+        public async Task GetArtistAudioTest()
+        {
+            var vkSevice = new VkService(null);
+
+            await vkSevice.SetTokenAsync("1ee1c5bdac35313373684b1f4b14e1f6c41040ffcc59d4640494ade97d7b8f4ce64483535225dd5de81f8", null);
+
+            var res = await vkSevice.GetAudioArtistAsync("835651927344928174");
 
             Assert.True(true);
         }

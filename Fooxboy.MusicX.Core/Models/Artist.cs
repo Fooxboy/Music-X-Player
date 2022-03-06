@@ -1,12 +1,23 @@
+using Newtonsoft.Json;
 using System.Collections.Generic;
 
 namespace Fooxboy.MusicX.Core.Models
 {
     public class Artist
     {
-        public string Id { get; set; }
+        [JsonProperty("name")]
         public string Name { get; set; }
+
+        [JsonProperty("domain")]
         public string Domain { get; set; }
-        public string Banner { get; set; }
+
+        [JsonProperty("id")]
+        public string Id { get; set; }
+
+        [JsonProperty("is_album_cover")]
+        public bool IsAlbumCover { get; set; }
+
+        [JsonProperty("photo")]
+        public List<Photo> Photo { get; set; }
     }
 }

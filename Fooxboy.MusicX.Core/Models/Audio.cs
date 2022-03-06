@@ -11,16 +11,27 @@ namespace Fooxboy.MusicX.Core.Models
         public string Artist { get; set; }
 
         [JsonProperty("id")]
-        public int Id { get; set; }
+        public long Id { get; set; }
 
         [JsonProperty("owner_id")]
-        public int OwnerId { get; set; }
+        public long OwnerId { get; set; }
 
         [JsonProperty("title")]
         public string Title { get; set; }
 
         [JsonProperty("duration")]
-        public int Duration { get; set; }
+        public long Duration { get; set; }
+
+        public string DurationString
+        {
+            get
+            {
+                var t = TimeSpan.FromSeconds(Duration);
+                if (t.Hours > 0)
+                    return t.ToString("h\\:mm\\:ss");
+                return t.ToString("m\\:ss");
+            }
+        }
 
         [JsonProperty("access_key")]
         public string AccessKey { get; set; }
@@ -41,7 +52,7 @@ namespace Fooxboy.MusicX.Core.Models
         public string Url { get; set; }
 
         [JsonProperty("date")]
-        public int Date { get; set; }
+        public long Date { get; set; }
 
         [JsonProperty("album")]
         public Album Album { get; set; }
@@ -62,9 +73,15 @@ namespace Fooxboy.MusicX.Core.Models
         public string Subtitle { get; set; }
 
         [JsonProperty("lyrics_id")]
-        public int? LyricsId { get; set; }
+        public long? LyricsId { get; set; }
 
         [JsonProperty("genre_id")]
-        public int? GenreId { get; set; }
+        public long? GenreId { get; set; }
+
+        public bool IsAvailable { get; set; } = true;
+
+
+        [JsonProperty("featured_artists")]
+        public List<MainArtist> FeaturedArtists { get; set; }
     }
 }

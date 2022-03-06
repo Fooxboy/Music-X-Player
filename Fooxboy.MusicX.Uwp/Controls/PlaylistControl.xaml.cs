@@ -1,31 +1,17 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.IO;
 using System.Linq;
-using System.Runtime.InteropServices.WindowsRuntime;
 using System.Threading.Tasks;
 using Fooxboy.MusicX.Uwp.Models;
-using Windows.Foundation;
-using Windows.Foundation.Collections;
 using Windows.UI.Xaml;
 using Microsoft.Toolkit.Uwp.UI.Animations;
-
 using Windows.UI.Xaml.Controls;
-using Windows.UI.Xaml.Controls.Primitives;
-using Windows.UI.Xaml.Data;
-
 using Windows.UI.Xaml.Input;
-using Windows.UI.Xaml.Media;
-using Windows.UI.Xaml.Navigation;
 using Fooxboy.MusicX.Uwp.Services;
-using Windows.UI.Popups;
-using Fooxboy.MusicX.Core.Interfaces;
-using Fooxboy.MusicX.Uwp.Resources.ContentDialogs;
-using Windows.Storage;
 using DryIoc;
-using Fooxboy.MusicX.Core;
-using Fooxboy.MusicX.Uwp.Converters;
 using Fooxboy.MusicX.Uwp.Views;
+using Fooxboy.MusicX.Core.Models;
+using Fooxboy.MusicX.Core.Services;
 
 // Документацию по шаблону элемента "Пользовательский элемент управления" см. по адресу https://go.microsoft.com/fwlink/?LinkId=234236
 
@@ -35,24 +21,32 @@ namespace Fooxboy.MusicX.Uwp.Resources.Controls
     {
 
         public static readonly DependencyProperty PlaylistProperty = DependencyProperty.Register("Album",
-            typeof(Album), typeof(PlaylistControl), new PropertyMetadata(new Album
+            typeof(Playlist), typeof(PlaylistControl), new PropertyMetadata(new Playlist
             {
-                Year = 2020,
-                Artists = new List<IArtist>(),
-                Followers = 0,
-                Description = "",
-                Cover = "ms-appx:///Assets/Images/placeholder-album.png",
-                Genres = new List<string>(),
-                Id = -2,
-                IsAvailable = false,
-                IsFollowing = false,
-                OwnerId = -2,
-                Plays = 0,
-                TimeCreate = DateTime.Now,
-                TimeUpdate = DateTime.Now,
-                Title = "",
-                Tracks = new List<ITrack>(),
-                Type = 0
+               Followed = new Followed(),
+               Followers = 0,
+               IsFollowing = false,
+               AccessKey = "",
+               AlbumType = "",
+               Audios = new List<Audio>(),
+               Count = 0,
+               CreateTime = 0,
+               Description = "",
+               Genres = new List<Genre>(),
+               Id = 0,
+               IsExplicit = false,
+               MainArtists = new List<MainArtist>(),
+               Original = new Original(),
+               OwnerId = 0,
+               Permissions = new Permissions(),
+               Photo = new Photo(),
+               PlayButton = true,
+               Plays = 0,
+               Title = "Альбом",
+               SubtitleBadge = true,
+               Type = 1,
+               UpdateTime = 0,
+               Year = 2022
             }));
 
 
@@ -60,7 +54,7 @@ namespace Fooxboy.MusicX.Uwp.Resources.Controls
 
         private IContainer _container;
 
-        private Api _api;
+        private VkService vkService;
         private PlayerService _player;
         private NotificationService _notification;
         private CurrentUserService _currentUserService;
@@ -70,7 +64,6 @@ namespace Fooxboy.MusicX.Uwp.Resources.Controls
             _container = Container.Get;
             IsDeleted = false;
 
-            _api = _container.Resolve<Api>();
             _player = _container.Resolve<PlayerService>();
             _notification = _container.Resolve<NotificationService>();
             _currentUserService = _container.Resolve<CurrentUserService>();
@@ -83,9 +76,9 @@ namespace Fooxboy.MusicX.Uwp.Resources.Controls
         }
 
 
-        public Album Album
+        public Playlist Album
         {
-            get => (Album)GetValue(PlaylistProperty);
+            get => (Playlist)GetValue(PlaylistProperty);
             set
             {
                 
@@ -103,7 +96,8 @@ namespace Fooxboy.MusicX.Uwp.Resources.Controls
         {
             try
             {
-                await _api.VKontakte.Music.Albums.AddAsync(Album.Id, Album.OwnerId, Album.AccessKey);
+                await vkService.AddPlaylistAsync(Album.Id, Album.OwnerId, Album.AccessKey); 
+             
                 _notification.CreateNotification("Альбом добавлен", $"{Album.Title} был добавлен в Вашу библиотеку.");
                 AddToLib.IsEnabled = false;
             }
@@ -119,7 +113,7 @@ namespace Fooxboy.MusicX.Uwp.Resources.Controls
         {
             try
             {
-                await _api.VKontakte.Music.Albums.Delete(Album.Id, Album.OwnerId);
+                await vkService.DeletePlaylistAsync(Album.Id, Album.OwnerId);
                 _notification.CreateNotification("Альбом удален", $"{Album.Title} был удален из Вашей библиотеки.");
                 DeletedAlbum.Visibility = Visibility.Visible;
                 IsDeleted = true;
@@ -136,10 +130,9 @@ namespace Fooxboy.MusicX.Uwp.Resources.Controls
             {
                 _notification.CreateNotification("Воспроизведение альбома",
                     "Подождите, получаем информацию о списке треков.");
-                var tracks =
-                    await _api.VKontakte.Music.Tracks.GetAsync(100, 0, Album.AccessKey, Album.Id, Album.OwnerId);
-                var tracksNew = await tracks.ToListTrack();
-                await _player.Play(0, tracksNew);
+               // var tracks = await _api.VKontakte.Music.Tracks.GetAsync(100, 0, Album.AccessKey, Album.Id, Album.OwnerId);
+               // var tracksNew = await tracks.ToListTrack();
+               // await _player.Play(0, tracksNew);
             }
             catch (Exception e)
             {
@@ -194,10 +187,10 @@ namespace Fooxboy.MusicX.Uwp.Resources.Controls
                 Delete.IsEnabled = false;
             }
 
-            if (Album.Artists.Count > 0)
+            if (Album.MainArtists.Count > 0)
             {
                 string s = string.Empty;
-                foreach (var trackArtist in Album.Artists)
+                foreach (var trackArtist in Album.MainArtists)
                 {
                     s += trackArtist.Name + ", ";
                 }
@@ -210,8 +203,8 @@ namespace Fooxboy.MusicX.Uwp.Resources.Controls
             {
                 if (Album.OwnerId > 0)
                 {
-                    var owner = await _container.Resolve<Api>().VKontakte.Users.Info.OwnerAsync(Album.OwnerId);
-                    this.ArtistsText.Text = owner.FirstName + " " + owner.LastName;
+                    var owner = await vkService.OwnerAsync(Album.OwnerId);
+                    this.ArtistsText.Text = owner.Name;
                 }
                 
             }

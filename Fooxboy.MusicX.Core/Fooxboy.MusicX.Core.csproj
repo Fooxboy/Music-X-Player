@@ -9,6 +9,8 @@
     <PackageReference Include="LastFmScrobbler" Version="1.0.0" />
     <PackageReference Include="NLog" Version="4.7.14" />
     <PackageReference Include="NLog.Config" Version="4.7.14" />
+    <PackageReference Include="NLog.Extensions.Logging" Version="1.7.4" />
+    <PackageReference Include="NLog.Schema" Version="4.7.14" />
     <PackageReference Include="VkNet" Version="1.48.1" />
     <PackageReference Include="VkNet.AudioBypassService" Version="1.5.3" />
   </ItemGroup>

@@ -1,0 +1,59 @@
+﻿<UserControl
+    x:Class="Fooxboy.MusicX.Uwp.Controls.SectionBlockControl"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:Fooxboy.MusicX.Uwp.Controls"
+    xmlns:controls1="using:Fooxboy.MusicX.Uwp.Resources.Controls"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d"
+    d:DesignHeight="300"
+    Loaded="UserControl_Loaded"
+    d:DesignWidth="400">
+
+    <Grid>
+        <Grid Visibility="Collapsed" Background="White" x:Name="AudiosGrid">
+
+            <GridView
+                x:Name="ListTracks"
+                Height="210"
+                Margin="10,42,5,0"
+                BorderThickness="0"
+                CanBeScrollAnchor="False"
+                IsItemClickEnabled="True"
+                ItemClick="ListTracks_OnItemClick"
+                SelectionMode="None">
+
+                <GridView.ItemContainerStyle>
+                    <Style TargetType="GridViewItem">
+                        <Setter Property="BorderThickness" Value="0" />
+                        <Setter Property="BorderBrush" Value="Transparent" />
+                        <Setter Property="FocusVisualPrimaryThickness"  Value="0" />
+                        <Setter Property="FocusVisualSecondaryThickness"  Value="0" />
+                        <Setter Property="BorderBrush"  Value="Red" />
+                        <Setter Property="Background" Value="Transparent" />
+
+                    </Style>
+                </GridView.ItemContainerStyle>
+
+                <GridView.ItemsPanel>
+                    <ItemsPanelTemplate>
+                        <ItemsWrapGrid MaximumRowsOrColumns="4" />
+                    </ItemsPanelTemplate>
+                </GridView.ItemsPanel>
+
+                <GridView.ItemTemplate>
+                    <DataTemplate>
+                        <Grid>
+                            <controls1:TrackControl Width="350" Track="{Binding}" />
+                        </Grid>
+                    </DataTemplate>
+                </GridView.ItemTemplate>
+            </GridView>
+
+
+            <Button  HorizontalAlignment="Right" VerticalAlignment="Top" Content="Показать все" Style="{ThemeResource StandardButtonStyle}"/>
+
+        </Grid>
+    </Grid>
+</UserControl>

@@ -39,5 +39,8 @@ namespace Fooxboy.MusicX.Core.Models
 
         [JsonProperty("audios_ids")]
         public List<string> AudiosIds { get; set; }
+
+        public List<Audio> Audios { get; set; }
+        public List<Playlist> Playlists { get; set; }
     }
 }

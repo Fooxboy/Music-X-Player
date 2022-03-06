@@ -5,8 +5,6 @@ using Microsoft.AppCenter.Push;
 using Windows.ApplicationModel;
 using Windows.ApplicationModel.Activation;
 using Windows.ApplicationModel.Core;
-using Windows.Services.Maps;
-using Windows.Storage;
 using Windows.UI;
 using Windows.UI.Core;
 using Windows.UI.ViewManagement;
@@ -14,14 +12,15 @@ using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using DryIoc;
 using Windows.UI.Xaml.Navigation;
-using DiscordRPC.Logging;
 using Flurl.Http;
 using Microsoft.AppCenter.Crashes;
-using Fooxboy.MusicX.Core;
 using Fooxboy.MusicX.Uwp.Services;
 using Fooxboy.MusicX.Uwp.Views;
 using VkNet.Exception;
 using LogLevel = Microsoft.AppCenter.LogLevel;
+using Fooxboy.MusicX.Core.Services;
+using NLog;
+using Fooxboy.MusicX.Uwp.ViewModels;
 
 namespace Fooxboy.MusicX.Uwp
 {
@@ -46,34 +45,41 @@ namespace Fooxboy.MusicX.Uwp
         }
 
         private IContainer _container;
-        private ILoggerService _logger;
 
         protected async override void OnLaunched(LaunchActivatedEventArgs e)
         {
             //инициализация контейера
             var c = new DryIoc.Container();
-            c.Register<LoggerService>(Reuse.Singleton);
-            var logger = c.Resolve<LoggerService>();
-            c.RegisterInstance<Api>(Core.Api.GetApi(logger));
+            c.RegisterInstance<Logger>(LogManager.Setup().GetLogger("Common"));
             c.Register<ConfigService>(Reuse.Singleton);
             c.Register<NotificationService>(Reuse.Singleton);
             c.Register<TokenService>(Reuse.Singleton);
             c.Register<TrackLoaderService>(Reuse.Singleton);
             c.Register<AlbumLoaderService>(Reuse.Singleton);
-            c.Register<DiscordService>(Reuse.Singleton);
             c.Register<LoadingService>(Reuse.Singleton);
             c.Register<PlayerService>(Reuse.Singleton);
             c.Register<CurrentUserService>(Reuse.Singleton);
             c.Register<AppPrivateSettingsService>(Reuse.Singleton);
             c.Register<ImageCacheService>(Reuse.Singleton);
             c.Register<NavigationService>(Reuse.Singleton);
+            c.Register<VkService>(Reuse.Singleton);
+
+            //инициализация вью моделей
+            c.Register<PlayerViewModel>(Reuse.Singleton);
+            c.Register<NavigationRootViewModel>(Reuse.Singleton);
+            c.Register<UserInfoViewModel>(Reuse.Singleton);
+            c.Register<LoadingViewModel>(Reuse.Singleton);
+            c.Register<NotificationViewModel>(Reuse.Singleton);
+
 
 
             this._container = c;
 
             var cacher = c.Resolve<ImageCacheService>();
             await cacher.InitService();
-            _logger = c.Resolve<LoggerService>();
+            var logger = c.Resolve<Logger>();
+
+            var vkService = c.Resolve<VkService>();
 
             Container.SetContainer(this._container);
 
@@ -89,7 +95,7 @@ namespace Fooxboy.MusicX.Uwp
                         //TODO: Загрузить состояние из ранее приостановленного приложения
                     }
                 }
-                _logger.Trace("Инициализвция AppCenter..");
+                logger.Info("Инициализвция AppCenter..");
                 AppCenter.Start("96c77488-34ce-43d0-b0d3-c4b1ce326c7f", typeof(Analytics), typeof(Push), typeof(Crashes));
                 AppCenter.LogLevel = LogLevel.Verbose;
                 CoreApplication.GetCurrentView().TitleBar.ExtendViewIntoTitleBar = true;
@@ -119,36 +125,32 @@ namespace Fooxboy.MusicX.Uwp
                         if (config.AccessTokenVkontakte is null) rootFrame.Navigate(typeof(Views.WelcomeView), _container);
                         else
                         {
-                            rootFrame.Navigate(typeof(Views.RootWindow), this._container);
+                            rootFrame.Navigate(typeof(RootWindow), this._container);
                             try
                             {
-                                _logger.Trace("Авторизация ВКонтакте...");
-                                await _container.Resolve<Api>().VKontakte.Auth
-                                    .AutoAsync(config.AccessTokenVkontakte, null);
+                                logger.Trace("Авторизация ВКонтакте...");
+
+                                await vkService.SetTokenAsync(config.AccessTokenVkontakte, null);
 
                             }
                             catch (FlurlHttpException eee)
                             {
-                                _logger.Error("Ошибка сети", eee);
+                                logger.Error("Ошибка сети", eee);
 
                                 rootFrame.Navigate(typeof(ErrorPage), "Нет доступа к интернету.");
                             }
                             catch (VkApiException eee)
                             {
-                                _logger.Error("Ошибка ВКонтакте", eee);
+                                logger.Error("Ошибка ВКонтакте", eee);
                                 var tokenService = _container.Resolve<TokenService>();
                                 await tokenService.Delete();
                                 rootFrame.Navigate(typeof(LoginView));
                             }
                             catch (Exception ee)
                             {
-                                _logger.Error("Неизвестная ошибка", ee);
+                                logger.Error(ee, "Неизвестная ошибка");
                                 rootFrame.Navigate(typeof(ErrorPage), $"Ошибка: {ee.Message}");
                             }
-
-                            //Инициализация DRP
-                            //await _container.Resolve<Api>().Discord.InitAsync();
-
                         }
                     }catch
                     {
@@ -158,13 +160,12 @@ namespace Fooxboy.MusicX.Uwp
             }
             Window.Current.Activate();
             SystemNavigationManager.GetForCurrentView().BackRequested += OnBackRequested;
-           // Push(e);
         }
 
       
         void OnNavigationFailed(object sender, NavigationFailedEventArgs e)
         {
-            //throw new Exception("Failed to load Page " + e.SourcePageType.FullName);
+           
         }
 
         private void OnBackRequested(object sender, BackRequestedEventArgs e)

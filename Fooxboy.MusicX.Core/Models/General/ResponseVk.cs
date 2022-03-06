@@ -37,5 +37,11 @@ namespace Fooxboy.MusicX.Core.Models.General
         [JsonProperty("playlist")]
         public Playlist Playlist { get; set; }
 
+        [JsonProperty("links")]
+        public List<Link> Links { get; set; }
+
+        [JsonProperty("artists")]
+        public List<Artist> Artists { get; set; }
+
     }
 }

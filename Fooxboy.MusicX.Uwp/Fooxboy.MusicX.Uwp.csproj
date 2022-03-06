@@ -148,10 +148,11 @@
     <Compile Include="Controls\RepeatButton.xaml.cs">
       <DependentUpon>RepeatButton.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Converters\AlbumConverter.cs" />
+    <Compile Include="Controls\SectionBlockControl.xaml.cs">
+      <DependentUpon>SectionBlockControl.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Converters\AudioTimeConverter.cs" />
     <Compile Include="Converters\BoolToVisibilityConverter.cs" />
-    <Compile Include="Converters\TrackConverter.cs" />
     <Compile Include="DataTemplates\PlaylistDataTemplate.xaml.cs">
       <DependentUpon>PlaylistDataTemplate.xaml</DependentUpon>
     </Compile>
@@ -159,7 +160,6 @@
       <DependentUpon>TrackDataTemplate.xaml</DependentUpon>
     </Compile>
     <Compile Include="LoadingCollection.cs" />
-    <Compile Include="Models\Album.cs" />
     <Compile Include="Models\AllPlaylistsModel.cs" />
     <Compile Include="Models\ArtistParameter.cs" />
     <Compile Include="Models\ConfigApp.cs" />
@@ -167,8 +167,9 @@
     <Compile Include="Models\Notification.cs" />
     <Compile Include="Models\NotificationDelegate.cs" />
     <Compile Include="Models\NowPlayTrack.cs" />
+    <Compile Include="Models\PageParameters\BaseParameter.cs" />
+    <Compile Include="Models\PageParameters\SectionParameter.cs" />
     <Compile Include="Models\PlaylistViewNavigationData.cs" />
-    <Compile Include="Models\Track.cs" />
     <Compile Include="Properties\Annotations.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="RelayCommand.cs" />
@@ -195,7 +196,6 @@
     <Compile Include="Services\ImageCacheService.cs" />
     <Compile Include="Services\InternetService.cs" />
     <Compile Include="Services\LoadingService.cs" />
-    <Compile Include="Services\LoggerService.cs" />
     <Compile Include="Services\NavigationService.cs" />
     <Compile Include="Services\NotificationService.cs" />
     <Compile Include="Services\PlayerService.cs" />
@@ -260,6 +260,9 @@
     </Compile>
     <Compile Include="Views\SearchView.xaml.cs">
       <DependentUpon>SearchView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\SectionView.xaml.cs">
+      <DependentUpon>SectionView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\WelcomeView.xaml.cs">
       <DependentUpon>WelcomeView.xaml</DependentUpon>
@@ -396,6 +399,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Controls\SectionBlockControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Controls\TrackControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -500,6 +507,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Views\SectionView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Views\WelcomeView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -557,6 +568,7 @@
   <ItemGroup>
     <None Include="Fooxboy.MusicX.Uwp_TemporaryKey.pfx" />
   </ItemGroup>
+  <ItemGroup />
   <PropertyGroup Condition=" '$(VisualStudioVersion)' == '' or '$(VisualStudioVersion)' &lt; '14.0' ">
     <VisualStudioVersion>14.0</VisualStudioVersion>
   </PropertyGroup>
