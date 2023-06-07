@@ -1,5 +1,8 @@
 # Music X Player
 ## **Music X - Музыкальный плеер ВКонтакте для Windows 10**
+
+Актуальный плеер, переписанный с нуля, теперь тут: https://github.com/Fooxboy/MusicX-WPF
+
 Скриншоты:
 [![Стартовый экран](https://raw.githubusercontent.com/Fooxboy/Fooxboy.github.io/master/img/musicXHello.png "Стартовый экран")](https://raw.githubusercontent.com/Fooxboy/Fooxboy.github.io/master/img/musicXHello.png "Стартовый экран")
 
